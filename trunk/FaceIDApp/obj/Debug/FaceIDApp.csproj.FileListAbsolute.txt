@@ -1,0 +1,7 @@
+F:\vnanh\project\FaceID\FaceIDApp\obj\Debug\ResolveAssemblyReference.cache
+F:\vnanh\project\FaceID\FaceIDApp\obj\Debug\FaceIDApp.Properties.Resources.resources
+F:\vnanh\project\FaceID\FaceIDApp\obj\Debug\FaceIDApp.csproj.GenerateResource.Cache
+F:\vnanh\project\FaceID\FaceIDApp\bin\Debug\FaceIDApp.exe
+F:\vnanh\project\FaceID\FaceIDApp\bin\Debug\FaceIDApp.pdb
+F:\vnanh\project\FaceID\FaceIDApp\obj\Debug\FaceIDApp.exe
+F:\vnanh\project\FaceID\FaceIDApp\obj\Debug\FaceIDApp.pdb
