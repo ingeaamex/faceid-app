@@ -7,3 +7,15 @@ F:\vnanh\project\FaceID\FaceIDApp\obj\Debug\FaceIDApp.exe
 F:\vnanh\project\FaceID\FaceIDApp\obj\Debug\FaceIDApp.pdb
 F:\FaceID\FaceIDApp\FaceIDApp\obj\Debug\FaceIDApp.exe
 F:\FaceID\FaceIDApp\FaceIDApp\obj\Debug\FaceIDApp.pdb
+F:\vnanh\project\FaceID\src\obj\Debug\ResolveAssemblyReference.cache
+F:\vnanh\project\FaceID\src\obj\Debug\FaceIDpp.ucCompanyForm.resources
+F:\vnanh\project\FaceID\src\obj\Debug\FaceIDpp.ucDepartmentForm.resources
+F:\vnanh\project\FaceID\src\obj\Debug\FaceIDApp.csproj.GenerateResource.Cache
+F:\vnanh\project\FaceID\src\obj\Debug\FaceIDpp.MainForm.resources
+F:\vnanh\project\FaceID\src\obj\Debug\FaceIDpp.Properties.Resources.resources
+F:\vnanh\project\FaceID\src\bin\Debug\FaceIDpp.exe
+F:\vnanh\project\FaceID\src\bin\Debug\FaceIDpp.pdb
+F:\vnanh\project\FaceID\src\obj\Debug\FaceIDpp.exe
+F:\vnanh\project\FaceID\src\obj\Debug\FaceIDpp.pdb
+F:\vnanh\project\FaceID\src\bin\Debug\DBUtils.dll
+F:\vnanh\project\FaceID\src\bin\Debug\DBUtils.pdb
