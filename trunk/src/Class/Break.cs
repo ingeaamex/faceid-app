@@ -10,7 +10,7 @@ namespace FaceIDAppVBEta.Class
         public string Name { get; set; }
         public DateTime From { get; set; }
         public DateTime To { get; set; }
-        public string Paid { get; set; }
+        public bool Paid { get; set; }
         public int WorkingCalendarID { get; set; }
     }
 }
