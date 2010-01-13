@@ -202,7 +202,7 @@ namespace FaceIDAppVBEta.Data
         {
             ConnectToDatabase();
 
-            if (CheckExistCompanyName(company.Name, 0) != null)
+            if (CheckExistCompanyName(company.Name, 0))
                 return -1;
             System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("Company",
                 new string[] { "Name" },
@@ -244,7 +244,7 @@ namespace FaceIDAppVBEta.Data
         {
             ConnectToDatabase();
 
-            if (CheckExistDepartmentName(department.Name,0) != null)
+            if (CheckExistDepartmentName(department.Name,0))
                 return -1;
             System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("Department",
                 new string[] { "Name", "CompanyID", "SupDepartmentID" },
