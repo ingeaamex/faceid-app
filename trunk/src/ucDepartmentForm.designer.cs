@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ucDepartmentForm));
             this.tvDepartment = new System.Windows.Forms.TreeView();
             this.groupBoxDepartment = new System.Windows.Forms.GroupBox();
             this.btCancel = new System.Windows.Forms.Button();
@@ -42,8 +43,12 @@
             this.cmsTreeAction = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.errProviders = new System.Windows.Forms.ErrorProvider(this.components);
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.lMsg = new System.Windows.Forms.Label();
             this.groupBoxDepartment.SuspendLayout();
             this.cmsTreeAction.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errProviders)).BeginInit();
             this.SuspendLayout();
             // 
             // tvDepartment
@@ -52,10 +57,13 @@
             this.tvDepartment.Name = "tvDepartment";
             this.tvDepartment.Size = new System.Drawing.Size(471, 94);
             this.tvDepartment.TabIndex = 0;
+            this.tvDepartment.AfterCollapse += new System.Windows.Forms.TreeViewEventHandler(this.tvDepartment_AfterCollapse);
             this.tvDepartment.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tvDepartment_MouseClick);
+            this.tvDepartment.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.tvDepartment_AfterExpand);
             // 
             // groupBoxDepartment
             // 
+            this.groupBoxDepartment.Controls.Add(this.lMsg);
             this.groupBoxDepartment.Controls.Add(this.btCancel);
             this.groupBoxDepartment.Controls.Add(this.btSubmit);
             this.groupBoxDepartment.Controls.Add(this.tbDepartmentName);
@@ -101,6 +109,7 @@
             // cbDepartment
             // 
             this.cbDepartment.DisplayMember = "Name";
+            this.cbDepartment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbDepartment.FormattingEnabled = true;
             this.cbDepartment.Location = new System.Drawing.Point(117, 43);
             this.cbDepartment.Name = "cbDepartment";
@@ -111,7 +120,9 @@
             // cbCompany
             // 
             this.cbCompany.DisplayMember = "Name";
+            this.cbCompany.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbCompany.FormattingEnabled = true;
+            this.cbCompany.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.cbCompany.Location = new System.Drawing.Point(117, 11);
             this.cbCompany.Name = "cbCompany";
             this.cbCompany.Size = new System.Drawing.Size(121, 21);
@@ -168,6 +179,27 @@
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
+            // errProviders
+            // 
+            this.errProviders.ContainerControl = this;
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "error");
+            this.imageList1.Images.SetKeyName(1, "ok");
+            // 
+            // lMsg
+            // 
+            this.lMsg.AutoSize = true;
+            this.lMsg.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lMsg.Location = new System.Drawing.Point(37, 165);
+            this.lMsg.Name = "lMsg";
+            this.lMsg.Size = new System.Drawing.Size(33, 13);
+            this.lMsg.TabIndex = 9;
+            this.lMsg.Text = "lMsg";
+            // 
             // ucDepartmentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -179,6 +211,7 @@
             this.groupBoxDepartment.ResumeLayout(false);
             this.groupBoxDepartment.PerformLayout();
             this.cmsTreeAction.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errProviders)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -198,5 +231,8 @@
         private System.Windows.Forms.ContextMenuStrip cmsTreeAction;
         private System.Windows.Forms.ToolStripMenuItem updateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+        private System.Windows.Forms.ErrorProvider errProviders;
+        private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.Label lMsg;
     }
 }
