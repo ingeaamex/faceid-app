@@ -28,5 +28,6 @@ namespace FaceIDAppVBEta.Data
         bool UpdateDepartment(Department department);
 
         bool DeleteDepartment(int id);
+    
     }
 }
