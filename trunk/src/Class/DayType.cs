@@ -4,9 +4,9 @@ using System.Text;
 
 namespace FaceIDAppVBEta.Class
 {
-    public class Company
+    public class DayType
     {
         public int ID { get; set; }
-        public string Name { get; set; }
+        public string DayType { get; set; }
     }
 }
