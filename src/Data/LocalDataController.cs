@@ -10,7 +10,6 @@ namespace FaceIDAppVBEta.Data
     public class LocalDataController : IDataController
     {
         private OleDbConnection dbConnection;
-
         private static LocalDataController instance;
         private static readonly Object mutex = new Object();
 
@@ -27,11 +26,13 @@ namespace FaceIDAppVBEta.Data
 
         private void ConnectToDatabase()
         {
-            if (dbConnection==null || (dbConnection.State != ConnectionState.Connecting))
+            if (dbConnection == null)
             {
                 string connectionString = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\vnanh\project\FaceID\db\FaceIDdb.mdb";
-
                 dbConnection = new OleDbConnection(connectionString);
+            }
+            if (dbConnection.State != ConnectionState.Open)
+            {
                 dbConnection.Open();
             }
         }
@@ -113,6 +114,28 @@ namespace FaceIDAppVBEta.Data
             return departmentList;
         }
 
+        private List<Department> GetDepartmentListByGroup(int id)
+        {
+            ConnectToDatabase();
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Department", "ID",
+                "ID=@ID OR SupDepartmentID=@ID",
+                new object[] { "@ID", id });
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+            List<Department> departmentList = new List<Department>();
+            Department department = null;
+            while (odRdr.Read())
+            {
+                department = new Department();
+
+                department.ID = Convert.ToInt16(odRdr["ID"]);
+                departmentList.Add(department);
+            }
+
+            odRdr.Close();
+            dbConnection.Close();
+            return departmentList;
+        }
+
         public Department GetDepartment(int id)
         {
             string strCommand = "SELECT * from Department where ID=" + id;
@@ -162,6 +185,9 @@ namespace FaceIDAppVBEta.Data
 
         private bool CheckExistCompanyName(string name, int id)
         {
+            if (string.IsNullOrEmpty(name))
+                return true;
+
             string strCommand = " SELECT * FROM Company WHERE [Name]='" + name + "'";
             if (id > 0)
                 strCommand += " AND ID <> " + id;
@@ -181,6 +207,9 @@ namespace FaceIDAppVBEta.Data
 
         private bool CheckExistDepartmentName(string name, int id)
         {
+            if (string.IsNullOrEmpty(name))
+                return true;
+
             string strCommand = " SELECT * FROM Department WHERE [Name]='" + name + "'";
             if (id > 0)
                 strCommand += " AND ID <> " + id;
@@ -202,7 +231,7 @@ namespace FaceIDAppVBEta.Data
         {
             ConnectToDatabase();
 
-            if (CheckExistCompanyName(company.Name, 0))
+            if (company == null || CheckExistCompanyName(company.Name, 0))
                 return -1;
             System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("Company",
                 new string[] { "Name" },
@@ -228,7 +257,7 @@ namespace FaceIDAppVBEta.Data
         {
             ConnectToDatabase();
 
-            if (CheckExistCompanyName(company.Name, company.ID))
+            if (company == null || CheckExistCompanyName(company.Name, company.ID))
                 return false;
 
             System.Data.OleDb.OleDbCommand odCom1 = BuildUpdateCmd("Department",
@@ -244,7 +273,7 @@ namespace FaceIDAppVBEta.Data
         {
             ConnectToDatabase();
 
-            if (CheckExistDepartmentName(department.Name,0))
+            if (department == null || CheckExistDepartmentName(department.Name, 0))
                 return -1;
             System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("Department",
                 new string[] { "Name", "CompanyID", "SupDepartmentID" },
@@ -257,8 +286,8 @@ namespace FaceIDAppVBEta.Data
                 int rs = Convert.ToInt16(odCom1.ExecuteScalar().ToString());
                 dbConnection.Close();
                 return rs;
-
             }
+
             return -1;
         }
 
@@ -266,28 +295,95 @@ namespace FaceIDAppVBEta.Data
         {
             ConnectToDatabase();
 
-            if (CheckExistDepartmentName(department.Name, department.ID))
+            if (department == null || CheckExistDepartmentName(department.Name, department.ID))
                 return false;
 
             System.Data.OleDb.OleDbCommand odCom1 = BuildUpdateCmd("Department",
                 new string[] { "Name", "CompanyID", "SupDepartmentID" },
                 new object[] { department.Name, department.CompanyID, department.SupDepartmentID },
                 "ID=@ID", new object[] { "@ID", department.ID }
-                );
+            );
+            
+            Department dep1 = GetDepartment(department.ID);
+            if (dep1.SupDepartmentID != department.SupDepartmentID)
+            {
+                bool isRelationship = false;
+                Department dep2 = GetDepartment(department.SupDepartmentID);
+                while (dep2 != null)
+                {
+                    if (dep2.ID == department.ID)
+                    {
+                        isRelationship = true;
+                        break;
+                    }
+                    dep2 = GetDepartment(dep2.SupDepartmentID);
+                }
+                if (isRelationship)
+                {
+                    OleDbTransaction trans = dbConnection.BeginTransaction();
+                    System.Data.OleDb.OleDbCommand odCom2 = BuildUpdateCmd("Department",
+                        new string[] { "SupDepartmentID" },
+                        new object[] { dep1.SupDepartmentID },
+                        "ID=@ID", new object[] { "@ID", department.SupDepartmentID }
+                        );
+                    odCom1.Transaction = trans;
+                    odCom2.Transaction = trans;
+                    int rs = odCom1.ExecuteNonQuery();
+                    int rs1 = odCom2.ExecuteNonQuery();
+                    if (rs > 0 && rs1 > 0)
+                    {
+                        trans.Commit();
+                        dbConnection.Close();
+                        return true;
+                    }
+                    else
+                    {
+                        trans.Rollback();
+                        dbConnection.Close();
+                        return false;
+                    }
+                }
+            }
 
-            int rs = odCom1.ExecuteNonQuery();
+
+            int rs2 = odCom1.ExecuteNonQuery();
             dbConnection.Close();
-            return rs > 0 ? true : false;
+            return rs2 > 0 ? true : false;
         }
 
         public bool DeleteDepartment(int id)
         {
+            System.Data.OleDb.OleDbCommand odCom1 = null;
+            List<Department> departmentList = GetDepartmentListByGroup(id);
+            int rs = -1;
             ConnectToDatabase();
-            System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("Department", "ID=@ID", new object[] { "@ID", id });
+            if (departmentList != null && departmentList.Count > 1)
+            {
+                OleDbTransaction trans = dbConnection.BeginTransaction();
 
-            int rs = odCom1.ExecuteNonQuery();
-            dbConnection.Close();
-            return rs > 0 ? true : false;
+                foreach (Department department in departmentList)
+                {
+                    odCom1 = BuildDelCmd("Department", "ID=@ID", new object[] { "@ID", department.ID });
+                    odCom1.Transaction = trans;
+                    rs = odCom1.ExecuteNonQuery();
+                    if (rs < 1)
+                    {
+                        trans.Rollback();
+                        dbConnection.Close();
+                        return false;
+                    }
+                }
+                trans.Commit();
+                dbConnection.Close();
+                return true;
+            }
+            else
+            {
+                odCom1 = BuildDelCmd("Department", "ID=@ID", new object[] { "@ID", id });
+                rs = odCom1.ExecuteNonQuery();
+                dbConnection.Close();
+                return rs > 0 ? true : false;
+            }
         }
 
         #endregion

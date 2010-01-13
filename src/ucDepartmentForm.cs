@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Data;
 using System.Text;
 using System.Windows.Forms;
-using FaceIDpp.Business;
+
 
 using FaceIDAppVBEta.Data;
 using FaceIDAppVBEta.Class;
@@ -15,6 +15,8 @@ namespace FaceIDpp
     {
         private IDataController dtCtrl;
         private List<Department> departmentList;
+        private string curExpandNodeName = null;
+
         public ucDepartmentForm()
         {
             InitializeComponent();
@@ -37,8 +39,24 @@ namespace FaceIDpp
                 int value = company.ID;
                 TreeNode tnode = new TreeNode(text);
                 tnode.Tag = value;
+                tnode.Name = "c" + value.ToString();
                 BindNodes(value, tnode, true);
                 tvDepartment.Nodes.Add(tnode);
+            }
+
+            if (!string.IsNullOrEmpty(curExpandNodeName))
+            {
+                TreeNode[] nodes = tvDepartment.Nodes.Find(curExpandNodeName, true);
+                if (nodes.Length > 0)
+                {
+                    TreeNode node = nodes[0];
+                    node.Expand();
+                    while (node.Parent != null)
+                    {
+                        node = node.Parent;
+                        node.Expand();
+                    }
+                }
             }
         }
 
@@ -66,6 +84,7 @@ namespace FaceIDpp
                 int value = department.ID;
                 TreeNode tnode = new TreeNode(text);
                 tnode.Tag = value;
+                tnode.Name = "d"+value.ToString();
                 BindNodes(value, tnode, false);
                 parentNode.Nodes.Add(tnode);
             }
@@ -76,9 +95,12 @@ namespace FaceIDpp
             if (e.Button == MouseButtons.Right)
             {
                 TreeNode node = tvDepartment.GetNodeAt(e.Location);
-
-                if (node != null && tvDepartment.SelectedNode.Parent != null)
+                if (node != null && node.Parent != null)
+                {
+                    node.TreeView.SelectedNode = node;
+                    curExpandNodeName = node.Parent.Name;
                     cmsTreeAction.Show(tvDepartment, e.Location);
+                }
             }
         }
 
@@ -91,42 +113,79 @@ namespace FaceIDpp
                 int CompanyID = department.CompanyID;
                 int SupDepartmentID = department.SupDepartmentID;
                 string DepartmentName = department.Name;
-                LoadForm(DepartmentID, CompanyID, SupDepartmentID, DepartmentName);
+                LoadForm(DepartmentID, CompanyID, SupDepartmentID, DepartmentName, true);
             }
         }
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int DepartmentID = (int)tvDepartment.SelectedNode.Tag;
-            bool rs = dtCtrl.DeleteDepartment(DepartmentID);
-            BindTree();
-            BindDepartment();
+            DialogResult dlogRs = MessageBox.Show(Form.ActiveForm, "Are you sure?", "Confirm", MessageBoxButtons.YesNo);
+            if (dlogRs.ToString().Equals("Yes"))
+            {
+                int DepartmentID = (int)tvDepartment.SelectedNode.Tag;
+                bool rs = dtCtrl.DeleteDepartment(DepartmentID);
+                if (rs)
+                {
+                    BindTree();
+                    BindDepartment();
+                }
+            }
         }
 
         private void btSubmit_Click(object sender, EventArgs e)
         {
+            string departmentName = tbDepartmentName.Text;
+            if (string.IsNullOrEmpty(departmentName))
+            {
+                errProviders.SetError(tbDepartmentName, "Enter Department Name");
+                return;
+            }
             Department department = new Department();
             department.CompanyID = (int)cbCompany.SelectedValue;
             department.SupDepartmentID = (int)cbDepartment.SelectedValue;
-            department.Name = tbDepartmentName.Text;
+            department.Name = departmentName;
 
+            bool acctionSucess = false;
             if (btSubmit.Tag == null)
             {
                 int id = dtCtrl.AddDepartment(department);
+                if (id > 0)
+                {
+                    acctionSucess = true;
+                    //lMsg.Image = imageList1.Images["ok"];
+                    lMsg.Text = "Add Department Sucessfull";
+                }
+                else
+                {
+                    lMsg.Text = "Add Department Error";
+                }
             }
             else
             {
-                int DepartmentID = (int)btSubmit.Tag;
-                department.ID = DepartmentID;
+                int departmentID = (int)btSubmit.Tag;
+                department.ID = departmentID;
                 bool rs = dtCtrl.UpdateDepartment(department);
+                if (rs)
+                {
+                    acctionSucess = true;
+                    lMsg.Text = "Update Department Sucessfull";
+                }
+                else
+                {
+                    lMsg.Text = "Update Department Error";
+                }
             }
-            BindTree();
-            BindDepartment();
+            if (acctionSucess)
+            {
+                LoadForm(0, (int)cbCompany.SelectedValue, 0, "", false);
+                BindTree();
+                BindDepartment();
+            }
         }
 
         private void btCancel_Click(object sender, EventArgs e)
         {
-            LoadForm(0, (int)cbCompany.SelectedValue, 0, "");
+            LoadForm(0, (int)cbCompany.SelectedValue, 0, "", true);
         }
 
         private void BindCompany()
@@ -141,13 +200,18 @@ namespace FaceIDpp
             List<Department> departmentList = dtCtrl.GetDepartmentByCompany(CompanyID);
             Department department= new Department();
             department.ID = 0;
-            department.Name = "";
+            department.Name = "Root";
             departmentList.Insert(0, department);
             cbDepartment.DataSource = departmentList;
         }
 
-        private void LoadForm(int DepartmentID, int CompanyID, int SupDepartmentID, string DepartmentName)
+        private void LoadForm(int DepartmentID, int CompanyID, int SupDepartmentID, string DepartmentName, bool clearMsg)
         {
+            errProviders.Clear();
+            if (clearMsg)
+            {
+                lMsg.Text = "";
+            }
             tbDepartmentName.Text = DepartmentName;
             if (DepartmentID > 0)
             {
@@ -169,6 +233,16 @@ namespace FaceIDpp
         private void cbCompany_SelectedIndexChanged(object sender, EventArgs e)
         {
             BindDepartment();
+        }
+
+        private void tvDepartment_AfterCollapse(object sender, TreeViewEventArgs e)
+        {
+            
+        }
+
+        private void tvDepartment_AfterExpand(object sender, TreeViewEventArgs e)
+        {
+            curExpandNodeName = e.Node.Name;
         }
     }
 }
