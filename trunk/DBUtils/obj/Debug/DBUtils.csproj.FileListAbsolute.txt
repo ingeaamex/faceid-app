@@ -1,5 +1,0 @@
-F:\vnanh\project\FaceID\DBUtils\obj\Debug\ResolveAssemblyReference.cache
-F:\vnanh\project\FaceID\DBUtils\bin\Debug\DBUtils.dll
-F:\vnanh\project\FaceID\DBUtils\bin\Debug\DBUtils.pdb
-F:\vnanh\project\FaceID\DBUtils\obj\Debug\DBUtils.dll
-F:\vnanh\project\FaceID\DBUtils\obj\Debug\DBUtils.pdb
