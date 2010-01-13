@@ -1,21 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using FaceIDAppVBEta.Class;
 
 namespace FaceIDAppVBEta.Data
 {
     interface IDataController
     {
-        int AddCompany(FaceIDAppVBEta.Class.Company company);
+        List<Company> GetCompanyList();
 
-        bool DeleteCompany(FaceIDAppVBEta.Class.Company company);
+        List<Department> GetDepartmentList();
 
-        bool UpdateCompany(FaceIDAppVBEta.Class.Company company);
+        List<Department> GetDepartmentByCompany(int id);
 
-        int AddDepartment(FaceIDAppVBEta.Class.Department department);
+        Department GetDepartment(int id);
 
-        bool UpdateDepartment(FaceIDAppVBEta.Class.Department department);
+        Company GetCompany(int id);
 
-        bool DeleteDepartment(FaceIDAppVBEta.Class.Department department);
+        int AddCompany(Company company);
+
+        bool DeleteCompany(int id);
+
+        bool UpdateCompany(Company company);
+
+        int AddDepartment(Department department);
+
+        bool UpdateDepartment(Department department);
+
+        bool DeleteDepartment(int id);
     }
 }
