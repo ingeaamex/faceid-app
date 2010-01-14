@@ -84,20 +84,26 @@
             // 
             // cbxCompany
             // 
+            this.cbxCompany.DisplayMember = "Name";
+            this.cbxCompany.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxCompany.FormattingEnabled = true;
             this.cbxCompany.Location = new System.Drawing.Point(107, 58);
             this.cbxCompany.Name = "cbxCompany";
             this.cbxCompany.Size = new System.Drawing.Size(121, 21);
             this.cbxCompany.TabIndex = 2;
+            this.cbxCompany.ValueMember = "ID";
             this.cbxCompany.SelectedIndexChanged += new System.EventHandler(this.cbxCompany_SelectedIndexChanged);
             // 
             // cbxDepartment
             // 
+            this.cbxDepartment.DisplayMember = "Name";
+            this.cbxDepartment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxDepartment.FormattingEnabled = true;
             this.cbxDepartment.Location = new System.Drawing.Point(311, 58);
             this.cbxDepartment.Name = "cbxDepartment";
             this.cbxDepartment.Size = new System.Drawing.Size(121, 21);
             this.cbxDepartment.TabIndex = 4;
+            this.cbxDepartment.ValueMember = "ID";
             // 
             // label3
             // 
@@ -240,11 +246,14 @@
             // 
             // cbxWorkingCalendar
             // 
+            this.cbxWorkingCalendar.DisplayMember = "Name";
+            this.cbxWorkingCalendar.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxWorkingCalendar.FormattingEnabled = true;
             this.cbxWorkingCalendar.Location = new System.Drawing.Point(554, 55);
             this.cbxWorkingCalendar.Name = "cbxWorkingCalendar";
             this.cbxWorkingCalendar.Size = new System.Drawing.Size(121, 21);
             this.cbxWorkingCalendar.TabIndex = 24;
+            this.cbxWorkingCalendar.ValueMember = "ID";
             // 
             // label12
             // 
@@ -338,11 +347,13 @@
             // 
             // lbxTerminal
             // 
+            this.lbxTerminal.DisplayMember = "Name";
             this.lbxTerminal.FormattingEnabled = true;
             this.lbxTerminal.Location = new System.Drawing.Point(567, 94);
             this.lbxTerminal.Name = "lbxTerminal";
             this.lbxTerminal.Size = new System.Drawing.Size(120, 95);
             this.lbxTerminal.TabIndex = 36;
+            this.lbxTerminal.ValueMember = "ID";
             // 
             // btnRemoveTerminal
             // 
@@ -395,6 +406,7 @@
             this.Controls.Add(this.lblAddUpdateEmployee);
             this.Name = "frmAddUpdateEmployee";
             this.Text = "frmAddUpdateEmployee";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmAddUpdateEmployee_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
