@@ -113,7 +113,7 @@ namespace FaceIDpp
                 int CompanyID = department.CompanyID;
                 int SupDepartmentID = department.SupDepartmentID;
                 string DepartmentName = department.Name;
-                LoadForm(DepartmentID, CompanyID, SupDepartmentID, DepartmentName, true);
+                LoadForm(DepartmentID, CompanyID, SupDepartmentID, DepartmentName);
             }
         }
 
@@ -150,15 +150,9 @@ namespace FaceIDpp
             {
                 int id = dtCtrl.AddDepartment(department);
                 if (id > 0)
-                {
                     acctionSucess = true;
-                    //lMsg.Image = imageList1.Images["ok"];
-                    lMsg.Text = "Add Department Sucessfull";
-                }
-                else
-                {
-                    lMsg.Text = "Add Department Error";
-                }
+
+                MessageBox.Show(id > 1 ? "sucessfull" : "error");
             }
             else
             {
@@ -166,18 +160,13 @@ namespace FaceIDpp
                 department.ID = departmentID;
                 bool rs = dtCtrl.UpdateDepartment(department);
                 if (rs)
-                {
                     acctionSucess = true;
-                    lMsg.Text = "Update Department Sucessfull";
-                }
-                else
-                {
-                    lMsg.Text = "Update Department Error";
-                }
+
+                MessageBox.Show(rs ? "sucessfull" : "error");
             }
             if (acctionSucess)
             {
-                LoadForm(0, (int)cbCompany.SelectedValue, 0, "", false);
+                LoadForm(0, (int)cbCompany.SelectedValue, 0, "");
                 BindTree();
                 BindDepartment();
             }
@@ -185,7 +174,7 @@ namespace FaceIDpp
 
         private void btCancel_Click(object sender, EventArgs e)
         {
-            LoadForm(0, (int)cbCompany.SelectedValue, 0, "", true);
+            LoadForm(0, (int)cbCompany.SelectedValue, 0, "");
         }
 
         private void BindCompany()
@@ -196,22 +185,22 @@ namespace FaceIDpp
 
         private void BindDepartment()
         {
-            int CompanyID = (int)cbCompany.SelectedValue;
-            List<Department> departmentList = dtCtrl.GetDepartmentByCompany(CompanyID);
-            Department department= new Department();
-            department.ID = 0;
-            department.Name = "Root";
-            departmentList.Insert(0, department);
-            cbDepartment.DataSource = departmentList;
+            if (cbCompany.SelectedValue != null)
+            {
+                int CompanyID = (int)cbCompany.SelectedValue;
+                List<Department> departmentList = dtCtrl.GetDepartmentByCompany(CompanyID);
+                Department department = new Department();
+                department.ID = 0;
+                department.Name = "Root";
+                departmentList.Insert(0, department);
+                cbDepartment.DataSource = departmentList;
+            }
         }
 
-        private void LoadForm(int DepartmentID, int CompanyID, int SupDepartmentID, string DepartmentName, bool clearMsg)
+        private void LoadForm(int DepartmentID, int CompanyID, int SupDepartmentID, string DepartmentName)
         {
             errProviders.Clear();
-            if (clearMsg)
-            {
-                lMsg.Text = "";
-            }
+
             tbDepartmentName.Text = DepartmentName;
             if (DepartmentID > 0)
             {

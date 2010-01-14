@@ -45,7 +45,6 @@
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.errProviders = new System.Windows.Forms.ErrorProvider(this.components);
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.lMsg = new System.Windows.Forms.Label();
             this.groupBoxDepartment.SuspendLayout();
             this.cmsTreeAction.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errProviders)).BeginInit();
@@ -63,7 +62,6 @@
             // 
             // groupBoxDepartment
             // 
-            this.groupBoxDepartment.Controls.Add(this.lMsg);
             this.groupBoxDepartment.Controls.Add(this.btCancel);
             this.groupBoxDepartment.Controls.Add(this.btSubmit);
             this.groupBoxDepartment.Controls.Add(this.tbDepartmentName);
@@ -190,16 +188,6 @@
             this.imageList1.Images.SetKeyName(0, "error");
             this.imageList1.Images.SetKeyName(1, "ok");
             // 
-            // lMsg
-            // 
-            this.lMsg.AutoSize = true;
-            this.lMsg.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lMsg.Location = new System.Drawing.Point(37, 165);
-            this.lMsg.Name = "lMsg";
-            this.lMsg.Size = new System.Drawing.Size(33, 13);
-            this.lMsg.TabIndex = 9;
-            this.lMsg.Text = "lMsg";
-            // 
             // ucDepartmentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -233,6 +221,5 @@
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.ErrorProvider errProviders;
         private System.Windows.Forms.ImageList imageList1;
-        private System.Windows.Forms.Label lMsg;
     }
 }
