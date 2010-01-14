@@ -622,7 +622,10 @@ namespace FaceIDAppVBEta.Data
             {
                 for (int i = 0; i < pCondition.Length; i++)
                 {
-                    command.Parameters.AddWithValue(pCondition[i].ToString(), pCondition[++i]);
+                    if (pCondition[i + 1].GetType().Name == "DateTime")
+                        command.Parameters.Add(pCondition[i].ToString(), OleDbType.Date).Value = pCondition[++i];
+                    else
+                        command.Parameters.AddWithValue(pCondition[i].ToString(), pCondition[++i]);
                 }
             }
             return command;
@@ -640,11 +643,21 @@ namespace FaceIDAppVBEta.Data
                 str += " WHERE " + condition;
 
             for (int j = 0; j < listCols.Length; j++)
-                command.Parameters.AddWithValue("@" + listCols[j], listValues[j]);
+            {
+                if (listValues[j].GetType().Name == "DateTime")
+                    command.Parameters.Add("@" + listCols[j], OleDbType.Date).Value = listValues[j];
+                else
+                    command.Parameters.AddWithValue("@" + listCols[j], listValues[j]);
+            }
 
             if (pCondition != null)
                 for (int k = 0; k < pCondition.Length; k++)
-                    command.Parameters.AddWithValue(pCondition[k].ToString(), pCondition[++k]);
+                {
+                    if (pCondition[k + 1].GetType().Name == "DateTime")
+                        command.Parameters.Add(pCondition[k].ToString(), OleDbType.Date).Value = pCondition[++k];
+                    else
+                        command.Parameters.AddWithValue(pCondition[k].ToString(), pCondition[++k]);
+                }
 
             command.CommandText = str;
             return command;
