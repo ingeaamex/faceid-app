@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace FaceIDpp
+namespace FaceIDAppVBEta
 {
     public partial class MainForm : Form
     {
@@ -25,6 +25,12 @@ namespace FaceIDpp
         {
             panelMain.Controls.Clear();
             panelMain.Controls.Add(new ucDepartmentForm());
+        }
+
+        private void employeeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            panelMain.Controls.Clear();
+            panelMain.Controls.Add(new ucEmployeeForm());
         }
     }
 }
