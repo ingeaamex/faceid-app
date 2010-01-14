@@ -39,6 +39,7 @@ namespace FaceIDAppVBEta.Data
 
         #region IDataController Members
 
+        #region Company
         public List<Company> GetCompanyList()
         {
             ConnectToDatabase();
@@ -51,103 +52,14 @@ namespace FaceIDAppVBEta.Data
             {
                 company = new Company();
 
-                company.ID = Convert.ToInt16(odRdr["ID"]);
-                company.Name = odRdr["Name"].ToString();
+                company.ID = (int)odRdr["ID"];
+                company.Name = (string)odRdr["Name"];
 
                 companyList.Add(company);
             }
 
             odRdr.Close();
             return companyList;
-        }
-
-        public List<Department> GetDepartmentByCompany(int id)
-        {
-            ConnectToDatabase();
-
-            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Department", "*", "CompanyID=@ID", "@ID", id);
-            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
-            List<Department> departmentList = new List<Department>();
-            Department department = null;
-            while (odRdr.Read())
-            {
-                department = new Department();
-
-                department.ID = Convert.ToInt16(odRdr["ID"]);
-                department.Name = odRdr["Name"].ToString();
-                department.CompanyID = Convert.ToInt16(odRdr["CompanyID"]);
-                department.SupDepartmentID = Convert.ToInt16(odRdr["SupDepartmentID"]);
-
-                departmentList.Add(department);
-            }
-            odRdr.Close();
-            return departmentList;
-        }
-
-        public List<Department> GetDepartmentList()
-        {
-            ConnectToDatabase();
-
-            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Department", "*", null);
-            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
-            List<Department> departmentList = new List<Department>();
-            Department department = null;
-            while (odRdr.Read())
-            {
-                department = new Department();
-
-                department.ID = Convert.ToInt16(odRdr["ID"]);
-                department.Name = odRdr["Name"].ToString();
-                department.CompanyID = Convert.ToInt16(odRdr["CompanyID"]);
-                department.SupDepartmentID = Convert.ToInt16(odRdr["SupDepartmentID"]);
-
-                departmentList.Add(department);
-            }
-
-            odRdr.Close();
-            return departmentList;
-        }
-
-        private List<Department> GetDepartmentListByGroup(int id)
-        {
-            ConnectToDatabase();
-            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Department", "ID",
-                "ID=@ID OR SupDepartmentID=@ID",
-                new object[] { "@ID", id });
-            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
-            List<Department> departmentList = new List<Department>();
-            Department department = null;
-            while (odRdr.Read())
-            {
-                department = new Department();
-
-                department.ID = Convert.ToInt16(odRdr["ID"]);
-                departmentList.Add(department);
-            }
-
-            odRdr.Close();
-            dbConnection.Close();
-            return departmentList;
-        }
-
-        public Department GetDepartment(int id)
-        {
-            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Department", "*", "ID=@ID", "@ID", id);
-            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
-
-            Department department = null;
-            if (odRdr.Read())
-            {
-                department = new Department();
-
-                department.ID = Convert.ToInt16(odRdr["ID"]);
-                department.Name = odRdr["Name"].ToString();
-                department.CompanyID = Convert.ToInt16(odRdr["CompanyID"]);
-                department.SupDepartmentID = Convert.ToInt16(odRdr["SupDepartmentID"]);
-            }
-
-            odRdr.Close();
-            return department;
         }
 
         public Company GetCompany(int id)
@@ -160,8 +72,8 @@ namespace FaceIDAppVBEta.Data
             {
                 company = new Company();
 
-                company.ID = Convert.ToInt16(odRdr["ID"]);
-                company.Name = odRdr["Name"].ToString();
+                company.ID = (int)odRdr["ID"];
+                company.Name = (string)odRdr["Name"];
             }
 
             odRdr.Close();
@@ -178,8 +90,8 @@ namespace FaceIDAppVBEta.Data
             {
                 company = new Company();
 
-                company.ID = Convert.ToInt16(odRdr["ID"]);
-                company.Name = odRdr["Name"].ToString();
+                company.ID = (int)odRdr["ID"];
+                company.Name = (string)odRdr["Name"];
             }
 
             odRdr.Close();
@@ -207,27 +119,28 @@ namespace FaceIDAppVBEta.Data
             odRdr.Close();
             return false;
         }
-
-        private bool CheckExistDepartmentName(string name, int id)
+        
+        public List<Department> GetDepartmentByCompany(int id)
         {
-            if (string.IsNullOrEmpty(name))
-                return true;
+            ConnectToDatabase();
 
-            string strCommand = " SELECT * FROM Department WHERE [Name]='" + name + "'";
-            if (id > 0)
-                strCommand += " AND ID <> " + id;
-
-            System.Data.OleDb.OleDbCommand odCom = dbConnection.CreateCommand();
-            odCom.CommandText = strCommand;
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Department", "*", "CompanyID=@ID", "@ID", id);
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
-
-            if (odRdr.Read())
+            List<Department> departmentList = new List<Department>();
+            Department department = null;
+            while (odRdr.Read())
             {
-                return true;
-            }
+                department = new Department();
 
+                department.ID = (int)odRdr["ID"];
+                department.Name = (string)odRdr["Name"];
+                department.CompanyID = (int)odRdr["CompanyID"];
+                department.SupDepartmentID = (int)odRdr["SupDepartmentID"];
+
+                departmentList.Add(department);
+            }
             odRdr.Close();
-            return false;
+            return departmentList;
         }
 
         public int AddCompany(Company company)
@@ -270,6 +183,96 @@ namespace FaceIDAppVBEta.Data
                 );
 
             return odCom1.ExecuteNonQuery() > 0 ? true : false;
+        }
+        #endregion Company
+
+        #region Department
+        public List<Department> GetDepartmentList()
+        {
+            ConnectToDatabase();
+
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Department", "*", null);
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+            List<Department> departmentList = new List<Department>();
+            Department department = null;
+            while (odRdr.Read())
+            {
+                department = new Department();
+
+                department.ID = (int)odRdr["ID"];
+                department.Name = (string)odRdr["Name"];
+                department.CompanyID = (int)odRdr["CompanyID"];
+                department.SupDepartmentID = (int)odRdr["SupDepartmentID"];
+
+                departmentList.Add(department);
+            }
+
+            odRdr.Close();
+            return departmentList;
+        }
+
+        private List<Department> GetDepartmentListByGroup(int id)
+        {
+            ConnectToDatabase();
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Department", "ID",
+                "ID=@ID OR SupDepartmentID=@ID",
+                new object[] { "@ID", id });
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+            List<Department> departmentList = new List<Department>();
+            Department department = null;
+            while (odRdr.Read())
+            {
+                department = new Department();
+
+                department.ID = (int)odRdr["ID"];
+                departmentList.Add(department);
+            }
+
+            odRdr.Close();
+            dbConnection.Close();
+            return departmentList;
+        }
+
+        public Department GetDepartment(int id)
+        {
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Department", "*", "ID=@ID", "@ID", id);
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+
+            Department department = null;
+            if (odRdr.Read())
+            {
+                department = new Department();
+
+                department.ID = (int)odRdr["ID"];
+                department.Name = (string)odRdr["Name"];
+                department.CompanyID = (int)odRdr["CompanyID"];
+                department.SupDepartmentID = (int)odRdr["SupDepartmentID"];
+            }
+
+            odRdr.Close();
+            return department;
+        }
+
+        private bool CheckExistDepartmentName(string name, int id)
+        {
+            if (string.IsNullOrEmpty(name))
+                return true;
+
+            string strCommand = " SELECT * FROM Department WHERE [Name]='" + name + "'";
+            if (id > 0)
+                strCommand += " AND ID <> " + id;
+
+            System.Data.OleDb.OleDbCommand odCom = dbConnection.CreateCommand();
+            odCom.CommandText = strCommand;
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+
+            if (odRdr.Read())
+            {
+                return true;
+            }
+
+            odRdr.Close();
+            return false;
         }
 
         public int AddDepartment(Department department)
@@ -388,6 +391,184 @@ namespace FaceIDAppVBEta.Data
                 return rs > 0 ? true : false;
             }
         }
+        #endregion Department
+
+        #region Employee
+
+        public List<Employee> GetEmployeeList(int departmentId)
+        {
+            ConnectToDatabase();
+
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Employee", "*", "DepartmentID=@ID", "@ID", departmentId);
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+            List<Employee> employeeList = new List<Employee>();
+            Employee employee = null;
+            while (odRdr.Read())
+            {
+                employee = new Employee();
+
+                employee.Address = (string)odRdr["Address"];
+                employee.Birthday = (DateTime)odRdr["Birthday"];
+                employee.DepartmentID = (int)odRdr["DepartmentID"];
+                employee.EmployeeNumber = (int)odRdr["EmployeeNumber"];
+                employee.FirstName = (string)odRdr["FirstName"];
+                employee.HiredDate = (DateTime)odRdr["HiredDate"];
+                employee.JobDescription = (string)odRdr["JobDescription"];
+                employee.LastName = (string)odRdr["LastName"];
+                employee.LeftDate = (DateTime)odRdr["LeftDate"];
+                employee.PayrollNumber = (int)odRdr["PayrollNumber"];
+                employee.PhoneNumber = (string)odRdr["PhoneNumber"];
+                employee.PhotoData = (string)odRdr["PhotoData"];
+                employee.WorkingCalendarID = (int)odRdr["WorkingCalendarID"];
+
+                employeeList.Add(employee);
+            }
+            odRdr.Close();
+            return employeeList;
+        }
+
+        public int AddEmployee(Employee employee)
+        {
+            ConnectToDatabase();
+
+            if (employee == null)
+                return -1;
+
+            System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("Employee",
+                new string[] { "DepartmentID", "WorkingCalendarID", "FirstName",
+                    "LastName","PhoneNumber","Address","JobDescription",
+                    "Birthday","HiredDate","LeftDate","PhotoData" },
+                new object[] {employee.DepartmentID,employee.WorkingCalendarID,employee.FirstName,
+                    employee.LastName,employee.PhoneNumber, employee.Address,employee.JobDescription,
+                    employee.Birthday, employee.HiredDate,employee.LeftDate,employee.PhotoData
+                });
+
+            if (odCom1.ExecuteNonQuery() == 1)
+            {
+                odCom1.CommandText = "SELECT @@IDENTITY";
+                int rs = Convert.ToInt16(odCom1.ExecuteScalar().ToString());
+                dbConnection.Close();
+                return rs;
+            }
+
+            return -1;
+        }
+
+        public bool DeleteEmployee(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool UpdateEmployee(Employee company)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool UpdateEmployeeNumber(Employee employee)
+        {
+            ConnectToDatabase();
+
+            if (employee == null)
+                return false;
+
+            System.Data.OleDb.OleDbCommand odCom1 = BuildUpdateCmd("Employee",
+                new string[] { "EmployeeNumber" },
+                new object[] { employee.EmployeeNumber },
+                "PayrollNumber=@ID", new object[] { "@ID", employee.PayrollNumber }
+                );
+
+            return odCom1.ExecuteNonQuery() > 0 ? true : false;
+        }
+
+        #endregion Employee
+
+        #region WorkingCalendar
+        public List<WorkingCalendar> GetWCalendarList()
+        {
+            ConnectToDatabase();
+
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("WorkingCalendar", "*", null);
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+            List<WorkingCalendar> wCalendarList = new List<WorkingCalendar>();
+            WorkingCalendar wCalendar = null;
+            while (odRdr.Read())
+            {
+                wCalendar = new WorkingCalendar();
+
+                wCalendar.ID = (int)odRdr["ID"];
+                wCalendar.Name = (string)odRdr["Name"];
+                wCalendar.RegularWorkingFrom = (DateTime)odRdr["RegularWorkingFrom"];
+                wCalendar.RegularWorkingTo = (DateTime)odRdr["RegularWorkingTo"];
+
+                wCalendarList.Add(wCalendar);
+            }
+
+            odRdr.Close();
+            return wCalendarList;
+        }
+        #endregion WorkingCalendar
+
+        #region Terminal
+        public List<Terminal> GetTerminalList()
+        {
+            ConnectToDatabase();
+
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Terminal", "*", null);
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+            List<Terminal> terminalList = new List<Terminal>();
+            Terminal terminal = null;
+            while (odRdr.Read())
+            {
+                terminal = new Terminal();
+
+                terminal.ID = (int)odRdr["ID"];
+                terminal.Name = (string)odRdr["Name"];
+                terminal.IPAddress= (string)odRdr["Name"];
+
+                terminalList.Add(terminal);
+            }
+
+            odRdr.Close();
+            return terminalList;
+        }
+        #endregion Terminal
+
+        #region EmployeeTerminal
+
+        public List<EmployeeTerminal> GetEmplTerminalList()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int AddEmplTerminal(EmployeeTerminal emplTerminal)
+        {
+            ConnectToDatabase();
+
+            if (emplTerminal == null)
+                return -1;
+            System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("EmployeeTerminal",
+                new string[] { "EmployeeID", "TerminalID" },
+                new object[] { emplTerminal.EmployeeID, emplTerminal.TerminalID }
+                );
+
+            if (odCom1.ExecuteNonQuery() == 1)
+            {
+                return 1;
+            }
+            return -1;
+        }
+
+        public bool DeleteEmplTerminal(EmployeeTerminal emplTerminal)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool UpdateEmplTerminal(EmployeeTerminal emplTerminal)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion EmployeeTerminal
 
         #endregion
 
@@ -417,7 +598,10 @@ namespace FaceIDAppVBEta.Data
             str = str.Substring(0, str.Length - 1) + ")";
             for (int k = 0; k < listCols.Length; k++)
             {
-                command.Parameters.AddWithValue("@" + listCols[k], listValues[k]);
+                if (listValues[k].GetType().Name == "DateTime")
+                    command.Parameters.Add("@" + listCols[k], OleDbType.Date).Value = listValues[k];
+                else
+                    command.Parameters.AddWithValue("@" + listCols[k], listValues[k]);
             }
             command.CommandText = str;
             return command;
