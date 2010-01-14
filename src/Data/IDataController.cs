@@ -17,6 +17,8 @@ namespace FaceIDAppVBEta.Data
 
         Company GetCompany(int id);
 
+        Company GetCompany(string name);
+
         int AddCompany(Company company);
 
         bool DeleteCompany(int id);

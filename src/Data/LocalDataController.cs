@@ -43,9 +43,7 @@ namespace FaceIDAppVBEta.Data
         {
             ConnectToDatabase();
 
-            string strCommand = "SELECT * from Company";
-            System.Data.OleDb.OleDbCommand odCom = dbConnection.CreateCommand();
-            odCom.CommandText = strCommand;
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Company", "*", null);
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
             List<Company> companyList = new List<Company>();
             Company company = null;
@@ -67,9 +65,7 @@ namespace FaceIDAppVBEta.Data
         {
             ConnectToDatabase();
 
-            string strCommand = "SELECT * from Department where CompanyID=" + id;
-            System.Data.OleDb.OleDbCommand odCom = dbConnection.CreateCommand();
-            odCom.CommandText = strCommand;
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Department", "*", "CompanyID=@ID", "@ID", id);
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
             List<Department> departmentList = new List<Department>();
             Department department = null;
@@ -92,9 +88,7 @@ namespace FaceIDAppVBEta.Data
         {
             ConnectToDatabase();
 
-            string strCommand = "SELECT * from Department";
-            System.Data.OleDb.OleDbCommand odCom = dbConnection.CreateCommand();
-            odCom.CommandText = strCommand;
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Department", "*", null);
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
             List<Department> departmentList = new List<Department>();
             Department department = null;
@@ -138,10 +132,7 @@ namespace FaceIDAppVBEta.Data
 
         public Department GetDepartment(int id)
         {
-            string strCommand = "SELECT * from Department where ID=" + id;
-
-            System.Data.OleDb.OleDbCommand odCom = dbConnection.CreateCommand();
-            odCom.CommandText += strCommand;
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Department", "*", "ID=@ID", "@ID", id);
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
 
             Department department = null;
@@ -161,13 +152,25 @@ namespace FaceIDAppVBEta.Data
 
         public Company GetCompany(int id)
         {
-            string strCommand = " SELECT Company.[ID] ";
-            strCommand += " ,Company.[Name] ";
-            strCommand += " FROM Company ";
-            strCommand += " WHERE Company.[ID] = " + id;
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Company", "ID,[Name]", "ID=@ID", new object[] { "@ID", id });
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
 
-            System.Data.OleDb.OleDbCommand odCom = dbConnection.CreateCommand();
-            odCom.CommandText += strCommand;
+            Company company = null;
+            if (odRdr.Read())
+            {
+                company = new Company();
+
+                company.ID = Convert.ToInt16(odRdr["ID"]);
+                company.Name = odRdr["Name"].ToString();
+            }
+
+            odRdr.Close();
+            return company;
+        }
+
+        public Company GetCompany(string name)
+        {
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Company", "ID,[Name]", "[Name]=@Name", new object[] { "@Name", name });
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
 
             Company company = null;
@@ -260,7 +263,7 @@ namespace FaceIDAppVBEta.Data
             if (company == null || CheckExistCompanyName(company.Name, company.ID))
                 return false;
 
-            System.Data.OleDb.OleDbCommand odCom1 = BuildUpdateCmd("Department",
+            System.Data.OleDb.OleDbCommand odCom1 = BuildUpdateCmd("Company",
                 new string[] { "Name" },
                 new object[] { company.Name },
                 "ID=@ID", new object[] { "@ID", company.ID }
@@ -446,7 +449,7 @@ namespace FaceIDAppVBEta.Data
             OleDbCommand command = dbConnection.CreateCommand();
             string str = "UPDATE " + table + " SET ";
             foreach (string col in listCols)
-                str += col + " = @" + col + ",";
+                str += "[" + col + "] = @" + col + ",";
 
             str = str.Substring(0, str.Length - 1);
             if (!string.IsNullOrEmpty(condition))
