@@ -1,4 +1,4 @@
-﻿namespace FaceIDpp
+﻿namespace FaceIDAppVBEta
 {
     partial class ucDepartmentForm
     {
