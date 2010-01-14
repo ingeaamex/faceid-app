@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 using FaceIDAppVBEta.Data;
 using FaceIDAppVBEta.Class;
-namespace FaceIDpp
+namespace FaceIDAppVBEta
 {
     public partial class ucDepartmentForm : UserControl
     {
