@@ -93,6 +93,8 @@ namespace FaceIDAppVBEta
         private void btnAddEmployee_Click(object sender, EventArgs e)
         {
             Employee employee = GetEmployeeUserInput();
+            if (employee == null)
+                return;
 
             EmployeeTerminal emplTerminal = new EmployeeTerminal();
             emplTerminal.TerminalID = (int)lbxTerminal.SelectedValue;
@@ -140,10 +142,34 @@ namespace FaceIDAppVBEta
         private Employee GetEmployeeUserInput()
         {
             Employee employee = new Employee();
-            employee.DepartmentID = (int)cbxDepartment.SelectedValue;
-            employee.WorkingCalendarID = (int)cbxWorkingCalendar.SelectedValue; ;
-            employee.FirstName = txtFirstName.Text; ;
-            employee.LastName = txtLastName.Text; ;
+            object oDepartment = cbxDepartment.SelectedValue;
+            object oWorkingCalendar = cbxWorkingCalendar.SelectedValue;
+            string sFistName = txtFirstName.Text;
+            string sLastName = txtLastName.Text;
+            bool isValid = true;
+            if (oDepartment == null || oWorkingCalendar == null)
+            {
+                MessageBox.Show("Invalid user input");
+                isValid = false;
+            }
+            if (string.IsNullOrEmpty(sFistName))
+            {
+                errProviders.SetError(txtFirstName, "Enter First Name");
+                isValid = false;
+            }
+            if (string.IsNullOrEmpty(sLastName))
+            {
+                errProviders.SetError(txtLastName, "Enter Last Name");
+                isValid = false;
+            }
+
+            if (!isValid)
+                return null;
+
+            employee.DepartmentID = (int)oDepartment;
+            employee.WorkingCalendarID = (int)oDepartment;
+            employee.FirstName = sFistName;
+            employee.LastName = sLastName;
             employee.PhoneNumber = txtPhoneNumber.Text;
             employee.Address = txtAddress.Text;
             employee.JobDescription = txtJobDesc.Text;

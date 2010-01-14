@@ -134,16 +134,9 @@ namespace FaceIDAppVBEta
 
         private void btSubmit_Click(object sender, EventArgs e)
         {
-            string departmentName = tbDepartmentName.Text;
-            if (string.IsNullOrEmpty(departmentName))
-            {
-                errProviders.SetError(tbDepartmentName, "Enter Department Name");
+            Department department = GetDepartmentUserInput();
+            if (department == null)
                 return;
-            }
-            Department department = new Department();
-            department.CompanyID = (int)cbCompany.SelectedValue;
-            department.SupDepartmentID = (int)cbDepartment.SelectedValue;
-            department.Name = departmentName;
 
             bool acctionSucess = false;
             if (btSubmit.Tag == null)
@@ -170,6 +163,37 @@ namespace FaceIDAppVBEta
                 BindTree();
                 BindDepartment();
             }
+        }
+
+        private Department GetDepartmentUserInput()
+        {
+            object oCompany = cbCompany.SelectedValue;
+            object oDepartment = cbDepartment.SelectedValue;
+            string departmentName = tbDepartmentName.Text;
+            bool isValid = true;
+
+            if (oCompany == null && oDepartment == null)
+            {
+                MessageBox.Show("Invalid user input");
+                isValid = false;
+            }
+
+            if (string.IsNullOrEmpty(departmentName))
+            {
+                errProviders.SetError(tbDepartmentName, "Enter Department Name");
+                isValid = false;
+            }
+
+            if (!isValid)
+                return null;
+
+            Department department = new Department();
+
+            department.CompanyID = (int)oCompany;
+            department.SupDepartmentID = (int)oDepartment;
+            department.Name = departmentName;
+
+            return department;
         }
 
         private void btCancel_Click(object sender, EventArgs e)

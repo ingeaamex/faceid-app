@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lblAddUpdateEmployee = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cbxCompany = new System.Windows.Forms.ComboBox();
@@ -62,6 +63,8 @@
             this.btnAddTerminal = new System.Windows.Forms.Button();
             this.lbxTerminal = new System.Windows.Forms.ListBox();
             this.btnRemoveTerminal = new System.Windows.Forms.Button();
+            this.errProviders = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.errProviders)).BeginInit();
             this.SuspendLayout();
             // 
             // lblAddUpdateEmployee
@@ -308,7 +311,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(300, 274);
+            this.btnCancel.Location = new System.Drawing.Point(211, 274);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 30;
@@ -318,7 +321,7 @@
             // 
             // btnUpdateEmployee
             // 
-            this.btnUpdateEmployee.Location = new System.Drawing.Point(212, 274);
+            this.btnUpdateEmployee.Location = new System.Drawing.Point(130, 274);
             this.btnUpdateEmployee.Name = "btnUpdateEmployee";
             this.btnUpdateEmployee.Size = new System.Drawing.Size(75, 23);
             this.btnUpdateEmployee.TabIndex = 31;
@@ -365,6 +368,10 @@
             this.btnRemoveTerminal.UseVisualStyleBackColor = true;
             this.btnRemoveTerminal.Click += new System.EventHandler(this.btnRemoveTerminal_Click);
             // 
+            // errProviders
+            // 
+            this.errProviders.ContainerControl = this;
+            // 
             // frmAddUpdateEmployee
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -407,6 +414,7 @@
             this.Name = "frmAddUpdateEmployee";
             this.Text = "frmAddUpdateEmployee";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmAddUpdateEmployee_FormClosing);
+            ((System.ComponentModel.ISupportInitialize)(this.errProviders)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -448,5 +456,6 @@
         private System.Windows.Forms.Button btnAddTerminal;
         private System.Windows.Forms.ListBox lbxTerminal;
         private System.Windows.Forms.Button btnRemoveTerminal;
+        private System.Windows.Forms.ErrorProvider errProviders;
     }
 }
