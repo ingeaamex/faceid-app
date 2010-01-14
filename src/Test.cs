@@ -13,8 +13,8 @@ namespace FaceIDApp
         }
         [DllImport("HwDevComm.dll")]
         public static extern int HwDev_Execute(string pDevInfoBuf, int nDevInfoLen, string pSendBuf, int nSendLen, ref string pRecvBuf, ref int pRecvLen, Functotaldonetp pFuncTotalDone);
-        int total = int.MinValue;
-        int nDone = int.MinValue;
+        //int total = int.MinValue;
+        //int nDone = int.MinValue;
         public Test()
         {
             Functotaldonetp functotaldonetp = new Functotaldonetp(FunctotaldonetpMethod);
