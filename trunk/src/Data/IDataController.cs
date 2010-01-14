@@ -55,6 +55,10 @@ namespace FaceIDAppVBEta.Data
 
         #region Terminal
         List<Terminal> GetTerminalList();
+		Terminal GetTerminal(int id);
+        int AddTerminal(Terminal _terminal);
+        bool DeleteTerminal(int id);
+        bool UpdateTerminal(Terminal _terminal);
         #endregion Terminal
 
 
