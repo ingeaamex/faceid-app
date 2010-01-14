@@ -34,8 +34,8 @@ namespace FaceIDAppVBEta
 
         private void btNewEmpl_Click(object sender, EventArgs e)
         {
-            //frmAddUpdateEmployee frmEmpl = new frmAddUpdateEmployee();
-            //frmEmpl.ShowDialog(this);
+            frmAddUpdateEmployee frmEmpl = new frmAddUpdateEmployee(-1);
+            frmEmpl.ShowDialog(this);
         }
 
         private void cboxCompany_SelectedIndexChanged(object sender, EventArgs e)
