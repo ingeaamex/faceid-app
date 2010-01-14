@@ -530,6 +530,68 @@ namespace FaceIDAppVBEta.Data
 
             odRdr.Close();
             return terminalList;
+        }		
+
+        public Terminal GetTerminal(int id)
+        {
+            string strCommand = "SELECT * FROM Terminal WHERE ID = " + id;
+
+            System.Data.OleDb.OleDbCommand odCom = dbConnection.CreateCommand();
+            odCom.CommandText += strCommand;
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+
+            Terminal _terminal = null;
+            if (odRdr.Read())
+            {
+                _terminal = new Terminal();
+
+                _terminal.ID = Convert.ToInt16(odRdr["ID"]);
+                _terminal.Name = odRdr["Name"].ToString();
+                _terminal.IPAddress = odRdr["IPAddress"].ToString();
+            }
+
+            odRdr.Close();
+            return _terminal;
+        }
+
+        public int AddTerminal(Terminal _terminal)
+        {
+            System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("Terminal",
+                new string[] { "Name"
+                ,"IPAddress"
+                },
+                new object[] { _terminal.Name
+                ,_terminal.IPAddress
+                }
+            );
+
+            if (odCom1.ExecuteNonQuery() == 1)
+            {
+                odCom1.CommandText = "SELECT @@IDENTITY";
+                return Convert.ToInt16(odCom1.ExecuteScalar().ToString());
+            }
+            return -1;
+        }
+
+        public bool UpdateTerminal(Terminal _terminal)
+        {
+            System.Data.OleDb.OleDbCommand odCom1 = BuildUpdateCmd("Terminal",
+                new string[] { "Name"
+                ,"IPAddress"
+                },
+                new object[] { _terminal.Name
+                ,_terminal.IPAddress
+                },
+                "ID=@ID", new object[] { "@ID", _terminal.ID }
+            );
+
+            return odCom1.ExecuteNonQuery() > 0 ? true : false;
+        }
+
+        public bool DeleteTerminal(int id)
+        {
+            System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("Terminal", "ID=@ID", new object[] { "@ID", id });
+            return odCom1.ExecuteNonQuery() > 0 ? true : false;
         }
         #endregion Terminal
 
