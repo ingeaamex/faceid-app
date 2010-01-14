@@ -28,22 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.dgvEmpl = new System.Windows.Forms.DataGridView();
             this.EmployeeNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EmployeeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.JobDesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.WorkingCalendar = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WorkingCalendar = new System.Windows.Forms.DataGridViewLinkColumn();
             this.PayrollNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Terminal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.btPrint = new System.Windows.Forms.Button();
+            this.btNewEmpl = new System.Windows.Forms.Button();
+            this.btView = new System.Windows.Forms.Button();
+            this.cbCompany = new System.Windows.Forms.ComboBox();
+            this.cbDepartment = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.btRefresh = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEmpl)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -55,63 +59,128 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Employee Management";
             // 
-            // dataGridView1
+            // dgvEmpl
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvEmpl.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvEmpl.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvEmpl.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.EmployeeNumber,
             this.EmployeeName,
             this.JobDesc,
             this.WorkingCalendar,
             this.PayrollNumber,
             this.Terminal});
-            this.dataGridView1.Location = new System.Drawing.Point(51, 99);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(748, 150);
-            this.dataGridView1.TabIndex = 1;
+            this.dgvEmpl.Location = new System.Drawing.Point(51, 99);
+            this.dgvEmpl.Name = "dgvEmpl";
+            this.dgvEmpl.ReadOnly = true;
+            this.dgvEmpl.Size = new System.Drawing.Size(748, 150);
+            this.dgvEmpl.TabIndex = 1;
             // 
-            // button1
+            // EmployeeNumber
             // 
-            this.button1.Location = new System.Drawing.Point(51, 271);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Print";
-            this.button1.UseVisualStyleBackColor = true;
+            this.EmployeeNumber.DataPropertyName = "EmployeeNumber";
+            dataGridViewCellStyle1.NullValue = null;
+            this.EmployeeNumber.DefaultCellStyle = dataGridViewCellStyle1;
+            this.EmployeeNumber.HeaderText = "EmployeeNumber";
+            this.EmployeeNumber.Name = "EmployeeNumber";
+            this.EmployeeNumber.ReadOnly = true;
             // 
-            // button2
+            // EmployeeName
             // 
-            this.button2.Location = new System.Drawing.Point(133, 271);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(171, 23);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Add New Employee";
-            this.button2.UseVisualStyleBackColor = true;
+            this.EmployeeName.DataPropertyName = "FirstName";
+            dataGridViewCellStyle2.Format = "{0} {1}";
+            dataGridViewCellStyle2.NullValue = null;
+            this.EmployeeName.DefaultCellStyle = dataGridViewCellStyle2;
+            this.EmployeeName.HeaderText = "Name";
+            this.EmployeeName.Name = "EmployeeName";
+            this.EmployeeName.ReadOnly = true;
             // 
-            // button3
+            // JobDesc
             // 
-            this.button3.Location = new System.Drawing.Point(513, 64);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "View";
-            this.button3.UseVisualStyleBackColor = true;
+            this.JobDesc.DataPropertyName = "JobDescription";
+            this.JobDesc.HeaderText = "Job Description";
+            this.JobDesc.Name = "JobDesc";
+            this.JobDesc.ReadOnly = true;
             // 
-            // comboBox1
+            // WorkingCalendar
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(123, 64);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 5;
+            this.WorkingCalendar.DataPropertyName = "WorkingCalendarID";
+            dataGridViewCellStyle3.NullValue = null;
+            this.WorkingCalendar.DefaultCellStyle = dataGridViewCellStyle3;
+            this.WorkingCalendar.HeaderText = "Working Calendar";
+            this.WorkingCalendar.Name = "WorkingCalendar";
+            this.WorkingCalendar.ReadOnly = true;
+            this.WorkingCalendar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.WorkingCalendar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.WorkingCalendar.Text = "View";
+            this.WorkingCalendar.UseColumnTextForLinkValue = true;
             // 
-            // comboBox2
+            // PayrollNumber
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(342, 65);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 21);
-            this.comboBox2.TabIndex = 6;
+            this.PayrollNumber.DataPropertyName = "PayrollNumber";
+            this.PayrollNumber.HeaderText = "Payroll Number";
+            this.PayrollNumber.Name = "PayrollNumber";
+            this.PayrollNumber.ReadOnly = true;
+            // 
+            // Terminal
+            // 
+            this.Terminal.DataPropertyName = "EmployeeNumber";
+            this.Terminal.HeaderText = "Terminal Registered";
+            this.Terminal.Name = "Terminal";
+            this.Terminal.ReadOnly = true;
+            // 
+            // btPrint
+            // 
+            this.btPrint.Location = new System.Drawing.Point(51, 271);
+            this.btPrint.Name = "btPrint";
+            this.btPrint.Size = new System.Drawing.Size(75, 23);
+            this.btPrint.TabIndex = 2;
+            this.btPrint.Text = "Print";
+            this.btPrint.UseVisualStyleBackColor = true;
+            this.btPrint.Click += new System.EventHandler(this.btPrint_Click);
+            // 
+            // btNewEmpl
+            // 
+            this.btNewEmpl.Location = new System.Drawing.Point(133, 271);
+            this.btNewEmpl.Name = "btNewEmpl";
+            this.btNewEmpl.Size = new System.Drawing.Size(171, 23);
+            this.btNewEmpl.TabIndex = 3;
+            this.btNewEmpl.Text = "Add New Employee";
+            this.btNewEmpl.UseVisualStyleBackColor = true;
+            this.btNewEmpl.Click += new System.EventHandler(this.btNewEmpl_Click);
+            // 
+            // btView
+            // 
+            this.btView.Location = new System.Drawing.Point(513, 64);
+            this.btView.Name = "btView";
+            this.btView.Size = new System.Drawing.Size(75, 23);
+            this.btView.TabIndex = 4;
+            this.btView.Text = "View";
+            this.btView.UseVisualStyleBackColor = true;
+            this.btView.Click += new System.EventHandler(this.btView_Click);
+            // 
+            // cbCompany
+            // 
+            this.cbCompany.DisplayMember = "Name";
+            this.cbCompany.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbCompany.FormattingEnabled = true;
+            this.cbCompany.Location = new System.Drawing.Point(123, 64);
+            this.cbCompany.Name = "cbCompany";
+            this.cbCompany.Size = new System.Drawing.Size(121, 21);
+            this.cbCompany.TabIndex = 5;
+            this.cbCompany.ValueMember = "ID";
+            this.cbCompany.SelectedIndexChanged += new System.EventHandler(this.cboxCompany_SelectedIndexChanged);
+            // 
+            // cbDepartment
+            // 
+            this.cbDepartment.DisplayMember = "Name";
+            this.cbDepartment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbDepartment.FormattingEnabled = true;
+            this.cbDepartment.Location = new System.Drawing.Point(342, 65);
+            this.cbDepartment.Name = "cbDepartment";
+            this.cbDepartment.Size = new System.Drawing.Size(121, 21);
+            this.cbDepartment.TabIndex = 6;
+            this.cbDepartment.ValueMember = "ID";
             // 
             // label2
             // 
@@ -131,52 +200,33 @@
             this.label3.TabIndex = 8;
             this.label3.Text = "Department";
             // 
-            // EmployeeNumber
+            // btRefresh
             // 
-            this.EmployeeNumber.HeaderText = "EmployeeNumber";
-            this.EmployeeNumber.Name = "EmployeeNumber";
-            // 
-            // EmployeeName
-            // 
-            this.EmployeeName.HeaderText = "Name";
-            this.EmployeeName.Name = "EmployeeName";
-            // 
-            // JobDesc
-            // 
-            this.JobDesc.HeaderText = "Job Description";
-            this.JobDesc.Name = "JobDesc";
-            // 
-            // WorkingCalendar
-            // 
-            this.WorkingCalendar.HeaderText = "Working Calendar";
-            this.WorkingCalendar.Name = "WorkingCalendar";
-            // 
-            // PayrollNumber
-            // 
-            this.PayrollNumber.HeaderText = "Payroll Number";
-            this.PayrollNumber.Name = "PayrollNumber";
-            // 
-            // Terminal
-            // 
-            this.Terminal.HeaderText = "Terminal Registered";
-            this.Terminal.Name = "Terminal";
+            this.btRefresh.Location = new System.Drawing.Point(194, 26);
+            this.btRefresh.Name = "btRefresh";
+            this.btRefresh.Size = new System.Drawing.Size(75, 23);
+            this.btRefresh.TabIndex = 9;
+            this.btRefresh.Text = "Refresh";
+            this.btRefresh.UseVisualStyleBackColor = true;
+            this.btRefresh.Click += new System.EventHandler(this.btRefresh_Click);
             // 
             // ucEmployeeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btRefresh);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.comboBox2);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.cbDepartment);
+            this.Controls.Add(this.cbCompany);
+            this.Controls.Add(this.btView);
+            this.Controls.Add(this.btNewEmpl);
+            this.Controls.Add(this.btPrint);
+            this.Controls.Add(this.dgvEmpl);
             this.Controls.Add(this.label1);
             this.Name = "ucEmployeeForm";
             this.Size = new System.Drawing.Size(875, 335);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEmpl)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -185,19 +235,20 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvEmpl;
+        private System.Windows.Forms.Button btPrint;
+        private System.Windows.Forms.Button btNewEmpl;
+        private System.Windows.Forms.Button btView;
+        private System.Windows.Forms.ComboBox cbCompany;
+        private System.Windows.Forms.ComboBox cbDepartment;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DataGridViewTextBoxColumn EmployeeNumber;
         private System.Windows.Forms.DataGridViewTextBoxColumn EmployeeName;
         private System.Windows.Forms.DataGridViewTextBoxColumn JobDesc;
-        private System.Windows.Forms.DataGridViewTextBoxColumn WorkingCalendar;
+        private System.Windows.Forms.DataGridViewLinkColumn WorkingCalendar;
         private System.Windows.Forms.DataGridViewTextBoxColumn PayrollNumber;
         private System.Windows.Forms.DataGridViewTextBoxColumn Terminal;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btRefresh;
     }
 }
