@@ -28,7 +28,6 @@ namespace FaceIDAppVBEta
             dgvCompany.DataSource = companyList;
         }
 
-
         private void dgvCompany_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0 || (e.ColumnIndex != dgvCompany.Columns["btEdit"].Index && e.ColumnIndex != dgvCompany.Columns["btDelete"].Index)) return;
@@ -87,17 +86,26 @@ namespace FaceIDAppVBEta
             }
         }
 
-        private void btSubmit_Click(object sender, EventArgs e)
+        private Company GetCompanyUserInput()
         {
             string cName = tbCompanyName.Text;
             if (string.IsNullOrEmpty(cName))
             {
                 errProviders.SetError(tbCompanyName, "Enter Company Name");
-                return;
+                return null;
             }
 
             Company company = new Company();
             company.Name = cName;
+
+            return company;
+        }
+
+        private void btSubmit_Click(object sender, EventArgs e)
+        {
+            Company company = GetCompanyUserInput();
+            if (company == null)
+                return;
 
             bool acctionSucess = false;
             if (btSubmit.Tag == null)
