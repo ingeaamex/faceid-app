@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.CompanyName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ActionEdit = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.ActionDelete = new System.Windows.Forms.DataGridViewButtonColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.CompName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ActionEdit = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.ActionDelete = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -46,28 +46,13 @@
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.CompanyName,
+            this.CompName,
             this.ActionEdit,
             this.ActionDelete});
             this.dataGridView1.Location = new System.Drawing.Point(14, 13);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(485, 150);
             this.dataGridView1.TabIndex = 0;
-            // 
-            // CompanyName
-            // 
-            this.CompanyName.HeaderText = "Company Name";
-            this.CompanyName.Name = "CompanyName";
-            // 
-            // ActionEdit
-            // 
-            this.ActionEdit.HeaderText = "Edit";
-            this.ActionEdit.Name = "ActionEdit";
-            // 
-            // ActionDelete
-            // 
-            this.ActionDelete.HeaderText = "Delete";
-            this.ActionDelete.Name = "ActionDelete";
             // 
             // groupBox1
             // 
@@ -126,6 +111,21 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Company Name";
             // 
+            // Name
+            // 
+            this.CompName.HeaderText = "Company Name";
+            this.CompName.Name = "Name";
+            // 
+            // ActionEdit
+            // 
+            this.ActionEdit.HeaderText = "Edit";
+            this.ActionEdit.Name = "ActionEdit";
+            // 
+            // ActionDelete
+            // 
+            this.ActionDelete.HeaderText = "Delete";
+            this.ActionDelete.Name = "ActionDelete";
+            // 
             // ucCompanyForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -144,14 +144,14 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CompanyName;
-        private System.Windows.Forms.DataGridViewButtonColumn ActionEdit;
-        private System.Windows.Forms.DataGridViewButtonColumn ActionDelete;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CompName;
+        private System.Windows.Forms.DataGridViewButtonColumn ActionEdit;
+        private System.Windows.Forms.DataGridViewButtonColumn ActionDelete;
     }
 }

@@ -7,6 +7,6 @@ namespace FaceIDAppVBEta.Class
     public class DayType
     {
         public int ID { get; set; }
-        public string DayType { get; set; }
+        public string Name { get; set; }
     }
 }
