@@ -28,52 +28,50 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblAddUpdateEmployee = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.cbxCompany = new System.Windows.Forms.ComboBox();
+            this.cbxDepartment = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtEmployeeNumber = new System.Windows.Forms.TextBox();
+            this.txtPayrollNumber = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txtFirstName = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.txtLastName = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.txtPhoneNumber = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.txtAddress = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.txtJobDesc = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.dtpBirthday = new System.Windows.Forms.DateTimePicker();
+            this.cbxWorkingCalendar = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.dtpJoinedDate = new System.Windows.Forms.DateTimePicker();
             this.label13 = new System.Windows.Forms.Label();
-            this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
+            this.dtpLeftDate = new System.Windows.Forms.DateTimePicker();
             this.label14 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.btnAddEmployee = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnUpdateEmployee = new System.Windows.Forms.Button();
             this.label15 = new System.Windows.Forms.Label();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
+            this.btnAddTerminal = new System.Windows.Forms.Button();
+            this.lbxTerminal = new System.Windows.Forms.ListBox();
+            this.btnRemoveTerminal = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // label1
+            // lblAddUpdateEmployee
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(36, 26);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(100, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Add New Employee";
+            this.lblAddUpdateEmployee.AutoSize = true;
+            this.lblAddUpdateEmployee.Location = new System.Drawing.Point(36, 26);
+            this.lblAddUpdateEmployee.Name = "lblAddUpdateEmployee";
+            this.lblAddUpdateEmployee.Size = new System.Drawing.Size(100, 13);
+            this.lblAddUpdateEmployee.TabIndex = 0;
+            this.lblAddUpdateEmployee.Text = "Add New Employee";
             // 
             // label2
             // 
@@ -84,21 +82,22 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Company";
             // 
-            // comboBox1
+            // cbxCompany
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(107, 58);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 2;
+            this.cbxCompany.FormattingEnabled = true;
+            this.cbxCompany.Location = new System.Drawing.Point(107, 58);
+            this.cbxCompany.Name = "cbxCompany";
+            this.cbxCompany.Size = new System.Drawing.Size(121, 21);
+            this.cbxCompany.TabIndex = 2;
+            this.cbxCompany.SelectedIndexChanged += new System.EventHandler(this.cbxCompany_SelectedIndexChanged);
             // 
-            // comboBox2
+            // cbxDepartment
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(311, 58);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 21);
-            this.comboBox2.TabIndex = 4;
+            this.cbxDepartment.FormattingEnabled = true;
+            this.cbxDepartment.Location = new System.Drawing.Point(311, 58);
+            this.cbxDepartment.Name = "cbxDepartment";
+            this.cbxDepartment.Size = new System.Drawing.Size(121, 21);
+            this.cbxDepartment.TabIndex = 4;
             // 
             // label3
             // 
@@ -109,24 +108,6 @@
             this.label3.TabIndex = 3;
             this.label3.Text = "Department";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(42, 85);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(132, 23);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Add Company";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(266, 87);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(132, 23);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "Add Department";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -136,21 +117,21 @@
             this.label4.TabIndex = 7;
             this.label4.Text = "Employee Number";
             // 
-            // textBox1
+            // txtEmployeeNumber
             // 
-            this.textBox1.Location = new System.Drawing.Point(150, 112);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 8;
-            this.textBox1.Text = "Auto";
+            this.txtEmployeeNumber.Location = new System.Drawing.Point(150, 112);
+            this.txtEmployeeNumber.Name = "txtEmployeeNumber";
+            this.txtEmployeeNumber.Size = new System.Drawing.Size(100, 20);
+            this.txtEmployeeNumber.TabIndex = 8;
+            this.txtEmployeeNumber.Text = "Auto";
             // 
-            // textBox2
+            // txtPayrollNumber
             // 
-            this.textBox2.Location = new System.Drawing.Point(382, 112);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 10;
-            this.textBox2.Text = "Auto";
+            this.txtPayrollNumber.Location = new System.Drawing.Point(382, 112);
+            this.txtPayrollNumber.Name = "txtPayrollNumber";
+            this.txtPayrollNumber.Size = new System.Drawing.Size(100, 20);
+            this.txtPayrollNumber.TabIndex = 10;
+            this.txtPayrollNumber.Text = "Auto";
             // 
             // label5
             // 
@@ -161,12 +142,12 @@
             this.label5.TabIndex = 9;
             this.label5.Text = "Payroll Number";
             // 
-            // textBox3
+            // txtFirstName
             // 
-            this.textBox3.Location = new System.Drawing.Point(151, 143);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
-            this.textBox3.TabIndex = 12;
+            this.txtFirstName.Location = new System.Drawing.Point(151, 143);
+            this.txtFirstName.Name = "txtFirstName";
+            this.txtFirstName.Size = new System.Drawing.Size(100, 20);
+            this.txtFirstName.TabIndex = 12;
             // 
             // label6
             // 
@@ -177,12 +158,12 @@
             this.label6.TabIndex = 11;
             this.label6.Text = "First Name";
             // 
-            // textBox4
+            // txtLastName
             // 
-            this.textBox4.Location = new System.Drawing.Point(382, 143);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 20);
-            this.textBox4.TabIndex = 14;
+            this.txtLastName.Location = new System.Drawing.Point(382, 143);
+            this.txtLastName.Name = "txtLastName";
+            this.txtLastName.Size = new System.Drawing.Size(100, 20);
+            this.txtLastName.TabIndex = 14;
             // 
             // label7
             // 
@@ -193,12 +174,12 @@
             this.label7.TabIndex = 13;
             this.label7.Text = "Last Name";
             // 
-            // textBox5
+            // txtPhoneNumber
             // 
-            this.textBox5.Location = new System.Drawing.Point(151, 176);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(100, 20);
-            this.textBox5.TabIndex = 16;
+            this.txtPhoneNumber.Location = new System.Drawing.Point(151, 176);
+            this.txtPhoneNumber.Name = "txtPhoneNumber";
+            this.txtPhoneNumber.Size = new System.Drawing.Size(100, 20);
+            this.txtPhoneNumber.TabIndex = 16;
             // 
             // label8
             // 
@@ -209,12 +190,12 @@
             this.label8.TabIndex = 15;
             this.label8.Text = "Phone Number";
             // 
-            // textBox6
+            // txtAddress
             // 
-            this.textBox6.Location = new System.Drawing.Point(382, 173);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(100, 20);
-            this.textBox6.TabIndex = 18;
+            this.txtAddress.Location = new System.Drawing.Point(382, 173);
+            this.txtAddress.Name = "txtAddress";
+            this.txtAddress.Size = new System.Drawing.Size(100, 20);
+            this.txtAddress.TabIndex = 18;
             // 
             // label9
             // 
@@ -225,12 +206,12 @@
             this.label9.TabIndex = 17;
             this.label9.Text = "Address";
             // 
-            // textBox7
+            // txtJobDesc
             // 
-            this.textBox7.Location = new System.Drawing.Point(151, 207);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(100, 20);
-            this.textBox7.TabIndex = 20;
+            this.txtJobDesc.Location = new System.Drawing.Point(151, 207);
+            this.txtJobDesc.Name = "txtJobDesc";
+            this.txtJobDesc.Size = new System.Drawing.Size(100, 20);
+            this.txtJobDesc.TabIndex = 20;
             // 
             // label10
             // 
@@ -250,20 +231,20 @@
             this.label11.TabIndex = 21;
             this.label11.Text = "Birthday";
             // 
-            // dateTimePicker1
+            // dtpBirthday
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(382, 207);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker1.TabIndex = 22;
+            this.dtpBirthday.Location = new System.Drawing.Point(382, 207);
+            this.dtpBirthday.Name = "dtpBirthday";
+            this.dtpBirthday.Size = new System.Drawing.Size(200, 20);
+            this.dtpBirthday.TabIndex = 22;
             // 
-            // comboBox3
+            // cbxWorkingCalendar
             // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(554, 55);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(121, 21);
-            this.comboBox3.TabIndex = 24;
+            this.cbxWorkingCalendar.FormattingEnabled = true;
+            this.cbxWorkingCalendar.Location = new System.Drawing.Point(554, 55);
+            this.cbxWorkingCalendar.Name = "cbxWorkingCalendar";
+            this.cbxWorkingCalendar.Size = new System.Drawing.Size(121, 21);
+            this.cbxWorkingCalendar.TabIndex = 24;
             // 
             // label12
             // 
@@ -274,141 +255,144 @@
             this.label12.TabIndex = 23;
             this.label12.Text = "Working Calendar";
             // 
-            // dateTimePicker2
+            // dtpJoinedDate
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(163, 237);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker2.TabIndex = 26;
+            this.dtpJoinedDate.Location = new System.Drawing.Point(149, 237);
+            this.dtpJoinedDate.Name = "dtpJoinedDate";
+            this.dtpJoinedDate.Size = new System.Drawing.Size(200, 20);
+            this.dtpJoinedDate.TabIndex = 26;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(55, 244);
+            this.label13.Location = new System.Drawing.Point(41, 244);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(64, 13);
             this.label13.TabIndex = 25;
             this.label13.Text = "Joined Date";
             // 
-            // dateTimePicker3
+            // dtpLeftDate
             // 
-            this.dateTimePicker3.Location = new System.Drawing.Point(450, 236);
-            this.dateTimePicker3.Name = "dateTimePicker3";
-            this.dateTimePicker3.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker3.TabIndex = 28;
+            this.dtpLeftDate.Location = new System.Drawing.Point(436, 236);
+            this.dtpLeftDate.Name = "dtpLeftDate";
+            this.dtpLeftDate.Size = new System.Drawing.Size(200, 20);
+            this.dtpLeftDate.TabIndex = 28;
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(379, 240);
+            this.label14.Location = new System.Drawing.Point(365, 240);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(51, 13);
             this.label14.TabIndex = 27;
             this.label14.Text = "Left Date";
             // 
-            // button3
+            // btnAddEmployee
             // 
-            this.button3.Location = new System.Drawing.Point(130, 274);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 29;
-            this.button3.Text = "Add";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnAddEmployee.Location = new System.Drawing.Point(130, 274);
+            this.btnAddEmployee.Name = "btnAddEmployee";
+            this.btnAddEmployee.Size = new System.Drawing.Size(75, 23);
+            this.btnAddEmployee.TabIndex = 29;
+            this.btnAddEmployee.Text = "Add";
+            this.btnAddEmployee.UseVisualStyleBackColor = true;
+            this.btnAddEmployee.Click += new System.EventHandler(this.btnAddEmployee_Click);
             // 
-            // button4
+            // btnCancel
             // 
-            this.button4.Location = new System.Drawing.Point(311, 274);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 30;
-            this.button4.Text = "Cancel";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btnCancel.Location = new System.Drawing.Point(300, 274);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 30;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // button5
+            // btnUpdateEmployee
             // 
-            this.button5.Location = new System.Drawing.Point(212, 274);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 31;
-            this.button5.Text = "Update";
-            this.button5.UseVisualStyleBackColor = true;
-            // 
-            // comboBox4
-            // 
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Location = new System.Drawing.Point(595, 131);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(121, 21);
-            this.comboBox4.TabIndex = 33;
+            this.btnUpdateEmployee.Location = new System.Drawing.Point(212, 274);
+            this.btnUpdateEmployee.Name = "btnUpdateEmployee";
+            this.btnUpdateEmployee.Size = new System.Drawing.Size(75, 23);
+            this.btnUpdateEmployee.TabIndex = 31;
+            this.btnUpdateEmployee.Text = "Update";
+            this.btnUpdateEmployee.UseVisualStyleBackColor = true;
+            this.btnUpdateEmployee.Click += new System.EventHandler(this.btnUpdateEmployee_Click);
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(535, 134);
+            this.label15.Location = new System.Drawing.Point(514, 99);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(47, 13);
             this.label15.TabIndex = 32;
             this.label15.Text = "Terminal";
             // 
-            // button6
+            // btnAddTerminal
             // 
-            this.button6.Location = new System.Drawing.Point(474, 82);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(132, 23);
-            this.button6.TabIndex = 34;
-            this.button6.Text = "Add Working Calendar";
-            this.button6.UseVisualStyleBackColor = true;
+            this.btnAddTerminal.Location = new System.Drawing.Point(693, 115);
+            this.btnAddTerminal.Name = "btnAddTerminal";
+            this.btnAddTerminal.Size = new System.Drawing.Size(116, 23);
+            this.btnAddTerminal.TabIndex = 35;
+            this.btnAddTerminal.Text = "Add Terminal";
+            this.btnAddTerminal.UseVisualStyleBackColor = true;
+            this.btnAddTerminal.Click += new System.EventHandler(this.btnAddTerminal_Click);
             // 
-            // button7
+            // lbxTerminal
             // 
-            this.button7.Location = new System.Drawing.Point(555, 158);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(132, 23);
-            this.button7.TabIndex = 35;
-            this.button7.Text = "Add Terminal";
-            this.button7.UseVisualStyleBackColor = true;
+            this.lbxTerminal.FormattingEnabled = true;
+            this.lbxTerminal.Location = new System.Drawing.Point(567, 94);
+            this.lbxTerminal.Name = "lbxTerminal";
+            this.lbxTerminal.Size = new System.Drawing.Size(120, 95);
+            this.lbxTerminal.TabIndex = 36;
+            // 
+            // btnRemoveTerminal
+            // 
+            this.btnRemoveTerminal.Location = new System.Drawing.Point(694, 139);
+            this.btnRemoveTerminal.Name = "btnRemoveTerminal";
+            this.btnRemoveTerminal.Size = new System.Drawing.Size(115, 23);
+            this.btnRemoveTerminal.TabIndex = 37;
+            this.btnRemoveTerminal.Text = "Remove Terminal(s)";
+            this.btnRemoveTerminal.UseVisualStyleBackColor = true;
+            this.btnRemoveTerminal.Click += new System.EventHandler(this.btnRemoveTerminal_Click);
             // 
             // frmAddUpdateEmployee
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(839, 315);
-            this.Controls.Add(this.button7);
-            this.Controls.Add(this.button6);
-            this.Controls.Add(this.comboBox4);
+            this.Controls.Add(this.btnRemoveTerminal);
+            this.Controls.Add(this.lbxTerminal);
+            this.Controls.Add(this.btnAddTerminal);
             this.Controls.Add(this.label15);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.dateTimePicker3);
+            this.Controls.Add(this.btnUpdateEmployee);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnAddEmployee);
+            this.Controls.Add(this.dtpLeftDate);
             this.Controls.Add(this.label14);
-            this.Controls.Add(this.dateTimePicker2);
+            this.Controls.Add(this.dtpJoinedDate);
             this.Controls.Add(this.label13);
-            this.Controls.Add(this.comboBox3);
+            this.Controls.Add(this.cbxWorkingCalendar);
             this.Controls.Add(this.label12);
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.dtpBirthday);
             this.Controls.Add(this.label11);
-            this.Controls.Add(this.textBox7);
+            this.Controls.Add(this.txtJobDesc);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.textBox6);
+            this.Controls.Add(this.txtAddress);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.textBox5);
+            this.Controls.Add(this.txtPhoneNumber);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.txtLastName);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.txtFirstName);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.txtPayrollNumber);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtEmployeeNumber);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.cbxDepartment);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cbxCompany);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblAddUpdateEmployee);
             this.Name = "frmAddUpdateEmployee";
             this.Text = "frmAddUpdateEmployee";
             this.ResumeLayout(false);
@@ -418,41 +402,39 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblAddUpdateEmployee;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox cbxCompany;
+        private System.Windows.Forms.ComboBox cbxDepartment;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtEmployeeNumber;
+        private System.Windows.Forms.TextBox txtPayrollNumber;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txtFirstName;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox txtLastName;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox txtPhoneNumber;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox txtAddress;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.TextBox txtJobDesc;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.DateTimePicker dtpBirthday;
+        private System.Windows.Forms.ComboBox cbxWorkingCalendar;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.DateTimePicker dtpJoinedDate;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.DateTimePicker dateTimePicker3;
+        private System.Windows.Forms.DateTimePicker dtpLeftDate;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.Button btnAddEmployee;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnUpdateEmployee;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button btnAddTerminal;
+        private System.Windows.Forms.ListBox lbxTerminal;
+        private System.Windows.Forms.Button btnRemoveTerminal;
     }
 }
