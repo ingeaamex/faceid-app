@@ -106,7 +106,7 @@ namespace FaceIDAppVBEta
                 employee.PayrollNumber = id;
                 employee.EmployeeNumber = id;
                 bool rs = dtCtrl.UpdateEmployeeNumber(employee);
-                emplTerminal.EmployeeID = id;
+                emplTerminal.EmployeeNumber = id;
                 id = dtCtrl.AddEmplTerminal(emplTerminal);
 
                 if (rs && id > 0)
@@ -130,11 +130,6 @@ namespace FaceIDAppVBEta
         }
 
         private void btnAddTerminal_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnRemoveTerminal_Click(object sender, EventArgs e)
         {
 
         }
