@@ -32,5 +32,11 @@ namespace FaceIDAppVBEta
             panelMain.Controls.Clear();
             panelMain.Controls.Add(new ucEmployeeForm());
         }
+
+        private void terminalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            panelMain.Controls.Clear();
+            panelMain.Controls.Add(new ucTerminalForm());
+        }
     }
 }
