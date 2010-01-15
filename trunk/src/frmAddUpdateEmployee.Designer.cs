@@ -60,9 +60,8 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnUpdateEmployee = new System.Windows.Forms.Button();
             this.label15 = new System.Windows.Forms.Label();
-            this.btnAddTerminal = new System.Windows.Forms.Button();
+            this.btnRegisterOnTerminal = new System.Windows.Forms.Button();
             this.lbxTerminal = new System.Windows.Forms.ListBox();
-            this.btnRemoveTerminal = new System.Windows.Forms.Button();
             this.errProviders = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.errProviders)).BeginInit();
             this.SuspendLayout();
@@ -338,15 +337,15 @@
             this.label15.TabIndex = 32;
             this.label15.Text = "Terminal";
             // 
-            // btnAddTerminal
+            // btnRegisterOnTerminal
             // 
-            this.btnAddTerminal.Location = new System.Drawing.Point(693, 115);
-            this.btnAddTerminal.Name = "btnAddTerminal";
-            this.btnAddTerminal.Size = new System.Drawing.Size(116, 23);
-            this.btnAddTerminal.TabIndex = 35;
-            this.btnAddTerminal.Text = "Add Terminal";
-            this.btnAddTerminal.UseVisualStyleBackColor = true;
-            this.btnAddTerminal.Click += new System.EventHandler(this.btnAddTerminal_Click);
+            this.btnRegisterOnTerminal.Location = new System.Drawing.Point(693, 115);
+            this.btnRegisterOnTerminal.Name = "btnRegisterOnTerminal";
+            this.btnRegisterOnTerminal.Size = new System.Drawing.Size(84, 23);
+            this.btnRegisterOnTerminal.TabIndex = 35;
+            this.btnRegisterOnTerminal.Text = "Change";
+            this.btnRegisterOnTerminal.UseVisualStyleBackColor = true;
+            this.btnRegisterOnTerminal.Click += new System.EventHandler(this.btnAddTerminal_Click);
             // 
             // lbxTerminal
             // 
@@ -358,16 +357,6 @@
             this.lbxTerminal.TabIndex = 36;
             this.lbxTerminal.ValueMember = "ID";
             // 
-            // btnRemoveTerminal
-            // 
-            this.btnRemoveTerminal.Location = new System.Drawing.Point(694, 139);
-            this.btnRemoveTerminal.Name = "btnRemoveTerminal";
-            this.btnRemoveTerminal.Size = new System.Drawing.Size(115, 23);
-            this.btnRemoveTerminal.TabIndex = 37;
-            this.btnRemoveTerminal.Text = "Remove Terminal(s)";
-            this.btnRemoveTerminal.UseVisualStyleBackColor = true;
-            this.btnRemoveTerminal.Click += new System.EventHandler(this.btnRemoveTerminal_Click);
-            // 
             // errProviders
             // 
             this.errProviders.ContainerControl = this;
@@ -377,9 +366,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(839, 315);
-            this.Controls.Add(this.btnRemoveTerminal);
             this.Controls.Add(this.lbxTerminal);
-            this.Controls.Add(this.btnAddTerminal);
+            this.Controls.Add(this.btnRegisterOnTerminal);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.btnUpdateEmployee);
             this.Controls.Add(this.btnCancel);
@@ -453,9 +441,8 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnUpdateEmployee;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Button btnAddTerminal;
+        private System.Windows.Forms.Button btnRegisterOnTerminal;
         private System.Windows.Forms.ListBox lbxTerminal;
-        private System.Windows.Forms.Button btnRemoveTerminal;
         private System.Windows.Forms.ErrorProvider errProviders;
     }
 }
