@@ -28,6 +28,12 @@ namespace FaceIDAppVBEta
         {
             List<Terminal> terminals = dtCtrl.GetTerminalList();
             lbxAvailTerminal.DataSource = terminals;
+
+            List<Terminal> regRerminals = callbackForm.GetTerminalsUserInput();
+            foreach (Terminal o in regRerminals)
+            {
+                lbxRegTerminal.Items.Add(o);
+            }
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)
@@ -55,14 +61,22 @@ namespace FaceIDAppVBEta
         private void btnAddTerminal_Click(object sender, EventArgs e)
         {
             ListBox.SelectedObjectCollection items = lbxAvailTerminal.SelectedItems;
+            ListBox.ObjectCollection objc = lbxRegTerminal.Items;
+            bool isExist = false;
             for (int i = 0; i < items.Count; i++)
             {
-                if (lbxRegTerminal.Items.Contains((Terminal)items[i]))
+                isExist = false;
+                foreach (Object o in objc)
                 {
-                    MessageBox.Show(((Terminal)items[i]).Name + " Equipment has registered");
-                    continue;
+                    if (((Terminal)o).ID == ((Terminal)items[i]).ID)
+                    {
+                        MessageBox.Show(((Terminal)items[i]).Name + " Equipment has registered");
+                        isExist = true;
+                        break;
+                    }
                 }
-                lbxRegTerminal.Items.Add(items[i]);
+                if (!isExist)
+                    lbxRegTerminal.Items.Add(items[i]);
             }
         }
 

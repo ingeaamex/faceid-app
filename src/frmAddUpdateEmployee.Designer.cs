@@ -35,18 +35,18 @@
             this.cbxDepartment = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.txtEmployeeNumber = new System.Windows.Forms.TextBox();
-            this.txtPayrollNumber = new System.Windows.Forms.TextBox();
+            this.tbEmployeeNumber = new System.Windows.Forms.TextBox();
+            this.tbPayrollNumber = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.txtFirstName = new System.Windows.Forms.TextBox();
+            this.tbFirstName = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.txtLastName = new System.Windows.Forms.TextBox();
+            this.tbLastName = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.txtPhoneNumber = new System.Windows.Forms.TextBox();
+            this.tbPhoneNumber = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.txtAddress = new System.Windows.Forms.TextBox();
+            this.tbAddress = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.txtJobDesc = new System.Windows.Forms.TextBox();
+            this.tbJobDesc = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.dtpBirthday = new System.Windows.Forms.DateTimePicker();
@@ -125,21 +125,21 @@
             this.label4.TabIndex = 7;
             this.label4.Text = "Employee Number";
             // 
-            // txtEmployeeNumber
+            // tbEmployeeNumber
             // 
-            this.txtEmployeeNumber.Location = new System.Drawing.Point(150, 112);
-            this.txtEmployeeNumber.Name = "txtEmployeeNumber";
-            this.txtEmployeeNumber.Size = new System.Drawing.Size(100, 20);
-            this.txtEmployeeNumber.TabIndex = 8;
-            this.txtEmployeeNumber.Text = "Auto";
+            this.tbEmployeeNumber.Location = new System.Drawing.Point(150, 112);
+            this.tbEmployeeNumber.Name = "tbEmployeeNumber";
+            this.tbEmployeeNumber.Size = new System.Drawing.Size(100, 20);
+            this.tbEmployeeNumber.TabIndex = 8;
+            this.tbEmployeeNumber.Text = "Auto";
             // 
-            // txtPayrollNumber
+            // tbPayrollNumber
             // 
-            this.txtPayrollNumber.Location = new System.Drawing.Point(382, 112);
-            this.txtPayrollNumber.Name = "txtPayrollNumber";
-            this.txtPayrollNumber.Size = new System.Drawing.Size(100, 20);
-            this.txtPayrollNumber.TabIndex = 10;
-            this.txtPayrollNumber.Text = "Auto";
+            this.tbPayrollNumber.Location = new System.Drawing.Point(382, 112);
+            this.tbPayrollNumber.Name = "tbPayrollNumber";
+            this.tbPayrollNumber.Size = new System.Drawing.Size(100, 20);
+            this.tbPayrollNumber.TabIndex = 10;
+            this.tbPayrollNumber.Text = "Auto";
             // 
             // label5
             // 
@@ -150,12 +150,12 @@
             this.label5.TabIndex = 9;
             this.label5.Text = "Payroll Number";
             // 
-            // txtFirstName
+            // tbFirstName
             // 
-            this.txtFirstName.Location = new System.Drawing.Point(151, 143);
-            this.txtFirstName.Name = "txtFirstName";
-            this.txtFirstName.Size = new System.Drawing.Size(100, 20);
-            this.txtFirstName.TabIndex = 12;
+            this.tbFirstName.Location = new System.Drawing.Point(151, 143);
+            this.tbFirstName.Name = "tbFirstName";
+            this.tbFirstName.Size = new System.Drawing.Size(100, 20);
+            this.tbFirstName.TabIndex = 12;
             // 
             // label6
             // 
@@ -166,12 +166,12 @@
             this.label6.TabIndex = 11;
             this.label6.Text = "First Name";
             // 
-            // txtLastName
+            // tbLastName
             // 
-            this.txtLastName.Location = new System.Drawing.Point(382, 143);
-            this.txtLastName.Name = "txtLastName";
-            this.txtLastName.Size = new System.Drawing.Size(100, 20);
-            this.txtLastName.TabIndex = 14;
+            this.tbLastName.Location = new System.Drawing.Point(382, 143);
+            this.tbLastName.Name = "tbLastName";
+            this.tbLastName.Size = new System.Drawing.Size(100, 20);
+            this.tbLastName.TabIndex = 14;
             // 
             // label7
             // 
@@ -182,12 +182,12 @@
             this.label7.TabIndex = 13;
             this.label7.Text = "Last Name";
             // 
-            // txtPhoneNumber
+            // tbPhoneNumber
             // 
-            this.txtPhoneNumber.Location = new System.Drawing.Point(151, 176);
-            this.txtPhoneNumber.Name = "txtPhoneNumber";
-            this.txtPhoneNumber.Size = new System.Drawing.Size(100, 20);
-            this.txtPhoneNumber.TabIndex = 16;
+            this.tbPhoneNumber.Location = new System.Drawing.Point(151, 176);
+            this.tbPhoneNumber.Name = "tbPhoneNumber";
+            this.tbPhoneNumber.Size = new System.Drawing.Size(100, 20);
+            this.tbPhoneNumber.TabIndex = 16;
             // 
             // label8
             // 
@@ -198,12 +198,12 @@
             this.label8.TabIndex = 15;
             this.label8.Text = "Phone Number";
             // 
-            // txtAddress
+            // tbAddress
             // 
-            this.txtAddress.Location = new System.Drawing.Point(382, 173);
-            this.txtAddress.Name = "txtAddress";
-            this.txtAddress.Size = new System.Drawing.Size(100, 20);
-            this.txtAddress.TabIndex = 18;
+            this.tbAddress.Location = new System.Drawing.Point(382, 173);
+            this.tbAddress.Name = "tbAddress";
+            this.tbAddress.Size = new System.Drawing.Size(100, 20);
+            this.tbAddress.TabIndex = 18;
             // 
             // label9
             // 
@@ -214,12 +214,12 @@
             this.label9.TabIndex = 17;
             this.label9.Text = "Address";
             // 
-            // txtJobDesc
+            // tbJobDesc
             // 
-            this.txtJobDesc.Location = new System.Drawing.Point(151, 207);
-            this.txtJobDesc.Name = "txtJobDesc";
-            this.txtJobDesc.Size = new System.Drawing.Size(100, 20);
-            this.txtJobDesc.TabIndex = 20;
+            this.tbJobDesc.Location = new System.Drawing.Point(151, 207);
+            this.tbJobDesc.Name = "tbJobDesc";
+            this.tbJobDesc.Size = new System.Drawing.Size(100, 20);
+            this.tbJobDesc.TabIndex = 20;
             // 
             // label10
             // 
@@ -353,6 +353,7 @@
             this.lbxTerminal.FormattingEnabled = true;
             this.lbxTerminal.Location = new System.Drawing.Point(567, 94);
             this.lbxTerminal.Name = "lbxTerminal";
+            this.lbxTerminal.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.lbxTerminal.Size = new System.Drawing.Size(120, 95);
             this.lbxTerminal.TabIndex = 36;
             this.lbxTerminal.ValueMember = "ID";
@@ -380,19 +381,19 @@
             this.Controls.Add(this.label12);
             this.Controls.Add(this.dtpBirthday);
             this.Controls.Add(this.label11);
-            this.Controls.Add(this.txtJobDesc);
+            this.Controls.Add(this.tbJobDesc);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.txtAddress);
+            this.Controls.Add(this.tbAddress);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.txtPhoneNumber);
+            this.Controls.Add(this.tbPhoneNumber);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.txtLastName);
+            this.Controls.Add(this.tbLastName);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.txtFirstName);
+            this.Controls.Add(this.tbFirstName);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.txtPayrollNumber);
+            this.Controls.Add(this.tbPayrollNumber);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.txtEmployeeNumber);
+            this.Controls.Add(this.tbEmployeeNumber);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.cbxDepartment);
             this.Controls.Add(this.label3);
@@ -401,6 +402,7 @@
             this.Controls.Add(this.lblAddUpdateEmployee);
             this.Name = "frmAddUpdateEmployee";
             this.Text = "frmAddUpdateEmployee";
+            this.Load += new System.EventHandler(this.frmAddUpdateEmployee_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmAddUpdateEmployee_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.errProviders)).EndInit();
             this.ResumeLayout(false);
@@ -416,18 +418,18 @@
         private System.Windows.Forms.ComboBox cbxDepartment;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtEmployeeNumber;
-        private System.Windows.Forms.TextBox txtPayrollNumber;
+        private System.Windows.Forms.TextBox tbEmployeeNumber;
+        private System.Windows.Forms.TextBox tbPayrollNumber;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txtFirstName;
+        private System.Windows.Forms.TextBox tbFirstName;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox txtLastName;
+        private System.Windows.Forms.TextBox tbLastName;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox txtPhoneNumber;
+        private System.Windows.Forms.TextBox tbPhoneNumber;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox txtAddress;
+        private System.Windows.Forms.TextBox tbAddress;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox txtJobDesc;
+        private System.Windows.Forms.TextBox tbJobDesc;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.DateTimePicker dtpBirthday;
