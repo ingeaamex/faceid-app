@@ -6,7 +6,7 @@ namespace FaceIDAppVBEta.Class
 {
     public class EmployeeTerminal
     {
-        public int EmployeeID { get; set; }
+        public int EmployeeNumber { get; set; }
         public int TerminalID { get; set; }
     }
 }

@@ -8,7 +8,5 @@ namespace FaceIDAppVBEta.Class
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public DateTime StartFrom { get; set; }
-        public int Period { get; set; }
     }
 }

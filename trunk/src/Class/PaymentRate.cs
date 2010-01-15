@@ -18,5 +18,6 @@ namespace FaceIDAppVBEta.Class
         public int NumberOfOvertime4 { get; set; }
         public int OvertimeRate4 { get; set; }
         public int DayTypeID { get; set; }
+        public int WorkingCalendarID { get; set; }
     }
 }
