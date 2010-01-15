@@ -28,22 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.btAdd = new System.Windows.Forms.Button();
+            this.btUpdate = new System.Windows.Forms.Button();
+            this.btCancel = new System.Windows.Forms.Button();
+            this.dgvTerminal = new System.Windows.Forms.DataGridView();
+            this.cMnSaction = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gBoxAction = new System.Windows.Forms.GroupBox();
+            this.mtbIpAddess = new System.Windows.Forms.MaskedTextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.tbTerminalName = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.errProviders = new System.Windows.Forms.ErrorProvider(this.components);
             this.TerminaleID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TerminalName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IPAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TerminalStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTerminal)).BeginInit();
+            this.cMnSaction.SuspendLayout();
+            this.gBoxAction.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errProviders)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -55,97 +62,97 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Terminal Management";
             // 
-            // button1
+            // btAdd
             // 
-            this.button1.Location = new System.Drawing.Point(13, 183);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Add";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btAdd.Location = new System.Drawing.Point(13, 183);
+            this.btAdd.Name = "btAdd";
+            this.btAdd.Size = new System.Drawing.Size(75, 23);
+            this.btAdd.TabIndex = 1;
+            this.btAdd.Text = "Add";
+            this.btAdd.UseVisualStyleBackColor = true;
+            this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
             // 
-            // button2
+            // btUpdate
             // 
-            this.button2.Location = new System.Drawing.Point(94, 183);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Update";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btUpdate.Location = new System.Drawing.Point(13, 183);
+            this.btUpdate.Name = "btUpdate";
+            this.btUpdate.Size = new System.Drawing.Size(75, 23);
+            this.btUpdate.TabIndex = 2;
+            this.btUpdate.Text = "Update";
+            this.btUpdate.UseVisualStyleBackColor = true;
+            this.btUpdate.Click += new System.EventHandler(this.btUpdate_Click);
             // 
-            // button3
+            // btCancel
             // 
-            this.button3.Location = new System.Drawing.Point(175, 183);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "Cancel";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btCancel.Location = new System.Drawing.Point(94, 183);
+            this.btCancel.Name = "btCancel";
+            this.btCancel.Size = new System.Drawing.Size(75, 23);
+            this.btCancel.TabIndex = 3;
+            this.btCancel.Text = "Cancel";
+            this.btCancel.UseVisualStyleBackColor = true;
+            this.btCancel.Click += new System.EventHandler(this.btCancel_Click);
             // 
-            // dataGridView1
+            // dgvTerminal
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvTerminal.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvTerminal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTerminal.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.TerminaleID,
             this.TerminalName,
             this.IPAddress,
             this.TerminalStatus});
-            this.dataGridView1.Location = new System.Drawing.Point(46, 31);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(456, 150);
-            this.dataGridView1.TabIndex = 4;
+            this.dgvTerminal.Location = new System.Drawing.Point(46, 31);
+            this.dgvTerminal.Name = "dgvTerminal";
+            this.dgvTerminal.Size = new System.Drawing.Size(456, 150);
+            this.dgvTerminal.TabIndex = 4;
+            this.dgvTerminal.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTerminal_CellMouseEnter);
             // 
-            // TerminaleID
+            // cMnSaction
             // 
-            this.TerminaleID.HeaderText = "ID";
-            this.TerminaleID.Name = "TerminaleID";
+            this.cMnSaction.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.updateToolStripMenuItem,
+            this.deleteToolStripMenuItem});
+            this.cMnSaction.Name = "cMnSaction";
+            this.cMnSaction.Size = new System.Drawing.Size(113, 48);
             // 
-            // TerminalName
+            // updateToolStripMenuItem
             // 
-            this.TerminalName.HeaderText = "Terminal Name";
-            this.TerminalName.Name = "TerminalName";
+            this.updateToolStripMenuItem.Name = "updateToolStripMenuItem";
+            this.updateToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.updateToolStripMenuItem.Text = "Update";
+            this.updateToolStripMenuItem.Click += new System.EventHandler(this.updateToolStripMenuItem_Click);
             // 
-            // IPAddress
+            // deleteToolStripMenuItem
             // 
-            this.IPAddress.HeaderText = "IP Address";
-            this.IPAddress.Name = "IPAddress";
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
-            // TerminalStatus
+            // gBoxAction
             // 
-            this.TerminalStatus.HeaderText = "Status";
-            this.TerminalStatus.Name = "TerminalStatus";
+            this.gBoxAction.Controls.Add(this.mtbIpAddess);
+            this.gBoxAction.Controls.Add(this.label3);
+            this.gBoxAction.Controls.Add(this.tbTerminalName);
+            this.gBoxAction.Controls.Add(this.label2);
+            this.gBoxAction.Controls.Add(this.btAdd);
+            this.gBoxAction.Controls.Add(this.btUpdate);
+            this.gBoxAction.Controls.Add(this.btCancel);
+            this.gBoxAction.Location = new System.Drawing.Point(67, 187);
+            this.gBoxAction.Name = "gBoxAction";
+            this.gBoxAction.Size = new System.Drawing.Size(435, 223);
+            this.gBoxAction.TabIndex = 5;
+            this.gBoxAction.TabStop = false;
+            this.gBoxAction.Text = "Add New Terminal / Update Terminal";
             // 
-            // groupBox1
+            // mtbIpAddess
             // 
-            this.groupBox1.Controls.Add(this.maskedTextBox1);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.textBox1);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Controls.Add(this.button2);
-            this.groupBox1.Controls.Add(this.button3);
-            this.groupBox1.Location = new System.Drawing.Point(67, 187);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(435, 223);
-            this.groupBox1.TabIndex = 5;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Add New Terminal / Update Terminal";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(20, 50);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(78, 13);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Terminal Name";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(105, 50);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 5;
+            this.mtbIpAddess.Location = new System.Drawing.Point(105, 90);
+            this.mtbIpAddess.Mask = "000.000.000.000";
+            this.mtbIpAddess.Name = "mtbIpAddess";
+            this.mtbIpAddess.Size = new System.Drawing.Size(100, 20);
+            this.mtbIpAddess.TabIndex = 8;
+            this.mtbIpAddess.ValidatingType = typeof(System.DateTime);
             // 
             // label3
             // 
@@ -156,25 +163,71 @@
             this.label3.TabIndex = 6;
             this.label3.Text = "IP Address";
             // 
-            // maskedTextBox1
+            // tbTerminalName
             // 
-            this.maskedTextBox1.Location = new System.Drawing.Point(105, 90);
-            this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.Size = new System.Drawing.Size(100, 20);
-            this.maskedTextBox1.TabIndex = 8;
+            this.tbTerminalName.Location = new System.Drawing.Point(105, 50);
+            this.tbTerminalName.Name = "tbTerminalName";
+            this.tbTerminalName.Size = new System.Drawing.Size(100, 20);
+            this.tbTerminalName.TabIndex = 5;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(20, 50);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(78, 13);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Terminal Name";
+            // 
+            // errProviders
+            // 
+            this.errProviders.ContainerControl = this;
+            // 
+            // TerminaleID
+            // 
+            this.TerminaleID.ContextMenuStrip = this.cMnSaction;
+            this.TerminaleID.DataPropertyName = "ID";
+            this.TerminaleID.HeaderText = "ID";
+            this.TerminaleID.Name = "TerminaleID";
+            this.TerminaleID.ReadOnly = true;
+            // 
+            // TerminalName
+            // 
+            this.TerminalName.ContextMenuStrip = this.cMnSaction;
+            this.TerminalName.DataPropertyName = "Name";
+            this.TerminalName.HeaderText = "Terminal Name";
+            this.TerminalName.Name = "TerminalName";
+            this.TerminalName.ReadOnly = true;
+            // 
+            // IPAddress
+            // 
+            this.IPAddress.ContextMenuStrip = this.cMnSaction;
+            this.IPAddress.DataPropertyName = "IPAddress";
+            this.IPAddress.HeaderText = "IP Address";
+            this.IPAddress.Name = "IPAddress";
+            this.IPAddress.ReadOnly = true;
+            // 
+            // TerminalStatus
+            // 
+            this.TerminalStatus.ContextMenuStrip = this.cMnSaction;
+            this.TerminalStatus.HeaderText = "Status";
+            this.TerminalStatus.Name = "TerminalStatus";
+            this.TerminalStatus.ReadOnly = true;
             // 
             // ucTerminalForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.gBoxAction);
+            this.Controls.Add(this.dgvTerminal);
             this.Controls.Add(this.label1);
             this.Name = "ucTerminalForm";
             this.Size = new System.Drawing.Size(857, 468);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTerminal)).EndInit();
+            this.cMnSaction.ResumeLayout(false);
+            this.gBoxAction.ResumeLayout(false);
+            this.gBoxAction.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errProviders)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -183,18 +236,22 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button btAdd;
+        private System.Windows.Forms.Button btUpdate;
+        private System.Windows.Forms.Button btCancel;
+        private System.Windows.Forms.DataGridView dgvTerminal;
+        private System.Windows.Forms.GroupBox gBoxAction;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox tbTerminalName;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.MaskedTextBox mtbIpAddess;
+        private System.Windows.Forms.ErrorProvider errProviders;
+        private System.Windows.Forms.ContextMenuStrip cMnSaction;
+        private System.Windows.Forms.ToolStripMenuItem updateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn TerminaleID;
         private System.Windows.Forms.DataGridViewTextBoxColumn TerminalName;
         private System.Windows.Forms.DataGridViewTextBoxColumn IPAddress;
         private System.Windows.Forms.DataGridViewTextBoxColumn TerminalStatus;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
     }
 }

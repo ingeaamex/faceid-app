@@ -13,13 +13,13 @@ namespace FaceIDAppVBEta
 {
     public partial class ucEmployeeForm : UserControl
     {
+        private Point cellContext;
         private IDataController dtCtrl;
         public ucEmployeeForm()
         {
             InitializeComponent();
             dtCtrl = LocalDataController.Instance;
             BindCompany();
-            LoadData();
         }
 
         private void btView_Click(object sender, EventArgs e)
@@ -45,10 +45,17 @@ namespace FaceIDAppVBEta
 
         private void LoadData()
         {
-            if (cbDepartment.SelectedValue == null)
-                return;
-            int departmentID = (int)cbDepartment.SelectedValue;
-            List<Employee> employees = dtCtrl.GetEmployeeList(departmentID);
+            List<Employee> employees;
+            if (!cbDepartment.Enabled || (int)cbDepartment.SelectedValue == -1)
+            {
+                int companyId = (int)cbCompany.SelectedValue;
+                employees = dtCtrl.GetEmployeeList(companyId);
+            }
+            else
+            {
+                int departmentID = (int)cbDepartment.SelectedValue;
+                employees = dtCtrl.GetEmployeeListByDep(departmentID);
+            }
             dgvEmpl.AutoGenerateColumns = false;
             dgvEmpl.DataSource = employees;
         }
@@ -56,6 +63,10 @@ namespace FaceIDAppVBEta
         private void BindCompany()
         {
             List<Company> companyList = dtCtrl.GetCompanyList();
+            Company company = new Company();
+            company.ID = -1;
+            company.Name = "All companies";
+            companyList.Insert(0, company);
             cbCompany.DataSource = companyList;
         }
 
@@ -64,14 +75,45 @@ namespace FaceIDAppVBEta
             if (cbCompany.SelectedValue != null)
             {
                 int CompanyID = (int)cbCompany.SelectedValue;
+                if (CompanyID == -1)
+                {
+                    cbDepartment.Enabled = false;
+                    return;
+                }
+                cbDepartment.Enabled = true;
                 List<Department> departmentList = dtCtrl.GetDepartmentByCompany(CompanyID);
+                Department department = new Department();
+                department.ID = -1;
+                department.Name = "All departments";
+                departmentList.Insert(0, department);
                 cbDepartment.DataSource = departmentList;
             }
         }
 
-        private void btRefresh_Click(object sender, EventArgs e)
+        private void updateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LoadData();
+            int id = (int)dgvEmpl.Rows[cellContext.X].Cells[4].Value;
+            frmAddUpdateEmployee objForm = new frmAddUpdateEmployee(id);
+            objForm.ShowDialog(this);
         }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            object oId = dgvEmpl.Rows[cellContext.X].Cells[4].Value;
+            DialogResult dlogRs = MessageBox.Show(Form.ActiveForm, "Are you sure?", "Confirm", MessageBoxButtons.YesNo);
+            if (dlogRs.ToString().Equals("Yes"))
+            {
+                bool rs = dtCtrl.DeleteEmployee((int)oId);
+                MessageBox.Show(rs ? "sucessfull" : "error");
+                //if (rs)
+                //    LoadData();
+            }
+        }
+
+        private void dgvEmpl_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            cellContext = new Point(e.RowIndex, e.ColumnIndex);
+        }
+
     }
 }
