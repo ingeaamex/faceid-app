@@ -58,19 +58,25 @@
             // 
             // lbxRegTerminal
             // 
+            this.lbxRegTerminal.DisplayMember = "Name";
             this.lbxRegTerminal.FormattingEnabled = true;
             this.lbxRegTerminal.Location = new System.Drawing.Point(67, 76);
             this.lbxRegTerminal.Name = "lbxRegTerminal";
+            this.lbxRegTerminal.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.lbxRegTerminal.Size = new System.Drawing.Size(120, 95);
             this.lbxRegTerminal.TabIndex = 2;
+            this.lbxRegTerminal.ValueMember = "ID";
             // 
             // lbxAvailTerminal
             // 
+            this.lbxAvailTerminal.DisplayMember = "Name";
             this.lbxAvailTerminal.FormattingEnabled = true;
             this.lbxAvailTerminal.Location = new System.Drawing.Point(421, 76);
             this.lbxAvailTerminal.Name = "lbxAvailTerminal";
+            this.lbxAvailTerminal.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.lbxAvailTerminal.Size = new System.Drawing.Size(120, 95);
             this.lbxAvailTerminal.TabIndex = 3;
+            this.lbxAvailTerminal.ValueMember = "ID";
             // 
             // btnAddTerminal
             // 
@@ -80,6 +86,7 @@
             this.btnAddTerminal.TabIndex = 4;
             this.btnAddTerminal.Text = "Add Terminal(s)";
             this.btnAddTerminal.UseVisualStyleBackColor = true;
+            this.btnAddTerminal.Click += new System.EventHandler(this.btnAddTerminal_Click);
             // 
             // btnRemoveTerminal
             // 
@@ -89,6 +96,7 @@
             this.btnRemoveTerminal.TabIndex = 5;
             this.btnRemoveTerminal.Text = "Remove Terminal(s)";
             this.btnRemoveTerminal.UseVisualStyleBackColor = true;
+            this.btnRemoveTerminal.Click += new System.EventHandler(this.btnRemoveTerminal_Click);
             // 
             // btnSubmit
             // 
@@ -98,6 +106,7 @@
             this.btnSubmit.TabIndex = 6;
             this.btnSubmit.Text = "Finish";
             this.btnSubmit.UseVisualStyleBackColor = true;
+            this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
             // 
             // btnCancel
             // 
@@ -107,6 +116,7 @@
             this.btnCancel.TabIndex = 7;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // frmTerminalRegister
             // 
@@ -123,6 +133,7 @@
             this.Controls.Add(this.lblRegTerminal);
             this.Name = "frmTerminalRegister";
             this.Text = "frmTerminalRegister";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmTerminalRegister_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
