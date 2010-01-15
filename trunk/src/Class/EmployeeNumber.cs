@@ -6,7 +6,7 @@ namespace FaceIDAppVBEta.Class
 {
     public class EmployeeNumber
     {
-        public int EmployeeNumber { get; set; }
+        public int ID { get; set; }
         public string Note { get; set; }
     }
 }
