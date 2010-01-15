@@ -4,12 +4,9 @@ using System.Text;
 
 namespace FaceIDAppVBEta.Class
 {
-    public class AttendanceRecord
+    public class EmployeeNumber
     {
-        public int ID { get; set; }
         public int EmployeeNumber { get; set; }
-        public DateTime Time { get; set; }
-        public string PhotoData { get; set; }
         public string Note { get; set; }
     }
 }
