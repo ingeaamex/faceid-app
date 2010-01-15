@@ -13,10 +13,17 @@ namespace FaceIDAppVBEta
     public partial class frmAddUpdateEmployee : Form
     {
         private IDataController dtCtrl;
+        private int employeeID;
+        bool isAlert = true;
+        private int employeeNumber;
         public frmAddUpdateEmployee(int employeeID)
         {
             InitializeComponent();
+            this.employeeID = employeeID;
+        }
 
+        private void frmAddUpdateEmployee_Load(object sender, EventArgs e)
+        {
             dtCtrl = LocalDataController.Instance;
 
             BindData();
@@ -29,12 +36,17 @@ namespace FaceIDAppVBEta
             BindCompany();
             BindDepartment();
             BindWorkingCalendar();
-            BindTerminal();
         }
 
         private void BindCompany()
         {
             List<Company> companyList = dtCtrl.GetCompanyList();
+            if (companyList.Count < 1)
+            {
+                MessageBox.Show("The company created before creating a employee. Press OK to closed form", "", MessageBoxButtons.OK);
+                isAlert = false;
+                this.Close();
+            }
             cbxCompany.DataSource = companyList;
         }
 
@@ -44,6 +56,12 @@ namespace FaceIDAppVBEta
             {
                 int CompanyID = (int)cbxCompany.SelectedValue;
                 List<Department> departmentList = dtCtrl.GetDepartmentByCompany(CompanyID);
+                if (departmentList.Count < 1)
+                {
+                    MessageBox.Show("The department created before creating a employee. Press OK to closed form", "", MessageBoxButtons.OK);
+                    isAlert = false;
+                    this.Close();
+                }
                 cbxDepartment.DataSource = departmentList;
             }
         }
@@ -51,13 +69,13 @@ namespace FaceIDAppVBEta
         private void BindWorkingCalendar()
         {
             List<WorkingCalendar> workingCalendarList = dtCtrl.GetWCalendarList();
+            if (workingCalendarList.Count < 1)
+            {
+                MessageBox.Show("The working calendar created before creating a employee. Press OK to closed form", "", MessageBoxButtons.OK);
+                isAlert = false;
+                this.Close();
+            }
             cbxWorkingCalendar.DataSource = workingCalendarList;
-        }
-
-        private void BindTerminal()
-        {
-            List<Terminal> terminalList = dtCtrl.GetTerminalList();
-            lbxTerminal.DataSource = terminalList;
         }
 
         private void SetState(int employeeID)
@@ -82,7 +100,35 @@ namespace FaceIDAppVBEta
 
         private void BindEmployeeData(int employeeID)
         {
-            throw new NotImplementedException();
+            Employee employee = dtCtrl.GetEmployee(employeeID);
+            if (employee == null)
+            {
+                MessageBox.Show("error");
+                return;
+            }
+            this.employeeID = employeeID;
+
+            Department department = dtCtrl.GetDepartment(employee.DepartmentID);
+
+            cbxCompany.SelectedValue = department.CompanyID;
+            cbxDepartment.SelectedValue = employee.DepartmentID;
+            cbxWorkingCalendar.SelectedValue = employee.WorkingCalendarID;
+            cbxWorkingCalendar.Enabled = false;
+            tbFirstName.Text = employee.FirstName;
+            tbLastName.Text = employee.LastName;
+            tbPhoneNumber.Text = employee.PhoneNumber;
+            tbAddress.Text = employee.Address;
+            tbJobDesc.Text = employee.JobDescription;
+            dtpBirthday.Value = employee.Birthday;
+            dtpJoinedDate.Value = employee.HiredDate;
+            dtpLeftDate.Value = employee.LeftDate;
+            employeeNumber = employee.EmployeeNumber;
+
+            List<Terminal> terminals = dtCtrl.GetTerminalsByEmpl(employeeNumber);
+            foreach (Terminal terminal in terminals)
+            {
+                lbxTerminal.Items.Add(terminal);
+            }
         }
 
         private void cbxCompany_SelectedIndexChanged(object sender, EventArgs e)
@@ -96,32 +142,59 @@ namespace FaceIDAppVBEta
             if (employee == null)
                 return;
 
-            EmployeeTerminal emplTerminal = new EmployeeTerminal();
-            emplTerminal.TerminalID = (int)lbxTerminal.SelectedValue;
-
             employee.PhotoData = "";
-            int id = dtCtrl.AddEmployee(employee);
-            if (id > 0)
-            {
-                employee.PayrollNumber = id;
-                employee.EmployeeNumber = id;
-                bool rs = dtCtrl.UpdateEmployeeNumber(employee);
-                emplTerminal.EmployeeNumber = id;
-                id = dtCtrl.AddEmplTerminal(emplTerminal);
 
-                if (rs && id > 0)
+            int employeeId = dtCtrl.AddEmployeeNumber();
+            if (employeeId > 0)
+            {
+                employee.EmployeeNumber = employeeId;
+                int id = dtCtrl.AddEmployee(employee);
+                if (id > 0)
                 {
+                    List<Terminal> terminals = GetTerminalsUserInput();
+                    if (terminals.Count > 0)
+                    {
+                        List<EmployeeTerminal> emplTerminals = new List<EmployeeTerminal>();
+                        foreach (Terminal terminal in terminals)
+                        {
+                            EmployeeTerminal emplTerminal = new EmployeeTerminal();
+                            emplTerminal.TerminalID = terminal.ID;
+                            emplTerminal.EmployeeNumber = employeeId;
+                            emplTerminals.Add(emplTerminal);
+                        }
+                        dtCtrl.AddEmplTerminal(emplTerminals);
+                    }
+
                     MessageBox.Show("sucessfull");
                     this.Close();
                 }
                 else
                     MessageBox.Show("error");
             }
+            else
+                MessageBox.Show("error");
         }
 
         private void btnUpdateEmployee_Click(object sender, EventArgs e)
         {
+            Employee employee = GetEmployeeUserInput();
+            if (employee == null)
+                return;
 
+            employee.PayrollNumber = this.employeeID;
+
+            bool rs1 = dtCtrl.UpdateEmployee(employee);
+
+            MessageBox.Show(rs1 ? "sucessfull" : "error");
+
+            List<Terminal> terminals = GetTerminalsUserInput();
+
+            bool rs2 = dtCtrl.UpdateEmplTerminal(terminals, employeeNumber);
+            if (!rs2)
+                MessageBox.Show("[terminal] error");
+
+            if (rs1 && rs2)
+                this.Close();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -131,17 +204,47 @@ namespace FaceIDAppVBEta
 
         private void btnAddTerminal_Click(object sender, EventArgs e)
         {
-
+            frmTerminalRegister objForm = new frmTerminalRegister(this);
+            objForm.ShowDialog(this);
         }
+
+        //private void btnRemoveTerminal_Click(object sender, EventArgs e)
+        //{
+        //    ListBox.SelectedObjectCollection items = lbxTerminal.SelectedItems;
+        //    for (int i = 0; i < items.Count; i++)
+        //    {
+        //        lbxTerminal.Items.Remove(items[i]);
+        //    }
+        //}
 
         private Employee GetEmployeeUserInput()
         {
             Employee employee = new Employee();
             object oDepartment = cbxDepartment.SelectedValue;
             object oWorkingCalendar = cbxWorkingCalendar.SelectedValue;
-            string sFistName = txtFirstName.Text;
-            string sLastName = txtLastName.Text;
+            string sFistName = tbFirstName.Text;
+            string sLastName = tbLastName.Text;
+            string sPhoneNumber = tbPhoneNumber.Text;
+            string sAddress = tbAddress.Text;
+            string sJobDesc = tbJobDesc.Text;
+            DateTime dBirthday = dtpBirthday.Value;
+            DateTime dJoinedDate = dtpJoinedDate.Value;
+            DateTime dLeftDate = dtpLeftDate.Value;
+
             bool isValid = true;
+
+            if (dLeftDate.Date.CompareTo(dJoinedDate.Date) != 1)
+            {
+                MessageBox.Show("Left date < Joined date");
+                isValid = false;
+            }
+
+            if (dJoinedDate.Date.CompareTo(dBirthday.Date) != 1)
+            {
+                MessageBox.Show("Joined date < birthday");
+                isValid = false;
+            }
+
             if (oDepartment == null || oWorkingCalendar == null)
             {
                 MessageBox.Show("Invalid user input");
@@ -149,39 +252,90 @@ namespace FaceIDAppVBEta
             }
             if (string.IsNullOrEmpty(sFistName))
             {
-                errProviders.SetError(txtFirstName, "Enter First Name");
+                errProviders.SetError(tbFirstName, "Enter first name");
                 isValid = false;
             }
             if (string.IsNullOrEmpty(sLastName))
             {
-                errProviders.SetError(txtLastName, "Enter Last Name");
+                errProviders.SetError(tbLastName, "Enter last name");
                 isValid = false;
             }
+            if (string.IsNullOrEmpty(sPhoneNumber))
+            {
+                errProviders.SetError(tbPhoneNumber, "Enter phone number");
+                isValid = false;
+            }
+            if (string.IsNullOrEmpty(sAddress))
+            {
+                errProviders.SetError(tbAddress, "Enter address");
+                isValid = false;
+            }
+            if (string.IsNullOrEmpty(sJobDesc))
+            {
+                errProviders.SetError(tbJobDesc, "Enter job description");
+                isValid = false;
+            }
+
 
             if (!isValid)
                 return null;
 
             employee.DepartmentID = (int)oDepartment;
-            employee.WorkingCalendarID = (int)oDepartment;
+            if (oWorkingCalendar != null)
+                employee.WorkingCalendarID = (int)oWorkingCalendar;
             employee.FirstName = sFistName;
             employee.LastName = sLastName;
-            employee.PhoneNumber = txtPhoneNumber.Text;
-            employee.Address = txtAddress.Text;
-            employee.JobDescription = txtJobDesc.Text;
-            employee.Birthday = dtpBirthday.Value;
-            employee.HiredDate = dtpJoinedDate.Value;
-            employee.LeftDate = dtpLeftDate.Value;
+            employee.PhoneNumber = sPhoneNumber;
+            employee.Address = sAddress;
+            employee.JobDescription = sJobDesc;
+            employee.Birthday = dBirthday;
+            employee.HiredDate = dJoinedDate;
+            employee.LeftDate = dLeftDate;
 
             return employee;
         }
 
+        public List<Terminal> GetTerminalsUserInput()
+        {
+            ListBox.ObjectCollection oTerminals = lbxTerminal.Items;
+            List<Terminal> terminals = new List<Terminal>();
+            foreach (Object o in oTerminals)
+            {
+                terminals.Add((Terminal)o);
+            }
+            return terminals;
+        }
+
+        public void SetTerminalValues(List<Terminal> terminals)
+        {
+            ListBox.ObjectCollection objc = lbxTerminal.Items;
+            bool isExist = false;
+            foreach (Terminal terminal in terminals)
+            {
+                isExist = false;
+                foreach (Object o in objc)
+                {
+                    if (((Terminal)o).ID == terminal.ID)
+                    {
+                        isExist = true;
+                        break;
+                    }
+                }
+                if (!isExist)
+                    lbxTerminal.Items.Add(terminal);
+            }
+        }
+
         private void frmAddUpdateEmployee_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Control[] ctr = this.Owner.Controls.Find("btRefresh", true);
-            if (ctr != null && ctr.Length > 0)
+            if (isAlert)
             {
-                Button btn = (Button)ctr[0];
-                btn.PerformClick();
+                Control[] ctr = this.Owner.Controls.Find("btView", true);
+                if (ctr != null && ctr.Length > 0)
+                {
+                    Button btn = (Button)ctr[0];
+                    btn.PerformClick();
+                }
             }
         }
     }
