@@ -126,5 +126,16 @@ namespace FaceIDAppVBEta
             cellContext = new Point(e.RowIndex, e.ColumnIndex);
         }
 
+        private void dgvEmpl_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex == dgvEmpl.Columns["EmployeeName"].Index)
+            {
+                List<Employee> employees = (List<Employee>)dgvEmpl.DataSource;
+                Employee employee = employees[e.RowIndex];
+                
+                e.FormattingApplied = true;
+                e.Value = string.Format("{0}, {1}", employee.FirstName, employee.LastName);
+            }
+        }
     }
 }
