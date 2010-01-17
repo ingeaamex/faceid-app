@@ -83,6 +83,7 @@
             this.dgvEmpl.ReadOnly = true;
             this.dgvEmpl.Size = new System.Drawing.Size(748, 150);
             this.dgvEmpl.TabIndex = 1;
+            this.dgvEmpl.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvEmpl_CellFormatting);
             this.dgvEmpl.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmpl_CellMouseEnter);
             // 
             // cMnSaction
@@ -191,7 +192,6 @@
             // EmployeeName
             // 
             this.EmployeeName.ContextMenuStrip = this.cMnSaction;
-            this.EmployeeName.DataPropertyName = "FirstName";
             dataGridViewCellStyle2.Format = "{0} {1}";
             dataGridViewCellStyle2.NullValue = null;
             this.EmployeeName.DefaultCellStyle = dataGridViewCellStyle2;
