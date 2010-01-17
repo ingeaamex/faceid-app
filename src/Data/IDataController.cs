@@ -1,12 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Data.OleDb;
 using FaceIDAppVBEta.Class;
 
 namespace FaceIDAppVBEta.Data
 {
     interface IDataController
     {
+        #region Connection
+
+        void BeginTransaction();
+
+        void CommitTransaction();
+
+        void RollbackTransaction();
+
+        #endregion Connection
+
         #region Company
         List<Company> GetCompanyList();
 
@@ -49,8 +60,6 @@ namespace FaceIDAppVBEta.Data
 
         bool UpdateEmployee(Employee employee);
 
-        bool UpdateEmployeeNumber(Employee employee);
-
         #endregion Employee
 
         #region WorkingCalendar
@@ -73,7 +82,9 @@ namespace FaceIDAppVBEta.Data
 
         int AddEmplTerminal(List<EmployeeTerminal> emplTerminals);
 
-        bool DeleteEmplTerminal(EmployeeTerminal emplTerminal);
+        bool DeleteEmplTerminalByEmpl(int employeeNumber);
+
+        bool DeleteEmplTerminal(int terminalID);
 
         bool UpdateEmplTerminal(List<Terminal> terminals, int employeeNumber);
 
@@ -83,7 +94,7 @@ namespace FaceIDAppVBEta.Data
 
         List<EmployeeNumber> GetEmployeeNumberList();
 
-        int AddEmployeeNumber();
+        int GetAvailEmployeeNumber();
 
         #endregion EmployeeNumber
     }
