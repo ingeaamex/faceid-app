@@ -103,10 +103,21 @@ namespace FaceIDAppVBEta
             DialogResult dlogRs = MessageBox.Show(Form.ActiveForm, "Are you sure?", "Confirm", MessageBoxButtons.YesNo);
             if (dlogRs.ToString().Equals("Yes"))
             {
-                bool rs = dtCtrl.DeleteEmployee((int)oId);
-                MessageBox.Show(rs ? "sucessfull" : "error");
-                //if (rs)
-                //    LoadData();
+                Employee employee = dtCtrl.GetEmployee((int)oId);
+                dtCtrl.BeginTransaction();
+                bool brs1 = dtCtrl.DeleteEmployee((int)oId);
+                bool brs2 = dtCtrl.DeleteEmplTerminalByEmpl(employee.EmployeeNumber);
+                if (brs1 && brs2)
+                {
+                    dtCtrl.CommitTransaction();
+                    MessageBox.Show("sucessfull");
+                    LoadData();
+                }
+                else
+                {
+                    dtCtrl.RollbackTransaction();
+                    MessageBox.Show("error");
+                }
             }
         }
 

@@ -34,7 +34,7 @@ namespace FaceIDAppVBEta
         private void BindData()
         {
             BindCompany();
-            BindDepartment();
+            //BindDepartment();
             BindWorkingCalendar();
         }
 
@@ -143,11 +143,18 @@ namespace FaceIDAppVBEta
                 return;
 
             employee.PhotoData = "";
+            employee.ActiveFrom = DateTime.Now;
+            employee.Active = true;
 
-            int employeeId = dtCtrl.AddEmployeeNumber();
-            if (employeeId > 0)
+            bool ors = false;
+
+            dtCtrl.BeginTransaction();
+
+            int employeeNumber = dtCtrl.GetAvailEmployeeNumber();
+            if (employeeNumber > 0)
             {
-                employee.EmployeeNumber = employeeId;
+                employee.EmployeeNumber = employeeNumber;
+
                 int id = dtCtrl.AddEmployee(employee);
                 if (id > 0)
                 {
@@ -159,20 +166,34 @@ namespace FaceIDAppVBEta
                         {
                             EmployeeTerminal emplTerminal = new EmployeeTerminal();
                             emplTerminal.TerminalID = terminal.ID;
-                            emplTerminal.EmployeeNumber = employeeId;
+                            emplTerminal.EmployeeNumber = employeeNumber;
                             emplTerminals.Add(emplTerminal);
                         }
-                        dtCtrl.AddEmplTerminal(emplTerminals);
-                    }
+                        int irs = dtCtrl.AddEmplTerminal(emplTerminals);
 
-                    MessageBox.Show("sucessfull");
-                    this.Close();
+                        if (irs > 0)
+                        {
+                            ors = true;
+                            dtCtrl.CommitTransaction();
+                        }
+                        else
+                            dtCtrl.RollbackTransaction();
+                    }
+                    else
+                    {
+                        ors = true;
+                        dtCtrl.CommitTransaction();
+                    }
                 }
                 else
-                    MessageBox.Show("error");
+                    dtCtrl.RollbackTransaction();
             }
             else
-                MessageBox.Show("error");
+                dtCtrl.RollbackTransaction();
+
+            MessageBox.Show(ors ? "sucessfull" : "error");
+            if (ors)
+                this.Close();
         }
 
         private void btnUpdateEmployee_Click(object sender, EventArgs e)
@@ -207,15 +228,6 @@ namespace FaceIDAppVBEta
             frmTerminalRegister objForm = new frmTerminalRegister(this);
             objForm.ShowDialog(this);
         }
-
-        //private void btnRemoveTerminal_Click(object sender, EventArgs e)
-        //{
-        //    ListBox.SelectedObjectCollection items = lbxTerminal.SelectedItems;
-        //    for (int i = 0; i < items.Count; i++)
-        //    {
-        //        lbxTerminal.Items.Remove(items[i]);
-        //    }
-        //}
 
         private Employee GetEmployeeUserInput()
         {
