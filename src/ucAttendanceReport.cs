@@ -14,5 +14,10 @@ namespace FaceIDAppVBEta
         {
             InitializeComponent();
         }
+
+        private void btnPayrollExport_Click(object sender, EventArgs e)
+        {
+            new frmPayrollExport().Show();
+        }
     }
 }

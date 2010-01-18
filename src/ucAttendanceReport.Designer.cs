@@ -37,10 +37,6 @@
             this.btnPayrollExport = new System.Windows.Forms.Button();
             this.btnPrint = new System.Windows.Forms.Button();
             this.dgvAttendanceLog = new System.Windows.Forms.DataGridView();
-            this.dtpAttedanceTo = new System.Windows.Forms.DateTimePicker();
-            this.label3 = new System.Windows.Forms.Label();
-            this.dtpAttendanceFrom = new System.Windows.Forms.DateTimePicker();
-            this.label2 = new System.Windows.Forms.Label();
             this.EmployeeNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EmployeeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AttDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -48,6 +44,10 @@
             this.AttSummary = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AttChart = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AttNote = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dtpAttedanceTo = new System.Windows.Forms.DateTimePicker();
+            this.label3 = new System.Windows.Forms.Label();
+            this.dtpAttendanceFrom = new System.Windows.Forms.DateTimePicker();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAttendanceLog)).BeginInit();
             this.SuspendLayout();
             // 
@@ -111,6 +111,7 @@
             this.btnPayrollExport.TabIndex = 22;
             this.btnPayrollExport.Text = "Payroll Export";
             this.btnPayrollExport.UseVisualStyleBackColor = true;
+            this.btnPayrollExport.Click += new System.EventHandler(this.btnPayrollExport_Click);
             // 
             // btnPrint
             // 
@@ -136,38 +137,6 @@
             this.dgvAttendanceLog.Name = "dgvAttendanceLog";
             this.dgvAttendanceLog.Size = new System.Drawing.Size(762, 150);
             this.dgvAttendanceLog.TabIndex = 19;
-            // 
-            // dtpAttedanceTo
-            // 
-            this.dtpAttedanceTo.Location = new System.Drawing.Point(414, 125);
-            this.dtpAttedanceTo.Name = "dtpAttedanceTo";
-            this.dtpAttedanceTo.Size = new System.Drawing.Size(200, 20);
-            this.dtpAttedanceTo.TabIndex = 18;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(337, 129);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(20, 13);
-            this.label3.TabIndex = 17;
-            this.label3.Text = "To";
-            // 
-            // dtpAttendanceFrom
-            // 
-            this.dtpAttendanceFrom.Location = new System.Drawing.Point(108, 121);
-            this.dtpAttendanceFrom.Name = "dtpAttendanceFrom";
-            this.dtpAttendanceFrom.Size = new System.Drawing.Size(200, 20);
-            this.dtpAttendanceFrom.TabIndex = 16;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(31, 125);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(30, 13);
-            this.label2.TabIndex = 15;
-            this.label2.Text = "From";
             // 
             // EmployeeNumber
             // 
@@ -203,6 +172,38 @@
             // 
             this.AttNote.HeaderText = "Note";
             this.AttNote.Name = "AttNote";
+            // 
+            // dtpAttedanceTo
+            // 
+            this.dtpAttedanceTo.Location = new System.Drawing.Point(414, 125);
+            this.dtpAttedanceTo.Name = "dtpAttedanceTo";
+            this.dtpAttedanceTo.Size = new System.Drawing.Size(200, 20);
+            this.dtpAttedanceTo.TabIndex = 18;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(337, 129);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(20, 13);
+            this.label3.TabIndex = 17;
+            this.label3.Text = "To";
+            // 
+            // dtpAttendanceFrom
+            // 
+            this.dtpAttendanceFrom.Location = new System.Drawing.Point(108, 121);
+            this.dtpAttendanceFrom.Name = "dtpAttendanceFrom";
+            this.dtpAttendanceFrom.Size = new System.Drawing.Size(200, 20);
+            this.dtpAttendanceFrom.TabIndex = 16;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(31, 125);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(30, 13);
+            this.label2.TabIndex = 15;
+            this.label2.Text = "From";
             // 
             // ucAttendanceReport
             // 

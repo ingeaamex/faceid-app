@@ -17,26 +17,68 @@ namespace FaceIDAppVBEta
 
         private void companyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            panelMain.Controls.Clear();
-            panelMain.Controls.Add(new ucCompanyForm());
+            sctMain.Panel2.Controls.Clear();
+            sctMain.Panel2.Controls.Add(new ucCompanyForm());
         }
 
         private void departmentToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            panelMain.Controls.Clear();
-            panelMain.Controls.Add(new ucDepartmentForm());
+            sctMain.Panel2.Controls.Clear();
+            sctMain.Panel2.Controls.Add(new ucDepartmentForm());
         }
 
         private void employeeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            panelMain.Controls.Clear();
-            panelMain.Controls.Add(new ucEmployeeForm());
+            sctMain.Panel2.Controls.Clear();
+            sctMain.Panel2.Controls.Add(new ucEmployeeForm());
         }
 
         private void terminalToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            panelMain.Controls.Clear();
-            panelMain.Controls.Add(new ucTerminalForm());
+            sctMain.Panel2.Controls.Clear();
+            sctMain.Panel2.Controls.Add(new ucTerminalForm());
+        }
+
+        private void btnCompany_Click(object sender, EventArgs e)
+        {
+            sctMain.Panel2.Controls.Clear();
+            sctMain.Panel2.Controls.Add(new ucCompanyForm());
+        }
+
+        private void btnDepartment_Click(object sender, EventArgs e)
+        {
+            sctMain.Panel2.Controls.Clear();
+            sctMain.Panel2.Controls.Add(new ucDepartmentForm());
+        }
+
+        private void btnEmployee_Click(object sender, EventArgs e)
+        {
+            sctMain.Panel2.Controls.Clear();
+            sctMain.Panel2.Controls.Add(new ucEmployeeForm());
+        }
+
+        private void btnTerminal_Click(object sender, EventArgs e)
+        {
+            sctMain.Panel2.Controls.Clear();
+            sctMain.Panel2.Controls.Add(new ucTerminalForm());
+        }
+
+        private void btnWorkingCalendar_Click(object sender, EventArgs e)
+        {
+            sctMain.Panel2.Controls.Clear();
+            sctMain.Panel2.Controls.Add(new ucWorkingCalendar());
+        }
+
+        private void btnAttendance_Click(object sender, EventArgs e)
+        {
+            sctMain.Panel2.Controls.Clear();
+            sctMain.Panel2.Controls.Add(new ucAttendance());
+        }
+
+        private void btnUser_Click(object sender, EventArgs e)
+        {
+            sctMain.Panel2.Controls.Clear();
+            sctMain.Panel2.Controls.Add(new ucUserManagment());
         }
     }
 }
