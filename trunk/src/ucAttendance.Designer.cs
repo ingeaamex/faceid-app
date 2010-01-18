@@ -31,7 +31,11 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.ucAttendanceLog1 = new FaceIDAppVBEta.ucAttendanceLog();
+            this.ucAttendanceReport1 = new FaceIDAppVBEta.ucAttendanceReport();
             this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -46,6 +50,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.ucAttendanceLog1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -56,6 +61,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.ucAttendanceReport1);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -63,6 +69,21 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Attendance Summary / Report";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // ucAttendanceLog1
+            // 
+            this.ucAttendanceLog1.Location = new System.Drawing.Point(7, 7);
+            this.ucAttendanceLog1.Name = "ucAttendanceLog1";
+            this.ucAttendanceLog1.Size = new System.Drawing.Size(1058, 475);
+            this.ucAttendanceLog1.TabIndex = 0;
+            this.ucAttendanceLog1.Load += new System.EventHandler(this.ucAttendanceLog1_Load);
+            // 
+            // ucAttendanceReport1
+            // 
+            this.ucAttendanceReport1.Location = new System.Drawing.Point(6, 6);
+            this.ucAttendanceReport1.Name = "ucAttendanceReport1";
+            this.ucAttendanceReport1.Size = new System.Drawing.Size(923, 534);
+            this.ucAttendanceReport1.TabIndex = 0;
             // 
             // ucAttendance
             // 
@@ -72,6 +93,8 @@
             this.Name = "ucAttendance";
             this.Size = new System.Drawing.Size(1013, 512);
             this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -81,5 +104,7 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
+        private ucAttendanceLog ucAttendanceLog1;
+        private ucAttendanceReport ucAttendanceReport1;
     }
 }

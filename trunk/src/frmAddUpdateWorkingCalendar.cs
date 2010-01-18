@@ -6,22 +6,30 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using FaceIDAppVBEta.Data;
+using FaceIDAppVBEta.Class;
 
 namespace FaceIDAppVBEta
 {
     public partial class frmAddUpdateWorkingCalendar : Form
     {
         private IDataController _dtCtrl = LocalDataController.Instance;
+        private static int _workingCalendarID = -1;
+        private Control[] listBreak1, listBreak2, listBreak3;
 
         public frmAddUpdateWorkingCalendar() : this(-1) { }
 
         public frmAddUpdateWorkingCalendar(int workingCalendarID)
         {
             InitializeComponent();
-
+            
             BindData();
 
+            _workingCalendarID = workingCalendarID;
             SetState(workingCalendarID);
+
+            listBreak1 = new Control[] { txtBreakName1, nudBreakFromHour1, nudBreakFromMin1, nudBreakToHour1, nudBreakToMin1, cbxBreakPaid1 };
+            listBreak2 = new Control[] { txtBreakName2, nudBreakFromHour2, nudBreakFromMin2, nudBreakToHour2, nudBreakToMin2, cbxBreakPaid2 };
+            listBreak3 = new Control[] { txtBreakName3, nudBreakFromHour3, nudBreakFromMin3, nudBreakToHour3, nudBreakToMin3, cbxBreakPaid3 };
         }
 
         private void BindData()
@@ -182,6 +190,89 @@ namespace FaceIDAppVBEta
         private void BindWorkingCalendarData(int workingCalendarID)
         {
             throw new NotImplementedException();
+
+            WorkingCalendar workingCalendar = _dtCtrl.GetWorkingCalendar(workingCalendarID);
+
+            if (workingCalendar == null)
+            {
+                throw new NotImplementedException();
+            }
+            else
+            {
+                txtName.Text = workingCalendar.Name;
+
+                chbMonday.Checked = workingCalendar.WorkOnMonday;
+                chbTuesday.Checked = workingCalendar.WorkOnTuesday;
+                chbWednesday.Checked = workingCalendar.WorkOnWednesday;
+                chbThursday.Checked = workingCalendar.WorkOnThursday;
+                chbFriday.Checked = workingCalendar.WorkOnFriday;
+                chbSaturday.Checked = workingCalendar.WorkOnSaturday;
+                chbSunday.Checked = workingCalendar.WorkOnSunday;
+
+                nudRegularWorkFromHour.Value = workingCalendar.RegularWorkingFrom.Hour;
+                nudRegularWorkFromMin.Value = workingCalendar.RegularWorkingFrom.Minute;
+                nudRegularWorkToHour.Value = workingCalendar.RegularWorkingTo.Hour;
+                nudRegularWorkToMin.Value = workingCalendar.RegularWorkingTo.Minute;
+
+                List<Break> breaks = _dtCtrl.GetBreakByWorkingCalendar(workingCalendarID);
+
+                if (breaks.Count >= 1)
+                {
+                    Break break1 = breaks[0];
+                    EnableBreakControls1(true);
+
+                    txtBreakName1.Text = break1.Name;
+                    nudBreakFromHour1.Value = break1.From.Hour;
+                    nudBreakFromMin1.Value = break1.From.Minute;
+                    nudBreakToHour1.Value = break1.To.Hour;
+                    nudBreakToMin1.Value = break1.To.Minute;
+                    chbBreak1.Checked = break1.Paid;
+                }
+
+                if (breaks.Count >= 2)
+                {
+                    Break break2 = breaks[1];
+                    EnableBreakControls2(true);
+
+                    txtBreakName2.Text = break2.Name;
+                    nudBreakFromHour2.Value = break2.From.Hour;
+                    nudBreakFromMin2.Value = break2.From.Minute;
+                    nudBreakToHour2.Value = break2.To.Hour;
+                    nudBreakToMin2.Value = break2.To.Minute;
+                    chbBreak2.Checked = break2.Paid;
+                }
+
+                if (breaks.Count >= 3)
+                {
+                    Break break3 = breaks[2];
+                    EnableBreakControls3(true);
+
+                    txtBreakName3.Text = break3.Name;
+                    nudBreakFromHour3.Value = break3.From.Hour;
+                    nudBreakFromMin3.Value = break3.From.Minute;
+                    nudBreakToHour3.Value = break3.To.Hour;
+                    nudBreakToMin3.Value = break3.To.Minute;
+                    chbBreak3.Checked = break3.Paid;
+                }
+            }
+        }
+
+        private void EnableBreakControls1(bool enabled)
+        {
+            foreach (Control ctrl in listBreak1)
+                ctrl.Enabled = enabled;
+        }
+
+        private void EnableBreakControls2(bool enabled)
+        {
+            foreach (Control ctrl in listBreak2)
+                ctrl.Enabled = enabled;
+        }
+
+        private void EnableBreakControls3(bool enabled)
+        {
+            foreach (Control ctrl in listBreak3)
+                ctrl.Enabled = enabled;
         }
 
         private class Rate
@@ -194,6 +285,21 @@ namespace FaceIDAppVBEta
 
             public double Value { get; set; }
             public String Name { get; set; }
+        }
+
+        private void chbBreak1_CheckedChanged(object sender, EventArgs e)
+        {
+            EnableBreakControls1(chbBreak1.Checked);
+        }
+
+        private void chbBreak2_CheckedChanged(object sender, EventArgs e)
+        {
+            EnableBreakControls2(chbBreak2.Checked);
+        }
+
+        private void chbBreak3_CheckedChanged(object sender, EventArgs e)
+        {
+            EnableBreakControls3(chbBreak3.Checked);
         }
     }
 }

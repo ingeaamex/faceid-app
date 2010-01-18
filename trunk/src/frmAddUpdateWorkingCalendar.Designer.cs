@@ -30,23 +30,6 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.nudRegularWorkToMin = new System.Windows.Forms.NumericUpDown();
-            this.nudRegularWorkFromMin = new System.Windows.Forms.NumericUpDown();
-            this.nudRegularWorkToHour = new System.Windows.Forms.NumericUpDown();
-            this.nudRegularWorkFromHour = new System.Windows.Forms.NumericUpDown();
-            this.btnBack2 = new System.Windows.Forms.Button();
-            this.btnCancel2 = new System.Windows.Forms.Button();
-            this.btnNext2 = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.tabPage7 = new System.Windows.Forms.TabPage();
-            this.tabPage8 = new System.Windows.Forms.TabPage();
             this.txtName = new System.Windows.Forms.TextBox();
             this.label68 = new System.Windows.Forms.Label();
             this.btnCancel1 = new System.Windows.Forms.Button();
@@ -59,6 +42,32 @@
             this.chbTuesday = new System.Windows.Forms.CheckBox();
             this.chbMonday = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.nudRegularWorkToMin = new System.Windows.Forms.NumericUpDown();
+            this.nudRegularWorkFromMin = new System.Windows.Forms.NumericUpDown();
+            this.nudRegularWorkToHour = new System.Windows.Forms.NumericUpDown();
+            this.nudRegularWorkFromHour = new System.Windows.Forms.NumericUpDown();
+            this.btnBack2 = new System.Windows.Forms.Button();
+            this.btnCancel2 = new System.Windows.Forms.Button();
+            this.btnNext2 = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.nudBreakToMin3 = new System.Windows.Forms.NumericUpDown();
+            this.nudBreakFromMin3 = new System.Windows.Forms.NumericUpDown();
+            this.nudBreakToHour3 = new System.Windows.Forms.NumericUpDown();
+            this.nudBreakFromHour3 = new System.Windows.Forms.NumericUpDown();
+            this.cbxBreakPaid3 = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.txtBreakName3 = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.chbBreak3 = new System.Windows.Forms.CheckBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.btnBack3 = new System.Windows.Forms.Button();
+            this.btnCancel3 = new System.Windows.Forms.Button();
+            this.btnNext3 = new System.Windows.Forms.Button();
             this.nudBreakToMin2 = new System.Windows.Forms.NumericUpDown();
             this.nudBreakFromMin2 = new System.Windows.Forms.NumericUpDown();
             this.nudBreakToHour2 = new System.Windows.Forms.NumericUpDown();
@@ -82,20 +91,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.nudBreakToMin3 = new System.Windows.Forms.NumericUpDown();
-            this.nudBreakFromMin3 = new System.Windows.Forms.NumericUpDown();
-            this.nudBreakToHour3 = new System.Windows.Forms.NumericUpDown();
-            this.nudBreakFromHour3 = new System.Windows.Forms.NumericUpDown();
-            this.cbxBreakPaid3 = new System.Windows.Forms.ComboBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.txtBreakName3 = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.chbBreak3 = new System.Windows.Forms.CheckBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.btnBack3 = new System.Windows.Forms.Button();
-            this.btnCancel3 = new System.Windows.Forms.Button();
-            this.btnNext3 = new System.Windows.Forms.Button();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.nudWorkDayOvertimeHour4 = new System.Windows.Forms.NumericUpDown();
             this.nudWorkDayOvertimeHour3 = new System.Windows.Forms.NumericUpDown();
             this.nudWorkDayOvertimeHour2 = new System.Windows.Forms.NumericUpDown();
@@ -125,6 +121,7 @@
             this.btnCancel4 = new System.Windows.Forms.Button();
             this.btnNext4 = new System.Windows.Forms.Button();
             this.label30 = new System.Windows.Forms.Label();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
             this.nudNonWorkDayOvertimeHour4 = new System.Windows.Forms.NumericUpDown();
             this.nudNonWorkDayOvertimeHour3 = new System.Windows.Forms.NumericUpDown();
             this.nudNonWorkDayOvertimeHour2 = new System.Windows.Forms.NumericUpDown();
@@ -154,6 +151,7 @@
             this.btnCancel5 = new System.Windows.Forms.Button();
             this.btnNext5 = new System.Windows.Forms.Button();
             this.label49 = new System.Windows.Forms.Label();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
             this.btnBack6 = new System.Windows.Forms.Button();
             this.btnCancel6 = new System.Windows.Forms.Button();
             this.btnNext6 = new System.Windows.Forms.Button();
@@ -163,6 +161,7 @@
             this.dgvHoliday = new System.Windows.Forms.DataGridView();
             this.HolidayDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
             this.nudHolidayOvertimeHour4 = new System.Windows.Forms.NumericUpDown();
             this.nudHolidayOvertimeHour3 = new System.Windows.Forms.NumericUpDown();
             this.nudHolidayOvertimeHour2 = new System.Windows.Forms.NumericUpDown();
@@ -192,6 +191,7 @@
             this.btnCancel7 = new System.Windows.Forms.Button();
             this.btnNext7 = new System.Windows.Forms.Button();
             this.label65 = new System.Windows.Forms.Label();
+            this.tabPage8 = new System.Windows.Forms.TabPage();
             this.dtpPayPeriodStartFrom = new System.Windows.Forms.DateTimePicker();
             this.label69 = new System.Windows.Forms.Label();
             this.nudCustomPayPeriod = new System.Windows.Forms.NumericUpDown();
@@ -214,11 +214,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudRegularWorkToHour)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudRegularWorkFromHour)).BeginInit();
             this.tabPage3.SuspendLayout();
-            this.tabPage4.SuspendLayout();
-            this.tabPage5.SuspendLayout();
-            this.tabPage6.SuspendLayout();
-            this.tabPage7.SuspendLayout();
-            this.tabPage8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudBreakToMin3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudBreakFromMin3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudBreakToHour3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudBreakFromHour3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudBreakToMin2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudBreakFromMin2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudBreakToHour2)).BeginInit();
@@ -227,26 +226,27 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudBreakFromMin1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudBreakToHour1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudBreakFromHour1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBreakToMin3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBreakFromMin3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBreakToHour3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBreakFromHour3)).BeginInit();
+            this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWorkDayOvertimeHour4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWorkDayOvertimeHour3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWorkDayOvertimeHour2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWorkDayOvertimeHour1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWorkDayRegularHour)).BeginInit();
+            this.tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudNonWorkDayOvertimeHour4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudNonWorkDayOvertimeHour3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudNonWorkDayOvertimeHour2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudNonWorkDayOvertimeHour1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudNonWorkDayRegularHour)).BeginInit();
+            this.tabPage6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHoliday)).BeginInit();
+            this.tabPage7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudHolidayOvertimeHour4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudHolidayOvertimeHour3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudHolidayOvertimeHour2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudHolidayOvertimeHour1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudHolidayRegularHour)).BeginInit();
+            this.tabPage8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCustomPayPeriod)).BeginInit();
             this.SuspendLayout();
             // 
@@ -287,6 +287,119 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Step 1";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // txtName
+            // 
+            this.txtName.Location = new System.Drawing.Point(347, 108);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(100, 20);
+            this.txtName.TabIndex = 35;
+            // 
+            // label68
+            // 
+            this.label68.AutoSize = true;
+            this.label68.Location = new System.Drawing.Point(290, 116);
+            this.label68.Name = "label68";
+            this.label68.Size = new System.Drawing.Size(35, 13);
+            this.label68.TabIndex = 34;
+            this.label68.Text = "Name";
+            // 
+            // btnCancel1
+            // 
+            this.btnCancel1.Location = new System.Drawing.Point(397, 385);
+            this.btnCancel1.Name = "btnCancel1";
+            this.btnCancel1.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel1.TabIndex = 33;
+            this.btnCancel1.Text = "Cancel";
+            this.btnCancel1.UseVisualStyleBackColor = true;
+            // 
+            // btnNext1
+            // 
+            this.btnNext1.Location = new System.Drawing.Point(315, 385);
+            this.btnNext1.Name = "btnNext1";
+            this.btnNext1.Size = new System.Drawing.Size(75, 23);
+            this.btnNext1.TabIndex = 32;
+            this.btnNext1.Text = "Next";
+            this.btnNext1.UseVisualStyleBackColor = true;
+            // 
+            // chbSunday
+            // 
+            this.chbSunday.AutoSize = true;
+            this.chbSunday.Location = new System.Drawing.Point(289, 319);
+            this.chbSunday.Name = "chbSunday";
+            this.chbSunday.Size = new System.Drawing.Size(62, 17);
+            this.chbSunday.TabIndex = 31;
+            this.chbSunday.Text = "Sunday";
+            this.chbSunday.UseVisualStyleBackColor = true;
+            // 
+            // chbSaturday
+            // 
+            this.chbSaturday.AutoSize = true;
+            this.chbSaturday.Location = new System.Drawing.Point(289, 295);
+            this.chbSaturday.Name = "chbSaturday";
+            this.chbSaturday.Size = new System.Drawing.Size(68, 17);
+            this.chbSaturday.TabIndex = 30;
+            this.chbSaturday.Text = "Saturday";
+            this.chbSaturday.UseVisualStyleBackColor = true;
+            // 
+            // chbFriday
+            // 
+            this.chbFriday.AutoSize = true;
+            this.chbFriday.Location = new System.Drawing.Point(289, 271);
+            this.chbFriday.Name = "chbFriday";
+            this.chbFriday.Size = new System.Drawing.Size(54, 17);
+            this.chbFriday.TabIndex = 29;
+            this.chbFriday.Text = "Friday";
+            this.chbFriday.UseVisualStyleBackColor = true;
+            // 
+            // chbThursday
+            // 
+            this.chbThursday.AutoSize = true;
+            this.chbThursday.Location = new System.Drawing.Point(289, 247);
+            this.chbThursday.Name = "chbThursday";
+            this.chbThursday.Size = new System.Drawing.Size(70, 17);
+            this.chbThursday.TabIndex = 28;
+            this.chbThursday.Text = "Thursday";
+            this.chbThursday.UseVisualStyleBackColor = true;
+            // 
+            // chbWednesday
+            // 
+            this.chbWednesday.AutoSize = true;
+            this.chbWednesday.Location = new System.Drawing.Point(289, 223);
+            this.chbWednesday.Name = "chbWednesday";
+            this.chbWednesday.Size = new System.Drawing.Size(83, 17);
+            this.chbWednesday.TabIndex = 27;
+            this.chbWednesday.Text = "Wednesday";
+            this.chbWednesday.UseVisualStyleBackColor = true;
+            // 
+            // chbTuesday
+            // 
+            this.chbTuesday.AutoSize = true;
+            this.chbTuesday.Location = new System.Drawing.Point(289, 199);
+            this.chbTuesday.Name = "chbTuesday";
+            this.chbTuesday.Size = new System.Drawing.Size(67, 17);
+            this.chbTuesday.TabIndex = 26;
+            this.chbTuesday.Text = "Tuesday";
+            this.chbTuesday.UseVisualStyleBackColor = true;
+            // 
+            // chbMonday
+            // 
+            this.chbMonday.AutoSize = true;
+            this.chbMonday.Location = new System.Drawing.Point(289, 175);
+            this.chbMonday.Name = "chbMonday";
+            this.chbMonday.Size = new System.Drawing.Size(64, 17);
+            this.chbMonday.TabIndex = 25;
+            this.chbMonday.Text = "Monday";
+            this.chbMonday.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(329, 146);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(107, 13);
+            this.label1.TabIndex = 24;
+            this.label1.Text = "Select Working Days";
             // 
             // tabPage2
             // 
@@ -436,461 +549,9 @@
             this.tabPage3.Text = "Step 3";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.nudWorkDayOvertimeHour4);
-            this.tabPage4.Controls.Add(this.nudWorkDayOvertimeHour3);
-            this.tabPage4.Controls.Add(this.nudWorkDayOvertimeHour2);
-            this.tabPage4.Controls.Add(this.nudWorkDayOvertimeHour1);
-            this.tabPage4.Controls.Add(this.nudWorkDayRegularHour);
-            this.tabPage4.Controls.Add(this.label31);
-            this.tabPage4.Controls.Add(this.cbxWorkDayOvertimeRate4);
-            this.tabPage4.Controls.Add(this.label32);
-            this.tabPage4.Controls.Add(this.label33);
-            this.tabPage4.Controls.Add(this.label27);
-            this.tabPage4.Controls.Add(this.cbxWorkDayOvertimeRate3);
-            this.tabPage4.Controls.Add(this.label28);
-            this.tabPage4.Controls.Add(this.label29);
-            this.tabPage4.Controls.Add(this.label24);
-            this.tabPage4.Controls.Add(this.cbxWorkDayOvertimeRate2);
-            this.tabPage4.Controls.Add(this.label25);
-            this.tabPage4.Controls.Add(this.label26);
-            this.tabPage4.Controls.Add(this.label21);
-            this.tabPage4.Controls.Add(this.cbxWorkDayOvertimeRate1);
-            this.tabPage4.Controls.Add(this.label22);
-            this.tabPage4.Controls.Add(this.label23);
-            this.tabPage4.Controls.Add(this.label20);
-            this.tabPage4.Controls.Add(this.cbxWorkDayRegularRate);
-            this.tabPage4.Controls.Add(this.label19);
-            this.tabPage4.Controls.Add(this.label18);
-            this.tabPage4.Controls.Add(this.btnBack4);
-            this.tabPage4.Controls.Add(this.btnCancel4);
-            this.tabPage4.Controls.Add(this.btnNext4);
-            this.tabPage4.Controls.Add(this.label30);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(760, 516);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Step 4";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // tabPage5
-            // 
-            this.tabPage5.Controls.Add(this.nudNonWorkDayOvertimeHour4);
-            this.tabPage5.Controls.Add(this.nudNonWorkDayOvertimeHour3);
-            this.tabPage5.Controls.Add(this.nudNonWorkDayOvertimeHour2);
-            this.tabPage5.Controls.Add(this.nudNonWorkDayOvertimeHour1);
-            this.tabPage5.Controls.Add(this.nudNonWorkDayRegularHour);
-            this.tabPage5.Controls.Add(this.label34);
-            this.tabPage5.Controls.Add(this.cbxNonWorkDayOvertimeRate4);
-            this.tabPage5.Controls.Add(this.label35);
-            this.tabPage5.Controls.Add(this.label36);
-            this.tabPage5.Controls.Add(this.label37);
-            this.tabPage5.Controls.Add(this.cbxNonWorkDayOvertimeRate3);
-            this.tabPage5.Controls.Add(this.label38);
-            this.tabPage5.Controls.Add(this.label39);
-            this.tabPage5.Controls.Add(this.label40);
-            this.tabPage5.Controls.Add(this.cbxNonWorkDayOvertimeRate2);
-            this.tabPage5.Controls.Add(this.label41);
-            this.tabPage5.Controls.Add(this.label42);
-            this.tabPage5.Controls.Add(this.label43);
-            this.tabPage5.Controls.Add(this.cbxNonWorkDayOvertimeRate1);
-            this.tabPage5.Controls.Add(this.label44);
-            this.tabPage5.Controls.Add(this.label45);
-            this.tabPage5.Controls.Add(this.label46);
-            this.tabPage5.Controls.Add(this.cbxNonWorkDayRegularRate);
-            this.tabPage5.Controls.Add(this.label47);
-            this.tabPage5.Controls.Add(this.label48);
-            this.tabPage5.Controls.Add(this.btnBack5);
-            this.tabPage5.Controls.Add(this.btnCancel5);
-            this.tabPage5.Controls.Add(this.btnNext5);
-            this.tabPage5.Controls.Add(this.label49);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(760, 516);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "Step 5";
-            this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // tabPage6
-            // 
-            this.tabPage6.Controls.Add(this.btnBack6);
-            this.tabPage6.Controls.Add(this.btnCancel6);
-            this.tabPage6.Controls.Add(this.btnNext6);
-            this.tabPage6.Controls.Add(this.mcdHoliday);
-            this.tabPage6.Controls.Add(this.btnRemoveHoliday);
-            this.tabPage6.Controls.Add(this.btnAddHoliday);
-            this.tabPage6.Controls.Add(this.dgvHoliday);
-            this.tabPage6.Location = new System.Drawing.Point(4, 22);
-            this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Size = new System.Drawing.Size(760, 516);
-            this.tabPage6.TabIndex = 5;
-            this.tabPage6.Text = "Step 6";
-            this.tabPage6.UseVisualStyleBackColor = true;
-            // 
-            // tabPage7
-            // 
-            this.tabPage7.Controls.Add(this.nudHolidayOvertimeHour4);
-            this.tabPage7.Controls.Add(this.nudHolidayOvertimeHour3);
-            this.tabPage7.Controls.Add(this.nudHolidayOvertimeHour2);
-            this.tabPage7.Controls.Add(this.nudHolidayOvertimeHour1);
-            this.tabPage7.Controls.Add(this.nudHolidayRegularHour);
-            this.tabPage7.Controls.Add(this.label50);
-            this.tabPage7.Controls.Add(this.cbxHolidayOvertimeRate4);
-            this.tabPage7.Controls.Add(this.label51);
-            this.tabPage7.Controls.Add(this.label52);
-            this.tabPage7.Controls.Add(this.label53);
-            this.tabPage7.Controls.Add(this.cbxHolidayOvertimeRate3);
-            this.tabPage7.Controls.Add(this.label54);
-            this.tabPage7.Controls.Add(this.label55);
-            this.tabPage7.Controls.Add(this.label56);
-            this.tabPage7.Controls.Add(this.cbxHolidayOvertimeRate2);
-            this.tabPage7.Controls.Add(this.label57);
-            this.tabPage7.Controls.Add(this.label58);
-            this.tabPage7.Controls.Add(this.label59);
-            this.tabPage7.Controls.Add(this.cbxHolidayOvertimeRate1);
-            this.tabPage7.Controls.Add(this.label60);
-            this.tabPage7.Controls.Add(this.label61);
-            this.tabPage7.Controls.Add(this.label62);
-            this.tabPage7.Controls.Add(this.cbxHolidayRegularRate);
-            this.tabPage7.Controls.Add(this.label63);
-            this.tabPage7.Controls.Add(this.label64);
-            this.tabPage7.Controls.Add(this.btnBack7);
-            this.tabPage7.Controls.Add(this.btnCancel7);
-            this.tabPage7.Controls.Add(this.btnNext7);
-            this.tabPage7.Controls.Add(this.label65);
-            this.tabPage7.Location = new System.Drawing.Point(4, 22);
-            this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Size = new System.Drawing.Size(760, 516);
-            this.tabPage7.TabIndex = 6;
-            this.tabPage7.Text = "Step 7";
-            this.tabPage7.UseVisualStyleBackColor = true;
-            // 
-            // tabPage8
-            // 
-            this.tabPage8.Controls.Add(this.dtpPayPeriodStartFrom);
-            this.tabPage8.Controls.Add(this.label69);
-            this.tabPage8.Controls.Add(this.nudCustomPayPeriod);
-            this.tabPage8.Controls.Add(this.label67);
-            this.tabPage8.Controls.Add(this.label66);
-            this.tabPage8.Controls.Add(this.rbtPayPeriodHalfmonthly);
-            this.tabPage8.Controls.Add(this.rbtPayPeriodCustom);
-            this.tabPage8.Controls.Add(this.rbtPayPeriodMonthly);
-            this.tabPage8.Controls.Add(this.rbtPayPeriodBiweekly);
-            this.tabPage8.Controls.Add(this.rbtPayPeriodWeekly);
-            this.tabPage8.Controls.Add(this.btnBack8);
-            this.tabPage8.Controls.Add(this.btnCancel8);
-            this.tabPage8.Controls.Add(this.btnFinish);
-            this.tabPage8.Controls.Add(this.label81);
-            this.tabPage8.Location = new System.Drawing.Point(4, 22);
-            this.tabPage8.Name = "tabPage8";
-            this.tabPage8.Size = new System.Drawing.Size(760, 516);
-            this.tabPage8.TabIndex = 7;
-            this.tabPage8.Text = "Step 8";
-            this.tabPage8.UseVisualStyleBackColor = true;
-            // 
-            // txtName
-            // 
-            this.txtName.Location = new System.Drawing.Point(347, 108);
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(100, 20);
-            this.txtName.TabIndex = 35;
-            // 
-            // label68
-            // 
-            this.label68.AutoSize = true;
-            this.label68.Location = new System.Drawing.Point(290, 116);
-            this.label68.Name = "label68";
-            this.label68.Size = new System.Drawing.Size(35, 13);
-            this.label68.TabIndex = 34;
-            this.label68.Text = "Name";
-            // 
-            // btnCancel1
-            // 
-            this.btnCancel1.Location = new System.Drawing.Point(397, 385);
-            this.btnCancel1.Name = "btnCancel1";
-            this.btnCancel1.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel1.TabIndex = 33;
-            this.btnCancel1.Text = "Cancel";
-            this.btnCancel1.UseVisualStyleBackColor = true;
-            // 
-            // btnNext1
-            // 
-            this.btnNext1.Location = new System.Drawing.Point(315, 385);
-            this.btnNext1.Name = "btnNext1";
-            this.btnNext1.Size = new System.Drawing.Size(75, 23);
-            this.btnNext1.TabIndex = 32;
-            this.btnNext1.Text = "Next";
-            this.btnNext1.UseVisualStyleBackColor = true;
-            // 
-            // chbSunday
-            // 
-            this.chbSunday.AutoSize = true;
-            this.chbSunday.Location = new System.Drawing.Point(289, 319);
-            this.chbSunday.Name = "chbSunday";
-            this.chbSunday.Size = new System.Drawing.Size(62, 17);
-            this.chbSunday.TabIndex = 31;
-            this.chbSunday.Text = "Sunday";
-            this.chbSunday.UseVisualStyleBackColor = true;
-            // 
-            // chbSaturday
-            // 
-            this.chbSaturday.AutoSize = true;
-            this.chbSaturday.Location = new System.Drawing.Point(289, 295);
-            this.chbSaturday.Name = "chbSaturday";
-            this.chbSaturday.Size = new System.Drawing.Size(68, 17);
-            this.chbSaturday.TabIndex = 30;
-            this.chbSaturday.Text = "Saturday";
-            this.chbSaturday.UseVisualStyleBackColor = true;
-            // 
-            // chbFriday
-            // 
-            this.chbFriday.AutoSize = true;
-            this.chbFriday.Location = new System.Drawing.Point(289, 271);
-            this.chbFriday.Name = "chbFriday";
-            this.chbFriday.Size = new System.Drawing.Size(54, 17);
-            this.chbFriday.TabIndex = 29;
-            this.chbFriday.Text = "Friday";
-            this.chbFriday.UseVisualStyleBackColor = true;
-            // 
-            // chbThursday
-            // 
-            this.chbThursday.AutoSize = true;
-            this.chbThursday.Location = new System.Drawing.Point(289, 247);
-            this.chbThursday.Name = "chbThursday";
-            this.chbThursday.Size = new System.Drawing.Size(70, 17);
-            this.chbThursday.TabIndex = 28;
-            this.chbThursday.Text = "Thursday";
-            this.chbThursday.UseVisualStyleBackColor = true;
-            // 
-            // chbWednesday
-            // 
-            this.chbWednesday.AutoSize = true;
-            this.chbWednesday.Location = new System.Drawing.Point(289, 223);
-            this.chbWednesday.Name = "chbWednesday";
-            this.chbWednesday.Size = new System.Drawing.Size(83, 17);
-            this.chbWednesday.TabIndex = 27;
-            this.chbWednesday.Text = "Wednesday";
-            this.chbWednesday.UseVisualStyleBackColor = true;
-            // 
-            // chbTuesday
-            // 
-            this.chbTuesday.AutoSize = true;
-            this.chbTuesday.Location = new System.Drawing.Point(289, 199);
-            this.chbTuesday.Name = "chbTuesday";
-            this.chbTuesday.Size = new System.Drawing.Size(67, 17);
-            this.chbTuesday.TabIndex = 26;
-            this.chbTuesday.Text = "Tuesday";
-            this.chbTuesday.UseVisualStyleBackColor = true;
-            // 
-            // chbMonday
-            // 
-            this.chbMonday.AutoSize = true;
-            this.chbMonday.Location = new System.Drawing.Point(289, 175);
-            this.chbMonday.Name = "chbMonday";
-            this.chbMonday.Size = new System.Drawing.Size(64, 17);
-            this.chbMonday.TabIndex = 25;
-            this.chbMonday.Text = "Monday";
-            this.chbMonday.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(329, 146);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(107, 13);
-            this.label1.TabIndex = 24;
-            this.label1.Text = "Select Working Days";
-            // 
-            // nudBreakToMin2
-            // 
-            this.nudBreakToMin2.Location = new System.Drawing.Point(604, 161);
-            this.nudBreakToMin2.Name = "nudBreakToMin2";
-            this.nudBreakToMin2.Size = new System.Drawing.Size(120, 20);
-            this.nudBreakToMin2.TabIndex = 103;
-            // 
-            // nudBreakFromMin2
-            // 
-            this.nudBreakFromMin2.Location = new System.Drawing.Point(614, 116);
-            this.nudBreakFromMin2.Name = "nudBreakFromMin2";
-            this.nudBreakFromMin2.Size = new System.Drawing.Size(120, 20);
-            this.nudBreakFromMin2.TabIndex = 102;
-            // 
-            // nudBreakToHour2
-            // 
-            this.nudBreakToHour2.Location = new System.Drawing.Point(468, 161);
-            this.nudBreakToHour2.Name = "nudBreakToHour2";
-            this.nudBreakToHour2.Size = new System.Drawing.Size(120, 20);
-            this.nudBreakToHour2.TabIndex = 101;
-            // 
-            // nudBreakFromHour2
-            // 
-            this.nudBreakFromHour2.Location = new System.Drawing.Point(468, 115);
-            this.nudBreakFromHour2.Name = "nudBreakFromHour2";
-            this.nudBreakFromHour2.Size = new System.Drawing.Size(120, 20);
-            this.nudBreakFromHour2.TabIndex = 100;
-            // 
-            // nudBreakToMin1
-            // 
-            this.nudBreakToMin1.Location = new System.Drawing.Point(252, 148);
-            this.nudBreakToMin1.Name = "nudBreakToMin1";
-            this.nudBreakToMin1.Size = new System.Drawing.Size(120, 20);
-            this.nudBreakToMin1.TabIndex = 99;
-            // 
-            // nudBreakFromMin1
-            // 
-            this.nudBreakFromMin1.Location = new System.Drawing.Point(262, 103);
-            this.nudBreakFromMin1.Name = "nudBreakFromMin1";
-            this.nudBreakFromMin1.Size = new System.Drawing.Size(120, 20);
-            this.nudBreakFromMin1.TabIndex = 98;
-            // 
-            // nudBreakToHour1
-            // 
-            this.nudBreakToHour1.Location = new System.Drawing.Point(116, 148);
-            this.nudBreakToHour1.Name = "nudBreakToHour1";
-            this.nudBreakToHour1.Size = new System.Drawing.Size(120, 20);
-            this.nudBreakToHour1.TabIndex = 97;
-            // 
-            // nudBreakFromHour1
-            // 
-            this.nudBreakFromHour1.Location = new System.Drawing.Point(116, 102);
-            this.nudBreakFromHour1.Name = "nudBreakFromHour1";
-            this.nudBreakFromHour1.Size = new System.Drawing.Size(120, 20);
-            this.nudBreakFromHour1.TabIndex = 96;
-            // 
-            // cbxBreakPaid2
-            // 
-            this.cbxBreakPaid2.FormattingEnabled = true;
-            this.cbxBreakPaid2.Location = new System.Drawing.Point(468, 186);
-            this.cbxBreakPaid2.Name = "cbxBreakPaid2";
-            this.cbxBreakPaid2.Size = new System.Drawing.Size(121, 21);
-            this.cbxBreakPaid2.TabIndex = 95;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(418, 194);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(28, 13);
-            this.label14.TabIndex = 94;
-            this.label14.Text = "Paid";
-            // 
-            // txtBreakName2
-            // 
-            this.txtBreakName2.Location = new System.Drawing.Point(558, 83);
-            this.txtBreakName2.Name = "txtBreakName2";
-            this.txtBreakName2.Size = new System.Drawing.Size(100, 20);
-            this.txtBreakName2.TabIndex = 93;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(500, 83);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(35, 13);
-            this.label15.TabIndex = 92;
-            this.label15.Text = "Name";
-            // 
-            // chbBreak2
-            // 
-            this.chbBreak2.AutoSize = true;
-            this.chbBreak2.Location = new System.Drawing.Point(417, 79);
-            this.chbBreak2.Name = "chbBreak2";
-            this.chbBreak2.Size = new System.Drawing.Size(63, 17);
-            this.chbBreak2.TabIndex = 91;
-            this.chbBreak2.Text = "Break 2";
-            this.chbBreak2.UseVisualStyleBackColor = true;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(415, 155);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(20, 13);
-            this.label16.TabIndex = 90;
-            this.label16.Text = "To";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(415, 117);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(30, 13);
-            this.label17.TabIndex = 89;
-            this.label17.Text = "From";
-            // 
-            // cbxBreakPaid1
-            // 
-            this.cbxBreakPaid1.FormattingEnabled = true;
-            this.cbxBreakPaid1.Location = new System.Drawing.Point(116, 179);
-            this.cbxBreakPaid1.Name = "cbxBreakPaid1";
-            this.cbxBreakPaid1.Size = new System.Drawing.Size(121, 21);
-            this.cbxBreakPaid1.TabIndex = 88;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(66, 187);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(28, 13);
-            this.label9.TabIndex = 87;
-            this.label9.Text = "Paid";
-            // 
-            // txtBreakName1
-            // 
-            this.txtBreakName1.Location = new System.Drawing.Point(206, 76);
-            this.txtBreakName1.Name = "txtBreakName1";
-            this.txtBreakName1.Size = new System.Drawing.Size(100, 20);
-            this.txtBreakName1.TabIndex = 86;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(148, 76);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(35, 13);
-            this.label8.TabIndex = 85;
-            this.label8.Text = "Name";
-            // 
-            // chbBreak1
-            // 
-            this.chbBreak1.AutoSize = true;
-            this.chbBreak1.Location = new System.Drawing.Point(65, 72);
-            this.chbBreak1.Name = "chbBreak1";
-            this.chbBreak1.Size = new System.Drawing.Size(63, 17);
-            this.chbBreak1.TabIndex = 84;
-            this.chbBreak1.Text = "Break 1";
-            this.chbBreak1.UseVisualStyleBackColor = true;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(63, 148);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(20, 13);
-            this.label5.TabIndex = 83;
-            this.label5.Text = "To";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(63, 110);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(30, 13);
-            this.label6.TabIndex = 82;
-            this.label6.Text = "From";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(62, 36);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(142, 13);
-            this.label7.TabIndex = 81;
-            this.label7.Text = "Define Non-Working Periods";
-            // 
             // nudBreakToMin3
             // 
+            this.nudBreakToMin3.Enabled = false;
             this.nudBreakToMin3.Location = new System.Drawing.Point(256, 306);
             this.nudBreakToMin3.Name = "nudBreakToMin3";
             this.nudBreakToMin3.Size = new System.Drawing.Size(120, 20);
@@ -898,6 +559,7 @@
             // 
             // nudBreakFromMin3
             // 
+            this.nudBreakFromMin3.Enabled = false;
             this.nudBreakFromMin3.Location = new System.Drawing.Point(266, 261);
             this.nudBreakFromMin3.Name = "nudBreakFromMin3";
             this.nudBreakFromMin3.Size = new System.Drawing.Size(120, 20);
@@ -905,6 +567,7 @@
             // 
             // nudBreakToHour3
             // 
+            this.nudBreakToHour3.Enabled = false;
             this.nudBreakToHour3.Location = new System.Drawing.Point(120, 306);
             this.nudBreakToHour3.Name = "nudBreakToHour3";
             this.nudBreakToHour3.Size = new System.Drawing.Size(120, 20);
@@ -912,6 +575,7 @@
             // 
             // nudBreakFromHour3
             // 
+            this.nudBreakFromHour3.Enabled = false;
             this.nudBreakFromHour3.Location = new System.Drawing.Point(120, 260);
             this.nudBreakFromHour3.Name = "nudBreakFromHour3";
             this.nudBreakFromHour3.Size = new System.Drawing.Size(120, 20);
@@ -919,6 +583,7 @@
             // 
             // cbxBreakPaid3
             // 
+            this.cbxBreakPaid3.Enabled = false;
             this.cbxBreakPaid3.FormattingEnabled = true;
             this.cbxBreakPaid3.Location = new System.Drawing.Point(120, 331);
             this.cbxBreakPaid3.Name = "cbxBreakPaid3";
@@ -936,6 +601,7 @@
             // 
             // txtBreakName3
             // 
+            this.txtBreakName3.Enabled = false;
             this.txtBreakName3.Location = new System.Drawing.Point(210, 228);
             this.txtBreakName3.Name = "txtBreakName3";
             this.txtBreakName3.Size = new System.Drawing.Size(100, 20);
@@ -959,6 +625,7 @@
             this.chbBreak3.TabIndex = 109;
             this.chbBreak3.Text = "Break 3";
             this.chbBreak3.UseVisualStyleBackColor = true;
+            this.chbBreak3.CheckedChanged += new System.EventHandler(this.chbBreak3_CheckedChanged);
             // 
             // label12
             // 
@@ -1004,6 +671,245 @@
             this.btnNext3.TabIndex = 104;
             this.btnNext3.Text = "Next";
             this.btnNext3.UseVisualStyleBackColor = true;
+            // 
+            // nudBreakToMin2
+            // 
+            this.nudBreakToMin2.Enabled = false;
+            this.nudBreakToMin2.Location = new System.Drawing.Point(604, 161);
+            this.nudBreakToMin2.Name = "nudBreakToMin2";
+            this.nudBreakToMin2.Size = new System.Drawing.Size(120, 20);
+            this.nudBreakToMin2.TabIndex = 103;
+            // 
+            // nudBreakFromMin2
+            // 
+            this.nudBreakFromMin2.Enabled = false;
+            this.nudBreakFromMin2.Location = new System.Drawing.Point(614, 116);
+            this.nudBreakFromMin2.Name = "nudBreakFromMin2";
+            this.nudBreakFromMin2.Size = new System.Drawing.Size(120, 20);
+            this.nudBreakFromMin2.TabIndex = 102;
+            // 
+            // nudBreakToHour2
+            // 
+            this.nudBreakToHour2.Enabled = false;
+            this.nudBreakToHour2.Location = new System.Drawing.Point(468, 161);
+            this.nudBreakToHour2.Name = "nudBreakToHour2";
+            this.nudBreakToHour2.Size = new System.Drawing.Size(120, 20);
+            this.nudBreakToHour2.TabIndex = 101;
+            // 
+            // nudBreakFromHour2
+            // 
+            this.nudBreakFromHour2.Enabled = false;
+            this.nudBreakFromHour2.Location = new System.Drawing.Point(468, 115);
+            this.nudBreakFromHour2.Name = "nudBreakFromHour2";
+            this.nudBreakFromHour2.Size = new System.Drawing.Size(120, 20);
+            this.nudBreakFromHour2.TabIndex = 100;
+            // 
+            // nudBreakToMin1
+            // 
+            this.nudBreakToMin1.Enabled = false;
+            this.nudBreakToMin1.Location = new System.Drawing.Point(252, 148);
+            this.nudBreakToMin1.Name = "nudBreakToMin1";
+            this.nudBreakToMin1.Size = new System.Drawing.Size(120, 20);
+            this.nudBreakToMin1.TabIndex = 99;
+            // 
+            // nudBreakFromMin1
+            // 
+            this.nudBreakFromMin1.Enabled = false;
+            this.nudBreakFromMin1.Location = new System.Drawing.Point(262, 103);
+            this.nudBreakFromMin1.Name = "nudBreakFromMin1";
+            this.nudBreakFromMin1.Size = new System.Drawing.Size(120, 20);
+            this.nudBreakFromMin1.TabIndex = 98;
+            // 
+            // nudBreakToHour1
+            // 
+            this.nudBreakToHour1.Enabled = false;
+            this.nudBreakToHour1.Location = new System.Drawing.Point(116, 148);
+            this.nudBreakToHour1.Name = "nudBreakToHour1";
+            this.nudBreakToHour1.Size = new System.Drawing.Size(120, 20);
+            this.nudBreakToHour1.TabIndex = 97;
+            // 
+            // nudBreakFromHour1
+            // 
+            this.nudBreakFromHour1.Enabled = false;
+            this.nudBreakFromHour1.Location = new System.Drawing.Point(116, 102);
+            this.nudBreakFromHour1.Name = "nudBreakFromHour1";
+            this.nudBreakFromHour1.Size = new System.Drawing.Size(120, 20);
+            this.nudBreakFromHour1.TabIndex = 96;
+            // 
+            // cbxBreakPaid2
+            // 
+            this.cbxBreakPaid2.Enabled = false;
+            this.cbxBreakPaid2.FormattingEnabled = true;
+            this.cbxBreakPaid2.Location = new System.Drawing.Point(468, 186);
+            this.cbxBreakPaid2.Name = "cbxBreakPaid2";
+            this.cbxBreakPaid2.Size = new System.Drawing.Size(121, 21);
+            this.cbxBreakPaid2.TabIndex = 95;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(418, 194);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(28, 13);
+            this.label14.TabIndex = 94;
+            this.label14.Text = "Paid";
+            // 
+            // txtBreakName2
+            // 
+            this.txtBreakName2.Enabled = false;
+            this.txtBreakName2.Location = new System.Drawing.Point(558, 83);
+            this.txtBreakName2.Name = "txtBreakName2";
+            this.txtBreakName2.Size = new System.Drawing.Size(100, 20);
+            this.txtBreakName2.TabIndex = 93;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(500, 83);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(35, 13);
+            this.label15.TabIndex = 92;
+            this.label15.Text = "Name";
+            // 
+            // chbBreak2
+            // 
+            this.chbBreak2.AutoSize = true;
+            this.chbBreak2.Location = new System.Drawing.Point(417, 79);
+            this.chbBreak2.Name = "chbBreak2";
+            this.chbBreak2.Size = new System.Drawing.Size(63, 17);
+            this.chbBreak2.TabIndex = 91;
+            this.chbBreak2.Text = "Break 2";
+            this.chbBreak2.UseVisualStyleBackColor = true;
+            this.chbBreak2.CheckedChanged += new System.EventHandler(this.chbBreak2_CheckedChanged);
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(415, 155);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(20, 13);
+            this.label16.TabIndex = 90;
+            this.label16.Text = "To";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(415, 117);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(30, 13);
+            this.label17.TabIndex = 89;
+            this.label17.Text = "From";
+            // 
+            // cbxBreakPaid1
+            // 
+            this.cbxBreakPaid1.Enabled = false;
+            this.cbxBreakPaid1.FormattingEnabled = true;
+            this.cbxBreakPaid1.Location = new System.Drawing.Point(116, 179);
+            this.cbxBreakPaid1.Name = "cbxBreakPaid1";
+            this.cbxBreakPaid1.Size = new System.Drawing.Size(121, 21);
+            this.cbxBreakPaid1.TabIndex = 88;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(66, 187);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(28, 13);
+            this.label9.TabIndex = 87;
+            this.label9.Text = "Paid";
+            // 
+            // txtBreakName1
+            // 
+            this.txtBreakName1.Enabled = false;
+            this.txtBreakName1.Location = new System.Drawing.Point(206, 76);
+            this.txtBreakName1.Name = "txtBreakName1";
+            this.txtBreakName1.Size = new System.Drawing.Size(100, 20);
+            this.txtBreakName1.TabIndex = 86;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(148, 76);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(35, 13);
+            this.label8.TabIndex = 85;
+            this.label8.Text = "Name";
+            // 
+            // chbBreak1
+            // 
+            this.chbBreak1.AutoSize = true;
+            this.chbBreak1.Location = new System.Drawing.Point(65, 72);
+            this.chbBreak1.Name = "chbBreak1";
+            this.chbBreak1.Size = new System.Drawing.Size(63, 17);
+            this.chbBreak1.TabIndex = 84;
+            this.chbBreak1.Text = "Break 1";
+            this.chbBreak1.UseVisualStyleBackColor = true;
+            this.chbBreak1.CheckedChanged += new System.EventHandler(this.chbBreak1_CheckedChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(63, 148);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(20, 13);
+            this.label5.TabIndex = 83;
+            this.label5.Text = "To";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(63, 110);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(30, 13);
+            this.label6.TabIndex = 82;
+            this.label6.Text = "From";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(62, 36);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(142, 13);
+            this.label7.TabIndex = 81;
+            this.label7.Text = "Define Non-Working Periods";
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.nudWorkDayOvertimeHour4);
+            this.tabPage4.Controls.Add(this.nudWorkDayOvertimeHour3);
+            this.tabPage4.Controls.Add(this.nudWorkDayOvertimeHour2);
+            this.tabPage4.Controls.Add(this.nudWorkDayOvertimeHour1);
+            this.tabPage4.Controls.Add(this.nudWorkDayRegularHour);
+            this.tabPage4.Controls.Add(this.label31);
+            this.tabPage4.Controls.Add(this.cbxWorkDayOvertimeRate4);
+            this.tabPage4.Controls.Add(this.label32);
+            this.tabPage4.Controls.Add(this.label33);
+            this.tabPage4.Controls.Add(this.label27);
+            this.tabPage4.Controls.Add(this.cbxWorkDayOvertimeRate3);
+            this.tabPage4.Controls.Add(this.label28);
+            this.tabPage4.Controls.Add(this.label29);
+            this.tabPage4.Controls.Add(this.label24);
+            this.tabPage4.Controls.Add(this.cbxWorkDayOvertimeRate2);
+            this.tabPage4.Controls.Add(this.label25);
+            this.tabPage4.Controls.Add(this.label26);
+            this.tabPage4.Controls.Add(this.label21);
+            this.tabPage4.Controls.Add(this.cbxWorkDayOvertimeRate1);
+            this.tabPage4.Controls.Add(this.label22);
+            this.tabPage4.Controls.Add(this.label23);
+            this.tabPage4.Controls.Add(this.label20);
+            this.tabPage4.Controls.Add(this.cbxWorkDayRegularRate);
+            this.tabPage4.Controls.Add(this.label19);
+            this.tabPage4.Controls.Add(this.label18);
+            this.tabPage4.Controls.Add(this.btnBack4);
+            this.tabPage4.Controls.Add(this.btnCancel4);
+            this.tabPage4.Controls.Add(this.btnNext4);
+            this.tabPage4.Controls.Add(this.label30);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(760, 516);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Step 4";
+            this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // nudWorkDayOvertimeHour4
             // 
@@ -1251,6 +1157,44 @@
             this.label30.TabIndex = 119;
             this.label30.Text = "Set Working Days Rate";
             // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.nudNonWorkDayOvertimeHour4);
+            this.tabPage5.Controls.Add(this.nudNonWorkDayOvertimeHour3);
+            this.tabPage5.Controls.Add(this.nudNonWorkDayOvertimeHour2);
+            this.tabPage5.Controls.Add(this.nudNonWorkDayOvertimeHour1);
+            this.tabPage5.Controls.Add(this.nudNonWorkDayRegularHour);
+            this.tabPage5.Controls.Add(this.label34);
+            this.tabPage5.Controls.Add(this.cbxNonWorkDayOvertimeRate4);
+            this.tabPage5.Controls.Add(this.label35);
+            this.tabPage5.Controls.Add(this.label36);
+            this.tabPage5.Controls.Add(this.label37);
+            this.tabPage5.Controls.Add(this.cbxNonWorkDayOvertimeRate3);
+            this.tabPage5.Controls.Add(this.label38);
+            this.tabPage5.Controls.Add(this.label39);
+            this.tabPage5.Controls.Add(this.label40);
+            this.tabPage5.Controls.Add(this.cbxNonWorkDayOvertimeRate2);
+            this.tabPage5.Controls.Add(this.label41);
+            this.tabPage5.Controls.Add(this.label42);
+            this.tabPage5.Controls.Add(this.label43);
+            this.tabPage5.Controls.Add(this.cbxNonWorkDayOvertimeRate1);
+            this.tabPage5.Controls.Add(this.label44);
+            this.tabPage5.Controls.Add(this.label45);
+            this.tabPage5.Controls.Add(this.label46);
+            this.tabPage5.Controls.Add(this.cbxNonWorkDayRegularRate);
+            this.tabPage5.Controls.Add(this.label47);
+            this.tabPage5.Controls.Add(this.label48);
+            this.tabPage5.Controls.Add(this.btnBack5);
+            this.tabPage5.Controls.Add(this.btnCancel5);
+            this.tabPage5.Controls.Add(this.btnNext5);
+            this.tabPage5.Controls.Add(this.label49);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Size = new System.Drawing.Size(760, 516);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Step 5";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
             // nudNonWorkDayOvertimeHour4
             // 
             this.nudNonWorkDayOvertimeHour4.Location = new System.Drawing.Point(208, 232);
@@ -1497,6 +1441,22 @@
             this.label49.TabIndex = 148;
             this.label49.Text = "Set Non-Working Days Rate";
             // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.btnBack6);
+            this.tabPage6.Controls.Add(this.btnCancel6);
+            this.tabPage6.Controls.Add(this.btnNext6);
+            this.tabPage6.Controls.Add(this.mcdHoliday);
+            this.tabPage6.Controls.Add(this.btnRemoveHoliday);
+            this.tabPage6.Controls.Add(this.btnAddHoliday);
+            this.tabPage6.Controls.Add(this.dgvHoliday);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Size = new System.Drawing.Size(760, 516);
+            this.tabPage6.TabIndex = 5;
+            this.tabPage6.Text = "Step 6";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
             // btnBack6
             // 
             this.btnBack6.Location = new System.Drawing.Point(330, 325);
@@ -1569,6 +1529,44 @@
             this.Description.HeaderText = "Description";
             this.Description.Name = "Description";
             // 
+            // tabPage7
+            // 
+            this.tabPage7.Controls.Add(this.nudHolidayOvertimeHour4);
+            this.tabPage7.Controls.Add(this.nudHolidayOvertimeHour3);
+            this.tabPage7.Controls.Add(this.nudHolidayOvertimeHour2);
+            this.tabPage7.Controls.Add(this.nudHolidayOvertimeHour1);
+            this.tabPage7.Controls.Add(this.nudHolidayRegularHour);
+            this.tabPage7.Controls.Add(this.label50);
+            this.tabPage7.Controls.Add(this.cbxHolidayOvertimeRate4);
+            this.tabPage7.Controls.Add(this.label51);
+            this.tabPage7.Controls.Add(this.label52);
+            this.tabPage7.Controls.Add(this.label53);
+            this.tabPage7.Controls.Add(this.cbxHolidayOvertimeRate3);
+            this.tabPage7.Controls.Add(this.label54);
+            this.tabPage7.Controls.Add(this.label55);
+            this.tabPage7.Controls.Add(this.label56);
+            this.tabPage7.Controls.Add(this.cbxHolidayOvertimeRate2);
+            this.tabPage7.Controls.Add(this.label57);
+            this.tabPage7.Controls.Add(this.label58);
+            this.tabPage7.Controls.Add(this.label59);
+            this.tabPage7.Controls.Add(this.cbxHolidayOvertimeRate1);
+            this.tabPage7.Controls.Add(this.label60);
+            this.tabPage7.Controls.Add(this.label61);
+            this.tabPage7.Controls.Add(this.label62);
+            this.tabPage7.Controls.Add(this.cbxHolidayRegularRate);
+            this.tabPage7.Controls.Add(this.label63);
+            this.tabPage7.Controls.Add(this.label64);
+            this.tabPage7.Controls.Add(this.btnBack7);
+            this.tabPage7.Controls.Add(this.btnCancel7);
+            this.tabPage7.Controls.Add(this.btnNext7);
+            this.tabPage7.Controls.Add(this.label65);
+            this.tabPage7.Location = new System.Drawing.Point(4, 22);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Size = new System.Drawing.Size(760, 516);
+            this.tabPage7.TabIndex = 6;
+            this.tabPage7.Text = "Step 7";
+            this.tabPage7.UseVisualStyleBackColor = true;
+            // 
             // nudHolidayOvertimeHour4
             // 
             this.nudHolidayOvertimeHour4.Location = new System.Drawing.Point(72, 220);
@@ -1597,10 +1595,10 @@
             this.nudHolidayOvertimeHour1.Size = new System.Drawing.Size(120, 20);
             this.nudHolidayOvertimeHour1.TabIndex = 202;
             // 
-            // nudHolidayRegualarHour
+            // nudHolidayRegularHour
             // 
             this.nudHolidayRegularHour.Location = new System.Drawing.Point(72, 61);
-            this.nudHolidayRegularHour.Name = "nudHolidayRegualarHour";
+            this.nudHolidayRegularHour.Name = "nudHolidayRegularHour";
             this.nudHolidayRegularHour.Size = new System.Drawing.Size(120, 20);
             this.nudHolidayRegularHour.TabIndex = 201;
             // 
@@ -1815,6 +1813,29 @@
             this.label65.TabIndex = 177;
             this.label65.Text = "Set Holidays Rate";
             // 
+            // tabPage8
+            // 
+            this.tabPage8.Controls.Add(this.dtpPayPeriodStartFrom);
+            this.tabPage8.Controls.Add(this.label69);
+            this.tabPage8.Controls.Add(this.nudCustomPayPeriod);
+            this.tabPage8.Controls.Add(this.label67);
+            this.tabPage8.Controls.Add(this.label66);
+            this.tabPage8.Controls.Add(this.rbtPayPeriodHalfmonthly);
+            this.tabPage8.Controls.Add(this.rbtPayPeriodCustom);
+            this.tabPage8.Controls.Add(this.rbtPayPeriodMonthly);
+            this.tabPage8.Controls.Add(this.rbtPayPeriodBiweekly);
+            this.tabPage8.Controls.Add(this.rbtPayPeriodWeekly);
+            this.tabPage8.Controls.Add(this.btnBack8);
+            this.tabPage8.Controls.Add(this.btnCancel8);
+            this.tabPage8.Controls.Add(this.btnFinish);
+            this.tabPage8.Controls.Add(this.label81);
+            this.tabPage8.Location = new System.Drawing.Point(4, 22);
+            this.tabPage8.Name = "tabPage8";
+            this.tabPage8.Size = new System.Drawing.Size(760, 516);
+            this.tabPage8.TabIndex = 7;
+            this.tabPage8.Text = "Step 8";
+            this.tabPage8.UseVisualStyleBackColor = true;
+            // 
             // dtpPayPeriodStartFrom
             // 
             this.dtpPayPeriodStartFrom.Location = new System.Drawing.Point(105, 267);
@@ -1963,15 +1984,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudRegularWorkFromHour)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
-            this.tabPage4.ResumeLayout(false);
-            this.tabPage4.PerformLayout();
-            this.tabPage5.ResumeLayout(false);
-            this.tabPage5.PerformLayout();
-            this.tabPage6.ResumeLayout(false);
-            this.tabPage7.ResumeLayout(false);
-            this.tabPage7.PerformLayout();
-            this.tabPage8.ResumeLayout(false);
-            this.tabPage8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudBreakToMin3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudBreakFromMin3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudBreakToHour3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudBreakFromHour3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudBreakToMin2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudBreakFromMin2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudBreakToHour2)).EndInit();
@@ -1980,26 +1996,31 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudBreakFromMin1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudBreakToHour1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudBreakFromHour1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBreakToMin3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBreakFromMin3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBreakToHour3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBreakFromHour3)).EndInit();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWorkDayOvertimeHour4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWorkDayOvertimeHour3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWorkDayOvertimeHour2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWorkDayOvertimeHour1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWorkDayRegularHour)).EndInit();
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudNonWorkDayOvertimeHour4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudNonWorkDayOvertimeHour3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudNonWorkDayOvertimeHour2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudNonWorkDayOvertimeHour1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudNonWorkDayRegularHour)).EndInit();
+            this.tabPage6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvHoliday)).EndInit();
+            this.tabPage7.ResumeLayout(false);
+            this.tabPage7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudHolidayOvertimeHour4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudHolidayOvertimeHour3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudHolidayOvertimeHour2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudHolidayOvertimeHour1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudHolidayRegularHour)).EndInit();
+            this.tabPage8.ResumeLayout(false);
+            this.tabPage8.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCustomPayPeriod)).EndInit();
             this.ResumeLayout(false);
 
