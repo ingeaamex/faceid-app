@@ -37,7 +37,6 @@ namespace FaceIDAppVBEta.UnitTest
         }
 
         [Test]
-        [ExpectedException(typeof(Exception))]
         public void AddDuplicatedCompanyTest()
         {
             IDataController dtCtrl = LocalDataController.Instance;
@@ -47,7 +46,7 @@ namespace FaceIDAppVBEta.UnitTest
             company.Name = companyName;
 
             dtCtrl.AddCompany(company);
-            dtCtrl.AddCompany(company);
+            Assert.Less(dtCtrl.AddCompany(company), 0);
         }
 
         [Test]
@@ -56,11 +55,11 @@ namespace FaceIDAppVBEta.UnitTest
             IDataController dtCtrl = LocalDataController.Instance;
 
             Company company1 = new Company();
-            company1.Name = "ABC";
+            company1.Name = "ABC123";
 
-            dtCtrl.AddCompany(company1);
+            company1.ID = dtCtrl.AddCompany(company1);
 
-            company1.Name = "123";
+            company1.Name = "A123456";
 
             Assert.AreEqual(true, dtCtrl.UpdateCompany(company1));
         }
@@ -78,21 +77,22 @@ namespace FaceIDAppVBEta.UnitTest
         }
 
         [Test]
-        [ExpectedException(typeof(Exception))]
         public void UpdateDuplicatedCompanyTest()
         {
             IDataController dtCtrl = LocalDataController.Instance;
 
-            string companyName = "ABC";
-            
+            string companyName = "ABC1";
             Company company1 = new Company();
             company1.Name = companyName;
+            company1.ID = dtCtrl.AddCompany(company1);
 
+            companyName = "ABC2";
             Company company2 = new Company();
             company2.Name = companyName;
+            company2.ID = dtCtrl.AddCompany(company2);
+            company2.Name = company1.Name;
 
-            dtCtrl.UpdateCompany(company1);
-            dtCtrl.UpdateCompany(company2);
+            Assert.AreEqual(false, dtCtrl.UpdateCompany(company2));
         }
 
         [Test]
@@ -100,7 +100,7 @@ namespace FaceIDAppVBEta.UnitTest
         {
             IDataController dtCtrl = LocalDataController.Instance;
 
-            string companyName = "ABC";
+            string companyName = "ABCs";
 
             Company company1 = new Company();
             company1.Name = companyName;

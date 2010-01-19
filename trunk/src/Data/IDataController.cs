@@ -123,5 +123,7 @@ namespace FaceIDAppVBEta.Data
         bool IsDuplicatedWorkingCalendarName(string name);
 
         bool IsDuplicatedWorkingCalendarName(string name, int _workingCalendarID);
+
+        System.Data.DataTable GetAttendanceReport(DateTime dateTime, DateTime dateTime_2);
     }
 }

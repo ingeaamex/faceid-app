@@ -29,50 +29,52 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.txtRate = new System.Windows.Forms.TextBox();
+            this.btnAddRate = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(22, 72);
+            this.label1.Location = new System.Drawing.Point(48, 38);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(30, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Rate";
             // 
-            // textBox2
+            // txtRate
             // 
-            this.textBox2.Location = new System.Drawing.Point(78, 72);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 2;
+            this.txtRate.Location = new System.Drawing.Point(84, 34);
+            this.txtRate.Name = "txtRate";
+            this.txtRate.Size = new System.Drawing.Size(100, 20);
+            this.txtRate.TabIndex = 2;
             // 
-            // button1
+            // btnAddRate
             // 
-            this.button1.Location = new System.Drawing.Point(25, 143);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Add";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnAddRate.Location = new System.Drawing.Point(46, 70);
+            this.btnAddRate.Name = "btnAddRate";
+            this.btnAddRate.Size = new System.Drawing.Size(75, 23);
+            this.btnAddRate.TabIndex = 3;
+            this.btnAddRate.Text = "Add";
+            this.btnAddRate.UseVisualStyleBackColor = true;
+            this.btnAddRate.Click += new System.EventHandler(this.btnAddRate_Click);
             // 
-            // button2
+            // btnCancel
             // 
-            this.button2.Location = new System.Drawing.Point(152, 143);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "Cancel";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnCancel.Location = new System.Drawing.Point(127, 70);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 4;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(192, 79);
+            this.label2.Location = new System.Drawing.Point(186, 38);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(15, 13);
             this.label2.TabIndex = 5;
@@ -82,11 +84,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(292, 266);
+            this.ClientSize = new System.Drawing.Size(249, 127);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnAddRate);
+            this.Controls.Add(this.txtRate);
             this.Controls.Add(this.label1);
             this.Name = "frmCustomRate";
             this.Text = "frmCustomRate";
@@ -98,9 +100,9 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox txtRate;
+        private System.Windows.Forms.Button btnAddRate;
+        private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label label2;
     }
 }

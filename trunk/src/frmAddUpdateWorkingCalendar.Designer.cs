@@ -43,6 +43,7 @@
             this.chbMonday = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.lblNextDay = new System.Windows.Forms.Label();
             this.nudRegularWorkToMin = new System.Windows.Forms.NumericUpDown();
             this.nudRegularWorkFromMin = new System.Windows.Forms.NumericUpDown();
             this.nudRegularWorkToHour = new System.Windows.Forms.NumericUpDown();
@@ -312,6 +313,7 @@
             this.btnCancel1.TabIndex = 33;
             this.btnCancel1.Text = "Cancel";
             this.btnCancel1.UseVisualStyleBackColor = true;
+            this.btnCancel1.Click += new System.EventHandler(this.btnCancel1_Click);
             // 
             // btnNext1
             // 
@@ -321,6 +323,7 @@
             this.btnNext1.TabIndex = 32;
             this.btnNext1.Text = "Next";
             this.btnNext1.UseVisualStyleBackColor = true;
+            this.btnNext1.Click += new System.EventHandler(this.btnNext1_Click);
             // 
             // chbSunday
             // 
@@ -403,6 +406,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.lblNextDay);
             this.tabPage2.Controls.Add(this.nudRegularWorkToMin);
             this.tabPage2.Controls.Add(this.nudRegularWorkFromMin);
             this.tabPage2.Controls.Add(this.nudRegularWorkToHour);
@@ -421,12 +425,23 @@
             this.tabPage2.Text = "Step 2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // lblNextDay
+            // 
+            this.lblNextDay.AutoSize = true;
+            this.lblNextDay.Location = new System.Drawing.Point(571, 191);
+            this.lblNextDay.Name = "lblNextDay";
+            this.lblNextDay.Size = new System.Drawing.Size(53, 13);
+            this.lblNextDay.TabIndex = 17;
+            this.lblNextDay.Text = "[next day]";
+            this.lblNextDay.Visible = false;
+            // 
             // nudRegularWorkToMin
             // 
             this.nudRegularWorkToMin.Location = new System.Drawing.Point(445, 189);
             this.nudRegularWorkToMin.Name = "nudRegularWorkToMin";
             this.nudRegularWorkToMin.Size = new System.Drawing.Size(120, 20);
             this.nudRegularWorkToMin.TabIndex = 16;
+            this.nudRegularWorkToMin.ValueChanged += new System.EventHandler(this.nudRegularWorkToMin_ValueChanged);
             // 
             // nudRegularWorkFromMin
             // 
@@ -434,6 +449,7 @@
             this.nudRegularWorkFromMin.Name = "nudRegularWorkFromMin";
             this.nudRegularWorkFromMin.Size = new System.Drawing.Size(120, 20);
             this.nudRegularWorkFromMin.TabIndex = 15;
+            this.nudRegularWorkFromMin.ValueChanged += new System.EventHandler(this.nudRegularWorkFromMin_ValueChanged);
             // 
             // nudRegularWorkToHour
             // 
@@ -441,6 +457,7 @@
             this.nudRegularWorkToHour.Name = "nudRegularWorkToHour";
             this.nudRegularWorkToHour.Size = new System.Drawing.Size(120, 20);
             this.nudRegularWorkToHour.TabIndex = 14;
+            this.nudRegularWorkToHour.ValueChanged += new System.EventHandler(this.nudRegularWorkToHour_ValueChanged);
             // 
             // nudRegularWorkFromHour
             // 
@@ -448,6 +465,7 @@
             this.nudRegularWorkFromHour.Name = "nudRegularWorkFromHour";
             this.nudRegularWorkFromHour.Size = new System.Drawing.Size(120, 20);
             this.nudRegularWorkFromHour.TabIndex = 13;
+            this.nudRegularWorkFromHour.ValueChanged += new System.EventHandler(this.nudRegularWorkFromHour_ValueChanged);
             // 
             // btnBack2
             // 
@@ -457,6 +475,7 @@
             this.btnBack2.TabIndex = 12;
             this.btnBack2.Text = "Back";
             this.btnBack2.UseVisualStyleBackColor = true;
+            this.btnBack2.Click += new System.EventHandler(this.btnBack2_Click);
             // 
             // btnCancel2
             // 
@@ -466,6 +485,7 @@
             this.btnCancel2.TabIndex = 11;
             this.btnCancel2.Text = "Cancel";
             this.btnCancel2.UseVisualStyleBackColor = true;
+            this.btnCancel2.Click += new System.EventHandler(this.btnCancel2_Click);
             // 
             // btnNext2
             // 
@@ -475,6 +495,7 @@
             this.btnNext2.TabIndex = 10;
             this.btnNext2.Text = "Next";
             this.btnNext2.UseVisualStyleBackColor = true;
+            this.btnNext2.Click += new System.EventHandler(this.btnNext2_Click);
             // 
             // label4
             // 
@@ -653,6 +674,7 @@
             this.btnBack3.TabIndex = 106;
             this.btnBack3.Text = "Back";
             this.btnBack3.UseVisualStyleBackColor = true;
+            this.btnBack3.Click += new System.EventHandler(this.btnBack3_Click);
             // 
             // btnCancel3
             // 
@@ -662,6 +684,7 @@
             this.btnCancel3.TabIndex = 105;
             this.btnCancel3.Text = "Cancel";
             this.btnCancel3.UseVisualStyleBackColor = true;
+            this.btnCancel3.Click += new System.EventHandler(this.btnCancel3_Click);
             // 
             // btnNext3
             // 
@@ -671,6 +694,7 @@
             this.btnNext3.TabIndex = 104;
             this.btnNext3.Text = "Next";
             this.btnNext3.UseVisualStyleBackColor = true;
+            this.btnNext3.Click += new System.EventHandler(this.btnNext3_Click);
             // 
             // nudBreakToMin2
             // 
@@ -962,6 +986,7 @@
             this.cbxWorkDayOvertimeRate4.Name = "cbxWorkDayOvertimeRate4";
             this.cbxWorkDayOvertimeRate4.Size = new System.Drawing.Size(121, 21);
             this.cbxWorkDayOvertimeRate4.TabIndex = 141;
+            this.cbxWorkDayOvertimeRate4.SelectedIndexChanged += new System.EventHandler(this.cbxWorkDayOvertimeRate4_SelectedIndexChanged);
             // 
             // label32
             // 
@@ -997,6 +1022,7 @@
             this.cbxWorkDayOvertimeRate3.Name = "cbxWorkDayOvertimeRate3";
             this.cbxWorkDayOvertimeRate3.Size = new System.Drawing.Size(121, 21);
             this.cbxWorkDayOvertimeRate3.TabIndex = 137;
+            this.cbxWorkDayOvertimeRate3.SelectedIndexChanged += new System.EventHandler(this.cbxWorkDayOvertimeRate3_SelectedIndexChanged);
             // 
             // label28
             // 
@@ -1032,6 +1058,7 @@
             this.cbxWorkDayOvertimeRate2.Name = "cbxWorkDayOvertimeRate2";
             this.cbxWorkDayOvertimeRate2.Size = new System.Drawing.Size(121, 21);
             this.cbxWorkDayOvertimeRate2.TabIndex = 133;
+            this.cbxWorkDayOvertimeRate2.SelectedIndexChanged += new System.EventHandler(this.cbxWorkDayOvertimeRate2_SelectedIndexChanged);
             // 
             // label25
             // 
@@ -1067,6 +1094,7 @@
             this.cbxWorkDayOvertimeRate1.Name = "cbxWorkDayOvertimeRate1";
             this.cbxWorkDayOvertimeRate1.Size = new System.Drawing.Size(121, 21);
             this.cbxWorkDayOvertimeRate1.TabIndex = 129;
+            this.cbxWorkDayOvertimeRate1.SelectedIndexChanged += new System.EventHandler(this.cbxWorkDayOvertimeRate1_SelectedIndexChanged);
             // 
             // label22
             // 
@@ -1102,6 +1130,7 @@
             this.cbxWorkDayRegularRate.Name = "cbxWorkDayRegularRate";
             this.cbxWorkDayRegularRate.Size = new System.Drawing.Size(121, 21);
             this.cbxWorkDayRegularRate.TabIndex = 125;
+            this.cbxWorkDayRegularRate.SelectedIndexChanged += new System.EventHandler(this.cbxWorkDayRegularRate_SelectedIndexChanged);
             // 
             // label19
             // 
@@ -1129,6 +1158,7 @@
             this.btnBack4.TabIndex = 122;
             this.btnBack4.Text = "Back";
             this.btnBack4.UseVisualStyleBackColor = true;
+            this.btnBack4.Click += new System.EventHandler(this.btnBack4_Click);
             // 
             // btnCancel4
             // 
@@ -1138,6 +1168,7 @@
             this.btnCancel4.TabIndex = 121;
             this.btnCancel4.Text = "Cancel";
             this.btnCancel4.UseVisualStyleBackColor = true;
+            this.btnCancel4.Click += new System.EventHandler(this.btnCancel4_Click);
             // 
             // btnNext4
             // 
@@ -1147,6 +1178,7 @@
             this.btnNext4.TabIndex = 120;
             this.btnNext4.Text = "Next";
             this.btnNext4.UseVisualStyleBackColor = true;
+            this.btnNext4.Click += new System.EventHandler(this.btnNext4_Click);
             // 
             // label30
             // 
@@ -1246,6 +1278,7 @@
             this.cbxNonWorkDayOvertimeRate4.Name = "cbxNonWorkDayOvertimeRate4";
             this.cbxNonWorkDayOvertimeRate4.Size = new System.Drawing.Size(121, 21);
             this.cbxNonWorkDayOvertimeRate4.TabIndex = 170;
+            this.cbxNonWorkDayOvertimeRate4.SelectedIndexChanged += new System.EventHandler(this.cbxNonWorkDayOvertimeRate4_SelectedIndexChanged);
             // 
             // label35
             // 
@@ -1281,6 +1314,7 @@
             this.cbxNonWorkDayOvertimeRate3.Name = "cbxNonWorkDayOvertimeRate3";
             this.cbxNonWorkDayOvertimeRate3.Size = new System.Drawing.Size(121, 21);
             this.cbxNonWorkDayOvertimeRate3.TabIndex = 166;
+            this.cbxNonWorkDayOvertimeRate3.SelectedIndexChanged += new System.EventHandler(this.cbxNonWorkDayOvertimeRate3_SelectedIndexChanged);
             // 
             // label38
             // 
@@ -1316,6 +1350,7 @@
             this.cbxNonWorkDayOvertimeRate2.Name = "cbxNonWorkDayOvertimeRate2";
             this.cbxNonWorkDayOvertimeRate2.Size = new System.Drawing.Size(121, 21);
             this.cbxNonWorkDayOvertimeRate2.TabIndex = 162;
+            this.cbxNonWorkDayOvertimeRate2.SelectedIndexChanged += new System.EventHandler(this.cbxNonWorkDayOvertimeRate2_SelectedIndexChanged);
             // 
             // label41
             // 
@@ -1351,6 +1386,7 @@
             this.cbxNonWorkDayOvertimeRate1.Name = "cbxNonWorkDayOvertimeRate1";
             this.cbxNonWorkDayOvertimeRate1.Size = new System.Drawing.Size(121, 21);
             this.cbxNonWorkDayOvertimeRate1.TabIndex = 158;
+            this.cbxNonWorkDayOvertimeRate1.SelectedIndexChanged += new System.EventHandler(this.cbxNonWorkDayOvertimeRate1_SelectedIndexChanged);
             // 
             // label44
             // 
@@ -1386,6 +1422,7 @@
             this.cbxNonWorkDayRegularRate.Name = "cbxNonWorkDayRegularRate";
             this.cbxNonWorkDayRegularRate.Size = new System.Drawing.Size(121, 21);
             this.cbxNonWorkDayRegularRate.TabIndex = 154;
+            this.cbxNonWorkDayRegularRate.SelectedIndexChanged += new System.EventHandler(this.cbxNonWorkDayRegularRate_SelectedIndexChanged);
             // 
             // label47
             // 
@@ -1413,6 +1450,7 @@
             this.btnBack5.TabIndex = 151;
             this.btnBack5.Text = "Back";
             this.btnBack5.UseVisualStyleBackColor = true;
+            this.btnBack5.Click += new System.EventHandler(this.btnBack5_Click);
             // 
             // btnCancel5
             // 
@@ -1422,6 +1460,7 @@
             this.btnCancel5.TabIndex = 150;
             this.btnCancel5.Text = "Cancel";
             this.btnCancel5.UseVisualStyleBackColor = true;
+            this.btnCancel5.Click += new System.EventHandler(this.btnCancel5_Click);
             // 
             // btnNext5
             // 
@@ -1431,6 +1470,7 @@
             this.btnNext5.TabIndex = 149;
             this.btnNext5.Text = "Next";
             this.btnNext5.UseVisualStyleBackColor = true;
+            this.btnNext5.Click += new System.EventHandler(this.btnNext5_Click);
             // 
             // label49
             // 
@@ -1465,6 +1505,7 @@
             this.btnBack6.TabIndex = 105;
             this.btnBack6.Text = "Back";
             this.btnBack6.UseVisualStyleBackColor = true;
+            this.btnBack6.Click += new System.EventHandler(this.btnBack6_Click);
             // 
             // btnCancel6
             // 
@@ -1474,6 +1515,7 @@
             this.btnCancel6.TabIndex = 104;
             this.btnCancel6.Text = "Cancel";
             this.btnCancel6.UseVisualStyleBackColor = true;
+            this.btnCancel6.Click += new System.EventHandler(this.btnCancel6_Click);
             // 
             // btnNext6
             // 
@@ -1483,6 +1525,7 @@
             this.btnNext6.TabIndex = 103;
             this.btnNext6.Text = "Next";
             this.btnNext6.UseVisualStyleBackColor = true;
+            this.btnNext6.Click += new System.EventHandler(this.btnNext6_Click);
             // 
             // mcdHoliday
             // 
@@ -1498,6 +1541,7 @@
             this.btnRemoveHoliday.TabIndex = 101;
             this.btnRemoveHoliday.Text = "Remove";
             this.btnRemoveHoliday.UseVisualStyleBackColor = true;
+            this.btnRemoveHoliday.Click += new System.EventHandler(this.btnRemoveHoliday_Click);
             // 
             // btnAddHoliday
             // 
@@ -1507,6 +1551,7 @@
             this.btnAddHoliday.TabIndex = 100;
             this.btnAddHoliday.Text = "Add";
             this.btnAddHoliday.UseVisualStyleBackColor = true;
+            this.btnAddHoliday.Click += new System.EventHandler(this.btnAddHoliday_Click);
             // 
             // dgvHoliday
             // 
@@ -1521,11 +1566,13 @@
             // 
             // HolidayDate
             // 
+            this.HolidayDate.DataPropertyName = "Date";
             this.HolidayDate.HeaderText = "Date";
             this.HolidayDate.Name = "HolidayDate";
             // 
             // Description
             // 
+            this.Description.DataPropertyName = "Description";
             this.Description.HeaderText = "Description";
             this.Description.Name = "Description";
             // 
@@ -1618,6 +1665,7 @@
             this.cbxHolidayOvertimeRate4.Name = "cbxHolidayOvertimeRate4";
             this.cbxHolidayOvertimeRate4.Size = new System.Drawing.Size(121, 21);
             this.cbxHolidayOvertimeRate4.TabIndex = 199;
+            this.cbxHolidayOvertimeRate4.SelectedIndexChanged += new System.EventHandler(this.cbxHolidayOvertimeRate4_SelectedIndexChanged);
             // 
             // label51
             // 
@@ -1653,6 +1701,7 @@
             this.cbxHolidayOvertimeRate3.Name = "cbxHolidayOvertimeRate3";
             this.cbxHolidayOvertimeRate3.Size = new System.Drawing.Size(121, 21);
             this.cbxHolidayOvertimeRate3.TabIndex = 195;
+            this.cbxHolidayOvertimeRate3.SelectedIndexChanged += new System.EventHandler(this.cbxHolidayOvertimeRate3_SelectedIndexChanged);
             // 
             // label54
             // 
@@ -1688,6 +1737,7 @@
             this.cbxHolidayOvertimeRate2.Name = "cbxHolidayOvertimeRate2";
             this.cbxHolidayOvertimeRate2.Size = new System.Drawing.Size(121, 21);
             this.cbxHolidayOvertimeRate2.TabIndex = 191;
+            this.cbxHolidayOvertimeRate2.SelectedIndexChanged += new System.EventHandler(this.cbxHolidayOvertimeRate2_SelectedIndexChanged);
             // 
             // label57
             // 
@@ -1723,6 +1773,7 @@
             this.cbxHolidayOvertimeRate1.Name = "cbxHolidayOvertimeRate1";
             this.cbxHolidayOvertimeRate1.Size = new System.Drawing.Size(121, 21);
             this.cbxHolidayOvertimeRate1.TabIndex = 187;
+            this.cbxHolidayOvertimeRate1.SelectedIndexChanged += new System.EventHandler(this.cbxHolidayOvertimeRate1_SelectedIndexChanged);
             // 
             // label60
             // 
@@ -1758,6 +1809,7 @@
             this.cbxHolidayRegularRate.Name = "cbxHolidayRegularRate";
             this.cbxHolidayRegularRate.Size = new System.Drawing.Size(121, 21);
             this.cbxHolidayRegularRate.TabIndex = 183;
+            this.cbxHolidayRegularRate.SelectedIndexChanged += new System.EventHandler(this.cbxHolidayRegularRate_SelectedIndexChanged);
             // 
             // label63
             // 
@@ -1785,6 +1837,7 @@
             this.btnBack7.TabIndex = 180;
             this.btnBack7.Text = "Back";
             this.btnBack7.UseVisualStyleBackColor = true;
+            this.btnBack7.Click += new System.EventHandler(this.btnBack7_Click);
             // 
             // btnCancel7
             // 
@@ -1794,6 +1847,7 @@
             this.btnCancel7.TabIndex = 179;
             this.btnCancel7.Text = "Cancel";
             this.btnCancel7.UseVisualStyleBackColor = true;
+            this.btnCancel7.Click += new System.EventHandler(this.btnCancel7_Click);
             // 
             // btnNext7
             // 
@@ -1803,6 +1857,7 @@
             this.btnNext7.TabIndex = 178;
             this.btnNext7.Text = "Next";
             this.btnNext7.UseVisualStyleBackColor = true;
+            this.btnNext7.Click += new System.EventHandler(this.btnNext7_Click);
             // 
             // label65
             // 
@@ -1937,6 +1992,7 @@
             this.btnBack8.TabIndex = 174;
             this.btnBack8.Text = "Back";
             this.btnBack8.UseVisualStyleBackColor = true;
+            this.btnBack8.Click += new System.EventHandler(this.btnBack8_Click);
             // 
             // btnCancel8
             // 
@@ -1946,6 +2002,7 @@
             this.btnCancel8.TabIndex = 173;
             this.btnCancel8.Text = "Cancel";
             this.btnCancel8.UseVisualStyleBackColor = true;
+            this.btnCancel8.Click += new System.EventHandler(this.btnCancel8_Click);
             // 
             // btnFinish
             // 
@@ -1955,6 +2012,7 @@
             this.btnFinish.TabIndex = 172;
             this.btnFinish.Text = "Finish";
             this.btnFinish.UseVisualStyleBackColor = true;
+            this.btnFinish.Click += new System.EventHandler(this.btnFinish_Click);
             // 
             // label81
             // 
@@ -2161,8 +2219,6 @@
         private System.Windows.Forms.Button btnRemoveHoliday;
         private System.Windows.Forms.Button btnAddHoliday;
         private System.Windows.Forms.DataGridView dgvHoliday;
-        private System.Windows.Forms.DataGridViewTextBoxColumn HolidayDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Description;
         private System.Windows.Forms.NumericUpDown nudHolidayOvertimeHour4;
         private System.Windows.Forms.NumericUpDown nudHolidayOvertimeHour3;
         private System.Windows.Forms.NumericUpDown nudHolidayOvertimeHour2;
@@ -2206,5 +2262,8 @@
         private System.Windows.Forms.Button btnCancel8;
         private System.Windows.Forms.Button btnFinish;
         private System.Windows.Forms.Label label81;
+        private System.Windows.Forms.DataGridViewTextBoxColumn HolidayDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Description;
+        private System.Windows.Forms.Label lblNextDay;
     }
 }

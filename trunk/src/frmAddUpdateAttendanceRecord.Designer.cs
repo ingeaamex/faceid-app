@@ -115,19 +115,19 @@
             0,
             0});
             this.nudAttHour.Name = "nudAttHour";
-            this.nudAttHour.Size = new System.Drawing.Size(120, 20);
+            this.nudAttHour.Size = new System.Drawing.Size(55, 20);
             this.nudAttHour.TabIndex = 7;
             // 
             // nudAttMin
             // 
-            this.nudAttMin.Location = new System.Drawing.Point(572, 122);
+            this.nudAttMin.Location = new System.Drawing.Point(495, 122);
             this.nudAttMin.Maximum = new decimal(new int[] {
             59,
             0,
             0,
             0});
             this.nudAttMin.Name = "nudAttMin";
-            this.nudAttMin.Size = new System.Drawing.Size(120, 20);
+            this.nudAttMin.Size = new System.Drawing.Size(55, 20);
             this.nudAttMin.TabIndex = 8;
             // 
             // txtNote
