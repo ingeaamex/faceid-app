@@ -65,7 +65,7 @@ namespace FaceIDAppVBEta.Data
         {
             if (dbConnection == null)
             {
-                string connectionString = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";
+                string connectionString = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\vnanh\project\FaceID\db\FaceIDdb.mdb";
                 dbConnection = new OleDbConnection(connectionString);
             }
             if (dbConnection.State != ConnectionState.Open)
@@ -90,7 +90,7 @@ namespace FaceIDAppVBEta.Data
         #region Company
         public List<Company> GetCompanyList()
         {
-            //ConnectToDatabase();
+            ConnectToDatabase();
 
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Company", "*", null);
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
@@ -548,6 +548,19 @@ namespace FaceIDAppVBEta.Data
             return employeeList;
         }
 
+        public bool IsExistEmployeeNumber(int employeeNumber)
+        {
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Employee", "EmployeeNumber", "EmployeeNumber=@EmployeeNumber", "@EmployeeNumber", employeeNumber);
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+
+            if (odRdr.Read())
+            {
+                odRdr.Close();
+                return true;
+            }
+            return false;
+        }
+
         public int AddEmployee(Employee employee)
         {
             //ConnectToDatabase();
@@ -938,6 +951,273 @@ namespace FaceIDAppVBEta.Data
 
         #endregion EmployeeNumber
 
+        #region WorkingCalendar
+
+
+        public WorkingCalendar GetWorkingCalendar(int workingCalendarID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Break> GetBreakByWorkingCalendar(int workingCalendarID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public PaymentRate GetWorkingDayPaymentRateByWorkingCalendar(int workingCalendarID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public PaymentRate GetNonWorkingDayPaymentRateByWorkingCalendar(int workingCalendarID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public PaymentRate GetHolidayPaymentRateByWorkingCalendar(int workingCalendarID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Holiday> GetHolidayListByWorkingCalendar(int workingCalendarID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public PayPeriod GetPayPeriodByWorkingCalendar(int workingCalendarID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int AddWorkingCalendar(WorkingCalendar workingCalendar, List<Break> breakList, List<Holiday> holidayList, PaymentRate workingDayPaymentRate, PaymentRate nonWorkingDayPaymentRate, PaymentRate holidayPaymentRate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool UpdateWorkingCalendar(WorkingCalendar workingCalendar, List<Break> breakList, List<Holiday> holidayList, PaymentRate workingDayPaymentRate, PaymentRate nonWorkingDayPaymentRate, PaymentRate holidayPaymentRate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public PayPeriod GetPayPeriodByName(string payPeriodName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsDuplicatedWorkingCalendarName(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsDuplicatedWorkingCalendarName(string name, int _workingCalendarID)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region Attendance Rcord
+
+        public List<AttendanceLog> GetAttendanceRecordList_1(DateTime beginDate, DateTime endDate)
+        {
+            DataTable dtAttendanceRecord = new DataTable();
+            DataTable dtEmployee = new DataTable();
+
+            endDate = endDate.AddDays(1);
+
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("AttendanceRecord", "*",
+                "Time>=@Date_1 AND Time<=@Date_2",
+                new object[] { "@Date_1", beginDate, "@Date_2", endDate });
+
+            OleDbDataAdapter odRdr = new OleDbDataAdapter(odCom);
+            odRdr.Fill(dtAttendanceRecord);
+
+            if (dtAttendanceRecord.Rows.Count == 0)
+                return null;
+
+            string employeeNumberList = "";
+            int emplTmp = 0;
+            foreach (DataRow dr in dtAttendanceRecord.Rows)
+            {
+                if (emplTmp == (int)dr["EmployeeNumber"])
+                    continue;
+
+                employeeNumberList += dr["EmployeeNumber"] + ",";
+                emplTmp = (int)dr["EmployeeNumber"];
+            }
+            employeeNumberList = employeeNumberList.TrimEnd(',');
+
+            odCom = BuildSelectCmd("WorkingCalendar INNER JOIN Employee ON WorkingCalendar.ID = Employee.WorkingCalendarID",
+                "Employee.EmployeeNumber, Employee.FirstName, Employee.LastName, WorkingCalendar.RegularWorkingFrom, WorkingCalendar.RegularWorkingTo",
+                            "Employee.EmployeeNumber in(" + employeeNumberList + ")");
+            odRdr = new OleDbDataAdapter(odCom);
+            odRdr.Fill(dtEmployee);
+
+            List<AttendanceLog> attendanceLogs = new List<AttendanceLog>();
+
+            foreach (DataRow drEmpl in dtEmployee.Rows)
+            {
+                int iEmployeeNumber = (int)drEmpl["EmployeeNumber"];
+
+                if (Convert.ToDateTime(drEmpl["RegularWorkingFrom"]).Day != Convert.ToDateTime(drEmpl["RegularWorkingTo"]).Day)
+                {
+                    //
+                }
+                else
+                {
+                    DataRow[] drAtts = dtAttendanceRecord.Select("EmployeeNumber=" + iEmployeeNumber, "Time");
+                    string sCurrentDate = "";
+                    List<string> attendanceDetails = new List<string>();
+                    List<string> notes = new List<string>();
+                    int iTotalHour = 0;
+
+                    for (int i = 0; i < drAtts.Length; i++)
+                    {
+                        DataRow drAtt = drAtts[i];
+                        DateTime dtime = (DateTime)drAtt["Time"];
+                        if (dtime.ToShortDateString() != sCurrentDate)
+                        {
+                            if (sCurrentDate == "")
+                            {
+                                attendanceDetails.Add(dtime.ToShortTimeString());
+                                notes.Add((string)drAtt["Note"]);
+                                sCurrentDate = dtime.ToShortDateString();
+                                continue;
+                            }
+
+                            AttendanceLog attendanceLog = new AttendanceLog();
+                            attendanceLog.FirstName = (string)drEmpl["FirstName"];
+                            attendanceLog.LastName = (string)drEmpl["LastName"];
+                            attendanceLog.EmployeeNumber = (int)drAtt["EmployeeNumber"];
+                            attendanceLog.AttendanceDetail = attendanceDetails;
+                            attendanceLog.Note = notes;
+                            attendanceLog.TotalHour = iTotalHour;
+                            attendanceLog.DateLog = dtime;
+                            attendanceLogs.Add(attendanceLog);
+                            notes = new List<string>();
+                            attendanceDetails = new List<string>();
+                            sCurrentDate = dtime.ToShortDateString();
+                        }
+                        else
+                        {
+                            attendanceDetails.Add(dtime.ToShortTimeString());
+                            notes.Add((string)drAtt["Note"]);
+                            if (i == drAtts.Length - 1)
+                            {
+                                AttendanceLog attendanceLog = new AttendanceLog();
+                                attendanceLog.FirstName = (string)drEmpl["FirstName"];
+                                attendanceLog.LastName = (string)drEmpl["LastName"];
+                                attendanceLog.EmployeeNumber = (int)drAtt["EmployeeNumber"];
+                                attendanceLog.AttendanceDetail = attendanceDetails;
+                                attendanceLog.Note = notes;
+                                attendanceLog.TotalHour = iTotalHour;
+                                attendanceLog.DateLog = dtime;
+                                attendanceLogs.Add(attendanceLog);
+                            }
+                        }
+                    }
+                }
+            }
+            return attendanceLogs;
+        }
+
+        public List<AttendanceRecord> GetAttendanceRecordList()
+        {
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("AttendanceRecord", "*", null);
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+            List<AttendanceRecord> attRecordList = new List<AttendanceRecord>();
+            AttendanceRecord attRecord = null;
+            while (odRdr.Read())
+            {
+                attRecord = new AttendanceRecord();
+
+                attRecord.ID = (int)odRdr["ID"];
+                attRecord.EmployeeNumber = (int)odRdr["EmployeeNumber"];
+                attRecord.Note = (string)odRdr["Note"];
+                attRecord.PhotoData = (string)odRdr["PhotoData"];
+                attRecord.Time = (DateTime)odRdr["Time"];
+
+                attRecordList.Add(attRecord);
+            }
+
+            odRdr.Close();
+            return attRecordList;
+        }
+
+        public AttendanceRecord GetAttendanceRecord(int id)
+        {
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("AttendanceRecord", "*", "ID=@ID", new object[] { "@ID", id });
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+
+            if(odRdr.Read())
+            {
+                AttendanceRecord attRecord = new AttendanceRecord();
+
+                attRecord.ID = (int)odRdr["ID"];
+                attRecord.EmployeeNumber = (int)odRdr["EmployeeNumber"];
+                attRecord.Note = (string)odRdr["Note"];
+                attRecord.PhotoData = (string)odRdr["PhotoData"];
+                attRecord.Time = (DateTime)odRdr["Time"];
+
+                odRdr.Close();
+                return attRecord;
+            }
+
+            return null;
+        }
+
+        private bool IsValidAttendanceRecord(AttendanceRecord attRecord, bool forUpdate)
+        {
+            System.Data.OleDb.OleDbCommand odCom;
+            if (forUpdate)
+                odCom = BuildSelectCmd("AttendanceRecord", "ID", "ID<>@ID AND EmployeeNumber=@EmployeeNumber AND Time=@Time",
+                    new object[] { "@ID", attRecord.ID, "@EmployeeNumber", attRecord.EmployeeNumber, "@Time", attRecord.Time });
+            else
+                odCom = BuildSelectCmd("AttendanceRecord", "ID", "EmployeeNumber=@EmployeeNumber AND Time=@Time",
+                    new object[] { "@EmployeeNumber", attRecord.EmployeeNumber, "@Time", attRecord.Time });
+
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+
+            if (odRdr.Read())
+            {
+                odRdr.Close();
+                return true;
+            }
+            return false;
+        }
+
+        public int AddAttendanceRecord(AttendanceRecord attRecord)
+        {
+            if (attRecord == null || IsValidAttendanceRecord(attRecord, false))
+                return -2;
+            System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("AttendanceRecord",
+                new string[] { "EmployeeNumber", "Note", "PhotoData", "Time" },
+                new object[] { attRecord.EmployeeNumber, attRecord.Note, attRecord.PhotoData, attRecord.Time }
+                );
+
+            return ExecuteNonQuery(odCom1);
+        }
+
+        public bool DeleteAttendanceRecord(int id)
+        {
+            System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("AttendanceRecord", "ID=@ID", new object[] { "@ID", id });
+            return ExecuteNonQuery(odCom1) > 0 ? true : false;
+        }
+
+        public bool UpdateAttendanceRecord(AttendanceRecord attRecord)
+        {
+            if (attRecord == null || IsValidAttendanceRecord(attRecord, true))
+                return false;
+            System.Data.OleDb.OleDbCommand odCom1 = BuildUpdateCmd("AttendanceRecord",
+                new string[] { "EmployeeNumber", "Note", "PhotoData", "Time" },
+                new object[] { attRecord.EmployeeNumber, attRecord.Note, attRecord.PhotoData, attRecord.Time },
+                "ID=@ID", new object[] { "@ID", attRecord.ID }
+                );
+
+            return ExecuteNonQuery(odCom1) > 0 ? true : false;
+        }
+
+        #endregion Attendance Rcord
         #endregion
 
         #region utils
@@ -1068,70 +1348,6 @@ namespace FaceIDAppVBEta.Data
         }
         #endregion utils
 
-        #region IDataController Members
-
-
-        public WorkingCalendar GetWorkingCalendar(int workingCalendarID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Break> GetBreakByWorkingCalendar(int workingCalendarID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public PaymentRate GetWorkingDayPaymentRateByWorkingCalendar(int workingCalendarID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public PaymentRate GetNonWorkingDayPaymentRateByWorkingCalendar(int workingCalendarID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public PaymentRate GetHolidayPaymentRateByWorkingCalendar(int workingCalendarID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Holiday> GetHolidayListByWorkingCalendar(int workingCalendarID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public PayPeriod GetPayPeriodByWorkingCalendar(int workingCalendarID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int AddWorkingCalendar(WorkingCalendar workingCalendar, List<Break> breakList, List<Holiday> holidayList, PaymentRate workingDayPaymentRate, PaymentRate nonWorkingDayPaymentRate, PaymentRate holidayPaymentRate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool UpdateWorkingCalendar(WorkingCalendar workingCalendar, List<Break> breakList, List<Holiday> holidayList, PaymentRate workingDayPaymentRate, PaymentRate nonWorkingDayPaymentRate, PaymentRate holidayPaymentRate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public PayPeriod GetPayPeriodByName(string payPeriodName)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool IsDuplicatedWorkingCalendarName(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool IsDuplicatedWorkingCalendarName(string name, int _workingCalendarID)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
 
         #region IDataController Members
 
