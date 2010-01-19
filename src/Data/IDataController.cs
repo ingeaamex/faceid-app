@@ -97,5 +97,31 @@ namespace FaceIDAppVBEta.Data
         int GetAvailEmployeeNumber();
 
         #endregion EmployeeNumber
+
+        #region Working Calendar
+        WorkingCalendar GetWorkingCalendar(int workingCalendarID);
+
+        List<Break> GetBreakByWorkingCalendar(int workingCalendarID);
+
+        PaymentRate GetWorkingDayPaymentRateByWorkingCalendar(int workingCalendarID);
+
+        PaymentRate GetNonWorkingDayPaymentRateByWorkingCalendar(int workingCalendarID);
+
+        PaymentRate GetHolidayPaymentRateByWorkingCalendar(int workingCalendarID);
+
+        List<Holiday> GetHolidayListByWorkingCalendar(int workingCalendarID);
+
+        PayPeriod GetPayPeriodByWorkingCalendar(int workingCalendarID);
+        #endregion
+
+        int AddWorkingCalendar(WorkingCalendar workingCalendar, List<Break> breakList, List<Holiday> holidayList, PaymentRate workingDayPaymentRate, PaymentRate nonWorkingDayPaymentRate, PaymentRate holidayPaymentRate);
+
+        bool UpdateWorkingCalendar(WorkingCalendar workingCalendar, List<Break> breakList, List<Holiday> holidayList, PaymentRate workingDayPaymentRate, PaymentRate nonWorkingDayPaymentRate, PaymentRate holidayPaymentRate);
+
+        PayPeriod GetPayPeriodByName(string payPeriodName);
+
+        bool IsDuplicatedWorkingCalendarName(string name);
+
+        bool IsDuplicatedWorkingCalendarName(string name, int _workingCalendarID);
     }
 }

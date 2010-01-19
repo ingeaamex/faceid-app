@@ -10,7 +10,7 @@ namespace FaceIDAppVBEta.Data
     public class LocalDataController : IDataController
     {
         private OleDbTransaction transaction;
-        private OleDbConnection dbConnection;
+        private static OleDbConnection dbConnection;
         private static LocalDataController instance;
         private static readonly Object mutex = new Object();
 
@@ -20,8 +20,17 @@ namespace FaceIDAppVBEta.Data
         {
             get
             {
-               lock(mutex)
-                   return instance == null ? (instance = new LocalDataController()) : instance;
+                lock (mutex)
+                {
+                    if (instance == null)
+                    {
+                        instance = new LocalDataController();
+                    }
+                }
+
+                ConnectToDatabase();
+
+                return instance;
             }
         }
 
@@ -29,30 +38,30 @@ namespace FaceIDAppVBEta.Data
 
         public void BeginTransaction()
         {
-            if (dbConnection.State != ConnectionState.Open)
-            {
-                dbConnection.Open();
-            }
+            //if (dbConnection.State != ConnectionState.Open)
+            //{
+            //    dbConnection.Open();
+            //}
             transaction = dbConnection.BeginTransaction();
         }
 
         public void CommitTransaction()
         {
             transaction.Commit();
-            dbConnection.Close();
+            //dbConnection.Close();
             transaction.Dispose();
         }
 
         public void RollbackTransaction()
         {
             transaction.Rollback();
-            dbConnection.Close();
+            //dbConnection.Close();
             transaction.Dispose();
         }
 
         #endregion Connection
 
-        private void ConnectToDatabase()
+        private static void ConnectToDatabase()
         {
             if (dbConnection == null)
             {
@@ -65,12 +74,23 @@ namespace FaceIDAppVBEta.Data
             }
         }
 
+        private static void DisconnectFromDatabase()
+        {
+            if (dbConnection != null)
+            {
+                if (dbConnection.State != ConnectionState.Closed)
+                {
+                    dbConnection.Close();
+                }
+            }
+        }
+
         #region IDataController Members
 
         #region Company
         public List<Company> GetCompanyList()
         {
-            ConnectToDatabase();
+            //ConnectToDatabase();
 
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Company", "*", null);
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
@@ -92,7 +112,7 @@ namespace FaceIDAppVBEta.Data
 
         public Company GetCompany(int id)
         {
-            ConnectToDatabase();
+            //ConnectToDatabase();
 
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Company", "ID,[Name]", "ID=@ID", new object[] { "@ID", id });
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
@@ -112,7 +132,7 @@ namespace FaceIDAppVBEta.Data
 
         public Company GetCompany(string name)
         {
-            ConnectToDatabase();
+            //ConnectToDatabase();
 
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Company", "ID,[Name]", "[Name]=@Name", new object[] { "@Name", name });
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
@@ -149,7 +169,7 @@ namespace FaceIDAppVBEta.Data
         
         public List<Department> GetDepartmentByCompany(int id)
         {
-            ConnectToDatabase();
+            //ConnectToDatabase();
 
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Department", "*", "CompanyID=@ID", "@ID", id);
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
@@ -172,7 +192,7 @@ namespace FaceIDAppVBEta.Data
 
         public int AddCompany(Company company)
         {
-            ConnectToDatabase();
+            //ConnectToDatabase();
 
             if (company == null || CheckExistCompanyName(company.Name, 0))
                 return -1;
@@ -191,14 +211,14 @@ namespace FaceIDAppVBEta.Data
 
         public bool DeleteCompany(int id)
         {
-            ConnectToDatabase();
+            //ConnectToDatabase();
             System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("Company", "ID=@ID", new object[] { "@ID", id });
             return ExecuteNonQuery(odCom1) > 0 ? true : false;
         }
 
         public bool UpdateCompany(Company company)
         {
-            ConnectToDatabase();
+            //ConnectToDatabase();
 
             if (company == null || CheckExistCompanyName(company.Name, company.ID))
                 return false;
@@ -216,7 +236,7 @@ namespace FaceIDAppVBEta.Data
         #region Department
         public List<Department> GetDepartmentList()
         {
-            ConnectToDatabase();
+            //ConnectToDatabase();
 
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Department", "*", null);
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
@@ -261,7 +281,7 @@ namespace FaceIDAppVBEta.Data
 
         public Department GetDepartment(int id)
         {
-            ConnectToDatabase();
+            //ConnectToDatabase();
 
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Department", "*", "ID=@ID", "@ID", id);
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
@@ -311,7 +331,7 @@ namespace FaceIDAppVBEta.Data
 
         public int AddDepartment(Department department)
         {
-            ConnectToDatabase();
+            //ConnectToDatabase();
 
             if (department == null || CheckExistDepartmentName(department.Name, department.CompanyID, 0))
                 return -1;
@@ -332,7 +352,7 @@ namespace FaceIDAppVBEta.Data
 
         public bool UpdateDepartment(Department department)
         {
-            ConnectToDatabase();
+            //ConnectToDatabase();
 
             if (department == null || CheckExistDepartmentName(department.Name,department.CompanyID, department.ID))
                 return false;
@@ -387,7 +407,7 @@ namespace FaceIDAppVBEta.Data
 
         public bool DeleteDepartment(int id)
         {
-            ConnectToDatabase();
+            //ConnectToDatabase();
 
             System.Data.OleDb.OleDbCommand odCom1 = null;
             List<Department> departmentList = GetDepartmentListByGroup(id);
@@ -422,7 +442,7 @@ namespace FaceIDAppVBEta.Data
 
         public Employee GetEmployee(int employeeId)
         {
-            ConnectToDatabase();
+            //ConnectToDatabase();
 
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Employee", "*", "PayrollNumber=@ID", "@ID", employeeId);
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
@@ -455,7 +475,7 @@ namespace FaceIDAppVBEta.Data
 
         public List<Employee> GetEmployeeList(int compantId)
         {
-            ConnectToDatabase();
+            //ConnectToDatabase();
 
             System.Data.OleDb.OleDbCommand odCom;
             if (compantId <= 0)
@@ -494,7 +514,7 @@ namespace FaceIDAppVBEta.Data
 
         public List<Employee> GetEmployeeListByDep(int departmentId)
         {
-            ConnectToDatabase();
+            //ConnectToDatabase();
 
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Employee", "*", "DepartmentID=@ID", "@ID", departmentId);
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
@@ -530,7 +550,7 @@ namespace FaceIDAppVBEta.Data
 
         public int AddEmployee(Employee employee)
         {
-            ConnectToDatabase();
+            //ConnectToDatabase();
 
             if (employee == null)
                 return -1;
@@ -556,7 +576,7 @@ namespace FaceIDAppVBEta.Data
 
         public bool DeleteEmployee(int employeeId)
         {
-            ConnectToDatabase();
+            //ConnectToDatabase();
 
             System.Data.OleDb.OleDbCommand odCom1 = BuildUpdateCmd("Employee",
                 new string[] { "Active", "ActiveTo" }, new object[] { false, DateTime.Now }, "PayrollNumber=@ID",
@@ -567,7 +587,7 @@ namespace FaceIDAppVBEta.Data
 
         public bool UpdateEmployee(Employee employee)
         {
-            ConnectToDatabase();
+            //ConnectToDatabase();
 
             if (employee == null)
                 return false;
@@ -594,7 +614,7 @@ namespace FaceIDAppVBEta.Data
         #region WorkingCalendar
         public List<WorkingCalendar> GetWCalendarList()
         {
-            ConnectToDatabase();
+            //ConnectToDatabase();
 
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("WorkingCalendar", "*", null);
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
@@ -620,7 +640,7 @@ namespace FaceIDAppVBEta.Data
         #region Terminal
         public List<Terminal> GetTerminalList()
         {
-            ConnectToDatabase();
+            //ConnectToDatabase();
 
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Terminal", "*", null);
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
@@ -643,7 +663,7 @@ namespace FaceIDAppVBEta.Data
 
         public Terminal GetTerminal(int id)
         {
-            ConnectToDatabase();
+            //ConnectToDatabase();
 
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Terminal", "*", "ID=@ID", new object[] { "@ID", id });
 
@@ -685,7 +705,7 @@ namespace FaceIDAppVBEta.Data
 
         public int AddTerminal(Terminal _terminal)
         {
-            ConnectToDatabase();
+            //ConnectToDatabase();
 
             if (CheckEixstTerminal(_terminal,false))
                 return -1;
@@ -709,7 +729,7 @@ namespace FaceIDAppVBEta.Data
 
         public bool UpdateTerminal(Terminal _terminal)
         {
-            ConnectToDatabase();
+            //ConnectToDatabase();
 
             if (CheckEixstTerminal(_terminal, true))
                 return false;
@@ -729,7 +749,7 @@ namespace FaceIDAppVBEta.Data
 
         public bool DeleteTerminal(int id)
         {
-            ConnectToDatabase();
+            //ConnectToDatabase();
             System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("Terminal", "ID=@ID", new object[] { "@ID", id });
             return ExecuteNonQuery(odCom1) > 0 ? true : false;
         }
@@ -740,7 +760,7 @@ namespace FaceIDAppVBEta.Data
 
         public List<EmployeeTerminal> GetEmployeeTerminalsByEmpl(int employeeNumber)
         {
-            ConnectToDatabase();
+            //ConnectToDatabase();
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("EmployeeTerminal", "*", "EmployeeNumber=@EmployeeNumber", new object[] { "@EmployeeNumber", employeeNumber });
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
 
@@ -761,7 +781,7 @@ namespace FaceIDAppVBEta.Data
         
         public List<Terminal> GetTerminalsByEmpl(int employeeNumber)
         {
-            ConnectToDatabase();
+            //ConnectToDatabase();
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Terminal", "*", "ID in (SELECT TerminalID FROM EmployeeTerminal WHERE EmployeeNumber=@EmployeeNumber)", new object[] { "@EmployeeNumber", employeeNumber });
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
 
@@ -787,7 +807,7 @@ namespace FaceIDAppVBEta.Data
 
         public int AddEmplTerminal(List<EmployeeTerminal> emplTerminals)
         {
-            ConnectToDatabase();
+            //ConnectToDatabase();
 
             if (emplTerminals == null)
                 return -1;
@@ -810,7 +830,7 @@ namespace FaceIDAppVBEta.Data
 
         public bool DeleteEmplTerminalByEmpl(int employeeNumber)
         {
-            ConnectToDatabase();
+            //ConnectToDatabase();
 
             System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("EmployeeTerminal", "EmployeeNumber=@ID", new object[] { "@ID", employeeNumber });
 
@@ -819,7 +839,7 @@ namespace FaceIDAppVBEta.Data
 
         public bool DeleteEmplTerminal(int terminalID)
         {
-            ConnectToDatabase();
+            //ConnectToDatabase();
 
             System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("EmployeeTerminal", "TerminalID=@ID", new object[] { "@ID", terminalID });
 
@@ -828,7 +848,7 @@ namespace FaceIDAppVBEta.Data
         
         public bool UpdateEmplTerminal(List<Terminal> terminals, int employeeNumber)
         {
-            ConnectToDatabase();
+            //ConnectToDatabase();
 
             BeginTransaction();
             System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("EmployeeTerminal", "EmployeeNumber=@ID", new object[] { "@ID", employeeNumber });
@@ -868,7 +888,7 @@ namespace FaceIDAppVBEta.Data
 
         public int GetAvailEmployeeNumber()
         {
-            ConnectToDatabase();
+            //ConnectToDatabase();
 
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Employee", "Min(EmployeeNumber) as EmployeeNumber", "Active=0");
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
@@ -1047,5 +1067,70 @@ namespace FaceIDAppVBEta.Data
             return command;
         }
         #endregion utils
+
+        #region IDataController Members
+
+
+        public WorkingCalendar GetWorkingCalendar(int workingCalendarID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Break> GetBreakByWorkingCalendar(int workingCalendarID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public PaymentRate GetWorkingDayPaymentRateByWorkingCalendar(int workingCalendarID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public PaymentRate GetNonWorkingDayPaymentRateByWorkingCalendar(int workingCalendarID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public PaymentRate GetHolidayPaymentRateByWorkingCalendar(int workingCalendarID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Holiday> GetHolidayListByWorkingCalendar(int workingCalendarID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public PayPeriod GetPayPeriodByWorkingCalendar(int workingCalendarID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int AddWorkingCalendar(WorkingCalendar workingCalendar, List<Break> breakList, List<Holiday> holidayList, PaymentRate workingDayPaymentRate, PaymentRate nonWorkingDayPaymentRate, PaymentRate holidayPaymentRate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool UpdateWorkingCalendar(WorkingCalendar workingCalendar, List<Break> breakList, List<Holiday> holidayList, PaymentRate workingDayPaymentRate, PaymentRate nonWorkingDayPaymentRate, PaymentRate holidayPaymentRate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public PayPeriod GetPayPeriodByName(string payPeriodName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsDuplicatedWorkingCalendarName(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsDuplicatedWorkingCalendarName(string name, int _workingCalendarID)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }
