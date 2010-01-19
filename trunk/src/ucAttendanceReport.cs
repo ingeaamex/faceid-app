@@ -47,7 +47,7 @@ namespace FaceIDAppVBEta
             }
             else
             {
-                frmPayrollExport frmPExport = new frmPayrollExport(_dtAttendanceReport);
+                frmPayrollExport frmPExport = new frmPayrollExport(_dtAttendanceReport, dtpAttendanceFrom.Value, dtpAttedanceTo.Value);
                 frmPExport.ShowDialog(this);
             }
         }
