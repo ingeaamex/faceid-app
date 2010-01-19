@@ -135,20 +135,15 @@ namespace FaceIDAppVBEta.Data
             if (string.IsNullOrEmpty(name))
                 return true;
 
-            string strCommand = " SELECT * FROM Company WHERE [Name]='" + name + "'";
-            if (id > 0)
-                strCommand += " AND ID <> " + id;
-
-            System.Data.OleDb.OleDbCommand odCom = dbConnection.CreateCommand();
-            odCom.CommandText = strCommand;
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Company", "ID",
+                "[Name]=@Name" + (id > 0 ? " AND ID <> " + id : ""), new object[] { "@Name", name });
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
 
             if (odRdr.Read())
             {
+                odRdr.Close();
                 return true;
             }
-
-            odRdr.Close();
             return false;
         }
         
@@ -186,7 +181,7 @@ namespace FaceIDAppVBEta.Data
                 new object[] { company.Name }
                 );
 
-            if (odCom1.ExecuteNonQuery() == 1)
+            if (ExecuteNonQuery(odCom1) == 1)
             {
                 odCom1.CommandText = "SELECT @@IDENTITY";
                 return Convert.ToInt16(odCom1.ExecuteScalar().ToString());
@@ -198,7 +193,7 @@ namespace FaceIDAppVBEta.Data
         {
             ConnectToDatabase();
             System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("Company", "ID=@ID", new object[] { "@ID", id });
-            return odCom1.ExecuteNonQuery() > 0 ? true : false;
+            return ExecuteNonQuery(odCom1) > 0 ? true : false;
         }
 
         public bool UpdateCompany(Company company)
@@ -214,7 +209,7 @@ namespace FaceIDAppVBEta.Data
                 "ID=@ID", new object[] { "@ID", company.ID }
                 );
 
-            return odCom1.ExecuteNonQuery() > 0 ? true : false;
+            return ExecuteNonQuery(odCom1) > 0 ? true : false;
         }
         #endregion Company
 
@@ -307,10 +302,10 @@ namespace FaceIDAppVBEta.Data
 
             if (odRdr.Read())
             {
+                odRdr.Close();
                 return true;
             }
 
-            odRdr.Close();
             return false;
         }
 
@@ -325,7 +320,7 @@ namespace FaceIDAppVBEta.Data
                 new object[] { department.Name, department.CompanyID, department.SupDepartmentID }
                 );
 
-            if (odCom1.ExecuteNonQuery() == 1)
+            if (ExecuteNonQuery(odCom1) == 1)
             {
                 odCom1.CommandText = "SELECT @@IDENTITY";
                 int rs = Convert.ToInt16(odCom1.ExecuteScalar().ToString());
@@ -371,8 +366,8 @@ namespace FaceIDAppVBEta.Data
                         "ID=@ID", new object[] { "@ID", department.SupDepartmentID }
                         );
                     odCom1.Transaction = transaction;
-                    int rs = odCom1.ExecuteNonQuery();
-                    int rs1 = odCom2.ExecuteNonQuery();
+                    int rs = ExecuteNonQuery(odCom1);
+                    int rs1 = ExecuteNonQuery(odCom2);
                     if (rs > 0 && rs1 > 0)
                     {
                         CommitTransaction();
@@ -386,7 +381,7 @@ namespace FaceIDAppVBEta.Data
                 }
             }
 
-            int rs2 = odCom1.ExecuteNonQuery();
+            int rs2 = ExecuteNonQuery(odCom1);
             return rs2 > 0 ? true : false;
         }
 
@@ -404,7 +399,7 @@ namespace FaceIDAppVBEta.Data
                 foreach (Department department in departmentList)
                 {
                     odCom1 = BuildDelCmd("Department", "ID=@ID", new object[] { "@ID", department.ID });
-                    rs = odCom1.ExecuteNonQuery();
+                    rs = ExecuteNonQuery(odCom1);
                     if (rs < 1)
                     {
                         RollbackTransaction();
@@ -417,7 +412,7 @@ namespace FaceIDAppVBEta.Data
             else
             {
                 odCom1 = BuildDelCmd("Department", "ID=@ID", new object[] { "@ID", id });
-                rs = odCom1.ExecuteNonQuery();
+                rs = ExecuteNonQuery(odCom1);
                 return rs > 0 ? true : false;
             }
         }
@@ -450,6 +445,9 @@ namespace FaceIDAppVBEta.Data
                 employee.PhoneNumber = (string)odRdr["PhoneNumber"];
                 employee.PhotoData = (string)odRdr["PhotoData"];
                 employee.WorkingCalendarID = (int)odRdr["WorkingCalendarID"];
+                employee.ActiveFrom = (DateTime)odRdr["ActiveFrom"];
+                if (odRdr["ActiveTo"].GetType().Name != "DBNull")
+                    employee.ActiveTo = (DateTime)odRdr["ActiveTo"];
             }
             odRdr.Close();
             return employee;
@@ -484,6 +482,9 @@ namespace FaceIDAppVBEta.Data
                 employee.PhoneNumber = (string)odRdr["PhoneNumber"];
                 employee.PhotoData = (string)odRdr["PhotoData"];
                 employee.WorkingCalendarID = (int)odRdr["WorkingCalendarID"];
+                employee.ActiveFrom = (DateTime)odRdr["ActiveFrom"];
+                if (odRdr["ActiveTo"].GetType().Name != "DBNull")
+                    employee.ActiveTo = (DateTime)odRdr["ActiveTo"];
 
                 employeeList.Add(employee);
             }
@@ -503,6 +504,7 @@ namespace FaceIDAppVBEta.Data
             {
                 employee = new Employee();
 
+                employee.Active = (bool)odRdr["Active"];
                 employee.Address = (string)odRdr["Address"];
                 employee.Birthday = (DateTime)odRdr["Birthday"];
                 employee.DepartmentID = (int)odRdr["DepartmentID"];
@@ -516,6 +518,9 @@ namespace FaceIDAppVBEta.Data
                 employee.PhoneNumber = (string)odRdr["PhoneNumber"];
                 employee.PhotoData = (string)odRdr["PhotoData"];
                 employee.WorkingCalendarID = (int)odRdr["WorkingCalendarID"];
+                employee.ActiveFrom = (DateTime)odRdr["ActiveFrom"];
+                if (odRdr["ActiveTo"].GetType().Name != "DBNull")
+                    employee.ActiveTo = (DateTime)odRdr["ActiveTo"];
 
                 employeeList.Add(employee);
             }
@@ -539,7 +544,7 @@ namespace FaceIDAppVBEta.Data
                     employee.Birthday, employee.HiredDate,employee.LeftDate,employee.PhotoData,employee.Active,employee.ActiveFrom
                 });
 
-            if (odCom1.ExecuteNonQuery() == 1)
+            if (ExecuteNonQuery(odCom1) == 1)
             {
                 odCom1.CommandText = "SELECT @@IDENTITY";
                 int rs = Convert.ToInt16(odCom1.ExecuteScalar().ToString());
@@ -557,7 +562,7 @@ namespace FaceIDAppVBEta.Data
                 new string[] { "Active", "ActiveTo" }, new object[] { false, DateTime.Now }, "PayrollNumber=@ID",
                 new object[] { "@ID", employeeId }
             );
-            return odCom1.ExecuteNonQuery() > 0 ? true : false;
+            return ExecuteNonQuery(odCom1) > 0 ? true : false;
         }
 
         public bool UpdateEmployee(Employee employee)
@@ -576,7 +581,7 @@ namespace FaceIDAppVBEta.Data
                     employee.Birthday, employee.HiredDate,employee.LeftDate
                 }, "PayrollNumber=@ID", new object[] { "@ID", employee.PayrollNumber });
 
-            if (odCom1.ExecuteNonQuery() == 1)
+            if (ExecuteNonQuery(odCom1) == 1)
             {
                 return true;
             }
@@ -694,7 +699,7 @@ namespace FaceIDAppVBEta.Data
                 }
             );
 
-            if (odCom1.ExecuteNonQuery() == 1)
+            if (ExecuteNonQuery(odCom1) == 1)
             {
                 odCom1.CommandText = "SELECT @@IDENTITY";
                 return Convert.ToInt16(odCom1.ExecuteScalar().ToString());
@@ -719,14 +724,14 @@ namespace FaceIDAppVBEta.Data
                 "ID=@ID", new object[] { "@ID", _terminal.ID }
             );
 
-            return odCom1.ExecuteNonQuery() > 0 ? true : false;
+            return ExecuteNonQuery(odCom1) > 0 ? true : false;
         }
 
         public bool DeleteTerminal(int id)
         {
             ConnectToDatabase();
             System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("Terminal", "ID=@ID", new object[] { "@ID", id });
-            return odCom1.ExecuteNonQuery() > 0 ? true : false;
+            return ExecuteNonQuery(odCom1) > 0 ? true : false;
         }
 
         #endregion Terminal
@@ -796,7 +801,7 @@ namespace FaceIDAppVBEta.Data
                     new object[] { emplTerminal.EmployeeNumber, emplTerminal.TerminalID }
                     );
 
-                int irs = odCom1.ExecuteNonQuery();
+                int irs = ExecuteNonQuery(odCom1);
                 if (irs < 1)
                     return -1;
             }
@@ -809,7 +814,7 @@ namespace FaceIDAppVBEta.Data
 
             System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("EmployeeTerminal", "EmployeeNumber=@ID", new object[] { "@ID", employeeNumber });
 
-            return odCom1.ExecuteNonQuery() >= 0 ? true : false;
+            return ExecuteNonQuery(odCom1) >= 0 ? true : false;
         }
 
         public bool DeleteEmplTerminal(int terminalID)
@@ -818,7 +823,7 @@ namespace FaceIDAppVBEta.Data
 
             System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("EmployeeTerminal", "TerminalID=@ID", new object[] { "@ID", terminalID });
 
-            return odCom1.ExecuteNonQuery() >= 0 ? true : false;
+            return ExecuteNonQuery(odCom1) >= 0 ? true : false;
         }
         
         public bool UpdateEmplTerminal(List<Terminal> terminals, int employeeNumber)
@@ -827,7 +832,7 @@ namespace FaceIDAppVBEta.Data
 
             BeginTransaction();
             System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("EmployeeTerminal", "EmployeeNumber=@ID", new object[] { "@ID", employeeNumber });
-            int t1 = odCom1.ExecuteNonQuery();
+            int t1 = ExecuteNonQuery(odCom1);
             if (t1 < 0)
             {
                 RollbackTransaction();
@@ -839,7 +844,7 @@ namespace FaceIDAppVBEta.Data
                     new string[] { "EmployeeNumber", "TerminalID" },
                     new object[] { employeeNumber, terminal.ID }
                     );
-                t1 = odCom1.ExecuteNonQuery();
+                t1 = ExecuteNonQuery(odCom1);
 
                 if (t1 < 1)
                 {
@@ -871,9 +876,16 @@ namespace FaceIDAppVBEta.Data
             int employeeNumber = 1;
             if (odRdr.Read())
             {
-                employeeNumber = (int)odRdr["EmployeeNumber"];
-                odRdr.Close();
-                return employeeNumber;
+                if (int.TryParse(odRdr["EmployeeNumber"].ToString(), out employeeNumber))
+                {
+                    odRdr.Close();
+                    return employeeNumber;
+                }
+                else
+                {
+                    employeeNumber = 1;
+                    odRdr.Close();
+                }
             }
 
             odCom = BuildSelectCmd("EmployeeNumber", "ID", null);
@@ -900,7 +912,7 @@ namespace FaceIDAppVBEta.Data
                 new object[] { employeeNumber, "" }
             );
 
-            int rs = odCom1.ExecuteNonQuery();
+            int rs = ExecuteNonQuery(odCom1);
             return rs > 0 ? employeeNumber : -1;
         }
 
@@ -909,6 +921,30 @@ namespace FaceIDAppVBEta.Data
         #endregion
 
         #region utils
+
+        private void WriteLog(string msg)
+        {
+            try
+            {
+                System.IO.StreamWriter swter = System.IO.File.AppendText(@"F:\vnanh\project\FaceID\log\log.txt");
+                swter.WriteLine(DateTime.Now.ToString() + ":" + msg);
+                swter.Close();
+            }
+            catch { }
+        }
+
+        private int ExecuteNonQuery(System.Data.OleDb.OleDbCommand odCom)
+        {
+            try
+            {
+                return odCom.ExecuteNonQuery();
+            }
+            catch(Exception ex) {
+                WriteLog(ex.Message);
+            }
+            return -1;
+        }
+
         private OleDbCommand BuildDelCmd(string table, string condition, params object[] pCondition)
         {
             OleDbCommand command = dbConnection.CreateCommand();
