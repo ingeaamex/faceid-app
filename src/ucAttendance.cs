@@ -17,7 +17,7 @@ namespace FaceIDAppVBEta
 
         private void ucAttendanceLog1_Load(object sender, EventArgs e)
         {
-            new frmAddUpdateAttendanceRecord().Show();
+            //new frmAddUpdateAttendanceRecord().Show();
         }
     }
 }
