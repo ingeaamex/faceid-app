@@ -19,7 +19,7 @@ namespace FaceIDAppVBEta.UnitTest
             //Add a new department
             Department dept1 = new Department();
             dept1.Name = "Dept1";
-            dept1.CompanyID = 1;
+            dept1.CompanyID = 4;
             dept1.SupDepartmentID = 0;
 
             dept1.ID = dtCtrl.AddDepartment(dept1);
@@ -28,7 +28,7 @@ namespace FaceIDAppVBEta.UnitTest
             //Add a new sub-department
             Department dept2 = new Department();
             dept2.Name = "Dept2";
-            dept2.CompanyID = 1;
+            dept2.CompanyID = 4;
             dept2.SupDepartmentID = dept1.ID;
 
             dept2.ID = dtCtrl.AddDepartment(dept2);
@@ -37,7 +37,7 @@ namespace FaceIDAppVBEta.UnitTest
             //Add a empty named department
             Department dept3 = new Department();
             dept3.Name = "";
-            dept3.CompanyID = 1;
+            dept3.CompanyID = 4;
             dept3.SupDepartmentID = 0;
 
             Assert.Less(dtCtrl.AddDepartment(dept3), 0);
@@ -45,7 +45,7 @@ namespace FaceIDAppVBEta.UnitTest
             //Add a duplicated department
             Department dept4 = new Department();
             dept4.Name = "Dept1";
-            dept4.CompanyID = 1;
+            dept4.CompanyID = 4;
             dept4.SupDepartmentID = 0;
 
             Assert.Less(dtCtrl.AddDepartment(dept4), 0);
@@ -69,8 +69,8 @@ namespace FaceIDAppVBEta.UnitTest
             Assert.AreEqual(false, dtCtrl.UpdateDepartment(dept1));
 
             //Delete exist departments
-            Assert.AreEqual(true, dtCtrl.DeleteDepartment(dept1.ID));
             Assert.AreEqual(true, dtCtrl.DeleteDepartment(dept2.ID));
+            Assert.AreEqual(true, dtCtrl.DeleteDepartment(dept1.ID));
         }
     }
 }

@@ -42,7 +42,9 @@ namespace FaceIDAppVBEta
         {
             cbx.Items.Clear();
 
-            cbx.Items.Add("All");
+            if(addItemAll)
+                cbx.Items.Add("All");
+
             for (int i = minValue; i <= maxValue; i++)
             {
                 cbx.Items.Add(i);
@@ -73,6 +75,16 @@ namespace FaceIDAppVBEta
         public static void WriteLogs(string log)
         {
             return;
+        }
+
+        internal static void SetComboboxSelectedByValue(System.Windows.Forms.ComboBox cbxWorkDayRegularRate, int p)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static DateTime GetTheFirstDayOfCurrentMonth()
+        {
+            throw new NotImplementedException();
         }
     }
 }

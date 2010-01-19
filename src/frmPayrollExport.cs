@@ -10,7 +10,7 @@ namespace FaceIDAppVBEta
 {
     public partial class frmPayrollExport : Form
     {
-        public frmPayrollExport()
+        public frmPayrollExport(DataTable dtAttendanceReport)
         {
             InitializeComponent();
         }

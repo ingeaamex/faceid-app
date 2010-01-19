@@ -65,7 +65,7 @@ namespace FaceIDAppVBEta.Data
         {
             if (dbConnection == null)
             {
-                string connectionString = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\vnanh\project\FaceID\db\FaceIDdb.mdb";
+                string connectionString = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";
                 dbConnection = new OleDbConnection(connectionString);
             }
             if (dbConnection.State != ConnectionState.Open)
@@ -1127,6 +1127,16 @@ namespace FaceIDAppVBEta.Data
         }
 
         public bool IsDuplicatedWorkingCalendarName(string name, int _workingCalendarID)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region IDataController Members
+
+
+        public DataTable GetAttendanceReport(DateTime dateTime, DateTime dateTime_2)
         {
             throw new NotImplementedException();
         }

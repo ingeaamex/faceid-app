@@ -33,10 +33,10 @@
             this.cbxDepartment = new System.Windows.Forms.ComboBox();
             this.cbxCompany = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.button5 = new System.Windows.Forms.Button();
+            this.btnViewReport = new System.Windows.Forms.Button();
             this.btnPayrollExport = new System.Windows.Forms.Button();
             this.btnPrint = new System.Windows.Forms.Button();
-            this.dgvAttendanceLog = new System.Windows.Forms.DataGridView();
+            this.dgvAttendanceReport = new System.Windows.Forms.DataGridView();
             this.EmployeeNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EmployeeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AttDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -48,7 +48,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.dtpAttendanceFrom = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvAttendanceLog)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAttendanceReport)).BeginInit();
             this.SuspendLayout();
             // 
             // btnCollectData
@@ -59,6 +59,7 @@
             this.btnCollectData.TabIndex = 0;
             this.btnCollectData.Text = "Collect Data";
             this.btnCollectData.UseVisualStyleBackColor = true;
+            this.btnCollectData.Click += new System.EventHandler(this.btnCollectData_Click);
             // 
             // label5
             // 
@@ -84,6 +85,7 @@
             this.cbxCompany.Name = "cbxCompany";
             this.cbxCompany.Size = new System.Drawing.Size(121, 21);
             this.cbxCompany.TabIndex = 25;
+            this.cbxCompany.SelectedIndexChanged += new System.EventHandler(this.cbxCompany_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -94,18 +96,19 @@
             this.label4.TabIndex = 24;
             this.label4.Text = "Company";
             // 
-            // button5
+            // btnViewReport
             // 
-            this.button5.Location = new System.Drawing.Point(657, 114);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 23;
-            this.button5.Text = "View";
-            this.button5.UseVisualStyleBackColor = false;
+            this.btnViewReport.Location = new System.Drawing.Point(657, 114);
+            this.btnViewReport.Name = "btnViewReport";
+            this.btnViewReport.Size = new System.Drawing.Size(75, 23);
+            this.btnViewReport.TabIndex = 23;
+            this.btnViewReport.Text = "View";
+            this.btnViewReport.UseVisualStyleBackColor = false;
+            this.btnViewReport.Click += new System.EventHandler(this.btnViewReport_Click);
             // 
             // btnPayrollExport
             // 
-            this.btnPayrollExport.Location = new System.Drawing.Point(281, 329);
+            this.btnPayrollExport.Location = new System.Drawing.Point(200, 329);
             this.btnPayrollExport.Name = "btnPayrollExport";
             this.btnPayrollExport.Size = new System.Drawing.Size(168, 23);
             this.btnPayrollExport.TabIndex = 22;
@@ -121,11 +124,12 @@
             this.btnPrint.TabIndex = 20;
             this.btnPrint.Text = "Print";
             this.btnPrint.UseVisualStyleBackColor = true;
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
-            // dgvAttendanceLog
+            // dgvAttendanceReport
             // 
-            this.dgvAttendanceLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvAttendanceLog.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvAttendanceReport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvAttendanceReport.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.EmployeeNumber,
             this.EmployeeName,
             this.AttDate,
@@ -133,10 +137,10 @@
             this.AttSummary,
             this.AttChart,
             this.AttNote});
-            this.dgvAttendanceLog.Location = new System.Drawing.Point(31, 157);
-            this.dgvAttendanceLog.Name = "dgvAttendanceLog";
-            this.dgvAttendanceLog.Size = new System.Drawing.Size(762, 150);
-            this.dgvAttendanceLog.TabIndex = 19;
+            this.dgvAttendanceReport.Location = new System.Drawing.Point(31, 157);
+            this.dgvAttendanceReport.Name = "dgvAttendanceReport";
+            this.dgvAttendanceReport.Size = new System.Drawing.Size(762, 150);
+            this.dgvAttendanceReport.TabIndex = 19;
             // 
             // EmployeeNumber
             // 
@@ -213,10 +217,10 @@
             this.Controls.Add(this.cbxDepartment);
             this.Controls.Add(this.cbxCompany);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.button5);
+            this.Controls.Add(this.btnViewReport);
             this.Controls.Add(this.btnPayrollExport);
             this.Controls.Add(this.btnPrint);
-            this.Controls.Add(this.dgvAttendanceLog);
+            this.Controls.Add(this.dgvAttendanceReport);
             this.Controls.Add(this.dtpAttedanceTo);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.dtpAttendanceFrom);
@@ -224,7 +228,7 @@
             this.Controls.Add(this.btnCollectData);
             this.Name = "ucAttendanceReport";
             this.Size = new System.Drawing.Size(923, 534);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvAttendanceLog)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAttendanceReport)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -237,10 +241,10 @@
         private System.Windows.Forms.ComboBox cbxDepartment;
         private System.Windows.Forms.ComboBox cbxCompany;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button btnViewReport;
         private System.Windows.Forms.Button btnPayrollExport;
         private System.Windows.Forms.Button btnPrint;
-        private System.Windows.Forms.DataGridView dgvAttendanceLog;
+        private System.Windows.Forms.DataGridView dgvAttendanceReport;
         private System.Windows.Forms.DateTimePicker dtpAttedanceTo;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DateTimePicker dtpAttendanceFrom;
