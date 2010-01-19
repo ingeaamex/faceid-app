@@ -10,9 +10,16 @@ namespace FaceIDAppVBEta
 {
     public partial class frmPayrollExport : Form
     {
-        public frmPayrollExport(DataTable dtAttendanceReport)
+        public frmPayrollExport(DataTable dtAttendanceReport, DateTime dtFrom, DateTime dtTo)
         {
             InitializeComponent();
+
+            MessageBox.Show("This function has not been implemented yet");
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

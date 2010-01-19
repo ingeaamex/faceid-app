@@ -43,11 +43,9 @@
             this.chbMonday = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.dtpRegularWorkTo = new System.Windows.Forms.DateTimePicker();
+            this.dtpRegularWorkFrom = new System.Windows.Forms.DateTimePicker();
             this.lblNextDay = new System.Windows.Forms.Label();
-            this.nudRegularWorkToMin = new System.Windows.Forms.NumericUpDown();
-            this.nudRegularWorkFromMin = new System.Windows.Forms.NumericUpDown();
-            this.nudRegularWorkToHour = new System.Windows.Forms.NumericUpDown();
-            this.nudRegularWorkFromHour = new System.Windows.Forms.NumericUpDown();
             this.btnBack2 = new System.Windows.Forms.Button();
             this.btnCancel2 = new System.Windows.Forms.Button();
             this.btnNext2 = new System.Windows.Forms.Button();
@@ -55,10 +53,12 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.nudBreakToMin3 = new System.Windows.Forms.NumericUpDown();
-            this.nudBreakFromMin3 = new System.Windows.Forms.NumericUpDown();
-            this.nudBreakToHour3 = new System.Windows.Forms.NumericUpDown();
-            this.nudBreakFromHour3 = new System.Windows.Forms.NumericUpDown();
+            this.dtpBreakTo3 = new System.Windows.Forms.DateTimePicker();
+            this.dtpBreakFrom3 = new System.Windows.Forms.DateTimePicker();
+            this.dtpBreakTo2 = new System.Windows.Forms.DateTimePicker();
+            this.dtpBreakFrom2 = new System.Windows.Forms.DateTimePicker();
+            this.dtpBreakTo1 = new System.Windows.Forms.DateTimePicker();
+            this.dtpBreakFrom1 = new System.Windows.Forms.DateTimePicker();
             this.cbxBreakPaid3 = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txtBreakName3 = new System.Windows.Forms.TextBox();
@@ -69,14 +69,6 @@
             this.btnBack3 = new System.Windows.Forms.Button();
             this.btnCancel3 = new System.Windows.Forms.Button();
             this.btnNext3 = new System.Windows.Forms.Button();
-            this.nudBreakToMin2 = new System.Windows.Forms.NumericUpDown();
-            this.nudBreakFromMin2 = new System.Windows.Forms.NumericUpDown();
-            this.nudBreakToHour2 = new System.Windows.Forms.NumericUpDown();
-            this.nudBreakFromHour2 = new System.Windows.Forms.NumericUpDown();
-            this.nudBreakToMin1 = new System.Windows.Forms.NumericUpDown();
-            this.nudBreakFromMin1 = new System.Windows.Forms.NumericUpDown();
-            this.nudBreakToHour1 = new System.Windows.Forms.NumericUpDown();
-            this.nudBreakFromHour1 = new System.Windows.Forms.NumericUpDown();
             this.cbxBreakPaid2 = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
             this.txtBreakName2 = new System.Windows.Forms.TextBox();
@@ -210,23 +202,7 @@
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudRegularWorkToMin)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudRegularWorkFromMin)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudRegularWorkToHour)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudRegularWorkFromHour)).BeginInit();
             this.tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBreakToMin3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBreakFromMin3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBreakToHour3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBreakFromHour3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBreakToMin2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBreakFromMin2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBreakToHour2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBreakFromHour2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBreakToMin1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBreakFromMin1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBreakToHour1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBreakFromHour1)).BeginInit();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWorkDayOvertimeHour4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWorkDayOvertimeHour3)).BeginInit();
@@ -406,11 +382,9 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.dtpRegularWorkTo);
+            this.tabPage2.Controls.Add(this.dtpRegularWorkFrom);
             this.tabPage2.Controls.Add(this.lblNextDay);
-            this.tabPage2.Controls.Add(this.nudRegularWorkToMin);
-            this.tabPage2.Controls.Add(this.nudRegularWorkFromMin);
-            this.tabPage2.Controls.Add(this.nudRegularWorkToHour);
-            this.tabPage2.Controls.Add(this.nudRegularWorkFromHour);
             this.tabPage2.Controls.Add(this.btnBack2);
             this.tabPage2.Controls.Add(this.btnCancel2);
             this.tabPage2.Controls.Add(this.btnNext2);
@@ -425,47 +399,33 @@
             this.tabPage2.Text = "Step 2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // dtpRegularWorkTo
+            // 
+            this.dtpRegularWorkTo.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpRegularWorkTo.Location = new System.Drawing.Point(302, 189);
+            this.dtpRegularWorkTo.Name = "dtpRegularWorkTo";
+            this.dtpRegularWorkTo.Size = new System.Drawing.Size(120, 20);
+            this.dtpRegularWorkTo.TabIndex = 19;
+            this.dtpRegularWorkTo.Value = new System.DateTime(2002, 2, 2, 0, 0, 0, 0);
+            // 
+            // dtpRegularWorkFrom
+            // 
+            this.dtpRegularWorkFrom.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpRegularWorkFrom.Location = new System.Drawing.Point(302, 144);
+            this.dtpRegularWorkFrom.Name = "dtpRegularWorkFrom";
+            this.dtpRegularWorkFrom.Size = new System.Drawing.Size(120, 20);
+            this.dtpRegularWorkFrom.TabIndex = 18;
+            this.dtpRegularWorkFrom.Value = new System.DateTime(2002, 2, 2, 0, 0, 0, 0);
+            // 
             // lblNextDay
             // 
             this.lblNextDay.AutoSize = true;
-            this.lblNextDay.Location = new System.Drawing.Point(571, 191);
+            this.lblNextDay.Location = new System.Drawing.Point(571, 230);
             this.lblNextDay.Name = "lblNextDay";
             this.lblNextDay.Size = new System.Drawing.Size(53, 13);
             this.lblNextDay.TabIndex = 17;
             this.lblNextDay.Text = "[next day]";
             this.lblNextDay.Visible = false;
-            // 
-            // nudRegularWorkToMin
-            // 
-            this.nudRegularWorkToMin.Location = new System.Drawing.Point(445, 189);
-            this.nudRegularWorkToMin.Name = "nudRegularWorkToMin";
-            this.nudRegularWorkToMin.Size = new System.Drawing.Size(120, 20);
-            this.nudRegularWorkToMin.TabIndex = 16;
-            this.nudRegularWorkToMin.ValueChanged += new System.EventHandler(this.nudRegularWorkToMin_ValueChanged);
-            // 
-            // nudRegularWorkFromMin
-            // 
-            this.nudRegularWorkFromMin.Location = new System.Drawing.Point(455, 144);
-            this.nudRegularWorkFromMin.Name = "nudRegularWorkFromMin";
-            this.nudRegularWorkFromMin.Size = new System.Drawing.Size(120, 20);
-            this.nudRegularWorkFromMin.TabIndex = 15;
-            this.nudRegularWorkFromMin.ValueChanged += new System.EventHandler(this.nudRegularWorkFromMin_ValueChanged);
-            // 
-            // nudRegularWorkToHour
-            // 
-            this.nudRegularWorkToHour.Location = new System.Drawing.Point(309, 189);
-            this.nudRegularWorkToHour.Name = "nudRegularWorkToHour";
-            this.nudRegularWorkToHour.Size = new System.Drawing.Size(120, 20);
-            this.nudRegularWorkToHour.TabIndex = 14;
-            this.nudRegularWorkToHour.ValueChanged += new System.EventHandler(this.nudRegularWorkToHour_ValueChanged);
-            // 
-            // nudRegularWorkFromHour
-            // 
-            this.nudRegularWorkFromHour.Location = new System.Drawing.Point(309, 143);
-            this.nudRegularWorkFromHour.Name = "nudRegularWorkFromHour";
-            this.nudRegularWorkFromHour.Size = new System.Drawing.Size(120, 20);
-            this.nudRegularWorkFromHour.TabIndex = 13;
-            this.nudRegularWorkFromHour.ValueChanged += new System.EventHandler(this.nudRegularWorkFromHour_ValueChanged);
             // 
             // btnBack2
             // 
@@ -526,10 +486,12 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.nudBreakToMin3);
-            this.tabPage3.Controls.Add(this.nudBreakFromMin3);
-            this.tabPage3.Controls.Add(this.nudBreakToHour3);
-            this.tabPage3.Controls.Add(this.nudBreakFromHour3);
+            this.tabPage3.Controls.Add(this.dtpBreakTo3);
+            this.tabPage3.Controls.Add(this.dtpBreakFrom3);
+            this.tabPage3.Controls.Add(this.dtpBreakTo2);
+            this.tabPage3.Controls.Add(this.dtpBreakFrom2);
+            this.tabPage3.Controls.Add(this.dtpBreakTo1);
+            this.tabPage3.Controls.Add(this.dtpBreakFrom1);
             this.tabPage3.Controls.Add(this.cbxBreakPaid3);
             this.tabPage3.Controls.Add(this.label10);
             this.tabPage3.Controls.Add(this.txtBreakName3);
@@ -540,14 +502,6 @@
             this.tabPage3.Controls.Add(this.btnBack3);
             this.tabPage3.Controls.Add(this.btnCancel3);
             this.tabPage3.Controls.Add(this.btnNext3);
-            this.tabPage3.Controls.Add(this.nudBreakToMin2);
-            this.tabPage3.Controls.Add(this.nudBreakFromMin2);
-            this.tabPage3.Controls.Add(this.nudBreakToHour2);
-            this.tabPage3.Controls.Add(this.nudBreakFromHour2);
-            this.tabPage3.Controls.Add(this.nudBreakToMin1);
-            this.tabPage3.Controls.Add(this.nudBreakFromMin1);
-            this.tabPage3.Controls.Add(this.nudBreakToHour1);
-            this.tabPage3.Controls.Add(this.nudBreakFromHour1);
             this.tabPage3.Controls.Add(this.cbxBreakPaid2);
             this.tabPage3.Controls.Add(this.label14);
             this.tabPage3.Controls.Add(this.txtBreakName2);
@@ -570,37 +524,59 @@
             this.tabPage3.Text = "Step 3";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // nudBreakToMin3
+            // dtpBreakTo3
             // 
-            this.nudBreakToMin3.Enabled = false;
-            this.nudBreakToMin3.Location = new System.Drawing.Point(256, 306);
-            this.nudBreakToMin3.Name = "nudBreakToMin3";
-            this.nudBreakToMin3.Size = new System.Drawing.Size(120, 20);
-            this.nudBreakToMin3.TabIndex = 117;
+            this.dtpBreakTo3.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpBreakTo3.Location = new System.Drawing.Point(116, 296);
+            this.dtpBreakTo3.Name = "dtpBreakTo3";
+            this.dtpBreakTo3.Size = new System.Drawing.Size(106, 20);
+            this.dtpBreakTo3.TabIndex = 123;
+            this.dtpBreakTo3.Value = new System.DateTime(2002, 2, 2, 0, 0, 0, 0);
             // 
-            // nudBreakFromMin3
+            // dtpBreakFrom3
             // 
-            this.nudBreakFromMin3.Enabled = false;
-            this.nudBreakFromMin3.Location = new System.Drawing.Point(266, 261);
-            this.nudBreakFromMin3.Name = "nudBreakFromMin3";
-            this.nudBreakFromMin3.Size = new System.Drawing.Size(120, 20);
-            this.nudBreakFromMin3.TabIndex = 116;
+            this.dtpBreakFrom3.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpBreakFrom3.Location = new System.Drawing.Point(116, 262);
+            this.dtpBreakFrom3.Name = "dtpBreakFrom3";
+            this.dtpBreakFrom3.Size = new System.Drawing.Size(106, 20);
+            this.dtpBreakFrom3.TabIndex = 122;
+            this.dtpBreakFrom3.Value = new System.DateTime(2002, 2, 2, 0, 0, 0, 0);
             // 
-            // nudBreakToHour3
+            // dtpBreakTo2
             // 
-            this.nudBreakToHour3.Enabled = false;
-            this.nudBreakToHour3.Location = new System.Drawing.Point(120, 306);
-            this.nudBreakToHour3.Name = "nudBreakToHour3";
-            this.nudBreakToHour3.Size = new System.Drawing.Size(120, 20);
-            this.nudBreakToHour3.TabIndex = 115;
+            this.dtpBreakTo2.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpBreakTo2.Location = new System.Drawing.Point(468, 148);
+            this.dtpBreakTo2.Name = "dtpBreakTo2";
+            this.dtpBreakTo2.Size = new System.Drawing.Size(106, 20);
+            this.dtpBreakTo2.TabIndex = 121;
+            this.dtpBreakTo2.Value = new System.DateTime(2002, 2, 2, 0, 0, 0, 0);
             // 
-            // nudBreakFromHour3
+            // dtpBreakFrom2
             // 
-            this.nudBreakFromHour3.Enabled = false;
-            this.nudBreakFromHour3.Location = new System.Drawing.Point(120, 260);
-            this.nudBreakFromHour3.Name = "nudBreakFromHour3";
-            this.nudBreakFromHour3.Size = new System.Drawing.Size(120, 20);
-            this.nudBreakFromHour3.TabIndex = 114;
+            this.dtpBreakFrom2.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpBreakFrom2.Location = new System.Drawing.Point(468, 113);
+            this.dtpBreakFrom2.Name = "dtpBreakFrom2";
+            this.dtpBreakFrom2.Size = new System.Drawing.Size(106, 20);
+            this.dtpBreakFrom2.TabIndex = 120;
+            this.dtpBreakFrom2.Value = new System.DateTime(2002, 2, 2, 0, 0, 0, 0);
+            // 
+            // dtpBreakTo1
+            // 
+            this.dtpBreakTo1.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpBreakTo1.Location = new System.Drawing.Point(120, 144);
+            this.dtpBreakTo1.Name = "dtpBreakTo1";
+            this.dtpBreakTo1.Size = new System.Drawing.Size(106, 20);
+            this.dtpBreakTo1.TabIndex = 119;
+            this.dtpBreakTo1.Value = new System.DateTime(2002, 2, 2, 0, 0, 0, 0);
+            // 
+            // dtpBreakFrom1
+            // 
+            this.dtpBreakFrom1.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpBreakFrom1.Location = new System.Drawing.Point(120, 110);
+            this.dtpBreakFrom1.Name = "dtpBreakFrom1";
+            this.dtpBreakFrom1.Size = new System.Drawing.Size(106, 20);
+            this.dtpBreakFrom1.TabIndex = 118;
+            this.dtpBreakFrom1.Value = new System.DateTime(2002, 2, 2, 0, 0, 0, 0);
             // 
             // cbxBreakPaid3
             // 
@@ -695,70 +671,6 @@
             this.btnNext3.Text = "Next";
             this.btnNext3.UseVisualStyleBackColor = true;
             this.btnNext3.Click += new System.EventHandler(this.btnNext3_Click);
-            // 
-            // nudBreakToMin2
-            // 
-            this.nudBreakToMin2.Enabled = false;
-            this.nudBreakToMin2.Location = new System.Drawing.Point(604, 161);
-            this.nudBreakToMin2.Name = "nudBreakToMin2";
-            this.nudBreakToMin2.Size = new System.Drawing.Size(120, 20);
-            this.nudBreakToMin2.TabIndex = 103;
-            // 
-            // nudBreakFromMin2
-            // 
-            this.nudBreakFromMin2.Enabled = false;
-            this.nudBreakFromMin2.Location = new System.Drawing.Point(614, 116);
-            this.nudBreakFromMin2.Name = "nudBreakFromMin2";
-            this.nudBreakFromMin2.Size = new System.Drawing.Size(120, 20);
-            this.nudBreakFromMin2.TabIndex = 102;
-            // 
-            // nudBreakToHour2
-            // 
-            this.nudBreakToHour2.Enabled = false;
-            this.nudBreakToHour2.Location = new System.Drawing.Point(468, 161);
-            this.nudBreakToHour2.Name = "nudBreakToHour2";
-            this.nudBreakToHour2.Size = new System.Drawing.Size(120, 20);
-            this.nudBreakToHour2.TabIndex = 101;
-            // 
-            // nudBreakFromHour2
-            // 
-            this.nudBreakFromHour2.Enabled = false;
-            this.nudBreakFromHour2.Location = new System.Drawing.Point(468, 115);
-            this.nudBreakFromHour2.Name = "nudBreakFromHour2";
-            this.nudBreakFromHour2.Size = new System.Drawing.Size(120, 20);
-            this.nudBreakFromHour2.TabIndex = 100;
-            // 
-            // nudBreakToMin1
-            // 
-            this.nudBreakToMin1.Enabled = false;
-            this.nudBreakToMin1.Location = new System.Drawing.Point(252, 148);
-            this.nudBreakToMin1.Name = "nudBreakToMin1";
-            this.nudBreakToMin1.Size = new System.Drawing.Size(120, 20);
-            this.nudBreakToMin1.TabIndex = 99;
-            // 
-            // nudBreakFromMin1
-            // 
-            this.nudBreakFromMin1.Enabled = false;
-            this.nudBreakFromMin1.Location = new System.Drawing.Point(262, 103);
-            this.nudBreakFromMin1.Name = "nudBreakFromMin1";
-            this.nudBreakFromMin1.Size = new System.Drawing.Size(120, 20);
-            this.nudBreakFromMin1.TabIndex = 98;
-            // 
-            // nudBreakToHour1
-            // 
-            this.nudBreakToHour1.Enabled = false;
-            this.nudBreakToHour1.Location = new System.Drawing.Point(116, 148);
-            this.nudBreakToHour1.Name = "nudBreakToHour1";
-            this.nudBreakToHour1.Size = new System.Drawing.Size(120, 20);
-            this.nudBreakToHour1.TabIndex = 97;
-            // 
-            // nudBreakFromHour1
-            // 
-            this.nudBreakFromHour1.Enabled = false;
-            this.nudBreakFromHour1.Location = new System.Drawing.Point(116, 102);
-            this.nudBreakFromHour1.Name = "nudBreakFromHour1";
-            this.nudBreakFromHour1.Size = new System.Drawing.Size(120, 20);
-            this.nudBreakFromHour1.TabIndex = 96;
             // 
             // cbxBreakPaid2
             // 
@@ -2036,24 +1948,8 @@
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudRegularWorkToMin)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudRegularWorkFromMin)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudRegularWorkToHour)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudRegularWorkFromHour)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBreakToMin3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBreakFromMin3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBreakToHour3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBreakFromHour3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBreakToMin2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBreakFromMin2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBreakToHour2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBreakFromHour2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBreakToMin1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBreakFromMin1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBreakToHour1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBreakFromHour1)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWorkDayOvertimeHour4)).EndInit();
@@ -2101,10 +1997,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.NumericUpDown nudRegularWorkToMin;
-        private System.Windows.Forms.NumericUpDown nudRegularWorkFromMin;
-        private System.Windows.Forms.NumericUpDown nudRegularWorkToHour;
-        private System.Windows.Forms.NumericUpDown nudRegularWorkFromHour;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Label label68;
         private System.Windows.Forms.Button btnCancel1;
@@ -2117,14 +2009,6 @@
         private System.Windows.Forms.CheckBox chbTuesday;
         private System.Windows.Forms.CheckBox chbMonday;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.NumericUpDown nudBreakToMin2;
-        private System.Windows.Forms.NumericUpDown nudBreakFromMin2;
-        private System.Windows.Forms.NumericUpDown nudBreakToHour2;
-        private System.Windows.Forms.NumericUpDown nudBreakFromHour2;
-        private System.Windows.Forms.NumericUpDown nudBreakToMin1;
-        private System.Windows.Forms.NumericUpDown nudBreakFromMin1;
-        private System.Windows.Forms.NumericUpDown nudBreakToHour1;
-        private System.Windows.Forms.NumericUpDown nudBreakFromHour1;
         private System.Windows.Forms.ComboBox cbxBreakPaid2;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox txtBreakName2;
@@ -2140,10 +2024,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.NumericUpDown nudBreakToMin3;
-        private System.Windows.Forms.NumericUpDown nudBreakFromMin3;
-        private System.Windows.Forms.NumericUpDown nudBreakToHour3;
-        private System.Windows.Forms.NumericUpDown nudBreakFromHour3;
         private System.Windows.Forms.ComboBox cbxBreakPaid3;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txtBreakName3;
@@ -2265,5 +2145,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn HolidayDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
         private System.Windows.Forms.Label lblNextDay;
+        private System.Windows.Forms.DateTimePicker dtpRegularWorkFrom;
+        private System.Windows.Forms.DateTimePicker dtpRegularWorkTo;
+        private System.Windows.Forms.DateTimePicker dtpBreakFrom2;
+        private System.Windows.Forms.DateTimePicker dtpBreakTo1;
+        private System.Windows.Forms.DateTimePicker dtpBreakFrom1;
+        private System.Windows.Forms.DateTimePicker dtpBreakTo3;
+        private System.Windows.Forms.DateTimePicker dtpBreakFrom3;
+        private System.Windows.Forms.DateTimePicker dtpBreakTo2;
     }
 }

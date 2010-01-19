@@ -29,9 +29,9 @@ namespace FaceIDAppVBEta
             InitializeComponent();
             _workingCalendarID = workingCalendarID;
 
-            listBreak1 = new Control[] { txtBreakName1, nudBreakFromHour1, nudBreakFromMin1, nudBreakToHour1, nudBreakToMin1, cbxBreakPaid1 };
-            listBreak2 = new Control[] { txtBreakName2, nudBreakFromHour2, nudBreakFromMin2, nudBreakToHour2, nudBreakToMin2, cbxBreakPaid2 };
-            listBreak3 = new Control[] { txtBreakName3, nudBreakFromHour3, nudBreakFromMin3, nudBreakToHour3, nudBreakToMin3, cbxBreakPaid3 };
+            listBreak1 = new Control[] { txtBreakName1, dtpBreakFrom1, dtpBreakTo1, cbxBreakPaid1 };
+            listBreak2 = new Control[] { txtBreakName2, dtpBreakFrom2, dtpBreakTo2, cbxBreakPaid2 };
+            listBreak3 = new Control[] { txtBreakName3, dtpBreakFrom3, dtpBreakTo3, cbxBreakPaid3 };
 
             listCbxRate = new ComboBox[]{cbxWorkDayRegularRate, cbxWorkDayOvertimeRate1, cbxWorkDayOvertimeRate2, cbxWorkDayOvertimeRate3, cbxWorkDayOvertimeRate4, 
                 cbxNonWorkDayRegularRate, cbxNonWorkDayOvertimeRate1, cbxNonWorkDayOvertimeRate2, cbxNonWorkDayOvertimeRate3, cbxNonWorkDayOvertimeRate4, 
@@ -43,42 +43,6 @@ namespace FaceIDAppVBEta
 
         private void BindData()
         {
-            nudBreakFromHour1.Minimum = 0;
-            nudBreakFromHour1.Maximum = 23;
-
-            nudBreakFromHour2.Minimum = 0;
-            nudBreakFromHour2.Maximum = 23;
-
-            nudBreakFromHour3.Minimum = 0;
-            nudBreakFromHour3.Maximum = 23;
-
-            nudBreakFromMin1.Minimum = 0;
-            nudBreakFromMin1.Maximum = 59;
-
-            nudBreakFromMin2.Minimum = 0;
-            nudBreakFromMin2.Maximum = 59;
-
-            nudBreakFromMin3.Minimum = 0;
-            nudBreakFromMin3.Maximum = 59;
-
-            nudBreakToHour1.Minimum = 0;
-            nudBreakToHour1.Maximum = 23;
-
-            nudBreakToHour2.Minimum = 0;
-            nudBreakToHour2.Maximum = 23;
-
-            nudBreakToHour3.Minimum = 0;
-            nudBreakToHour3.Maximum = 23;
-
-            nudBreakToMin1.Minimum = 0;
-            nudBreakToMin1.Maximum = 59;
-
-            nudBreakToMin2.Minimum = 0;
-            nudBreakToMin2.Maximum = 59;
-
-            nudBreakToMin3.Minimum = 0;
-            nudBreakToMin3.Maximum = 59;
-
             nudCustomPayPeriod.Minimum = 1;
             nudCustomPayPeriod.Maximum = 30;
 
@@ -126,18 +90,6 @@ namespace FaceIDAppVBEta
 
             nudWorkDayRegularHour.Minimum = 1;
             nudWorkDayRegularHour.Minimum = 8;
-
-            nudRegularWorkFromHour.Minimum = 0;
-            nudRegularWorkFromHour.Maximum = 23;
-
-            nudRegularWorkFromMin.Minimum = 0;
-            nudRegularWorkFromMin.Maximum = 59;
-
-            nudRegularWorkToHour.Minimum = 0;
-            nudRegularWorkToHour.Maximum = 23;
-
-            nudRegularWorkToMin.Minimum = 0;
-            nudRegularWorkToMin.Maximum = 59;
 
             AddBreakPaid(cbxBreakPaid1);
             AddBreakPaid(cbxBreakPaid2);
@@ -213,10 +165,8 @@ namespace FaceIDAppVBEta
                 chbSaturday.Checked = workingCalendar.WorkOnSaturday;
                 chbSunday.Checked = workingCalendar.WorkOnSunday;
 
-                nudRegularWorkFromHour.Value = workingCalendar.RegularWorkingFrom.Hour;
-                nudRegularWorkFromMin.Value = workingCalendar.RegularWorkingFrom.Minute;
-                nudRegularWorkToHour.Value = workingCalendar.RegularWorkingTo.Hour;
-                nudRegularWorkToMin.Value = workingCalendar.RegularWorkingTo.Minute;
+                dtpRegularWorkFrom.Value = workingCalendar.RegularWorkingFrom;
+                dtpRegularWorkTo.Value = workingCalendar.RegularWorkingTo;
                 #endregion
 
                 #region Set Break Times
@@ -228,10 +178,8 @@ namespace FaceIDAppVBEta
                     EnableBreakControls1(true);
 
                     txtBreakName1.Text = break1.Name;
-                    nudBreakFromHour1.Value = break1.From.Hour;
-                    nudBreakFromMin1.Value = break1.From.Minute;
-                    nudBreakToHour1.Value = break1.To.Hour;
-                    nudBreakToMin1.Value = break1.To.Minute;
+                    dtpBreakFrom1.Value = break1.From;
+                    dtpBreakTo1.Value = break1.To;
                     chbBreak1.Checked = break1.Paid;
                 }
 
@@ -241,10 +189,8 @@ namespace FaceIDAppVBEta
                     EnableBreakControls2(true);
 
                     txtBreakName2.Text = break2.Name;
-                    nudBreakFromHour2.Value = break2.From.Hour;
-                    nudBreakFromMin2.Value = break2.From.Minute;
-                    nudBreakToHour2.Value = break2.To.Hour;
-                    nudBreakToMin2.Value = break2.To.Minute;
+                    dtpBreakFrom2.Value = break2.From;
+                    dtpBreakTo2.Value = break2.To;
                     chbBreak2.Checked = break2.Paid;
                 }
 
@@ -254,10 +200,8 @@ namespace FaceIDAppVBEta
                     EnableBreakControls3(true);
 
                     txtBreakName3.Text = break3.Name;
-                    nudBreakFromHour3.Value = break3.From.Hour;
-                    nudBreakFromMin3.Value = break3.From.Minute;
-                    nudBreakToHour3.Value = break3.To.Hour;
-                    nudBreakToMin3.Value = break3.To.Minute;
+                    dtpBreakFrom3.Value = break3.From;
+                    dtpBreakTo3.Value = break3.To;
                     chbBreak3.Checked = break3.Paid;
                 }
                 #endregion
@@ -420,14 +364,8 @@ namespace FaceIDAppVBEta
 
         private bool ValidateBreaks()
         {
-            int fromHour = (int)nudRegularWorkFromHour.Value;
-            int fromMin = (int)nudRegularWorkFromMin.Value;
-
-            int toHour = (int)nudRegularWorkToHour.Value;
-            int toMin = (int)nudRegularWorkToMin.Value;
-
-            DateTime dtFrom = new DateTime(2002, 2, 2, fromHour, fromMin, 0);
-            DateTime dtTo = new DateTime(2002, 2, 2, toHour, toMin, 0);
+            DateTime dtFrom = dtpRegularWorkFrom.Value;
+            DateTime dtTo = dtpRegularWorkTo.Value;
 
             if (dtFrom > dtTo)
             {
@@ -444,9 +382,9 @@ namespace FaceIDAppVBEta
                     return false;
                 }
 
-                DateTime dtBreakFrom1 = new DateTime(2002, 2, 2, (int)nudBreakFromHour1.Value, (int)nudBreakFromMin1.Value, 0);
+                DateTime dtBreakFrom1 = dtpBreakFrom1.Value;
 
-                DateTime dtBreakTo1 = new DateTime(2002, 2, 2, (int)nudBreakToHour1.Value, (int)nudBreakToMin1.Value, 0);
+                DateTime dtBreakTo1 = dtpBreakTo1.Value;
 
                 if (dtBreakFrom1 > dtBreakTo1)
                 {
@@ -455,7 +393,7 @@ namespace FaceIDAppVBEta
 
                 if (dtBreakFrom1 < dtFrom || dtBreakTo1 > dtTo)
                 {
-                    MessageBox.Show("Break time must be during working hours(" + fromHour + ":" + fromMin + " - " + toHour + ":" + toMin + ". Please try again");
+                    MessageBox.Show("Break time must be during working hours(" + dtpRegularWorkFrom.Value.ToShortTimeString() + " - " + dtpRegularWorkTo.Value.ToShortTimeString() + ". Please try again");
                     return false;
                 }
             }
@@ -470,9 +408,9 @@ namespace FaceIDAppVBEta
                     return false;
                 }
 
-                DateTime dtBreakFrom2 = new DateTime(2002, 2, 2, (int)nudBreakFromHour2.Value, (int)nudBreakFromMin2.Value, 0);
+                DateTime dtBreakFrom2 = dtpBreakFrom2.Value;
 
-                DateTime dtBreakTo2 = new DateTime(2002, 2, 2, (int)nudBreakToHour2.Value, (int)nudBreakToMin2.Value, 0);
+                DateTime dtBreakTo2 = dtpBreakTo2.Value;
 
                 if (dtBreakFrom2 > dtBreakTo2)
                 {
@@ -481,7 +419,7 @@ namespace FaceIDAppVBEta
 
                 if (dtBreakFrom2 < dtFrom || dtBreakTo2 > dtTo)
                 {
-                    MessageBox.Show("Break time must be during working hours(" + fromHour + ":" + fromMin + " - " + toHour + ":" + toMin + ". Please try again");
+                    MessageBox.Show("Break time must be during working hours(" + dtpRegularWorkFrom.Value.ToShortTimeString() + " - " + dtpRegularWorkTo.Value.ToShortTimeString() + ". Please try again");
                     return false;
                 }
             }
@@ -496,9 +434,9 @@ namespace FaceIDAppVBEta
                     return false;
                 }
 
-                DateTime dtBreakFrom3 = new DateTime(2002, 2, 2, (int)nudBreakFromHour3.Value, (int)nudBreakFromMin3.Value, 0);
+                DateTime dtBreakFrom3 = dtpBreakFrom3.Value;
 
-                DateTime dtBreakTo3 = new DateTime(2002, 2, 2, (int)nudBreakToHour3.Value, (int)nudBreakToMin3.Value, 0);
+                DateTime dtBreakTo3 = dtpBreakTo3.Value;
 
                 if (dtBreakFrom3 > dtBreakTo3)
                 {
@@ -507,7 +445,7 @@ namespace FaceIDAppVBEta
 
                 if (dtBreakFrom3 < dtFrom || dtBreakTo3 > dtTo)
                 {
-                    MessageBox.Show("Break time must be during working hours(" + fromHour + ":" + fromMin + " - " + toHour + ":" + toMin + ". Please try again");
+                    MessageBox.Show("Break time must be during working hours(" + dtpRegularWorkFrom.Value.ToShortTimeString() + " - " + dtpRegularWorkTo.Value.ToShortTimeString() + ". Please try again");
                     return false;
                 }
             }
@@ -675,8 +613,8 @@ namespace FaceIDAppVBEta
             workingCalendar.WorkOnSaturday = chbSaturday.Checked;
             workingCalendar.WorkOnSunday = chbSunday.Checked;
 
-            workingCalendar.RegularWorkingFrom = new DateTime(2002, 2, 2, (int)nudRegularWorkFromHour.Value, (int)nudRegularWorkFromMin.Value, 0);
-            workingCalendar.RegularWorkingTo = new DateTime(2002, 2, 2, (int)nudRegularWorkToHour.Value, (int)nudRegularWorkToMin.Value, 0);
+            workingCalendar.RegularWorkingFrom = dtpRegularWorkFrom.Value;
+            workingCalendar.RegularWorkingTo = dtpRegularWorkTo.Value;
 
             #endregion
 
@@ -686,8 +624,8 @@ namespace FaceIDAppVBEta
                 Break break1 = new Break();
 
                 break1.Name = txtBreakName1.Text;
-                break1.From = new DateTime(2002, 2, 2, (int)nudBreakFromHour1.Value, (int)nudBreakFromMin1.Value, 0);
-                break1.To = new DateTime(2002, 2, 2, (int)nudBreakToHour1.Value, (int)nudBreakToMin1.Value, 0);
+                break1.From = dtpBreakFrom1.Value;
+                break1.To = dtpBreakTo1.Value;
                 break1.Paid = chbBreak1.Checked;
 
                 breakList.Add(break1);
@@ -698,8 +636,8 @@ namespace FaceIDAppVBEta
                 Break break2 = new Break();
 
                 break2.Name = txtBreakName2.Text;
-                break2.From = new DateTime(2002, 2, 2, (int)nudBreakFromHour2.Value, (int)nudBreakFromMin2.Value, 0);
-                break2.To = new DateTime(2002, 2, 2, (int)nudBreakToHour2.Value, (int)nudBreakToMin2.Value, 0);
+                break2.From = dtpBreakFrom2.Value;
+                break2.To = dtpBreakTo2.Value;
                 break2.Paid = chbBreak2.Checked;
 
                 breakList.Add(break2);
@@ -710,8 +648,8 @@ namespace FaceIDAppVBEta
                 Break break3 = new Break();
 
                 break3.Name = txtBreakName3.Text;
-                break3.From = new DateTime(2002, 2, 2, (int)nudBreakFromHour3.Value, (int)nudBreakFromMin3.Value, 0);
-                break3.To = new DateTime(2002, 2, 2, (int)nudBreakToHour3.Value, (int)nudBreakToMin3.Value, 0);
+                break3.From = dtpBreakFrom3.Value;
+                break3.To = dtpBreakTo3.Value;
                 break3.Paid = chbBreak3.Checked;
 
                 breakList.Add(break3);
@@ -937,9 +875,9 @@ namespace FaceIDAppVBEta
 
         private void CheckWorkingHour()
         {
-            DateTime dtFrom = new DateTime(2002, 2, 2, (int)nudRegularWorkFromHour.Value, (int)nudRegularWorkFromMin.Value, 0);
+            DateTime dtFrom = dtpRegularWorkFrom.Value;
 
-            DateTime dtTo = new DateTime(2002, 2, 2, (int)nudRegularWorkToHour.Value, (int)nudRegularWorkToMin.Value, 0);
+            DateTime dtTo = dtpRegularWorkTo.Value;
 
             lblNextDay.Visible = (dtFrom > dtTo);
         }
