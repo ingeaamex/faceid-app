@@ -1018,40 +1018,54 @@ namespace FaceIDAppVBEta.Data
 
         #region Attendance Rcord
 
-        public List<AttendanceLog> GetAttendanceRecordList_1(DateTime beginDate, DateTime endDate)
+        public List<AttendanceLog> GetAttendanceRecordList_1(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate)
         {
-            DataTable dtAttendanceRecord = new DataTable();
-            DataTable dtEmployee = new DataTable();
+            System.Data.OleDb.OleDbCommand odCom = null;
+            if (iDepartment > 0)
+                odCom = BuildSelectCmd("Employee", "EmployeeNumber", "DepartmentID=@ID", new object[] { "@ID", iDepartment });
+            else if (iCompany > 0)
+                odCom = BuildSelectCmd("Employee", "EmployeeNumber", " DepartmentID in (SELECT ID FROM Department WHERE CompanyID=@ID)", new object[] { "@ID", iCompany });
+            else
+                odCom = BuildSelectCmd("Employee", "EmployeeNumber", null);
 
-            endDate = endDate.AddDays(1);
-
-            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("AttendanceRecord", "*",
-                "Time>=@Date_1 AND Time<=@Date_2",
-                new object[] { "@Date_1", beginDate, "@Date_2", endDate });
-
-            OleDbDataAdapter odRdr = new OleDbDataAdapter(odCom);
-            odRdr.Fill(dtAttendanceRecord);
-
-            if (dtAttendanceRecord.Rows.Count == 0)
-                return null;
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
 
             string employeeNumberList = "";
-            int emplTmp = 0;
-            foreach (DataRow dr in dtAttendanceRecord.Rows)
+            
+            while (odRdr.Read())
             {
-                if (emplTmp == (int)dr["EmployeeNumber"])
-                    continue;
-
-                employeeNumberList += dr["EmployeeNumber"] + ",";
-                emplTmp = (int)dr["EmployeeNumber"];
+                employeeNumberList += odRdr["EmployeeNumber"] + ",";
             }
+            odRdr.Close();
+            
+            employeeNumberList = employeeNumberList.TrimEnd(',');
+
+            if (employeeNumberList == "")
+                return null;
+            
+            odCom = BuildSelectCmd("AttendanceRecord", "DISTINCT EmployeeNumber", "EmployeeNumber in(" + employeeNumberList + ")");
+
+            odRdr = odCom.ExecuteReader();
+
+            employeeNumberList = "";
+            while (odRdr.Read())
+            {
+                employeeNumberList += odRdr["EmployeeNumber"] + ",";
+            }
+            odRdr.Close();
+
+            if (employeeNumberList == "")
+                return null;
+
             employeeNumberList = employeeNumberList.TrimEnd(',');
 
             odCom = BuildSelectCmd("WorkingCalendar INNER JOIN Employee ON WorkingCalendar.ID = Employee.WorkingCalendarID",
                 "Employee.EmployeeNumber, Employee.FirstName, Employee.LastName, WorkingCalendar.RegularWorkingFrom, WorkingCalendar.RegularWorkingTo",
                             "Employee.EmployeeNumber in(" + employeeNumberList + ")");
-            odRdr = new OleDbDataAdapter(odCom);
-            odRdr.Fill(dtEmployee);
+            
+            OleDbDataAdapter odApt = new OleDbDataAdapter(odCom);
+            DataTable dtEmployee = new DataTable();
+            odApt.Fill(dtEmployee);
 
             List<AttendanceLog> attendanceLogs = new List<AttendanceLog>();
 
@@ -1061,65 +1075,104 @@ namespace FaceIDAppVBEta.Data
 
                 if (Convert.ToDateTime(drEmpl["RegularWorkingFrom"]).Day != Convert.ToDateTime(drEmpl["RegularWorkingTo"]).Day)
                 {
-                    //
+                    endDate = endDate.AddDays(1);
+                    odCom = BuildSelectCmd("AttendanceRecord", "*", "Time>=@Date_1 AND Time<=@Date_2", new object[] { "@Date_1", beginDate, "@Date_2", endDate });
+
+                    odApt = new OleDbDataAdapter(odCom);
+                    DataTable dtAttendanceRecord = new DataTable();
+                    odApt.Fill(dtAttendanceRecord);
+
+                    if (dtAttendanceRecord.Rows.Count == 0)
+                        return null;
                 }
                 else
                 {
+                    odCom = BuildSelectCmd("AttendanceRecord", "*", "Time>=@Date_1 AND Time<=@Date_2", new object[] { "@Date_1", beginDate, "@Date_2", endDate });
+
+                    odApt = new OleDbDataAdapter(odCom);
+                    DataTable dtAttendanceRecord = new DataTable();
+                    odApt.Fill(dtAttendanceRecord);
+
+                    if (dtAttendanceRecord.Rows.Count == 0)
+                        return null;
+
                     DataRow[] drAtts = dtAttendanceRecord.Select("EmployeeNumber=" + iEmployeeNumber, "Time");
-                    string sCurrentDate = "";
-                    List<string> attendanceDetails = new List<string>();
+
+                    DateTime sCurrentDate = new DateTime(1900, 1, 1);
+                    List<TimeSpan> attendanceDetails = new List<TimeSpan>();
                     List<string> notes = new List<string>();
-                    int iTotalHour = 0;
 
-                    for (int i = 0; i < drAtts.Length; i++)
+                    int iCurrentRowIndex = 0;
+                    foreach (DataRow dr in drAtts)
                     {
-                        DataRow drAtt = drAtts[i];
-                        DateTime dtime = (DateTime)drAtt["Time"];
-                        if (dtime.ToShortDateString() != sCurrentDate)
+                        DateTime dtLog = (DateTime)dr["Time"];
+                        if (iCurrentRowIndex == 0)
                         {
-                            if (sCurrentDate == "")
-                            {
-                                attendanceDetails.Add(dtime.ToShortTimeString());
-                                notes.Add((string)drAtt["Note"]);
-                                sCurrentDate = dtime.ToShortDateString();
-                                continue;
-                            }
-
-                            AttendanceLog attendanceLog = new AttendanceLog();
-                            attendanceLog.FirstName = (string)drEmpl["FirstName"];
-                            attendanceLog.LastName = (string)drEmpl["LastName"];
-                            attendanceLog.EmployeeNumber = (int)drAtt["EmployeeNumber"];
-                            attendanceLog.AttendanceDetail = attendanceDetails;
-                            attendanceLog.Note = notes;
-                            attendanceLog.TotalHour = iTotalHour;
-                            attendanceLog.DateLog = dtime;
+                            attendanceDetails.Add(dtLog.TimeOfDay);
+                            notes.Add((string)dr["Note"]);
+                            sCurrentDate = dtLog.Date;
+                            iCurrentRowIndex++;
+                            continue;
+                        }
+                        if (dtLog.Date != sCurrentDate)
+                        {
+                            AttendanceLog attendanceLog = BuildAttendanceLog(sCurrentDate, (string)drEmpl["FirstName"], (string)drEmpl["LastName"],
+                               (int)dr["EmployeeNumber"], attendanceDetails, notes);
                             attendanceLogs.Add(attendanceLog);
+
                             notes = new List<string>();
-                            attendanceDetails = new List<string>();
-                            sCurrentDate = dtime.ToShortDateString();
+                            attendanceDetails = new List<TimeSpan>();
+                            sCurrentDate = dtLog.Date;
                         }
-                        else
+
+                        attendanceDetails.Add(dtLog.TimeOfDay);
+                        notes.Add((string)dr["Note"]);
+
+                        if (iCurrentRowIndex == drAtts.Length - 1)
                         {
-                            attendanceDetails.Add(dtime.ToShortTimeString());
-                            notes.Add((string)drAtt["Note"]);
-                            if (i == drAtts.Length - 1)
-                            {
-                                AttendanceLog attendanceLog = new AttendanceLog();
-                                attendanceLog.FirstName = (string)drEmpl["FirstName"];
-                                attendanceLog.LastName = (string)drEmpl["LastName"];
-                                attendanceLog.EmployeeNumber = (int)drAtt["EmployeeNumber"];
-                                attendanceLog.AttendanceDetail = attendanceDetails;
-                                attendanceLog.Note = notes;
-                                attendanceLog.TotalHour = iTotalHour;
-                                attendanceLog.DateLog = dtime;
-                                attendanceLogs.Add(attendanceLog);
-                            }
+                            AttendanceLog attendanceLog = BuildAttendanceLog(sCurrentDate, (string)drEmpl["FirstName"], (string)drEmpl["LastName"],
+                               (int)dr["EmployeeNumber"], attendanceDetails, notes);
+                            attendanceLogs.Add(attendanceLog);
                         }
+                        iCurrentRowIndex++;
                     }
                 }
             }
+            attendanceLogs.Sort(new Comparison<AttendanceLog>(AttendanceLogsSort));
             return attendanceLogs;
         }
+
+        private AttendanceLog BuildAttendanceLog(DateTime dtime, string fistName, string lastName, int employeeNumber, List<TimeSpan> attendanceDetails, List<string> notes)
+        {
+            AttendanceLog attendanceLog = new AttendanceLog();
+            attendanceLog.FirstName = fistName;
+            attendanceLog.LastName = lastName;
+            attendanceLog.EmployeeNumber = employeeNumber;
+            attendanceLog.AttendanceDetail = attendanceDetails;
+            attendanceLog.Note = notes;
+            int iTotalHour = 0;
+            if (attendanceDetails.Count>0 && attendanceDetails.Count % 2 == 0)
+            {
+                double workTime = 0;
+                workTime = ((TimeSpan)attendanceDetails[attendanceDetails.Count - 1]).TotalMinutes
+                - ((TimeSpan)attendanceDetails[0]).TotalMinutes;
+                for (int j = 1; j < attendanceDetails.Count - 1; j++)
+                {
+                    workTime -= -((TimeSpan)attendanceDetails[j++]).TotalMinutes
+                    + ((TimeSpan)attendanceDetails[j]).TotalMinutes;
+                }
+                iTotalHour = Convert.ToInt16(workTime / 60);//workTime % 60?
+            }
+            else
+                iTotalHour = 0;
+
+            attendanceLog.TotalHour = iTotalHour;
+            attendanceLog.DateLog = dtime;
+
+            return attendanceLog;
+        }
+
+        private static int AttendanceLogsSort(AttendanceLog a, AttendanceLog b) { return a.DateLog.CompareTo(b.DateLog); }
 
         public List<AttendanceRecord> GetAttendanceRecordList()
         {
@@ -1218,6 +1271,7 @@ namespace FaceIDAppVBEta.Data
         }
 
         #endregion Attendance Rcord
+
         #endregion
 
         #region utils
@@ -1347,7 +1401,6 @@ namespace FaceIDAppVBEta.Data
             return command;
         }
         #endregion utils
-
 
         #region IDataController Members
 

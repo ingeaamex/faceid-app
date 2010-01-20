@@ -25,7 +25,6 @@ namespace FaceIDAppVBEta
         private void BindData()
         {
             BindCompany();
-
             dtpAttendanceFrom.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1, 0, 0, 0);
         }
 
@@ -33,7 +32,13 @@ namespace FaceIDAppVBEta
         {
             DateTime beginDate = dtpAttendanceFrom.Value;
             DateTime endDate = dtpAttedanceTo.Value;
-            List<AttendanceLog> attendanceLogs = dtCtrl.GetAttendanceRecordList_1(beginDate, endDate);
+
+            int iCompany = (int)cbxCompany.SelectedValue;
+            int iDepartment = -1;
+            if (cbxDepartment.Enabled)
+                iDepartment = (int)cbxDepartment.SelectedValue;
+
+            List<AttendanceLog> attendanceLogs = dtCtrl.GetAttendanceRecordList_1(iCompany, iDepartment, beginDate, endDate);
             dgvAttendanceLog.AutoGenerateColumns = false;
             dgvAttendanceLog.DataSource = attendanceLogs;
         }
@@ -85,6 +90,9 @@ namespace FaceIDAppVBEta
                 || dgvAttendanceLog.Columns["AttNote"].Index == e.ColumnIndex)
                 && e.RowIndex >= 0)
             {
+                List<AttendanceLog> attendanceLogs = (List<AttendanceLog>)dgvAttendanceLog.DataSource;
+                AttendanceLog attendanceLog = attendanceLogs[e.RowIndex];
+
                 using (
                     Brush gridBrush = new SolidBrush(this.dgvAttendanceLog.GridColor),
                     backColorBrush = new SolidBrush(e.CellStyle.BackColor))
@@ -99,17 +107,17 @@ namespace FaceIDAppVBEta
                             e.CellBounds.Top, e.CellBounds.Right - 1,
                             e.CellBounds.Bottom);
 
-                        List<AttendanceLog> attendanceLogs = (List<AttendanceLog>)dgvAttendanceLog.DataSource;
-                        AttendanceLog attendanceLog = attendanceLogs[e.RowIndex];
-
                         int count = 0;
                         if (dgvAttendanceLog.Columns["AttDetail"].Index == e.ColumnIndex)
                         {
-                            foreach (string time in attendanceLog.AttendanceDetail)
+                            bool isIn = true;
+                            foreach (TimeSpan time in attendanceLog.AttendanceDetail)
                             {
                                 int y = (e.CellBounds.Y) + count * 20;
-                                e.Graphics.DrawString(time, e.CellStyle.Font,
-                                    Brushes.Black, e.CellBounds.X,
+                                string timesp = (isIn ? "In " : "Out ") + (time.Hours < 10 ? "0" : "") + time.Hours + ":" + (time.Minutes < 10 ? "0" : "") + time.Minutes;
+                                isIn = !isIn;
+                                e.Graphics.DrawString(timesp, e.CellStyle.Font,
+                                    Brushes.Black, e.CellBounds.X + 5,
                                     y + 5, StringFormat.GenericDefault);
                                 e.Graphics.DrawLine(gridLinePen, e.CellBounds.Left, y + 20, e.CellBounds.Right, y + 20);
                                 count++;
@@ -121,7 +129,7 @@ namespace FaceIDAppVBEta
                             {
                                 int y = (e.CellBounds.Y) + count * 20;
                                 e.Graphics.DrawString(note, e.CellStyle.Font,
-                                    Brushes.Black, e.CellBounds.X,
+                                    Brushes.Black, e.CellBounds.X + 5,
                                     y + 5, StringFormat.GenericDefault);
                                 e.Graphics.DrawLine(gridLinePen, e.CellBounds.Left, y + 20, e.CellBounds.Right, y + 20);
                                 count++;

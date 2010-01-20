@@ -54,6 +54,8 @@ namespace FaceIDAppVBEta.Data
 
         List<Employee> GetEmployeeListByDep(int departmentId);
 
+        bool IsExistEmployeeNumber(int employeeNumber);
+        
         int AddEmployee(Employee employee);
 
         bool DeleteEmployee(int employeeId);
@@ -112,7 +114,6 @@ namespace FaceIDAppVBEta.Data
         List<Holiday> GetHolidayListByWorkingCalendar(int workingCalendarID);
 
         PayPeriod GetPayPeriodByWorkingCalendar(int workingCalendarID);
-        #endregion
 
         int AddWorkingCalendar(WorkingCalendar workingCalendar, List<Break> breakList, List<Holiday> holidayList, PaymentRate workingDayPaymentRate, PaymentRate nonWorkingDayPaymentRate, PaymentRate holidayPaymentRate);
 
@@ -124,6 +125,25 @@ namespace FaceIDAppVBEta.Data
 
         bool IsDuplicatedWorkingCalendarName(string name, int _workingCalendarID);
 
+        #endregion
+
+        #region Attendance Rcord
+
+        List<AttendanceLog> GetAttendanceRecordList_1(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate);
+
+        List<AttendanceRecord> GetAttendanceRecordList();
+
+        AttendanceRecord GetAttendanceRecord(int id);
+
+        int AddAttendanceRecord(AttendanceRecord attRecord);
+
+        bool DeleteAttendanceRecord(int id);
+
+        bool UpdateAttendanceRecord(AttendanceRecord attRecord);
+
+        #endregion Attendance Rcord
+
         System.Data.DataTable GetAttendanceReport(DateTime dateTime, DateTime dateTime_2);
+
     }
 }
