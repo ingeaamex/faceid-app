@@ -35,6 +35,12 @@
             this.dtpAttedanceTo = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.dgvAttendanceLog = new System.Windows.Forms.DataGridView();
+            this.EmployeeNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EmployeeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AttDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AttDetail = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AttSummary = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AttNote = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnPrint = new System.Windows.Forms.Button();
             this.btnSaveToFile = new System.Windows.Forms.Button();
             this.btnAddNewAttendaceRecord = new System.Windows.Forms.Button();
@@ -43,12 +49,6 @@
             this.cbxCompany = new System.Windows.Forms.ComboBox();
             this.cbxDepartment = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.EmployeeNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EmployeeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AttDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AttDetail = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AttSummary = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AttNote = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAttendanceLog)).BeginInit();
             this.SuspendLayout();
             // 
@@ -97,6 +97,7 @@
             // 
             this.dgvAttendanceLog.AllowUserToAddRows = false;
             this.dgvAttendanceLog.AllowUserToDeleteRows = false;
+            this.dgvAttendanceLog.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvAttendanceLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAttendanceLog.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.EmployeeNumber,
@@ -108,14 +109,56 @@
             this.dgvAttendanceLog.Location = new System.Drawing.Point(23, 154);
             this.dgvAttendanceLog.Name = "dgvAttendanceLog";
             this.dgvAttendanceLog.ReadOnly = true;
-            this.dgvAttendanceLog.Size = new System.Drawing.Size(664, 150);
+            this.dgvAttendanceLog.Size = new System.Drawing.Size(866, 238);
             this.dgvAttendanceLog.TabIndex = 6;
             this.dgvAttendanceLog.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvAttendanceLog_CellFormatting);
             this.dgvAttendanceLog.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvAttendanceLog_CellPainting);
             // 
+            // EmployeeNumber
+            // 
+            this.EmployeeNumber.DataPropertyName = "EmployeeNumber";
+            this.EmployeeNumber.HeaderText = "Employee Number";
+            this.EmployeeNumber.Name = "EmployeeNumber";
+            this.EmployeeNumber.ReadOnly = true;
+            // 
+            // EmployeeName
+            // 
+            this.EmployeeName.HeaderText = "Employee Name";
+            this.EmployeeName.Name = "EmployeeName";
+            this.EmployeeName.ReadOnly = true;
+            // 
+            // AttDate
+            // 
+            this.AttDate.DataPropertyName = "DateLog";
+            dataGridViewCellStyle1.Format = "M";
+            dataGridViewCellStyle1.NullValue = null;
+            this.AttDate.DefaultCellStyle = dataGridViewCellStyle1;
+            this.AttDate.HeaderText = "Date";
+            this.AttDate.Name = "AttDate";
+            this.AttDate.ReadOnly = true;
+            // 
+            // AttDetail
+            // 
+            this.AttDetail.HeaderText = "Attendance Detail";
+            this.AttDetail.Name = "AttDetail";
+            this.AttDetail.ReadOnly = true;
+            // 
+            // AttSummary
+            // 
+            this.AttSummary.DataPropertyName = "TotalHour";
+            this.AttSummary.HeaderText = "Total of Hours";
+            this.AttSummary.Name = "AttSummary";
+            this.AttSummary.ReadOnly = true;
+            // 
+            // AttNote
+            // 
+            this.AttNote.HeaderText = "Note";
+            this.AttNote.Name = "AttNote";
+            this.AttNote.ReadOnly = true;
+            // 
             // btnPrint
             // 
-            this.btnPrint.Location = new System.Drawing.Point(111, 326);
+            this.btnPrint.Location = new System.Drawing.Point(98, 411);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(75, 23);
             this.btnPrint.TabIndex = 7;
@@ -124,7 +167,7 @@
             // 
             // btnSaveToFile
             // 
-            this.btnSaveToFile.Location = new System.Drawing.Point(192, 326);
+            this.btnSaveToFile.Location = new System.Drawing.Point(179, 411);
             this.btnSaveToFile.Name = "btnSaveToFile";
             this.btnSaveToFile.Size = new System.Drawing.Size(75, 23);
             this.btnSaveToFile.TabIndex = 8;
@@ -133,7 +176,7 @@
             // 
             // btnAddNewAttendaceRecord
             // 
-            this.btnAddNewAttendaceRecord.Location = new System.Drawing.Point(273, 326);
+            this.btnAddNewAttendaceRecord.Location = new System.Drawing.Point(260, 411);
             this.btnAddNewAttendaceRecord.Name = "btnAddNewAttendaceRecord";
             this.btnAddNewAttendaceRecord.Size = new System.Drawing.Size(168, 23);
             this.btnAddNewAttendaceRecord.TabIndex = 9;
@@ -191,48 +234,6 @@
             this.label5.Size = new System.Drawing.Size(62, 13);
             this.label5.TabIndex = 14;
             this.label5.Text = "Department";
-            // 
-            // EmployeeNumber
-            // 
-            this.EmployeeNumber.DataPropertyName = "EmployeeNumber";
-            this.EmployeeNumber.HeaderText = "Employee Number";
-            this.EmployeeNumber.Name = "EmployeeNumber";
-            this.EmployeeNumber.ReadOnly = true;
-            // 
-            // EmployeeName
-            // 
-            this.EmployeeName.HeaderText = "Employee Name";
-            this.EmployeeName.Name = "EmployeeName";
-            this.EmployeeName.ReadOnly = true;
-            // 
-            // AttDate
-            // 
-            this.AttDate.DataPropertyName = "DateLog";
-            dataGridViewCellStyle1.Format = "M";
-            dataGridViewCellStyle1.NullValue = null;
-            this.AttDate.DefaultCellStyle = dataGridViewCellStyle1;
-            this.AttDate.HeaderText = "Date";
-            this.AttDate.Name = "AttDate";
-            this.AttDate.ReadOnly = true;
-            // 
-            // AttDetail
-            // 
-            this.AttDetail.HeaderText = "Attendance Detail";
-            this.AttDetail.Name = "AttDetail";
-            this.AttDetail.ReadOnly = true;
-            // 
-            // AttSummary
-            // 
-            this.AttSummary.DataPropertyName = "TotalHour";
-            this.AttSummary.HeaderText = "Total of Hours";
-            this.AttSummary.Name = "AttSummary";
-            this.AttSummary.ReadOnly = true;
-            // 
-            // AttNote
-            // 
-            this.AttNote.HeaderText = "Note";
-            this.AttNote.Name = "AttNote";
-            this.AttNote.ReadOnly = true;
             // 
             // ucAttendanceLog
             // 
