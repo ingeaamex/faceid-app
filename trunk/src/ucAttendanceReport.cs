@@ -77,8 +77,6 @@ namespace FaceIDAppVBEta
             cbxDepartment.Items.Clear();
             cbxDepartment.Items.Add(new ListItem(-1, "All"));
 
-
-
             int companyID = (int)((ListItem)cbxCompany.SelectedItem).Value;
             if (companyID == -1) //all company
             {
@@ -107,7 +105,7 @@ namespace FaceIDAppVBEta
             int companyID = (int)((ListItem)cbxCompany.SelectedItem).Value;
             int departmentID = (int)((ListItem)cbxDepartment.SelectedItem).Value;
 
-            _dtAttendanceReport = _dtCtrl.GetAttendanceReport(dtpAttendanceFrom.Value, dtpAttedanceTo.Value);
+            _dtAttendanceReport = _dtCtrl.GetAttendanceReport(companyID, departmentID, dtpAttendanceFrom.Value, dtpAttedanceTo.Value);
 
             dgvAttendanceReport.DataSource = _dtAttendanceReport;
         }

@@ -16,11 +16,11 @@ namespace FaceIDAppVBEta
 
         private static int _workingCalendarID = -1;
 
-        private Control[] listBreak1, listBreak2, listBreak3;
-        private ComboBox[] listCbxRate;
+        private Control[] _listBreak1, _listBreak2, _listBreak3;
+        private ComboBox[] _listCbxRate;
         private List<Holiday> _holidayList = new List<Holiday>();
 
-        private ComboBox selectedComboBox = null;
+        private ComboBox _selectedComboBox = null;
 
         public frmAddUpdateWorkingCalendar() : this(-1) { }
 
@@ -29,11 +29,11 @@ namespace FaceIDAppVBEta
             InitializeComponent();
             _workingCalendarID = workingCalendarID;
 
-            listBreak1 = new Control[] { txtBreakName1, dtpBreakFrom1, dtpBreakTo1, cbxBreakPaid1 };
-            listBreak2 = new Control[] { txtBreakName2, dtpBreakFrom2, dtpBreakTo2, cbxBreakPaid2 };
-            listBreak3 = new Control[] { txtBreakName3, dtpBreakFrom3, dtpBreakTo3, cbxBreakPaid3 };
+            _listBreak1 = new Control[] { txtBreakName1, dtpBreakFrom1, dtpBreakTo1, cbxBreakPaid1 };
+            _listBreak2 = new Control[] { txtBreakName2, dtpBreakFrom2, dtpBreakTo2, cbxBreakPaid2 };
+            _listBreak3 = new Control[] { txtBreakName3, dtpBreakFrom3, dtpBreakTo3, cbxBreakPaid3 };
 
-            listCbxRate = new ComboBox[]{cbxWorkDayRegularRate, cbxWorkDayOvertimeRate1, cbxWorkDayOvertimeRate2, cbxWorkDayOvertimeRate3, cbxWorkDayOvertimeRate4, 
+            _listCbxRate = new ComboBox[]{cbxWorkDayRegularRate, cbxWorkDayOvertimeRate1, cbxWorkDayOvertimeRate2, cbxWorkDayOvertimeRate3, cbxWorkDayOvertimeRate4, 
                 cbxNonWorkDayRegularRate, cbxNonWorkDayOvertimeRate1, cbxNonWorkDayOvertimeRate2, cbxNonWorkDayOvertimeRate3, cbxNonWorkDayOvertimeRate4, 
                 cbxHolidayRegularRate, cbxHolidayOvertimeRate1, cbxHolidayOvertimeRate2, cbxHolidayOvertimeRate3, cbxHolidayOvertimeRate4};
 
@@ -95,7 +95,7 @@ namespace FaceIDAppVBEta
             AddBreakPaid(cbxBreakPaid2);
             AddBreakPaid(cbxBreakPaid3);
 
-            foreach (ComboBox cbx in listCbxRate)
+            foreach (ComboBox cbx in _listCbxRate)
             {
                 InitComboBoxRate(cbx);
                 AddRate(cbx);
@@ -278,19 +278,19 @@ namespace FaceIDAppVBEta
 
         private void EnableBreakControls1(bool enabled)
         {
-            foreach (Control ctrl in listBreak1)
+            foreach (Control ctrl in _listBreak1)
                 ctrl.Enabled = enabled;
         }
 
         private void EnableBreakControls2(bool enabled)
         {
-            foreach (Control ctrl in listBreak2)
+            foreach (Control ctrl in _listBreak2)
                 ctrl.Enabled = enabled;
         }
 
         private void EnableBreakControls3(bool enabled)
         {
-            foreach (Control ctrl in listBreak3)
+            foreach (Control ctrl in _listBreak3)
                 ctrl.Enabled = enabled;
         }
 
@@ -888,15 +888,15 @@ namespace FaceIDAppVBEta
         {
             if (newRate == null) //user cancels
             {
-                selectedComboBox.SelectedIndex = 1;
+                _selectedComboBox.SelectedIndex = 1;
             }
             else
             {
-                foreach (ComboBox cbx in listCbxRate)
+                foreach (ComboBox cbx in _listCbxRate)
                 {
                     AddNewRate(cbx, newRate);
 
-                    selectedComboBox.SelectedIndex = selectedComboBox.Items.IndexOf(newRate);
+                    _selectedComboBox.SelectedIndex = _selectedComboBox.Items.IndexOf(newRate);
                 }
             }
         }
@@ -995,7 +995,7 @@ namespace FaceIDAppVBEta
             {
                 if (selectedRate.Value == -1)
                 {
-                    selectedComboBox = comboBox;
+                    _selectedComboBox = comboBox;
 
                     frmCustomRate frmCRate = new frmCustomRate(this);
                     frmCRate.ShowDialog(this);
