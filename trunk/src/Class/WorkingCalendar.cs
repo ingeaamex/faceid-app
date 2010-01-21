@@ -18,7 +18,6 @@ namespace FaceIDAppVBEta.Class
         public DateTime RegularWorkingFrom { get; set; }
         public DateTime RegularWorkingTo { get; set; }
         public int PayPeriodID { get; set; }
-        public DateTime PayPeriodStartFrom { get; set; }
         public int CustomPayPeriod { get; set; }
     }
 }
