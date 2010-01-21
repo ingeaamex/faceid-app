@@ -7,6 +7,8 @@ namespace FaceIDAppVBEta.Class
     public class PayPeriod
     {
         public int ID { get; set; }
-        public string Name { get; set; }
+        public int PayPeriodTypeID { get; set; }
+        public DateTime StartFrom { get; set; }
+        public int CustomPeriod { get; set; }
     }
 }
