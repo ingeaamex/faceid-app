@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FaceIDAppVBEta.Class
 {
-    public class AttendanceLog
+    public class AttendanceLogReport
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
