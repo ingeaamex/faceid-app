@@ -101,7 +101,7 @@ namespace FaceIDAppVBEta.Data
                 company = new Company();
 
                 company.ID = (int)odRdr["ID"];
-                company.Name = (string)odRdr["Name"];
+                company.Name = odRdr["Name"].ToString();
 
                 companyList.Add(company);
             }
@@ -123,7 +123,7 @@ namespace FaceIDAppVBEta.Data
                 company = new Company();
 
                 company.ID = (int)odRdr["ID"];
-                company.Name = (string)odRdr["Name"];
+                company.Name = odRdr["Name"].ToString();
             }
 
             odRdr.Close();
@@ -143,7 +143,7 @@ namespace FaceIDAppVBEta.Data
                 company = new Company();
 
                 company.ID = (int)odRdr["ID"];
-                company.Name = (string)odRdr["Name"];
+                company.Name = odRdr["Name"].ToString();
             }
 
             odRdr.Close();
@@ -180,7 +180,7 @@ namespace FaceIDAppVBEta.Data
                 department = new Department();
 
                 department.ID = (int)odRdr["ID"];
-                department.Name = (string)odRdr["Name"];
+                department.Name = odRdr["Name"].ToString();
                 department.CompanyID = (int)odRdr["CompanyID"];
                 department.SupDepartmentID = (int)odRdr["SupDepartmentID"];
 
@@ -247,7 +247,7 @@ namespace FaceIDAppVBEta.Data
                 department = new Department();
 
                 department.ID = (int)odRdr["ID"];
-                department.Name = (string)odRdr["Name"];
+                department.Name = odRdr["Name"].ToString();
                 department.CompanyID = (int)odRdr["CompanyID"];
                 department.SupDepartmentID = (int)odRdr["SupDepartmentID"];
 
@@ -292,7 +292,7 @@ namespace FaceIDAppVBEta.Data
                 department = new Department();
 
                 department.ID = (int)odRdr["ID"];
-                department.Name = (string)odRdr["Name"];
+                department.Name = odRdr["Name"].ToString();
                 department.CompanyID = (int)odRdr["CompanyID"];
                 department.SupDepartmentID = (int)odRdr["SupDepartmentID"];
             }
@@ -452,18 +452,18 @@ namespace FaceIDAppVBEta.Data
             {
                 employee = new Employee();
                 employee.Active = (bool)odRdr["Active"];
-                employee.Address = (string)odRdr["Address"];
+                employee.Address = odRdr["Address"].ToString();
                 employee.Birthday = (DateTime)odRdr["Birthday"];
                 employee.DepartmentID = (int)odRdr["DepartmentID"];
                 employee.EmployeeNumber = (int)odRdr["EmployeeNumber"];
-                employee.FirstName = (string)odRdr["FirstName"];
+                employee.FirstName = odRdr["FirstName"].ToString();
                 employee.HiredDate = (DateTime)odRdr["HiredDate"];
-                employee.JobDescription = (string)odRdr["JobDescription"];
-                employee.LastName = (string)odRdr["LastName"];
+                employee.JobDescription = odRdr["JobDescription"].ToString();
+                employee.LastName = odRdr["LastName"].ToString();
                 employee.LeftDate = (DateTime)odRdr["LeftDate"];
                 employee.PayrollNumber = (int)odRdr["PayrollNumber"];
-                employee.PhoneNumber = (string)odRdr["PhoneNumber"];
-                employee.PhotoData = (string)odRdr["PhotoData"];
+                employee.PhoneNumber = odRdr["PhoneNumber"].ToString();
+                employee.PhotoData = odRdr["PhotoData"].ToString();
                 employee.WorkingCalendarID = (int)odRdr["WorkingCalendarID"];
                 employee.ActiveFrom = (DateTime)odRdr["ActiveFrom"];
                 if (odRdr["ActiveTo"].GetType().Name != "DBNull")
@@ -489,18 +489,18 @@ namespace FaceIDAppVBEta.Data
             {
                 employee = new Employee();
                 employee.Active = (bool)odRdr["Active"];
-                employee.Address = (string)odRdr["Address"];
+                employee.Address = odRdr["Address"].ToString();
                 employee.Birthday = (DateTime)odRdr["Birthday"];
                 employee.DepartmentID = (int)odRdr["DepartmentID"];
                 employee.EmployeeNumber = (int)odRdr["EmployeeNumber"];
-                employee.FirstName = (string)odRdr["FirstName"];
+                employee.FirstName = odRdr["FirstName"].ToString();
                 employee.HiredDate = (DateTime)odRdr["HiredDate"];
-                employee.JobDescription = (string)odRdr["JobDescription"];
-                employee.LastName = (string)odRdr["LastName"];
+                employee.JobDescription = odRdr["JobDescription"].ToString();
+                employee.LastName = odRdr["LastName"].ToString();
                 employee.LeftDate = (DateTime)odRdr["LeftDate"];
                 employee.PayrollNumber = (int)odRdr["PayrollNumber"];
-                employee.PhoneNumber = (string)odRdr["PhoneNumber"];
-                employee.PhotoData = (string)odRdr["PhotoData"];
+                employee.PhoneNumber = odRdr["PhoneNumber"].ToString();
+                employee.PhotoData = odRdr["PhotoData"].ToString();
                 employee.WorkingCalendarID = (int)odRdr["WorkingCalendarID"];
                 employee.ActiveFrom = (DateTime)odRdr["ActiveFrom"];
                 if (odRdr["ActiveTo"].GetType().Name != "DBNull")
@@ -525,18 +525,18 @@ namespace FaceIDAppVBEta.Data
                 employee = new Employee();
 
                 employee.Active = (bool)odRdr["Active"];
-                employee.Address = (string)odRdr["Address"];
+                employee.Address = odRdr["Address"].ToString();
                 employee.Birthday = (DateTime)odRdr["Birthday"];
                 employee.DepartmentID = (int)odRdr["DepartmentID"];
                 employee.EmployeeNumber = (int)odRdr["EmployeeNumber"];
-                employee.FirstName = (string)odRdr["FirstName"];
+                employee.FirstName = odRdr["FirstName"].ToString();
                 employee.HiredDate = (DateTime)odRdr["HiredDate"];
-                employee.JobDescription = (string)odRdr["JobDescription"];
-                employee.LastName = (string)odRdr["LastName"];
+                employee.JobDescription = odRdr["JobDescription"].ToString();
+                employee.LastName = odRdr["LastName"].ToString();
                 employee.LeftDate = (DateTime)odRdr["LeftDate"];
                 employee.PayrollNumber = (int)odRdr["PayrollNumber"];
-                employee.PhoneNumber = (string)odRdr["PhoneNumber"];
-                employee.PhotoData = (string)odRdr["PhotoData"];
+                employee.PhoneNumber = odRdr["PhoneNumber"].ToString();
+                employee.PhotoData = odRdr["PhotoData"].ToString();
                 employee.WorkingCalendarID = (int)odRdr["WorkingCalendarID"];
                 employee.ActiveFrom = (DateTime)odRdr["ActiveFrom"];
                 if (odRdr["ActiveTo"].GetType().Name != "DBNull")
@@ -638,7 +638,7 @@ namespace FaceIDAppVBEta.Data
                 wCalendar = new WorkingCalendar();
 
                 wCalendar.ID = (int)odRdr["ID"];
-                wCalendar.Name = (string)odRdr["Name"];
+                wCalendar.Name = odRdr["Name"].ToString();
                 wCalendar.RegularWorkingFrom = (DateTime)odRdr["RegularWorkingFrom"];
                 wCalendar.RegularWorkingTo = (DateTime)odRdr["RegularWorkingTo"];
 
@@ -664,8 +664,8 @@ namespace FaceIDAppVBEta.Data
                 terminal = new Terminal();
 
                 terminal.ID = (int)odRdr["ID"];
-                terminal.Name = (string)odRdr["Name"];
-                terminal.IPAddress = (string)odRdr["IPAddress"];
+                terminal.Name = odRdr["Name"].ToString();
+                terminal.IPAddress = odRdr["IPAddress"].ToString();
 
                 terminalList.Add(terminal);
             }
@@ -805,7 +805,7 @@ namespace FaceIDAppVBEta.Data
                 terminal = new Terminal();
 
                 terminal.ID = (int)odRdr["ID"];
-                terminal.Name = (string)odRdr["Name"];
+                terminal.Name = odRdr["Name"].ToString();
                 terminals.Add(terminal);
             }
 
@@ -967,7 +967,7 @@ namespace FaceIDAppVBEta.Data
                 workingCalendar = new WorkingCalendar();
 
                 workingCalendar.ID = (int)odRdr["ID"];
-                workingCalendar.Name = (string)odRdr["Name"];
+                workingCalendar.Name = odRdr["Name"].ToString();
                 workingCalendar.PayPeriodID = (int)odRdr["PayPeriodID"];
                 workingCalendar.RegularWorkingFrom = (DateTime)odRdr["RegularWorkingFrom"];
                 workingCalendar.RegularWorkingTo = (DateTime)odRdr["RegularWorkingTo"];
@@ -1048,7 +1048,7 @@ namespace FaceIDAppVBEta.Data
 
         #region Attendance Rcord
 
-        private string GetEmployeeNumberList(int iCompany, int iDepartment)
+        private List<string> GetEmployeeNumberList(int iCompany, int iDepartment)
         {
             System.Data.OleDb.OleDbCommand odCom = null;
             if (iDepartment > 0)
@@ -1060,23 +1060,22 @@ namespace FaceIDAppVBEta.Data
 
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
 
-            string employeeNumberList = "";
-
+            List<string> empls = new List<string>();
             while (odRdr.Read())
             {
-                employeeNumberList += odRdr["EmployeeNumber"] + ",";
+                empls.Add(odRdr["EmployeeNumber"].ToString());
             }
             odRdr.Close();
 
-            return employeeNumberList.TrimEnd(',');
+            return empls;
         }
 
-        public List<AttendanceLog> GetAttendanceRecordList_1(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate)
+        public List<AttendanceLogReport> GetAttendanceRecordList_1(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate)
         {
-            string employeeNumberList = GetEmployeeNumberList(iCompany, iDepartment);
-
-            if (employeeNumberList == "")
+            List<string> empls = GetEmployeeNumberList(iCompany, iDepartment);
+            if (empls.Count == 0)
                 return null;
+            string employeeNumberList = string.Join(",", empls.ToArray());
 
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("AttendanceReport as Att INNER JOIN Employee as Emp ON Att.EmployeeNumber = Emp.EmployeeNumber",
                 "Emp.EmployeeNumber, Emp.FirstName, Emp.LastName, Att.WorkFrom, Att.WorkTo, Att.RegularHour",
@@ -1091,10 +1090,10 @@ namespace FaceIDAppVBEta.Data
                 return null;
 
             System.Data.OleDb.OleDbDataReader odRdr = null;
-            List<AttendanceLog> attLogs = new List<AttendanceLog>();
+            List<AttendanceLogReport> attLogs = new List<AttendanceLogReport>();
             foreach (DataRow drRp in dtReport.Rows)
             {
-                AttendanceLog attLog = new AttendanceLog();
+                AttendanceLogReport attLog = new AttendanceLogReport();
                 attLog.DateLog = (DateTime)drRp["WorkFrom"];
                 attLog.EmployeeNumber = (int)drRp["EmployeeNumber"];
                 attLog.FirstName = (string)drRp["FirstName"];
@@ -1122,9 +1121,9 @@ namespace FaceIDAppVBEta.Data
             return attLogs;
         }
 
-        private AttendanceLog BuildAttendanceLog(DateTime dtime, string fistName, string lastName, int employeeNumber, List<TimeSpan> attendanceDetails, List<string> notes)
+        private AttendanceLogReport BuildAttendanceLog(DateTime dtime, string fistName, string lastName, int employeeNumber, List<TimeSpan> attendanceDetails, List<string> notes)
         {
-            AttendanceLog attendanceLog = new AttendanceLog();
+            AttendanceLogReport attendanceLog = new AttendanceLogReport();
             attendanceLog.FirstName = fistName;
             attendanceLog.LastName = lastName;
             attendanceLog.EmployeeNumber = employeeNumber;
@@ -1152,29 +1151,98 @@ namespace FaceIDAppVBEta.Data
             return attendanceLog;
         }
 
-        private static int AttendanceLogsSort(AttendanceLog a, AttendanceLog b) { return a.DateLog.CompareTo(b.DateLog); }
+        private static int AttendanceLogsSort(AttendanceLogReport a, AttendanceLogReport b) { return a.DateLog.CompareTo(b.DateLog); }
 
-        public List<AttendanceRecord> GetAttendanceRecordList()
+        public List<AttendanceLogRecord> GetAttendanceRecordList(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate)
         {
-            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("AttendanceRecord", "*", null);
+            List<string> lEmplNumbers = GetEmployeeNumberList(iCompany, iDepartment);
+            if (lEmplNumbers.Count == 0)
+                return null;
+            string sEmplNumbers = string.Join(",", lEmplNumbers.ToArray());
+
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("AttendanceRecord as Att INNER JOIN Employee as Emp ON Att.EmployeeNumber = Emp.EmployeeNumber", 
+                "Att.*, Emp.FirstName, Emp.LastName",
+                "Att.Time >=@Date_1 AND Att.Time <= @Date_2 AND Att.EmployeeNumber in(@Empl)",
+                new object[] { "@Date_1", beginDate, "@Date_2", endDate, "@Empl", sEmplNumbers });
+            
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+            
             List<AttendanceRecord> attRecordList = new List<AttendanceRecord>();
             AttendanceRecord attRecord = null;
+            List<Employee> empls = new List<Employee>();
+            Employee empl = null;
             while (odRdr.Read())
             {
                 attRecord = new AttendanceRecord();
+                empl = new Employee();
+
+                empl.EmployeeNumber = (int)odRdr["EmployeeNumber"];
+                empl.FirstName = odRdr["FirstName"].ToString();
+                empl.LastName = odRdr["LastName"].ToString();
 
                 attRecord.ID = (int)odRdr["ID"];
                 attRecord.EmployeeNumber = (int)odRdr["EmployeeNumber"];
-                attRecord.Note = (string)odRdr["Note"];
-                attRecord.PhotoData = (string)odRdr["PhotoData"];
+                attRecord.Note = odRdr["Note"].ToString();
+                attRecord.PhotoData = odRdr["PhotoData"].ToString();
                 attRecord.Time = (DateTime)odRdr["Time"];
 
+                empls.Add(empl);
                 attRecordList.Add(attRecord);
             }
-
             odRdr.Close();
-            return attRecordList;
+
+
+
+            List<AttendanceLogRecord> attLogRecords = new List<AttendanceLogRecord>();
+
+            foreach (string emplNumber in lEmplNumbers)
+            {
+                List<AttendanceRecord> attRds = attRecordList.FindAll(delegate(AttendanceRecord attRd)
+                {
+                    return attRd.EmployeeNumber == Convert.ToInt32(emplNumber);
+                });
+                if (attRds != null)
+                {
+                    AttendanceLogRecord attLogRecord = new AttendanceLogRecord();
+                    Employee empl1 = empls.Find(delegate(Employee e) { return e.EmployeeNumber == Convert.ToInt32(emplNumber); });
+                    attLogRecord.EmployeeNumber = empl1.EmployeeNumber;
+                    attLogRecord.FirstName = empl1.FirstName;
+                    attLogRecord.LastName = empl1.LastName;
+
+                    List<DateTime> lDateLog = new List<DateTime>();
+                    List<string> lNote = new List<string>();
+                    List<object[]> lInOutTime = new List<object[]>();
+                    List<int[]> lTotalHour = new List<int[]>();
+
+                    attRds.Sort(delegate(AttendanceRecord e1, AttendanceRecord e2) { return e1.Time.CompareTo(e2.Time); });
+                    foreach (AttendanceRecord attRd in attRds)
+                    {
+                        if (!lDateLog.Contains(attRd.Time.Date))
+                        {
+                            lDateLog.Add(attRd.Time.Date);
+                            long totalTicks = 0;
+                            List<AttendanceRecord> attRds1 = attRds.FindAll(delegate(AttendanceRecord e) { return e.Time.Date.Equals(attRd.Time.Date); });
+                            attRds1.Sort(delegate(AttendanceRecord e1, AttendanceRecord e2) { return e1.Time.CompareTo(e2.Time); });
+                            for (int i = 0; i < attRds1.Count - 1; i++)
+                            {
+                                if (i % 2 == 0)
+                                    totalTicks += attRds1[i + 1].Time.Ticks - attRds1[i].Time.Ticks;
+                            }
+                            int totalHour = Convert.ToInt16(totalTicks / (3600000000));
+                            lTotalHour.Add(new int[] { totalHour, attRds1.Count });
+                        }
+
+                        lNote.Add(attRd.Note);
+                        lInOutTime.Add(new object[] { attRd.ID, attRd.Time.Hour + ":" + attRd.Time.Minute });
+                    }
+                    attLogRecord.DateLog = lDateLog;
+                    attLogRecord.InOutTime = lInOutTime;
+                    attLogRecord.Note = lNote;
+                    attLogRecord.TotalHour = lTotalHour;
+                    attLogRecords.Add(attLogRecord);
+                }
+            }
+            return attLogRecords;
         }
 
         public AttendanceRecord GetAttendanceRecord(int id)
@@ -1188,8 +1256,8 @@ namespace FaceIDAppVBEta.Data
 
                 attRecord.ID = (int)odRdr["ID"];
                 attRecord.EmployeeNumber = (int)odRdr["EmployeeNumber"];
-                attRecord.Note = (string)odRdr["Note"];
-                attRecord.PhotoData = (string)odRdr["PhotoData"];
+                attRecord.Note = odRdr["Note"].ToString();
+                attRecord.PhotoData = odRdr["PhotoData"].ToString();
                 attRecord.Time = (DateTime)odRdr["Time"];
 
                 odRdr.Close();
@@ -1387,6 +1455,15 @@ namespace FaceIDAppVBEta.Data
                 int totalOverMinute = Convert.ToInt16(totalOverTicks / (60 * 10000000));
                 totalOverHour = totalOverMinute / 60;
             }
+            else
+            {
+                odCom = BuildInsertCmd("AttendanceRecord",
+                    new string[] { "EmployeeNumber", "Note", "PhotoData", "Time" },
+                    new object[] { attRecord.EmployeeNumber, attRecord.Note, attRecord.PhotoData, attRecord.Time }
+                    );
+
+                return ExecuteNonQuery(odCom) > 0;
+            }
 
             DateTime attRcBengin = (DateTime)attendanceRecordTimes[0];
             DateTime attRcEnd = (DateTime)attendanceRecordTimes[attendanceRecordTimes.Count - 1];
@@ -1490,8 +1567,8 @@ namespace FaceIDAppVBEta.Data
                 return false;
 
             System.Data.OleDb.OleDbCommand odCom1 = BuildUpdateCmd("AttendanceRecord",
-                new string[] { "EmployeeNumber", "Note", "PhotoData", "Time" },
-                new object[] { attRecord.EmployeeNumber, attRecord.Note, attRecord.PhotoData, attRecord.Time },
+                new string[] { "EmployeeNumber", "Note", "Time" },
+                new object[] { attRecord.EmployeeNumber, attRecord.Note, attRecord.Time },
                 "ID=@ID", new object[] { "@ID", attRecord.ID }
                 );
 

@@ -132,9 +132,9 @@ namespace FaceIDAppVBEta.Data
 
         #region Attendance Rcord
 
-        List<AttendanceLog> GetAttendanceRecordList_1(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate);
+        List<AttendanceLogReport> GetAttendanceRecordList_1(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate);
 
-        List<AttendanceRecord> GetAttendanceRecordList();
+        List<AttendanceLogRecord> GetAttendanceRecordList(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate);
 
         AttendanceRecord GetAttendanceRecord(int id);
 
