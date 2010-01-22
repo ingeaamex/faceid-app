@@ -101,6 +101,9 @@ namespace FaceIDAppVBEta.Data
         #endregion EmployeeNumber
 
         #region Working Calendar
+
+        WorkingCalendar GetWorkingCalendarByEmployee(int employeeNumber);
+
         WorkingCalendar GetWorkingCalendar(int workingCalendarID);
 
         List<Break> GetBreakByWorkingCalendar(int workingCalendarID);
@@ -135,7 +138,7 @@ namespace FaceIDAppVBEta.Data
 
         AttendanceRecord GetAttendanceRecord(int id);
 
-        int AddAttendanceRecord(AttendanceRecord attRecord);
+        bool AddAttendanceRecord(AttendanceRecord attRecord);
 
         bool DeleteAttendanceRecord(int id);
 
