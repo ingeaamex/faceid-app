@@ -257,21 +257,23 @@ namespace FaceIDAppVBEta
                 #endregion
 
                 #region Set Pay Period
-                PayPeriod payPeriod = _dtCtrl.GetPayPeriodByWorkingCalendar(workingCalendarID);
-                if (payPeriod == null)//custom Pay Period
+                PayPeriod payPeriod = _dtCtrl.GetPayPeriod(workingCalendar.PayPeriodID);
+                PayPeriodType payPeriodType = _dtCtrl.GetPayPeriodType(payPeriod.PayPeriodTypeID);
+
+                if (payPeriodType.ID == 5)//custom Pay Period
                 {
                     rbtPayPeriodCustom.Checked = true;
-                    nudCustomPayPeriod.Value = workingCalendar.CustomPayPeriod;
+                    nudCustomPayPeriod.Value = payPeriod.CustomPeriod;
                 }
                 else
                 {
-                    rbtPayPeriodWeekly.Checked = payPeriod.Name.ToLower() == "weekly";
-                    rbtPayPeriodBiweekly.Checked = payPeriod.Name.ToLower() == "bi-weekly";
-                    rbtPayPeriodMonthly.Checked = payPeriod.Name.ToLower() == "monthly";
-                    rbtPayPeriodHalfmonthly.Checked = payPeriod.Name.ToLower() == "half-monthly";
+                    rbtPayPeriodWeekly.Checked = payPeriodType.ID == 1;
+                    rbtPayPeriodBiweekly.Checked = payPeriodType.ID == 2;
+                    rbtPayPeriodMonthly.Checked = payPeriodType.ID == 3;
+                    rbtPayPeriodHalfmonthly.Checked = payPeriodType.ID == 4;
                 }
 
-                dtpPayPeriodStartFrom.Value = workingCalendar.PayPeriodStartFrom;
+                dtpPayPeriodStartFrom.Value = payPeriod.StartFrom;
                 #endregion
             }
         }
@@ -560,6 +562,7 @@ namespace FaceIDAppVBEta
             PaymentRate workingDayPaymentRate = new PaymentRate();
             PaymentRate nonWorkingDayPaymentRate = new PaymentRate();
             PaymentRate holidayPaymentRate = new PaymentRate();
+            PayPeriod payPeriod = new PayPeriod();
 
             if (_workingCalendarID < 0) //add
             {
@@ -574,14 +577,14 @@ namespace FaceIDAppVBEta
                 }
             }
 
-            SetWorkingCalendarProperties(ref workingCalendar, ref breakList, ref holidayList, ref workingDayPaymentRate, ref nonWorkingDayPaymentRate, ref holidayPaymentRate);
+            SetWorkingCalendarProperties(ref workingCalendar, ref breakList, ref holidayList, ref workingDayPaymentRate, ref nonWorkingDayPaymentRate, ref holidayPaymentRate, ref payPeriod);
 
             #endregion
 
             #region insert/update in database
             if (_workingCalendarID < 0) //add
             {
-                int workingCalendarID = _dtCtrl.AddWorkingCalendar(workingCalendar, breakList, holidayList, workingDayPaymentRate, nonWorkingDayPaymentRate, holidayPaymentRate);
+                int workingCalendarID = _dtCtrl.AddWorkingCalendar(workingCalendar, breakList, holidayList, workingDayPaymentRate, nonWorkingDayPaymentRate, holidayPaymentRate, payPeriod);
 
                 if (workingCalendarID < 0)
                 {
@@ -590,7 +593,7 @@ namespace FaceIDAppVBEta
             }
             else //update
             {
-                bool result = _dtCtrl.UpdateWorkingCalendar(workingCalendar, breakList, holidayList, workingDayPaymentRate, nonWorkingDayPaymentRate, holidayPaymentRate);
+                bool result = _dtCtrl.UpdateWorkingCalendar(workingCalendar, breakList, holidayList, workingDayPaymentRate, nonWorkingDayPaymentRate, holidayPaymentRate, payPeriod);
 
                 if (result != true)
                 {
@@ -600,7 +603,7 @@ namespace FaceIDAppVBEta
             #endregion
         }
 
-        private void SetWorkingCalendarProperties(ref WorkingCalendar workingCalendar, ref List<Break> breakList, ref List<Holiday> holidayList, ref PaymentRate workDayPaymentRate, ref PaymentRate nonWorkDayPaymentRate, ref PaymentRate holidayPaymentRate)
+        private void SetWorkingCalendarProperties(ref WorkingCalendar workingCalendar, ref List<Break> breakList, ref List<Holiday> holidayList, ref PaymentRate workDayPaymentRate, ref PaymentRate nonWorkDayPaymentRate, ref PaymentRate holidayPaymentRate, ref PayPeriod payPeriod)
         {
             workingCalendar.Name = txtName.Text;
 
@@ -705,31 +708,22 @@ namespace FaceIDAppVBEta
             #region Get Pay Period
             if (rbtPayPeriodCustom.Checked)//custom Pay Period
             {
-                workingCalendar.CustomPayPeriod = (int)nudCustomPayPeriod.Value;
-                workingCalendar.PayPeriodID = -1;
+                payPeriod.PayPeriodTypeID = 5;
+                payPeriod.CustomPeriod = (int)nudCustomPayPeriod.Value;
             }
             else
             {
-                String payPeriodName = "";
-
                 if (rbtPayPeriodWeekly.Checked)
-                    payPeriodName = "Weekly";
+                    payPeriod.PayPeriodTypeID = 1;
                 else if (rbtPayPeriodBiweekly.Checked)
-                    payPeriodName = "Bi-Weekly";
+                    payPeriod.PayPeriodTypeID = 2;
                 else if (rbtPayPeriodMonthly.Checked)
-                    payPeriodName = "Monthly";
+                    payPeriod.PayPeriodTypeID = 3;
                 else if (rbtPayPeriodHalfmonthly.Checked)
-                    payPeriodName = "Half-Monthly";
-
-                PayPeriod payPeriod = _dtCtrl.GetPayPeriodByName(payPeriodName);
-
-                if (payPeriod == null)
-                    throw new Exception();
-
-                workingCalendar.PayPeriodID = payPeriod.ID;
+                    payPeriod.PayPeriodTypeID = 4;
             }
 
-            workingCalendar.PayPeriodStartFrom = dtpPayPeriodStartFrom.Value;
+            payPeriod.StartFrom = dtpPayPeriodStartFrom.Value;
             #endregion
         }
 
