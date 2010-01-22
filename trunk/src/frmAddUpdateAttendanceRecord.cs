@@ -79,9 +79,8 @@ namespace FaceIDAppVBEta
                 return;
 
             attRecord.PhotoData = "";
-
-            int irs = dtCtrl.AddAttendanceRecord(attRecord);
-            MessageBox.Show(irs > 0 ? "sucessfull" : "error");
+            bool ors = dtCtrl.AddAttendanceRecord(attRecord);
+            MessageBox.Show(ors ? "sucessfull" : "error");
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
