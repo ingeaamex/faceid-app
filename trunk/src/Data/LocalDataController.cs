@@ -1720,10 +1720,93 @@ namespace FaceIDAppVBEta.Data
         }
         #endregion utils
 
-
         #region AttendanceReport
 
         public DataTable GetAttendanceReport(int companyID, int departmentID, DateTime dtFrom, DateTime dtTo)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region IDataController Members
+
+        public int AddPayPeriod(PayPeriod payPeriod)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DeletePayPeriod(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool UpdatePayPeriod(PayPeriod payPeriod)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int AddPayPeriodType(PayPeriodType payPeriodType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DeletePayPeriodType(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool UpdatePayPeriodType(PayPeriodType payPeriodType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Break GetBreak(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int AddBreak(Break _break)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DeleteBreak(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool UpdateBreak(Break _break)
+        {
+            throw new NotImplementedException();
+        }
+
+        public PaymentRate GetPaymentRate(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int AddPaymentRate(PaymentRate paymentRate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DeletePaymentRate(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool UpdatePaymentRate(PaymentRate paymentRate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int AddHoliday(Holiday holiday)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DeleteHoliday(int id)
         {
             throw new NotImplementedException();
         }
