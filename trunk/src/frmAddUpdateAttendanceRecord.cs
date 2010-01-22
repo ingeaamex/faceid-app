@@ -15,11 +15,11 @@ namespace FaceIDAppVBEta
     {
         private IDataController dtCtrl;
         private int iAttendanceRecordID = 0;
-        public frmAddUpdateAttendanceRecord()
+        public frmAddUpdateAttendanceRecord(int attRecord)
         {
             InitializeComponent();
             dtCtrl = LocalDataController.Instance;
-            SetState(0);
+            SetState(attRecord);
         }
 
         private void SetState(int attRecord)
@@ -37,7 +37,8 @@ namespace FaceIDAppVBEta
                 lbHeaderAction.Text = "Update Attendance Record";
                 btnAdd.Visible = false;
                 btnUpdate.Visible = true;
-
+                nudEmployeeNumber.Enabled = false;
+                txtEmployeeName.Enabled = false;
                 BindAttRecordData(attRecord);
             }
         }
@@ -70,6 +71,14 @@ namespace FaceIDAppVBEta
         private void BindAttRecordData(int attRecord)
         {
             iAttendanceRecordID = attRecord;
+            AttendanceRecord attendanceRecord = dtCtrl.GetAttendanceRecord(attRecord);
+            nudEmployeeNumber.Value = attendanceRecord.EmployeeNumber;
+            txtNote.Text = attendanceRecord.Note;
+            DateTime dt = attendanceRecord.Time;
+            dtpAttDate.Value = dt;
+            nudAttHour.Value = dt.Hour;
+            nudAttMin.Value = dt.Minute;
+            nudAttSec.Value = dt.Second;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -81,6 +90,9 @@ namespace FaceIDAppVBEta
             attRecord.PhotoData = "";
             bool ors = dtCtrl.AddAttendanceRecord(attRecord);
             MessageBox.Show(ors ? "sucessfull" : "error");
+            if (ors)
+                this.Close();
+
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -93,6 +105,8 @@ namespace FaceIDAppVBEta
 
             bool ors = dtCtrl.UpdateAttendanceRecord(attRecord);
             MessageBox.Show(ors ? "sucessfull" : "error");
+            if(ors)
+                this.Close();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
