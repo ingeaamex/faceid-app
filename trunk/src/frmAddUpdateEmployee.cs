@@ -68,7 +68,7 @@ namespace FaceIDAppVBEta
 
         private void BindWorkingCalendar()
         {
-            List<WorkingCalendar> workingCalendarList = dtCtrl.GetWCalendarList();
+            List<WorkingCalendar> workingCalendarList = dtCtrl.GetWorkingCalendarList();
             if (workingCalendarList.Count < 1)
             {
                 MessageBox.Show("The working calendar created before creating a employee. Press OK to closed form", "", MessageBoxButtons.OK);
