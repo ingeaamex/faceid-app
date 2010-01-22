@@ -11,118 +11,142 @@ namespace FaceIDAppVBEta.UnitTest
     public class testWorkingCalendarFunction
     {
         private IDataController _dtCtrl = LocalDataController.Instance;
-        private WorkingCalendar wCal1 = new WorkingCalendar();
+        private WorkingCalendar wCal = new WorkingCalendar();
 
-        [Test]
-        public void TestAddWorkingCalendar()
+        Company com = new Company();
+        Department dep = new Department();
+        Employee emp = new Employee();
+
+        List<Break> breakList = new List<Break>();
+        List<Holiday> holidayList = new List<Holiday>();
+
+        PaymentRate workingDayPaymentRate = new PaymentRate();
+        PaymentRate nonWorkingDayPaymentRate = new PaymentRate();
+        PaymentRate holidayPaymentRate = new PaymentRate();
+
+        PayPeriod payPeriod = new PayPeriod();
+
+        private void AddWCal()
         {
-            wCal1.Name = "Cal1";
-            wCal1.RegularWorkingFrom = DateTime.Today;
-            wCal1.RegularWorkingTo = DateTime.Today;
-
-            List<Break> breakList = new List<Break>();
-            List<Holiday> holidayList = new List<Holiday>();
-
-            PaymentRate workingDayPaymentRate = new PaymentRate();
-            PaymentRate nonWorkingDayPaymentRate = new PaymentRate();
-            PaymentRate holidayPaymentRate = new PaymentRate();
-
-            PayPeriod payPeriod = new PayPeriod();
+            wCal.Name = DateTime.Now.Ticks.ToString(); ;
+            wCal.RegularWorkingFrom = DateTime.Today;
+            wCal.RegularWorkingTo = DateTime.Today;
+            
             payPeriod.CustomPeriod = 5;
             payPeriod.PayPeriodTypeID = 5; //custom
             payPeriod.StartFrom = DateTime.Today;
 
-            wCal1.ID = _dtCtrl.AddWorkingCalendar(wCal1, breakList, holidayList, workingDayPaymentRate, nonWorkingDayPaymentRate, holidayPaymentRate, payPeriod);
+            wCal.ID = _dtCtrl.AddWorkingCalendar(wCal, breakList, holidayList, workingDayPaymentRate, nonWorkingDayPaymentRate, holidayPaymentRate, payPeriod);
 
-            Assert.Greater(wCal1.ID, 0);
-        }
-
-        [Test]
-        public void TestGetWorkingCalendar()
-        {
-            Assert.AreEqual(wCal1.Name, _dtCtrl.GetWorkingCalendar(wCal1.ID).Name);
-        }
-
-        [Test]
-        public void TestUpdateWorkingCalendar()
-        {
-            wCal1.Name = "Cal1+";
-            wCal1.RegularWorkingFrom = DateTime.Today;
-            wCal1.RegularWorkingTo = DateTime.Today;
-
-            List<Break> breakList = new List<Break>();
-            List<Holiday> holidayList = new List<Holiday>();
-
-            PaymentRate workingDayPaymentRate = new PaymentRate();
-            PaymentRate nonWorkingDayPaymentRate = new PaymentRate();
-            PaymentRate holidayPaymentRate = new PaymentRate();
-
-            PayPeriod payPeriod = new PayPeriod();
-            payPeriod.CustomPeriod = 5;
-            payPeriod.PayPeriodTypeID = 5; //custom
-            payPeriod.StartFrom = DateTime.Today;
-
-            Assert.AreEqual(true, _dtCtrl.UpdateWorkingCalendar(wCal1, breakList, holidayList, workingDayPaymentRate, nonWorkingDayPaymentRate, holidayPaymentRate, payPeriod));
-            Assert.AreEqual(wCal1.Name, _dtCtrl.GetWorkingCalendar(wCal1.ID).Name);
-        }
-
-        [Test]
-        public void TestGetWorkingCalendarList()
-        {
-            List<WorkingCalendar> wCalList = _dtCtrl.GetWorkingCalendarList();
-            Assert.Greater(wCalList.Count, 0);
-        }
-
-        [Test]
-        public void TestGetWorkingCalendarByEmployee()
-        {
-            Company com = new Company();
-            com.Name = "Com1";
+            com.Name = DateTime.Now.Ticks.ToString(); ;
             com.ID = _dtCtrl.AddCompany(com);
-
-            Department dep = new Department();
-            dep.Name = "Dep1";
+            
+            dep.Name = DateTime.Now.Ticks.ToString(); ;
             dep.CompanyID = com.ID;
             dep.SupDepartmentID = 0;
             dep.ID = _dtCtrl.AddDepartment(dep);
 
-            Employee emp = new Employee();
             emp.Active = true;
             emp.ActiveFrom = DateTime.Today;
             emp.ActiveTo = DateTime.Today.AddDays(1);
-            emp.Address = "";
+            emp.Address = DateTime.Now.Ticks.ToString(); ;
             emp.Birthday = DateTime.Today.AddYears(-20);
             emp.DepartmentID = dep.ID;
             emp.EmployeeNumber = 1;
-            emp.FirstName = "F";
+            emp.FirstName = DateTime.Now.Ticks.ToString(); ;
             emp.HiredDate = DateTime.Today;
             emp.LeftDate = DateTime.Today.AddYears(1);
-            emp.PhoneNumber = "";
-            emp.PhotoData = "";
-            emp.WorkingCalendarID = wCal1.ID;
+            emp.LastName = DateTime.Now.Ticks.ToString();
+            emp.PhoneNumber = DateTime.Now.Ticks.ToString(); ;
+            emp.PhotoData = DateTime.Now.Ticks.ToString(); ;
+            emp.WorkingCalendarID = wCal.ID;
             emp.PayrollNumber = _dtCtrl.AddEmployee(emp);
+        }
 
-            Assert.AreEqual(wCal1.ID, _dtCtrl.GetWorkingCalendarByEmployee(emp.EmployeeNumber).ID);
-
+        private void DelWCal()
+        {
+            _dtCtrl.DeleteWorkingCalendar(wCal.ID);
             _dtCtrl.DeleteEmployee(emp.PayrollNumber);
             _dtCtrl.DeleteDepartment(dep.ID);
             _dtCtrl.DeleteCompany(com.ID);
         }
 
         [Test]
+        public void TestAddWorkingCalendar()
+        {
+            AddWCal();
+
+            Assert.Greater(wCal.ID, 0);
+
+            DelWCal();
+        }
+
+        [Test]
+        public void TestGetWorkingCalendar()
+        {
+            AddWCal();
+
+            Assert.AreEqual(wCal.Name, _dtCtrl.GetWorkingCalendar(wCal.ID).Name);
+
+            DelWCal();
+        }
+
+        [Test]
+        public void TestUpdateWorkingCalendar()
+        {
+            AddWCal();
+
+            wCal.Name += "'";
+
+            Assert.AreEqual(true, _dtCtrl.UpdateWorkingCalendar(wCal, breakList, holidayList, workingDayPaymentRate, nonWorkingDayPaymentRate, holidayPaymentRate, payPeriod));
+            Assert.AreEqual(wCal.Name, _dtCtrl.GetWorkingCalendar(wCal.ID).Name);
+
+            DelWCal();
+        }
+
+        [Test]
+        public void TestGetWorkingCalendarList()
+        {
+            AddWCal();
+
+            List<WorkingCalendar> wCalList = _dtCtrl.GetWorkingCalendarList();
+            Assert.Greater(wCalList.Count, 0);
+
+            DelWCal();
+        }
+
+        [Test]
+        public void TestGetWorkingCalendarByEmployee()
+        {
+            AddWCal();
+
+            Assert.AreEqual(wCal.ID, _dtCtrl.GetWorkingCalendarByEmployee(emp.EmployeeNumber).ID);
+
+            DelWCal();
+        }
+
+        [Test]
         public void TestIsDuplicatedWorkingCalendarName()
         {
-            Assert.AreEqual(true, _dtCtrl.IsDuplicatedWorkingCalendarName(wCal1.Name));
+            AddWCal();
+
+            Assert.AreEqual(true, _dtCtrl.IsDuplicatedWorkingCalendarName(wCal.Name));
             Assert.AreEqual(false, _dtCtrl.IsDuplicatedWorkingCalendarName("Cal2"));
 
-            Assert.AreEqual(false, _dtCtrl.IsDuplicatedWorkingCalendarName(wCal1.Name, wCal1.ID));
-            Assert.AreEqual(false, _dtCtrl.IsDuplicatedWorkingCalendarName("Cal2", wCal1.ID));
+            Assert.AreEqual(false, _dtCtrl.IsDuplicatedWorkingCalendarName(wCal.Name, wCal.ID));
+            Assert.AreEqual(false, _dtCtrl.IsDuplicatedWorkingCalendarName("Cal2", wCal.ID));
+
+            DelWCal();
         }
 
         [Test]
         public void TestDeleteWorkingCalendar()
         {
-            Assert.AreEqual(true, _dtCtrl.DeleteWorkingCalendar(wCal1.ID));
+            AddWCal();
+
+            Assert.AreEqual(true, _dtCtrl.DeleteWorkingCalendar(wCal.ID));
+
+            DelWCal();
         }
     }
 }
