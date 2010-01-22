@@ -64,10 +64,6 @@ namespace FaceIDAppVBEta.Data
 
         #endregion Employee
 
-        #region WorkingCalendar
-        List<WorkingCalendar> GetWCalendarList();
-        #endregion WorkingCalendar
-
         #region Terminal
         List<Terminal> GetTerminalList();
 		Terminal GetTerminal(int id);
@@ -101,10 +97,13 @@ namespace FaceIDAppVBEta.Data
         #endregion EmployeeNumber
 
         #region Working Calendar
-
-        WorkingCalendar GetWorkingCalendarByEmployee(int employeeNumber);
+        int AddWorkingCalendar(WorkingCalendar workingCalendar, List<Break> breakList, List<Holiday> holidayList, PaymentRate workingDayPaymentRate, PaymentRate nonWorkingDayPaymentRate, PaymentRate holidayPaymentRate, PayPeriod payPeriod);
+        
+        List<WorkingCalendar> GetWorkingCalendarList();
 
         WorkingCalendar GetWorkingCalendar(int workingCalendarID);
+
+        WorkingCalendar GetWorkingCalendarByEmployee(int employeeNumber);
 
         List<Break> GetBreakByWorkingCalendar(int workingCalendarID);
 
@@ -118,19 +117,22 @@ namespace FaceIDAppVBEta.Data
 
         PayPeriod GetPayPeriodByWorkingCalendar(int workingCalendarID);
 
-        int AddWorkingCalendar(WorkingCalendar workingCalendar, List<Break> breakList, List<Holiday> holidayList, PaymentRate workingDayPaymentRate, PaymentRate nonWorkingDayPaymentRate, PaymentRate holidayPaymentRate);
+        PayPeriodType GetPayPeriodType(int p);
 
-        bool UpdateWorkingCalendar(WorkingCalendar workingCalendar, List<Break> breakList, List<Holiday> holidayList, PaymentRate workingDayPaymentRate, PaymentRate nonWorkingDayPaymentRate, PaymentRate holidayPaymentRate);
+        PayPeriod GetPayPeriod(int p);
 
+        bool UpdateWorkingCalendar(WorkingCalendar workingCalendar, List<Break> breakList, List<Holiday> holidayList, PaymentRate workingDayPaymentRate, PaymentRate nonWorkingDayPaymentRate, PaymentRate holidayPaymentRate, PayPeriod payPeriod);
         PayPeriod GetPayPeriodByName(string payPeriodName);
 
         bool IsDuplicatedWorkingCalendarName(string name);
 
         bool IsDuplicatedWorkingCalendarName(string name, int _workingCalendarID);
 
+        bool DeleteWorkingCalendar(int workingCalendarID);
+
         #endregion
 
-        #region Attendance Rcord
+        #region Attendance Record
 
         List<AttendanceLogReport> GetAttendanceRecordList_1(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate);
 
@@ -144,9 +146,10 @@ namespace FaceIDAppVBEta.Data
 
         bool UpdateAttendanceRecord(AttendanceRecord attRecord);
 
-        #endregion Attendance Rcord
+        #endregion Attendance Record
 
-        System.Data.DataTable GetAttendanceReport(DateTime dateTime, DateTime dateTime_2);
-
+        #region Attendance Report
+        System.Data.DataTable GetAttendanceReport(int companyID, int departmentID, DateTime dtFrom, DateTime dtTo);
+        #endregion Attendance Report
     }
 }

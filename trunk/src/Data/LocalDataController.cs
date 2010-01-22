@@ -625,7 +625,7 @@ namespace FaceIDAppVBEta.Data
         #endregion Employee
 
         #region WorkingCalendar
-        public List<WorkingCalendar> GetWCalendarList()
+        public List<WorkingCalendar> GetWorkingCalendarList()
         {
             //ConnectToDatabase();
 
@@ -953,7 +953,6 @@ namespace FaceIDAppVBEta.Data
 
         #region WorkingCalendar
 
-
         public WorkingCalendar GetWorkingCalendarByEmployee(int employeeNumber)
         {
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("WorkingCalendar", "*",
@@ -1019,12 +1018,12 @@ namespace FaceIDAppVBEta.Data
             throw new NotImplementedException();
         }
 
-        public int AddWorkingCalendar(WorkingCalendar workingCalendar, List<Break> breakList, List<Holiday> holidayList, PaymentRate workingDayPaymentRate, PaymentRate nonWorkingDayPaymentRate, PaymentRate holidayPaymentRate)
+        public int AddWorkingCalendar(WorkingCalendar workingCalendar, List<Break> breakList, List<Holiday> holidayList, PaymentRate workingDayPaymentRate, PaymentRate nonWorkingDayPaymentRate, PaymentRate holidayPaymentRate, PayPeriod payPeriod)
         {
             throw new NotImplementedException();
         }
 
-        public bool UpdateWorkingCalendar(WorkingCalendar workingCalendar, List<Break> breakList, List<Holiday> holidayList, PaymentRate workingDayPaymentRate, PaymentRate nonWorkingDayPaymentRate, PaymentRate holidayPaymentRate)
+        public bool UpdateWorkingCalendar(WorkingCalendar workingCalendar, List<Break> breakList, List<Holiday> holidayList, PaymentRate workingDayPaymentRate, PaymentRate nonWorkingDayPaymentRate, PaymentRate holidayPaymentRate, PayPeriod payPeriod)
         {
             throw new NotImplementedException();
         }
@@ -1044,9 +1043,23 @@ namespace FaceIDAppVBEta.Data
             throw new NotImplementedException();
         }
 
+        public PayPeriodType GetPayPeriodType(int p)
+        {
+            throw new NotImplementedException();
+        }
+
+        public PayPeriod GetPayPeriod(int p)
+        {
+            throw new NotImplementedException();
+        }
+        
+        public bool DeleteWorkingCalendar(int workingCalendarID)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
 
-        #region Attendance Rcord
+        #region Attendance Record
 
         private List<string> GetEmployeeNumberList(int iCompany, int iDepartment)
         {
@@ -1575,7 +1588,7 @@ namespace FaceIDAppVBEta.Data
             return ExecuteNonQuery(odCom1) > 0 ? true : false;
         }
 
-        #endregion Attendance Rcord
+        #endregion Attendance Record
 
         #endregion
 
@@ -1707,10 +1720,10 @@ namespace FaceIDAppVBEta.Data
         }
         #endregion utils
 
-        #region IDataController Members
 
+        #region AttendanceReport
 
-        public DataTable GetAttendanceReport(DateTime dateTime, DateTime dateTime_2)
+        public DataTable GetAttendanceReport(int companyID, int departmentID, DateTime dtFrom, DateTime dtTo)
         {
             throw new NotImplementedException();
         }
