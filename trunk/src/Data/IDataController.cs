@@ -51,9 +51,7 @@ namespace FaceIDAppVBEta.Data
 
         Employee GetEmployee(int employeeId);
 
-        List<Employee> GetEmployeeList(int compantId);
-
-        List<Employee> GetEmployeeListByDep(int departmentId);
+        List<Employee> GetEmployeeList(int compantId, int departmentId);
 
         bool IsExistEmployeeNumber(int employeeNumber);
         
