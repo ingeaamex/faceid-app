@@ -70,7 +70,7 @@ namespace FaceIDAppVBEta.Data
         {
             if (dbConnection == null)
             {
-                string connectionString = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";
+                string connectionString = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\vnanh\project\FaceID\db\FaceIDdb.mdb";
                 dbConnection = new OleDbConnection(connectionString);
             }
             if (dbConnection.State != ConnectionState.Open)
@@ -480,57 +480,24 @@ namespace FaceIDAppVBEta.Data
             return employee;
         }
 
-        public List<Employee> GetEmployeeList(int compantId)
+        public List<Employee> GetEmployeeList(int compantId, int departmentId)
         {
             //ConnectToDatabase();
 
             System.Data.OleDb.OleDbCommand odCom;
-            if (compantId <= 0)
-                odCom = BuildSelectCmd("Employee", "*", null);
+            if (departmentId > 0)
+                odCom = BuildSelectCmd("Employee", "*", "DepartmentID=@ID AND Active=true", "@ID", departmentId);
+            if (compantId > 0)
+                odCom = BuildSelectCmd("Employee", "*", " DepartmentID in (SELECT ID FROM Department WHERE CompanyID=@ID) AND Active=true", new object[] { "@ID", compantId });
             else
-                odCom = BuildSelectCmd("Employee", "*", " DepartmentID in (SELECT ID FROM Department WHERE CompanyID=@ID)", new object[] { "@ID", compantId });
+                odCom = BuildSelectCmd("Employee", "*", "Active=true");
+
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
             List<Employee> employeeList = new List<Employee>();
             Employee employee = null;
             while (odRdr.Read())
             {
                 employee = new Employee();
-                employee.Active = (bool)odRdr["Active"];
-                employee.Address = odRdr["Address"].ToString();
-                employee.Birthday = (DateTime)odRdr["Birthday"];
-                employee.DepartmentID = (int)odRdr["DepartmentID"];
-                employee.EmployeeNumber = (int)odRdr["EmployeeNumber"];
-                employee.FirstName = odRdr["FirstName"].ToString();
-                employee.HiredDate = (DateTime)odRdr["HiredDate"];
-                employee.JobDescription = odRdr["JobDescription"].ToString();
-                employee.LastName = odRdr["LastName"].ToString();
-                employee.LeftDate = (DateTime)odRdr["LeftDate"];
-                employee.PayrollNumber = (int)odRdr["PayrollNumber"];
-                employee.PhoneNumber = odRdr["PhoneNumber"].ToString();
-                employee.PhotoData = odRdr["PhotoData"].ToString();
-                employee.WorkingCalendarID = (int)odRdr["WorkingCalendarID"];
-                employee.ActiveFrom = (DateTime)odRdr["ActiveFrom"];
-                if (odRdr["ActiveTo"].GetType().Name != "DBNull")
-                    employee.ActiveTo = (DateTime)odRdr["ActiveTo"];
-
-                employeeList.Add(employee);
-            }
-            odRdr.Close();
-            return employeeList;
-        }
-
-        public List<Employee> GetEmployeeListByDep(int departmentId)
-        {
-            //ConnectToDatabase();
-
-            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Employee", "*", "DepartmentID=@ID", "@ID", departmentId);
-            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
-            List<Employee> employeeList = new List<Employee>();
-            Employee employee = null;
-            while (odRdr.Read())
-            {
-                employee = new Employee();
-
                 employee.Active = (bool)odRdr["Active"];
                 employee.Address = odRdr["Address"].ToString();
                 employee.Birthday = (DateTime)odRdr["Birthday"];
