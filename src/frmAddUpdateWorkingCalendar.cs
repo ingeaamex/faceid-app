@@ -59,7 +59,7 @@ namespace FaceIDAppVBEta
             nudHolidayOvertimeHour4.Maximum = 8;
 
             nudHolidayRegularHour.Minimum = 1;
-            nudHolidayRegularHour.Minimum = 8;
+            nudHolidayRegularHour.Maximum = 8;
 
             nudNonWorkDayOvertimeHour1.Minimum = 0;
             nudNonWorkDayOvertimeHour1.Maximum = 8;
@@ -74,7 +74,7 @@ namespace FaceIDAppVBEta
             nudNonWorkDayOvertimeHour4.Maximum = 8;
 
             nudNonWorkDayRegularHour.Minimum = 1;
-            nudNonWorkDayRegularHour.Minimum = 8;
+            nudNonWorkDayRegularHour.Maximum = 8;
 
             nudWorkDayOvertimeHour1.Minimum = 0;
             nudWorkDayOvertimeHour1.Maximum = 8;
@@ -89,7 +89,7 @@ namespace FaceIDAppVBEta
             nudWorkDayOvertimeHour4.Maximum = 8;
 
             nudWorkDayRegularHour.Minimum = 1;
-            nudWorkDayRegularHour.Minimum = 8;
+            nudWorkDayRegularHour.Maximum = 8;
 
             AddBreakPaid(cbxBreakPaid1);
             AddBreakPaid(cbxBreakPaid2);
@@ -119,7 +119,7 @@ namespace FaceIDAppVBEta
             cbx.Items.Add(new Rate(2.00, "200%"));
             cbx.Items.Add(new Rate(3.00, "300%"));
 
-            cbx.Items.Add(new Rate(-1, "Custom Rate"));
+            //cbx.Items.Add(new Rate(-1, "Custom Rate"));
 
             cbx.SelectedIndex = 0;
         }
@@ -128,6 +128,8 @@ namespace FaceIDAppVBEta
         {
             cbx.Items.Add("Yes");
             cbx.Items.Add("No");
+
+            cbx.SelectedIndex = 1;
         }
 
         private void SetState(int workingCalendarID)
@@ -590,6 +592,8 @@ namespace FaceIDAppVBEta
                 {
                     throw new Exception();
                 }
+
+                MessageBox.Show("Working Calendar has been added succesfully.");
             }
             else //update
             {
@@ -599,6 +603,8 @@ namespace FaceIDAppVBEta
                 {
                     throw new Exception();
                 }
+
+                MessageBox.Show("Working Calendar has been updated succesfully.");
             }
             #endregion
         }

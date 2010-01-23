@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using FaceIDAppVBEta.Class;
 
 namespace FaceIDAppVBEta
 {
@@ -79,12 +80,22 @@ namespace FaceIDAppVBEta
 
         internal static void SetComboboxSelectedByValue(System.Windows.Forms.ComboBox cbx, object value)
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < cbx.Items.Count; i++)
+            {
+                if (((Rate)cbx.Items[i]).Value == Convert.ToDouble(value))
+                {
+                    cbx.SelectedIndex = i;
+                }
+            }
         }
 
         internal static DateTime GetTheFirstDayOfCurrentMonth()
         {
-            throw new NotImplementedException();
+            DateTime dt = DateTime.Today;
+
+            dt.AddDays(-dt.Day + 1);
+
+            return dt;
         }
     }
 }

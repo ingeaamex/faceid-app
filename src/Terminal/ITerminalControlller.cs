@@ -7,7 +7,7 @@ namespace FaceIDAppVBEta
 {
     public interface ITerminalControlller
     {
-        List<AttendanceRecord> GetAttendanceRecord(Terminal terminal);
+        List<AttendanceRecord> GetAttendanceRecord(Terminal terminal, DateTime dtFrom, DateTime dtTo);
 
         bool AddEmployee(Terminal terminal, Employee employee);
         bool GetEmployee(Terminal terminal, int employeeID);

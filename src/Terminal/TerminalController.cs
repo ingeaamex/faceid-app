@@ -30,16 +30,19 @@ namespace FaceIDAppVBEta
             return "DeviceInfo( dev_id = \"" + terminal.ID + "\" dev_type = \"HW_HDCP\" comm_type = \"ip\" ip_address = \"" + terminal.IPAddress + "\" )";
         }
 
-        public List<AttendanceRecord> GetAttendanceRecord(Terminal terminal)
+        public List<AttendanceRecord> GetAttendanceRecord(Terminal terminal, DateTime dtFrom, DateTime dtTo)
         {
             string devInfo = GetDeviceInfoStr(terminal);
-            string command = "GetRecord()";
+
+            string command = "GetRecord(start_time=\"2005-11-1 0:0:0\" end_time=\"2015-11-30 24:00:00\")";
             IntPtr result = IntPtr.Zero;
             uint resLen = 0;
 
             HwDev_Execute(devInfo, command, ref result, ref resLen, null);
 
             MessageBox.Show(Marshal.PtrToStringAnsi(result));
+
+            //string[] str = Marshal.PtrToStringAnsi(result).Split("time");
 
             return null;
         }
