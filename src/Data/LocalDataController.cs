@@ -1480,6 +1480,73 @@ namespace FaceIDAppVBEta.Data
             return empls;
         }
 
+        private AttendanceReport GetRegularOvertime(AttendanceReport _attReport, double _totalHour)
+        {
+            double _regularHour = _attReport.RegularHour;
+            double _overtimeHour1 = _attReport.OvertimeHour1;
+            double _overtimeHour2 = _attReport.OvertimeHour2;
+            double _overtimeHour3 = _attReport.OvertimeHour3;
+            double _overtimeHour4 = _attReport.OvertimeHour4;
+
+            double totalHour = 0;
+            double overtimeHour1 = 0;
+            double overtimeHour2 = 0;
+            double overtimeHour3 = 0;
+            double overtimeHour4 = 0;
+
+            if (_totalHour > _regularHour)
+            {
+                totalHour = _regularHour;
+                _totalHour -= _regularHour;
+
+                if (_totalHour > _overtimeHour1)
+                {
+                    overtimeHour1 = _overtimeHour1;
+                    _totalHour -= _overtimeHour1;
+
+                    if (_totalHour > _overtimeHour2)
+                    {
+                        overtimeHour2 = _overtimeHour2;
+                        _totalHour -= _overtimeHour2;
+
+                        if (_totalHour > _overtimeHour3)
+                        {
+                            overtimeHour3 = _overtimeHour3;
+                            _totalHour -= _overtimeHour3;
+
+                            overtimeHour4 = _totalHour;
+                        }
+                        else
+                            overtimeHour2 = _totalHour;
+                    }
+                    else
+                        overtimeHour2 = _totalHour;
+
+                }
+                else
+                    overtimeHour1 = _totalHour;
+            }
+            else
+                totalHour = _totalHour;
+
+
+            AttendanceReport attReport = new AttendanceReport();
+
+            attReport.OvertimeHour1 = overtimeHour1;
+            attReport.OvertimeHour2 = overtimeHour2;
+            attReport.OvertimeHour3 = overtimeHour3;
+            attReport.OvertimeHour4 = overtimeHour4;
+            attReport.RegularHour = totalHour;
+
+            attReport.OvertimeRate1 = _attReport.OvertimeRate1;
+            attReport.OvertimeRate2 = _attReport.OvertimeRate2;
+            attReport.OvertimeRate3 = _attReport.OvertimeRate3;
+            attReport.OvertimeRate4 = _attReport.OvertimeRate4;
+            attReport.RegularRate = _attReport.RegularRate;
+
+            return attReport;
+        }
+
         public List<AttendanceLogReport> GetAttendanceReportList(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate)
         {
             List<string> lEmplNumbers = GetEmployeeNumberList(iCompany, iDepartment);
