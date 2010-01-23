@@ -129,6 +129,7 @@
             // 
             this.tbEmployeeNumber.Location = new System.Drawing.Point(150, 112);
             this.tbEmployeeNumber.Name = "tbEmployeeNumber";
+            this.tbEmployeeNumber.ReadOnly = true;
             this.tbEmployeeNumber.Size = new System.Drawing.Size(100, 20);
             this.tbEmployeeNumber.TabIndex = 8;
             this.tbEmployeeNumber.Text = "Auto";
@@ -137,6 +138,7 @@
             // 
             this.tbPayrollNumber.Location = new System.Drawing.Point(382, 112);
             this.tbPayrollNumber.Name = "tbPayrollNumber";
+            this.tbPayrollNumber.ReadOnly = true;
             this.tbPayrollNumber.Size = new System.Drawing.Size(100, 20);
             this.tbPayrollNumber.TabIndex = 10;
             this.tbPayrollNumber.Text = "Auto";
