@@ -119,6 +119,8 @@ namespace FaceIDAppVBEta
             tbPhoneNumber.Text = employee.PhoneNumber;
             tbAddress.Text = employee.Address;
             tbJobDesc.Text = employee.JobDescription;
+            tbEmployeeNumber.Text = employee.EmployeeNumber.ToString();
+            tbPayrollNumber.Text = employee.PayrollNumber.ToString();
             dtpBirthday.Value = employee.Birthday;
             dtpJoinedDate.Value = employee.HiredDate;
             dtpLeftDate.Value = employee.LeftDate;
