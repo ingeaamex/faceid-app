@@ -50,7 +50,6 @@
             this.WorkingCalendar = new System.Windows.Forms.DataGridViewLinkColumn();
             this.PayrollNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Terminal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Active = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmpl)).BeginInit();
             this.cMnSaction.SuspendLayout();
             this.SuspendLayout();
@@ -76,8 +75,7 @@
             this.JobDesc,
             this.WorkingCalendar,
             this.PayrollNumber,
-            this.Terminal,
-            this.Active});
+            this.Terminal});
             this.dgvEmpl.Location = new System.Drawing.Point(51, 99);
             this.dgvEmpl.Name = "dgvEmpl";
             this.dgvEmpl.ReadOnly = true;
@@ -236,13 +234,6 @@
             this.Terminal.Name = "Terminal";
             this.Terminal.ReadOnly = true;
             // 
-            // Active
-            // 
-            this.Active.DataPropertyName = "Active";
-            this.Active.HeaderText = "Status";
-            this.Active.Name = "Active";
-            this.Active.ReadOnly = true;
-            // 
             // ucEmployeeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -285,6 +276,5 @@
         private System.Windows.Forms.DataGridViewLinkColumn WorkingCalendar;
         private System.Windows.Forms.DataGridViewTextBoxColumn PayrollNumber;
         private System.Windows.Forms.DataGridViewTextBoxColumn Terminal;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Active;
     }
 }
