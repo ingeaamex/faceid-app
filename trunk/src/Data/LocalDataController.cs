@@ -2170,7 +2170,27 @@ namespace FaceIDAppVBEta.Data
 
         public Break GetBreak(int id)
         {
-            throw new NotImplementedException();
+            string strCommand = "SELECT * FROM Break WHERE ID = " + id;
+
+            System.Data.OleDb.OleDbCommand odCom = dbConnection.CreateCommand();
+            odCom.CommandText += strCommand;
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+
+            Break _break = null;
+            if (odRdr.Read())
+            {
+                _break = new Break();
+
+                _break.ID = Convert.ToInt16(odRdr["ID"]);
+                _break.Name = odRdr["Name"].ToString();
+                _break.From = Convert.ToDateTime(odRdr["From"]);
+                _break.To = Convert.ToDateTime(odRdr["To"]);
+                _break.Paid = Convert.ToBoolean(odRdr["Paid"]);
+                _break.WorkingCalendarID = Convert.ToInt16(odRdr["WorkingCalendarID"]);
+            }
+
+            odRdr.Close();
+            return _break;
         }
 
         public int AddBreak(Break _break)
@@ -2206,7 +2226,23 @@ namespace FaceIDAppVBEta.Data
 
         public bool UpdateBreak(Break _break)
         {
-            throw new NotImplementedException();
+            System.Data.OleDb.OleDbCommand odCom1 = BuildUpdateCmd("Break",
+                new string[] { "Name"
+                ,"From"
+                ,"To"
+                ,"Paid"
+                ,"WorkingCalendarID"
+                },
+                new object[] { _break.Name
+                ,_break.From
+                ,_break.To
+                ,_break.Paid
+                ,_break.WorkingCalendarID
+                },
+                "ID=@ID", new object[] { "@ID", _break.ID }
+            );
+
+            return odCom1.ExecuteNonQuery() > 0 ? true : false;
         }
 
         public PaymentRate GetPaymentRate(int id)

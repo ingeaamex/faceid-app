@@ -170,7 +170,7 @@ namespace FaceIDAppVBEta
                 #endregion
 
                 #region Set Break Times
-                List<Break> breaks = _dtCtrl.GetBreakByWorkingCalendar(workingCalendarID);
+                List<Break> breaks = _dtCtrl.GetBreakListByWorkingCalendar(workingCalendarID);
 
                 if (breaks.Count >= 1)
                 {
@@ -329,7 +329,7 @@ namespace FaceIDAppVBEta
 
             if (_workingCalendarID == -1) //add
             {
-                if (_dtCtrl.IsDuplicatedWorkingCalendarName(name) == true)
+                if (_dtCtrl.IsDuplicateWorkingCalendarName(name) == true)
                 {
                     MessageBox.Show("This name has been used by another Working Calendar. Please choose a different name.");
                     return false;
@@ -337,7 +337,7 @@ namespace FaceIDAppVBEta
             }
             else
             {
-                if (_dtCtrl.IsDuplicatedWorkingCalendarName(name, _workingCalendarID) == true)
+                if (_dtCtrl.IsDuplicateWorkingCalendarName(name, _workingCalendarID) == true)
                 {
                     MessageBox.Show("This name has been used by another Working Calendar. Please choose a different name.");
                     return false;
