@@ -45,17 +45,12 @@ namespace FaceIDAppVBEta
 
         private void LoadData()
         {
-            List<Employee> employees;
-            if (!cbDepartment.Enabled || (int)cbDepartment.SelectedValue == -1)
-            {
-                int companyId = (int)cbCompany.SelectedValue;
-                employees = dtCtrl.GetEmployeeList(companyId);
-            }
-            else
-            {
-                int departmentID = (int)cbDepartment.SelectedValue;
-                employees = dtCtrl.GetEmployeeListByDep(departmentID);
-            }
+            int iCompany = (int)cbCompany.SelectedValue;
+            int iDepartment = -1;
+            if (cbDepartment.Enabled)
+                iDepartment = (int)cbDepartment.SelectedValue;
+
+            List<Employee> employees = dtCtrl.GetEmployeeList(iCompany, iDepartment);
             dgvEmpl.AutoGenerateColumns = false;
             dgvEmpl.DataSource = employees;
         }
@@ -143,6 +138,25 @@ namespace FaceIDAppVBEta
 
                 e.FormattingApplied = true;
                 e.Value = employee.Active ? "On" : "Off";
+            }
+            else if (e.ColumnIndex == dgvEmpl.Columns["Terminal"].Index)
+            {
+                List<Employee> employees = (List<Employee>)dgvEmpl.DataSource;
+                Employee employee = employees[e.RowIndex];
+
+                List<Terminal> terminals = dtCtrl.GetTerminalsByEmpl(Convert.ToInt32(e.Value));
+                string terminalNames = "";
+                if (terminals.Count > 0)
+                {
+                    foreach (Terminal t in terminals)
+                        terminalNames += t.Name + ", ";
+
+                    terminalNames = terminalNames.Trim().TrimEnd(',');
+                }
+
+                e.FormattingApplied = true;
+                e.Value = terminalNames;
+                
             }
         }
     }
