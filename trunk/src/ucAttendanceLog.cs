@@ -123,6 +123,8 @@ namespace FaceIDAppVBEta
             if (RcID == -1)
                 return;
 
+            bool ors = dtCtrl.DeleteAttendanceRecord(RcID);
+            MessageBox.Show(ors ? "sucessfull" : "error");
         }
 
         private void dataGridView1_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)

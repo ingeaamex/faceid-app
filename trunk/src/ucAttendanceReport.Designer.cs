@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnCollectData = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.cbxDepartment = new System.Windows.Forms.ComboBox();
@@ -204,6 +205,8 @@
             // Date
             // 
             this.Date.DataPropertyName = "DateLog";
+            dataGridViewCellStyle1.Format = "d MMM yyyy";
+            this.Date.DefaultCellStyle = dataGridViewCellStyle1;
             this.Date.HeaderText = "Date";
             this.Date.Name = "Date";
             this.Date.ReadOnly = true;
