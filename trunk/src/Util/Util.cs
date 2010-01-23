@@ -77,7 +77,7 @@ namespace FaceIDAppVBEta
             return;
         }
 
-        internal static void SetComboboxSelectedByValue(System.Windows.Forms.ComboBox cbxWorkDayRegularRate, object value)
+        internal static void SetComboboxSelectedByValue(System.Windows.Forms.ComboBox cbx, object value)
         {
             throw new NotImplementedException();
         }

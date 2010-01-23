@@ -22,5 +22,6 @@ namespace FaceIDAppVBEta.Class
         public double OvertimeRate4 { get; set; }
         public int DayTypeID { get; set; }
         public int PayPeriodID { get; set; }
+        public string AttendanceRecordIDList { get; set; }
     }
 }
