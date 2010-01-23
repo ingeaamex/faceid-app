@@ -1254,10 +1254,10 @@ namespace FaceIDAppVBEta.Data
 
         public bool UpdateWorkingCalendar(WorkingCalendar workingCalendar, List<Break> breakList, List<Holiday> holidayList, PaymentRate workingDayPaymentRate, PaymentRate nonWorkingDayPaymentRate, PaymentRate holidayPaymentRate, PayPeriod payPeriod)
         {
-            BeginTransaction();
+            //BeginTransaction();
 
-            try
-            {
+            //try
+            //{
                 //update pay period
                 PayPeriod oldPayPeriod = GetPayPeriod(workingCalendar.PayPeriodID);
 
@@ -1328,13 +1328,13 @@ namespace FaceIDAppVBEta.Data
                 if (AddPaymentRate(holidayPaymentRate) < 0)
                     throw new NullReferenceException();
 
-                CommitTransaction();
-            }
-            catch (Exception)
-            {
-                RollbackTransaction();
-                return false;
-            }
+                //CommitTransaction();
+            //}
+            //catch (Exception)
+            //{
+            //    RollbackTransaction();
+            //    return false;
+            //}
 
             return true;
         }
@@ -2150,7 +2150,8 @@ namespace FaceIDAppVBEta.Data
 
         public bool DeletePayPeriod(int id)
         {
-            throw new NotImplementedException();
+            System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("PayPeriod", "ID=@ID", new object[] { "@ID", id });
+            return odCom1.ExecuteNonQuery() > 0 ? true : false;
         }
 
         public int AddPayPeriodType(PayPeriodType payPeriodType)
