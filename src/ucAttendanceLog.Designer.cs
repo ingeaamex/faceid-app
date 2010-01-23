@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnCollectData = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.dtpAttendanceFrom = new System.Windows.Forms.DateTimePicker();
@@ -46,12 +47,12 @@
             this.cbxDepartment = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.dgvAttendanceLog = new System.Windows.Forms.DataGridView();
-            this.EmployeeNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EmployeeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AttendanceDetail = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TotalofHours = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Note = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EmployeeNumber1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EmployeeName1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AttendanceDetail1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TotalHours = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Note1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmsAction.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAttendanceLog)).BeginInit();
             this.SuspendLayout();
@@ -121,7 +122,7 @@
             // 
             // btnPrint
             // 
-            this.btnPrint.Location = new System.Drawing.Point(98, 411);
+            this.btnPrint.Location = new System.Drawing.Point(73, 390);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(75, 23);
             this.btnPrint.TabIndex = 7;
@@ -130,7 +131,7 @@
             // 
             // btnSaveToFile
             // 
-            this.btnSaveToFile.Location = new System.Drawing.Point(179, 411);
+            this.btnSaveToFile.Location = new System.Drawing.Point(154, 390);
             this.btnSaveToFile.Name = "btnSaveToFile";
             this.btnSaveToFile.Size = new System.Drawing.Size(75, 23);
             this.btnSaveToFile.TabIndex = 8;
@@ -139,7 +140,7 @@
             // 
             // btnAddNewAttendaceRecord
             // 
-            this.btnAddNewAttendaceRecord.Location = new System.Drawing.Point(260, 411);
+            this.btnAddNewAttendaceRecord.Location = new System.Drawing.Point(235, 390);
             this.btnAddNewAttendaceRecord.Name = "btnAddNewAttendaceRecord";
             this.btnAddNewAttendaceRecord.Size = new System.Drawing.Size(168, 23);
             this.btnAddNewAttendaceRecord.TabIndex = 9;
@@ -205,79 +206,81 @@
             this.dgvAttendanceLog.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvAttendanceLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAttendanceLog.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.EmployeeNumber,
-            this.EmployeeName,
-            this.Date,
-            this.AttendanceDetail,
-            this.TotalofHours,
-            this.Note});
-            this.dgvAttendanceLog.Location = new System.Drawing.Point(39, 157);
+            this.EmployeeNumber1,
+            this.EmployeeName1,
+            this.Date1,
+            this.AttendanceDetail1,
+            this.TotalHours,
+            this.Note1});
+            this.dgvAttendanceLog.Location = new System.Drawing.Point(29, 148);
             this.dgvAttendanceLog.Name = "dgvAttendanceLog";
             this.dgvAttendanceLog.ReadOnly = true;
-            this.dgvAttendanceLog.Size = new System.Drawing.Size(895, 238);
-            this.dgvAttendanceLog.TabIndex = 15;
-            this.dgvAttendanceLog.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dgvAttendanceLog_MouseDown);
-            this.dgvAttendanceLog.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvAttendanceLog_CellFormatting);
-            this.dgvAttendanceLog.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvAttendanceLog_CellPainting);
+            this.dgvAttendanceLog.Size = new System.Drawing.Size(895, 222);
+            this.dgvAttendanceLog.TabIndex = 16;
+            this.dgvAttendanceLog.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDown);
+            this.dgvAttendanceLog.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
+            this.dgvAttendanceLog.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dataGridView1_CellPainting);
             // 
-            // EmployeeNumber
+            // EmployeeNumber1
             // 
-            this.EmployeeNumber.DataPropertyName = "EmployeeNumber";
-            this.EmployeeNumber.HeaderText = "Employee Number";
-            this.EmployeeNumber.Name = "EmployeeNumber";
-            this.EmployeeNumber.ReadOnly = true;
+            this.EmployeeNumber1.DataPropertyName = "EmployeeNumber";
+            this.EmployeeNumber1.HeaderText = "Employee Number";
+            this.EmployeeNumber1.Name = "EmployeeNumber1";
+            this.EmployeeNumber1.ReadOnly = true;
             // 
-            // EmployeeName
+            // EmployeeName1
             // 
-            this.EmployeeName.HeaderText = "Employee Name";
-            this.EmployeeName.Name = "EmployeeName";
-            this.EmployeeName.ReadOnly = true;
+            this.EmployeeName1.HeaderText = "Employee Name";
+            this.EmployeeName1.Name = "EmployeeName1";
+            this.EmployeeName1.ReadOnly = true;
             // 
-            // Date
+            // Date1
             // 
-            this.Date.HeaderText = "Date";
-            this.Date.Name = "Date";
-            this.Date.ReadOnly = true;
+            dataGridViewCellStyle2.Format = "d MMM yyyy";
+            this.Date1.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Date1.HeaderText = "Date";
+            this.Date1.Name = "Date1";
+            this.Date1.ReadOnly = true;
             // 
-            // AttendanceDetail
+            // AttendanceDetail1
             // 
-            this.AttendanceDetail.ContextMenuStrip = this.cmsAction;
-            this.AttendanceDetail.HeaderText = "Attendance Detail";
-            this.AttendanceDetail.Name = "AttendanceDetail";
-            this.AttendanceDetail.ReadOnly = true;
+            this.AttendanceDetail1.ContextMenuStrip = this.cmsAction;
+            this.AttendanceDetail1.HeaderText = "Attendance Detail";
+            this.AttendanceDetail1.Name = "AttendanceDetail1";
+            this.AttendanceDetail1.ReadOnly = true;
             // 
-            // TotalofHours
+            // TotalHours
             // 
-            this.TotalofHours.HeaderText = "Total of Hours";
-            this.TotalofHours.Name = "TotalofHours";
-            this.TotalofHours.ReadOnly = true;
+            this.TotalHours.HeaderText = "Total of Hours";
+            this.TotalHours.Name = "TotalHours";
+            this.TotalHours.ReadOnly = true;
             // 
-            // Note
+            // Note1
             // 
-            this.Note.HeaderText = "Note";
-            this.Note.Name = "Note";
-            this.Note.ReadOnly = true;
+            this.Note1.HeaderText = "Note";
+            this.Note1.Name = "Note1";
+            this.Note1.ReadOnly = true;
             // 
             // ucAttendanceLog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.dgvAttendanceLog);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.cbxDepartment);
             this.Controls.Add(this.cbxCompany);
+            this.Controls.Add(this.dgvAttendanceLog);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.btnView);
-            this.Controls.Add(this.btnAddNewAttendaceRecord);
-            this.Controls.Add(this.btnSaveToFile);
-            this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.dtpAttedanceTo);
             this.Controls.Add(this.label3);
+            this.Controls.Add(this.btnSaveToFile);
             this.Controls.Add(this.dtpAttendanceFrom);
+            this.Controls.Add(this.btnAddNewAttendaceRecord);
             this.Controls.Add(this.label2);
+            this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.btnCollectData);
             this.Name = "ucAttendanceLog";
-            this.Size = new System.Drawing.Size(1058, 475);
+            this.Size = new System.Drawing.Size(1058, 591);
             this.cmsAction.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAttendanceLog)).EndInit();
             this.ResumeLayout(false);
@@ -304,11 +307,11 @@
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.DataGridView dgvAttendanceLog;
-        private System.Windows.Forms.DataGridViewTextBoxColumn EmployeeNumber;
-        private System.Windows.Forms.DataGridViewTextBoxColumn EmployeeName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Date;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AttendanceDetail;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TotalofHours;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Note;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EmployeeNumber1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EmployeeName1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Date1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AttendanceDetail1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TotalHours;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Note1;
     }
 }

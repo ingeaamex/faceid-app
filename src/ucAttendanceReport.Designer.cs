@@ -36,18 +36,18 @@
             this.btnViewReport = new System.Windows.Forms.Button();
             this.btnPayrollExport = new System.Windows.Forms.Button();
             this.btnPrint = new System.Windows.Forms.Button();
-            this.dgvAttendanceReport = new System.Windows.Forms.DataGridView();
-            this.EmployeeNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EmployeeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AttDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AttDetail = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AttSummary = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AttChart = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AttNote = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dtpAttedanceTo = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.dtpAttendanceFrom = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
+            this.dgvAttendanceReport = new System.Windows.Forms.DataGridView();
+            this.EmployeeNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EmployeeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AttendanceDetail = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TotalHours = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Chart = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Note = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAttendanceReport)).BeginInit();
             this.SuspendLayout();
             // 
@@ -72,19 +72,25 @@
             // 
             // cbxDepartment
             // 
+            this.cbxDepartment.DisplayMember = "Name";
+            this.cbxDepartment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxDepartment.FormattingEnabled = true;
             this.cbxDepartment.Location = new System.Drawing.Point(459, 93);
             this.cbxDepartment.Name = "cbxDepartment";
             this.cbxDepartment.Size = new System.Drawing.Size(121, 21);
             this.cbxDepartment.TabIndex = 26;
+            this.cbxDepartment.ValueMember = "ID";
             // 
             // cbxCompany
             // 
+            this.cbxCompany.DisplayMember = "Name";
+            this.cbxCompany.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxCompany.FormattingEnabled = true;
             this.cbxCompany.Location = new System.Drawing.Point(116, 84);
             this.cbxCompany.Name = "cbxCompany";
             this.cbxCompany.Size = new System.Drawing.Size(121, 21);
             this.cbxCompany.TabIndex = 25;
+            this.cbxCompany.ValueMember = "ID";
             this.cbxCompany.SelectedIndexChanged += new System.EventHandler(this.cbxCompany_SelectedIndexChanged);
             // 
             // label4
@@ -108,7 +114,7 @@
             // 
             // btnPayrollExport
             // 
-            this.btnPayrollExport.Location = new System.Drawing.Point(200, 329);
+            this.btnPayrollExport.Location = new System.Drawing.Point(157, 404);
             this.btnPayrollExport.Name = "btnPayrollExport";
             this.btnPayrollExport.Size = new System.Drawing.Size(168, 23);
             this.btnPayrollExport.TabIndex = 22;
@@ -118,64 +124,13 @@
             // 
             // btnPrint
             // 
-            this.btnPrint.Location = new System.Drawing.Point(119, 329);
+            this.btnPrint.Location = new System.Drawing.Point(76, 404);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(75, 23);
             this.btnPrint.TabIndex = 20;
             this.btnPrint.Text = "Print";
             this.btnPrint.UseVisualStyleBackColor = true;
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
-            // 
-            // dgvAttendanceReport
-            // 
-            this.dgvAttendanceReport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvAttendanceReport.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.EmployeeNumber,
-            this.EmployeeName,
-            this.AttDate,
-            this.AttDetail,
-            this.AttSummary,
-            this.AttChart,
-            this.AttNote});
-            this.dgvAttendanceReport.Location = new System.Drawing.Point(31, 157);
-            this.dgvAttendanceReport.Name = "dgvAttendanceReport";
-            this.dgvAttendanceReport.Size = new System.Drawing.Size(762, 150);
-            this.dgvAttendanceReport.TabIndex = 19;
-            // 
-            // EmployeeNumber
-            // 
-            this.EmployeeNumber.HeaderText = "Employee Number";
-            this.EmployeeNumber.Name = "EmployeeNumber";
-            // 
-            // EmployeeName
-            // 
-            this.EmployeeName.HeaderText = "Employee Name";
-            this.EmployeeName.Name = "EmployeeName";
-            // 
-            // AttDate
-            // 
-            this.AttDate.HeaderText = "Date";
-            this.AttDate.Name = "AttDate";
-            // 
-            // AttDetail
-            // 
-            this.AttDetail.HeaderText = "Attendance Detail";
-            this.AttDetail.Name = "AttDetail";
-            // 
-            // AttSummary
-            // 
-            this.AttSummary.HeaderText = "Total of Hours";
-            this.AttSummary.Name = "AttSummary";
-            // 
-            // AttChart
-            // 
-            this.AttChart.HeaderText = "Chart";
-            this.AttChart.Name = "AttChart";
-            // 
-            // AttNote
-            // 
-            this.AttNote.HeaderText = "Note";
-            this.AttNote.Name = "AttNote";
             // 
             // dtpAttedanceTo
             // 
@@ -209,10 +164,83 @@
             this.label2.TabIndex = 15;
             this.label2.Text = "From";
             // 
+            // dgvAttendanceReport
+            // 
+            this.dgvAttendanceReport.AllowUserToAddRows = false;
+            this.dgvAttendanceReport.AllowUserToDeleteRows = false;
+            this.dgvAttendanceReport.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvAttendanceReport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvAttendanceReport.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.EmployeeNumber,
+            this.EmployeeName,
+            this.Date,
+            this.AttendanceDetail,
+            this.TotalHours,
+            this.Chart,
+            this.Note});
+            this.dgvAttendanceReport.Location = new System.Drawing.Point(36, 175);
+            this.dgvAttendanceReport.Name = "dgvAttendanceReport";
+            this.dgvAttendanceReport.ReadOnly = true;
+            this.dgvAttendanceReport.Size = new System.Drawing.Size(780, 197);
+            this.dgvAttendanceReport.TabIndex = 28;
+            this.dgvAttendanceReport.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvAttendanceReport_CellPainting);
+            this.dgvAttendanceReport.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvAttendanceReport_CellPainting);
+            // 
+            // EmployeeNumber
+            // 
+            this.EmployeeNumber.DataPropertyName = "EmployeeNumber";
+            this.EmployeeNumber.HeaderText = "Employee Number";
+            this.EmployeeNumber.MinimumWidth = 10;
+            this.EmployeeNumber.Name = "EmployeeNumber";
+            this.EmployeeNumber.ReadOnly = true;
+            // 
+            // EmployeeName
+            // 
+            this.EmployeeName.HeaderText = "Employee Name";
+            this.EmployeeName.MinimumWidth = 10;
+            this.EmployeeName.Name = "EmployeeName";
+            this.EmployeeName.ReadOnly = true;
+            // 
+            // Date
+            // 
+            this.Date.DataPropertyName = "DateLog";
+            this.Date.HeaderText = "Date";
+            this.Date.Name = "Date";
+            this.Date.ReadOnly = true;
+            // 
+            // AttendanceDetail
+            // 
+            this.AttendanceDetail.HeaderText = "Attendance Detail";
+            this.AttendanceDetail.Name = "AttendanceDetail";
+            this.AttendanceDetail.ReadOnly = true;
+            this.AttendanceDetail.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // TotalHours
+            // 
+            this.TotalHours.DataPropertyName = "TotalHour";
+            this.TotalHours.HeaderText = "Total of Hours";
+            this.TotalHours.Name = "TotalHours";
+            this.TotalHours.ReadOnly = true;
+            // 
+            // Chart
+            // 
+            this.Chart.HeaderText = "Chart";
+            this.Chart.Name = "Chart";
+            this.Chart.ReadOnly = true;
+            this.Chart.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Note
+            // 
+            this.Note.HeaderText = "Note";
+            this.Note.Name = "Note";
+            this.Note.ReadOnly = true;
+            this.Note.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
             // ucAttendanceReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.dgvAttendanceReport);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.cbxDepartment);
             this.Controls.Add(this.cbxCompany);
@@ -220,7 +248,6 @@
             this.Controls.Add(this.btnViewReport);
             this.Controls.Add(this.btnPayrollExport);
             this.Controls.Add(this.btnPrint);
-            this.Controls.Add(this.dgvAttendanceReport);
             this.Controls.Add(this.dtpAttedanceTo);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.dtpAttendanceFrom);
@@ -244,17 +271,17 @@
         private System.Windows.Forms.Button btnViewReport;
         private System.Windows.Forms.Button btnPayrollExport;
         private System.Windows.Forms.Button btnPrint;
-        private System.Windows.Forms.DataGridView dgvAttendanceReport;
         private System.Windows.Forms.DateTimePicker dtpAttedanceTo;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DateTimePicker dtpAttendanceFrom;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DataGridView dgvAttendanceReport;
         private System.Windows.Forms.DataGridViewTextBoxColumn EmployeeNumber;
         private System.Windows.Forms.DataGridViewTextBoxColumn EmployeeName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AttDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AttDetail;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AttSummary;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AttChart;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AttNote;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Date;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AttendanceDetail;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TotalHours;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Chart;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Note;
     }
 }

@@ -12,44 +12,24 @@ namespace FaceIDAppVBEta
 {
     public partial class ucAttendanceReport : UserControl
     {
-        private IDataController _dtCtrl = LocalDataController.Instance;
-        private DataTable _dtAttendanceReport = null;
+        private IDataController dtCtrl;
 
         public ucAttendanceReport()
         {
             InitializeComponent();
-
-            BindCompany();
-            BindDepartment();
+            dtCtrl = LocalDataController.Instance;
+            BindData();
         }
 
-        private void BindCompany()
+        private void BindData()
         {
-            cbxCompany.DropDownStyle = ComboBoxStyle.DropDownList;
-
-            cbxCompany.ValueMember = "ID";
-            cbxCompany.DisplayMember = "Name";
-
-            cbxCompany.Items.Clear();
-            cbxCompany.Items.Add(new ListItem(-1, "All"));
-
-            foreach (Company company in _dtCtrl.GetCompanyList())
-            {
-                cbxCompany.Items.Add(new ListItem(company.ID, company.Name));
-            }
+            BindCompany();
+            dtpAttendanceFrom.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1, 0, 0, 0);
         }
 
         private void btnPayrollExport_Click(object sender, EventArgs e)
         {
-            if (_dtAttendanceReport == null)
-            {
-                MessageBox.Show("Report must be created before exporting to payroll. Please click View to create a Report.");
-            }
-            else
-            {
-                frmPayrollExport frmPExport = new frmPayrollExport(_dtAttendanceReport, dtpAttendanceFrom.Value, dtpAttedanceTo.Value);
-                frmPExport.ShowDialog(this);
-            }
+            MessageBox.Show("Report must be created before exporting to payroll. Please click View to create a Report.");
         }
 
         private void btnCollectData_Click(object sender, EventArgs e)
@@ -62,39 +42,6 @@ namespace FaceIDAppVBEta
             MessageBox.Show("This function has not been implemented yet.");
         }
 
-        private void cbxCompany_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            BindDepartment();
-        }
-
-        private void BindDepartment()
-        {
-            cbxDepartment.DropDownStyle = ComboBoxStyle.DropDownList;
-
-            cbxDepartment.ValueMember = "ID";
-            cbxDepartment.DisplayMember = "Name";
-
-            cbxDepartment.Items.Clear();
-            cbxDepartment.Items.Add(new ListItem(-1, "All"));
-
-            int companyID = (int)((ListItem)cbxCompany.SelectedItem).Value;
-            if (companyID == -1) //all company
-            {
-                cbxDepartment.SelectedIndex = 0;
-                cbxDepartment.Enabled = false;
-            }
-            else
-            {
-                foreach (Department department in _dtCtrl.GetDepartmentByCompany(companyID))
-                {
-                    cbxDepartment.Items.Add(new ListItem(department.ID, department.Name));
-                }
-
-                cbxDepartment.SelectedIndex = 0;
-                cbxDepartment.Enabled = true;
-            }
-        }
-
         private void btnViewReport_Click(object sender, EventArgs e)
         {
             ShowReport();
@@ -102,12 +49,138 @@ namespace FaceIDAppVBEta
 
         private void ShowReport()
         {
-            int companyID = (int)((ListItem)cbxCompany.SelectedItem).Value;
-            int departmentID = (int)((ListItem)cbxDepartment.SelectedItem).Value;
+            DateTime beginDate = dtpAttendanceFrom.Value;
+            DateTime endDate = dtpAttedanceTo.Value.Date.AddHours(23).AddMinutes(59);
 
-            _dtAttendanceReport = _dtCtrl.GetAttendanceReport(companyID, departmentID, dtpAttendanceFrom.Value, dtpAttedanceTo.Value);
+            int iCompany = (int)cbxCompany.SelectedValue;
+            int iDepartment = -1;
+            if (cbxDepartment.Enabled)
+                iDepartment = (int)cbxDepartment.SelectedValue;
 
-            dgvAttendanceReport.DataSource = _dtAttendanceReport;
+            List<AttendanceLogReport> attendanceLogs = dtCtrl.GetAttendanceReportList(iCompany, iDepartment, beginDate, endDate);
+
+            dgvAttendanceReport.AutoGenerateColumns = false;
+            dgvAttendanceReport.DataSource = attendanceLogs;
+        }
+
+        private void BindCompany()
+        {
+            List<Company> companyList = dtCtrl.GetCompanyList();
+            Company company = new Company();
+            company.ID = -1;
+            company.Name = "All companies";
+            companyList.Insert(0, company);
+            cbxCompany.DataSource = companyList;
+        }
+
+        private void BindDepartment()
+        {
+            if (cbxCompany.SelectedValue != null)
+            {
+                int CompanyID = (int)cbxCompany.SelectedValue;
+                if (CompanyID == -1)
+                {
+                    cbxDepartment.Enabled = false;
+                    return;
+                }
+                cbxDepartment.Enabled = true;
+                List<Department> departmentList = dtCtrl.GetDepartmentByCompany(CompanyID);
+                Department department = new Department();
+                department.ID = -1;
+                department.Name = "All departments";
+                departmentList.Insert(0, department);
+                cbxDepartment.DataSource = departmentList;
+            }
+        }
+
+        private void cbxCompany_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindDepartment();
+        }
+
+        private void dgvAttendanceReport_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                List<AttendanceLogReport> attendanceLogs = (List<AttendanceLogReport>)dgvAttendanceReport.DataSource;
+                if (attendanceLogs == null)
+                    return;
+                AttendanceLogReport attendanceLog = attendanceLogs[e.RowIndex];
+
+                if (e.ColumnIndex == 1)
+                {
+                    int rHieght = attendanceLog.Note.Count * 20;
+                    if (rHieght > 20)
+                        dgvAttendanceReport.Rows[e.RowIndex].Height = rHieght;
+                }
+
+                if (e.ColumnIndex == 3 || e.ColumnIndex == 5 || e.ColumnIndex == 6)
+                {
+                    using (Brush gridBrush = new SolidBrush(this.dgvAttendanceReport.GridColor), backColorBrush = new SolidBrush(e.CellStyle.BackColor))
+                    {
+                        using (Pen gridLinePen = new Pen(gridBrush))
+                        {
+                            e.Graphics.FillRectangle(backColorBrush, e.CellBounds);
+                            e.Graphics.DrawLine(gridLinePen, e.CellBounds.Left,
+                                e.CellBounds.Bottom - 1, e.CellBounds.Right - 1,
+                                e.CellBounds.Bottom - 1);
+                            e.Graphics.DrawLine(gridLinePen, e.CellBounds.Right - 1,
+                                e.CellBounds.Top, e.CellBounds.Right - 1,
+                                e.CellBounds.Bottom);
+
+                            int count = 0;
+                            switch (e.ColumnIndex)
+                            {
+                                case 3:
+                                    List<TimeSpan> sInOut = attendanceLog.AttendanceDetail;
+                                    bool isIn = true;
+                                    foreach (TimeSpan time in sInOut)
+                                    {
+                                        int y = (e.CellBounds.Y) + count * 20;
+                                        string timesp = (isIn ? "In " : "Out ") + time.Hours + ":" + time.Minutes;
+                                        isIn = !isIn;
+                                        e.Graphics.DrawString(timesp, e.CellStyle.Font,
+                                            Brushes.Black, e.CellBounds.X + 5,
+                                            y + 5, StringFormat.GenericDefault);
+
+                                        e.Graphics.DrawLine(gridLinePen, e.CellBounds.Left, y + 20, e.CellBounds.Right, y + 20);
+                                        count++;
+                                    }
+                                    break;
+                                case 6:
+                                    count = 0;
+                                    List<string> sNote = attendanceLog.Note;
+                                    foreach (string note in sNote)
+                                    {
+                                        int y = (e.CellBounds.Y) + count * 20;
+                                        e.Graphics.DrawString(note, e.CellStyle.Font,
+                                            Brushes.Black, e.CellBounds.X + 5,
+                                            y + 5, StringFormat.GenericDefault);
+
+                                        e.Graphics.DrawLine(gridLinePen, e.CellBounds.Left, y + 20, e.CellBounds.Right, y + 20);
+                                        count++;
+                                    }
+                                    break;
+                            }
+                            e.Handled = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void dgvAttendanceReport_CellPainting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex == dgvAttendanceReport.Columns["EmployeeName"].Index)
+            {
+                List<AttendanceLogReport> attendanceLogs = (List<AttendanceLogReport>)dgvAttendanceReport.DataSource;
+                if (attendanceLogs == null)
+                    return;
+                AttendanceLogReport attendanceLog = attendanceLogs[e.RowIndex];
+
+                e.FormattingApplied = true;
+                e.Value = string.Format("{0}, {1}", attendanceLog.FirstName, attendanceLog.LastName);
+            }
         }
     }
 }
