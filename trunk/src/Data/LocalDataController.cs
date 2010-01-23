@@ -34,6 +34,11 @@ namespace FaceIDAppVBEta.Data
             }
         }
 
+        ~LocalDataController()
+        {
+            DisconnectFromDatabase();
+        }
+
         #region Connection
 
         public void BeginTransaction()
@@ -84,8 +89,6 @@ namespace FaceIDAppVBEta.Data
                 }
             }
         }
-
-        #region IDataController Members
 
         #region Company
         public List<Company> GetCompanyList()
@@ -624,32 +627,6 @@ namespace FaceIDAppVBEta.Data
 
         #endregion Employee
 
-        #region WorkingCalendar
-        public List<WorkingCalendar> GetWorkingCalendarList()
-        {
-            //ConnectToDatabase();
-
-            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("WorkingCalendar", "*", null);
-            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
-            List<WorkingCalendar> wCalendarList = new List<WorkingCalendar>();
-            WorkingCalendar wCalendar = null;
-            while (odRdr.Read())
-            {
-                wCalendar = new WorkingCalendar();
-
-                wCalendar.ID = (int)odRdr["ID"];
-                wCalendar.Name = odRdr["Name"].ToString();
-                wCalendar.RegularWorkingFrom = (DateTime)odRdr["RegularWorkingFrom"];
-                wCalendar.RegularWorkingTo = (DateTime)odRdr["RegularWorkingTo"];
-
-                wCalendarList.Add(wCalendar);
-            }
-
-            odRdr.Close();
-            return wCalendarList;
-        }
-        #endregion WorkingCalendar
-
         #region Terminal
         public List<Terminal> GetTerminalList()
         {
@@ -952,6 +929,29 @@ namespace FaceIDAppVBEta.Data
         #endregion EmployeeNumber
 
         #region WorkingCalendar
+        public List<WorkingCalendar> GetWorkingCalendarList()
+        {
+            //ConnectToDatabase();
+
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("WorkingCalendar", "*", null);
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+            List<WorkingCalendar> wCalendarList = new List<WorkingCalendar>();
+            WorkingCalendar wCalendar = null;
+            while (odRdr.Read())
+            {
+                wCalendar = new WorkingCalendar();
+
+                wCalendar.ID = (int)odRdr["ID"];
+                wCalendar.Name = odRdr["Name"].ToString();
+                wCalendar.RegularWorkingFrom = (DateTime)odRdr["RegularWorkingFrom"];
+                wCalendar.RegularWorkingTo = (DateTime)odRdr["RegularWorkingTo"];
+
+                wCalendarList.Add(wCalendar);
+            }
+
+            odRdr.Close();
+            return wCalendarList;
+        }
 
         public WorkingCalendar GetWorkingCalendarByEmployee(int employeeNumber)
         {
@@ -985,7 +985,33 @@ namespace FaceIDAppVBEta.Data
 
         public WorkingCalendar GetWorkingCalendar(int workingCalendarID)
         {
-            throw new NotImplementedException();
+            string strCommand = "SELECT * FROM WorkingCalendar WHERE ID = " + workingCalendarID;
+
+            System.Data.OleDb.OleDbCommand odCom = dbConnection.CreateCommand();
+            odCom.CommandText += strCommand;
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+
+            WorkingCalendar _workingCalendar = null;
+            if (odRdr.Read())
+            {
+                _workingCalendar = new WorkingCalendar();
+
+                _workingCalendar.ID = Convert.ToInt16(odRdr["ID"]);
+                _workingCalendar.Name = odRdr["Name"].ToString();
+                _workingCalendar.WorkOnMonday = Convert.ToBoolean(odRdr["WorkOnMonday"]);
+                _workingCalendar.WorkOnTuesday = Convert.ToBoolean(odRdr["WorkOnTuesday"]);
+                _workingCalendar.WorkOnWednesday = Convert.ToBoolean(odRdr["WorkOnWednesday"]);
+                _workingCalendar.WorkOnThursday = Convert.ToBoolean(odRdr["WorkOnThursday"]);
+                _workingCalendar.WorkOnFriday = Convert.ToBoolean(odRdr["WorkOnFriday"]);
+                _workingCalendar.WorkOnSaturday = Convert.ToBoolean(odRdr["WorkOnSaturday"]);
+                _workingCalendar.WorkOnSunday = Convert.ToBoolean(odRdr["WorkOnSunday"]);
+                _workingCalendar.RegularWorkingFrom = Convert.ToDateTime(odRdr["RegularWorkingFrom"]);
+                _workingCalendar.RegularWorkingTo = Convert.ToDateTime(odRdr["RegularWorkingTo"]);
+                _workingCalendar.PayPeriodID = Convert.ToInt16(odRdr["PayPeriodID"]);
+            }
+
+            odRdr.Close();
+            return _workingCalendar;
         }
 
         public List<Break> GetBreakByWorkingCalendar(int workingCalendarID)
@@ -1020,7 +1046,94 @@ namespace FaceIDAppVBEta.Data
 
         public int AddWorkingCalendar(WorkingCalendar workingCalendar, List<Break> breakList, List<Holiday> holidayList, PaymentRate workingDayPaymentRate, PaymentRate nonWorkingDayPaymentRate, PaymentRate holidayPaymentRate, PayPeriod payPeriod)
         {
-            throw new NotImplementedException();
+            BeginTransaction();
+
+            try
+            {
+                //add pay period
+                payPeriod.ID = AddPayPeriod(payPeriod);
+
+                if (payPeriod.ID < 0)
+                    throw new NullReferenceException();
+
+                workingCalendar.PayPeriodID = payPeriod.ID;
+                workingCalendar.ID = AddWorkingCalendar(workingCalendar);
+
+                if(workingCalendar.ID < 0)
+                    throw new NullReferenceException();
+
+                //add breaks
+                foreach (Break _break in breakList)
+                {
+                    _break.WorkingCalendarID = workingCalendar.ID;
+                    AddBreak(_break);
+                }
+
+                //add holidays
+                foreach (Holiday holiday in holidayList)
+                {
+                    holiday.WorkingCalendarID = workingCalendar.ID;
+                    AddHoliday(holiday);
+                }
+
+                //add payment rates
+                workingDayPaymentRate.DayTypeID = 1; //working day
+                workingDayPaymentRate.WorkingCalendarID = workingCalendar.ID;
+                AddPaymentRate(workingDayPaymentRate);
+
+                nonWorkingDayPaymentRate.DayTypeID = 2; //non working day
+                nonWorkingDayPaymentRate.WorkingCalendarID = workingCalendar.ID;
+                AddPaymentRate(nonWorkingDayPaymentRate);
+
+                holidayPaymentRate.DayTypeID = 3; //holiday
+                holidayPaymentRate.WorkingCalendarID = workingCalendar.ID;
+                AddPaymentRate(holidayPaymentRate);
+
+                CommitTransaction();
+            }
+            catch(Exception)
+            {
+                RollbackTransaction();
+            }
+
+            return workingCalendar.ID;
+        }
+
+        private int AddWorkingCalendar(WorkingCalendar workingCalendar)
+        {
+            System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("WorkingCalendar",
+                new string[] { "Name"
+                ,"WorkOnMonday"
+                ,"WorkOnTuesday"
+                ,"WorkOnWednesday"
+                ,"WorkOnThursday"
+                ,"WorkOnFriday"
+                ,"WorkOnSaturday"
+                ,"WorkOnSunday"
+                ,"RegularWorkingFrom"
+                ,"RegularWorkingTo"
+                ,"PayPeriodID"
+                },
+                new object[] { workingCalendar.Name
+                ,workingCalendar.WorkOnMonday
+                ,workingCalendar.WorkOnTuesday
+                ,workingCalendar.WorkOnWednesday
+                ,workingCalendar.WorkOnThursday
+                ,workingCalendar.WorkOnFriday
+                ,workingCalendar.WorkOnSaturday
+                ,workingCalendar.WorkOnSunday
+                ,workingCalendar.RegularWorkingFrom
+                ,workingCalendar.RegularWorkingTo
+                ,workingCalendar.PayPeriodID
+                }
+            );
+
+            if (odCom1.ExecuteNonQuery() == 1)
+            {
+                odCom1.CommandText = "SELECT @@IDENTITY";
+                return Convert.ToInt16(odCom1.ExecuteScalar().ToString());
+            }
+            return -1;
         }
 
         public bool UpdateWorkingCalendar(WorkingCalendar workingCalendar, List<Break> breakList, List<Holiday> holidayList, PaymentRate workingDayPaymentRate, PaymentRate nonWorkingDayPaymentRate, PaymentRate holidayPaymentRate, PayPeriod payPeriod)
@@ -1055,7 +1168,8 @@ namespace FaceIDAppVBEta.Data
         
         public bool DeleteWorkingCalendar(int workingCalendarID)
         {
-            throw new NotImplementedException();
+            System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("WorkingCalendar", "ID=@ID", new object[] { "@ID", workingCalendarID });
+            return odCom1.ExecuteNonQuery() > 0 ? true : false;
         }
         #endregion
 
@@ -1590,8 +1704,6 @@ namespace FaceIDAppVBEta.Data
 
         #endregion Attendance Record
 
-        #endregion
-
         #region utils
 
         private void WriteLog(string msg)
@@ -1733,7 +1845,23 @@ namespace FaceIDAppVBEta.Data
 
         public int AddPayPeriod(PayPeriod payPeriod)
         {
-            throw new NotImplementedException();
+            System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("PayPeriod",
+                new string[] { "PayPeriodTypeID"
+                ,"StartFrom"
+                ,"CustomPeriod"
+                },
+                new object[] { payPeriod.PayPeriodTypeID
+                ,payPeriod.StartFrom
+                ,payPeriod.CustomPeriod
+                }
+            );
+
+            if (odCom1.ExecuteNonQuery() == 1)
+            {
+                odCom1.CommandText = "SELECT @@IDENTITY";
+                return Convert.ToInt16(odCom1.ExecuteScalar().ToString());
+            }
+            return -1;
         }
 
         public bool DeletePayPeriod(int id)
@@ -1763,7 +1891,27 @@ namespace FaceIDAppVBEta.Data
 
         public int AddBreak(Break _break)
         {
-            throw new NotImplementedException();
+            System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("Break",
+                new string[] { "Name"
+                ,"From"
+                ,"To"
+                ,"Paid"
+                ,"WorkingCalendarID"
+                },
+                new object[] { _break.Name
+                ,_break.From
+                ,_break.To
+                ,_break.Paid
+                ,_break.WorkingCalendarID
+                }
+            );
+
+            if (odCom1.ExecuteNonQuery() == 1)
+            {
+                odCom1.CommandText = "SELECT @@IDENTITY";
+                return Convert.ToInt16(odCom1.ExecuteScalar().ToString());
+            }
+            return -1;
         }
 
         public bool DeleteBreak(int id)
@@ -1783,7 +1931,41 @@ namespace FaceIDAppVBEta.Data
 
         public int AddPaymentRate(PaymentRate paymentRate)
         {
-            throw new NotImplementedException();
+            System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("PaymentRate",
+                new string[] { "NumberOfRegularHours"
+                ,"RegularRate"
+                ,"NumberOfOvertime1"
+                ,"OvertimeRate1"
+                ,"NumberOfOvertime2"
+                ,"OvertimeRate2"
+                ,"NumberOfOvertime3"
+                ,"OvertimeRate3"
+                ,"NumberOfOvertime4"
+                ,"OvertimeRate4"
+                ,"DayTypeID"
+                ,"WorkingCalendarID"
+                },
+                new object[] { paymentRate.NumberOfRegularHours
+                ,paymentRate.RegularRate
+                ,paymentRate.NumberOfOvertime1
+                ,paymentRate.OvertimeRate1
+                ,paymentRate.NumberOfOvertime2
+                ,paymentRate.OvertimeRate2
+                ,paymentRate.NumberOfOvertime3
+                ,paymentRate.OvertimeRate3
+                ,paymentRate.NumberOfOvertime4
+                ,paymentRate.OvertimeRate4
+                ,paymentRate.DayTypeID
+                ,paymentRate.WorkingCalendarID
+                }
+            );
+
+            if (odCom1.ExecuteNonQuery() == 1)
+            {
+                odCom1.CommandText = "SELECT @@IDENTITY";
+                return Convert.ToInt16(odCom1.ExecuteScalar().ToString());
+            }
+            return -1;
         }
 
         public bool DeletePaymentRate(int id)
@@ -1798,7 +1980,23 @@ namespace FaceIDAppVBEta.Data
 
         public int AddHoliday(Holiday holiday)
         {
-            throw new NotImplementedException();
+            System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("Holiday",
+                new string[] { "Date"
+                ,"Description"
+                ,"WorkingCalendarID"
+                },
+                new object[] { holiday.Date
+                ,holiday.Description
+                ,holiday.WorkingCalendarID
+                }
+            );
+
+            if (odCom1.ExecuteNonQuery() == 1)
+            {
+                odCom1.CommandText = "SELECT @@IDENTITY";
+                return Convert.ToInt16(odCom1.ExecuteScalar().ToString());
+            }
+            return -1;
         }
 
         public bool DeleteHoliday(int id)
@@ -1806,9 +2004,37 @@ namespace FaceIDAppVBEta.Data
             throw new NotImplementedException();
         }
 
-        public bool UpdateWorkingCalendar(WorkingCalendar wCal)
+        public bool UpdateWorkingCalendar(WorkingCalendar workingCalendar)
         {
-            throw new NotImplementedException();
+            System.Data.OleDb.OleDbCommand odCom1 = BuildUpdateCmd("WorkingCalendar",
+                new string[] { "Name"
+                ,"WorkOnMonday"
+                ,"WorkOnTuesday"
+                ,"WorkOnWednesday"
+                ,"WorkOnThursday"
+                ,"WorkOnFriday"
+                ,"WorkOnSaturday"
+                ,"WorkOnSunday"
+                ,"RegularWorkingFrom"
+                ,"RegularWorkingTo"
+                ,"PayPeriodID"
+                },
+                new object[] { workingCalendar.Name
+                ,workingCalendar.WorkOnMonday
+                ,workingCalendar.WorkOnTuesday
+                ,workingCalendar.WorkOnWednesday
+                ,workingCalendar.WorkOnThursday
+                ,workingCalendar.WorkOnFriday
+                ,workingCalendar.WorkOnSaturday
+                ,workingCalendar.WorkOnSunday
+                ,workingCalendar.RegularWorkingFrom
+                ,workingCalendar.RegularWorkingTo
+                ,workingCalendar.PayPeriodID
+                },
+                "ID=@ID", new object[] { "@ID", workingCalendar.ID }
+            );
+
+            return odCom1.ExecuteNonQuery() > 0 ? true : false;
         }
 
         #endregion
