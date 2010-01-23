@@ -1050,16 +1050,16 @@ namespace FaceIDAppVBEta.Data
                 _paymentRate = new PaymentRate();
 
                 _paymentRate.ID = Convert.ToInt16(odRdr["ID"]);
-                _paymentRate.NumberOfRegularHours = Convert.ToInt16(odRdr["NumberOfRegularHours"]);
-                _paymentRate.RegularRate = Convert.ToInt16(odRdr["RegularRate"]);
-                _paymentRate.NumberOfOvertime1 = Convert.ToInt16(odRdr["NumberOfOvertime1"]);
-                _paymentRate.OvertimeRate1 = Convert.ToInt16(odRdr["OvertimeRate1"]);
-                _paymentRate.NumberOfOvertime2 = Convert.ToInt16(odRdr["NumberOfOvertime2"]);
-                _paymentRate.OvertimeRate2 = Convert.ToInt16(odRdr["OvertimeRate2"]);
-                _paymentRate.NumberOfOvertime3 = Convert.ToInt16(odRdr["NumberOfOvertime3"]);
-                _paymentRate.OvertimeRate3 = Convert.ToInt16(odRdr["OvertimeRate3"]);
-                _paymentRate.NumberOfOvertime4 = Convert.ToInt16(odRdr["NumberOfOvertime4"]);
-                _paymentRate.OvertimeRate4 = Convert.ToInt16(odRdr["OvertimeRate4"]);
+                _paymentRate.NumberOfRegularHours = Convert.ToDouble(odRdr["NumberOfRegularHours"]);
+                _paymentRate.RegularRate = Convert.ToDouble(odRdr["RegularRate"]);
+                _paymentRate.NumberOfOvertime1 = Convert.ToDouble(odRdr["NumberOfOvertime1"]);
+                _paymentRate.OvertimeRate1 = Convert.ToDouble(odRdr["OvertimeRate1"]);
+                _paymentRate.NumberOfOvertime2 = Convert.ToDouble(odRdr["NumberOfOvertime2"]);
+                _paymentRate.OvertimeRate2 = Convert.ToDouble(odRdr["OvertimeRate2"]);
+                _paymentRate.NumberOfOvertime3 = Convert.ToDouble(odRdr["NumberOfOvertime3"]);
+                _paymentRate.OvertimeRate3 = Convert.ToDouble(odRdr["OvertimeRate3"]);
+                _paymentRate.NumberOfOvertime4 = Convert.ToDouble(odRdr["NumberOfOvertime4"]);
+                _paymentRate.OvertimeRate4 = Convert.ToDouble(odRdr["OvertimeRate4"]);
                 _paymentRate.DayTypeID = Convert.ToInt16(odRdr["DayTypeID"]);
                 _paymentRate.WorkingCalendarID = Convert.ToInt16(odRdr["WorkingCalendarID"]);
             }
@@ -1079,16 +1079,16 @@ namespace FaceIDAppVBEta.Data
                 _paymentRate = new PaymentRate();
 
                 _paymentRate.ID = Convert.ToInt16(odRdr["ID"]);
-                _paymentRate.NumberOfRegularHours = Convert.ToInt16(odRdr["NumberOfRegularHours"]);
-                _paymentRate.RegularRate = Convert.ToInt16(odRdr["RegularRate"]);
-                _paymentRate.NumberOfOvertime1 = Convert.ToInt16(odRdr["NumberOfOvertime1"]);
-                _paymentRate.OvertimeRate1 = Convert.ToInt16(odRdr["OvertimeRate1"]);
-                _paymentRate.NumberOfOvertime2 = Convert.ToInt16(odRdr["NumberOfOvertime2"]);
-                _paymentRate.OvertimeRate2 = Convert.ToInt16(odRdr["OvertimeRate2"]);
-                _paymentRate.NumberOfOvertime3 = Convert.ToInt16(odRdr["NumberOfOvertime3"]);
-                _paymentRate.OvertimeRate3 = Convert.ToInt16(odRdr["OvertimeRate3"]);
-                _paymentRate.NumberOfOvertime4 = Convert.ToInt16(odRdr["NumberOfOvertime4"]);
-                _paymentRate.OvertimeRate4 = Convert.ToInt16(odRdr["OvertimeRate4"]);
+                _paymentRate.NumberOfRegularHours = Convert.ToDouble(odRdr["NumberOfRegularHours"]);
+                _paymentRate.RegularRate = Convert.ToDouble(odRdr["RegularRate"]);
+                _paymentRate.NumberOfOvertime1 = Convert.ToDouble(odRdr["NumberOfOvertime1"]);
+                _paymentRate.OvertimeRate1 = Convert.ToDouble(odRdr["OvertimeRate1"]);
+                _paymentRate.NumberOfOvertime2 = Convert.ToDouble(odRdr["NumberOfOvertime2"]);
+                _paymentRate.OvertimeRate2 = Convert.ToDouble(odRdr["OvertimeRate2"]);
+                _paymentRate.NumberOfOvertime3 = Convert.ToDouble(odRdr["NumberOfOvertime3"]);
+                _paymentRate.OvertimeRate3 = Convert.ToDouble(odRdr["OvertimeRate3"]);
+                _paymentRate.NumberOfOvertime4 = Convert.ToDouble(odRdr["NumberOfOvertime4"]);
+                _paymentRate.OvertimeRate4 = Convert.ToDouble(odRdr["OvertimeRate4"]);
                 _paymentRate.DayTypeID = Convert.ToInt16(odRdr["DayTypeID"]);
                 _paymentRate.WorkingCalendarID = Convert.ToInt16(odRdr["WorkingCalendarID"]);
             }
@@ -1108,16 +1108,16 @@ namespace FaceIDAppVBEta.Data
                 _paymentRate = new PaymentRate();
 
                 _paymentRate.ID = Convert.ToInt16(odRdr["ID"]);
-                _paymentRate.NumberOfRegularHours = Convert.ToInt16(odRdr["NumberOfRegularHours"]);
-                _paymentRate.RegularRate = Convert.ToInt16(odRdr["RegularRate"]);
-                _paymentRate.NumberOfOvertime1 = Convert.ToInt16(odRdr["NumberOfOvertime1"]);
-                _paymentRate.OvertimeRate1 = Convert.ToInt16(odRdr["OvertimeRate1"]);
-                _paymentRate.NumberOfOvertime2 = Convert.ToInt16(odRdr["NumberOfOvertime2"]);
-                _paymentRate.OvertimeRate2 = Convert.ToInt16(odRdr["OvertimeRate2"]);
-                _paymentRate.NumberOfOvertime3 = Convert.ToInt16(odRdr["NumberOfOvertime3"]);
-                _paymentRate.OvertimeRate3 = Convert.ToInt16(odRdr["OvertimeRate3"]);
-                _paymentRate.NumberOfOvertime4 = Convert.ToInt16(odRdr["NumberOfOvertime4"]);
-                _paymentRate.OvertimeRate4 = Convert.ToInt16(odRdr["OvertimeRate4"]);
+                _paymentRate.NumberOfRegularHours = Convert.ToDouble(odRdr["NumberOfRegularHours"]);
+                _paymentRate.RegularRate = Convert.ToDouble(odRdr["RegularRate"]);
+                _paymentRate.NumberOfOvertime1 = Convert.ToDouble(odRdr["NumberOfOvertime1"]);
+                _paymentRate.OvertimeRate1 = Convert.ToDouble(odRdr["OvertimeRate1"]);
+                _paymentRate.NumberOfOvertime2 = Convert.ToDouble(odRdr["NumberOfOvertime2"]);
+                _paymentRate.OvertimeRate2 = Convert.ToDouble(odRdr["OvertimeRate2"]);
+                _paymentRate.NumberOfOvertime3 = Convert.ToDouble(odRdr["NumberOfOvertime3"]);
+                _paymentRate.OvertimeRate3 = Convert.ToDouble(odRdr["OvertimeRate3"]);
+                _paymentRate.NumberOfOvertime4 = Convert.ToDouble(odRdr["NumberOfOvertime4"]);
+                _paymentRate.OvertimeRate4 = Convert.ToDouble(odRdr["OvertimeRate4"]);
                 _paymentRate.DayTypeID = Convert.ToInt16(odRdr["DayTypeID"]);
                 _paymentRate.WorkingCalendarID = Convert.ToInt16(odRdr["WorkingCalendarID"]);
             }
@@ -1795,16 +1795,16 @@ namespace FaceIDAppVBEta.Data
 
                 paymentRate.DayTypeID = (int)odRdr["DayTypeID"];
                 paymentRate.ID = (int)odRdr["ID"];
-                paymentRate.NumberOfOvertime1 = (int)odRdr["NumberOfOvertime1"];
-                paymentRate.NumberOfOvertime2 = (int)odRdr["NumberOfOvertime2"];
-                paymentRate.NumberOfOvertime3 = (int)odRdr["NumberOfOvertime3"];
-                paymentRate.NumberOfOvertime4 = (int)odRdr["NumberOfOvertime4"];
-                paymentRate.NumberOfRegularHours = (int)odRdr["NumberOfRegularHours"];
-                paymentRate.OvertimeRate1 = (int)odRdr["OvertimeRate1"];
-                paymentRate.OvertimeRate2 = (int)odRdr["OvertimeRate2"];
-                paymentRate.OvertimeRate3 = (int)odRdr["OvertimeRate3"];
-                paymentRate.OvertimeRate4 = (int)odRdr["OvertimeRate4"];
-                paymentRate.RegularRate = (int)odRdr["RegularRate"];
+                paymentRate.NumberOfOvertime1 = (double)odRdr["NumberOfOvertime1"];
+                paymentRate.NumberOfOvertime2 = (double)odRdr["NumberOfOvertime2"];
+                paymentRate.NumberOfOvertime3 = (double)odRdr["NumberOfOvertime3"];
+                paymentRate.NumberOfOvertime4 = (double)odRdr["NumberOfOvertime4"];
+                paymentRate.NumberOfRegularHours = (double)odRdr["NumberOfRegularHours"];
+                paymentRate.OvertimeRate1 = (double)odRdr["OvertimeRate1"];
+                paymentRate.OvertimeRate2 = (double)odRdr["OvertimeRate2"];
+                paymentRate.OvertimeRate3 = (double)odRdr["OvertimeRate3"];
+                paymentRate.OvertimeRate4 = (double)odRdr["OvertimeRate4"];
+                paymentRate.RegularRate = (double)odRdr["RegularRate"];
                 paymentRate.WorkingCalendarID = (int)odRdr["WorkingCalendarID"];
             }
             odRdr.Close();
@@ -1843,8 +1843,8 @@ namespace FaceIDAppVBEta.Data
 
             attendanceRecordTimes.Sort();
 
-            int totalHour = 0;
-            int totalOverHour = 0;
+            double totalHour = 0;
+            double totalOverHour = 0;
             if (attendanceRecordTimes.Count % 2 == 0)
             {
                 long totalTicks = 0;
@@ -1883,10 +1883,10 @@ namespace FaceIDAppVBEta.Data
 
             totalOverHour += totalHour - paymentRate.NumberOfRegularHours;
 
-            int iOvertimeHour1 = 0;
-            int iOvertimeHour2 = 0;
-            int iOvertimeHour3 = 0;
-            int iOvertimeHour4 = 0;
+            double iOvertimeHour1 = 0;
+            double iOvertimeHour2 = 0;
+            double iOvertimeHour3 = 0;
+            double iOvertimeHour4 = 0;
             if (totalOverHour > paymentRate.NumberOfOvertime1)
             {
                 iOvertimeHour1 = paymentRate.NumberOfOvertime1;

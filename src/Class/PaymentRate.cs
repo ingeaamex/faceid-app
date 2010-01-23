@@ -7,16 +7,16 @@ namespace FaceIDAppVBEta.Class
     public class PaymentRate
     {
         public int ID { get; set; }
-        public int NumberOfRegularHours { get; set; }
-        public int RegularRate { get; set; }
-        public int NumberOfOvertime1 { get; set; }
-        public int OvertimeRate1 { get; set; }
-        public int NumberOfOvertime2 { get; set; }
-        public int OvertimeRate2 { get; set; }
-        public int NumberOfOvertime3 { get; set; }
-        public int OvertimeRate3 { get; set; }
-        public int NumberOfOvertime4 { get; set; }
-        public int OvertimeRate4 { get; set; }
+        public double NumberOfRegularHours { get; set; }
+        public double RegularRate { get; set; }
+        public double NumberOfOvertime1 { get; set; }
+        public double OvertimeRate1 { get; set; }
+        public double NumberOfOvertime2 { get; set; }
+        public double OvertimeRate2 { get; set; }
+        public double NumberOfOvertime3 { get; set; }
+        public double OvertimeRate3 { get; set; }
+        public double NumberOfOvertime4 { get; set; }
+        public double OvertimeRate4 { get; set; }
         public int DayTypeID { get; set; }
         public int WorkingCalendarID { get; set; }
     }
