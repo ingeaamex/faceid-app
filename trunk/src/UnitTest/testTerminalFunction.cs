@@ -16,7 +16,7 @@ namespace FaceIDAppVBEta.UnitTest
         private void AddTerminal()
         {
             ter1.Name = DateTime.Now.Ticks.ToString();
-            ter1.IPAddress = "10.0.0.101";
+            ter1.IPAddress = "10.0.0.199";
             ter1.ID = _dtCtrl.AddTerminal(ter1);
         }
 

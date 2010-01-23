@@ -20,31 +20,34 @@ namespace FaceIDAppVBEta.UnitTest
 
         private void AddEmployee()
         {
-            com.Name = DateTime.Now.Ticks.ToString();
-            com.ID = _dtCtrl.AddCompany(com);
+            //com.Name = DateTime.Now.Ticks.ToString();
+            //com.ID = _dtCtrl.AddCompany(com);
 
-            dep.Name = DateTime.Now.Ticks.ToString();
-            dep.CompanyID = com.ID;
-            dep.SupDepartmentID = 0;
-            dep.ID = _dtCtrl.AddDepartment(dep);
+            //dep.Name = DateTime.Now.Ticks.ToString();
+            //dep.CompanyID = com.ID;
+            //dep.SupDepartmentID = 0;
+            //dep.ID = _dtCtrl.AddDepartment(dep);
 
-            wCal.Name = DateTime.Now.Ticks.ToString();
-            wCal.RegularWorkingFrom = DateTime.Today;
-            wCal.RegularWorkingTo = DateTime.Today;
+            //wCal.Name = DateTime.Now.Ticks.ToString();
+            //wCal.RegularWorkingFrom = DateTime.Today;
+            //wCal.RegularWorkingTo = DateTime.Today;
 
-            List<Break> breakList = new List<Break>();
-            List<Holiday> holidayList = new List<Holiday>();
+            //List<Break> breakList = new List<Break>();
+            //List<Holiday> holidayList = new List<Holiday>();
 
-            PaymentRate workingDayPaymentRate = new PaymentRate();
-            PaymentRate nonWorkingDayPaymentRate = new PaymentRate();
-            PaymentRate holidayPaymentRate = new PaymentRate();
+            //PaymentRate workingDayPaymentRate = new PaymentRate();
+            //PaymentRate nonWorkingDayPaymentRate = new PaymentRate();
+            //PaymentRate holidayPaymentRate = new PaymentRate();
 
-            PayPeriod payPeriod = new PayPeriod();
-            payPeriod.CustomPeriod = 5;
-            payPeriod.PayPeriodTypeID = 5; //custom
-            payPeriod.StartFrom = DateTime.Today;
+            //PayPeriod payPeriod = new PayPeriod();
+            //payPeriod.CustomPeriod = 5;
+            //payPeriod.PayPeriodTypeID = 5; //custom
+            //payPeriod.StartFrom = DateTime.Today;
 
-            wCal.ID = _dtCtrl.AddWorkingCalendar(wCal, breakList, holidayList, workingDayPaymentRate, nonWorkingDayPaymentRate, holidayPaymentRate, payPeriod);
+            //wCal.ID = _dtCtrl.AddWorkingCalendar(wCal, breakList, holidayList, workingDayPaymentRate, nonWorkingDayPaymentRate, holidayPaymentRate, payPeriod);
+
+            dep = _dtCtrl.GetDepartmentList()[0];
+            wCal = _dtCtrl.GetWorkingCalendarList()[0];
 
             Employee emp = new Employee();
             emp.Active = true;
@@ -68,9 +71,9 @@ namespace FaceIDAppVBEta.UnitTest
         private void DeleteEmployee()
         {
             _dtCtrl.DeleteEmployee(emp.PayrollNumber);
-            _dtCtrl.DeleteWorkingCalendar(wCal.ID);
-            _dtCtrl.DeleteDepartment(dep.ID);
-            _dtCtrl.DeleteCompany(com.ID);
+            //_dtCtrl.DeleteWorkingCalendar(wCal.ID);
+            //_dtCtrl.DeleteDepartment(dep.ID);
+            //_dtCtrl.DeleteCompany(com.ID);
         }
 
         [Test]
@@ -109,7 +112,7 @@ namespace FaceIDAppVBEta.UnitTest
         {
             AddEmployee();
 
-            Assert.AreEqual(_dtCtrl.GetEmployeeListByDep(dep.ID).Count, 1);
+            Assert.AreEqual(true, _dtCtrl.GetEmployeeListByDep(dep.ID).Contains(emp));
 
             DeleteEmployee();
         }
