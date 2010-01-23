@@ -70,7 +70,7 @@ namespace FaceIDAppVBEta.Data
         {
             if (dbConnection == null)
             {
-                string connectionString = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";
+                string connectionString = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\vnanh\project\FaceID\db\FaceIDdb.mdb";
                 dbConnection = new OleDbConnection(connectionString);
             }
             if (dbConnection.State != ConnectionState.Open)
@@ -1488,7 +1488,7 @@ namespace FaceIDAppVBEta.Data
             string sEmplNumbers = string.Join(",", lEmplNumbers.ToArray());
 
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("AttendanceReport as Att INNER JOIN Employee as Emp ON Att.EmployeeNumber = Emp.EmployeeNumber",
-                "Emp.EmployeeNumber, Emp.FirstName, Emp.LastName, Att.WorkFrom, Att.WorkTo, Att.RegularHour",
+                "Emp.EmployeeNumber, Emp.FirstName, Emp.LastName, Att.WorkFrom, Att.WorkTo, Att.RegularHour,Att.AttendanceRecordIDList",
                 "Att.WorkFrom >=@Date_1 AND Att.WorkFrom <= @Date_2 AND Att.EmployeeNumber in(" + sEmplNumbers + ")",
                 new object[] { "@Date_1", beginDate, "@Date_2", endDate });
 
@@ -1508,21 +1508,34 @@ namespace FaceIDAppVBEta.Data
                 attLog.EmployeeNumber = (int)drRp["EmployeeNumber"];
                 attLog.FirstName = (string)drRp["FirstName"];
                 attLog.LastName = (string)drRp["LastName"];
-                attLog.TotalHour = (int)drRp["RegularHour"];
 
-                odCom = BuildSelectCmd("AttendanceRecord", "*", "Time >=@Date_1 AND Time <= @Date_2 AND EmployeeNumber=@Empl",
-                new object[] { "@Date_1", drRp["WorkFrom"], "@Date_2", drRp["WorkTo"], "@Empl", drRp["EmployeeNumber"] });
+                string sAttendanceRecordIDs = (string)drRp["AttendanceRecordIDList"];
+                sAttendanceRecordIDs = sAttendanceRecordIDs.Replace("{", "").Replace("}", ",").Trim(',');
+
+                odCom = BuildSelectCmd("AttendanceRecord", "*", "ID in(" + sAttendanceRecordIDs + ")");
 
                 List<TimeSpan> attendanceDetails = new List<TimeSpan>();
                 List<string> notes = new List<string>();
-
+                List<DateTime> attTime = new List<DateTime>();
                 odRdr = odCom.ExecuteReader();
                 while (odRdr.Read())
                 {
+                    attTime.Add(Convert.ToDateTime(odRdr["Time"]));
                     attendanceDetails.Add(Convert.ToDateTime(odRdr["Time"]).TimeOfDay);
                     notes.Add(odRdr["Note"].ToString());
                 }
                 odRdr.Close();
+
+                long totalTicks = 0;
+
+                for (int i = 0; i < attTime.Count - 1; i++)
+                {
+                    if (i % 2 == 0)
+                        totalTicks += attTime[i + 1].Ticks - attTime[i].Ticks;
+                }
+                int totalHour = Convert.ToInt16(totalTicks / (36000000000));
+
+                attLog.TotalHour = totalHour;
                 attLog.AttendanceDetail = attendanceDetails;
                 attLog.Note = notes;
 
@@ -1561,8 +1574,6 @@ namespace FaceIDAppVBEta.Data
             return attendanceLog;
         }
 
-        private static int AttendanceLogsSort(AttendanceLogReport a, AttendanceLogReport b) { return a.DateLog.CompareTo(b.DateLog); }
-
         public List<AttendanceLogRecord> GetAttendanceRecordList(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate)
         {
             List<string> lEmplNumbers = GetEmployeeNumberList(iCompany, iDepartment);
@@ -1572,8 +1583,8 @@ namespace FaceIDAppVBEta.Data
 
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("AttendanceRecord as Att INNER JOIN Employee as Emp ON Att.EmployeeNumber = Emp.EmployeeNumber",
                 "Att.*, Emp.FirstName, Emp.LastName",
-                "Att.Time >=@Date_1 AND Att.Time <= @Date_2 AND Att.EmployeeNumber in(@Empl)",
-                new object[] { "@Date_1", beginDate, "@Date_2", endDate, "@Empl", sEmplNumbers });
+                "Att.Time >=@Date_1 AND Att.Time <= @Date_2 AND Att.EmployeeNumber in(" + sEmplNumbers + ")",
+                new object[] { "@Date_1", beginDate, "@Date_2", endDate });
 
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
 
@@ -1601,7 +1612,8 @@ namespace FaceIDAppVBEta.Data
             }
             odRdr.Close();
 
-
+            if (empls.Count == 0)
+                return null;
 
             List<AttendanceLogRecord> attLogRecords = new List<AttendanceLogRecord>();
 
@@ -1615,6 +1627,8 @@ namespace FaceIDAppVBEta.Data
                 {
                     AttendanceLogRecord attLogRecord = new AttendanceLogRecord();
                     Employee empl1 = empls.Find(delegate(Employee e) { return e.EmployeeNumber == Convert.ToInt32(emplNumber); });
+                    if (empl1 == null)
+                        continue;
                     attLogRecord.EmployeeNumber = empl1.EmployeeNumber;
                     attLogRecord.FirstName = empl1.FirstName;
                     attLogRecord.LastName = empl1.LastName;
@@ -1638,7 +1652,7 @@ namespace FaceIDAppVBEta.Data
                                 if (i % 2 == 0)
                                     totalTicks += attRds1[i + 1].Time.Ticks - attRds1[i].Time.Ticks;
                             }
-                            int totalHour = Convert.ToInt16(totalTicks / (3600000000));
+                            int totalHour = Convert.ToInt16(totalTicks / (36000000000));
                             lTotalHour.Add(new int[] { totalHour, attRds1.Count });
                         }
 
@@ -1812,21 +1826,16 @@ namespace FaceIDAppVBEta.Data
             DateTime dAttRecordPeriod1 = attRecord.Time.AddDays(-1);
             dAttRecordPeriod1 = dAttRecordPeriod1.Date.AddHours(dRegularWorkingFrom.Hour).AddMinutes(dRegularWorkingFrom.Minute);
 
-            DateTime dWorkFrom = dAttRecordPeriod1;
-            DateTime dWorkTo = dWorkFrom.Date.AddHours(dRegularWorkingTo.Hour).AddMinutes(dRegularWorkingTo.Minute);
-            if (dAttRecordPeriod1.CompareTo(dWorkTo) == 1)
-            {
-                dWorkTo = dWorkTo.AddDays(1);
-            }
-
             DateTime dAttRecordPeriod2 = dAttRecordPeriod1.AddHours(23);
 
             odCom = BuildSelectCmd("AttendanceRecord", "*", "EmployeeNumber=@Empl AND Time>=@Date_1 AND Time<=@Date_2", new object[] { "@Empl", iEmployeeNumber, "@Date_1", dAttRecordPeriod1, "@Date_2", dAttRecordPeriod2 });
             odRdr = odCom.ExecuteReader();
 
+            List<string> rcAtts = new List<string>();
             List<DateTime> attendanceRecordTimes = new List<DateTime>();
             while (odRdr.Read())
             {
+                rcAtts.Add("{" + odRdr["ID"].ToString() + "}");
                 attendanceRecordTimes.Add((DateTime)odRdr["Time"]);
             }
             odRdr.Close();
@@ -1841,82 +1850,23 @@ namespace FaceIDAppVBEta.Data
                 return ExecuteNonQuery(odCom) > 0;
             }
 
+            string sAttendanceRecordIDs = string.Concat(rcAtts.ToArray());
+           
             attendanceRecordTimes.Sort();
 
-            double totalHour = 0;
-            double totalOverHour = 0;
-            if (attendanceRecordTimes.Count % 2 == 0)
-            {
-                long totalTicks = 0;
-                long totalOverTicks = 0;
-                for (int i = 0; i < attendanceRecordTimes.Count - 1; i++)
-                {
-                    if (i % 2 == 0)
-                    {
-                        if (dWorkTo.CompareTo(attendanceRecordTimes[i]) == 1)
-                            totalTicks += attendanceRecordTimes[i + 1].Ticks - attendanceRecordTimes[i].Ticks;
-                        else
-                            totalOverTicks += attendanceRecordTimes[i + 1].Ticks - attendanceRecordTimes[i].Ticks;
-                    }
-                }
-                int totalMinute = Convert.ToInt16(totalTicks / (60 * 10000000));
-                totalHour = totalMinute / 60;
-
-                int totalOverMinute = Convert.ToInt16(totalOverTicks / (60 * 10000000));
-                totalOverHour = totalOverMinute / 60;
-            }
-            else
-            {
-                odCom = BuildInsertCmd("AttendanceRecord",
-                    new string[] { "EmployeeNumber", "Note", "PhotoData", "Time" },
-                    new object[] { attRecord.EmployeeNumber, attRecord.Note, attRecord.PhotoData, attRecord.Time }
-                    );
-
-                return ExecuteNonQuery(odCom) > 0;
-            }
-
-            DateTime attRcBengin = (DateTime)attendanceRecordTimes[0];
-            DateTime attRcEnd = (DateTime)attendanceRecordTimes[attendanceRecordTimes.Count - 1];
-
-            dWorkFrom = dWorkFrom.Date.AddHours(attRcBengin.Hour).AddMinutes(attRcBengin.Minute);
-            dWorkTo = dWorkTo.Date.AddHours(attRcEnd.Hour).AddMinutes(attRcEnd.Minute);
-
-            totalOverHour += totalHour - paymentRate.NumberOfRegularHours;
-
-            double iOvertimeHour1 = 0;
-            double iOvertimeHour2 = 0;
-            double iOvertimeHour3 = 0;
-            double iOvertimeHour4 = 0;
-            if (totalOverHour > paymentRate.NumberOfOvertime1)
-            {
-                iOvertimeHour1 = paymentRate.NumberOfOvertime1;
-                totalOverHour -= iOvertimeHour1;
-                if (totalOverHour > paymentRate.NumberOfOvertime2)
-                {
-                    iOvertimeHour2 = paymentRate.NumberOfOvertime2;
-                    totalOverHour -= iOvertimeHour2;
-                    if (totalOverHour > paymentRate.NumberOfOvertime3)
-                    {
-                        iOvertimeHour3 = paymentRate.NumberOfOvertime3;
-                        totalOverHour -= iOvertimeHour3;
-                        iOvertimeHour4 = totalOverHour;
-                    }
-                    else
-                        iOvertimeHour3 = totalOverHour;
-                }
-                else
-                    iOvertimeHour2 = totalOverHour;
-            }
-            else
-                iOvertimeHour1 = totalOverHour;
+            DateTime wDate = attendanceRecordTimes[0].Date;
+            dRegularWorkingFrom = new DateTime(wDate.Year, wDate.Month, wDate.Day, dRegularWorkingFrom.Hour, dRegularWorkingFrom.Minute, dRegularWorkingFrom.Second);
+            dRegularWorkingTo = new DateTime(wDate.Year, wDate.Month, wDate.Day, dRegularWorkingTo.Hour, dRegularWorkingTo.Minute, dRegularWorkingTo.Second);
+            if (dRegularWorkingFrom.CompareTo(dRegularWorkingTo) == 1)
+                dRegularWorkingTo = dRegularWorkingTo.AddDays(1);
 
             AttendanceReport attendanceReport = new AttendanceReport();
             attendanceReport.DayTypeID = iDayTypeID;
             attendanceReport.EmployeeNumber = iEmployeeNumber;
-            attendanceReport.OvertimeHour1 = iOvertimeHour1;
-            attendanceReport.OvertimeHour2 = iOvertimeHour2;
-            attendanceReport.OvertimeHour3 = iOvertimeHour3;
-            attendanceReport.OvertimeHour4 = iOvertimeHour4;
+            attendanceReport.OvertimeHour1 = paymentRate.NumberOfOvertime1;
+            attendanceReport.OvertimeHour2 = paymentRate.NumberOfOvertime2;
+            attendanceReport.OvertimeHour3 = paymentRate.NumberOfOvertime3;
+            attendanceReport.OvertimeHour4 = paymentRate.NumberOfOvertime4;
             attendanceReport.OvertimeRate1 = paymentRate.OvertimeRate1;
             attendanceReport.OvertimeRate2 = paymentRate.OvertimeRate2;
             attendanceReport.OvertimeRate3 = paymentRate.OvertimeRate3;
@@ -1924,8 +1874,9 @@ namespace FaceIDAppVBEta.Data
             attendanceReport.PayPeriodID = iPayPeriodID;
             attendanceReport.RegularHour = paymentRate.NumberOfRegularHours;
             attendanceReport.RegularRate = paymentRate.RegularRate;
-            attendanceReport.WorkFrom = dWorkFrom;
-            attendanceReport.WorkTo = dWorkTo;
+            attendanceReport.WorkFrom = dRegularWorkingFrom;
+            attendanceReport.WorkTo = dRegularWorkingTo;
+            attendanceReport.AttendanceRecordIDList = sAttendanceRecordIDs;
 
             BeginTransaction();
 
@@ -1950,16 +1901,47 @@ namespace FaceIDAppVBEta.Data
             }
         }
 
+        private AttendanceReport GetAttendanceReport(int attRcId)
+        {
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("AttendanceReport", "*", "AttendanceRecordIDList like '*{" + attRcId + "}*'");
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+            AttendanceReport attendanceReport = null;
+            if (odRdr.Read())
+            {
+                attendanceReport = new AttendanceReport();
+
+                attendanceReport.DayTypeID = (int)odRdr["DayTypeID"];
+                attendanceReport.EmployeeNumber = (int)odRdr["EmployeeNumber"];
+                attendanceReport.OvertimeHour1 = (int)odRdr["OvertimeHour1"];
+                attendanceReport.OvertimeHour2 = (int)odRdr["OvertimeHour2"];
+                attendanceReport.OvertimeHour3 = (int)odRdr["OvertimeHour3"];
+                attendanceReport.OvertimeHour4 = (int)odRdr["OvertimeHour4"];
+                attendanceReport.OvertimeRate1 = (int)odRdr["OvertimeRate1"];
+                attendanceReport.OvertimeRate2 = (int)odRdr["OvertimeRate2"];
+                attendanceReport.OvertimeRate3 = (int)odRdr["OvertimeRate3"];
+                attendanceReport.OvertimeRate4 = (int)odRdr["OvertimeRate4"];
+                attendanceReport.PayPeriodID = (int)odRdr["PayPeriodID"];
+                attendanceReport.RegularHour = (int)odRdr["RegularHour"];
+                attendanceReport.RegularRate = (int)odRdr["RegularRate"];
+                attendanceReport.WorkFrom = (DateTime)odRdr["WorkFrom"];
+                attendanceReport.WorkTo = (DateTime)odRdr["WorkTo"];
+                attendanceReport.AttendanceReportID = (int)odRdr["AttendanceReportID"];
+                attendanceReport.AttendanceRecordIDList = odRdr["AttendanceRecordIDList"].ToString();
+            }
+            odRdr.Close();
+            return attendanceReport;
+        }
+
         private bool AddAttendanceReport(AttendanceReport attendanceReport)
         {
             System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("AttendanceReport",
                 new string[] { "DayTypeID", "EmployeeNumber", "OvertimeHour1", "OvertimeHour2", "OvertimeHour3", "OvertimeHour4",
                 "OvertimeRate1","OvertimeRate2","OvertimeRate3","OvertimeRate4","PayPeriodID","RegularHour","RegularRate",
-                "WorkFrom","WorkTo"},
+                "WorkFrom","WorkTo","AttendanceRecordIDList"},
                 new object[] { attendanceReport.DayTypeID, attendanceReport.EmployeeNumber, attendanceReport.OvertimeHour1,
                 attendanceReport.OvertimeHour2,attendanceReport.OvertimeHour3,attendanceReport.OvertimeHour4, attendanceReport.OvertimeRate1,
                 attendanceReport.OvertimeRate2,attendanceReport.OvertimeRate3, attendanceReport.OvertimeRate4,attendanceReport.PayPeriodID,
-                attendanceReport.RegularHour,attendanceReport.RegularRate,attendanceReport.WorkFrom,attendanceReport.WorkTo}
+                attendanceReport.RegularHour,attendanceReport.RegularRate,attendanceReport.WorkFrom,attendanceReport.WorkTo,attendanceReport.AttendanceRecordIDList}
                 );
 
             return ExecuteNonQuery(odCom1) > 0;
@@ -1967,8 +1949,39 @@ namespace FaceIDAppVBEta.Data
 
         public bool DeleteAttendanceRecord(int id)
         {
-            System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("AttendanceRecord", "ID=@ID", new object[] { "@ID", id });
-            return ExecuteNonQuery(odCom1) > 0 ? true : false;
+            AttendanceReport attReport = GetAttendanceReport(id);
+            System.Data.OleDb.OleDbCommand odCom = null;
+            if (attReport == null)
+            {
+                odCom = BuildDelCmd("AttendanceRecord", "ID=@ID", new object[] { "@ID", id });
+                return ExecuteNonQuery(odCom) > 0;
+            }
+            else
+            {
+                string sAttendanceRecordIDs = attReport.AttendanceRecordIDList;
+                sAttendanceRecordIDs = sAttendanceRecordIDs.Replace("{" + id + "}", "");
+
+                BeginTransaction();
+
+                odCom = BuildDelCmd("AttendanceRecord", "ID=@ID", new object[] { "@ID", id });
+                int irs1 = ExecuteNonQuery(odCom);
+
+                odCom = BuildUpdateCmd("AttendanceReport", new string[] { "AttendanceRecordIDList" }, new object[] { sAttendanceRecordIDs }, 
+                    "AttendanceReportID=@ID", new object[] { "@@ID", attReport.AttendanceReportID });
+                int irs2 = ExecuteNonQuery(odCom);
+
+                if (irs1 > 0 && irs2 > 0)
+                {
+                    CommitTransaction();
+                    return true;
+                }
+                else
+                {
+                    RollbackTransaction();
+                    return false;
+                }
+            }
+
         }
 
         public bool UpdateAttendanceRecord(AttendanceRecord attRecord)
