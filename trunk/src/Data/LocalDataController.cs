@@ -1016,27 +1016,137 @@ namespace FaceIDAppVBEta.Data
 
         public List<Break> GetBreakListByWorkingCalendar(int workingCalendarID)
         {
-            throw new NotImplementedException();
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Break", "*", "WorkingCalendarID=@WorkingCalendarID", new object[] { "@WorkingCalendarID", workingCalendarID });
+
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+            List<Break> _breakList = new List<Break>();
+            Break _break = null;
+            while (odRdr.Read())
+            {
+                _break = new Break();
+
+                _break.ID = Convert.ToInt16(odRdr["ID"]);
+                _break.Name = odRdr["Name"].ToString();
+                _break.From = Convert.ToDateTime(odRdr["From"]);
+                _break.To = Convert.ToDateTime(odRdr["To"]);
+                _break.Paid = Convert.ToBoolean(odRdr["Paid"]);
+                _break.WorkingCalendarID = Convert.ToInt16(odRdr["WorkingCalendarID"]);
+
+                _breakList.Add(_break);
+            }
+
+            odRdr.Close();
+            return _breakList;
         }
 
         public PaymentRate GetWorkingDayPaymentRateByWorkingCalendar(int workingCalendarID)
         {
-            throw new NotImplementedException();
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("PaymentRate", "*", "WorkingCalendarID=@WorkingCalendarID AND DayTypeID=1", new object[] { "@WorkingCalendarID", workingCalendarID });
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+
+            PaymentRate _paymentRate = null;
+            if (odRdr.Read())
+            {
+                _paymentRate = new PaymentRate();
+
+                _paymentRate.ID = Convert.ToInt16(odRdr["ID"]);
+                _paymentRate.NumberOfRegularHours = Convert.ToInt16(odRdr["NumberOfRegularHours"]);
+                _paymentRate.RegularRate = Convert.ToInt16(odRdr["RegularRate"]);
+                _paymentRate.NumberOfOvertime1 = Convert.ToInt16(odRdr["NumberOfOvertime1"]);
+                _paymentRate.OvertimeRate1 = Convert.ToInt16(odRdr["OvertimeRate1"]);
+                _paymentRate.NumberOfOvertime2 = Convert.ToInt16(odRdr["NumberOfOvertime2"]);
+                _paymentRate.OvertimeRate2 = Convert.ToInt16(odRdr["OvertimeRate2"]);
+                _paymentRate.NumberOfOvertime3 = Convert.ToInt16(odRdr["NumberOfOvertime3"]);
+                _paymentRate.OvertimeRate3 = Convert.ToInt16(odRdr["OvertimeRate3"]);
+                _paymentRate.NumberOfOvertime4 = Convert.ToInt16(odRdr["NumberOfOvertime4"]);
+                _paymentRate.OvertimeRate4 = Convert.ToInt16(odRdr["OvertimeRate4"]);
+                _paymentRate.DayTypeID = Convert.ToInt16(odRdr["DayTypeID"]);
+                _paymentRate.WorkingCalendarID = Convert.ToInt16(odRdr["WorkingCalendarID"]);
+            }
+
+            odRdr.Close();
+            return _paymentRate;
         }
 
         public PaymentRate GetNonWorkingDayPaymentRateByWorkingCalendar(int workingCalendarID)
         {
-            throw new NotImplementedException();
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("PaymentRate", "*", "WorkingCalendarID=@WorkingCalendarID AND DayTypeID=2", new object[] { "@WorkingCalendarID", workingCalendarID });
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+
+            PaymentRate _paymentRate = null;
+            if (odRdr.Read())
+            {
+                _paymentRate = new PaymentRate();
+
+                _paymentRate.ID = Convert.ToInt16(odRdr["ID"]);
+                _paymentRate.NumberOfRegularHours = Convert.ToInt16(odRdr["NumberOfRegularHours"]);
+                _paymentRate.RegularRate = Convert.ToInt16(odRdr["RegularRate"]);
+                _paymentRate.NumberOfOvertime1 = Convert.ToInt16(odRdr["NumberOfOvertime1"]);
+                _paymentRate.OvertimeRate1 = Convert.ToInt16(odRdr["OvertimeRate1"]);
+                _paymentRate.NumberOfOvertime2 = Convert.ToInt16(odRdr["NumberOfOvertime2"]);
+                _paymentRate.OvertimeRate2 = Convert.ToInt16(odRdr["OvertimeRate2"]);
+                _paymentRate.NumberOfOvertime3 = Convert.ToInt16(odRdr["NumberOfOvertime3"]);
+                _paymentRate.OvertimeRate3 = Convert.ToInt16(odRdr["OvertimeRate3"]);
+                _paymentRate.NumberOfOvertime4 = Convert.ToInt16(odRdr["NumberOfOvertime4"]);
+                _paymentRate.OvertimeRate4 = Convert.ToInt16(odRdr["OvertimeRate4"]);
+                _paymentRate.DayTypeID = Convert.ToInt16(odRdr["DayTypeID"]);
+                _paymentRate.WorkingCalendarID = Convert.ToInt16(odRdr["WorkingCalendarID"]);
+            }
+
+            odRdr.Close();
+            return _paymentRate;
         }
 
         public PaymentRate GetHolidayPaymentRateByWorkingCalendar(int workingCalendarID)
         {
-            throw new NotImplementedException();
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("PaymentRate", "*", "WorkingCalendarID=@WorkingCalendarID AND DayTypeID=3", new object[] { "@WorkingCalendarID", workingCalendarID });
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+
+            PaymentRate _paymentRate = null;
+            if (odRdr.Read())
+            {
+                _paymentRate = new PaymentRate();
+
+                _paymentRate.ID = Convert.ToInt16(odRdr["ID"]);
+                _paymentRate.NumberOfRegularHours = Convert.ToInt16(odRdr["NumberOfRegularHours"]);
+                _paymentRate.RegularRate = Convert.ToInt16(odRdr["RegularRate"]);
+                _paymentRate.NumberOfOvertime1 = Convert.ToInt16(odRdr["NumberOfOvertime1"]);
+                _paymentRate.OvertimeRate1 = Convert.ToInt16(odRdr["OvertimeRate1"]);
+                _paymentRate.NumberOfOvertime2 = Convert.ToInt16(odRdr["NumberOfOvertime2"]);
+                _paymentRate.OvertimeRate2 = Convert.ToInt16(odRdr["OvertimeRate2"]);
+                _paymentRate.NumberOfOvertime3 = Convert.ToInt16(odRdr["NumberOfOvertime3"]);
+                _paymentRate.OvertimeRate3 = Convert.ToInt16(odRdr["OvertimeRate3"]);
+                _paymentRate.NumberOfOvertime4 = Convert.ToInt16(odRdr["NumberOfOvertime4"]);
+                _paymentRate.OvertimeRate4 = Convert.ToInt16(odRdr["OvertimeRate4"]);
+                _paymentRate.DayTypeID = Convert.ToInt16(odRdr["DayTypeID"]);
+                _paymentRate.WorkingCalendarID = Convert.ToInt16(odRdr["WorkingCalendarID"]);
+            }
+
+            odRdr.Close();
+            return _paymentRate;
         }
 
         public List<Holiday> GetHolidayListByWorkingCalendar(int workingCalendarID)
         {
-            throw new NotImplementedException();
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Holiday", "*", "WorkingCalendarID=@WorkingCalendarID", new object[] { "@WorkingCalendarID", workingCalendarID });
+
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+            List<Holiday> _holidayList = new List<Holiday>();
+            Holiday _holiday = null;
+            while (odRdr.Read())
+            {
+                _holiday = new Holiday();
+
+                _holiday.ID = Convert.ToInt16(odRdr["ID"]);
+                _holiday.Date = Convert.ToDateTime(odRdr["Date"]);
+                _holiday.Description = odRdr["Description"].ToString();
+                _holiday.WorkingCalendarID = Convert.ToInt16(odRdr["WorkingCalendarID"]);
+
+                _holidayList.Add(_holiday);
+            }
+
+            odRdr.Close();
+            return _holidayList;
         }
 
         public PayPeriod GetPayPeriodByWorkingCalendar(int workingCalendarID)
@@ -1144,10 +1254,10 @@ namespace FaceIDAppVBEta.Data
 
         public bool UpdateWorkingCalendar(WorkingCalendar workingCalendar, List<Break> breakList, List<Holiday> holidayList, PaymentRate workingDayPaymentRate, PaymentRate nonWorkingDayPaymentRate, PaymentRate holidayPaymentRate, PayPeriod payPeriod)
         {
-            BeginTransaction();
+            //BeginTransaction();
 
-            try
-            {
+            //try
+            //{
                 //update pay period
                 PayPeriod oldPayPeriod = GetPayPeriod(workingCalendar.PayPeriodID);
 
@@ -1196,29 +1306,35 @@ namespace FaceIDAppVBEta.Data
                         throw new NullReferenceException();
                 }
 
-                //add payment rates
+                //update payment rates
+                if (DeletePaymentRate(GetWorkingDayPaymentRateByWorkingCalendar(workingCalendar.ID).ID) == false)
+                    throw new NullReferenceException();
                 workingDayPaymentRate.DayTypeID = 1; //working day
                 workingDayPaymentRate.WorkingCalendarID = workingCalendar.ID;
                 if (AddPaymentRate(workingDayPaymentRate) < 0)
                     throw new NullReferenceException();
-
+                
+                if (DeletePaymentRate(GetNonWorkingDayPaymentRateByWorkingCalendar(workingCalendar.ID).ID) == false)
+                    throw new NullReferenceException();
                 nonWorkingDayPaymentRate.DayTypeID = 2; //non working day
                 nonWorkingDayPaymentRate.WorkingCalendarID = workingCalendar.ID;
                 if (AddPaymentRate(nonWorkingDayPaymentRate) < 0)
                     throw new NullReferenceException();
 
+                if (DeletePaymentRate(GetHolidayPaymentRateByWorkingCalendar(workingCalendar.ID).ID) == false)
+                    throw new NullReferenceException();
                 holidayPaymentRate.DayTypeID = 3; //holiday
                 holidayPaymentRate.WorkingCalendarID = workingCalendar.ID;
                 if (AddPaymentRate(holidayPaymentRate) < 0)
                     throw new NullReferenceException();
 
-                CommitTransaction();
-            }
-            catch (Exception)
-            {
-                RollbackTransaction();
-                return false;
-            }
+                //CommitTransaction();
+            //}
+            //catch (Exception)
+            //{
+            //    RollbackTransaction();
+            //    return false;
+            //}
 
             return true;
         }
@@ -1310,9 +1426,27 @@ namespace FaceIDAppVBEta.Data
             throw new NotImplementedException();
         }
 
-        public PayPeriod GetPayPeriod(int p)
+        public PayPeriod GetPayPeriod(int payPeriodID)
         {
-            throw new NotImplementedException();
+            string strCommand = "SELECT * FROM PayPeriod WHERE ID = " + payPeriodID;
+
+            System.Data.OleDb.OleDbCommand odCom = dbConnection.CreateCommand();
+            odCom.CommandText += strCommand;
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+
+            PayPeriod payPeriod = null;
+            if (odRdr.Read())
+            {
+                payPeriod = new PayPeriod();
+
+                payPeriod.ID = Convert.ToInt16(odRdr["ID"]);
+                payPeriod.PayPeriodTypeID = Convert.ToInt16(odRdr["PayPeriodTypeID"]);
+                payPeriod.StartFrom = Convert.ToDateTime(odRdr["StartFrom"]);
+                payPeriod.CustomPeriod = Convert.ToInt16(odRdr["CustomPeriod"]);
+            }
+
+            odRdr.Close();
+            return payPeriod;
         }
 
         public bool DeleteWorkingCalendar(int workingCalendarID)
