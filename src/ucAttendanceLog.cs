@@ -122,9 +122,12 @@ namespace FaceIDAppVBEta
             int RcID = GetEditRecordID();
             if (RcID == -1)
                 return;
-
-            bool ors = dtCtrl.DeleteAttendanceRecord(RcID);
-            MessageBox.Show(ors ? "sucessfull" : "error");
+            DialogResult dlogRs = MessageBox.Show(Form.ActiveForm, "Are you sure?", "Confirm", MessageBoxButtons.YesNo);
+            if (dlogRs.ToString().Equals("Yes"))
+            {
+                bool ors = dtCtrl.DeleteAttendanceRecord(RcID);
+                MessageBox.Show(ors ? "sucessfull" : "error");
+            }
         }
 
         private void dataGridView1_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
