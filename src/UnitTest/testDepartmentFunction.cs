@@ -58,7 +58,7 @@ namespace FaceIDAppVBEta.UnitTest
             AddDepartment();
 
             Assert.Greater(_dtCtrl.GetDepartmentByCompany(com1.ID).Count, 0);
-            Assert.AreEqual(0, _dtCtrl.GetDepartmentByCompany(-1).Count);
+            Assert.AreEqual(0, _dtCtrl.GetDepartmentByCompany(-99).Count);
 
             DeleteDeparment();
         }
