@@ -946,7 +946,7 @@ namespace FaceIDAppVBEta.Data
                 wCalendar.RegularWorkingFrom = (DateTime)odRdr["RegularWorkingFrom"];
                 wCalendar.RegularWorkingTo = (DateTime)odRdr["RegularWorkingTo"];
 
-                wCalendarList.Add(wCalendar);
+               wCalendarList.Add(wCalendar);
             }
 
             odRdr.Close();
@@ -1197,17 +1197,17 @@ namespace FaceIDAppVBEta.Data
             return empls;
         }
 
-        public List<AttendanceLogReport> GetAttendanceRecordList_1(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate)
+        public List<AttendanceLogReport> GetAttendanceReportList(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate)
         {
-            List<string> empls = GetEmployeeNumberList(iCompany, iDepartment);
-            if (empls.Count == 0)
+            List<string> lEmplNumbers = GetEmployeeNumberList(iCompany, iDepartment);
+            if (lEmplNumbers.Count == 0)
                 return null;
-            string employeeNumberList = string.Join(",", empls.ToArray());
+            string sEmplNumbers = string.Join(",", lEmplNumbers.ToArray());
 
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("AttendanceReport as Att INNER JOIN Employee as Emp ON Att.EmployeeNumber = Emp.EmployeeNumber",
                 "Emp.EmployeeNumber, Emp.FirstName, Emp.LastName, Att.WorkFrom, Att.WorkTo, Att.RegularHour",
-                "Att.WorkFrom >=@Date_1 AND Att.WorkFrom <= @Date_2 AND Att.EmployeeNumber in(@Empl)", 
-                new object[] { "@Date_1", beginDate, "@Date_2", endDate, "@Empl", employeeNumberList });
+                "Att.WorkFrom >=@Date_1 AND Att.WorkFrom <= @Date_2 AND Att.EmployeeNumber in(" + sEmplNumbers + ")",
+                new object[] { "@Date_1", beginDate, "@Date_2", endDate });
 
             OleDbDataAdapter odApt = new OleDbDataAdapter(odCom);
             DataTable dtReport = new DataTable();
@@ -1289,8 +1289,8 @@ namespace FaceIDAppVBEta.Data
 
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("AttendanceRecord as Att INNER JOIN Employee as Emp ON Att.EmployeeNumber = Emp.EmployeeNumber", 
                 "Att.*, Emp.FirstName, Emp.LastName",
-                "Att.Time >=@Date_1 AND Att.Time <= @Date_2 AND Att.EmployeeNumber in(@Empl)",
-                new object[] { "@Date_1", beginDate, "@Date_2", endDate, "@Empl", sEmplNumbers });
+                "Att.Time >=@Date_1 AND Att.Time <= @Date_2 AND Att.EmployeeNumber in(" + sEmplNumbers + ")",
+                new object[] { "@Date_1", beginDate, "@Date_2", endDate});
             
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
             
@@ -1355,12 +1355,12 @@ namespace FaceIDAppVBEta.Data
                                 if (i % 2 == 0)
                                     totalTicks += attRds1[i + 1].Time.Ticks - attRds1[i].Time.Ticks;
                             }
-                            int totalHour = Convert.ToInt16(totalTicks / (3600000000));
+                            int totalHour = Convert.ToInt16(totalTicks / (36000000000));
                             lTotalHour.Add(new int[] { totalHour, attRds1.Count });
                         }
 
                         lNote.Add(attRd.Note);
-                        lInOutTime.Add(new object[] { attRd.ID, attRd.Time.Hour + ":" + attRd.Time.Minute });
+                        lInOutTime.Add(new object[] { attRd.ID, (attRd.Time.Hour > 10 ? attRd.Time.Hour.ToString() : "0" + attRd.Time.Hour) + ":" + (attRd.Time.Minute > 10 ? attRd.Time.Minute.ToString() : "0" + attRd.Time.Minute) });
                     }
                     attLogRecord.DateLog = lDateLog;
                     attLogRecord.InOutTime = lInOutTime;
