@@ -28,7 +28,7 @@ namespace FaceIDAppVBEta.UnitTest
         }
 
         [Test]
-        private void TestAddHoliday()
+        public void TestAddHoliday()
         {
             AddHoliday();
 
@@ -38,7 +38,7 @@ namespace FaceIDAppVBEta.UnitTest
         }
 
         [Test]
-        private void TestGetHolidayListByWorkingCalendar()
+        public void TestGetHolidayListByWorkingCalendar()
         {
             AddHoliday();
 
@@ -48,7 +48,7 @@ namespace FaceIDAppVBEta.UnitTest
         }
 
         [Test]
-        private void TestDeleteHoliday()
+        public void TestDeleteHoliday()
         {
             AddHoliday();
 
