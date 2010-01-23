@@ -107,6 +107,9 @@ namespace FaceIDAppVBEta.Data
         WorkingCalendar GetWorkingCalendarByEmployee(int employeeNumber);
         
         bool UpdateWorkingCalendar(WorkingCalendar workingCalendar, List<Break> breakList, List<Holiday> holidayList, PaymentRate workingDayPaymentRate, PaymentRate nonWorkingDayPaymentRate, PaymentRate holidayPaymentRate, PayPeriod payPeriod);
+
+        bool UpdateWorkingCalendar(WorkingCalendar wCal);
+
         PayPeriod GetPayPeriodByName(string payPeriodName);
 
         bool IsDuplicatedWorkingCalendarName(string name);
@@ -126,7 +129,6 @@ namespace FaceIDAppVBEta.Data
 
         bool DeletePayPeriod(int id);
 
-        bool UpdatePayPeriod(PayPeriod payPeriod);
         #endregion
 
         #region PayPeriodType
@@ -194,5 +196,6 @@ namespace FaceIDAppVBEta.Data
         #region Attendance Report
         DataTable GetAttendanceReport(int companyID, int departmentID, DateTime dtFrom, DateTime dtTo);
         #endregion Attendance Report
+
     }
 }

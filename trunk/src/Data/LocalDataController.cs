@@ -1741,11 +1741,6 @@ namespace FaceIDAppVBEta.Data
             throw new NotImplementedException();
         }
 
-        public bool UpdatePayPeriod(PayPeriod payPeriod)
-        {
-            throw new NotImplementedException();
-        }
-
         public int AddPayPeriodType(PayPeriodType payPeriodType)
         {
             throw new NotImplementedException();
@@ -1807,6 +1802,11 @@ namespace FaceIDAppVBEta.Data
         }
 
         public bool DeleteHoliday(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool UpdateWorkingCalendar(WorkingCalendar wCal)
         {
             throw new NotImplementedException();
         }
