@@ -126,15 +126,15 @@ namespace FaceIDAppVBEta.UnitTest
         }
 
         [Test]
-        public void TestIsDuplicatedWorkingCalendarName()
+        public void TestIsDuplicateWorkingCalendarName()
         {
             AddWCal();
 
-            Assert.AreEqual(true, _dtCtrl.IsDuplicatedWorkingCalendarName(wCal.Name));
-            Assert.AreEqual(false, _dtCtrl.IsDuplicatedWorkingCalendarName("Cal2"));
+            Assert.AreEqual(true, _dtCtrl.IsDuplicateWorkingCalendarName(wCal.Name));
+            Assert.AreEqual(false, _dtCtrl.IsDuplicateWorkingCalendarName("Cal2"));
 
-            Assert.AreEqual(false, _dtCtrl.IsDuplicatedWorkingCalendarName(wCal.Name, wCal.ID));
-            Assert.AreEqual(false, _dtCtrl.IsDuplicatedWorkingCalendarName("Cal2", wCal.ID));
+            Assert.AreEqual(false, _dtCtrl.IsDuplicateWorkingCalendarName(wCal.Name, wCal.ID));
+            Assert.AreEqual(false, _dtCtrl.IsDuplicateWorkingCalendarName("Cal2", wCal.ID));
 
             DelWCal();
         }

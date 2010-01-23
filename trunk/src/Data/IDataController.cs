@@ -112,9 +112,9 @@ namespace FaceIDAppVBEta.Data
 
         PayPeriod GetPayPeriodByName(string payPeriodName);
 
-        bool IsDuplicatedWorkingCalendarName(string name);
+        bool IsDuplicateWorkingCalendarName(string name);
 
-        bool IsDuplicatedWorkingCalendarName(string name, int workingCalendarID);
+        bool IsDuplicateWorkingCalendarName(string name, int workingCalendarID);
 
         bool DeleteWorkingCalendar(int workingCalendarID);
 
@@ -150,7 +150,7 @@ namespace FaceIDAppVBEta.Data
 
         bool UpdateBreak(Break _break);
 
-        List<Break> GetBreakByWorkingCalendar(int workingCalendarID);
+        List<Break> GetBreakListByWorkingCalendar(int workingCalendarID);
         #endregion
 
         #region PaymentRate
