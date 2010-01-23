@@ -686,7 +686,6 @@ namespace FaceIDAppVBEta
             nonWorkDayPaymentRate.OvertimeRate3 = (int)cbxNonWorkDayOvertimeRate3.SelectedValue;
             nonWorkDayPaymentRate.OvertimeRate4 = (int)cbxNonWorkDayOvertimeRate4.SelectedValue;
 
-
             holidayPaymentRate.NumberOfRegularHours = (int)nudHolidayRegularHour.Value;
             holidayPaymentRate.NumberOfOvertime1 = (int)nudHolidayOvertimeHour1.Value;
             holidayPaymentRate.NumberOfOvertime2 = (int)nudHolidayOvertimeHour2.Value;

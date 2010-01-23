@@ -86,31 +86,65 @@ namespace FaceIDAppVBEta.UnitTest
         [Test]
         public void TestGetEmployee()
         {
+            AddEmployee();
+
+            Assert.AreEqual(emp.EmployeeNumber, _dtCtrl.GetEmployee(emp.PayrollNumber).EmployeeNumber);
+            Assert.AreEqual(emp.FirstName, _dtCtrl.GetEmployee(emp.PayrollNumber).FirstName);
+
+            DeleteEmployee();
         }
 
         [Test]
         public void TestGetEmployeeList()
         {
+            AddEmployee();
+
+            Assert.Greater(_dtCtrl.GetEmployeeList(com.ID).Count, 0);
+
+            DeleteEmployee();
         }
 
         [Test]
         public void TestGetEmployeeListByDep()
         {
+            AddEmployee();
+
+            Assert.AreEqual(_dtCtrl.GetEmployeeListByDep(dep.ID).Count, 1);
+
+            DeleteEmployee();
         }
 
         [Test]
         public void TestIsExistEmployeeNumber()
         {
+            AddEmployee();
+
+            Assert.AreEqual(true, _dtCtrl.IsExistEmployeeNumber(emp.EmployeeNumber));
+
+            DeleteEmployee();
         }
 
         [Test]
         public void TestUpdateEmployee()
         {
+            AddEmployee();
+
+            emp.FirstName += "'";
+            Assert.AreEqual(true, _dtCtrl.UpdateEmployee(emp));
+            Assert.AreEqual(emp.FirstName, _dtCtrl.GetEmployee(emp.PayrollNumber).FirstName);
+
+            DeleteEmployee();
         }
 
         [Test]
         public void TestDeleteEmployee()
         {
+            AddEmployee();
+
+            Assert.AreEqual(true, _dtCtrl.DeleteEmployee(emp.PayrollNumber));
+            Assert.AreEqual(null, _dtCtrl.GetEmployee(emp.PayrollNumber));
+
+            DeleteEmployee();
         }
     }
 }
