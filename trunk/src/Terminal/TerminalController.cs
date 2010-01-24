@@ -8,10 +8,11 @@ using System.Drawing;
 
 namespace FaceIDAppVBEta
 {
-    public class TerminalController : Form, ITerminalControlller
+    public class TerminalController : Form, ITerminalController
     {
         [DllImport("HDCP_Utils.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
         private static extern string HDCP_Base64Decode(string pInputInfo, ref uint pSizeInput);
+
         [DllImport("HwDevComm.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
         private static extern int HwDev_Execute(string pDevInfoBuf, int nDevInfoLen, 
                                                string pSendBuf, int nSendLen,
@@ -20,9 +21,11 @@ namespace FaceIDAppVBEta
 
         private delegate int CallBack(int total, int nDone);
 
-        private int HwDev_Execute(string deviceInfo, string command, ref IntPtr result, ref uint resultLength, CallBack function)
+        private int HwDev_Execute(string deviceInfo, string command, ref IntPtr result)
         {
-            return HwDev_Execute(deviceInfo, deviceInfo.Length, command, command.Length, ref result, ref resultLength, function);
+            uint resultLength = 0;
+
+            return HwDev_Execute(deviceInfo, deviceInfo.Length, command, command.Length, ref result, ref resultLength, null);
         }
 
         private string GetDeviceInfoStr(Terminal terminal)
@@ -30,75 +33,93 @@ namespace FaceIDAppVBEta
             return "DeviceInfo( dev_id = \"" + terminal.ID + "\" dev_type = \"HW_HDCP\" comm_type = \"ip\" ip_address = \"" + terminal.IPAddress + "\" )";
         }
 
+        private string GetSetEmployeeCmdStr(Employee employee)
+        {
+            string cmd = "SetEmployee(id=\"" + employee.PayrollNumber + "\" name=\"" + employee.FirstName + "\" calid=\"\" card_num=\"0Xffffffff\" authority=\"0X0\" check_type=\"face\" opendoor_type=\"face\"";
+
+            //load face_data
+
+            cmd += ")";
+
+            return cmd;
+        }
+
+        private string ConvertToDateTimeString(DateTime dt)
+        {
+            return dt.Year + "-" + dt.Month + "-" + dt.Day + " " + dt.Hour + ":" + dt.Minute + ":" + dt.Second;
+        }
+
+        private bool IsSuccess(string result)
+        {
+            return result.ToLower().IndexOf("success") > 0;
+        }
+
+        private bool IsSuccess(IntPtr result)
+        {
+            return IsSuccess(Marshal.PtrToStringAnsi(result));
+        }
+
+        #region ITerminalControlller Members
+
         public List<AttendanceRecord> GetAttendanceRecord(Terminal terminal, DateTime dtFrom, DateTime dtTo)
         {
             string devInfo = GetDeviceInfoStr(terminal);
 
-            string command = "GetRecord(start_time=\"2005-11-1 0:0:0\" end_time=\"2015-11-30 24:00:00\")";
+            string command = "GetRecord(start_time=\"" + ConvertToDateTimeString(dtFrom) + "\" end_time=\"" + ConvertToDateTimeString(dtTo) + "\")";
             IntPtr result = IntPtr.Zero;
-            uint resLen = 0;
 
-            HwDev_Execute(devInfo, command, ref result, ref resLen, null);
+            HwDev_Execute(devInfo, command, ref result);
 
             MessageBox.Show(Marshal.PtrToStringAnsi(result));
-
-            //string[] str = Marshal.PtrToStringAnsi(result).Split("time");
 
             return null;
         }
 
-        public bool AddEmployee(Terminal terminal, Employee employee)
+        public bool AddUpdateEmployee(Terminal terminal, Employee employee)
         {
-            string employeeData = "id=\"2\" name=\"aaa\" calid=\"123\" card_num=\"0Xffffffff\" authority=\"0X0\" check_type=\"face\"opendoor_type=\"face\")";
-
-            string cmdStr = "SetEmployee(";
-            cmdStr = cmdStr + employeeData;
-
             string devInfo = GetDeviceInfoStr(terminal);
-            string command = "SetEmployee(id=\"1\" name=\"minh2\" calid=\"\" card_num=\"0Xffffffff\" authority=\"0X0\" check_type=\"face\" opendoor_type=\"face\")";
+            string command = GetSetEmployeeCmdStr(employee);
 
             IntPtr result = IntPtr.Zero;
-            uint resLen = 0;
+            HwDev_Execute(devInfo, command, ref result);
 
-            HwDev_Execute(devInfo, command, ref result, ref resLen, null);
-
-            MessageBox.Show(command.Length.ToString());
-            MessageBox.Show(Marshal.PtrToStringAnsi(result));
-
-            return true;
+            return IsSuccess(result);
         }
 
-        public bool GetEmployee(Terminal terminal, int employeeID)
+        public Employee GetEmployee(Terminal terminal, int employeeID)
         {
             string devInfo = GetDeviceInfoStr(terminal);
             string command = "GetEmployee(id=\"" + employeeID + "\")";
             IntPtr result = IntPtr.Zero;
-            uint resLen = 0;
 
-            HwDev_Execute(devInfo, command, ref result, ref resLen, null);
+            HwDev_Execute(devInfo, command, ref result);
 
             MessageBox.Show(Marshal.PtrToStringAnsi(result));
 
-            return true;
+            return null;
         }
 
-        public void SavePic(string strPath, string strPicName, string strResult)
+        public bool DeleteAttendanceRecord(Terminal terminal)
         {
-            const string strPhoto = "photo=\"";
-            int nStart = strResult.IndexOf(strPhoto) + strPhoto.Length;
-            int nCount = strResult.Length - nStart;
-            string strPhotoInfo = strResult.Substring(nStart);
-            int nEnd = strPhotoInfo.IndexOf("\"");
-            //strPhotoInfo = strPhotoInfo.Substring(0, nEnd);
-            strPhotoInfo = strPhotoInfo.Replace('<', '/');
-            string strPathandName;
-            strPathandName = strPath + "\\" + strPicName;
+            string devInfo = GetDeviceInfoStr(terminal);
+            string command = "DeleteRecord()";
+            IntPtr result = IntPtr.Zero;
 
-            byte[] bs = Convert.FromBase64String(strPhotoInfo);
-            System.IO.MemoryStream memoryStream = new System.IO.MemoryStream(bs);
-            Bitmap b = new Bitmap(memoryStream);
-            b.Save(strPathandName, System.Drawing.Imaging.ImageFormat.Jpeg);
-            memoryStream.Close();
+            HwDev_Execute(devInfo, command, ref result);
+
+            return IsSuccess(result);
         }
+
+        public List<Employee> GetAllEmployee(Terminal terminal)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool RemoveEmployee(Terminal terminal, Employee employee)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }

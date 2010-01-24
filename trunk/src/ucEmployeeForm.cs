@@ -129,7 +129,7 @@ namespace FaceIDAppVBEta
                 Employee employee = employees[e.RowIndex];
                 
                 e.FormattingApplied = true;
-                e.Value = string.Format("{0}, {1}", employee.FirstName, employee.LastName);
+                e.Value = string.Format("{0}, {1}", employee.LastName, employee.FirstName);
             }
             else if (e.ColumnIndex == dgvEmpl.Columns["Terminal"].Index)
             {
