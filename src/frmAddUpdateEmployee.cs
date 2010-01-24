@@ -144,7 +144,6 @@ namespace FaceIDAppVBEta
             if (employee == null)
                 return;
 
-            employee.PhotoData = "";
             employee.ActiveFrom = DateTime.Now;
             employee.Active = true;
 
