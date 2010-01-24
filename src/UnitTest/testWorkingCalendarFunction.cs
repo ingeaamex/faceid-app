@@ -58,7 +58,6 @@ namespace FaceIDAppVBEta.UnitTest
             emp.LeftDate = DateTime.Today.AddYears(1);
             emp.LastName = DateTime.Now.Ticks.ToString();
             emp.PhoneNumber = DateTime.Now.Ticks.ToString(); ;
-            emp.PhotoData = DateTime.Now.Ticks.ToString(); ;
             emp.WorkingCalendarID = wCal.ID;
             emp.PayrollNumber = _dtCtrl.AddEmployee(emp);
         }

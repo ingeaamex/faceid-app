@@ -51,6 +51,8 @@ namespace FaceIDAppVBEta.Data
 
         Employee GetEmployee(int employeeId);
 
+        List<Employee> GetEmployeeList();
+
         List<Employee> GetEmployeeList(int compantId, int departmentId);
 
         bool IsExistEmployeeNumber(int employeeNumber);
@@ -60,6 +62,10 @@ namespace FaceIDAppVBEta.Data
         bool DeleteEmployee(int employeeId);
 
         bool UpdateEmployee(Employee employee);
+
+        bool IsNewEmployee(Employee employee);
+
+        List<Employee> GetEmployeeListByTerminal(int terminalID);
 
         #endregion Employee
 
@@ -73,17 +79,17 @@ namespace FaceIDAppVBEta.Data
 
         #region EmployeeTerminal
 
-        List<Terminal> GetTerminalsByEmpl(int employeeNumber);
+        List<Terminal> GetTerminalListByEmployee(int employeeNumber);
 
-        List<EmployeeTerminal> GetEmplTerminalList();
+        List<EmployeeTerminal> GetEmployeeTerminalList();
 
-        int AddEmplTerminal(List<EmployeeTerminal> emplTerminals);
+        int AddEmployeeTerminal(List<EmployeeTerminal> emplTerminals);
 
-        bool DeleteEmplTerminalByEmpl(int employeeNumber);
+        bool DeleteEmployeeTerminalByEmployee(int employeeNumber);
 
-        bool DeleteEmplTerminal(int terminalID);
+        bool DeleteEmployeeTerminal(int terminalID);
 
-        bool UpdateEmplTerminal(List<Terminal> terminals, int employeeNumber);
+        bool UpdateEmployeeTerminal(List<Terminal> terminals, int employeeNumber);
 
         #endregion EmployeeTerminal
 

@@ -167,7 +167,7 @@ namespace FaceIDAppVBEta
             {
                 dtCtrl.BeginTransaction();
                 bool brs1 = dtCtrl.DeleteTerminal((int)oId);
-                bool brs2 = dtCtrl.DeleteEmplTerminal((int)oId);
+                bool brs2 = dtCtrl.DeleteEmployeeTerminal((int)oId);
                 if (brs1 && brs2)
                 {
                     dtCtrl.CommitTransaction();

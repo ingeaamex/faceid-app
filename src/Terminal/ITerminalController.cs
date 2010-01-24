@@ -10,9 +10,11 @@ namespace FaceIDAppVBEta
         List<AttendanceRecord> GetAttendanceRecord(Terminal terminal, DateTime dtFrom, DateTime dtTo);
         bool DeleteAttendanceRecord(Terminal terminal);
 
-        bool AddUpdateEmployee(Terminal terminal, Employee employee);
+        bool UpdateEmployee(Terminal terminal, Employee employee);
         bool RemoveEmployee(Terminal terminal, Employee employee);
         Employee GetEmployee(Terminal terminal, int employeeID);
         List<Employee> GetAllEmployee(Terminal terminal);
+
+        bool IsTerminalConnected(Terminal terminal);
     }
 }

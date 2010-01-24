@@ -26,7 +26,7 @@ namespace FaceIDAppVBEta.UnitTest
             Company com = _dtCtrl.GetCompany(dep.CompanyID);
             emp = _dtCtrl.GetEmployeeList(com.ID, dep.ID)[0];
 
-            _terCtrl.AddUpdateEmployee(ter, emp);
+            _terCtrl.UpdateEmployee(ter, emp);
         }
 
         private void CleanUp()
@@ -60,7 +60,7 @@ namespace FaceIDAppVBEta.UnitTest
         {
             SetUp();
 
-            Assert.AreEqual(true, _terCtrl.AddUpdateEmployee(ter, emp));
+            Assert.AreEqual(true, _terCtrl.UpdateEmployee(ter, emp));
             Assert.AreEqual(emp.FirstName, _terCtrl.GetEmployee(ter, emp.PayrollNumber).FirstName);
 
             CleanUp();
