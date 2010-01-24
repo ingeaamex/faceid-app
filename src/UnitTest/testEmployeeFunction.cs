@@ -47,6 +47,7 @@ namespace FaceIDAppVBEta.UnitTest
             //wCal.ID = _dtCtrl.AddWorkingCalendar(wCal, breakList, holidayList, workingDayPaymentRate, nonWorkingDayPaymentRate, holidayPaymentRate, payPeriod);
 
             dep = _dtCtrl.GetDepartmentList()[0];
+            com = _dtCtrl.GetCompany(dep.CompanyID);
             wCal = _dtCtrl.GetWorkingCalendarList()[0];
 
             Employee emp = new Employee();
@@ -56,7 +57,7 @@ namespace FaceIDAppVBEta.UnitTest
             emp.Address = DateTime.Now.Ticks.ToString();
             emp.Birthday = DateTime.Today.AddYears(-20);
             emp.DepartmentID = dep.ID;
-            emp.EmployeeNumber = 1;
+            emp.EmployeeNumber = 999;
             emp.FirstName = DateTime.Now.Ticks.ToString();
             emp.HiredDate = DateTime.Today;
             emp.LeftDate = DateTime.Today.AddYears(1);
@@ -102,17 +103,7 @@ namespace FaceIDAppVBEta.UnitTest
         {
             AddEmployee();
 
-            Assert.Greater(_dtCtrl.GetEmployeeList(com.ID).Count, 0);
-
-            DeleteEmployee();
-        }
-
-        [Test]
-        public void TestGetEmployeeListByDep()
-        {
-            AddEmployee();
-
-            Assert.AreEqual(true, _dtCtrl.GetEmployeeListByDep(dep.ID).Contains(emp));
+            Assert.Greater(_dtCtrl.GetEmployeeList(com.ID, dep.ID).Count, 0);
 
             DeleteEmployee();
         }
