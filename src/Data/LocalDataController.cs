@@ -493,9 +493,9 @@ namespace FaceIDAppVBEta.Data
 
             System.Data.OleDb.OleDbCommand odCom;
             if (departmentId > 0)
-                odCom = BuildSelectCmd("Employee", "*", "DepartmentID=@ID AND Active=true", "@ID", departmentId);
+                odCom = BuildSelectCmd("Employee", "*", "DepartmentID=@ID AND Active=TRUE", "@ID", departmentId);
             if (compantId > 0)
-                odCom = BuildSelectCmd("Employee", "*", " DepartmentID in (SELECT ID FROM Department WHERE CompanyID=@ID) AND Active=true", new object[] { "@ID", compantId });
+                odCom = BuildSelectCmd("Employee", "*", "DepartmentID in (SELECT ID FROM Department WHERE CompanyID=@ID) AND Active=true", new object[] { "@ID", compantId });
             else
                 odCom = BuildSelectCmd("Employee", "*", "Active=true");
 
@@ -2284,6 +2284,28 @@ namespace FaceIDAppVBEta.Data
             System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("FaceData", "ID=@ID", new object[] { "@ID", id });
             return odCom1.ExecuteNonQuery() > 0 ? true : false;
         }
+
+        public List<FaceData> GetFaceDataListByEmployee(Employee employee)
+        {
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("FaceData", "*", "PayrollNumber=@PayrollNumber", new object[] { "@PayrollNumber", employee.PayrollNumber });
+
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+            List<FaceData> _faceDataList = new List<FaceData>();
+            FaceData _faceData = null;
+            while (odRdr.Read())
+            {
+                _faceData = new FaceData();
+
+                _faceData.ID = Convert.ToInt16(odRdr["ID"]);
+                _faceData.PayrollNumber = Convert.ToInt16(odRdr["PayrollNumber"]);
+                _faceData.Data = odRdr["Data"].ToString();
+
+                _faceDataList.Add(_faceData);
+            }
+
+            odRdr.Close();
+            return _faceDataList;
+        }
         #endregion
 
         #region IDataController Members
@@ -2518,35 +2540,7 @@ namespace FaceIDAppVBEta.Data
 
         public List<Employee> GetEmployeeList()
         {
-            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Employee", "*", null);
-            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
-            List<Employee> _employeeList = new List<Employee>();
-            Employee _employee = null;
-            while (odRdr.Read())
-            {
-                _employee = new Employee();
-
-                _employee.PayrollNumber = Convert.ToInt16(odRdr["PayrollNumber"]);
-                _employee.EmployeeNumber = Convert.ToInt16(odRdr["EmployeeNumber"]);
-                _employee.DepartmentID = Convert.ToInt16(odRdr["DepartmentID"]);
-                _employee.FirstName = odRdr["FirstName"].ToString();
-                _employee.LastName = odRdr["LastName"].ToString();
-                _employee.WorkingCalendarID = Convert.ToInt16(odRdr["WorkingCalendarID"]);
-                _employee.HiredDate = Convert.ToDateTime(odRdr["HiredDate"]);
-                _employee.LeftDate = Convert.ToDateTime(odRdr["LeftDate"]);
-                _employee.Birthday = Convert.ToDateTime(odRdr["Birthday"]);
-                _employee.JobDescription = odRdr["JobDescription"].ToString();
-                _employee.PhoneNumber = odRdr["PhoneNumber"].ToString();
-                _employee.Address = odRdr["Address"].ToString();
-                _employee.Active = Convert.ToBoolean(odRdr["Active"]);
-                _employee.ActiveFrom = Convert.ToDateTime(odRdr["ActiveFrom"]);
-                _employee.ActiveTo = Convert.ToDateTime(odRdr["ActiveTo"]);
-
-                _employeeList.Add(_employee);
-            }
-
-            odRdr.Close();
-            return _employeeList;
+            return GetEmployeeList(-1, -1);
         }
 
         public List<Employee> GetEmployeeListByTerminal(int terminalID)

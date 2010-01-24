@@ -211,6 +211,8 @@ namespace FaceIDAppVBEta.Data
         bool DeleteFaceData(int id);
 
         bool UpdateFaceData(FaceData _faceData);
+
+        List<FaceData> GetFaceDataListByEmployee(Employee employee);
         #endregion
     }
 }

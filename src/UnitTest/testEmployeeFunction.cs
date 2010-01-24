@@ -59,6 +59,7 @@ namespace FaceIDAppVBEta.UnitTest
             emp.DepartmentID = dep.ID;
             emp.EmployeeNumber = 999;
             emp.FirstName = DateTime.Now.Ticks.ToString();
+            emp.JobDescription = DateTime.Now.Ticks.ToString();
             emp.HiredDate = DateTime.Today;
             emp.LeftDate = DateTime.Today.AddYears(1);
             emp.LastName = DateTime.Now.Ticks.ToString();

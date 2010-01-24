@@ -21,5 +21,23 @@ namespace FaceIDAppVBEta.Class
         public bool Active { get; set; }
         public DateTime ActiveFrom { get; set; }
         public DateTime ActiveTo { get; set; }
+        public string FaceData1 { get; set; }
+        public string FaceData2 { get; set; }
+        public string FaceData3 { get; set; }
+        public string FaceData4 { get; set; }
+        public string FaceData5 { get; set; }
+        public string FaceData6 { get; set; }
+        public string FaceData7 { get; set; }
+        public string FaceData8 { get; set; }
+        public string FaceData9 { get; set; }
+        public string FaceData10 { get; set; }
+        public string FaceData11 { get; set; }
+        public string FaceData12 { get; set; }
+        public string FaceData13 { get; set; }
+        public string FaceData14 { get; set; }
+        public string FaceData15 { get; set; }
+        public string FaceData16 { get; set; }
+        public string FaceData17 { get; set; }
+        public string FaceData18 { get; set; }
     }
 }
