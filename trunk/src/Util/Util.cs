@@ -7,6 +7,30 @@ namespace FaceIDAppVBEta
 {
     public static class Util
     {
+        public static Config GetConfig()
+        {
+            System.Data.DataSet dataConfig = new System.Data.DataSet();
+            try
+            {
+                dataConfig.ReadXmlSchema("config.xml");
+            }
+            catch
+            {
+                return null;
+            }
+
+            System.Xml.XmlDataDocument xmldoc = new System.Xml.XmlDataDocument(dataConfig);
+            xmldoc.Load("config.xml");
+            System.Data.DataTable tblDB = dataConfig.Tables[0];
+            Config config = null;
+            if (tblDB.Rows.Count > 0)
+            {
+                config = new Config();
+                config.DatabasePath = tblDB.Rows[0][0].ToString();
+            }
+            return config;
+        }
+
         public static bool Confirm(string message)
         {
             return (System.Windows.Forms.MessageBox.Show(message, "Confirm!", System.Windows.Forms.MessageBoxButtons.YesNo, System.Windows.Forms.MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes);
@@ -80,13 +104,13 @@ namespace FaceIDAppVBEta
 
         internal static void SetComboboxSelectedByValue(System.Windows.Forms.ComboBox cbx, object value)
         {
-            for (int i = 0; i < cbx.Items.Count; i++)
-            {
-                if (((Rate)cbx.Items[i]).Value == Convert.ToDouble(value))
-                {
-                    cbx.SelectedIndex = i;
-                }
-            }
+            //for (int i = 0; i < cbx.Items.Count; i++)
+            //{
+            //    if (((Rate)cbx.Items[i]).Value == Convert.ToDouble(value))
+            //    {
+            //        cbx.SelectedIndex = i;
+            //    }
+            //}
         }
 
         internal static DateTime GetTheFirstDayOfCurrentMonth()
