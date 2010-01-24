@@ -18,7 +18,6 @@ namespace FaceIDAppVBEta.Class
         public string JobDescription { get; set; }
         public string PhoneNumber { get; set; }
         public string Address { get; set; }
-        public string PhotoData { get; set; }
         public bool Active { get; set; }
         public DateTime ActiveFrom { get; set; }
         public DateTime ActiveTo { get; set; }
