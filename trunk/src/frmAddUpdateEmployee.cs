@@ -322,21 +322,10 @@ namespace FaceIDAppVBEta
 
         public void SetTerminalValues(List<Terminal> terminals)
         {
-            ListBox.ObjectCollection objc = lbxTerminal.Items;
-            bool isExist = false;
+            lbxTerminal.Items.Clear();
             foreach (Terminal terminal in terminals)
             {
-                isExist = false;
-                foreach (Object o in objc)
-                {
-                    if (((Terminal)o).ID == terminal.ID)
-                    {
-                        isExist = true;
-                        break;
-                    }
-                }
-                if (!isExist)
-                    lbxTerminal.Items.Add(terminal);
+                lbxTerminal.Items.Add(terminal);
             }
         }
 

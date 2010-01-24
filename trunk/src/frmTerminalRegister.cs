@@ -83,9 +83,9 @@ namespace FaceIDAppVBEta
         private void btnRemoveTerminal_Click(object sender, EventArgs e)
         {
             ListBox.SelectedObjectCollection items = lbxRegTerminal.SelectedItems;
-            for (int i = 0; i < items.Count; i++)
+            while (items.Count > 0)
             {
-                lbxRegTerminal.Items.Remove(items[i]);
+                lbxRegTerminal.Items.Remove(items[0]);
             }
         }
 

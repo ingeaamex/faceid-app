@@ -34,9 +34,15 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvEmpl = new System.Windows.Forms.DataGridView();
+            this.EmployeeNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cMnSaction = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.EmployeeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.JobDesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WorkingCalendar = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.PayrollNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Terminal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btPrint = new System.Windows.Forms.Button();
             this.btNewEmpl = new System.Windows.Forms.Button();
             this.btView = new System.Windows.Forms.Button();
@@ -44,12 +50,6 @@
             this.cbDepartment = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.EmployeeNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EmployeeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.JobDesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.WorkingCalendar = new System.Windows.Forms.DataGridViewLinkColumn();
-            this.PayrollNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Terminal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmpl)).BeginInit();
             this.cMnSaction.SuspendLayout();
             this.SuspendLayout();
@@ -84,6 +84,16 @@
             this.dgvEmpl.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvEmpl_CellFormatting);
             this.dgvEmpl.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmpl_CellMouseEnter);
             // 
+            // EmployeeNumber
+            // 
+            this.EmployeeNumber.ContextMenuStrip = this.cMnSaction;
+            this.EmployeeNumber.DataPropertyName = "EmployeeNumber";
+            dataGridViewCellStyle1.NullValue = null;
+            this.EmployeeNumber.DefaultCellStyle = dataGridViewCellStyle1;
+            this.EmployeeNumber.HeaderText = "EmployeeNumber";
+            this.EmployeeNumber.Name = "EmployeeNumber";
+            this.EmployeeNumber.ReadOnly = true;
+            // 
             // cMnSaction
             // 
             this.cMnSaction.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -106,6 +116,53 @@
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
+            // EmployeeName
+            // 
+            this.EmployeeName.ContextMenuStrip = this.cMnSaction;
+            dataGridViewCellStyle2.Format = "{0} {1}";
+            dataGridViewCellStyle2.NullValue = null;
+            this.EmployeeName.DefaultCellStyle = dataGridViewCellStyle2;
+            this.EmployeeName.HeaderText = "Name";
+            this.EmployeeName.Name = "EmployeeName";
+            this.EmployeeName.ReadOnly = true;
+            // 
+            // JobDesc
+            // 
+            this.JobDesc.ContextMenuStrip = this.cMnSaction;
+            this.JobDesc.DataPropertyName = "JobDescription";
+            this.JobDesc.HeaderText = "Job Description";
+            this.JobDesc.Name = "JobDesc";
+            this.JobDesc.ReadOnly = true;
+            // 
+            // WorkingCalendar
+            // 
+            this.WorkingCalendar.DataPropertyName = "WorkingCalendarID";
+            dataGridViewCellStyle3.NullValue = null;
+            this.WorkingCalendar.DefaultCellStyle = dataGridViewCellStyle3;
+            this.WorkingCalendar.HeaderText = "Working Calendar";
+            this.WorkingCalendar.Name = "WorkingCalendar";
+            this.WorkingCalendar.ReadOnly = true;
+            this.WorkingCalendar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.WorkingCalendar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.WorkingCalendar.Text = "View";
+            this.WorkingCalendar.UseColumnTextForLinkValue = true;
+            // 
+            // PayrollNumber
+            // 
+            this.PayrollNumber.ContextMenuStrip = this.cMnSaction;
+            this.PayrollNumber.DataPropertyName = "PayrollNumber";
+            this.PayrollNumber.HeaderText = "Payroll Number";
+            this.PayrollNumber.Name = "PayrollNumber";
+            this.PayrollNumber.ReadOnly = true;
+            // 
+            // Terminal
+            // 
+            this.Terminal.ContextMenuStrip = this.cMnSaction;
+            this.Terminal.DataPropertyName = "EmployeeNumber";
+            this.Terminal.HeaderText = "Terminal Registered";
+            this.Terminal.Name = "Terminal";
+            this.Terminal.ReadOnly = true;
+            // 
             // btPrint
             // 
             this.btPrint.Location = new System.Drawing.Point(51, 271);
@@ -124,6 +181,7 @@
             this.btNewEmpl.TabIndex = 3;
             this.btNewEmpl.Text = "Add New Employee";
             this.btNewEmpl.UseVisualStyleBackColor = true;
+            this.btNewEmpl.Visible = false;
             this.btNewEmpl.Click += new System.EventHandler(this.btNewEmpl_Click);
             // 
             // btView
@@ -176,63 +234,6 @@
             this.label3.Size = new System.Drawing.Size(62, 13);
             this.label3.TabIndex = 8;
             this.label3.Text = "Department";
-            // 
-            // EmployeeNumber
-            // 
-            this.EmployeeNumber.ContextMenuStrip = this.cMnSaction;
-            this.EmployeeNumber.DataPropertyName = "EmployeeNumber";
-            dataGridViewCellStyle1.NullValue = null;
-            this.EmployeeNumber.DefaultCellStyle = dataGridViewCellStyle1;
-            this.EmployeeNumber.HeaderText = "EmployeeNumber";
-            this.EmployeeNumber.Name = "EmployeeNumber";
-            this.EmployeeNumber.ReadOnly = true;
-            // 
-            // EmployeeName
-            // 
-            this.EmployeeName.ContextMenuStrip = this.cMnSaction;
-            dataGridViewCellStyle2.Format = "{0} {1}";
-            dataGridViewCellStyle2.NullValue = null;
-            this.EmployeeName.DefaultCellStyle = dataGridViewCellStyle2;
-            this.EmployeeName.HeaderText = "Name";
-            this.EmployeeName.Name = "EmployeeName";
-            this.EmployeeName.ReadOnly = true;
-            // 
-            // JobDesc
-            // 
-            this.JobDesc.ContextMenuStrip = this.cMnSaction;
-            this.JobDesc.DataPropertyName = "JobDescription";
-            this.JobDesc.HeaderText = "Job Description";
-            this.JobDesc.Name = "JobDesc";
-            this.JobDesc.ReadOnly = true;
-            // 
-            // WorkingCalendar
-            // 
-            this.WorkingCalendar.DataPropertyName = "WorkingCalendarID";
-            dataGridViewCellStyle3.NullValue = null;
-            this.WorkingCalendar.DefaultCellStyle = dataGridViewCellStyle3;
-            this.WorkingCalendar.HeaderText = "Working Calendar";
-            this.WorkingCalendar.Name = "WorkingCalendar";
-            this.WorkingCalendar.ReadOnly = true;
-            this.WorkingCalendar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.WorkingCalendar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.WorkingCalendar.Text = "View";
-            this.WorkingCalendar.UseColumnTextForLinkValue = true;
-            // 
-            // PayrollNumber
-            // 
-            this.PayrollNumber.ContextMenuStrip = this.cMnSaction;
-            this.PayrollNumber.DataPropertyName = "PayrollNumber";
-            this.PayrollNumber.HeaderText = "Payroll Number";
-            this.PayrollNumber.Name = "PayrollNumber";
-            this.PayrollNumber.ReadOnly = true;
-            // 
-            // Terminal
-            // 
-            this.Terminal.ContextMenuStrip = this.cMnSaction;
-            this.Terminal.DataPropertyName = "EmployeeNumber";
-            this.Terminal.HeaderText = "Terminal Registered";
-            this.Terminal.Name = "Terminal";
-            this.Terminal.ReadOnly = true;
             // 
             // ucEmployeeForm
             // 
