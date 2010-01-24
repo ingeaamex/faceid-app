@@ -80,5 +80,11 @@ namespace FaceIDAppVBEta
             sctMain.Panel2.Controls.Clear();
             sctMain.Panel2.Controls.Add(new ucUserManagment());
         }
+
+        private void configToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            sctMain.Panel2.Controls.Clear();
+            sctMain.Panel2.Controls.Add(new ucConfigForm());
+        }
     }
 }
