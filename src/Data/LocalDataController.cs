@@ -70,7 +70,10 @@ namespace FaceIDAppVBEta.Data
         {
             if (dbConnection == null)
             {
-                string connectionString = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";
+                Config config = Util.GetConfig();
+                if (config == null)
+                    throw new Exception();
+                string connectionString = @"Provider=Microsoft.JET.OLEDB.4.0;data source=" + config.DatabasePath;
                 dbConnection = new OleDbConnection(connectionString);
             }
             if (dbConnection.State != ConnectionState.Open)
@@ -2492,7 +2495,5 @@ namespace FaceIDAppVBEta.Data
         }
 
         #endregion
-
-
     }
 }
