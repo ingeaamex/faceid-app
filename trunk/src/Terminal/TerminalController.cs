@@ -75,7 +75,7 @@ namespace FaceIDAppVBEta
             return null;
         }
 
-        public bool AddUpdateEmployee(Terminal terminal, Employee employee)
+        public bool UpdateEmployee(Terminal terminal, Employee employee)
         {
             string devInfo = GetDeviceInfoStr(terminal);
             string command = GetSetEmployeeCmdStr(employee);
@@ -118,6 +118,14 @@ namespace FaceIDAppVBEta
         public bool RemoveEmployee(Terminal terminal, Employee employee)
         {
             throw new NotImplementedException();
+        }
+
+        public bool IsTerminalConnected(Terminal terminal)
+        {
+            System.Net.NetworkInformation.Ping pinger = new System.Net.NetworkInformation.Ping();
+            System.Net.NetworkInformation.PingReply pingReply = pinger.Send(terminal.IPAddress);
+
+            return pingReply.Status == System.Net.NetworkInformation.IPStatus.Success;
         }
 
         #endregion

@@ -50,6 +50,8 @@
             this.cbDepartment = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.btnGetEmployeeFromTerminal = new System.Windows.Forms.Button();
+            this.btnSendEmployeeToTerminal = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmpl)).BeginInit();
             this.cMnSaction.SuspendLayout();
             this.SuspendLayout();
@@ -100,19 +102,19 @@
             this.updateToolStripMenuItem,
             this.deleteToolStripMenuItem});
             this.cMnSaction.Name = "cMnSaction";
-            this.cMnSaction.Size = new System.Drawing.Size(113, 48);
+            this.cMnSaction.Size = new System.Drawing.Size(110, 48);
             // 
             // updateToolStripMenuItem
             // 
             this.updateToolStripMenuItem.Name = "updateToolStripMenuItem";
-            this.updateToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.updateToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
             this.updateToolStripMenuItem.Text = "Update";
             this.updateToolStripMenuItem.Click += new System.EventHandler(this.updateToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
@@ -235,10 +237,32 @@
             this.label3.TabIndex = 8;
             this.label3.Text = "Department";
             // 
+            // btnGetEmployeeFromTerminal
+            // 
+            this.btnGetEmployeeFromTerminal.Location = new System.Drawing.Point(393, 271);
+            this.btnGetEmployeeFromTerminal.Name = "btnGetEmployeeFromTerminal";
+            this.btnGetEmployeeFromTerminal.Size = new System.Drawing.Size(195, 23);
+            this.btnGetEmployeeFromTerminal.TabIndex = 9;
+            this.btnGetEmployeeFromTerminal.Text = "Get Employee Data From Terminal";
+            this.btnGetEmployeeFromTerminal.UseVisualStyleBackColor = true;
+            this.btnGetEmployeeFromTerminal.Click += new System.EventHandler(this.btnGetEmployeeFromTerminal_Click);
+            // 
+            // btnSendEmployeeToTerminal
+            // 
+            this.btnSendEmployeeToTerminal.Location = new System.Drawing.Point(604, 271);
+            this.btnSendEmployeeToTerminal.Name = "btnSendEmployeeToTerminal";
+            this.btnSendEmployeeToTerminal.Size = new System.Drawing.Size(195, 23);
+            this.btnSendEmployeeToTerminal.TabIndex = 10;
+            this.btnSendEmployeeToTerminal.Text = "Send Employee Data To Terminal";
+            this.btnSendEmployeeToTerminal.UseVisualStyleBackColor = true;
+            this.btnSendEmployeeToTerminal.Click += new System.EventHandler(this.btnSendEmployeeToTerminal_Click);
+            // 
             // ucEmployeeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnSendEmployeeToTerminal);
+            this.Controls.Add(this.btnGetEmployeeFromTerminal);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cbDepartment);
@@ -277,5 +301,7 @@
         private System.Windows.Forms.DataGridViewLinkColumn WorkingCalendar;
         private System.Windows.Forms.DataGridViewTextBoxColumn PayrollNumber;
         private System.Windows.Forms.DataGridViewTextBoxColumn Terminal;
+        private System.Windows.Forms.Button btnGetEmployeeFromTerminal;
+        private System.Windows.Forms.Button btnSendEmployeeToTerminal;
     }
 }

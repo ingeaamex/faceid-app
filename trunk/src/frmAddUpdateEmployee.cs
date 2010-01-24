@@ -126,7 +126,7 @@ namespace FaceIDAppVBEta
             dtpLeftDate.Value = employee.LeftDate;
             employeeNumber = employee.EmployeeNumber;
 
-            List<Terminal> terminals = dtCtrl.GetTerminalsByEmpl(employeeNumber);
+            List<Terminal> terminals = dtCtrl.GetTerminalListByEmployee(employeeNumber);
             foreach (Terminal terminal in terminals)
             {
                 lbxTerminal.Items.Add(terminal);
@@ -170,7 +170,7 @@ namespace FaceIDAppVBEta
                             emplTerminal.EmployeeNumber = employeeNumber;
                             emplTerminals.Add(emplTerminal);
                         }
-                        int irs = dtCtrl.AddEmplTerminal(emplTerminals);
+                        int irs = dtCtrl.AddEmployeeTerminal(emplTerminals);
 
                         if (irs > 0)
                         {
@@ -211,7 +211,7 @@ namespace FaceIDAppVBEta
 
             List<Terminal> terminals = GetTerminalsUserInput();
 
-            bool rs2 = dtCtrl.UpdateEmplTerminal(terminals, employeeNumber);
+            bool rs2 = dtCtrl.UpdateEmployeeTerminal(terminals, employeeNumber);
             if (!rs2)
                 MessageBox.Show("[terminal] error");
 
