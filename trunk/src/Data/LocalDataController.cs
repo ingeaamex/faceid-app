@@ -470,7 +470,6 @@ namespace FaceIDAppVBEta.Data
                 employee.LeftDate = (DateTime)odRdr["LeftDate"];
                 employee.PayrollNumber = (int)odRdr["PayrollNumber"];
                 employee.PhoneNumber = odRdr["PhoneNumber"].ToString();
-                employee.PhotoData = odRdr["PhotoData"].ToString();
                 employee.WorkingCalendarID = (int)odRdr["WorkingCalendarID"];
                 employee.ActiveFrom = (DateTime)odRdr["ActiveFrom"];
                 if (odRdr["ActiveTo"].GetType().Name != "DBNull")
@@ -510,7 +509,6 @@ namespace FaceIDAppVBEta.Data
                 employee.LeftDate = (DateTime)odRdr["LeftDate"];
                 employee.PayrollNumber = (int)odRdr["PayrollNumber"];
                 employee.PhoneNumber = odRdr["PhoneNumber"].ToString();
-                employee.PhotoData = odRdr["PhotoData"].ToString();
                 employee.WorkingCalendarID = (int)odRdr["WorkingCalendarID"];
                 employee.ActiveFrom = (DateTime)odRdr["ActiveFrom"];
                 if (odRdr["ActiveTo"].GetType().Name != "DBNull")
@@ -545,10 +543,10 @@ namespace FaceIDAppVBEta.Data
             System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("Employee",
                 new string[] {"EmployeeNumber", "DepartmentID", "WorkingCalendarID", "FirstName",
                     "LastName","PhoneNumber","Address","JobDescription",
-                    "Birthday","HiredDate","LeftDate","PhotoData","Active","ActiveFrom" },
+                    "Birthday","HiredDate","LeftDate","Active","ActiveFrom" },
                 new object[] {employee.EmployeeNumber, employee.DepartmentID,employee.WorkingCalendarID,employee.FirstName,
                     employee.LastName,employee.PhoneNumber, employee.Address,employee.JobDescription,
-                    employee.Birthday, employee.HiredDate,employee.LeftDate,employee.PhotoData,employee.Active,employee.ActiveFrom
+                    employee.Birthday, employee.HiredDate,employee.LeftDate,employee.Active,employee.ActiveFrom
                 });
 
             if (ExecuteNonQuery(odCom1) == 1)
