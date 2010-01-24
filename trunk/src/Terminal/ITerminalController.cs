@@ -12,7 +12,7 @@ namespace FaceIDAppVBEta
 
         bool UpdateEmployee(Terminal terminal, Employee employee);
         bool RemoveEmployee(Terminal terminal, Employee employee);
-        Employee GetEmployee(Terminal terminal, int employeeID);
+        Employee GetEmployee(Terminal terminal, int employeeNumber);
         List<Employee> GetAllEmployee(Terminal terminal);
 
         bool IsTerminalConnected(Terminal terminal);
