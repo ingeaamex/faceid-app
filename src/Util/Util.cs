@@ -16,7 +16,7 @@ namespace FaceIDAppVBEta
             }
             catch
             {
-                return null;
+                return new Config();
             }
 
             System.Xml.XmlDataDocument xmldoc = new System.Xml.XmlDataDocument(dataConfig);
