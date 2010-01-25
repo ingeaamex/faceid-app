@@ -184,11 +184,11 @@ namespace FaceIDAppVBEta
                                 break;
                             case 2:
                                 List<DateTime> dTime = attendanceLog.DateLog;
-                                List<int[]> lTotalHour = attendanceLog.TotalHour;
+                                List<object[]> lTotalHour = attendanceLog.TotalHour;
                                 int cellHeight2 = 0;
                                 for (int i = 0; i < dTime.Count; i++)
                                 {
-                                    int numRs = ((int[])lTotalHour[i])[1];
+                                    int numRs = (int)((object[])lTotalHour[i])[1];
                                     cellHeight2 += 20 * numRs;
                                     string timesp = dTime[i].ToString("d MMM yyyy");
                                     e.Graphics.DrawString(timesp, e.CellStyle.Font,
@@ -198,11 +198,11 @@ namespace FaceIDAppVBEta
                                 }
                                 break;
                             case 4:
-                                List<int[]> lTotalHours = attendanceLog.TotalHour;
+                                List<object[]> lTotalHours = attendanceLog.TotalHour;
                                 int cellHeight1 = 0;
                                 for (int i = 0; i < lTotalHours.Count; i++)
                                 {
-                                    int numRs = ((int[])lTotalHours[i])[1];
+                                    int numRs = (int)((object[])lTotalHours[i])[1];
                                     cellHeight1 += 20 * numRs;
                                     string timesp = lTotalHours[i][0].ToString();
                                     e.Graphics.DrawString(timesp, e.CellStyle.Font,

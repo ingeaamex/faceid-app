@@ -11,7 +11,7 @@ namespace FaceIDAppVBEta.Class
         public int EmployeeNumber { get; set; }
         public List<object[]> InOutTime { get; set; }
         public List<string> Note { get; set; }
-        public List<int[]> TotalHour { get; set; }
+        public List<object[]> TotalHour { get; set; }
         public List<DateTime> DateLog { get; set; }
     }
 }

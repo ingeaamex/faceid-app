@@ -6,12 +6,24 @@ namespace FaceIDAppVBEta.Class
 {
     public class AttendanceLogReport
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public int AttendanceReportID { get; set; }
         public int EmployeeNumber { get; set; }
-        public List<TimeSpan> AttendanceDetail { get; set; }
-        public int TotalHour { get; set; }
-        public List<string> Note { get; set; }
-        public DateTime DateLog { get; set; }
+        public string FullName { get; set; }
+        public DateTime WorkFrom { get; set; }
+        public DateTime WorkTo { get; set; }
+        public double RegularHour { get; set; }
+        public double TotalHour { get; set; }
+        public double RegularRate { get; set; }
+        public double OvertimeHour1 { get; set; }
+        public double OvertimeRate1 { get; set; }
+        public double OvertimeHour2 { get; set; }
+        public double OvertimeRate2 { get; set; }
+        public double OvertimeHour3 { get; set; }
+        public double OvertimeRate3 { get; set; }
+        public double OvertimeHour4 { get; set; }
+        public double OvertimeRate4 { get; set; }
+        public int DayTypeID { get; set; }
+        public int PayPeriodID { get; set; }
+        public string AttendanceRecordIDList { get; set; }
     }
 }
