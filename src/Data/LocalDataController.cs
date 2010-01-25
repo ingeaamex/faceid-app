@@ -73,7 +73,7 @@ namespace FaceIDAppVBEta.Data
                 //Config config = Util.GetConfig();
                 //if (config == null)
                 //    throw new Exception();
-                string connectionString = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\vnanh\project\FaceID\db\FaceIDdb.mdb";// +config.DatabasePath;
+                string connectionString = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";// +config.DatabasePath;
                 dbConnection = new OleDbConnection(connectionString);
             }
             if (dbConnection.State != ConnectionState.Open)
@@ -2183,6 +2183,120 @@ namespace FaceIDAppVBEta.Data
         }
 
         #endregion Attendance Record
+
+        #region FaceIDUser
+
+
+        public List<FaceIDUser> GetFaceIDUserList()
+        {
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("FaceIDUser", "*", null);
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+            List<FaceIDUser> faceIDUserList = new List<FaceIDUser>();
+            FaceIDUser faceIDUser = null;
+            while (odRdr.Read())
+            {
+                faceIDUser = new FaceIDUser();
+
+                faceIDUser.EmployeeNumber = Convert.ToInt16(odRdr["EmployeeNumber"]);
+                faceIDUser.Password = odRdr["Password"].ToString();
+                faceIDUser.UserManagementAccess = Convert.ToBoolean(odRdr["UserManagementAccess"]);
+                faceIDUser.TerminalManagementAccess = Convert.ToBoolean(odRdr["TerminalManagementAccess"]);
+                faceIDUser.CompanyDepartmentManagementAccess = Convert.ToBoolean(odRdr["CompanyDepartmentManagementAccess"]);
+                faceIDUser.WorkingCalendarManagementAccess = Convert.ToBoolean(odRdr["WorkingCalendarManagementAccess"]);
+                faceIDUser.EmployeeManagementAccess = Convert.ToBoolean(odRdr["EmployeeManagementAccess"]);
+                faceIDUser.AttendanceManagementAccess = Convert.ToBoolean(odRdr["AttendanceManagementAccess"]);
+
+                faceIDUserList.Add(faceIDUser);
+            }
+
+            odRdr.Close();
+            return faceIDUserList;
+        }
+
+        public FaceIDUser GetFaceIDUser(int id)
+        {
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("FaceIDUser", "*", "ID=@ID", new object[] { "@ID", id });
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+
+            FaceIDUser faceIDUser = null;
+            if (odRdr.Read())
+            {
+                faceIDUser = new FaceIDUser();
+
+                faceIDUser.EmployeeNumber = Convert.ToInt16(odRdr["EmployeeNumber"]);
+                faceIDUser.Password = odRdr["Password"].ToString();
+                faceIDUser.UserManagementAccess = Convert.ToBoolean(odRdr["UserManagementAccess"]);
+                faceIDUser.TerminalManagementAccess = Convert.ToBoolean(odRdr["TerminalManagementAccess"]);
+                faceIDUser.CompanyDepartmentManagementAccess = Convert.ToBoolean(odRdr["CompanyDepartmentManagementAccess"]);
+                faceIDUser.WorkingCalendarManagementAccess = Convert.ToBoolean(odRdr["WorkingCalendarManagementAccess"]);
+                faceIDUser.EmployeeManagementAccess = Convert.ToBoolean(odRdr["EmployeeManagementAccess"]);
+                faceIDUser.AttendanceManagementAccess = Convert.ToBoolean(odRdr["AttendanceManagementAccess"]);
+            }
+
+            odRdr.Close();
+            return faceIDUser;
+        }
+
+        public int AddFaceIDUser(FaceIDUser faceIDUser)
+        {
+            System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("FaceIDUser",
+                new string[] { "Password"
+                ,"UserManagementAccess"
+                ,"TerminalManagementAccess"
+                ,"CompanyDepartmentManagementAccess"
+                ,"WorkingCalendarManagementAccess"
+                ,"EmployeeManagementAccess"
+                ,"AttendanceManagementAccess"
+                },
+                new object[] { faceIDUser.Password
+                ,faceIDUser.UserManagementAccess
+                ,faceIDUser.TerminalManagementAccess
+                ,faceIDUser.CompanyDepartmentManagementAccess
+                ,faceIDUser.WorkingCalendarManagementAccess
+                ,faceIDUser.EmployeeManagementAccess
+                ,faceIDUser.AttendanceManagementAccess
+                }
+            );
+
+            if (odCom1.ExecuteNonQuery() == 1)
+            {
+                odCom1.CommandText = "SELECT @@IDENTITY";
+                return Convert.ToInt16(odCom1.ExecuteScalar().ToString());
+            }
+            return -1;
+        }
+
+        public bool UpdateFaceIDUser(FaceIDUser faceIDUser)
+        {
+            System.Data.OleDb.OleDbCommand odCom1 = BuildUpdateCmd("FaceIDUser",
+                new string[] { "Password"
+                ,"UserManagementAccess"
+                ,"TerminalManagementAccess"
+                ,"CompanyDepartmentManagementAccess"
+                ,"WorkingCalendarManagementAccess"
+                ,"EmployeeManagementAccess"
+                ,"AttendanceManagementAccess"
+                },
+                new object[] { faceIDUser.Password
+                ,faceIDUser.UserManagementAccess
+                ,faceIDUser.TerminalManagementAccess
+                ,faceIDUser.CompanyDepartmentManagementAccess
+                ,faceIDUser.WorkingCalendarManagementAccess
+                ,faceIDUser.EmployeeManagementAccess
+                ,faceIDUser.AttendanceManagementAccess
+                },
+                "ID=@ID", new object[] { "@ID", faceIDUser.EmployeeNumber }
+            );
+
+            return odCom1.ExecuteNonQuery() > 0 ? true : false;
+        }
+
+        public bool DeleteFaceIDUser(int id)
+        {
+            System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("FaceIDUser", "ID=@ID", new object[] { "@ID", id });
+            return odCom1.ExecuteNonQuery() > 0 ? true : false;
+        }
+        #endregion 
 
         #region utils
 
