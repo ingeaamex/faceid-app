@@ -13,20 +13,22 @@ namespace FaceIDAppVBEta
     public partial class ucUserManagment : UserControl
     {
         private IDataController _dtCtrl = LocalDataController.Instance;
-        private int _employeeNumber = -1;
+        private int _rowIndex = 0;
+        private bool _update = false;
 
         public ucUserManagment()
         {
             InitializeComponent();
-            BindEmployeeNumber();
             BindUser();
+            BindEmployeeNumber();
 
             SetState(-1);
         }
 
         private void BindUser()
         {
-            throw new NotImplementedException();
+            dgvUser.AutoGenerateColumns = false;
+            dgvUser.DataSource = _dtCtrl.GetFaceIDUserList();
         }
 
         private void BindEmployeeNumber()
@@ -40,14 +42,16 @@ namespace FaceIDAppVBEta
             }
             else
             {
-                cbxEmployeeNumber.DisplayMember = "ID";
-                cbxEmployeeNumber.ValueMember = "ID";
+                cbxEmployeeNumber.DisplayMember = "Name";
+                cbxEmployeeNumber.ValueMember = "Value";
 
                 foreach (EmployeeNumber employeeNumber in employeeNumberList)
                 {
                     ListItem listItem = new ListItem(employeeNumber.ID, employeeNumber.ID);
                     cbxEmployeeNumber.Items.Add(listItem);
                 }
+
+                cbxEmployeeNumber.SelectedIndex = 1;
             }
         }
 
@@ -55,11 +59,17 @@ namespace FaceIDAppVBEta
         {
             if (employeeNumber <= 0) //add
             {
+                _update = false;
+                cbxEmployeeNumber.Enabled = true;
+
                 gbxAddUpdateUser.Text = "Add new User";
                 btnAddUpdateUser.Text = "Add";
             }
             else //update
             {
+                _update = true;
+                cbxEmployeeNumber.Enabled = false;
+
                 gbxAddUpdateUser.Text = "Update User";
                 btnAddUpdateUser.Text = "Update";
 
@@ -77,8 +87,11 @@ namespace FaceIDAppVBEta
             }
             else
             {
+                cbxEmployeeNumber.SelectedIndex = cbxEmployeeNumber.Items.IndexOf(new ListItem(employeeNumber, employeeNumber));
+
                 txtPassword.Text = fUser.Password;
                 txtRetypePassword.Text = fUser.Password;
+
                 chbAttendanceManagement.Checked = fUser.AttendanceManagementAccess;
                 chbCompanyDepartmentManagement.Checked = fUser.CompanyDepartmentManagementAccess;
                 chbEmployeeManagement.Checked = fUser.EmployeeManagementAccess;
@@ -107,10 +120,10 @@ namespace FaceIDAppVBEta
 
         private void btnAddUpdateUser_Click(object sender, EventArgs e)
         {
-            AddUpdateUser(_employeeNumber);
+            AddUpdateUser();
         }
 
-        private void AddUpdateUser(int employeeNumber)
+        private void AddUpdateUser()
         {
             try
             {
@@ -122,12 +135,13 @@ namespace FaceIDAppVBEta
                 FaceIDUser fUser = new FaceIDUser();
                 GetUserProperies(ref fUser);
 
-                if (employeeNumber <= 0) //add
+                if (_update == false) //add
                 {
+                    int employeeNumber = Convert.ToInt16(((ListItem)cbxEmployeeNumber.SelectedItem).Value);
+
                     if (_dtCtrl.IsFaceIDUser(employeeNumber))
                     {
                         throw new Exception("This employee has already been added as an user");
-                        return;
                     }
 
                     if (_dtCtrl.AddFaceIDUser(fUser) > 0)
@@ -137,7 +151,7 @@ namespace FaceIDAppVBEta
                 }
                 else
                 {
-                    fUser.EmployeeNumber = employeeNumber;
+                    fUser.EmployeeNumber = Convert.ToInt16(((ListItem)cbxEmployeeNumber.SelectedItem).Value);
 
                     if (_dtCtrl.UpdateFaceIDUser(fUser))
                     {
@@ -147,15 +161,74 @@ namespace FaceIDAppVBEta
             }
             catch (Exception ex)
             {
-                MessageBox.Show("There's been an error: " + ex.Message + ". Please try again.");
+                Util.ShowErrorMessage("There's been an error: " + ex.Message + ". Please try again.");
+                return;
             }
 
             BindUser();
         }
 
+        private void DeleteUser(int employeeNumber)
+        {
+            try
+            {
+                if (Util.Confirm("Are you sure you want to delete this user? This can not be undone."))
+                {
+                    if (_dtCtrl.DeleteFaceIDUser(employeeNumber))
+                    {
+                        MessageBox.Show("User has been deleted.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Util.ShowErrorMessage("There's been an error: " + ex.Message + ". Please try again.");
+                return;
+            }
+
+            BindUser();
+            
+        }
+
         private bool ValidatePassword()
         {
-            throw new NotImplementedException();
+            string password = txtPassword.Text.Trim();
+            string retypePassword = txtRetypePassword.Text.Trim();
+
+            if(string.IsNullOrEmpty(password))
+            {
+                MessageBox.Show("Please enter a password");
+                return false;
+            }
+            if(password != retypePassword)
+            {
+                MessageBox.Show("Your re-typed password does not match. Please try again.");
+                return false;
+            }
+
+            return true;
+        }
+
+        private void dgvUser_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            _rowIndex = e.RowIndex;
+        }
+
+        private void editToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int employeeNumber = Convert.ToInt16(dgvUser.Rows[_rowIndex].Cells[0].Value);
+            SetState(employeeNumber);
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int employeeNumber = Convert.ToInt16(dgvUser.Rows[_rowIndex].Cells[0].Value);
+            DeleteUser(employeeNumber);
+        }
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            cmsDgvUser.Close();
         }
     }
 }
