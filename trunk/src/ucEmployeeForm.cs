@@ -181,6 +181,13 @@ namespace FaceIDAppVBEta
                         {
                             if (_dtCtrl.IsNewEmployee(employee))
                             {
+                                employee.Active = true;
+                                employee.Address = "";
+                                employee.DepartmentID = 1;
+                                employee.JobDescription = "";
+                                employee.LastName = "";
+                                employee.PhoneNumber = "";
+
                                 if(_dtCtrl.AddEmployee(employee) < 0)
                                     throw new Exception("Cannot update employee " + employee.EmployeeNumber);
                             }

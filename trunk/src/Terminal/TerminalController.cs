@@ -232,46 +232,64 @@ namespace FaceIDAppVBEta
             {
                 Employee employee = new Employee();
 
-                employee.Active = true;
                 employee.EmployeeNumber = Convert.ToInt16(GetValue(result, "id"));
                 employee.FirstName = GetValue(result, "name");
 
-                string[] faceData = new string[]
-                {
-                    employee.FaceData1,
-                    employee.FaceData2,
-                    employee.FaceData3,
-                    employee.FaceData4,
-                    employee.FaceData5,
-                    employee.FaceData6,
-                    employee.FaceData7,
-                    employee.FaceData8,
-                    employee.FaceData9,
-                    employee.FaceData10,
-                    employee.FaceData11,
-                    employee.FaceData12,
-                    employee.FaceData13,
-                    employee.FaceData14,
-                    employee.FaceData15,
-                    employee.FaceData16,
-                    employee.FaceData17,
-                    employee.FaceData18
-                };
+                employee.FaceData1 = GetValue(result, "face_data", 1);
+                employee.FaceData2 = GetValue(result, "face_data", 2);
+                employee.FaceData3 = GetValue(result, "face_data", 3);
+                employee.FaceData4 = GetValue(result, "face_data", 4);
+                employee.FaceData5 = GetValue(result, "face_data", 5);
+                employee.FaceData6 = GetValue(result, "face_data", 6);
+                employee.FaceData7 = GetValue(result, "face_data", 7);
+                employee.FaceData8 = GetValue(result, "face_data", 8);
+                employee.FaceData9 = GetValue(result, "face_data", 9);
+                employee.FaceData10 = GetValue(result, "face_data", 10);
+                employee.FaceData11 = GetValue(result, "face_data", 11);
+                employee.FaceData12 = GetValue(result, "face_data", 12);
+                employee.FaceData13 = GetValue(result, "face_data", 13);
+                employee.FaceData14 = GetValue(result, "face_data", 14);
+                employee.FaceData15 = GetValue(result, "face_data", 15);
+                employee.FaceData16 = GetValue(result, "face_data", 16);
+                employee.FaceData17 = GetValue(result, "face_data", 17);
+                employee.FaceData18 = GetValue(result, "face_data", 18);
 
-                string resultString = Marshal.PtrToStringAnsi(result);
+                //string[] faceData = new string[]
+                //{
+                //    employee.FaceData1,
+                //    employee.FaceData2,
+                //    employee.FaceData3,
+                //    employee.FaceData4,
+                //    employee.FaceData5,
+                //    employee.FaceData6,
+                //    employee.FaceData7,
+                //    employee.FaceData8,
+                //    employee.FaceData9,
+                //    employee.FaceData10,
+                //    employee.FaceData11,
+                //    employee.FaceData12,
+                //    employee.FaceData13,
+                //    employee.FaceData14,
+                //    employee.FaceData15,
+                //    employee.FaceData16,
+                //    employee.FaceData17,
+                //    employee.FaceData18
+                //};
 
-                int iFrom, iTo, index = 0;
-                string keyName = "face_data=\"";
-                while ((iFrom = resultString.IndexOf(keyName)) >= 0 && index < faceData.Length)
-                {
-                    iFrom += keyName.Length;
-                    iTo = resultString.IndexOf("\"", iFrom);
+                //string resultString = Marshal.PtrToStringAnsi(result);
 
-                    faceData[index] = resultString.Substring(iFrom, iTo - iFrom);
+                //int iFrom, iTo, index = 0;
+                //string keyName = "face_data=\"";
+                //while ((iFrom = resultString.IndexOf(keyName)) >= 0 && index < faceData.Length)
+                //{
+                //    iFrom += keyName.Length;
+                //    iTo = resultString.IndexOf("\"", iFrom);
 
-                    resultString = resultString.Substring(iTo);
-                    index++;
-                }
+                //    faceData[index] = resultString.Substring(iFrom, iTo - iFrom);
+
+                //    resultString = resultString.Substring(iTo);
+                //    index++;
+                //}
 
                 return employee;
             }
