@@ -73,7 +73,7 @@ namespace FaceIDAppVBEta.Data
                 //Config config = Util.GetConfig();
                 //if (config == null)
                 //    throw new Exception();
-                string connectionString = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\vnanh\project\FaceID\db\FaceIDdb.mdb";// +config.DatabasePath;
+                string connectionString = @"Provider=Microsoft.JET.OLEDB.4.0;data source=f:\FaceID\FaceIDApp\db\FaceIDdb.mdb";// +config.DatabasePath;
                 dbConnection = new OleDbConnection(connectionString);
             }
             if (dbConnection.State != ConnectionState.Open)
@@ -1039,7 +1039,7 @@ namespace FaceIDAppVBEta.Data
 
         public List<EmployeeNumber> GetEmployeeNumberList()
         {
-            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("EmployeeNumber", "*", null);
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Employee", "EmployeeNumber", "Active=True");
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
             List<EmployeeNumber> employeeNumberList = new List<EmployeeNumber>();
             EmployeeNumber employeeNumber = null;
@@ -1047,8 +1047,8 @@ namespace FaceIDAppVBEta.Data
             {
                 employeeNumber = new EmployeeNumber();
 
-                employeeNumber.ID = Convert.ToInt16(odRdr["ID"]);
-                employeeNumber.Note = odRdr["Note"].ToString();
+                employeeNumber.ID = Convert.ToInt16(odRdr["EmployeeNumber"]);
+                employeeNumber.Note = "";
 
                 employeeNumberList.Add(employeeNumber);
             }
@@ -1760,9 +1760,9 @@ namespace FaceIDAppVBEta.Data
             foreach (DataRow drRp in dtReport.Rows)
             {
                 AttendanceLogReport _attLog = new AttendanceLogReport();
-                if (typeof(DBNull) != odRdr["WorkFrom"].GetType())
+                if (typeof(DBNull) != drRp["WorkFrom"].GetType())
                     _attLog.WorkFrom = (DateTime)drRp["WorkFrom"];
-                if (typeof(DBNull) != odRdr["WorkTo"].GetType())
+                if (typeof(DBNull) != drRp["WorkTo"].GetType())
                     _attLog.WorkTo = (DateTime)drRp["WorkTo"];
                 _attLog.EmployeeNumber = (int)drRp["EmployeeNumber"];
 
