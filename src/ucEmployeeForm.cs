@@ -103,6 +103,7 @@ namespace FaceIDAppVBEta
                 _dtCtrl.BeginTransaction();
                 bool brs1 = _dtCtrl.DeleteEmployee((int)oId);
                 bool brs2 = _dtCtrl.DeleteEmployeeTerminalByEmployee(employee.EmployeeNumber);
+
                 if (brs1 && brs2)
                 {
                     _dtCtrl.CommitTransaction();
@@ -138,6 +139,7 @@ namespace FaceIDAppVBEta
                 Employee employee = employees[e.RowIndex];
 
                 List<Terminal> terminals = _dtCtrl.GetTerminalListByEmployee(Convert.ToInt32(e.Value));
+
                 string terminalNames = "";
                 if (terminals.Count > 0)
                 {
