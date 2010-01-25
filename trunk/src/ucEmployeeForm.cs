@@ -30,7 +30,12 @@ namespace FaceIDAppVBEta
 
         private void btPrint_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("This function has not been implemented yet");
+            int iCompany = (int)cbCompany.SelectedValue;
+            int iDepartment = -1;
+            if (cbDepartment.Enabled)
+                iDepartment = (int)cbDepartment.SelectedValue;
+            frmEmployeeReport frmEmpl = new frmEmployeeReport(iCompany, iDepartment);
+            frmEmpl.ShowDialog(this);
         }
 
         private void btNewEmpl_Click(object sender, EventArgs e)
