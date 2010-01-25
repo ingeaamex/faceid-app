@@ -526,6 +526,7 @@
             // 
             // dtpBreakTo3
             // 
+            this.dtpBreakTo3.Enabled = false;
             this.dtpBreakTo3.Format = System.Windows.Forms.DateTimePickerFormat.Time;
             this.dtpBreakTo3.Location = new System.Drawing.Point(116, 296);
             this.dtpBreakTo3.Name = "dtpBreakTo3";
@@ -535,6 +536,7 @@
             // 
             // dtpBreakFrom3
             // 
+            this.dtpBreakFrom3.Enabled = false;
             this.dtpBreakFrom3.Format = System.Windows.Forms.DateTimePickerFormat.Time;
             this.dtpBreakFrom3.Location = new System.Drawing.Point(116, 262);
             this.dtpBreakFrom3.Name = "dtpBreakFrom3";
@@ -544,6 +546,7 @@
             // 
             // dtpBreakTo2
             // 
+            this.dtpBreakTo2.Enabled = false;
             this.dtpBreakTo2.Format = System.Windows.Forms.DateTimePickerFormat.Time;
             this.dtpBreakTo2.Location = new System.Drawing.Point(468, 148);
             this.dtpBreakTo2.Name = "dtpBreakTo2";
@@ -553,6 +556,7 @@
             // 
             // dtpBreakFrom2
             // 
+            this.dtpBreakFrom2.Enabled = false;
             this.dtpBreakFrom2.Format = System.Windows.Forms.DateTimePickerFormat.Time;
             this.dtpBreakFrom2.Location = new System.Drawing.Point(468, 113);
             this.dtpBreakFrom2.Name = "dtpBreakFrom2";
@@ -562,6 +566,7 @@
             // 
             // dtpBreakTo1
             // 
+            this.dtpBreakTo1.Enabled = false;
             this.dtpBreakTo1.Format = System.Windows.Forms.DateTimePickerFormat.Time;
             this.dtpBreakTo1.Location = new System.Drawing.Point(120, 144);
             this.dtpBreakTo1.Name = "dtpBreakTo1";
@@ -571,6 +576,7 @@
             // 
             // dtpBreakFrom1
             // 
+            this.dtpBreakFrom1.Enabled = false;
             this.dtpBreakFrom1.Format = System.Windows.Forms.DateTimePickerFormat.Time;
             this.dtpBreakFrom1.Location = new System.Drawing.Point(120, 110);
             this.dtpBreakFrom1.Name = "dtpBreakFrom1";
