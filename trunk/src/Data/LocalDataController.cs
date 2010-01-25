@@ -482,6 +482,24 @@ namespace FaceIDAppVBEta.Data
                 employee.ActiveFrom = (DateTime)odRdr["ActiveFrom"];
                 if (odRdr["ActiveTo"].GetType().Name != "DBNull")
                     employee.ActiveTo = (DateTime)odRdr["ActiveTo"];
+                employee.FaceData1 = odRdr["FaceData1"].ToString();
+                employee.FaceData2 = odRdr["FaceData2"].ToString();
+                employee.FaceData3 = odRdr["FaceData3"].ToString();
+                employee.FaceData4 = odRdr["FaceData4"].ToString();
+                employee.FaceData5 = odRdr["FaceData5"].ToString();
+                employee.FaceData6 = odRdr["FaceData6"].ToString();
+                employee.FaceData7 = odRdr["FaceData7"].ToString();
+                employee.FaceData8 = odRdr["FaceData8"].ToString();
+                employee.FaceData9 = odRdr["FaceData9"].ToString();
+                employee.FaceData10 = odRdr["FaceData10"].ToString();
+                employee.FaceData11 = odRdr["FaceData11"].ToString();
+                employee.FaceData12 = odRdr["FaceData12"].ToString();
+                employee.FaceData13 = odRdr["FaceData13"].ToString();
+                employee.FaceData14 = odRdr["FaceData14"].ToString();
+                employee.FaceData15 = odRdr["FaceData15"].ToString();
+                employee.FaceData16 = odRdr["FaceData16"].ToString();
+                employee.FaceData17 = odRdr["FaceData17"].ToString();
+                employee.FaceData18 = odRdr["FaceData18"].ToString();
             }
             odRdr.Close();
             return employee;
@@ -521,6 +539,24 @@ namespace FaceIDAppVBEta.Data
                 employee.ActiveFrom = (DateTime)odRdr["ActiveFrom"];
                 if (odRdr["ActiveTo"].GetType().Name != "DBNull")
                     employee.ActiveTo = (DateTime)odRdr["ActiveTo"];
+                employee.FaceData1 = odRdr["FaceData1"].ToString();
+                employee.FaceData2 = odRdr["FaceData2"].ToString();
+                employee.FaceData3 = odRdr["FaceData3"].ToString();
+                employee.FaceData4 = odRdr["FaceData4"].ToString();
+                employee.FaceData5 = odRdr["FaceData5"].ToString();
+                employee.FaceData6 = odRdr["FaceData6"].ToString();
+                employee.FaceData7 = odRdr["FaceData7"].ToString();
+                employee.FaceData8 = odRdr["FaceData8"].ToString();
+                employee.FaceData9 = odRdr["FaceData9"].ToString();
+                employee.FaceData10 = odRdr["FaceData10"].ToString();
+                employee.FaceData11 = odRdr["FaceData11"].ToString();
+                employee.FaceData12 = odRdr["FaceData12"].ToString();
+                employee.FaceData13 = odRdr["FaceData13"].ToString();
+                employee.FaceData14 = odRdr["FaceData14"].ToString();
+                employee.FaceData15 = odRdr["FaceData15"].ToString();
+                employee.FaceData16 = odRdr["FaceData16"].ToString();
+                employee.FaceData17 = odRdr["FaceData17"].ToString();
+                employee.FaceData18 = odRdr["FaceData18"].ToString();
 
                 employeeList.Add(employee);
             }
@@ -558,6 +594,24 @@ namespace FaceIDAppVBEta.Data
                 ,"Active"
                 ,"ActiveFrom"
                 ,"ActiveTo"
+                ,"FaceData1"
+                ,"FaceData2"
+                ,"FaceData3"
+                ,"FaceData4"
+                ,"FaceData5"
+                ,"FaceData6"
+                ,"FaceData7"
+                ,"FaceData8"
+                ,"FaceData9"
+                ,"FaceData10"
+                ,"FaceData11"
+                ,"FaceData12"
+                ,"FaceData13"
+                ,"FaceData14"
+                ,"FaceData15"
+                ,"FaceData16"
+                ,"FaceData17"
+                ,"FaceData18"
                 },
                 new object[] { employee.EmployeeNumber
                 ,employee.DepartmentID
@@ -573,6 +627,24 @@ namespace FaceIDAppVBEta.Data
                 ,employee.Active
                 ,employee.ActiveFrom
                 ,employee.ActiveTo
+                ,employee.FaceData1
+                ,employee.FaceData2
+                ,employee.FaceData3
+                ,employee.FaceData4
+                ,employee.FaceData5
+                ,employee.FaceData6
+                ,employee.FaceData7
+                ,employee.FaceData8
+                ,employee.FaceData9
+                ,employee.FaceData10
+                ,employee.FaceData11
+                ,employee.FaceData12
+                ,employee.FaceData13
+                ,employee.FaceData14
+                ,employee.FaceData15
+                ,employee.FaceData16
+                ,employee.FaceData17
+                ,employee.FaceData18
                 }
             );
 
@@ -597,26 +669,77 @@ namespace FaceIDAppVBEta.Data
 
         public bool UpdateEmployee(Employee employee)
         {
-            //ConnectToDatabase();
-
-            if (employee == null)
-                return false;
-
             System.Data.OleDb.OleDbCommand odCom1 = BuildUpdateCmd("Employee",
-                new string[] {"DepartmentID", "WorkingCalendarID", "FirstName",
-                    "LastName","PhoneNumber","Address","JobDescription",
-                    "Birthday","HiredDate","LeftDate" },
-                new object[] {employee.DepartmentID,employee.WorkingCalendarID,employee.FirstName,
-                    employee.LastName,employee.PhoneNumber, employee.Address,employee.JobDescription,
-                    employee.Birthday, employee.HiredDate,employee.LeftDate
-                }, "PayrollNumber=@ID", new object[] { "@ID", employee.PayrollNumber });
+                new string[] { "EmployeeNumber"
+                ,"DepartmentID"
+                ,"FirstName"
+                ,"LastName"
+                ,"WorkingCalendarID"
+                ,"HiredDate"
+                ,"LeftDate"
+                ,"Birthday"
+                ,"JobDescription"
+                ,"PhoneNumber"
+                ,"Address"
+                ,"Active"
+                ,"ActiveFrom"
+                ,"ActiveTo"
+                ,"FaceData1"
+                ,"FaceData2"
+                ,"FaceData3"
+                ,"FaceData4"
+                ,"FaceData5"
+                ,"FaceData6"
+                ,"FaceData7"
+                ,"FaceData8"
+                ,"FaceData9"
+                ,"FaceData10"
+                ,"FaceData11"
+                ,"FaceData12"
+                ,"FaceData13"
+                ,"FaceData14"
+                ,"FaceData15"
+                ,"FaceData16"
+                ,"FaceData17"
+                ,"FaceData18"
+                },
+                new object[] { employee.EmployeeNumber
+                ,employee.DepartmentID
+                ,employee.FirstName
+                ,employee.LastName
+                ,employee.WorkingCalendarID
+                ,employee.HiredDate
+                ,employee.LeftDate
+                ,employee.Birthday
+                ,employee.JobDescription
+                ,employee.PhoneNumber
+                ,employee.Address
+                ,employee.Active
+                ,employee.ActiveFrom
+                ,employee.ActiveTo
+                ,employee.FaceData1
+                ,employee.FaceData2
+                ,employee.FaceData3
+                ,employee.FaceData4
+                ,employee.FaceData5
+                ,employee.FaceData6
+                ,employee.FaceData7
+                ,employee.FaceData8
+                ,employee.FaceData9
+                ,employee.FaceData10
+                ,employee.FaceData11
+                ,employee.FaceData12
+                ,employee.FaceData13
+                ,employee.FaceData14
+                ,employee.FaceData15
+                ,employee.FaceData16
+                ,employee.FaceData17
+                ,employee.FaceData18
+                },
+                "ID=@ID", new object[] { "@ID", employee.PayrollNumber }
+            );
 
-            if (ExecuteNonQuery(odCom1) == 1)
-            {
-                return true;
-            }
-
-            return false;
+            return (odCom1.ExecuteNonQuery() == 1);
         }
 
         #endregion Employee
@@ -653,29 +776,29 @@ namespace FaceIDAppVBEta.Data
 
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
 
-            Terminal _terminal = null;
+            Terminal terminal = null;
             if (odRdr.Read())
             {
-                _terminal = new Terminal();
+                terminal = new Terminal();
 
-                _terminal.ID = Convert.ToInt16(odRdr["ID"]);
-                _terminal.Name = odRdr["Name"].ToString();
-                _terminal.IPAddress = odRdr["IPAddress"].ToString();
+                terminal.ID = Convert.ToInt16(odRdr["ID"]);
+                terminal.Name = odRdr["Name"].ToString();
+                terminal.IPAddress = odRdr["IPAddress"].ToString();
             }
 
             odRdr.Close();
-            return _terminal;
+            return terminal;
         }
 
-        private bool CheckExistTerminal(Terminal _terminal, bool forUpdate)
+        private bool CheckExistTerminal(Terminal terminal, bool forUpdate)
         {
             System.Data.OleDb.OleDbCommand odCom;
             if (forUpdate)
                 odCom = BuildSelectCmd("Terminal", "ID", "ID<>@ID AND ([Name]=@Name OR IPAddress=@IPAddress)",
-                    new object[] { "@ID", _terminal.ID, "@Name", _terminal.Name, "@IPAddress", _terminal.IPAddress });
+                    new object[] { "@ID", terminal.ID, "@Name", terminal.Name, "@IPAddress", terminal.IPAddress });
             else
                 odCom = BuildSelectCmd("Terminal", "ID", "[Name]=@Name OR IPAddress=@IPAddress",
-                    new object[] { "@Name", _terminal.Name, "@IPAddress", _terminal.IPAddress });
+                    new object[] { "@Name", terminal.Name, "@IPAddress", terminal.IPAddress });
 
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
 
@@ -687,19 +810,19 @@ namespace FaceIDAppVBEta.Data
             return false;
         }
 
-        public int AddTerminal(Terminal _terminal)
+        public int AddTerminal(Terminal terminal)
         {
             //ConnectToDatabase();
 
-            if (CheckExistTerminal(_terminal, false))
+            if (CheckExistTerminal(terminal, false))
                 return -1;
 
             System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("Terminal",
                 new string[] { "Name"
                 ,"IPAddress"
                 },
-                new object[] { _terminal.Name
-                ,_terminal.IPAddress
+                new object[] { terminal.Name
+                ,terminal.IPAddress
                 }
             );
 
@@ -711,21 +834,21 @@ namespace FaceIDAppVBEta.Data
             return -1;
         }
 
-        public bool UpdateTerminal(Terminal _terminal)
+        public bool UpdateTerminal(Terminal terminal)
         {
             //ConnectToDatabase();
 
-            if (CheckExistTerminal(_terminal, true))
+            if (CheckExistTerminal(terminal, true))
                 return false;
 
             System.Data.OleDb.OleDbCommand odCom1 = BuildUpdateCmd("Terminal",
                 new string[] { "Name"
                 ,"IPAddress"
                 },
-                new object[] { _terminal.Name
-                ,_terminal.IPAddress
+                new object[] { terminal.Name
+                ,terminal.IPAddress
                 },
-                "ID=@ID", new object[] { "@ID", _terminal.ID }
+                "ID=@ID", new object[] { "@ID", terminal.ID }
             );
 
             return ExecuteNonQuery(odCom1) > 0 ? true : false;
@@ -983,27 +1106,27 @@ namespace FaceIDAppVBEta.Data
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("WorkingCalendar", "*", "ID=@ID", new object[] { "@ID", workingCalendarID });
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
 
-            WorkingCalendar _workingCalendar = null;
+            WorkingCalendar workingCalendar = null;
             if (odRdr.Read())
             {
-                _workingCalendar = new WorkingCalendar();
+                workingCalendar = new WorkingCalendar();
 
-                _workingCalendar.ID = Convert.ToInt16(odRdr["ID"]);
-                _workingCalendar.Name = odRdr["Name"].ToString();
-                _workingCalendar.WorkOnMonday = Convert.ToBoolean(odRdr["WorkOnMonday"]);
-                _workingCalendar.WorkOnTuesday = Convert.ToBoolean(odRdr["WorkOnTuesday"]);
-                _workingCalendar.WorkOnWednesday = Convert.ToBoolean(odRdr["WorkOnWednesday"]);
-                _workingCalendar.WorkOnThursday = Convert.ToBoolean(odRdr["WorkOnThursday"]);
-                _workingCalendar.WorkOnFriday = Convert.ToBoolean(odRdr["WorkOnFriday"]);
-                _workingCalendar.WorkOnSaturday = Convert.ToBoolean(odRdr["WorkOnSaturday"]);
-                _workingCalendar.WorkOnSunday = Convert.ToBoolean(odRdr["WorkOnSunday"]);
-                _workingCalendar.RegularWorkingFrom = Convert.ToDateTime(odRdr["RegularWorkingFrom"]);
-                _workingCalendar.RegularWorkingTo = Convert.ToDateTime(odRdr["RegularWorkingTo"]);
-                _workingCalendar.PayPeriodID = Convert.ToInt16(odRdr["PayPeriodID"]);
+                workingCalendar.ID = Convert.ToInt16(odRdr["ID"]);
+                workingCalendar.Name = odRdr["Name"].ToString();
+                workingCalendar.WorkOnMonday = Convert.ToBoolean(odRdr["WorkOnMonday"]);
+                workingCalendar.WorkOnTuesday = Convert.ToBoolean(odRdr["WorkOnTuesday"]);
+                workingCalendar.WorkOnWednesday = Convert.ToBoolean(odRdr["WorkOnWednesday"]);
+                workingCalendar.WorkOnThursday = Convert.ToBoolean(odRdr["WorkOnThursday"]);
+                workingCalendar.WorkOnFriday = Convert.ToBoolean(odRdr["WorkOnFriday"]);
+                workingCalendar.WorkOnSaturday = Convert.ToBoolean(odRdr["WorkOnSaturday"]);
+                workingCalendar.WorkOnSunday = Convert.ToBoolean(odRdr["WorkOnSunday"]);
+                workingCalendar.RegularWorkingFrom = Convert.ToDateTime(odRdr["RegularWorkingFrom"]);
+                workingCalendar.RegularWorkingTo = Convert.ToDateTime(odRdr["RegularWorkingTo"]);
+                workingCalendar.PayPeriodID = Convert.ToInt16(odRdr["PayPeriodID"]);
             }
 
             odRdr.Close();
-            return _workingCalendar;
+            return workingCalendar;
         }
 
         public List<Break> GetBreakListByWorkingCalendar(int workingCalendarID)
@@ -1011,7 +1134,7 @@ namespace FaceIDAppVBEta.Data
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Break", "*", "WorkingCalendarID=@WorkingCalendarID", new object[] { "@WorkingCalendarID", workingCalendarID });
 
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
-            List<Break> _breakList = new List<Break>();
+            List<Break> breakList = new List<Break>();
             Break _break = null;
             while (odRdr.Read())
             {
@@ -1024,11 +1147,11 @@ namespace FaceIDAppVBEta.Data
                 _break.Paid = Convert.ToBoolean(odRdr["Paid"]);
                 _break.WorkingCalendarID = Convert.ToInt16(odRdr["WorkingCalendarID"]);
 
-                _breakList.Add(_break);
+                breakList.Add(_break);
             }
 
             odRdr.Close();
-            return _breakList;
+            return breakList;
         }
 
         public PaymentRate GetWorkingDayPaymentRateByWorkingCalendar(int workingCalendarID)
@@ -1036,28 +1159,28 @@ namespace FaceIDAppVBEta.Data
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("PaymentRate", "*", "WorkingCalendarID=@WorkingCalendarID AND DayTypeID=1", new object[] { "@WorkingCalendarID", workingCalendarID });
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
 
-            PaymentRate _paymentRate = null;
+            PaymentRate paymentRate = null;
             if (odRdr.Read())
             {
-                _paymentRate = new PaymentRate();
+                paymentRate = new PaymentRate();
 
-                _paymentRate.ID = Convert.ToInt16(odRdr["ID"]);
-                _paymentRate.NumberOfRegularHours = Convert.ToDouble(odRdr["NumberOfRegularHours"]);
-                _paymentRate.RegularRate = Convert.ToDouble(odRdr["RegularRate"]);
-                _paymentRate.NumberOfOvertime1 = Convert.ToDouble(odRdr["NumberOfOvertime1"]);
-                _paymentRate.OvertimeRate1 = Convert.ToDouble(odRdr["OvertimeRate1"]);
-                _paymentRate.NumberOfOvertime2 = Convert.ToDouble(odRdr["NumberOfOvertime2"]);
-                _paymentRate.OvertimeRate2 = Convert.ToDouble(odRdr["OvertimeRate2"]);
-                _paymentRate.NumberOfOvertime3 = Convert.ToDouble(odRdr["NumberOfOvertime3"]);
-                _paymentRate.OvertimeRate3 = Convert.ToDouble(odRdr["OvertimeRate3"]);
-                _paymentRate.NumberOfOvertime4 = Convert.ToDouble(odRdr["NumberOfOvertime4"]);
-                _paymentRate.OvertimeRate4 = Convert.ToDouble(odRdr["OvertimeRate4"]);
-                _paymentRate.DayTypeID = Convert.ToInt16(odRdr["DayTypeID"]);
-                _paymentRate.WorkingCalendarID = Convert.ToInt16(odRdr["WorkingCalendarID"]);
+                paymentRate.ID = Convert.ToInt16(odRdr["ID"]);
+                paymentRate.NumberOfRegularHours = Convert.ToDouble(odRdr["NumberOfRegularHours"]);
+                paymentRate.RegularRate = Convert.ToDouble(odRdr["RegularRate"]);
+                paymentRate.NumberOfOvertime1 = Convert.ToDouble(odRdr["NumberOfOvertime1"]);
+                paymentRate.OvertimeRate1 = Convert.ToDouble(odRdr["OvertimeRate1"]);
+                paymentRate.NumberOfOvertime2 = Convert.ToDouble(odRdr["NumberOfOvertime2"]);
+                paymentRate.OvertimeRate2 = Convert.ToDouble(odRdr["OvertimeRate2"]);
+                paymentRate.NumberOfOvertime3 = Convert.ToDouble(odRdr["NumberOfOvertime3"]);
+                paymentRate.OvertimeRate3 = Convert.ToDouble(odRdr["OvertimeRate3"]);
+                paymentRate.NumberOfOvertime4 = Convert.ToDouble(odRdr["NumberOfOvertime4"]);
+                paymentRate.OvertimeRate4 = Convert.ToDouble(odRdr["OvertimeRate4"]);
+                paymentRate.DayTypeID = Convert.ToInt16(odRdr["DayTypeID"]);
+                paymentRate.WorkingCalendarID = Convert.ToInt16(odRdr["WorkingCalendarID"]);
             }
 
             odRdr.Close();
-            return _paymentRate;
+            return paymentRate;
         }
 
         public PaymentRate GetNonWorkingDayPaymentRateByWorkingCalendar(int workingCalendarID)
@@ -1065,28 +1188,28 @@ namespace FaceIDAppVBEta.Data
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("PaymentRate", "*", "WorkingCalendarID=@WorkingCalendarID AND DayTypeID=2", new object[] { "@WorkingCalendarID", workingCalendarID });
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
 
-            PaymentRate _paymentRate = null;
+            PaymentRate paymentRate = null;
             if (odRdr.Read())
             {
-                _paymentRate = new PaymentRate();
+                paymentRate = new PaymentRate();
 
-                _paymentRate.ID = Convert.ToInt16(odRdr["ID"]);
-                _paymentRate.NumberOfRegularHours = Convert.ToDouble(odRdr["NumberOfRegularHours"]);
-                _paymentRate.RegularRate = Convert.ToDouble(odRdr["RegularRate"]);
-                _paymentRate.NumberOfOvertime1 = Convert.ToDouble(odRdr["NumberOfOvertime1"]);
-                _paymentRate.OvertimeRate1 = Convert.ToDouble(odRdr["OvertimeRate1"]);
-                _paymentRate.NumberOfOvertime2 = Convert.ToDouble(odRdr["NumberOfOvertime2"]);
-                _paymentRate.OvertimeRate2 = Convert.ToDouble(odRdr["OvertimeRate2"]);
-                _paymentRate.NumberOfOvertime3 = Convert.ToDouble(odRdr["NumberOfOvertime3"]);
-                _paymentRate.OvertimeRate3 = Convert.ToDouble(odRdr["OvertimeRate3"]);
-                _paymentRate.NumberOfOvertime4 = Convert.ToDouble(odRdr["NumberOfOvertime4"]);
-                _paymentRate.OvertimeRate4 = Convert.ToDouble(odRdr["OvertimeRate4"]);
-                _paymentRate.DayTypeID = Convert.ToInt16(odRdr["DayTypeID"]);
-                _paymentRate.WorkingCalendarID = Convert.ToInt16(odRdr["WorkingCalendarID"]);
+                paymentRate.ID = Convert.ToInt16(odRdr["ID"]);
+                paymentRate.NumberOfRegularHours = Convert.ToDouble(odRdr["NumberOfRegularHours"]);
+                paymentRate.RegularRate = Convert.ToDouble(odRdr["RegularRate"]);
+                paymentRate.NumberOfOvertime1 = Convert.ToDouble(odRdr["NumberOfOvertime1"]);
+                paymentRate.OvertimeRate1 = Convert.ToDouble(odRdr["OvertimeRate1"]);
+                paymentRate.NumberOfOvertime2 = Convert.ToDouble(odRdr["NumberOfOvertime2"]);
+                paymentRate.OvertimeRate2 = Convert.ToDouble(odRdr["OvertimeRate2"]);
+                paymentRate.NumberOfOvertime3 = Convert.ToDouble(odRdr["NumberOfOvertime3"]);
+                paymentRate.OvertimeRate3 = Convert.ToDouble(odRdr["OvertimeRate3"]);
+                paymentRate.NumberOfOvertime4 = Convert.ToDouble(odRdr["NumberOfOvertime4"]);
+                paymentRate.OvertimeRate4 = Convert.ToDouble(odRdr["OvertimeRate4"]);
+                paymentRate.DayTypeID = Convert.ToInt16(odRdr["DayTypeID"]);
+                paymentRate.WorkingCalendarID = Convert.ToInt16(odRdr["WorkingCalendarID"]);
             }
 
             odRdr.Close();
-            return _paymentRate;
+            return paymentRate;
         }
 
         public PaymentRate GetHolidayPaymentRateByWorkingCalendar(int workingCalendarID)
@@ -1094,28 +1217,28 @@ namespace FaceIDAppVBEta.Data
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("PaymentRate", "*", "WorkingCalendarID=@WorkingCalendarID AND DayTypeID=3", new object[] { "@WorkingCalendarID", workingCalendarID });
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
 
-            PaymentRate _paymentRate = null;
+            PaymentRate paymentRate = null;
             if (odRdr.Read())
             {
-                _paymentRate = new PaymentRate();
+                paymentRate = new PaymentRate();
 
-                _paymentRate.ID = Convert.ToInt16(odRdr["ID"]);
-                _paymentRate.NumberOfRegularHours = Convert.ToDouble(odRdr["NumberOfRegularHours"]);
-                _paymentRate.RegularRate = Convert.ToDouble(odRdr["RegularRate"]);
-                _paymentRate.NumberOfOvertime1 = Convert.ToDouble(odRdr["NumberOfOvertime1"]);
-                _paymentRate.OvertimeRate1 = Convert.ToDouble(odRdr["OvertimeRate1"]);
-                _paymentRate.NumberOfOvertime2 = Convert.ToDouble(odRdr["NumberOfOvertime2"]);
-                _paymentRate.OvertimeRate2 = Convert.ToDouble(odRdr["OvertimeRate2"]);
-                _paymentRate.NumberOfOvertime3 = Convert.ToDouble(odRdr["NumberOfOvertime3"]);
-                _paymentRate.OvertimeRate3 = Convert.ToDouble(odRdr["OvertimeRate3"]);
-                _paymentRate.NumberOfOvertime4 = Convert.ToDouble(odRdr["NumberOfOvertime4"]);
-                _paymentRate.OvertimeRate4 = Convert.ToDouble(odRdr["OvertimeRate4"]);
-                _paymentRate.DayTypeID = Convert.ToInt16(odRdr["DayTypeID"]);
-                _paymentRate.WorkingCalendarID = Convert.ToInt16(odRdr["WorkingCalendarID"]);
+                paymentRate.ID = Convert.ToInt16(odRdr["ID"]);
+                paymentRate.NumberOfRegularHours = Convert.ToDouble(odRdr["NumberOfRegularHours"]);
+                paymentRate.RegularRate = Convert.ToDouble(odRdr["RegularRate"]);
+                paymentRate.NumberOfOvertime1 = Convert.ToDouble(odRdr["NumberOfOvertime1"]);
+                paymentRate.OvertimeRate1 = Convert.ToDouble(odRdr["OvertimeRate1"]);
+                paymentRate.NumberOfOvertime2 = Convert.ToDouble(odRdr["NumberOfOvertime2"]);
+                paymentRate.OvertimeRate2 = Convert.ToDouble(odRdr["OvertimeRate2"]);
+                paymentRate.NumberOfOvertime3 = Convert.ToDouble(odRdr["NumberOfOvertime3"]);
+                paymentRate.OvertimeRate3 = Convert.ToDouble(odRdr["OvertimeRate3"]);
+                paymentRate.NumberOfOvertime4 = Convert.ToDouble(odRdr["NumberOfOvertime4"]);
+                paymentRate.OvertimeRate4 = Convert.ToDouble(odRdr["OvertimeRate4"]);
+                paymentRate.DayTypeID = Convert.ToInt16(odRdr["DayTypeID"]);
+                paymentRate.WorkingCalendarID = Convert.ToInt16(odRdr["WorkingCalendarID"]);
             }
 
             odRdr.Close();
-            return _paymentRate;
+            return paymentRate;
         }
 
         public List<Holiday> GetHolidayListByWorkingCalendar(int workingCalendarID)
@@ -1123,22 +1246,22 @@ namespace FaceIDAppVBEta.Data
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Holiday", "*", "WorkingCalendarID=@WorkingCalendarID", new object[] { "@WorkingCalendarID", workingCalendarID });
 
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
-            List<Holiday> _holidayList = new List<Holiday>();
-            Holiday _holiday = null;
+            List<Holiday> holidayList = new List<Holiday>();
+            Holiday holiday = null;
             while (odRdr.Read())
             {
-                _holiday = new Holiday();
+                holiday = new Holiday();
 
-                _holiday.ID = Convert.ToInt16(odRdr["ID"]);
-                _holiday.Date = Convert.ToDateTime(odRdr["Date"]);
-                _holiday.Description = odRdr["Description"].ToString();
-                _holiday.WorkingCalendarID = Convert.ToInt16(odRdr["WorkingCalendarID"]);
+                holiday.ID = Convert.ToInt16(odRdr["ID"]);
+                holiday.Date = Convert.ToDateTime(odRdr["Date"]);
+                holiday.Description = odRdr["Description"].ToString();
+                holiday.WorkingCalendarID = Convert.ToInt16(odRdr["WorkingCalendarID"]);
 
-                _holidayList.Add(_holiday);
+                holidayList.Add(holiday);
             }
 
             odRdr.Close();
-            return _holidayList;
+            return holidayList;
         }
 
         public PayPeriod GetPayPeriodByWorkingCalendar(int workingCalendarID)
@@ -1415,17 +1538,17 @@ namespace FaceIDAppVBEta.Data
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("PayPeriodType", "*", "ID=@ID", new object[] { "@ID", payPeriodTypeID });
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
 
-            PayPeriodType _payPeriodType = null;
+            PayPeriodType payPeriodType = null;
             if (odRdr.Read())
             {
-                _payPeriodType = new PayPeriodType();
+                payPeriodType = new PayPeriodType();
 
-                _payPeriodType.ID = Convert.ToInt16(odRdr["ID"]);
-                _payPeriodType.Name = odRdr["Name"].ToString();
+                payPeriodType.ID = Convert.ToInt16(odRdr["ID"]);
+                payPeriodType.Name = odRdr["Name"].ToString();
             }
 
             odRdr.Close();
-            return _payPeriodType;
+            return payPeriodType;
         }
 
         public PayPeriod GetPayPeriod(int payPeriodID)
@@ -2372,7 +2495,7 @@ namespace FaceIDAppVBEta.Data
             return odCom1.ExecuteNonQuery() > 0 ? true : false;
         }
 
-        public bool UpdatePaymentRate(PaymentRate _paymentRate)
+        public bool UpdatePaymentRate(PaymentRate paymentRate)
         {
             System.Data.OleDb.OleDbCommand odCom1 = BuildUpdateCmd("PaymentRate",
                 new string[] { "NumberOfRegularHours"
@@ -2388,20 +2511,20 @@ namespace FaceIDAppVBEta.Data
                 ,"DayTypeID"
                 ,"WorkingCalendarID"
                 },
-                new object[] { _paymentRate.NumberOfRegularHours
-                ,_paymentRate.RegularRate
-                ,_paymentRate.NumberOfOvertime1
-                ,_paymentRate.OvertimeRate1
-                ,_paymentRate.NumberOfOvertime2
-                ,_paymentRate.OvertimeRate2
-                ,_paymentRate.NumberOfOvertime3
-                ,_paymentRate.OvertimeRate3
-                ,_paymentRate.NumberOfOvertime4
-                ,_paymentRate.OvertimeRate4
-                ,_paymentRate.DayTypeID
-                ,_paymentRate.WorkingCalendarID
+                new object[] { paymentRate.NumberOfRegularHours
+                ,paymentRate.RegularRate
+                ,paymentRate.NumberOfOvertime1
+                ,paymentRate.OvertimeRate1
+                ,paymentRate.NumberOfOvertime2
+                ,paymentRate.OvertimeRate2
+                ,paymentRate.NumberOfOvertime3
+                ,paymentRate.OvertimeRate3
+                ,paymentRate.NumberOfOvertime4
+                ,paymentRate.OvertimeRate4
+                ,paymentRate.DayTypeID
+                ,paymentRate.WorkingCalendarID
                 },
-                "ID=@ID", new object[] { "@ID", _paymentRate.ID }
+                "ID=@ID", new object[] { "@ID", paymentRate.ID }
             );
 
             return odCom1.ExecuteNonQuery() > 0 ? true : false;
@@ -2444,33 +2567,52 @@ namespace FaceIDAppVBEta.Data
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Employee", "*", "Active=TRUE AND EmployeeNumber IN (SELECT EmployeeNumber FROM EmployeeTerminal WHERE TerminalID=@terminalID)", new object[] { "@terminalID", terminalID });
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
 
-            List<Employee> _employeeList = new List<Employee>();
-            Employee _employee = null;
+            List<Employee> employeeList = new List<Employee>();
+            Employee employee = null;
             while (odRdr.Read())
             {
-                _employee = new Employee();
+                employee = new Employee();
 
-                _employee.PayrollNumber = Convert.ToInt16(odRdr["PayrollNumber"]);
-                _employee.EmployeeNumber = Convert.ToInt16(odRdr["EmployeeNumber"]);
-                _employee.DepartmentID = Convert.ToInt16(odRdr["DepartmentID"]);
-                _employee.FirstName = odRdr["FirstName"].ToString();
-                _employee.LastName = odRdr["LastName"].ToString();
-                _employee.WorkingCalendarID = Convert.ToInt16(odRdr["WorkingCalendarID"]);
-                _employee.HiredDate = Convert.ToDateTime(odRdr["HiredDate"]);
-                _employee.LeftDate = Convert.ToDateTime(odRdr["LeftDate"]);
-                _employee.Birthday = Convert.ToDateTime(odRdr["Birthday"]);
-                _employee.JobDescription = odRdr["JobDescription"].ToString();
-                _employee.PhoneNumber = odRdr["PhoneNumber"].ToString();
-                _employee.Address = odRdr["Address"].ToString();
-                _employee.Active = Convert.ToBoolean(odRdr["Active"]);
-                _employee.ActiveFrom = Convert.ToDateTime(odRdr["ActiveFrom"]);
-                _employee.ActiveTo = Convert.ToDateTime(odRdr["ActiveTo"]);
+                employee.PayrollNumber = Convert.ToInt16(odRdr["PayrollNumber"]);
+                employee.EmployeeNumber = Convert.ToInt16(odRdr["EmployeeNumber"]);
+                employee.DepartmentID = Convert.ToInt16(odRdr["DepartmentID"]);
+                employee.FirstName = odRdr["FirstName"].ToString();
+                employee.LastName = odRdr["LastName"].ToString();
+                employee.WorkingCalendarID = Convert.ToInt16(odRdr["WorkingCalendarID"]);
+                employee.HiredDate = Convert.ToDateTime(odRdr["HiredDate"]);
+                employee.LeftDate = Convert.ToDateTime(odRdr["LeftDate"]);
+                employee.Birthday = Convert.ToDateTime(odRdr["Birthday"]);
+                employee.JobDescription = odRdr["JobDescription"].ToString();
+                employee.PhoneNumber = odRdr["PhoneNumber"].ToString();
+                employee.Address = odRdr["Address"].ToString();
+                employee.Active = Convert.ToBoolean(odRdr["Active"]);
+                employee.ActiveFrom = Convert.ToDateTime(odRdr["ActiveFrom"]);
+                if (odRdr["ActiveTo"].GetType().Name != "DBNull")
+                    employee.ActiveTo = (DateTime)odRdr["ActiveTo"];
+                employee.FaceData1 = odRdr["FaceData1"].ToString();
+                employee.FaceData2 = odRdr["FaceData2"].ToString();
+                employee.FaceData3 = odRdr["FaceData3"].ToString();
+                employee.FaceData4 = odRdr["FaceData4"].ToString();
+                employee.FaceData5 = odRdr["FaceData5"].ToString();
+                employee.FaceData6 = odRdr["FaceData6"].ToString();
+                employee.FaceData7 = odRdr["FaceData7"].ToString();
+                employee.FaceData8 = odRdr["FaceData8"].ToString();
+                employee.FaceData9 = odRdr["FaceData9"].ToString();
+                employee.FaceData10 = odRdr["FaceData10"].ToString();
+                employee.FaceData11 = odRdr["FaceData11"].ToString();
+                employee.FaceData12 = odRdr["FaceData12"].ToString();
+                employee.FaceData13 = odRdr["FaceData13"].ToString();
+                employee.FaceData14 = odRdr["FaceData14"].ToString();
+                employee.FaceData15 = odRdr["FaceData15"].ToString();
+                employee.FaceData16 = odRdr["FaceData16"].ToString();
+                employee.FaceData17 = odRdr["FaceData17"].ToString();
+                employee.FaceData18 = odRdr["FaceData18"].ToString();
 
-                _employeeList.Add(_employee);
+                employeeList.Add(employee);
             }
 
             odRdr.Close();
-            return _employeeList;
+            return employeeList;
         }
 
         #endregion
