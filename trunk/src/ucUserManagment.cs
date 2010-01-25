@@ -87,7 +87,7 @@ namespace FaceIDAppVBEta
             }
             else
             {
-                cbxEmployeeNumber.SelectedIndex = cbxEmployeeNumber.Items.IndexOf(new ListItem(employeeNumber, employeeNumber));
+                cbxEmployeeNumber.SelectedIndex = cbxEmployeeNumber.FindString(employeeNumber.ToString());
 
                 txtPassword.Text = fUser.Password;
                 txtRetypePassword.Text = fUser.Password;
@@ -109,7 +109,10 @@ namespace FaceIDAppVBEta
 
         private void GetUserProperies(ref FaceIDUser fUser)
         {
+            fUser.EmployeeNumber = Convert.ToInt16(((ListItem)cbxEmployeeNumber.SelectedItem).Value);
+
             fUser.Password = txtPassword.Text;
+
             fUser.AttendanceManagementAccess = chbAttendanceManagement.Checked;
             fUser.CompanyDepartmentManagementAccess = chbCompanyDepartmentManagement.Checked;
             fUser.EmployeeManagementAccess = chbEmployeeManagement.Checked;
@@ -137,9 +140,7 @@ namespace FaceIDAppVBEta
 
                 if (_update == false) //add
                 {
-                    int employeeNumber = Convert.ToInt16(((ListItem)cbxEmployeeNumber.SelectedItem).Value);
-
-                    if (_dtCtrl.IsFaceIDUser(employeeNumber))
+                    if (_dtCtrl.IsFaceIDUser(fUser.EmployeeNumber))
                     {
                         throw new Exception("This employee has already been added as an user");
                     }
@@ -151,8 +152,6 @@ namespace FaceIDAppVBEta
                 }
                 else
                 {
-                    fUser.EmployeeNumber = Convert.ToInt16(((ListItem)cbxEmployeeNumber.SelectedItem).Value);
-
                     if (_dtCtrl.UpdateFaceIDUser(fUser))
                     {
                         MessageBox.Show("This user has been updated succesfully.");

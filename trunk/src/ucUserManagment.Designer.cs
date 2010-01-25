@@ -31,6 +31,9 @@
             this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvUser = new System.Windows.Forms.DataGridView();
+            this.EmployeeNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EmployeeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Access = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gbxAddUpdateUser = new System.Windows.Forms.GroupBox();
             this.cbxEmployeeNumber = new System.Windows.Forms.ComboBox();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -51,9 +54,6 @@
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.EmployeeNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EmployeeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Access = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUser)).BeginInit();
             this.gbxAddUpdateUser.SuspendLayout();
             this.cmsDgvUser.SuspendLayout();
@@ -75,11 +75,28 @@
             this.EmployeeNumber,
             this.EmployeeName,
             this.Access});
+            this.dgvUser.ContextMenuStrip = this.cmsDgvUser;
             this.dgvUser.Location = new System.Drawing.Point(59, 72);
             this.dgvUser.Name = "dgvUser";
             this.dgvUser.Size = new System.Drawing.Size(431, 150);
             this.dgvUser.TabIndex = 1;
             this.dgvUser.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUser_CellMouseEnter);
+            // 
+            // EmployeeNumber
+            // 
+            this.EmployeeNumber.DataPropertyName = "EmployeeNumber";
+            this.EmployeeNumber.HeaderText = "Employee Number";
+            this.EmployeeNumber.Name = "EmployeeNumber";
+            // 
+            // EmployeeName
+            // 
+            this.EmployeeName.HeaderText = "Employee Name";
+            this.EmployeeName.Name = "EmployeeName";
+            // 
+            // Access
+            // 
+            this.Access.HeaderText = "Access";
+            this.Access.Name = "Access";
             // 
             // gbxAddUpdateUser
             // 
@@ -258,39 +275,23 @@
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.editToolStripMenuItem.Text = "Edit";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
-            // 
-            // EmployeeNumber
-            // 
-            this.EmployeeNumber.DataPropertyName = "EmployeeNumber";
-            this.EmployeeNumber.HeaderText = "Employee Number";
-            this.EmployeeNumber.Name = "EmployeeNumber";
-            // 
-            // EmployeeName
-            // 
-            this.EmployeeName.HeaderText = "Employee Name";
-            this.EmployeeName.Name = "EmployeeName";
-            // 
-            // Access
-            // 
-            this.Access.HeaderText = "Access";
-            this.Access.Name = "Access";
             // 
             // ucUserManagment
             // 
