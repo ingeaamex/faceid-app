@@ -736,7 +736,7 @@ namespace FaceIDAppVBEta.Data
                 ,employee.FaceData17
                 ,employee.FaceData18
                 },
-                "ID=@ID", new object[] { "@ID", employee.PayrollNumber }
+                "PayrollNumber=@ID", new object[] { "@ID", employee.PayrollNumber }
             );
 
             return (odCom1.ExecuteNonQuery() == 1);
@@ -2186,7 +2186,6 @@ namespace FaceIDAppVBEta.Data
 
         #region FaceIDUser
 
-
         public List<FaceIDUser> GetFaceIDUserList()
         {
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("FaceIDUser", "*", null);
@@ -2215,7 +2214,7 @@ namespace FaceIDAppVBEta.Data
 
         public FaceIDUser GetFaceIDUser(int id)
         {
-            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("FaceIDUser", "*", "ID=@ID", new object[] { "@ID", id });
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("FaceIDUser", "*", "EmployeeNumber=@ID", new object[] { "@ID", id });
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
 
             FaceIDUser faceIDUser = null;
@@ -2293,8 +2292,20 @@ namespace FaceIDAppVBEta.Data
 
         public bool DeleteFaceIDUser(int id)
         {
-            System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("FaceIDUser", "ID=@ID", new object[] { "@ID", id });
+            System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("FaceIDUser", "EmployeeNumber=@ID", new object[] { "@ID", id });
             return odCom1.ExecuteNonQuery() > 0 ? true : false;
+        }
+
+        public bool IsFaceIDUser(int employeeNumber)
+        {
+            bool result = false;
+
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("FaceIDUser", "*", "EmployeeNumber=@ID", new object[] { "@ID", employeeNumber });
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+
+            result = odRdr.Read();
+
+            return result;
         }
         #endregion 
 

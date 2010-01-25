@@ -212,5 +212,7 @@ namespace FaceIDAppVBEta.Data
 
         bool UpdateFaceIDUser(FaceIDUser faceIDUser);
         #endregion
+
+        bool IsFaceIDUser(int employeeNumber);
     }
 }
