@@ -505,19 +505,23 @@ namespace FaceIDAppVBEta.Data
                 employee = new Employee();
                 employee.Active = (bool)odRdr["Active"];
                 employee.Address = odRdr["Address"].ToString();
-                employee.Birthday = (DateTime)odRdr["Birthday"];
+                if (typeof(DBNull) != odRdr["Birthday"].GetType())
+                    employee.Birthday = (DateTime)odRdr["Birthday"];
                 employee.DepartmentID = (int)odRdr["DepartmentID"];
                 employee.EmployeeNumber = (int)odRdr["EmployeeNumber"];
                 employee.FirstName = odRdr["FirstName"].ToString();
-                employee.HiredDate = (DateTime)odRdr["HiredDate"];
+                if (typeof(DBNull) != odRdr["HiredDate"].GetType())
+                    employee.HiredDate = (DateTime)odRdr["HiredDate"];
                 employee.JobDescription = odRdr["JobDescription"].ToString();
                 employee.LastName = odRdr["LastName"].ToString();
-                employee.LeftDate = (DateTime)odRdr["LeftDate"];
+                if (typeof(DBNull) != odRdr["LeftDate"].GetType())
+                    employee.LeftDate = (DateTime)odRdr["LeftDate"];
                 employee.PayrollNumber = (int)odRdr["PayrollNumber"];
                 employee.PhoneNumber = odRdr["PhoneNumber"].ToString();
                 employee.WorkingCalendarID = (int)odRdr["WorkingCalendarID"];
-                employee.ActiveFrom = (DateTime)odRdr["ActiveFrom"];
-                if (odRdr["ActiveTo"].GetType().Name != "DBNull")
+                if (typeof(DBNull) != odRdr["ActiveFrom"].GetType())
+                    employee.ActiveFrom = (DateTime)odRdr["ActiveFrom"];
+                if (typeof(DBNull) != odRdr["ActiveTo"].GetType())
                     employee.ActiveTo = (DateTime)odRdr["ActiveTo"];
                 employee.FaceData1 = odRdr["FaceData1"].ToString();
                 employee.FaceData2 = odRdr["FaceData2"].ToString();
@@ -1116,8 +1120,10 @@ namespace FaceIDAppVBEta.Data
 
                 wCalendar.ID = (int)odRdr["ID"];
                 wCalendar.Name = odRdr["Name"].ToString();
-                wCalendar.RegularWorkingFrom = (DateTime)odRdr["RegularWorkingFrom"];
-                wCalendar.RegularWorkingTo = (DateTime)odRdr["RegularWorkingTo"];
+                if (typeof(DBNull) != odRdr["RegularWorkingFrom"].GetType())
+                    wCalendar.RegularWorkingFrom = (DateTime)odRdr["RegularWorkingFrom"];
+                if (typeof(DBNull) != odRdr["RegularWorkingTo"].GetType())
+                    wCalendar.RegularWorkingTo = (DateTime)odRdr["RegularWorkingTo"];
 
                 wCalendarList.Add(wCalendar);
             }
@@ -1141,8 +1147,10 @@ namespace FaceIDAppVBEta.Data
                 workingCalendar.ID = (int)odRdr["ID"];
                 workingCalendar.Name = odRdr["Name"].ToString();
                 workingCalendar.PayPeriodID = (int)odRdr["PayPeriodID"];
-                workingCalendar.RegularWorkingFrom = (DateTime)odRdr["RegularWorkingFrom"];
-                workingCalendar.RegularWorkingTo = (DateTime)odRdr["RegularWorkingTo"];
+                if (typeof(DBNull) != odRdr["RegularWorkingFrom"].GetType())
+                    workingCalendar.RegularWorkingFrom = (DateTime)odRdr["RegularWorkingFrom"];
+                if (typeof(DBNull) != odRdr["RegularWorkingTo"].GetType())
+                    workingCalendar.RegularWorkingTo = (DateTime)odRdr["RegularWorkingTo"];
                 workingCalendar.WorkOnFriday = (bool)odRdr["WorkOnFriday"];
                 workingCalendar.WorkOnMonday = (bool)odRdr["WorkOnMonday"];
                 workingCalendar.WorkOnSaturday = (bool)odRdr["WorkOnSaturday"];
@@ -1750,8 +1758,10 @@ namespace FaceIDAppVBEta.Data
             foreach (DataRow drRp in dtReport.Rows)
             {
                 AttendanceLogReport _attLog = new AttendanceLogReport();
-                _attLog.WorkFrom = (DateTime)drRp["WorkFrom"];
-                _attLog.WorkTo = (DateTime)drRp["WorkTo"];
+                if (typeof(DBNull) != odRdr["WorkFrom"].GetType())
+                    _attLog.WorkFrom = (DateTime)drRp["WorkFrom"];
+                if (typeof(DBNull) != odRdr["WorkTo"].GetType())
+                    _attLog.WorkTo = (DateTime)drRp["WorkTo"];
                 _attLog.EmployeeNumber = (int)drRp["EmployeeNumber"];
 
                 DataRow[] rdEmpl =  dtEmpl.Select("EmployeeNumber=" + _attLog.EmployeeNumber);
@@ -1959,8 +1969,8 @@ namespace FaceIDAppVBEta.Data
             int iEmployeeNumber = attRecord.EmployeeNumber;
 
             WorkingCalendar workingCalendar = GetWorkingCalendarByEmployee(iEmployeeNumber);
-            DateTime dRegularWorkingFrom = (DateTime)workingCalendar.RegularWorkingFrom;
-            DateTime dRegularWorkingTo = (DateTime)workingCalendar.RegularWorkingTo;
+            DateTime dRegularWorkingFrom = workingCalendar.RegularWorkingFrom;
+            DateTime dRegularWorkingTo = workingCalendar.RegularWorkingTo;
 
             // get lastest record
             DateTime d2 = attRecord.Time;
@@ -2163,8 +2173,10 @@ namespace FaceIDAppVBEta.Data
                 attendanceReport.PayPeriodID = (int)odRdr["PayPeriodID"];
                 attendanceReport.RegularHour = (int)odRdr["RegularHour"];
                 attendanceReport.RegularRate = (int)odRdr["RegularRate"];
-                attendanceReport.WorkFrom = (DateTime)odRdr["WorkFrom"];
-                attendanceReport.WorkTo = (DateTime)odRdr["WorkTo"];
+                if (typeof(DBNull) != odRdr["WorkFrom"].GetType())
+                    attendanceReport.WorkFrom = (DateTime)odRdr["WorkFrom"];
+                if (typeof(DBNull) != odRdr["WorkTo"].GetType())
+                    attendanceReport.WorkTo = (DateTime)odRdr["WorkTo"];
                 attendanceReport.AttendanceReportID = (int)odRdr["AttendanceReportID"];
                 attendanceReport.AttendanceRecordIDList = odRdr["AttendanceRecordIDList"].ToString();
             }
@@ -2765,7 +2777,7 @@ namespace FaceIDAppVBEta.Data
                 employee.Address = odRdr["Address"].ToString();
                 employee.Active = Convert.ToBoolean(odRdr["Active"]);
                 employee.ActiveFrom = Convert.ToDateTime(odRdr["ActiveFrom"]);
-                if (odRdr["ActiveTo"].GetType().Name != "DBNull")
+                if (typeof(DBNull) != odRdr["ActiveTo"].GetType())
                     employee.ActiveTo = (DateTime)odRdr["ActiveTo"];
                 employee.FaceData1 = odRdr["FaceData1"].ToString();
                 employee.FaceData2 = odRdr["FaceData2"].ToString();
