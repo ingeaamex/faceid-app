@@ -232,7 +232,9 @@ namespace FaceIDAppVBEta
 
         private Employee GetEmployeeUserInput()
         {
-            Employee employee = new Employee();
+            //Employee employee = new Employee();
+            Employee employee = dtCtrl.GetEmployee(employeeID);
+
             object oDepartment = cbxDepartment.SelectedValue;
             object oWorkingCalendar = cbxWorkingCalendar.SelectedValue;
             string sFistName = tbFirstName.Text;
