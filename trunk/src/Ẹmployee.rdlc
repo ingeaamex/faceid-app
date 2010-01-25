@@ -229,7 +229,7 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                       <CanGrow>true</CanGrow>
-                      <Value>=Fields!HiredDate.Value</Value>
+                      <Value>=Convert.ToDateTime(Fields!HiredDate.Value).ToString("d MMM yyyy")</Value>
                     </Textbox>
                   </ReportItems>
                 </TableCell>
