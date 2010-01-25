@@ -450,6 +450,36 @@ namespace FaceIDAppVBEta.Data
 
         #region Employee
 
+        public List<EmployeeReport> GetEmployeeReportList(int compantId, int departmentId)
+        {
+            System.Data.OleDb.OleDbCommand odCom;
+            if (departmentId == 1 || compantId == 1)
+                odCom = BuildSelectCmd("Department INNER JOIN Employee ON Department.ID = Employee.DepartmentID", "Employee.*,Department.Name as DepartmentName", "DepartmentID=1");
+            else if (departmentId > 0)
+                odCom = BuildSelectCmd("Department INNER JOIN Employee ON Department.ID = Employee.DepartmentID", "Employee.*,Department.Name as DepartmentName", "DepartmentID=@ID AND Active=TRUE", "@ID", departmentId);
+            else if (compantId > 0)
+                odCom = BuildSelectCmd("Department INNER JOIN Employee ON Department.ID = Employee.DepartmentID", "Employee.*,Department.Name as DepartmentName", "DepartmentID in (SELECT ID FROM Department WHERE CompanyID=@ID) AND Active=true", new object[] { "@ID", compantId });
+            else
+                odCom = BuildSelectCmd("Department INNER JOIN Employee ON Department.ID = Employee.DepartmentID", "Employee.*,Department.Name as DepartmentName", "Active=true");
+
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+            List<EmployeeReport> employeeList = new List<EmployeeReport>();
+            EmployeeReport employee = null;
+            int employeeNo = 1;
+            while (odRdr.Read())
+            {
+                employee = new EmployeeReport();
+                employee.DepartmentName = odRdr["DepartmentName"].ToString();
+                employee.EmployeeNo = employeeNo++;
+                employee.FullName = odRdr["FirstName"].ToString() + ", " + odRdr["LastName"].ToString();
+                employee.HiredDate = (DateTime)odRdr["HiredDate"];
+                employee.JobDescription = odRdr["JobDescription"].ToString();
+                employeeList.Add(employee);
+            }
+            odRdr.Close();
+            return employeeList;
+        }
+
         public bool IsNewEmployee(Employee employee)
         {
             throw new NotImplementedException();
@@ -510,9 +540,11 @@ namespace FaceIDAppVBEta.Data
             //ConnectToDatabase();
 
             System.Data.OleDb.OleDbCommand odCom;
-            if (departmentId > 0)
+            if (departmentId == 1 || compantId == 1)
+                odCom = BuildSelectCmd("Employee", "*", "DepartmentID=1");
+            else if (departmentId > 0)
                 odCom = BuildSelectCmd("Employee", "*", "DepartmentID=@ID AND Active=TRUE", "@ID", departmentId);
-            if (compantId > 0)
+            else if (compantId > 0)
                 odCom = BuildSelectCmd("Employee", "*", "DepartmentID in (SELECT ID FROM Department WHERE CompanyID=@ID) AND Active=true", new object[] { "@ID", compantId });
             else
                 odCom = BuildSelectCmd("Employee", "*", "Active=true");
@@ -525,19 +557,23 @@ namespace FaceIDAppVBEta.Data
                 employee = new Employee();
                 employee.Active = (bool)odRdr["Active"];
                 employee.Address = odRdr["Address"].ToString();
-                employee.Birthday = (DateTime)odRdr["Birthday"];
+                if (typeof(DBNull) != odRdr["Birthday"].GetType())
+                    employee.Birthday = (DateTime)odRdr["Birthday"];
                 employee.DepartmentID = (int)odRdr["DepartmentID"];
                 employee.EmployeeNumber = (int)odRdr["EmployeeNumber"];
                 employee.FirstName = odRdr["FirstName"].ToString();
-                employee.HiredDate = (DateTime)odRdr["HiredDate"];
+                if (typeof(DBNull) != odRdr["HiredDate"].GetType())
+                    employee.HiredDate = (DateTime)odRdr["HiredDate"];
                 employee.JobDescription = odRdr["JobDescription"].ToString();
                 employee.LastName = odRdr["LastName"].ToString();
-                employee.LeftDate = (DateTime)odRdr["LeftDate"];
+                if (typeof(DBNull) != odRdr["LeftDate"].GetType())
+                    employee.LeftDate = (DateTime)odRdr["LeftDate"];
                 employee.PayrollNumber = (int)odRdr["PayrollNumber"];
                 employee.PhoneNumber = odRdr["PhoneNumber"].ToString();
                 employee.WorkingCalendarID = (int)odRdr["WorkingCalendarID"];
-                employee.ActiveFrom = (DateTime)odRdr["ActiveFrom"];
-                if (odRdr["ActiveTo"].GetType().Name != "DBNull")
+                if (typeof(DBNull) != odRdr["ActiveFrom"].GetType())
+                    employee.ActiveFrom = (DateTime)odRdr["ActiveFrom"];
+                if (typeof(DBNull) != odRdr["ActiveTo"].GetType())
                     employee.ActiveTo = (DateTime)odRdr["ActiveTo"];
                 employee.FaceData1 = odRdr["FaceData1"].ToString();
                 employee.FaceData2 = odRdr["FaceData2"].ToString();
