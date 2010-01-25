@@ -990,13 +990,26 @@ namespace FaceIDAppVBEta.Data
 
         public List<EmployeeNumber> GetEmployeeNumberList()
         {
-            throw new NotImplementedException();
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("EmployeeNumber", "*", null);
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+            List<EmployeeNumber> employeeNumberList = new List<EmployeeNumber>();
+            EmployeeNumber employeeNumber = null;
+            while (odRdr.Read())
+            {
+                employeeNumber = new EmployeeNumber();
+
+                employeeNumber.ID = Convert.ToInt16(odRdr["ID"]);
+                employeeNumber.Note = odRdr["Note"].ToString();
+
+                employeeNumberList.Add(employeeNumber);
+            }
+
+            odRdr.Close();
+            return employeeNumberList;
         }
 
         public int GetAvailEmployeeNumber()
         {
-            //ConnectToDatabase();
-
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Employee", "Min(EmployeeNumber) as EmployeeNumber", "Active=0");
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
 
