@@ -2259,6 +2259,7 @@ namespace FaceIDAppVBEta.Data
                 ,"WorkingCalendarManagementAccess"
                 ,"EmployeeManagementAccess"
                 ,"AttendanceManagementAccess"
+                ,"EmployeeNumber"
                 },
                 new object[] { faceIDUser.Password
                 ,faceIDUser.UserManagementAccess
@@ -2267,6 +2268,7 @@ namespace FaceIDAppVBEta.Data
                 ,faceIDUser.WorkingCalendarManagementAccess
                 ,faceIDUser.EmployeeManagementAccess
                 ,faceIDUser.AttendanceManagementAccess
+                ,faceIDUser.EmployeeNumber
                 }
             );
 
