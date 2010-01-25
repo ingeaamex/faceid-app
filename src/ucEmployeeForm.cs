@@ -134,7 +134,7 @@ namespace FaceIDAppVBEta
             {
                 List<Employee> employees = (List<Employee>)dgvEmpl.DataSource;
                 Employee employee = employees[e.RowIndex];
-                
+
                 e.FormattingApplied = true;
                 e.Value = string.Format("{0}, {1}", employee.LastName, employee.FirstName);
             }
@@ -156,7 +156,7 @@ namespace FaceIDAppVBEta
 
                 e.FormattingApplied = true;
                 e.Value = terminalNames;
-                
+
             }
         }
 
@@ -188,7 +188,7 @@ namespace FaceIDAppVBEta
                                 employee.LastName = "";
                                 employee.PhoneNumber = "";
 
-                                if(_dtCtrl.AddEmployee(employee) < 0)
+                                if (_dtCtrl.AddEmployee(employee) < 0)
                                     throw new Exception("Cannot update employee " + employee.EmployeeNumber);
                             }
                         }
@@ -199,7 +199,7 @@ namespace FaceIDAppVBEta
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("There has been an error: " + ex.Message + ". Please try again.");
                 return;
@@ -228,11 +228,8 @@ namespace FaceIDAppVBEta
 
                         foreach (Employee employee in employeeList)
                         {
-                            if (_dtCtrl.IsNewEmployee(employee))
-                            {
-                                if (_dtCtrl.AddEmployee(employee) < 0)
-                                    throw new Exception("Cannot update employee " + employee.EmployeeNumber + " on terminal " + terminal.Name);
-                            }
+                            if (_terCtrl.UpdateEmployee(terminal, employee) == false)
+                                throw new Exception("Cannot update employee " + employee.EmployeeNumber + " on terminal " + terminal.Name);
                         }
                     }
                     else
