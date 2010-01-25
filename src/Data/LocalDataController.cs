@@ -73,7 +73,7 @@ namespace FaceIDAppVBEta.Data
                 //Config config = Util.GetConfig();
                 //if (config == null)
                 //    throw new Exception();
-                string connectionString = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";// +config.DatabasePath;
+                string connectionString = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\vnanh\project\FaceID\db\FaceIDdb.mdb";// +config.DatabasePath;
                 dbConnection = new OleDbConnection(connectionString);
             }
             if (dbConnection.State != ConnectionState.Open)
@@ -472,7 +472,8 @@ namespace FaceIDAppVBEta.Data
                 employee.DepartmentName = odRdr["DepartmentName"].ToString();
                 employee.EmployeeNo = employeeNo++;
                 employee.FullName = odRdr["FirstName"].ToString() + ", " + odRdr["LastName"].ToString();
-                employee.HiredDate = (DateTime)odRdr["HiredDate"];
+                if (typeof(DBNull) != odRdr["HiredDate"].GetType())
+                    employee.HiredDate = (DateTime)odRdr["HiredDate"];
                 employee.JobDescription = odRdr["JobDescription"].ToString();
                 employeeList.Add(employee);
             }
