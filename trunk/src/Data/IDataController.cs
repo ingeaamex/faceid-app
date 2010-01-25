@@ -200,5 +200,17 @@ namespace FaceIDAppVBEta.Data
         #region Attendance Report
         DataTable GetAttendanceReport(int companyID, int departmentID, DateTime dtFrom, DateTime dtTo);
         #endregion Attendance Report
+
+        #region FaceIDUser
+        List<FaceIDUser> GetFaceIDUserList();
+
+        FaceIDUser GetFaceIDUser(int id);
+
+        int AddFaceIDUser(FaceIDUser faceIDUser);
+
+        bool DeleteFaceIDUser(int id);
+
+        bool UpdateFaceIDUser(FaceIDUser faceIDUser);
+        #endregion
     }
 }

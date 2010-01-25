@@ -239,7 +239,7 @@
             // 
             // btnGetEmployeeFromTerminal
             // 
-            this.btnGetEmployeeFromTerminal.Location = new System.Drawing.Point(393, 271);
+            this.btnGetEmployeeFromTerminal.Location = new System.Drawing.Point(310, 271);
             this.btnGetEmployeeFromTerminal.Name = "btnGetEmployeeFromTerminal";
             this.btnGetEmployeeFromTerminal.Size = new System.Drawing.Size(195, 23);
             this.btnGetEmployeeFromTerminal.TabIndex = 9;
@@ -249,7 +249,7 @@
             // 
             // btnSendEmployeeToTerminal
             // 
-            this.btnSendEmployeeToTerminal.Location = new System.Drawing.Point(604, 271);
+            this.btnSendEmployeeToTerminal.Location = new System.Drawing.Point(511, 271);
             this.btnSendEmployeeToTerminal.Name = "btnSendEmployeeToTerminal";
             this.btnSendEmployeeToTerminal.Size = new System.Drawing.Size(195, 23);
             this.btnSendEmployeeToTerminal.TabIndex = 10;
@@ -261,9 +261,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.btnSendEmployeeToTerminal);
             this.Controls.Add(this.btnGetEmployeeFromTerminal);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cbDepartment);
             this.Controls.Add(this.cbCompany);
