@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnCollectData = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.dtpAttendanceFrom = new System.Windows.Forms.DateTimePicker();
@@ -236,8 +236,8 @@
             // 
             // Date1
             // 
-            dataGridViewCellStyle2.Format = "d MMM yyyy";
-            this.Date1.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Format = "d MMM yyyy";
+            this.Date1.DefaultCellStyle = dataGridViewCellStyle1;
             this.Date1.HeaderText = "Date";
             this.Date1.Name = "Date1";
             this.Date1.ReadOnly = true;
@@ -280,7 +280,7 @@
             this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.btnCollectData);
             this.Name = "ucAttendanceLog";
-            this.Size = new System.Drawing.Size(1058, 591);
+            this.Size = new System.Drawing.Size(962, 470);
             this.cmsAction.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAttendanceLog)).EndInit();
             this.ResumeLayout(false);
