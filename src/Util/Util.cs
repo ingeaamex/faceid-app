@@ -104,13 +104,7 @@ namespace FaceIDAppVBEta
 
         internal static void SetComboboxSelectedByValue(System.Windows.Forms.ComboBox cbx, object value)
         {
-            //for (int i = 0; i < cbx.Items.Count; i++)
-            //{
-            //    if (((Rate)cbx.Items[i]).Value == Convert.ToDouble(value))
-            //    {
-            //        cbx.SelectedIndex = i;
-            //    }
-            //}
+            cbx.SelectedIndex = cbx.FindString(value.ToString());
         }
 
         internal static DateTime GetTheFirstDayOfCurrentMonth()
