@@ -253,5 +253,51 @@ namespace FaceIDAppVBEta
                 cellContext = new Point(e.X, e.Y + dgvAttendanceLog.VerticalScrollingOffset);
             }
         }
+
+        private ITerminalController _terCtrl = new TerminalController();
+        private void btnCollectData_Click(object sender, EventArgs e)
+        {
+            GetAttendanceRecordFromTerminal();
+        }
+
+        private void GetAttendanceRecordFromTerminal()
+        {
+            try
+            {
+                List<Terminal> terminalList = dtCtrl.GetTerminalList();
+
+                foreach (Terminal terminal in terminalList)
+                {
+                    if (_terCtrl.IsTerminalConnected(terminal))
+                    {
+                        List<AttendanceRecord> attRecordList = _terCtrl.GetAttendanceRecord(terminal, DateTime.Today.AddYears(-1), DateTime.Today);
+
+                        foreach (AttendanceRecord attRecord in attRecordList)
+                        {
+                            attRecord.CheckIn = true;
+                            attRecord.Note = "";
+                            attRecord.PhotoData = "";
+
+                            if (dtCtrl.AddAttendanceRecord(attRecord) == false)
+                            {
+                                throw new Exception("Cannot save attendance records to database");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception("Cannot connect to terminal " + terminal.Name);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("There has been an error: " + ex.Message + ". Please try again.");
+                return;
+            }
+
+            MessageBox.Show("Attendance records from terminals have been copied succesfully");
+            LoadAttdanceLog();
+        }
     }
 }

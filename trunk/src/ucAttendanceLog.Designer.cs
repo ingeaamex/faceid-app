@@ -65,6 +65,7 @@
             this.btnCollectData.TabIndex = 0;
             this.btnCollectData.Text = "Collect Data";
             this.btnCollectData.UseVisualStyleBackColor = true;
+            this.btnCollectData.Click += new System.EventHandler(this.btnCollectData_Click);
             // 
             // label2
             // 
@@ -104,19 +105,19 @@
             this.editToolStripMenuItem,
             this.deleteToolStripMenuItem});
             this.cmsAction.Name = "cmsAction";
-            this.cmsAction.Size = new System.Drawing.Size(108, 48);
+            this.cmsAction.Size = new System.Drawing.Size(106, 48);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.editToolStripMenuItem.Text = "Edit";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
