@@ -123,6 +123,11 @@ namespace FaceIDAppVBEta
             if (dlogRs.ToString().Equals("Yes"))
             {
                 int DepartmentID = (int)tvDepartment.SelectedNode.Tag;
+                if (DepartmentID == 1)
+                {
+                    MessageBox.Show("Can not delete default value!");
+                    return;
+                }
                 bool rs = dtCtrl.DeleteDepartment(DepartmentID);
                 if (rs)
                 {

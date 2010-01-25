@@ -53,6 +53,11 @@ namespace FaceIDAppVBEta
                     }
                     else
                     {
+                        if (company.ID == 1)
+                        {
+                            MessageBox.Show("Can not delete default value!");
+                            return;
+                        }
                         bool rs = dtCtrl.DeleteCompany(company.ID);
                         MessageBox.Show(rs ? "sucessfull" : "error");
                         if (rs)
