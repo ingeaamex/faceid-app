@@ -483,7 +483,13 @@ namespace FaceIDAppVBEta.Data
 
         public bool IsNewEmployee(Employee employee)
         {
-            throw new NotImplementedException();
+            bool result = false;
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Employee", "PayrollNumber", "Active=TRUE AND EmployeeNumber=@EmployeeNumber", "@EmployeeNumber", employee.EmployeeNumber);
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+
+            result = (odRdr.Read() == false);
+            odRdr.Close();
+            return result;
         }
 
         public Employee GetEmployee(int employeeId)
