@@ -14,7 +14,7 @@ namespace FaceIDAppVBEta
 {
     public partial class ucEmployeeForm : UserControl
     {
-        private Point cellContext;
+        private Point _cellContext;
         private ITerminalController _terCtrl = new TerminalController();
         private IDataController _dtCtrl = LocalDataController.Instance;
 
@@ -95,39 +95,71 @@ namespace FaceIDAppVBEta
 
         private void updateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int id = (int)dgvEmpl.Rows[cellContext.X].Cells[4].Value;
+            int id = (int)dgvEmpl.Rows[_cellContext.X].Cells[4].Value;
             frmAddUpdateEmployee objForm = new frmAddUpdateEmployee(id);
             objForm.ShowDialog(this);
         }
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            object oId = dgvEmpl.Rows[cellContext.X].Cells[4].Value;
-            DialogResult dlogRs = MessageBox.Show(Form.ActiveForm, "Are you sure?", "Confirm", MessageBoxButtons.YesNo);
-            if (dlogRs.ToString().Equals("Yes"))
+            object oId = dgvEmpl.Rows[_cellContext.X].Cells[4].Value;
+            //DialogResult dlogRs = MessageBox.Show(Form.ActiveForm, , "Confirm", MessageBoxButtons.YesNo);
+
+            if (Util.Confirm("Are you sure?"))
             {
                 Employee employee = _dtCtrl.GetEmployee((int)oId);
                 _dtCtrl.BeginTransaction();
-                bool brs1 = _dtCtrl.DeleteEmployee((int)oId);
-                bool brs2 = _dtCtrl.DeleteEmployeeTerminalByEmployee(employee.EmployeeNumber);
-
-                if (brs1 && brs2)
+                try
                 {
+                    _dtCtrl.DeleteEmployee((int)oId);
+                    _dtCtrl.DeleteEmployeeTerminalByEmployee(employee.EmployeeNumber);
+
+                    RemoveEmployeeFromTerminal(employee);
+
                     _dtCtrl.CommitTransaction();
-                    MessageBox.Show("sucessfull");
+
+                    MessageBox.Show("Employee deleted succesfully.");
                     BindEmployee();
                 }
-                else
+                catch(Exception ex)
                 {
                     _dtCtrl.RollbackTransaction();
-                    MessageBox.Show("error");
+                    MessageBox.Show("There has been an error: " + ex.Message + ". Please try again");
+                }
+            }
+        }
+
+        private void RemoveEmployeeFromTerminal(Employee employee)
+        {
+            List<Terminal> terminalList = _dtCtrl.GetTerminalListByEmployee(employee.EmployeeNumber);
+
+            foreach (Terminal terminal in terminalList)
+            {
+                bool employeeRemoved = false;
+
+                if (_terCtrl.IsTerminalConnected(terminal))
+                {
+                    throw new Exception("Do not do this yet. It is painful to add an employee using the terminal you know.");
+
+                    if (_terCtrl.RemoveEmployee(terminal, employee) == false)
+                        throw new Exception("Cannot remove employee " + employee.EmployeeNumber);
+                }
+
+                if (employeeRemoved == false)
+                {
+                    UndeletedEmployeeNumber undeletedEmployeeNumber = new UndeletedEmployeeNumber();
+                    undeletedEmployeeNumber.EmployeeNumber = employee.EmployeeNumber;
+                    undeletedEmployeeNumber.TerminalID = terminal.ID;
+
+                    if (_dtCtrl.AddUndeletedEmployeeNumber(undeletedEmployeeNumber) < 0)
+                        throw new Exception("User could not be deleted");
                 }
             }
         }
 
         private void dgvEmpl_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
-            cellContext = new Point(e.RowIndex, e.ColumnIndex);
+            _cellContext = new Point(e.RowIndex, e.ColumnIndex);
         }
 
         private void dgvEmpl_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -190,7 +222,7 @@ namespace FaceIDAppVBEta
                                 employee.LastName = "";
                                 employee.PhoneNumber = "";
 
-                                if (_dtCtrl.AddEmployee(employee, new List<Terminal>(){terminal}) < 0)
+                                if (_dtCtrl.AddEmployee(employee, new List<Terminal>() { terminal }) < 0)
                                     throw new Exception("Cannot update employee " + employee.EmployeeNumber);
                             }
                         }
@@ -310,7 +342,7 @@ namespace FaceIDAppVBEta
 
                     MessageBox.Show("Well done. Congratulation.");
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Util.ShowErrorMessage("There has been an error: " + ex.Message + ". Please try again");
                 }
