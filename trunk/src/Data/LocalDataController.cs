@@ -1159,7 +1159,7 @@ namespace FaceIDAppVBEta.Data
                 if (odCom1.ExecuteNonQuery() == 1)
                 {
                     odCom1.CommandText = "SELECT @@IDENTITY";
-                    return Convert.ToInt16(odCom1.ExecuteScalar().ToString());
+                    return Convert.ToInt32(odCom1.ExecuteScalar().ToString());
                 }
             }
             return -1;
@@ -1175,7 +1175,7 @@ namespace FaceIDAppVBEta.Data
             {
                 employeeNumber = new EmployeeNumber();
 
-                employeeNumber.ID = Convert.ToInt16(odRdr["ID"]);
+                employeeNumber.ID = Convert.ToInt32(odRdr["ID"]);
             }
 
             odRdr.Close();
