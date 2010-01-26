@@ -88,9 +88,9 @@ namespace FaceIDAppVBEta
             return GetEmployeeNumberList(Marshal.PtrToStringAnsi(result));
         }
 
-        private List<int> GetEmployeeNumberList(string result)
+        private List<Int32> GetEmployeeNumberList(string result)
         {
-            List<int> employeeNumberList = new List<int>();
+            List<Int32> employeeNumberList = new List<Int32>();
 
             if (IsSuccess(result) == false)
             {
@@ -106,7 +106,7 @@ namespace FaceIDAppVBEta
                     iFrom += keyName.Length;
                     iTo = result.IndexOf("\"", iFrom);
                     
-                    int employeeNumber = Convert.ToInt16(result.Substring(iFrom, iTo - iFrom));
+                    int employeeNumber = Convert.ToInt32(result.Substring(iFrom, iTo - iFrom));
                     employeeNumberList.Add(employeeNumber);
                     
                     result = result.Substring(iTo);
@@ -197,7 +197,7 @@ namespace FaceIDAppVBEta
 
                 AttendanceRecord attRecord = new AttendanceRecord();
                 attRecord.Time = Convert.ToDateTime(GetValue(attString, "time"));
-                attRecord.EmployeeNumber = Convert.ToInt16(GetValue(attString, "id"));
+                attRecord.EmployeeNumber = Convert.ToInt32(GetValue(attString, "id"));
 
                 attRecordList.Add(attRecord);
 
@@ -232,7 +232,7 @@ namespace FaceIDAppVBEta
             {
                 Employee employee = new Employee();
 
-                employee.EmployeeNumber = Convert.ToInt16(GetValue(result, "id"));
+                employee.EmployeeNumber = Convert.ToInt32(GetValue(result, "id"));
                 employee.FirstName = GetValue(result, "name");
 
                 employee.FaceData1 = GetValue(result, "face_data", 1);
