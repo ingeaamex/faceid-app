@@ -4,8 +4,8 @@ using System.Text;
 
 namespace FaceIDAppVBEta.Class
 {
-    public class EmployeeNumber
+    public class UndeletedEmployeeNumber
     {
-        public int ID { get; set; }
+        public int EmployeeNumber { get; set; }
     }
 }

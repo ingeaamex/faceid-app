@@ -211,8 +211,32 @@ namespace FaceIDAppVBEta.Data
         bool DeleteFaceIDUser(int id);
 
         bool UpdateFaceIDUser(FaceIDUser faceIDUser);
-        #endregion
 
         bool IsFaceIDUser(int employeeNumber);
+        #endregion
+
+        #region UncalculatedAttendanceRecord
+        List<UncalculatedAttendanceRecord> GetUncalculatedAttendanceRecordList();
+
+        UncalculatedAttendanceRecord GetUncalculatedAttendanceRecord(int id);
+
+        int AddUncalculatedAttendanceRecord(UncalculatedAttendanceRecord uncalculatedAttendanceRecord);
+
+        bool DeleteUncalculatedAttendanceRecord(int id);
+
+        bool UpdateUncalculatedAttendanceRecord(UncalculatedAttendanceRecord uncalculatedAttendanceRecord);
+        #endregion
+
+        #region UndeletedEmployeeNumber
+        List<UndeletedEmployeeNumber> GetUndeletedEmployeeNumberList();
+
+        UndeletedEmployeeNumber GetUndeletedEmployeeNumber(int id);
+
+        int AddUndeletedEmployeeNumber(UndeletedEmployeeNumber undeletedEmployeeNumber);
+
+        bool DeleteUndeletedEmployeeNumber(int id);
+
+        bool UpdateUndeletedEmployeeNumber(UndeletedEmployeeNumber undeletedEmployeeNumber);
+        #endregion
     }
 }
