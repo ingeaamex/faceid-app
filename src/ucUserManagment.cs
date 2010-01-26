@@ -109,7 +109,7 @@ namespace FaceIDAppVBEta
 
         private void GetUserProperies(ref FaceIDUser fUser)
         {
-            fUser.EmployeeNumber = Convert.ToInt16(((ListItem)cbxEmployeeNumber.SelectedItem).Value);
+            fUser.EmployeeNumber = Convert.ToInt32(((ListItem)cbxEmployeeNumber.SelectedItem).Value);
 
             fUser.Password = txtPassword.Text;
 

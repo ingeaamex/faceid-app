@@ -48,6 +48,7 @@ namespace FaceIDAppVBEta.Data
         #endregion Department
 
         #region Employee
+        int AddEmployee(Employee employee, List<EmployeeTerminal> employeeTerminalList);
 
         Employee GetEmployee(int employeeId);
 
@@ -238,5 +239,6 @@ namespace FaceIDAppVBEta.Data
 
         bool UpdateUndeletedEmployeeNumber(UndeletedEmployeeNumber undeletedEmployeeNumber);
         #endregion
+
     }
 }
