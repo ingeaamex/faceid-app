@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 using FaceIDAppVBEta.Data;
 using FaceIDAppVBEta.Class;
+using System.IO;
 
 namespace FaceIDAppVBEta
 {
@@ -26,6 +27,7 @@ namespace FaceIDAppVBEta
         private void btView_Click(object sender, EventArgs e)
         {
             BindEmployee();
+            btnExportToFile.Enabled = true;
         }
 
         private void btPrint_Click(object sender, EventArgs e)
@@ -246,6 +248,77 @@ namespace FaceIDAppVBEta
 
             MessageBox.Show("Employee data from terminals have been copied succesfully");
             BindEmployee();
+        }
+
+        private void btnExportToFile_Click(object sender, EventArgs e)
+        {
+            ExportToFile();
+        }
+
+        private void ExportToFile()
+        {
+            SaveFileDialog sfdExport = new SaveFileDialog();
+            sfdExport.Filter = "Text files (*.txt)|*.txt";
+            sfdExport.FileName = DateTime.Now.Ticks.ToString();
+
+            if (sfdExport.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = sfdExport.FileName;
+                StreamWriter sWrite = new StreamWriter(filePath, false);
+
+                try
+                {
+                    if (dgvEmpl.DataSource == null)
+                    {
+                        MessageBox.Show("Please select company/department and click View for a list of employee first");
+                        return;
+                    }
+
+                    List<Employee> employeeList = (List<Employee>)dgvEmpl.DataSource;
+
+                    if (employeeList.Count == 0)
+                    {
+                        MessageBox.Show("There is no employee to export. Please try again");
+                        return;
+                    }
+
+                    foreach (Employee employee in employeeList)
+                    {
+                        sWrite.WriteLine("Return(result=\"success\" ");
+                        sWrite.WriteLine(string.Format("id=\"{0}\" name=\"{1}\" calid=\"\" card_num=\"0Xffffff\" authority=\"0X0\" check_type=\"face&card\" opendoor_type=\"face&card\" ", employee.EmployeeNumber, employee.FirstName));
+
+                        sWrite.WriteLine(string.Format("face_data=\"{0}\" ", employee.FaceData1));
+                        sWrite.WriteLine(string.Format("face_data=\"{0}\" ", employee.FaceData2));
+                        sWrite.WriteLine(string.Format("face_data=\"{0}\" ", employee.FaceData3));
+                        sWrite.WriteLine(string.Format("face_data=\"{0}\" ", employee.FaceData4));
+                        sWrite.WriteLine(string.Format("face_data=\"{0}\" ", employee.FaceData5));
+                        sWrite.WriteLine(string.Format("face_data=\"{0}\" ", employee.FaceData6));
+                        sWrite.WriteLine(string.Format("face_data=\"{0}\" ", employee.FaceData7));
+                        sWrite.WriteLine(string.Format("face_data=\"{0}\" ", employee.FaceData8));
+                        sWrite.WriteLine(string.Format("face_data=\"{0}\" ", employee.FaceData9));
+                        sWrite.WriteLine(string.Format("face_data=\"{0}\" ", employee.FaceData10));
+                        sWrite.WriteLine(string.Format("face_data=\"{0}\" ", employee.FaceData11));
+                        sWrite.WriteLine(string.Format("face_data=\"{0}\" ", employee.FaceData12));
+                        sWrite.WriteLine(string.Format("face_data=\"{0}\" ", employee.FaceData13));
+                        sWrite.WriteLine(string.Format("face_data=\"{0}\" ", employee.FaceData14));
+                        sWrite.WriteLine(string.Format("face_data=\"{0}\" ", employee.FaceData15));
+                        sWrite.WriteLine(string.Format("face_data=\"{0}\" ", employee.FaceData16));
+                        sWrite.WriteLine(string.Format("face_data=\"{0}\" ", employee.FaceData17));
+                        sWrite.WriteLine(string.Format("face_data=\"{0}\" ", employee.FaceData18));
+                        sWrite.WriteLine(")");
+                    }
+
+                    MessageBox.Show("Well done. Congratulation.");
+                }
+                catch(Exception ex)
+                {
+                    Util.ShowErrorMessage("There has been an error: " + ex.Message + ". Please try again");
+                }
+                finally
+                {
+                    sWrite.Close();
+                }
+            }
         }
     }
 }

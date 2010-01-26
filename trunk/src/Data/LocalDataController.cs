@@ -2265,7 +2265,7 @@ namespace FaceIDAppVBEta.Data
             {
                 faceIDUser = new FaceIDUser();
 
-                faceIDUser.EmployeeNumber = Convert.ToInt16(odRdr["EmployeeNumber"]);
+                faceIDUser.EmployeeNumber = Convert.ToInt32(odRdr["EmployeeNumber"]);
                 faceIDUser.Password = odRdr["Password"].ToString();
                 faceIDUser.UserManagementAccess = Convert.ToBoolean(odRdr["UserManagementAccess"]);
                 faceIDUser.TerminalManagementAccess = Convert.ToBoolean(odRdr["TerminalManagementAccess"]);
@@ -2291,7 +2291,7 @@ namespace FaceIDAppVBEta.Data
             {
                 faceIDUser = new FaceIDUser();
 
-                faceIDUser.EmployeeNumber = Convert.ToInt16(odRdr["EmployeeNumber"]);
+                faceIDUser.EmployeeNumber = Convert.ToInt32(odRdr["EmployeeNumber"]);
                 faceIDUser.Password = odRdr["Password"].ToString();
                 faceIDUser.UserManagementAccess = Convert.ToBoolean(odRdr["UserManagementAccess"]);
                 faceIDUser.TerminalManagementAccess = Convert.ToBoolean(odRdr["TerminalManagementAccess"]);
@@ -2765,7 +2765,7 @@ namespace FaceIDAppVBEta.Data
                 employee = new Employee();
 
                 employee.PayrollNumber = Convert.ToInt16(odRdr["PayrollNumber"]);
-                employee.EmployeeNumber = Convert.ToInt16(odRdr["EmployeeNumber"]);
+                employee.EmployeeNumber = Convert.ToInt32(odRdr["EmployeeNumber"]);
                 employee.DepartmentID = Convert.ToInt16(odRdr["DepartmentID"]);
                 employee.FirstName = odRdr["FirstName"].ToString();
                 employee.LastName = odRdr["LastName"].ToString();
@@ -2819,7 +2819,7 @@ namespace FaceIDAppVBEta.Data
             {
                 undeletedEmployeeNumber = new UndeletedEmployeeNumber();
 
-                undeletedEmployeeNumber.EmployeeNumber = Convert.ToInt16(odRdr["EmployeeNumber"]);
+                undeletedEmployeeNumber.EmployeeNumber = Convert.ToInt32(odRdr["EmployeeNumber"]);
                 undeletedEmployeeNumber.TerminalID = Convert.ToInt16(odRdr["TerminalID"]);
 
                 undeletedEmployeeNumberList.Add(undeletedEmployeeNumber);
@@ -2839,7 +2839,7 @@ namespace FaceIDAppVBEta.Data
             {
                 undeletedEmployeeNumber = new UndeletedEmployeeNumber();
 
-                undeletedEmployeeNumber.EmployeeNumber = Convert.ToInt16(odRdr["EmployeeNumber"]);
+                undeletedEmployeeNumber.EmployeeNumber = Convert.ToInt32(odRdr["EmployeeNumber"]);
                 undeletedEmployeeNumber.TerminalID = Convert.ToInt16(odRdr["TerminalID"]);
             }
 
