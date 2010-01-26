@@ -48,7 +48,7 @@ namespace FaceIDAppVBEta.Data
         #endregion Department
 
         #region Employee
-        int AddEmployee(Employee employee, List<Terminal> terminalList);
+        //int AddEmployee(Employee employee, List<Terminal> terminalList);
 
         Employee GetEmployee(int employeeId);
 
@@ -58,7 +58,7 @@ namespace FaceIDAppVBEta.Data
 
         bool IsExistEmployeeNumber(int employeeNumber);
         
-        //int AddEmployee(Employee employee);
+        int AddEmployee(Employee employee);
 
         bool DeleteEmployee(int employeeId);
 
@@ -184,8 +184,6 @@ namespace FaceIDAppVBEta.Data
 
         #region AttendanceRecord
 
-        List<AttendanceLogReport> GetAttendanceReportList(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate);
-
         List<AttendanceLogRecord> GetAttendanceRecordList(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate);
 
         AttendanceRecord GetAttendanceRecord(int id);
@@ -199,7 +197,11 @@ namespace FaceIDAppVBEta.Data
         #endregion Attendance Record
 
         #region Attendance Report
+
+        List<AttendanceLogReport> GetAttendanceReportList(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate);
+
         DataTable GetAttendanceReport(int companyID, int departmentID, DateTime dtFrom, DateTime dtTo);
+        
         #endregion Attendance Report
 
         #region FaceIDUser
@@ -217,11 +219,14 @@ namespace FaceIDAppVBEta.Data
         #endregion
 
         #region UncalculatedAttendanceRecord
+
+        void CalculateAttendanceRecord();
+
         List<UncalculatedAttendanceRecord> GetUncalculatedAttendanceRecordList();
 
         UncalculatedAttendanceRecord GetUncalculatedAttendanceRecord(int id);
 
-        int AddUncalculatedAttendanceRecord(UncalculatedAttendanceRecord uncalculatedAttendanceRecord);
+        bool AddUncalculatedAttendanceRecord(int Id);
 
         bool DeleteUncalculatedAttendanceRecord(int id);
 
