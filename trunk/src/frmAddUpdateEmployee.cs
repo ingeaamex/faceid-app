@@ -112,7 +112,8 @@ namespace FaceIDAppVBEta
             cbxCompany.SelectedValue = department.CompanyID;
             cbxDepartment.SelectedValue = employee.DepartmentID;
             cbxWorkingCalendar.SelectedValue = employee.WorkingCalendarID;
-            cbxWorkingCalendar.Enabled = false;
+            cbxWorkingCalendar.Enabled = (employee.WorkingCalendarID <= 0);
+            
             tbFirstName.Text = employee.FirstName;
             tbLastName.Text = employee.LastName;
             tbPhoneNumber.Text = employee.PhoneNumber;
@@ -146,63 +147,15 @@ namespace FaceIDAppVBEta
             employee.ActiveFrom = DateTime.Now;
             employee.Active = true;
 
-            bool ors = false;
-
             try
             {
-                _dtCtrl.BeginTransaction();
+                List<Terminal> terminals = GetTerminalsUserInput();
 
-                int employeeNumber = _dtCtrl.GetAvailEmployeeNumber();
-                if (employeeNumber > 0)
+                if (_dtCtrl.AddEmployee(employee, terminals) > 0)
                 {
-                    employee.EmployeeNumber = employeeNumber;
-
-                    int id = _dtCtrl.AddEmployee(employee);
-                    if (id > 0)
-                    {
-                        List<Terminal> terminals = GetTerminalsUserInput();
-                        if (terminals.Count > 0)
-                        {
-                            List<EmployeeTerminal> emplTerminals = new List<EmployeeTerminal>();
-                            foreach (Terminal terminal in terminals)
-                            {
-                                EmployeeTerminal emplTerminal = new EmployeeTerminal();
-                                emplTerminal.TerminalID = terminal.ID;
-                                emplTerminal.EmployeeNumber = employeeNumber;
-                                emplTerminals.Add(emplTerminal);
-                            }
-                            int irs = _dtCtrl.AddEmployeeTerminal(emplTerminals);
-
-                            if (irs > 0)
-                            {
-                                ors = true;
-                                _dtCtrl.CommitTransaction();
-                            }
-                            else
-                                _dtCtrl.RollbackTransaction();
-
-                            if(_dtCtrl.AddEmployee(employee, emplTerminals) > 0)
-                            {
-                                MessageBox.Show("Employee has been addded succesfully.");
-                                return;
-                            }
-                        }
-                        else
-                        {
-                            ors = true;
-                            _dtCtrl.CommitTransaction();
-                        }
-                    }
-                    else
-                        _dtCtrl.RollbackTransaction();
-                }
-                else
-                    _dtCtrl.RollbackTransaction();
-
-                MessageBox.Show(ors ? "sucessfull" : "error");
-                
-                if (ors)
+                    MessageBox.Show("Employee has been addded succesfully.");
                     this.Close();
+                }
             }
             catch(Exception ex)
             {
