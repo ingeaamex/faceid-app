@@ -2820,6 +2820,7 @@ namespace FaceIDAppVBEta.Data
                 undeletedEmployeeNumber = new UndeletedEmployeeNumber();
 
                 undeletedEmployeeNumber.EmployeeNumber = Convert.ToInt16(odRdr["EmployeeNumber"]);
+                undeletedEmployeeNumber.TerminalID = Convert.ToInt16(odRdr["TerminalID"]);
 
                 undeletedEmployeeNumberList.Add(undeletedEmployeeNumber);
             }
@@ -2828,9 +2829,9 @@ namespace FaceIDAppVBEta.Data
             return undeletedEmployeeNumberList;
         }
 
-        public UndeletedEmployeeNumber GetUndeletedEmployeeNumber(int id)
+        public UndeletedEmployeeNumber GetUndeletedEmployeeNumber(int employeeNumber, int terminalID)
         {
-            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("UndeletedEmployeeNumber", "*", "EmployeeNumber=@ID", new object[] { "@ID", id });
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("UndeletedEmployeeNumber", "*", "EmployeeNumber=@EmployeeNumber AND @TerminalID=@TerminalID", new object[] { "@EmployeeNumber", employeeNumber, "@TerminalID", terminalID });
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
 
             UndeletedEmployeeNumber undeletedEmployeeNumber = null;
@@ -2839,6 +2840,7 @@ namespace FaceIDAppVBEta.Data
                 undeletedEmployeeNumber = new UndeletedEmployeeNumber();
 
                 undeletedEmployeeNumber.EmployeeNumber = Convert.ToInt16(odRdr["EmployeeNumber"]);
+                undeletedEmployeeNumber.TerminalID = Convert.ToInt16(odRdr["TerminalID"]);
             }
 
             odRdr.Close();
@@ -2848,9 +2850,9 @@ namespace FaceIDAppVBEta.Data
         public int AddUndeletedEmployeeNumber(UndeletedEmployeeNumber undeletedEmployeeNumber)
         {
             System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("UndeletedEmployeeNumber",
-                new string[] { "EmployeeNumber"
+                new string[] { "TerminalID"
                 },
-                new object[] { undeletedEmployeeNumber.EmployeeNumber
+                new object[] { undeletedEmployeeNumber.TerminalID
                 }
             );
 
@@ -2865,9 +2867,9 @@ namespace FaceIDAppVBEta.Data
         public bool UpdateUndeletedEmployeeNumber(UndeletedEmployeeNumber undeletedEmployeeNumber)
         {
             System.Data.OleDb.OleDbCommand odCom1 = BuildUpdateCmd("UndeletedEmployeeNumber",
-                new string[] { "EmployeeNumber"
+                new string[] { "TerminalID"
                 },
-                new object[] { undeletedEmployeeNumber.EmployeeNumber
+                new object[] { undeletedEmployeeNumber.TerminalID
                 },
                 "EmployeeNumber=@ID", new object[] { "@ID", undeletedEmployeeNumber.EmployeeNumber }
             );
@@ -2875,11 +2877,13 @@ namespace FaceIDAppVBEta.Data
             return odCom1.ExecuteNonQuery() > 0 ? true : false;
         }
 
-        public bool DeleteUndeletedEmployeeNumber(int id)
+        public bool DeleteUndeletedEmployeeNumber(UndeletedEmployeeNumber undeletedEmployeeNumber)
         {
-            System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("UndeletedEmployeeNumber", "EmployeeNumber=@ID", new object[] { "@ID", id });
+            System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("UndeletedEmployeeNumber", "EmployeeNumber=@EmployeeNumber AND @TerminalID=@TerminalID", new object[] { "@EmployeeNumber", undeletedEmployeeNumber.EmployeeNumber, "@TerminalID", undeletedEmployeeNumber.TerminalID }); ;
             return odCom1.ExecuteNonQuery() > 0 ? true : false;
         }
+
+        #endregion
 
         #region UncalculatedAttendanceRecord
         public List<UncalculatedAttendanceRecord> GetUncalculatedAttendanceRecordList()
@@ -2953,8 +2957,6 @@ namespace FaceIDAppVBEta.Data
             System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("UncalculatedAttendanceRecord", "AttendanceRecordID=@ID", new object[] { "@ID", id });
             return odCom1.ExecuteNonQuery() > 0 ? true : false;
         }
-
-        #endregion
 
         #endregion
     }

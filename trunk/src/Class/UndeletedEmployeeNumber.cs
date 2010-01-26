@@ -7,5 +7,6 @@ namespace FaceIDAppVBEta.Class
     public class UndeletedEmployeeNumber
     {
         public int EmployeeNumber { get; set; }
+        public int TerminalID { get; set; }
     }
 }
