@@ -215,7 +215,7 @@ namespace FaceIDAppVBEta
             IntPtr result = IntPtr.Zero;
             HwDev_Execute(devInfo, command, ref result);
 
-            MessageBox.Show(Marshal.PtrToStringAnsi(result));
+            //MessageBox.Show(Marshal.PtrToStringAnsi(result));
 
             return IsSuccess(result);
         }

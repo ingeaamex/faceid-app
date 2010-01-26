@@ -48,7 +48,7 @@ namespace FaceIDAppVBEta.Data
         #endregion Department
 
         #region Employee
-        int AddEmployee(Employee employee, List<EmployeeTerminal> employeeTerminalList);
+        int AddEmployee(Employee employee, List<Terminal> terminalList);
 
         Employee GetEmployee(int employeeId);
 
@@ -58,7 +58,7 @@ namespace FaceIDAppVBEta.Data
 
         bool IsExistEmployeeNumber(int employeeNumber);
         
-        int AddEmployee(Employee employee);
+        //int AddEmployee(Employee employee);
 
         bool DeleteEmployee(int employeeId);
 

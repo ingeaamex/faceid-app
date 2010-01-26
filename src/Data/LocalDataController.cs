@@ -626,12 +626,54 @@ namespace FaceIDAppVBEta.Data
             return false;
         }
 
-        public int AddEmployee(Employee employee, List<EmployeeTerminal> employeeTerminalList)
+        public int AddEmployee(Employee employee, List<Terminal> terminalList)
         {
-            throw new NotImplementedException();
+            BeginTransaction();
+
+            try
+            {
+                //if Employee is added from terminal then he already has employee Number
+                if (employee.EmployeeNumber <= 0)
+                    employee.EmployeeNumber = GetAvailEmployeeNumber();
+                else
+                    AddEmployeeNumber(employee.EmployeeNumber);
+
+                if (employee.EmployeeNumber > 0)
+                {
+                    employee.PayrollNumber = AddEmployee(employee);
+
+                    if (terminalList.Count > 0)
+                    {
+                        List<EmployeeTerminal> employeeTerminalList = new List<EmployeeTerminal>();
+                        foreach (Terminal terminal in terminalList)
+                        {
+                            EmployeeTerminal emplTerminal = new EmployeeTerminal();
+                            emplTerminal.TerminalID = terminal.ID;
+                            emplTerminal.EmployeeNumber = employee.EmployeeNumber;
+
+                            employeeTerminalList.Add(emplTerminal);
+                        }
+
+                        AddEmployeeTerminal(employeeTerminalList);
+                    }
+
+                    CommitTransaction();
+                }
+                else
+                {
+                    throw new Exception("There's no more employee number available. Please enter your CC detail to purchase more.");
+                }
+            }
+            catch (Exception)
+            {
+                RollbackTransaction();
+                throw;
+            }
+
+            return employee.PayrollNumber;
         }
 
-        public int AddEmployee(Employee employee)
+        private int AddEmployee(Employee employee)
         {
             System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("Employee",
                 new string[] { "EmployeeNumber"
@@ -968,8 +1010,6 @@ namespace FaceIDAppVBEta.Data
 
         public int AddEmployeeTerminal(List<EmployeeTerminal> emplTerminals)
         {
-            //ConnectToDatabase();
-
             if (emplTerminals == null)
                 return -1;
 
@@ -991,8 +1031,6 @@ namespace FaceIDAppVBEta.Data
 
         public bool DeleteEmployeeTerminalByEmployee(int employeeNumber)
         {
-            //ConnectToDatabase();
-
             System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("EmployeeTerminal", "EmployeeNumber=@ID", new object[] { "@ID", employeeNumber });
 
             return ExecuteNonQuery(odCom1) >= 0 ? true : false;
@@ -1044,7 +1082,7 @@ namespace FaceIDAppVBEta.Data
 
         public List<EmployeeNumber> GetEmployeeNumberList()
         {
-            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Employee", "EmployeeNumber", "Active=True");
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Employee", "EmployeeNumber", "Active=TRUE");
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
             List<EmployeeNumber> employeeNumberList = new List<EmployeeNumber>();
             EmployeeNumber employeeNumber = null;
@@ -1063,7 +1101,7 @@ namespace FaceIDAppVBEta.Data
 
         public int GetAvailEmployeeNumber()
         {
-            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Employee", "Min(EmployeeNumber) as EmployeeNumber", "Active=0");
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Employee", "MIN(EmployeeNumber) AS EmployeeNumber", "Active=FALSE");
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
 
             int employeeNumber = 1;
@@ -1100,13 +1138,48 @@ namespace FaceIDAppVBEta.Data
                     employeeNumber++;
             }
 
-            System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("EmployeeNumber",
-                new string[] { "ID", "Note" },
-                new object[] { employeeNumber, "" }
-            );
+            return AddEmployeeNumber(employeeNumber);
+        }
 
-            int rs = ExecuteNonQuery(odCom1);
-            return rs > 0 ? employeeNumber : -1;
+        public int AddEmployeeNumber(int employeeNumber)
+        {
+            if (GetEmployeeNumber(employeeNumber) != null)
+            {
+                return employeeNumber;
+            }
+            else
+            {
+                System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("EmployeeNumber",
+                    new string[] { "ID"
+                },
+                    new object[] { employeeNumber
+                }
+                );
+
+                if (odCom1.ExecuteNonQuery() == 1)
+                {
+                    odCom1.CommandText = "SELECT @@IDENTITY";
+                    return Convert.ToInt16(odCom1.ExecuteScalar().ToString());
+                }
+            }
+            return -1;
+        }
+
+        public EmployeeNumber GetEmployeeNumber(int id)
+        {
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("EmployeeNumber", "*", "ID=@ID", new object[] { "@ID", id });
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+
+            EmployeeNumber employeeNumber = null;
+            if (odRdr.Read())
+            {
+                employeeNumber = new EmployeeNumber();
+
+                employeeNumber.ID = Convert.ToInt16(odRdr["ID"]);
+            }
+
+            odRdr.Close();
+            return employeeNumber;
         }
 
         #endregion EmployeeNumber
@@ -1354,7 +1427,7 @@ namespace FaceIDAppVBEta.Data
                 workingCalendar.PayPeriodID = payPeriod.ID;
                 workingCalendar.ID = AddWorkingCalendar(workingCalendar);
 
-                if(workingCalendar.ID < 0)
+                if (workingCalendar.ID < 0)
                     throw new NullReferenceException();
 
                 //add breaks
@@ -1391,7 +1464,7 @@ namespace FaceIDAppVBEta.Data
 
                 CommitTransaction();
             }
-            catch(Exception)
+            catch (Exception)
             {
                 RollbackTransaction();
                 return -1;
@@ -1466,14 +1539,14 @@ namespace FaceIDAppVBEta.Data
                 //update breaks
                 foreach (Break _break in GetBreakListByWorkingCalendar(workingCalendar.ID))
                 {
-                    if(DeleteBreak(_break.ID) == false)
+                    if (DeleteBreak(_break.ID) == false)
                         throw new NullReferenceException();
                 }
 
                 foreach (Break _break in breakList)
                 {
                     _break.WorkingCalendarID = workingCalendar.ID;
-                    if(AddBreak(_break) < 0)
+                    if (AddBreak(_break) < 0)
                         throw new NullReferenceException();
                 }
 
@@ -1482,8 +1555,8 @@ namespace FaceIDAppVBEta.Data
                 {
                     if (DeleteHoliday(holiday.ID) == false)
                         throw new NullReferenceException();
-                } 
-                
+                }
+
                 foreach (Holiday holiday in holidayList)
                 {
                     holiday.WorkingCalendarID = workingCalendar.ID;
@@ -1495,7 +1568,7 @@ namespace FaceIDAppVBEta.Data
                 workingDayPaymentRate.ID = GetWorkingDayPaymentRateByWorkingCalendar(workingCalendar.ID).ID;
                 workingDayPaymentRate.DayTypeID = 1; //working day
                 workingDayPaymentRate.WorkingCalendarID = workingCalendar.ID;
-                if (UpdatePaymentRate(workingDayPaymentRate)== false)
+                if (UpdatePaymentRate(workingDayPaymentRate) == false)
                     throw new NullReferenceException();
 
                 nonWorkingDayPaymentRate.ID = GetNonWorkingDayPaymentRateByWorkingCalendar(workingCalendar.ID).ID;
@@ -1770,7 +1843,7 @@ namespace FaceIDAppVBEta.Data
                     _attLog.WorkTo = (DateTime)drRp["WorkTo"];
                 _attLog.EmployeeNumber = (int)drRp["EmployeeNumber"];
 
-                DataRow[] rdEmpl =  dtEmpl.Select("EmployeeNumber=" + _attLog.EmployeeNumber);
+                DataRow[] rdEmpl = dtEmpl.Select("EmployeeNumber=" + _attLog.EmployeeNumber);
                 if (rdEmpl.Length > 0)
                     _attLog.FullName = rdEmpl[0]["FirstName"] + ", " + rdEmpl[0]["LastName"];
                 _attLog.AttendanceReportID = (int)drRp["AttendanceReportID"];
@@ -1835,7 +1908,7 @@ namespace FaceIDAppVBEta.Data
 
 
             odCom = BuildSelectCmd("AttendanceRecord",
-                "*","Time >=@Date_1 AND Time <= @Date_2 AND EmployeeNumber in(" + sEmplNumbers + ")",
+                "*", "Time >=@Date_1 AND Time <= @Date_2 AND EmployeeNumber in(" + sEmplNumbers + ")",
                 new object[] { "@Date_1", beginDate, "@Date_2", endDate });
 
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
@@ -2107,7 +2180,7 @@ namespace FaceIDAppVBEta.Data
             }
 
             string sAttendanceRecordIDs = string.Concat(rcAtts.ToArray());
-           
+
             attendanceRecordTimes.Sort();
 
             DateTime wDate = attendanceRecordTimes[0].Date;
@@ -2224,7 +2297,7 @@ namespace FaceIDAppVBEta.Data
                 odCom = BuildDelCmd("AttendanceRecord", "ID=@ID", new object[] { "@ID", id });
                 int irs1 = ExecuteNonQuery(odCom);
 
-                odCom = BuildUpdateCmd("AttendanceReport", new string[] { "AttendanceRecordIDList" }, new object[] { sAttendanceRecordIDs }, 
+                odCom = BuildUpdateCmd("AttendanceReport", new string[] { "AttendanceRecordIDList" }, new object[] { sAttendanceRecordIDs },
                     "AttendanceReportID=@ID", new object[] { "@@ID", attReport.AttendanceReportID });
                 int irs2 = ExecuteNonQuery(odCom);
 
@@ -2383,7 +2456,7 @@ namespace FaceIDAppVBEta.Data
 
             return result;
         }
-        #endregion 
+        #endregion
 
         #region utils
 

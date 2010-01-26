@@ -190,7 +190,7 @@ namespace FaceIDAppVBEta
                                 employee.LastName = "";
                                 employee.PhoneNumber = "";
 
-                                if (_dtCtrl.AddEmployee(employee) < 0)
+                                if (_dtCtrl.AddEmployee(employee, new List<Terminal>(){terminal}) < 0)
                                     throw new Exception("Cannot update employee " + employee.EmployeeNumber);
                             }
                         }
