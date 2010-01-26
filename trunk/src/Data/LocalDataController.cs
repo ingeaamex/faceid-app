@@ -626,6 +626,11 @@ namespace FaceIDAppVBEta.Data
             return false;
         }
 
+        public int AddEmployee(Employee employee, List<EmployeeTerminal> employeeTerminalList)
+        {
+            throw new NotImplementedException();
+        }
+
         public int AddEmployee(Employee employee)
         {
             System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("Employee",

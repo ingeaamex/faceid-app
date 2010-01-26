@@ -12,23 +12,22 @@ namespace FaceIDAppVBEta
 {
     public partial class frmAddUpdateEmployee : Form
     {
-        private IDataController dtCtrl;
-        private int employeeID;
-        bool isAlert = true;
-        private int employeeNumber;
+        private IDataController _dtCtrl = LocalDataController.Instance;
+        private int _employeeID = -1;
+        bool _isAlert = true;
+        private int _employeeNumber = -1;
+
         public frmAddUpdateEmployee(int employeeID)
         {
             InitializeComponent();
-            this.employeeID = employeeID;
+            this._employeeID = employeeID;
         }
 
         private void frmAddUpdateEmployee_Load(object sender, EventArgs e)
         {
-            dtCtrl = LocalDataController.Instance;
-
             BindData();
 
-            SetState(employeeID);
+            SetState(_employeeID);
         }
 
         private void BindData()
@@ -40,11 +39,11 @@ namespace FaceIDAppVBEta
 
         private void BindCompany()
         {
-            List<Company> companyList = dtCtrl.GetCompanyList();
+            List<Company> companyList = _dtCtrl.GetCompanyList();
             if (companyList.Count < 1)
             {
                 MessageBox.Show("The company created before creating a employee. Press OK to closed form", "", MessageBoxButtons.OK);
-                isAlert = false;
+                _isAlert = false;
                 this.Close();
             }
             cbxCompany.DataSource = companyList;
@@ -55,11 +54,11 @@ namespace FaceIDAppVBEta
             if (cbxCompany.SelectedValue != null)
             {
                 int CompanyID = (int)cbxCompany.SelectedValue;
-                List<Department> departmentList = dtCtrl.GetDepartmentByCompany(CompanyID);
+                List<Department> departmentList = _dtCtrl.GetDepartmentByCompany(CompanyID);
                 if (departmentList.Count < 1)
                 {
                     MessageBox.Show("The department created before creating a employee. Press OK to closed form", "", MessageBoxButtons.OK);
-                    isAlert = false;
+                    _isAlert = false;
                     this.Close();
                 }
                 cbxDepartment.DataSource = departmentList;
@@ -68,11 +67,11 @@ namespace FaceIDAppVBEta
 
         private void BindWorkingCalendar()
         {
-            List<WorkingCalendar> workingCalendarList = dtCtrl.GetWorkingCalendarList();
+            List<WorkingCalendar> workingCalendarList = _dtCtrl.GetWorkingCalendarList();
             if (workingCalendarList.Count < 1)
             {
                 MessageBox.Show("The working calendar created before creating a employee. Press OK to closed form", "", MessageBoxButtons.OK);
-                isAlert = false;
+                _isAlert = false;
                 this.Close();
             }
             cbxWorkingCalendar.DataSource = workingCalendarList;
@@ -100,15 +99,15 @@ namespace FaceIDAppVBEta
 
         private void BindEmployeeData(int employeeID)
         {
-            Employee employee = dtCtrl.GetEmployee(employeeID);
+            Employee employee = _dtCtrl.GetEmployee(employeeID);
             if (employee == null)
             {
                 MessageBox.Show("error");
                 return;
             }
-            this.employeeID = employeeID;
+            this._employeeID = employeeID;
 
-            Department department = dtCtrl.GetDepartment(employee.DepartmentID);
+            Department department = _dtCtrl.GetDepartment(employee.DepartmentID);
 
             cbxCompany.SelectedValue = department.CompanyID;
             cbxDepartment.SelectedValue = employee.DepartmentID;
@@ -124,9 +123,9 @@ namespace FaceIDAppVBEta
             dtpBirthday.Value = employee.Birthday;
             dtpJoinedDate.Value = employee.HiredDate;
             dtpLeftDate.Value = employee.LeftDate;
-            employeeNumber = employee.EmployeeNumber;
+            _employeeNumber = employee.EmployeeNumber;
 
-            List<Terminal> terminals = dtCtrl.GetTerminalListByEmployee(employeeNumber);
+            List<Terminal> terminals = _dtCtrl.GetTerminalListByEmployee(_employeeNumber);
             foreach (Terminal terminal in terminals)
             {
                 lbxTerminal.Items.Add(terminal);
@@ -149,52 +148,66 @@ namespace FaceIDAppVBEta
 
             bool ors = false;
 
-            dtCtrl.BeginTransaction();
-
-            int employeeNumber = dtCtrl.GetAvailEmployeeNumber();
-            if (employeeNumber > 0)
+            try
             {
-                employee.EmployeeNumber = employeeNumber;
+                _dtCtrl.BeginTransaction();
 
-                int id = dtCtrl.AddEmployee(employee);
-                if (id > 0)
+                int employeeNumber = _dtCtrl.GetAvailEmployeeNumber();
+                if (employeeNumber > 0)
                 {
-                    List<Terminal> terminals = GetTerminalsUserInput();
-                    if (terminals.Count > 0)
-                    {
-                        List<EmployeeTerminal> emplTerminals = new List<EmployeeTerminal>();
-                        foreach (Terminal terminal in terminals)
-                        {
-                            EmployeeTerminal emplTerminal = new EmployeeTerminal();
-                            emplTerminal.TerminalID = terminal.ID;
-                            emplTerminal.EmployeeNumber = employeeNumber;
-                            emplTerminals.Add(emplTerminal);
-                        }
-                        int irs = dtCtrl.AddEmployeeTerminal(emplTerminals);
+                    employee.EmployeeNumber = employeeNumber;
 
-                        if (irs > 0)
+                    int id = _dtCtrl.AddEmployee(employee);
+                    if (id > 0)
+                    {
+                        List<Terminal> terminals = GetTerminalsUserInput();
+                        if (terminals.Count > 0)
                         {
-                            ors = true;
-                            dtCtrl.CommitTransaction();
+                            List<EmployeeTerminal> emplTerminals = new List<EmployeeTerminal>();
+                            foreach (Terminal terminal in terminals)
+                            {
+                                EmployeeTerminal emplTerminal = new EmployeeTerminal();
+                                emplTerminal.TerminalID = terminal.ID;
+                                emplTerminal.EmployeeNumber = employeeNumber;
+                                emplTerminals.Add(emplTerminal);
+                            }
+                            int irs = _dtCtrl.AddEmployeeTerminal(emplTerminals);
+
+                            if (irs > 0)
+                            {
+                                ors = true;
+                                _dtCtrl.CommitTransaction();
+                            }
+                            else
+                                _dtCtrl.RollbackTransaction();
+
+                            if(_dtCtrl.AddEmployee(employee, emplTerminals) > 0)
+                            {
+                                MessageBox.Show("Employee has been addded succesfully.");
+                                return;
+                            }
                         }
                         else
-                            dtCtrl.RollbackTransaction();
+                        {
+                            ors = true;
+                            _dtCtrl.CommitTransaction();
+                        }
                     }
                     else
-                    {
-                        ors = true;
-                        dtCtrl.CommitTransaction();
-                    }
+                        _dtCtrl.RollbackTransaction();
                 }
                 else
-                    dtCtrl.RollbackTransaction();
-            }
-            else
-                dtCtrl.RollbackTransaction();
+                    _dtCtrl.RollbackTransaction();
 
-            MessageBox.Show(ors ? "sucessfull" : "error");
-            if (ors)
-                this.Close();
+                MessageBox.Show(ors ? "sucessfull" : "error");
+                
+                if (ors)
+                    this.Close();
+            }
+            catch(Exception ex)
+            {
+                Util.ShowErrorMessage("There has been an error: " + ex.Message + ". Please try again");
+            }
         }
 
         private void btnUpdateEmployee_Click(object sender, EventArgs e)
@@ -203,15 +216,15 @@ namespace FaceIDAppVBEta
             if (employee == null)
                 return;
 
-            employee.PayrollNumber = this.employeeID;
+            employee.PayrollNumber = this._employeeID;
 
-            bool rs1 = dtCtrl.UpdateEmployee(employee);
+            bool rs1 = _dtCtrl.UpdateEmployee(employee);
 
             MessageBox.Show(rs1 ? "sucessfull" : "error");
 
             List<Terminal> terminals = GetTerminalsUserInput();
 
-            bool rs2 = dtCtrl.UpdateEmployeeTerminal(terminals, employeeNumber);
+            bool rs2 = _dtCtrl.UpdateEmployeeTerminal(terminals, _employeeNumber);
             if (!rs2)
                 MessageBox.Show("[terminal] error");
 
@@ -233,7 +246,7 @@ namespace FaceIDAppVBEta
         private Employee GetEmployeeUserInput()
         {
             //Employee employee = new Employee();
-            Employee employee = dtCtrl.GetEmployee(employeeID);
+            Employee employee = _employeeID > 0 ? _dtCtrl.GetEmployee(_employeeID) : new Employee();
 
             object oDepartment = cbxDepartment.SelectedValue;
             object oWorkingCalendar = cbxWorkingCalendar.SelectedValue;
@@ -332,7 +345,7 @@ namespace FaceIDAppVBEta
 
         private void frmAddUpdateEmployee_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (isAlert)
+            if (_isAlert)
             {
                 Control[] ctr = this.Owner.Controls.Find("btView", true);
                 if (ctr != null && ctr.Length > 0)
