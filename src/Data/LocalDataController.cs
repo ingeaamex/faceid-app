@@ -1048,7 +1048,6 @@ namespace FaceIDAppVBEta.Data
                 employeeNumber = new EmployeeNumber();
 
                 employeeNumber.ID = Convert.ToInt16(odRdr["EmployeeNumber"]);
-                employeeNumber.Note = "";
 
                 employeeNumberList.Add(employeeNumber);
             }
@@ -2806,6 +2805,156 @@ namespace FaceIDAppVBEta.Data
             odRdr.Close();
             return employeeList;
         }
+
+        #endregion
+
+        #region UndeletedEmployeeNumber
+        public List<UndeletedEmployeeNumber> GetUndeletedEmployeeNumberList()
+        {
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("UndeletedEmployeeNumber", "*", null);
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+            List<UndeletedEmployeeNumber> undeletedEmployeeNumberList = new List<UndeletedEmployeeNumber>();
+            UndeletedEmployeeNumber undeletedEmployeeNumber = null;
+            while (odRdr.Read())
+            {
+                undeletedEmployeeNumber = new UndeletedEmployeeNumber();
+
+                undeletedEmployeeNumber.EmployeeNumber = Convert.ToInt16(odRdr["EmployeeNumber"]);
+
+                undeletedEmployeeNumberList.Add(undeletedEmployeeNumber);
+            }
+
+            odRdr.Close();
+            return undeletedEmployeeNumberList;
+        }
+
+        public UndeletedEmployeeNumber GetUndeletedEmployeeNumber(int id)
+        {
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("UndeletedEmployeeNumber", "*", "EmployeeNumber=@ID", new object[] { "@ID", id });
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+
+            UndeletedEmployeeNumber undeletedEmployeeNumber = null;
+            if (odRdr.Read())
+            {
+                undeletedEmployeeNumber = new UndeletedEmployeeNumber();
+
+                undeletedEmployeeNumber.EmployeeNumber = Convert.ToInt16(odRdr["EmployeeNumber"]);
+            }
+
+            odRdr.Close();
+            return undeletedEmployeeNumber;
+        }
+
+        public int AddUndeletedEmployeeNumber(UndeletedEmployeeNumber undeletedEmployeeNumber)
+        {
+            System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("UndeletedEmployeeNumber",
+                new string[] { "EmployeeNumber"
+                },
+                new object[] { undeletedEmployeeNumber.EmployeeNumber
+                }
+            );
+
+            if (odCom1.ExecuteNonQuery() == 1)
+            {
+                odCom1.CommandText = "SELECT @@IDENTITY";
+                return Convert.ToInt16(odCom1.ExecuteScalar().ToString());
+            }
+            return -1;
+        }
+
+        public bool UpdateUndeletedEmployeeNumber(UndeletedEmployeeNumber undeletedEmployeeNumber)
+        {
+            System.Data.OleDb.OleDbCommand odCom1 = BuildUpdateCmd("UndeletedEmployeeNumber",
+                new string[] { "EmployeeNumber"
+                },
+                new object[] { undeletedEmployeeNumber.EmployeeNumber
+                },
+                "EmployeeNumber=@ID", new object[] { "@ID", undeletedEmployeeNumber.EmployeeNumber }
+            );
+
+            return odCom1.ExecuteNonQuery() > 0 ? true : false;
+        }
+
+        public bool DeleteUndeletedEmployeeNumber(int id)
+        {
+            System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("UndeletedEmployeeNumber", "EmployeeNumber=@ID", new object[] { "@ID", id });
+            return odCom1.ExecuteNonQuery() > 0 ? true : false;
+        }
+
+        #region UncalculatedAttendanceRecord
+        public List<UncalculatedAttendanceRecord> GetUncalculatedAttendanceRecordList()
+        {
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("UncalculatedAttendanceRecord", "*", null);
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+            List<UncalculatedAttendanceRecord> uncalculatedAttendanceRecordList = new List<UncalculatedAttendanceRecord>();
+            UncalculatedAttendanceRecord uncalculatedAttendanceRecord = null;
+            while (odRdr.Read())
+            {
+                uncalculatedAttendanceRecord = new UncalculatedAttendanceRecord();
+
+                uncalculatedAttendanceRecord.AttendanceRecordID = Convert.ToInt16(odRdr["AttendanceRecordID"]);
+
+                uncalculatedAttendanceRecordList.Add(uncalculatedAttendanceRecord);
+            }
+
+            odRdr.Close();
+            return uncalculatedAttendanceRecordList;
+        }
+
+        public UncalculatedAttendanceRecord GetUncalculatedAttendanceRecord(int id)
+        {
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("UncalculatedAttendanceRecord", "*", "AttendanceRecordID=@ID", new object[] { "@ID", id });
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+
+            UncalculatedAttendanceRecord uncalculatedAttendanceRecord = null;
+            if (odRdr.Read())
+            {
+                uncalculatedAttendanceRecord = new UncalculatedAttendanceRecord();
+
+                uncalculatedAttendanceRecord.AttendanceRecordID = Convert.ToInt16(odRdr["AttendanceRecordID"]);
+            }
+
+            odRdr.Close();
+            return uncalculatedAttendanceRecord;
+        }
+
+        public int AddUncalculatedAttendanceRecord(UncalculatedAttendanceRecord uncalculatedAttendanceRecord)
+        {
+            System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("UncalculatedAttendanceRecord",
+                new string[] { "AttendanceRecordID"
+                },
+                new object[] { uncalculatedAttendanceRecord.AttendanceRecordID
+                }
+            );
+
+            if (odCom1.ExecuteNonQuery() == 1)
+            {
+                odCom1.CommandText = "SELECT @@IDENTITY";
+                return Convert.ToInt16(odCom1.ExecuteScalar().ToString());
+            }
+            return -1;
+        }
+
+        public bool UpdateUncalculatedAttendanceRecord(UncalculatedAttendanceRecord uncalculatedAttendanceRecord)
+        {
+            System.Data.OleDb.OleDbCommand odCom1 = BuildUpdateCmd("UncalculatedAttendanceRecord",
+                new string[] { "AttendanceRecordID"
+                },
+                new object[] { uncalculatedAttendanceRecord.AttendanceRecordID
+                },
+                "AttendanceRecordID=@ID", new object[] { "@ID", uncalculatedAttendanceRecord.AttendanceRecordID }
+            );
+
+            return odCom1.ExecuteNonQuery() > 0 ? true : false;
+        }
+
+        public bool DeleteUncalculatedAttendanceRecord(int id)
+        {
+            System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("UncalculatedAttendanceRecord", "AttendanceRecordID=@ID", new object[] { "@ID", id });
+            return odCom1.ExecuteNonQuery() > 0 ? true : false;
+        }
+
+        #endregion
 
         #endregion
     }

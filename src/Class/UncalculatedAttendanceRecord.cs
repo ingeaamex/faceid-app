@@ -4,8 +4,8 @@ using System.Text;
 
 namespace FaceIDAppVBEta.Class
 {
-    public class EmployeeNumber
+    public class UncalculatedAttendanceRecord
     {
-        public int ID { get; set; }
+        public int AttendanceRecordID { get; set; }
     }
 }
