@@ -230,11 +230,11 @@ namespace FaceIDAppVBEta.Data
         #region UndeletedEmployeeNumber
         List<UndeletedEmployeeNumber> GetUndeletedEmployeeNumberList();
 
-        UndeletedEmployeeNumber GetUndeletedEmployeeNumber(int id);
+        UndeletedEmployeeNumber GetUndeletedEmployeeNumber(int employeeNumber, int terminalID);
 
         int AddUndeletedEmployeeNumber(UndeletedEmployeeNumber undeletedEmployeeNumber);
 
-        bool DeleteUndeletedEmployeeNumber(int id);
+        bool DeleteUndeletedEmployeeNumber(UndeletedEmployeeNumber undeletedEmployeeNumber);
 
         bool UpdateUndeletedEmployeeNumber(UndeletedEmployeeNumber undeletedEmployeeNumber);
         #endregion
