@@ -16,7 +16,7 @@ namespace FaceIDAppVBEta
     {
         private IDataController _dtCtrl;
         private Point _cellContext;
-        private List<Point> _pData = new List<Point>();
+        private List<Point> _pData = null;
         public ucAttendanceLog()
         {
             InitializeComponent();
@@ -39,6 +39,8 @@ namespace FaceIDAppVBEta
             int iDepartment = -1;
             if (cbxDepartment.Enabled)
                 iDepartment = (int)cbxDepartment.SelectedValue;
+
+            _pData = new List<Point>();
 
             List<AttendanceLogRecord> attendanceLogs = _dtCtrl.GetAttendanceRecordList(iCompany, iDepartment, beginDate, endDate);
 
