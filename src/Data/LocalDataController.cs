@@ -14,7 +14,7 @@ namespace FaceIDAppVBEta.Data
         private static LocalDataController instance;
         private static readonly Object mutex = new Object();
         private int timeBound = 60;
-        private int validTimeBound = 5;
+        private int validTimeBound = 0;
         private LocalDataController() { }
 
         public static LocalDataController Instance
