@@ -41,7 +41,7 @@
             this.dgvWorkingCalendar.AllowUserToDeleteRows = false;
             this.dgvWorkingCalendar.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvWorkingCalendar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvWorkingCalendar.Location = new System.Drawing.Point(17, 16);
+            this.dgvWorkingCalendar.Location = new System.Drawing.Point(20, 35);
             this.dgvWorkingCalendar.MultiSelect = false;
             this.dgvWorkingCalendar.Name = "dgvWorkingCalendar";
             this.dgvWorkingCalendar.ReadOnly = true;
@@ -52,7 +52,7 @@
             // 
             // btnAddWorkingCalendar
             // 
-            this.btnAddWorkingCalendar.Location = new System.Drawing.Point(17, 173);
+            this.btnAddWorkingCalendar.Location = new System.Drawing.Point(20, 192);
             this.btnAddWorkingCalendar.Name = "btnAddWorkingCalendar";
             this.btnAddWorkingCalendar.Size = new System.Drawing.Size(200, 23);
             this.btnAddWorkingCalendar.TabIndex = 1;
@@ -62,7 +62,7 @@
             // 
             // btnUpdateWorkingCalendar
             // 
-            this.btnUpdateWorkingCalendar.Location = new System.Drawing.Point(223, 173);
+            this.btnUpdateWorkingCalendar.Location = new System.Drawing.Point(226, 192);
             this.btnUpdateWorkingCalendar.Name = "btnUpdateWorkingCalendar";
             this.btnUpdateWorkingCalendar.Size = new System.Drawing.Size(200, 23);
             this.btnUpdateWorkingCalendar.TabIndex = 2;
@@ -72,7 +72,7 @@
             // 
             // btnDeleteWorkingCalendar
             // 
-            this.btnDeleteWorkingCalendar.Location = new System.Drawing.Point(430, 173);
+            this.btnDeleteWorkingCalendar.Location = new System.Drawing.Point(433, 192);
             this.btnDeleteWorkingCalendar.Name = "btnDeleteWorkingCalendar";
             this.btnDeleteWorkingCalendar.Size = new System.Drawing.Size(185, 23);
             this.btnDeleteWorkingCalendar.TabIndex = 3;

@@ -13,7 +13,6 @@ namespace FaceIDAppVBEta
     public partial class ucWorkingCalendar : UserControl
     {
         private IDataController _dtCtrl = LocalDataController.Instance;
-        private int _rowIndex = -1;
 
         public ucWorkingCalendar()
         {
@@ -81,20 +80,35 @@ namespace FaceIDAppVBEta
 
         private void btnUpdateWorkingCalendar_Click(object sender, EventArgs e)
         {
-            int workingCalendarID = (int)dgvWorkingCalendar.Rows[_rowIndex].Cells[0].Value;
+            int workingCalendarID = Convert.ToInt16(dgvWorkingCalendar.SelectedRows[0].Cells[0].Value);
 
-            new frmAddUpdateWorkingCalendar(workingCalendarID).ShowDialog(this);
-            BindWorkingCalendar();
+            if (workingCalendarID < 0)
+            {
+                MessageBox.Show("No working calendar is selected.");
+            }
+            else
+            {
+                new frmAddUpdateWorkingCalendar(workingCalendarID).ShowDialog(this);
+                BindWorkingCalendar();
+            }
         }
 
         private void btnDeleteWorkingCalendar_Click(object sender, EventArgs e)
         {
             try
             {
-                int workingCalendarID = (int)dgvWorkingCalendar.Rows[_rowIndex].Cells[0].Value;
-                _dtCtrl.DeleteWorkingCalendar(workingCalendarID);
-                MessageBox.Show("Working Calendar has been deleted successfully.");
-                BindWorkingCalendar();
+                int workingCalendarID = Convert.ToInt16(dgvWorkingCalendar.SelectedRows[0].Cells[0].Value);
+                if (workingCalendarID < 0)
+                {
+                    MessageBox.Show("No working calendar is selected.");
+                }
+                else
+                {
+                    _dtCtrl.DeleteWorkingCalendar(workingCalendarID);
+
+                    MessageBox.Show("Working Calendar has been deleted successfully.");
+                    BindWorkingCalendar();
+                }
             }
             catch (Exception ex)
             {
@@ -104,7 +118,6 @@ namespace FaceIDAppVBEta
 
         private void dgvWorkingCalendar_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            _rowIndex = e.RowIndex;
         }
     }
 }

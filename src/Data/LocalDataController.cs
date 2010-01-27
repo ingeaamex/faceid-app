@@ -1679,8 +1679,45 @@ namespace FaceIDAppVBEta.Data
 
         public bool DeleteWorkingCalendar(int workingCalendarID)
         {
-            System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("WorkingCalendar", "ID=@ID", new object[] { "@ID", workingCalendarID });
-            return odCom1.ExecuteNonQuery() > 0 ? true : false;
+            BeginTransaction();
+
+            try
+            {
+                //delete pay period
+                //Pay Period is kept for reports, so no deleting here
+
+                //delete breaks
+                foreach (Break _break in GetBreakListByWorkingCalendar(workingCalendarID))
+                {
+                    if (DeleteBreak(_break.ID) == false)
+                        throw new NullReferenceException();
+                }
+
+                //delete holidays
+                foreach (Holiday holiday in GetHolidayListByWorkingCalendar(workingCalendarID))
+                {
+                    if (DeleteHoliday(holiday.ID) == false)
+                        throw new NullReferenceException();
+                }
+
+                //delete payment rates
+                if (DeletePaymentRateByWorkingCalendar(workingCalendarID) == false)
+                    throw new NullReferenceException();
+
+                //finally delete working calendar
+                System.Data.OleDb.OleDbCommand odCom = BuildDelCmd("WorkingCalendar", "ID=@ID", new object[] { "@ID", workingCalendarID });
+                if(odCom.ExecuteNonQuery() == 0)
+                    throw new NullReferenceException();
+
+                CommitTransaction();
+            }
+            catch (Exception)
+            {
+                RollbackTransaction();
+                return false;
+            }
+
+            return true;
         }
         #endregion
 
@@ -2765,6 +2802,12 @@ namespace FaceIDAppVBEta.Data
         public bool DeletePaymentRate(int id)
         {
             System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("PaymentRate", "ID=@ID", new object[] { "@ID", id });
+            return odCom1.ExecuteNonQuery() > 0 ? true : false;
+        }
+
+        private bool DeletePaymentRateByWorkingCalendar(int workingCalendarID)
+        {
+            System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("PaymentRate", "WorkingCalendarID=@WorkingCalendarID", new object[] { "@WorkingCalendarID", workingCalendarID });
             return odCom1.ExecuteNonQuery() > 0 ? true : false;
         }
 
