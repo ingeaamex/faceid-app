@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label2 = new System.Windows.Forms.Label();
             this.dtpAttendanceFrom = new System.Windows.Forms.DateTimePicker();
             this.dtpAttedanceTo = new System.Windows.Forms.DateTimePicker();
@@ -205,6 +205,7 @@
             this.dgvAttendanceLog.Location = new System.Drawing.Point(28, 77);
             this.dgvAttendanceLog.Name = "dgvAttendanceLog";
             this.dgvAttendanceLog.ReadOnly = true;
+            this.dgvAttendanceLog.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvAttendanceLog.Size = new System.Drawing.Size(895, 324);
             this.dgvAttendanceLog.TabIndex = 16;
             this.dgvAttendanceLog.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDown);
@@ -226,8 +227,8 @@
             // 
             // Date1
             // 
-            dataGridViewCellStyle2.Format = "d MMM yyyy";
-            this.Date1.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.Format = "d MMM yyyy";
+            this.Date1.DefaultCellStyle = dataGridViewCellStyle3;
             this.Date1.HeaderText = "Date";
             this.Date1.Name = "Date1";
             this.Date1.ReadOnly = true;
