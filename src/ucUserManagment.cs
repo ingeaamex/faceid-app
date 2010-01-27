@@ -215,13 +215,13 @@ namespace FaceIDAppVBEta
 
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int employeeNumber = Convert.ToInt16(dgvUser.Rows[_rowIndex].Cells[0].Value);
+            int employeeNumber = Convert.ToInt32(dgvUser.Rows[_rowIndex].Cells[0].Value);
             SetState(employeeNumber);
         }
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int employeeNumber = Convert.ToInt16(dgvUser.Rows[_rowIndex].Cells[0].Value);
+            int employeeNumber = Convert.ToInt32(dgvUser.Rows[_rowIndex].Cells[0].Value);
             DeleteUser(employeeNumber);
         }
 

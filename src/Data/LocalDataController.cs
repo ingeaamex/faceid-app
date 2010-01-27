@@ -1148,24 +1148,30 @@ namespace FaceIDAppVBEta.Data
         {
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("WorkingCalendar", "*", null);
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
-            List<WorkingCalendar> wCalendarList = new List<WorkingCalendar>();
-            WorkingCalendar wCalendar = null;
+            List<WorkingCalendar> workingCalendarList = new List<WorkingCalendar>();
+            WorkingCalendar workingCalendar = null;
             while (odRdr.Read())
             {
-                wCalendar = new WorkingCalendar();
+                workingCalendar = new WorkingCalendar();
 
-                wCalendar.ID = (int)odRdr["ID"];
-                wCalendar.Name = odRdr["Name"].ToString();
-                if (typeof(DBNull) != odRdr["RegularWorkingFrom"].GetType())
-                    wCalendar.RegularWorkingFrom = (DateTime)odRdr["RegularWorkingFrom"];
-                if (typeof(DBNull) != odRdr["RegularWorkingTo"].GetType())
-                    wCalendar.RegularWorkingTo = (DateTime)odRdr["RegularWorkingTo"];
+                workingCalendar.ID = Convert.ToInt16(odRdr["ID"]);
+                workingCalendar.Name = odRdr["Name"].ToString();
+                workingCalendar.WorkOnMonday = Convert.ToBoolean(odRdr["WorkOnMonday"]);
+                workingCalendar.WorkOnTuesday = Convert.ToBoolean(odRdr["WorkOnTuesday"]);
+                workingCalendar.WorkOnWednesday = Convert.ToBoolean(odRdr["WorkOnWednesday"]);
+                workingCalendar.WorkOnThursday = Convert.ToBoolean(odRdr["WorkOnThursday"]);
+                workingCalendar.WorkOnFriday = Convert.ToBoolean(odRdr["WorkOnFriday"]);
+                workingCalendar.WorkOnSaturday = Convert.ToBoolean(odRdr["WorkOnSaturday"]);
+                workingCalendar.WorkOnSunday = Convert.ToBoolean(odRdr["WorkOnSunday"]);
+                workingCalendar.RegularWorkingFrom = Convert.ToDateTime(odRdr["RegularWorkingFrom"]);
+                workingCalendar.RegularWorkingTo = Convert.ToDateTime(odRdr["RegularWorkingTo"]);
+                workingCalendar.PayPeriodID = Convert.ToInt16(odRdr["PayPeriodID"]);
 
-                wCalendarList.Add(wCalendar);
+                workingCalendarList.Add(workingCalendar);
             }
 
             odRdr.Close();
-            return wCalendarList;
+            return workingCalendarList;
         }
 
         public WorkingCalendar GetWorkingCalendarByEmployee(int employeeNumber)
@@ -1213,7 +1219,7 @@ namespace FaceIDAppVBEta.Data
 
                 workingCalendar.ID = Convert.ToInt16(odRdr["ID"]);
                 workingCalendar.Name = odRdr["Name"].ToString();
-                workingCalendar.WorkOnMonday = Convert.ToBoolean(odRdr["WorkOnMonday"]);
+                workingCalendar.WorkOnMonday = (bool)(odRdr["WorkOnMonday"]);
                 workingCalendar.WorkOnTuesday = Convert.ToBoolean(odRdr["WorkOnTuesday"]);
                 workingCalendar.WorkOnWednesday = Convert.ToBoolean(odRdr["WorkOnWednesday"]);
                 workingCalendar.WorkOnThursday = Convert.ToBoolean(odRdr["WorkOnThursday"]);
