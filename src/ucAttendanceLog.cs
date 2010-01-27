@@ -129,6 +129,8 @@ namespace FaceIDAppVBEta
             {
                 bool ors = _dtCtrl.DeleteAttendanceRecord(RcID);
                 MessageBox.Show(ors ? "sucessfull" : "error");
+                if (ors)
+                    LoadAttdanceLog();
             }
         }
 
