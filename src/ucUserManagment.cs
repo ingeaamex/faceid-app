@@ -147,14 +147,14 @@ namespace FaceIDAppVBEta
 
                     if (_dtCtrl.AddFaceIDUser(fUser) > 0)
                     {
-                        MessageBox.Show("This employee has been added as an user succesfully.");
+                        MessageBox.Show("This employee has been added as an user successfully.");
                     }
                 }
                 else
                 {
                     if (_dtCtrl.UpdateFaceIDUser(fUser))
                     {
-                        MessageBox.Show("This user has been updated succesfully.");
+                        MessageBox.Show("This user has been updated successfully.");
                     }
                 }
             }

@@ -42,7 +42,7 @@ namespace FaceIDAppVBEta
             try
             {
                 System.IO.File.WriteAllText("config.xml", strb.ToString());
-                MessageBox.Show("sucessfull");
+                MessageBox.Show("successful");
             }
             catch
             {

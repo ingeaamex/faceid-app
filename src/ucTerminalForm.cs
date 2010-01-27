@@ -119,7 +119,7 @@ namespace FaceIDAppVBEta
 
             int id = dtCtrl.AddTerminal(terminal);
 
-            MessageBox.Show(id > 0 ? "sucessfull" : "error");
+            MessageBox.Show(id > 0 ? "successful" : "error");
 
             if (id > 0)
             {
@@ -138,7 +138,7 @@ namespace FaceIDAppVBEta
             terminal.ID = terminalID;
 
             bool rs = dtCtrl.UpdateTerminal(terminal);
-            MessageBox.Show(rs ? "sucessfull" : "error");
+            MessageBox.Show(rs ? "successful" : "error");
             if (rs)
             {
                 SetState(0);
@@ -172,7 +172,7 @@ namespace FaceIDAppVBEta
                 {
                     dtCtrl.CommitTransaction();
                     LoadData();
-                    MessageBox.Show("sucessfull");
+                    MessageBox.Show("successful");
                 }
                 else
                 {

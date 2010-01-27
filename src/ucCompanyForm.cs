@@ -59,7 +59,7 @@ namespace FaceIDAppVBEta
                             return;
                         }
                         bool rs = dtCtrl.DeleteCompany(company.ID);
-                        MessageBox.Show(rs ? "sucessfull" : "error");
+                        MessageBox.Show(rs ? "successful" : "error");
                         if (rs)
                             LoadData();
                     }
@@ -119,7 +119,7 @@ namespace FaceIDAppVBEta
                 if (id > 0)
                     acctionSucess = true;
 
-                MessageBox.Show(id > 0 ? "sucessfull" : "error");
+                MessageBox.Show(id > 0 ? "successful" : "error");
             }
             else
             {
@@ -129,7 +129,7 @@ namespace FaceIDAppVBEta
                 if (rs)
                     acctionSucess = true;
 
-                MessageBox.Show(rs ? "sucessfull" : "error");
+                MessageBox.Show(rs ? "successful" : "error");
             }
             if (acctionSucess)
             {

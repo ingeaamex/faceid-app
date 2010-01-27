@@ -1806,13 +1806,11 @@ namespace FaceIDAppVBEta.Data
                 return null;
             string sEmplNumbers = string.Join(",", lEmplNumbers.ToArray());
 
-
-            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Employee", "EmployeeNumber,FirstName,LastName", "EmployeeNumber in(" + sEmplNumbers + ")");
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Employee", "EmployeeNumber, FirstName, LastName", "EmployeeNumber IN(" + sEmplNumbers + ")");
 
             OleDbDataAdapter odApt = new OleDbDataAdapter(odCom);
             DataTable dtEmpl = new DataTable();
             odApt.Fill(dtEmpl);
-
 
             odCom = BuildSelectCmd("AttendanceRecord",
                 "*", "Time >=@Date_1 AND Time <= @Date_2 AND EmployeeNumber in(" + sEmplNumbers + ")",
