@@ -2095,21 +2095,6 @@ namespace FaceIDAppVBEta.Data
             return oRs;
         }
 
-        private bool AddAttendanceReport(AttendanceReport attendanceReport)
-        {
-            System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("AttendanceReport",
-                new string[] { "DayTypeID", "EmployeeNumber", "OvertimeHour1", "OvertimeHour2", "OvertimeHour3", "OvertimeHour4",
-                "OvertimeRate1","OvertimeRate2","OvertimeRate3","OvertimeRate4","PayPeriodID","RegularHour","RegularRate",
-                "WorkFrom","WorkTo","AttendanceRecordIDList"},
-                new object[] { attendanceReport.DayTypeID, attendanceReport.EmployeeNumber, attendanceReport.OvertimeHour1,
-                attendanceReport.OvertimeHour2,attendanceReport.OvertimeHour3,attendanceReport.OvertimeHour4, attendanceReport.OvertimeRate1,
-                attendanceReport.OvertimeRate2,attendanceReport.OvertimeRate3, attendanceReport.OvertimeRate4,attendanceReport.PayPeriodID,
-                attendanceReport.RegularHour,attendanceReport.RegularRate,attendanceReport.WorkFrom,attendanceReport.WorkTo,attendanceReport.AttendanceRecordIDList}
-                );
-
-            return ExecuteNonQuery(odCom1) > 0;
-        }
-
         public bool DeleteAttendanceRecord(int id)
         {
             AttendanceReport attReport = GetAttendanceReport(id);
@@ -2422,6 +2407,20 @@ namespace FaceIDAppVBEta.Data
         #endregion utils
 
         #region AttendanceReport
+        private bool AddAttendanceReport(AttendanceReport attendanceReport)
+        {
+            System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("AttendanceReport",
+                new string[] { "DayTypeID", "EmployeeNumber", "OvertimeHour1", "OvertimeHour2", "OvertimeHour3", "OvertimeHour4",
+                "OvertimeRate1","OvertimeRate2","OvertimeRate3","OvertimeRate4","PayPeriodID","RegularHour","RegularRate",
+                "WorkFrom","WorkTo","AttendanceRecordIDList"},
+                new object[] { attendanceReport.DayTypeID, attendanceReport.EmployeeNumber, attendanceReport.OvertimeHour1,
+                attendanceReport.OvertimeHour2,attendanceReport.OvertimeHour3,attendanceReport.OvertimeHour4, attendanceReport.OvertimeRate1,
+                attendanceReport.OvertimeRate2,attendanceReport.OvertimeRate3, attendanceReport.OvertimeRate4,attendanceReport.PayPeriodID,
+                attendanceReport.RegularHour,attendanceReport.RegularRate,attendanceReport.WorkFrom,attendanceReport.WorkTo,attendanceReport.AttendanceRecordIDList}
+                );
+
+            return ExecuteNonQuery(odCom1) > 0;
+        }
 
         private AttendanceReport GetAttendanceReport(int attRcId)
         {
