@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.btnCollectData = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.dtpAttendanceFrom = new System.Windows.Forms.DateTimePicker();
             this.dtpAttedanceTo = new System.Windows.Forms.DateTimePicker();
@@ -56,16 +55,6 @@
             this.cmsAction.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAttendanceLog)).BeginInit();
             this.SuspendLayout();
-            // 
-            // btnCollectData
-            // 
-            this.btnCollectData.Location = new System.Drawing.Point(23, 26);
-            this.btnCollectData.Name = "btnCollectData";
-            this.btnCollectData.Size = new System.Drawing.Size(75, 23);
-            this.btnCollectData.TabIndex = 0;
-            this.btnCollectData.Text = "Collect Data";
-            this.btnCollectData.UseVisualStyleBackColor = true;
-            this.btnCollectData.Click += new System.EventHandler(this.btnCollectData_Click);
             // 
             // label2
             // 
@@ -279,7 +268,6 @@
             this.Controls.Add(this.btnAddNewAttendaceRecord);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnPrint);
-            this.Controls.Add(this.btnCollectData);
             this.Name = "ucAttendanceLog";
             this.Size = new System.Drawing.Size(962, 470);
             this.cmsAction.ResumeLayout(false);
@@ -291,7 +279,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnCollectData;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker dtpAttendanceFrom;
         private System.Windows.Forms.DateTimePicker dtpAttedanceTo;

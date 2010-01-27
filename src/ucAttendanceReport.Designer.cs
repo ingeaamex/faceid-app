@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.btnCollectData = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.cbxDepartment = new System.Windows.Forms.ComboBox();
             this.cbxCompany = new System.Windows.Forms.ComboBox();
@@ -50,16 +49,6 @@
             this.Chart = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAttendanceReport)).BeginInit();
             this.SuspendLayout();
-            // 
-            // btnCollectData
-            // 
-            this.btnCollectData.Location = new System.Drawing.Point(36, 28);
-            this.btnCollectData.Name = "btnCollectData";
-            this.btnCollectData.Size = new System.Drawing.Size(75, 23);
-            this.btnCollectData.TabIndex = 0;
-            this.btnCollectData.Text = "Collect Data";
-            this.btnCollectData.UseVisualStyleBackColor = true;
-            this.btnCollectData.Click += new System.EventHandler(this.btnCollectData_Click);
             // 
             // label5
             // 
@@ -246,7 +235,6 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.dtpAttendanceFrom);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.btnCollectData);
             this.Name = "ucAttendanceReport";
             this.Size = new System.Drawing.Size(879, 454);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAttendanceReport)).EndInit();
@@ -257,7 +245,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnCollectData;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cbxDepartment;
         private System.Windows.Forms.ComboBox cbxCompany;
