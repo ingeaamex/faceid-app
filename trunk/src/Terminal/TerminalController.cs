@@ -103,6 +103,9 @@ namespace FaceIDAppVBEta
 
                 while ((iFrom = result.IndexOf(keyName)) > 0)
                 {
+                    if (iFrom > result.IndexOf(")") && result.IndexOf(")") >= 0)
+                        break;
+
                     iFrom += keyName.Length;
                     iTo = result.IndexOf("\"", iFrom);
                     
@@ -137,6 +140,10 @@ namespace FaceIDAppVBEta
             while(index > 0)
             {
                 int iFrom = result.IndexOf(keyName);
+
+                if (iFrom > result.IndexOf(")") && result.IndexOf(")") >= 0)
+                    break;
+
                 if (iFrom < 0)
                     return "";
 
@@ -186,6 +193,9 @@ namespace FaceIDAppVBEta
             string resultString = Marshal.PtrToStringAnsi(result);
             while ((iFrom = resultString.IndexOf(keyName)) >= 0)
             {
+                if (iFrom > resultString.IndexOf(")") && resultString.IndexOf(")") >= 0)
+                    break;
+
                 iTo = resultString.IndexOf(keyName, iFrom + 1);
                 if(iTo < 0)
                     iTo = resultString.IndexOf(")", iFrom + 1);

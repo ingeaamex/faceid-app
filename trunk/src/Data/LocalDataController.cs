@@ -48,7 +48,7 @@ namespace FaceIDAppVBEta.Data
                 //Config config = Util.GetConfig();
                 //if (config == null)
                 //    throw new Exception();
-                string connectionString = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\vnanh\project\FaceID\db\FaceIDdb.mdb";// +config.DatabasePath;
+                string connectionString = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";// +config.DatabasePath;
                 dbConnection = new OleDbConnection(connectionString);
             }
             if (dbConnection.State != ConnectionState.Open)
@@ -2049,8 +2049,11 @@ namespace FaceIDAppVBEta.Data
 
         public bool AddAttendanceRecord(AttendanceRecord attRecord)
         {
-            if (attRecord == null || IsNotValidAttendanceRecord(attRecord, false))
+            if (attRecord == null)
                 return false;
+
+            if (IsNotValidAttendanceRecord(attRecord, false))
+                return true;
 
             int employeeNumber = attRecord.EmployeeNumber;
             int attRecordID = 0;

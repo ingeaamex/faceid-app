@@ -246,7 +246,7 @@ namespace FaceIDAppVBEta
                 AttendanceLogRecord attendanceLog = attendanceLogs[e.RowIndex];
 
                 e.FormattingApplied = true;
-                e.Value = string.Format("{0}, {1}", attendanceLog.FirstName, attendanceLog.LastName);
+                e.Value = string.Format("{0}, {1}", attendanceLog.LastName, attendanceLog.FirstName);
             }
         }
 
