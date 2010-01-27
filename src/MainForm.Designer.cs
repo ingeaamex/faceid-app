@@ -34,6 +34,9 @@
             this.departmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.employeeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.terminalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.configToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sctMain = new System.Windows.Forms.SplitContainer();
             this.btnUser = new System.Windows.Forms.Button();
             this.btnAttendance = new System.Windows.Forms.Button();
@@ -42,8 +45,6 @@
             this.btnEmployee = new System.Windows.Forms.Button();
             this.btnDepartment = new System.Windows.Forms.Button();
             this.btnCompany = new System.Windows.Forms.Button();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.configToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.sctMain.Panel1.SuspendLayout();
             this.sctMain.SuspendLayout();
@@ -74,30 +75,53 @@
             // companyToolStripMenuItem
             // 
             this.companyToolStripMenuItem.Name = "companyToolStripMenuItem";
-            this.companyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.companyToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.companyToolStripMenuItem.Text = "Company";
             this.companyToolStripMenuItem.Click += new System.EventHandler(this.companyToolStripMenuItem_Click);
             // 
             // departmentToolStripMenuItem
             // 
             this.departmentToolStripMenuItem.Name = "departmentToolStripMenuItem";
-            this.departmentToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.departmentToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.departmentToolStripMenuItem.Text = "Department";
             this.departmentToolStripMenuItem.Click += new System.EventHandler(this.departmentToolStripMenuItem_Click);
             // 
             // employeeToolStripMenuItem
             // 
             this.employeeToolStripMenuItem.Name = "employeeToolStripMenuItem";
-            this.employeeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.employeeToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.employeeToolStripMenuItem.Text = "Employee";
             this.employeeToolStripMenuItem.Click += new System.EventHandler(this.employeeToolStripMenuItem_Click);
             // 
             // terminalToolStripMenuItem
             // 
             this.terminalToolStripMenuItem.Name = "terminalToolStripMenuItem";
-            this.terminalToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.terminalToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.terminalToolStripMenuItem.Text = "Terminal";
             this.terminalToolStripMenuItem.Click += new System.EventHandler(this.terminalToolStripMenuItem_Click);
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.configToolStripMenuItem,
+            this.updateToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // configToolStripMenuItem
+            // 
+            this.configToolStripMenuItem.Name = "configToolStripMenuItem";
+            this.configToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
+            this.configToolStripMenuItem.Text = "Config";
+            this.configToolStripMenuItem.Click += new System.EventHandler(this.configToolStripMenuItem_Click);
+            // 
+            // updateToolStripMenuItem
+            // 
+            this.updateToolStripMenuItem.Name = "updateToolStripMenuItem";
+            this.updateToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
+            this.updateToolStripMenuItem.Text = "Calculated Attendance Record";
+            this.updateToolStripMenuItem.Click += new System.EventHandler(this.updateToolStripMenuItem_Click);
             // 
             // sctMain
             // 
@@ -193,21 +217,6 @@
             this.btnCompany.UseVisualStyleBackColor = true;
             this.btnCompany.Click += new System.EventHandler(this.btnCompany_Click);
             // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.configToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "File";
-            // 
-            // configToolStripMenuItem
-            // 
-            this.configToolStripMenuItem.Name = "configToolStripMenuItem";
-            this.configToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.configToolStripMenuItem.Text = "Config";
-            this.configToolStripMenuItem.Click += new System.EventHandler(this.configToolStripMenuItem_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -245,6 +254,7 @@
         private System.Windows.Forms.Button btnAttendance;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem configToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem updateToolStripMenuItem;
 
     }
 }
