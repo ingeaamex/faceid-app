@@ -6,20 +6,40 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
+using FaceIDAppVBEta.Data;
+using FaceIDAppVBEta.Class;
+
 namespace FaceIDAppVBEta
 {
     public partial class frmPayrollExport : Form
     {
-        public frmPayrollExport(DataTable dtAttendanceReport, DateTime dtFrom, DateTime dtTo)
+        private int companyId;
+        private int deparmentId;
+        private DateTime dPayrollFrom;
+        private DateTime dPayrollTo;
+        public frmPayrollExport(int companyId, int deparmentId, DateTime dPayrollFrom, DateTime dPayrollTo)
         {
             InitializeComponent();
-
-            MessageBox.Show("This function has not been implemented yet");
+            this.companyId = companyId;
+            this.deparmentId = deparmentId;
+            this.dPayrollFrom = dPayrollFrom;
+            this.dPayrollTo = dPayrollTo;
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void frmPayrollExport_Load(object sender, EventArgs e)
         {
-            this.Close();
+            LocalDataController dtCtrl = LocalDataController.Instance;
+
+            this.BindingSource.DataSource = dtCtrl.GetPayrollExportList(companyId, deparmentId, dPayrollFrom, dPayrollTo);
+
+            List<Microsoft.Reporting.WinForms.ReportParameter> paramList = new List<Microsoft.Reporting.WinForms.ReportParameter>();
+
+            paramList.Add(new Microsoft.Reporting.WinForms.ReportParameter("PayrollFrom", dPayrollFrom.ToString("d MMM yyyy"), false));
+            paramList.Add(new Microsoft.Reporting.WinForms.ReportParameter("PayrollTo", dPayrollTo.ToString("d MMM yyyy"), false));
+
+            reportViewer1.LocalReport.SetParameters(paramList);
+
+            this.reportViewer1.RefreshReport();
         }
     }
 }
