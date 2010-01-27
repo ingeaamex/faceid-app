@@ -39,8 +39,8 @@ namespace FaceIDAppVBEta
                 {
                     if (_terCtrl.IsTerminalConnected(terminal))
                     {
-                        DateTime lastMoment = DateTime.Now;
                         DateTime thisMoment = DateTime.Now;
+                        DateTime lastMoment = thisMoment;
 
                         while (true)
                         {
@@ -71,6 +71,9 @@ namespace FaceIDAppVBEta
                                 break;
                             }
                         }
+
+                        //TODO add this later
+                        //_terCtrl.DeleteAttendanceRecord(terminal);
                     }
                     else
                     {
