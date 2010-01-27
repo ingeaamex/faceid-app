@@ -29,7 +29,16 @@ namespace FaceIDAppVBEta
 
         private void btnPayrollExport_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Report must be created before exporting to payroll. Please click View to create a Report.");
+            DateTime beginDate = dtpAttendanceFrom.Value;
+            DateTime endDate = dtpAttedanceTo.Value.Date.AddHours(23).AddMinutes(59);
+
+            int iCompany = (int)cbxCompany.SelectedValue;
+            int iDepartment = -1;
+            if (cbxDepartment.Enabled)
+                iDepartment = (int)cbxDepartment.SelectedValue;
+
+            frmPayrollExport formExport = new frmPayrollExport(iCompany, iDepartment, beginDate, endDate);
+            formExport.ShowDialog(this);
         }
 
         private void btnCollectData_Click(object sender, EventArgs e)
@@ -160,3 +169,4 @@ namespace FaceIDAppVBEta
 
     }
 }
+
