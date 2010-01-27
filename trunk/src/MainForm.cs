@@ -86,5 +86,11 @@ namespace FaceIDAppVBEta
             sctMain.Panel2.Controls.Clear();
             sctMain.Panel2.Controls.Add(new ucConfigForm());
         }
+
+        private void updateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FaceIDAppVBEta.Data.LocalDataController dtCtrl = FaceIDAppVBEta.Data.LocalDataController.Instance;
+            dtCtrl.CalculateAttendanceRecord();
+        }
     }
 }
