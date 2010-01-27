@@ -14,13 +14,13 @@ namespace FaceIDAppVBEta
 {
     public partial class ucAttendanceLog : UserControl
     {
-        private IDataController dtCtrl;
-        private Point cellContext;
-        private List<Point> pData = new List<Point>();
+        private IDataController _dtCtrl;
+        private Point _cellContext;
+        private List<Point> _pData = new List<Point>();
         public ucAttendanceLog()
         {
             InitializeComponent();
-            dtCtrl = LocalDataController.Instance;
+            _dtCtrl = LocalDataController.Instance;
             BindData();
         }
 
@@ -40,7 +40,7 @@ namespace FaceIDAppVBEta
             if (cbxDepartment.Enabled)
                 iDepartment = (int)cbxDepartment.SelectedValue;
 
-            List<AttendanceLogRecord> attendanceLogs = dtCtrl.GetAttendanceRecordList(iCompany, iDepartment, beginDate, endDate);
+            List<AttendanceLogRecord> attendanceLogs = _dtCtrl.GetAttendanceRecordList(iCompany, iDepartment, beginDate, endDate);
 
             dgvAttendanceLog.AutoGenerateColumns = false;
             dgvAttendanceLog.DataSource = attendanceLogs;
@@ -54,7 +54,7 @@ namespace FaceIDAppVBEta
 
         private void BindCompany()
         {
-            List<Company> companyList = dtCtrl.GetCompanyList();
+            List<Company> companyList = _dtCtrl.GetCompanyList();
             Company company = new Company();
             company.ID = -1;
             company.Name = "All companies";
@@ -73,7 +73,7 @@ namespace FaceIDAppVBEta
                     return;
                 }
                 cbxDepartment.Enabled = true;
-                List<Department> departmentList = dtCtrl.GetDepartmentByCompany(CompanyID);
+                List<Department> departmentList = _dtCtrl.GetDepartmentByCompany(CompanyID);
                 Department department = new Department();
                 department.ID = -1;
                 department.Name = "All departments";
@@ -96,12 +96,12 @@ namespace FaceIDAppVBEta
         {
             int min = 7 - dgvAttendanceLog.ColumnHeadersHeight;
             int max = dgvAttendanceLog.ColumnHeadersHeight - 16;
-            int idx = cellContext.Y;
-            for (int i = 0; i < pData.Count; i++)
+            int idx = _cellContext.Y;
+            for (int i = 0; i < _pData.Count; i++)
             {
-                if (pData[i].Y - idx >= min && pData[i].Y - idx <= max)
+                if (_pData[i].Y - idx >= min && _pData[i].Y - idx <= max)
                 {
-                    return pData[i].X;
+                    return _pData[i].X;
                 }
             }
             return -1;
@@ -125,7 +125,7 @@ namespace FaceIDAppVBEta
             DialogResult dlogRs = MessageBox.Show(Form.ActiveForm, "Are you sure?", "Confirm", MessageBoxButtons.YesNo);
             if (dlogRs.ToString().Equals("Yes"))
             {
-                bool ors = dtCtrl.DeleteAttendanceRecord(RcID);
+                bool ors = _dtCtrl.DeleteAttendanceRecord(RcID);
                 MessageBox.Show(ors ? "sucessfull" : "error");
             }
         }
@@ -175,8 +175,8 @@ namespace FaceIDAppVBEta
                                         Brushes.Black, e.CellBounds.X + 5,
                                         y + 5, StringFormat.GenericDefault);
 
-                                    if (!pData.Contains(new Point((int)time[0], y + 5)))
-                                        pData.Add(new Point((int)time[0], y + 5));
+                                    if (!_pData.Contains(new Point((int)time[0], y + 5)))
+                                        _pData.Add(new Point((int)time[0], y + 5));
 
                                     e.Graphics.DrawLine(gridLinePen, e.CellBounds.Left, y + 20, e.CellBounds.Right, y + 20);
                                     count++;
@@ -250,54 +250,8 @@ namespace FaceIDAppVBEta
         {
             if (e.Button == MouseButtons.Right)
             {
-                cellContext = new Point(e.X, e.Y + dgvAttendanceLog.VerticalScrollingOffset);
+                _cellContext = new Point(e.X, e.Y + dgvAttendanceLog.VerticalScrollingOffset);
             }
-        }
-
-        private ITerminalController _terCtrl = new TerminalController();
-        private void btnCollectData_Click(object sender, EventArgs e)
-        {
-            GetAttendanceRecordFromTerminal();
-        }
-
-        private void GetAttendanceRecordFromTerminal()
-        {
-            try
-            {
-                List<Terminal> terminalList = dtCtrl.GetTerminalList();
-
-                foreach (Terminal terminal in terminalList)
-                {
-                    if (_terCtrl.IsTerminalConnected(terminal))
-                    {
-                        List<AttendanceRecord> attRecordList = _terCtrl.GetAttendanceRecord(terminal, DateTime.Today.AddYears(-1), DateTime.Today);
-
-                        foreach (AttendanceRecord attRecord in attRecordList)
-                        {
-                            attRecord.CheckIn = true;
-                            attRecord.Note = "";
-                            attRecord.PhotoData = "";
-
-                            if (dtCtrl.AddAttendanceRecord(attRecord) == false)
-                            {
-                                throw new Exception("Cannot save attendance records to database");
-                            }
-                        }
-                    }
-                    else
-                    {
-                        throw new Exception("Cannot connect to terminal " + terminal.Name);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("There has been an error: " + ex.Message + ". Please try again.");
-                return;
-            }
-
-            MessageBox.Show("Attendance records from terminals have been copied succesfully");
-            LoadAttdanceLog();
         }
     }
 }

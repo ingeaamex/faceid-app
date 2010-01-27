@@ -30,9 +30,10 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.ucAttendanceLog1 = new FaceIDAppVBEta.ucAttendanceLog();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.ucAttendanceReport1 = new FaceIDAppVBEta.ucAttendanceReport();
+            this.btnCollectAttendanceData = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -42,10 +43,10 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(18, 16);
+            this.tabControl1.Location = new System.Drawing.Point(20, 63);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1210, 477);
+            this.tabControl1.Size = new System.Drawing.Size(972, 461);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -54,10 +55,18 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1202, 451);
+            this.tabPage1.Size = new System.Drawing.Size(964, 435);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Attendance Log";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // ucAttendanceLog1
+            // 
+            this.ucAttendanceLog1.Location = new System.Drawing.Point(6, 6);
+            this.ucAttendanceLog1.Name = "ucAttendanceLog1";
+            this.ucAttendanceLog1.Size = new System.Drawing.Size(1016, 475);
+            this.ucAttendanceLog1.TabIndex = 0;
+            this.ucAttendanceLog1.Load += new System.EventHandler(this.ucAttendanceLog1_Load);
             // 
             // tabPage2
             // 
@@ -70,14 +79,6 @@
             this.tabPage2.Text = "Attendance Summary / Report";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // ucAttendanceLog1
-            // 
-            this.ucAttendanceLog1.Location = new System.Drawing.Point(7, 7);
-            this.ucAttendanceLog1.Name = "ucAttendanceLog1";
-            this.ucAttendanceLog1.Size = new System.Drawing.Size(1058, 475);
-            this.ucAttendanceLog1.TabIndex = 0;
-            this.ucAttendanceLog1.Load += new System.EventHandler(this.ucAttendanceLog1_Load);
-            // 
             // ucAttendanceReport1
             // 
             this.ucAttendanceReport1.Location = new System.Drawing.Point(6, 6);
@@ -85,10 +86,21 @@
             this.ucAttendanceReport1.Size = new System.Drawing.Size(923, 534);
             this.ucAttendanceReport1.TabIndex = 0;
             // 
+            // btnCollectAttendanceData
+            // 
+            this.btnCollectAttendanceData.Location = new System.Drawing.Point(20, 19);
+            this.btnCollectAttendanceData.Name = "btnCollectAttendanceData";
+            this.btnCollectAttendanceData.Size = new System.Drawing.Size(241, 23);
+            this.btnCollectAttendanceData.TabIndex = 1;
+            this.btnCollectAttendanceData.Text = "Collect Attendance Data from Terminals";
+            this.btnCollectAttendanceData.UseVisualStyleBackColor = true;
+            this.btnCollectAttendanceData.Click += new System.EventHandler(this.btnCollectAttendanceData_Click);
+            // 
             // ucAttendance
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnCollectAttendanceData);
             this.Controls.Add(this.tabControl1);
             this.Name = "ucAttendance";
             this.Size = new System.Drawing.Size(1252, 606);
@@ -106,5 +118,6 @@
         private System.Windows.Forms.TabPage tabPage2;
         private ucAttendanceLog ucAttendanceLog1;
         private ucAttendanceReport ucAttendanceReport1;
+        private System.Windows.Forms.Button btnCollectAttendanceData;
     }
 }
