@@ -87,7 +87,7 @@ namespace FaceIDAppVBEta
                 return;
             }
 
-            MessageBox.Show("Attendance records from terminals have been copied succesfully");
+            MessageBox.Show("Attendance records from terminals have been copied successfully");
         }
     }
 }

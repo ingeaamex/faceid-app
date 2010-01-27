@@ -118,7 +118,7 @@ namespace FaceIDAppVBEta
 
                     _dtCtrl.CommitTransaction();
 
-                    MessageBox.Show("Employee deleted succesfully.");
+                    MessageBox.Show("Employee deleted successfully.");
                     BindEmployee();
                 }
                 catch(Exception ex)
@@ -239,7 +239,7 @@ namespace FaceIDAppVBEta
                 return;
             }
 
-            MessageBox.Show("Employee data from terminals have been copied succesfully");
+            MessageBox.Show("Employee data from terminals have been copied successfully");
             BindEmployee();
         }
 
@@ -278,7 +278,7 @@ namespace FaceIDAppVBEta
                 return;
             }
 
-            MessageBox.Show("Employee data from terminals have been copied succesfully");
+            MessageBox.Show("Employee data from terminals have been copied successfully");
             BindEmployee();
         }
 

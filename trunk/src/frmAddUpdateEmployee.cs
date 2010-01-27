@@ -153,7 +153,7 @@ namespace FaceIDAppVBEta
 
                 if (_dtCtrl.AddEmployee(employee, terminals) > 0)
                 {
-                    MessageBox.Show("Employee has been addded succesfully.");
+                    MessageBox.Show("Employee has been addded successfully.");
                     this.Close();
                 }
             }
@@ -173,7 +173,7 @@ namespace FaceIDAppVBEta
 
             bool rs1 = _dtCtrl.UpdateEmployee(employee);
 
-            MessageBox.Show(rs1 ? "sucessfull" : "error");
+            MessageBox.Show(rs1 ? "successful" : "error");
 
             List<Terminal> terminals = GetTerminalsUserInput();
 

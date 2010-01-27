@@ -89,7 +89,7 @@ namespace FaceIDAppVBEta
 
             attRecord.PhotoData = "";
             bool ors = dtCtrl.AddAttendanceRecord(attRecord);
-            MessageBox.Show(ors ? "sucessfull" : "error");
+            MessageBox.Show(ors ? "successful" : "error");
             if (ors)
             {
                 RefeshOwner();
@@ -116,7 +116,7 @@ namespace FaceIDAppVBEta
             attRecord.ID = iAttendanceRecordID;
 
             bool ors = dtCtrl.UpdateAttendanceRecord(attRecord);
-            MessageBox.Show(ors ? "sucessfull" : "error");
+            MessageBox.Show(ors ? "successful" : "error");
             if (ors)
             {
                 RefeshOwner();

@@ -593,7 +593,7 @@ namespace FaceIDAppVBEta
                     throw new Exception();
                 }
 
-                MessageBox.Show("Working Calendar has been added succesfully.");
+                MessageBox.Show("Working Calendar has been added successfully.");
             }
             else //update
             {
@@ -604,7 +604,7 @@ namespace FaceIDAppVBEta
                     throw new Exception();
                 }
 
-                MessageBox.Show("Working Calendar has been updated succesfully.");
+                MessageBox.Show("Working Calendar has been updated successfully.");
             }
             #endregion
         }

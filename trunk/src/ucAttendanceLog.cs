@@ -128,7 +128,7 @@ namespace FaceIDAppVBEta
             if (dlogRs.ToString().Equals("Yes"))
             {
                 bool ors = _dtCtrl.DeleteAttendanceRecord(RcID);
-                MessageBox.Show(ors ? "sucessfull" : "error");
+                MessageBox.Show(ors ? "successful" : "error");
                 if (ors)
                     LoadAttdanceLog();
             }
