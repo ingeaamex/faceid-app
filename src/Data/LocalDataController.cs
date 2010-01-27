@@ -41,32 +41,6 @@ namespace FaceIDAppVBEta.Data
         }
 
         #region Connection
-
-        public void BeginTransaction()
-        {
-            //if (dbConnection.State != ConnectionState.Open)
-            //{
-            //    dbConnection.Open();
-            //}
-            transaction = dbConnection.BeginTransaction();
-        }
-
-        public void CommitTransaction()
-        {
-            transaction.Commit();
-            //dbConnection.Close();
-            transaction.Dispose();
-        }
-
-        public void RollbackTransaction()
-        {
-            transaction.Rollback();
-            //dbConnection.Close();
-            transaction.Dispose();
-        }
-
-        #endregion Connection
-
         private static void ConnectToDatabase()
         {
             if (dbConnection == null)
@@ -97,6 +71,31 @@ namespace FaceIDAppVBEta.Data
                 }
             }
         }
+
+        public void BeginTransaction()
+        {
+            //if (dbConnection.State != ConnectionState.Open)
+            //{
+            //    dbConnection.Open();
+            //}
+            transaction = dbConnection.BeginTransaction();
+        }
+
+        public void CommitTransaction()
+        {
+            transaction.Commit();
+            //dbConnection.Close();
+            transaction.Dispose();
+        }
+
+        public void RollbackTransaction()
+        {
+            transaction.Rollback();
+            //dbConnection.Close();
+            transaction.Dispose();
+        }
+
+        #endregion Connection
 
         #region Company
         public List<Company> GetCompanyList()
