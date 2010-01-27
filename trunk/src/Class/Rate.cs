@@ -12,6 +12,13 @@ namespace FaceIDAppVBEta.Class
             this.Name = name;
         }
 
+        public Rate(double value)
+        {
+            this.Value = value;
+            this.Name = value.ToString() + "%";
+        }
+
+
         public double Value { get; set; }
         public String Name { get; set; }
     }

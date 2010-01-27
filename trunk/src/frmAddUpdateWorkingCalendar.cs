@@ -210,6 +210,7 @@ namespace FaceIDAppVBEta
 
                 #region Set Payment Rates
                 PaymentRate workingDayPaymentRate = _dtCtrl.GetWorkingDayPaymentRateByWorkingCalendar(workingCalendarID);
+                ImplementCustomRates(workingDayPaymentRate);
 
                 nudWorkDayRegularHour.Value = (int)workingDayPaymentRate.NumberOfRegularHours;
                 nudWorkDayOvertimeHour1.Value = (int)workingDayPaymentRate.NumberOfOvertime1;
@@ -224,6 +225,7 @@ namespace FaceIDAppVBEta
                 Util.SetComboboxSelectedByValue(cbxWorkDayOvertimeRate4, workingDayPaymentRate.OvertimeRate4);
 
                 PaymentRate nonWorkingDayPaymentRate = _dtCtrl.GetNonWorkingDayPaymentRateByWorkingCalendar(workingCalendarID);
+                ImplementCustomRates(nonWorkingDayPaymentRate);
 
                 nudNonWorkDayRegularHour.Value = (int)nonWorkingDayPaymentRate.NumberOfRegularHours;
                 nudNonWorkDayOvertimeHour1.Value = (int)nonWorkingDayPaymentRate.NumberOfOvertime1;
@@ -238,6 +240,7 @@ namespace FaceIDAppVBEta
                 Util.SetComboboxSelectedByValue(cbxNonWorkDayOvertimeRate4, nonWorkingDayPaymentRate.OvertimeRate4);
 
                 PaymentRate holidayPaymentRate = _dtCtrl.GetHolidayPaymentRateByWorkingCalendar(workingCalendarID);
+                ImplementCustomRates(holidayPaymentRate);
 
                 nudHolidayRegularHour.Value = (int)holidayPaymentRate.NumberOfRegularHours;
                 nudHolidayOvertimeHour1.Value = (int)holidayPaymentRate.NumberOfOvertime1;
@@ -594,6 +597,7 @@ namespace FaceIDAppVBEta
                 }
 
                 MessageBox.Show("Working Calendar has been added successfully.");
+                this.Close();
             }
             else //update
             {
@@ -605,8 +609,30 @@ namespace FaceIDAppVBEta
                 }
 
                 MessageBox.Show("Working Calendar has been updated successfully.");
+                this.Close();
             }
             #endregion
+        }
+
+        private void ImplementCustomRates(PaymentRate paymentRate)
+        {
+            List<Rate> rateList = new List<Rate>();
+            rateList.Add(new Rate(paymentRate.RegularRate));
+            rateList.Add(new Rate(paymentRate.OvertimeRate1));
+            rateList.Add(new Rate(paymentRate.OvertimeRate2));
+            rateList.Add(new Rate(paymentRate.OvertimeRate3));
+            rateList.Add(new Rate(paymentRate.OvertimeRate4));
+
+            foreach (Rate rate in rateList)
+            {
+                if (cbxWorkDayRegularRate.FindString(rate.Name) < 0)
+                {
+                    foreach (ComboBox cbx in _listCbxRate)
+                    {
+                        AddNewRate(cbx, rate);
+                    }
+                }
+            }
         }
 
         private void SetWorkingCalendarProperties(ref WorkingCalendar workingCalendar, ref List<Break> breakList, ref List<Holiday> holidayList, ref PaymentRate workDayPaymentRate, ref PaymentRate nonWorkDayPaymentRate, ref PaymentRate holidayPaymentRate, ref PayPeriod payPeriod)
