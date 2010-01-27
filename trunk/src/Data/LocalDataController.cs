@@ -123,8 +123,6 @@ namespace FaceIDAppVBEta.Data
 
         public Company GetCompany(int id)
         {
-            //ConnectToDatabase();
-
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Company", "ID,[Name]", "ID=@ID", new object[] { "@ID", id });
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
 
@@ -143,8 +141,6 @@ namespace FaceIDAppVBEta.Data
 
         public Company GetCompany(string name)
         {
-            //ConnectToDatabase();
-
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Company", "ID,[Name]", "[Name]=@Name", new object[] { "@Name", name });
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
 
@@ -180,8 +176,6 @@ namespace FaceIDAppVBEta.Data
 
         public List<Department> GetDepartmentByCompany(int id)
         {
-            //ConnectToDatabase();
-
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Department", "*", "CompanyID=@ID", "@ID", id);
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
             List<Department> departmentList = new List<Department>();
@@ -203,8 +197,6 @@ namespace FaceIDAppVBEta.Data
 
         public int AddCompany(Company company)
         {
-            //ConnectToDatabase();
-
             if (company == null || CheckExistCompanyName(company.Name, 0))
                 return -1;
             System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("Company",
@@ -222,7 +214,6 @@ namespace FaceIDAppVBEta.Data
 
         public bool DeleteCompany(int id)
         {
-            //ConnectToDatabase();
             if (id == 1) return false;
             System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("Company", "ID=@ID", new object[] { "@ID", id });
             return ExecuteNonQuery(odCom1) > 0 ? true : false;
@@ -230,8 +221,6 @@ namespace FaceIDAppVBEta.Data
 
         public bool UpdateCompany(Company company)
         {
-            //ConnectToDatabase();
-
             if (company == null || CheckExistCompanyName(company.Name, company.ID))
                 return false;
 
@@ -248,8 +237,6 @@ namespace FaceIDAppVBEta.Data
         #region Department
         public List<Department> GetDepartmentList()
         {
-            //ConnectToDatabase();
-
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Department", "*", null);
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
             List<Department> departmentList = new List<Department>();
@@ -293,8 +280,6 @@ namespace FaceIDAppVBEta.Data
 
         public Department GetDepartment(int id)
         {
-            //ConnectToDatabase();
-
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Department", "*", "ID=@ID", "@ID", id);
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
 
@@ -343,8 +328,6 @@ namespace FaceIDAppVBEta.Data
 
         public int AddDepartment(Department department)
         {
-            //ConnectToDatabase();
-
             if (department == null || CheckExistDepartmentName(department.Name, department.CompanyID, 0))
                 return -1;
             System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("Department",
@@ -364,8 +347,6 @@ namespace FaceIDAppVBEta.Data
 
         public bool UpdateDepartment(Department department)
         {
-            //ConnectToDatabase();
-
             if (department == null || CheckExistDepartmentName(department.Name, department.CompanyID, department.ID))
                 return false;
 
@@ -419,7 +400,6 @@ namespace FaceIDAppVBEta.Data
 
         public bool DeleteDepartment(int id)
         {
-            //ConnectToDatabase();
             if (id == 1) return false;
 
             System.Data.OleDb.OleDbCommand odCom1 = null;
@@ -497,8 +477,6 @@ namespace FaceIDAppVBEta.Data
 
         public Employee GetEmployee(int employeeId)
         {
-            //ConnectToDatabase();
-
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Employee", "*", "PayrollNumber=@ID", "@ID", employeeId);
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
 
@@ -551,8 +529,6 @@ namespace FaceIDAppVBEta.Data
 
         public List<Employee> GetEmployeeList(int compantId, int departmentId)
         {
-            //ConnectToDatabase();
-
             System.Data.OleDb.OleDbCommand odCom;
             if (departmentId == 1 || compantId == 1)
                 odCom = BuildSelectCmd("Employee", "*", "DepartmentID=1");
@@ -627,7 +603,54 @@ namespace FaceIDAppVBEta.Data
             return false;
         }
 
-        public int AddEmployee(Employee employee)
+        public int AddEmployee(Employee employee, List<Terminal> terminalList)
+        {
+            BeginTransaction();
+
+            try
+            {
+                //if Employee is added from terminal then he already has employee Number
+                if (employee.EmployeeNumber <= 0)
+                    employee.EmployeeNumber = GetAvailEmployeeNumber();
+                else
+                    AddEmployeeNumber(employee.EmployeeNumber);
+
+                if (employee.EmployeeNumber > 0)
+                {
+                    employee.PayrollNumber = AddEmployee(employee);
+
+                    if (terminalList.Count > 0)
+                    {
+                        List<EmployeeTerminal> employeeTerminalList = new List<EmployeeTerminal>();
+                        foreach (Terminal terminal in terminalList)
+                        {
+                            EmployeeTerminal emplTerminal = new EmployeeTerminal();
+                            emplTerminal.TerminalID = terminal.ID;
+                            emplTerminal.EmployeeNumber = employee.EmployeeNumber;
+
+                            employeeTerminalList.Add(emplTerminal);
+                        }
+
+                        AddEmployeeTerminal(employeeTerminalList);
+                    }
+
+                    CommitTransaction();
+                }
+                else
+                {
+                    throw new Exception("There's no more employee number available. Please enter your CC detail to purchase more.");
+                }
+            }
+            catch (Exception)
+            {
+                RollbackTransaction();
+                throw;
+            }
+
+            return employee.PayrollNumber;
+        }
+
+        private int AddEmployee(Employee employee)
         {
             System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("Employee",
                 new string[] { "EmployeeNumber"
@@ -708,8 +731,6 @@ namespace FaceIDAppVBEta.Data
 
         public bool DeleteEmployee(int employeeId)
         {
-            //ConnectToDatabase();
-
             System.Data.OleDb.OleDbCommand odCom1 = BuildUpdateCmd("Employee",
                 new string[] { "Active", "ActiveTo" }, new object[] { false, DateTime.Now }, "PayrollNumber=@ID",
                 new object[] { "@ID", employeeId }
@@ -797,8 +818,6 @@ namespace FaceIDAppVBEta.Data
         #region Terminal
         public List<Terminal> GetTerminalList()
         {
-            //ConnectToDatabase();
-
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Terminal", "*", null);
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
             List<Terminal> terminalList = new List<Terminal>();
@@ -820,8 +839,6 @@ namespace FaceIDAppVBEta.Data
 
         public Terminal GetTerminal(int id)
         {
-            //ConnectToDatabase();
-
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Terminal", "*", "ID=@ID", new object[] { "@ID", id });
 
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
@@ -862,8 +879,6 @@ namespace FaceIDAppVBEta.Data
 
         public int AddTerminal(Terminal terminal)
         {
-            //ConnectToDatabase();
-
             if (CheckExistTerminal(terminal, false))
                 return -1;
 
@@ -886,8 +901,6 @@ namespace FaceIDAppVBEta.Data
 
         public bool UpdateTerminal(Terminal terminal)
         {
-            //ConnectToDatabase();
-
             if (CheckExistTerminal(terminal, true))
                 return false;
 
@@ -906,7 +919,6 @@ namespace FaceIDAppVBEta.Data
 
         public bool DeleteTerminal(int id)
         {
-            //ConnectToDatabase();
             System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("Terminal", "ID=@ID", new object[] { "@ID", id });
             return ExecuteNonQuery(odCom1) > 0 ? true : false;
         }
@@ -917,7 +929,6 @@ namespace FaceIDAppVBEta.Data
 
         public List<EmployeeTerminal> GetEmployeeTerminalsByEmpl(int employeeNumber)
         {
-            //ConnectToDatabase();
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("EmployeeTerminal", "*", "EmployeeNumber=@EmployeeNumber", new object[] { "@EmployeeNumber", employeeNumber });
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
 
@@ -938,7 +949,6 @@ namespace FaceIDAppVBEta.Data
 
         public List<Terminal> GetTerminalListByEmployee(int employeeNumber)
         {
-            //ConnectToDatabase();
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Terminal", "*", "ID in (SELECT TerminalID FROM EmployeeTerminal WHERE EmployeeNumber=@EmployeeNumber)", new object[] { "@EmployeeNumber", employeeNumber });
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
 
@@ -964,8 +974,6 @@ namespace FaceIDAppVBEta.Data
 
         public int AddEmployeeTerminal(List<EmployeeTerminal> emplTerminals)
         {
-            //ConnectToDatabase();
-
             if (emplTerminals == null)
                 return -1;
 
@@ -987,8 +995,6 @@ namespace FaceIDAppVBEta.Data
 
         public bool DeleteEmployeeTerminalByEmployee(int employeeNumber)
         {
-            //ConnectToDatabase();
-
             System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("EmployeeTerminal", "EmployeeNumber=@ID", new object[] { "@ID", employeeNumber });
 
             return ExecuteNonQuery(odCom1) >= 0 ? true : false;
@@ -996,8 +1002,6 @@ namespace FaceIDAppVBEta.Data
 
         public bool DeleteEmployeeTerminal(int terminalID)
         {
-            //ConnectToDatabase();
-
             System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("EmployeeTerminal", "TerminalID=@ID", new object[] { "@ID", terminalID });
 
             return ExecuteNonQuery(odCom1) >= 0 ? true : false;
@@ -1005,8 +1009,6 @@ namespace FaceIDAppVBEta.Data
 
         public bool UpdateEmployeeTerminal(List<Terminal> terminals, int employeeNumber)
         {
-            //ConnectToDatabase();
-
             BeginTransaction();
             System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("EmployeeTerminal", "EmployeeNumber=@ID", new object[] { "@ID", employeeNumber });
             int t1 = ExecuteNonQuery(odCom1);
@@ -1040,7 +1042,7 @@ namespace FaceIDAppVBEta.Data
 
         public List<EmployeeNumber> GetEmployeeNumberList()
         {
-            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Employee", "EmployeeNumber", "Active=True");
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Employee", "EmployeeNumber", "Active=TRUE");
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
             List<EmployeeNumber> employeeNumberList = new List<EmployeeNumber>();
             EmployeeNumber employeeNumber = null;
@@ -1059,7 +1061,7 @@ namespace FaceIDAppVBEta.Data
 
         public int GetAvailEmployeeNumber()
         {
-            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Employee", "Min(EmployeeNumber) as EmployeeNumber", "Active=0");
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Employee", "MIN(EmployeeNumber) AS EmployeeNumber", "Active=FALSE");
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
 
             int employeeNumber = 1;
@@ -1096,13 +1098,48 @@ namespace FaceIDAppVBEta.Data
                     employeeNumber++;
             }
 
-            System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("EmployeeNumber",
-                new string[] { "ID", "Note" },
-                new object[] { employeeNumber, "" }
-            );
+            return AddEmployeeNumber(employeeNumber);
+        }
 
-            int rs = ExecuteNonQuery(odCom1);
-            return rs > 0 ? employeeNumber : -1;
+        public int AddEmployeeNumber(int employeeNumber)
+        {
+            if (GetEmployeeNumber(employeeNumber) != null)
+            {
+                return employeeNumber;
+            }
+            else
+            {
+                System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("EmployeeNumber",
+                    new string[] { "ID"
+                },
+                    new object[] { employeeNumber
+                }
+                );
+
+                if (odCom1.ExecuteNonQuery() == 1)
+                {
+                    odCom1.CommandText = "SELECT @@IDENTITY";
+                    return Convert.ToInt32(odCom1.ExecuteScalar().ToString());
+                }
+            }
+            return -1;
+        }
+
+        public EmployeeNumber GetEmployeeNumber(int id)
+        {
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("EmployeeNumber", "*", "ID=@ID", new object[] { "@ID", id });
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+
+            EmployeeNumber employeeNumber = null;
+            if (odRdr.Read())
+            {
+                employeeNumber = new EmployeeNumber();
+
+                employeeNumber.ID = Convert.ToInt32(odRdr["ID"]);
+            }
+
+            odRdr.Close();
+            return employeeNumber;
         }
 
         #endregion EmployeeNumber
@@ -1110,8 +1147,6 @@ namespace FaceIDAppVBEta.Data
         #region WorkingCalendar
         public List<WorkingCalendar> GetWorkingCalendarList()
         {
-            //ConnectToDatabase();
-
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("WorkingCalendar", "*", null);
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
             List<WorkingCalendar> wCalendarList = new List<WorkingCalendar>();
@@ -1350,7 +1385,7 @@ namespace FaceIDAppVBEta.Data
                 workingCalendar.PayPeriodID = payPeriod.ID;
                 workingCalendar.ID = AddWorkingCalendar(workingCalendar);
 
-                if(workingCalendar.ID < 0)
+                if (workingCalendar.ID < 0)
                     throw new NullReferenceException();
 
                 //add breaks
@@ -1387,7 +1422,7 @@ namespace FaceIDAppVBEta.Data
 
                 CommitTransaction();
             }
-            catch(Exception)
+            catch (Exception)
             {
                 RollbackTransaction();
                 return -1;
@@ -1462,14 +1497,14 @@ namespace FaceIDAppVBEta.Data
                 //update breaks
                 foreach (Break _break in GetBreakListByWorkingCalendar(workingCalendar.ID))
                 {
-                    if(DeleteBreak(_break.ID) == false)
+                    if (DeleteBreak(_break.ID) == false)
                         throw new NullReferenceException();
                 }
 
                 foreach (Break _break in breakList)
                 {
                     _break.WorkingCalendarID = workingCalendar.ID;
-                    if(AddBreak(_break) < 0)
+                    if (AddBreak(_break) < 0)
                         throw new NullReferenceException();
                 }
 
@@ -1478,8 +1513,8 @@ namespace FaceIDAppVBEta.Data
                 {
                     if (DeleteHoliday(holiday.ID) == false)
                         throw new NullReferenceException();
-                } 
-                
+                }
+
                 foreach (Holiday holiday in holidayList)
                 {
                     holiday.WorkingCalendarID = workingCalendar.ID;
@@ -1491,7 +1526,7 @@ namespace FaceIDAppVBEta.Data
                 workingDayPaymentRate.ID = GetWorkingDayPaymentRateByWorkingCalendar(workingCalendar.ID).ID;
                 workingDayPaymentRate.DayTypeID = 1; //working day
                 workingDayPaymentRate.WorkingCalendarID = workingCalendar.ID;
-                if (UpdatePaymentRate(workingDayPaymentRate)== false)
+                if (UpdatePaymentRate(workingDayPaymentRate) == false)
                     throw new NullReferenceException();
 
                 nonWorkingDayPaymentRate.ID = GetNonWorkingDayPaymentRateByWorkingCalendar(workingCalendar.ID).ID;
@@ -1668,6 +1703,92 @@ namespace FaceIDAppVBEta.Data
             return empls;
         }
 
+        public List<AttendanceLogReport> GetAttendanceReportList(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate)
+        {
+            List<string> lEmplNumbers = GetEmployeeNumberList(iCompany, iDepartment);
+            if (lEmplNumbers.Count == 0)
+                return null;
+            string sEmplNumbers = string.Join(",", lEmplNumbers.ToArray());
+
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("AttendanceReport", "*", "WorkFrom >=@Date_1 AND WorkFrom <= @Date_2 AND EmployeeNumber in(" + sEmplNumbers + ")",
+                new object[] { "@Date_1", beginDate, "@Date_2", endDate });
+
+            OleDbDataAdapter odApt = new OleDbDataAdapter(odCom);
+            DataTable dtReport = new DataTable();
+            odApt.Fill(dtReport);
+
+            if (dtReport.Rows.Count == 0)
+                return null;
+
+            odCom = BuildSelectCmd("Employee", "EmployeeNumber,FirstName,LastName", "EmployeeNumber in(" + sEmplNumbers + ")");
+
+            odApt = new OleDbDataAdapter(odCom);
+            DataTable dtEmpl = new DataTable();
+            odApt.Fill(dtEmpl);
+
+            if (dtReport.Rows.Count == 0)
+                return null;
+
+            System.Data.OleDb.OleDbDataReader odRdr = null;
+            List<AttendanceLogReport> attLogs = new List<AttendanceLogReport>();
+            foreach (DataRow drRp in dtReport.Rows)
+            {
+                AttendanceLogReport _attLog = new AttendanceLogReport();
+                if (typeof(DBNull) != drRp["WorkFrom"].GetType())
+                    _attLog.WorkFrom = (DateTime)drRp["WorkFrom"];
+                if (typeof(DBNull) != drRp["WorkTo"].GetType())
+                    _attLog.WorkTo = (DateTime)drRp["WorkTo"];
+                _attLog.EmployeeNumber = (int)drRp["EmployeeNumber"];
+
+                DataRow[] rdEmpl = dtEmpl.Select("EmployeeNumber=" + _attLog.EmployeeNumber);
+                if (rdEmpl.Length > 0)
+                    _attLog.FullName = rdEmpl[0]["FirstName"] + ", " + rdEmpl[0]["LastName"];
+                _attLog.AttendanceReportID = (int)drRp["AttendanceReportID"];
+                _attLog.DayTypeID = (int)drRp["DayTypeID"];
+                _attLog.OvertimeHour1 = (double)drRp["OvertimeHour1"];
+                _attLog.OvertimeHour2 = (double)drRp["OvertimeHour2"];
+                _attLog.OvertimeHour3 = (double)drRp["OvertimeHour3"];
+                _attLog.OvertimeHour4 = (double)drRp["OvertimeHour4"];
+                _attLog.OvertimeRate1 = (double)drRp["OvertimeRate1"];
+                _attLog.OvertimeRate2 = (double)drRp["OvertimeRate1"];
+                _attLog.OvertimeRate3 = (double)drRp["OvertimeRate1"];
+                _attLog.OvertimeRate4 = (double)drRp["OvertimeRate1"];
+                _attLog.PayPeriodID = (int)drRp["PayPeriodID"];
+                _attLog.RegularHour = (double)drRp["RegularHour"];
+                _attLog.RegularRate = (double)drRp["RegularRate"];
+
+                string sAttendanceRecordIDs = (string)drRp["AttendanceRecordIDList"];
+                sAttendanceRecordIDs = sAttendanceRecordIDs.Replace("{", "").Replace("}", ",").Trim(',');
+
+                odCom = BuildSelectCmd("AttendanceRecord", "*", "ID in(" + sAttendanceRecordIDs + ")");
+
+                List<DateTime> attTime = new List<DateTime>();
+                odRdr = odCom.ExecuteReader();
+                while (odRdr.Read())
+                {
+                    attTime.Add(Convert.ToDateTime(odRdr["Time"]));
+                }
+                odRdr.Close();
+
+                long totalTicks = 0;
+
+                for (int i = 0; i < attTime.Count - 1; i++)
+                {
+                    if (i % 2 == 0)
+                        totalTicks += attTime[i + 1].Ticks - attTime[i].Ticks;
+                }
+
+                double totalMinute = totalTicks / 600000000;
+                double totalHour = Math.Round(totalMinute / 60, 2);
+                _attLog.TotalHour = totalHour;
+
+                AttendanceLogReport attLog = GetRegularOvertime(_attLog, totalHour);
+
+                attLogs.Add(attLog);
+            }
+            return attLogs;
+        }
+
         public List<AttendanceLogRecord> GetAttendanceRecordList(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate)
         {
             List<string> lEmplNumbers = GetEmployeeNumberList(iCompany, iDepartment);
@@ -1684,7 +1805,7 @@ namespace FaceIDAppVBEta.Data
 
 
             odCom = BuildSelectCmd("AttendanceRecord",
-                "*","Time >=@Date_1 AND Time <= @Date_2 AND EmployeeNumber in(" + sEmplNumbers + ")",
+                "*", "Time >=@Date_1 AND Time <= @Date_2 AND EmployeeNumber in(" + sEmplNumbers + ")",
                 new object[] { "@Date_1", beginDate, "@Date_2", endDate });
 
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
@@ -1974,6 +2095,21 @@ namespace FaceIDAppVBEta.Data
             return oRs;
         }
 
+        private bool AddAttendanceReport(AttendanceReport attendanceReport)
+        {
+            System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("AttendanceReport",
+                new string[] { "DayTypeID", "EmployeeNumber", "OvertimeHour1", "OvertimeHour2", "OvertimeHour3", "OvertimeHour4",
+                "OvertimeRate1","OvertimeRate2","OvertimeRate3","OvertimeRate4","PayPeriodID","RegularHour","RegularRate",
+                "WorkFrom","WorkTo","AttendanceRecordIDList"},
+                new object[] { attendanceReport.DayTypeID, attendanceReport.EmployeeNumber, attendanceReport.OvertimeHour1,
+                attendanceReport.OvertimeHour2,attendanceReport.OvertimeHour3,attendanceReport.OvertimeHour4, attendanceReport.OvertimeRate1,
+                attendanceReport.OvertimeRate2,attendanceReport.OvertimeRate3, attendanceReport.OvertimeRate4,attendanceReport.PayPeriodID,
+                attendanceReport.RegularHour,attendanceReport.RegularRate,attendanceReport.WorkFrom,attendanceReport.WorkTo,attendanceReport.AttendanceRecordIDList}
+                );
+
+            return ExecuteNonQuery(odCom1) > 0;
+        }
+
         public bool DeleteAttendanceRecord(int id)
         {
             AttendanceReport attReport = GetAttendanceReport(id);
@@ -2041,7 +2177,7 @@ namespace FaceIDAppVBEta.Data
             {
                 faceIDUser = new FaceIDUser();
 
-                faceIDUser.EmployeeNumber = Convert.ToInt16(odRdr["EmployeeNumber"]);
+                faceIDUser.EmployeeNumber = Convert.ToInt32(odRdr["EmployeeNumber"]);
                 faceIDUser.Password = odRdr["Password"].ToString();
                 faceIDUser.UserManagementAccess = Convert.ToBoolean(odRdr["UserManagementAccess"]);
                 faceIDUser.TerminalManagementAccess = Convert.ToBoolean(odRdr["TerminalManagementAccess"]);
@@ -2067,7 +2203,7 @@ namespace FaceIDAppVBEta.Data
             {
                 faceIDUser = new FaceIDUser();
 
-                faceIDUser.EmployeeNumber = Convert.ToInt16(odRdr["EmployeeNumber"]);
+                faceIDUser.EmployeeNumber = Convert.ToInt32(odRdr["EmployeeNumber"]);
                 faceIDUser.Password = odRdr["Password"].ToString();
                 faceIDUser.UserManagementAccess = Convert.ToBoolean(odRdr["UserManagementAccess"]);
                 faceIDUser.TerminalManagementAccess = Convert.ToBoolean(odRdr["TerminalManagementAccess"]);
@@ -2154,7 +2290,7 @@ namespace FaceIDAppVBEta.Data
 
             return result;
         }
-        #endregion 
+        #endregion
 
         #region utils
 
@@ -2379,107 +2515,6 @@ namespace FaceIDAppVBEta.Data
             attReport.RegularHour = totalHour;
 
             return attReport;
-        }
-
-        public List<AttendanceLogReport> GetAttendanceReportList(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate)
-        {
-            List<string> lEmplNumbers = GetEmployeeNumberList(iCompany, iDepartment);
-            if (lEmplNumbers.Count == 0)
-                return null;
-            string sEmplNumbers = string.Join(",", lEmplNumbers.ToArray());
-
-            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("AttendanceReport", "*", "WorkFrom >=@Date_1 AND WorkFrom <= @Date_2 AND EmployeeNumber in(" + sEmplNumbers + ")",
-                new object[] { "@Date_1", beginDate, "@Date_2", endDate });
-
-            OleDbDataAdapter odApt = new OleDbDataAdapter(odCom);
-            DataTable dtReport = new DataTable();
-            odApt.Fill(dtReport);
-
-            if (dtReport.Rows.Count == 0)
-                return null;
-
-            odCom = BuildSelectCmd("Employee", "EmployeeNumber,FirstName,LastName", "EmployeeNumber in(" + sEmplNumbers + ")");
-
-            odApt = new OleDbDataAdapter(odCom);
-            DataTable dtEmpl = new DataTable();
-            odApt.Fill(dtEmpl);
-
-            if (dtReport.Rows.Count == 0)
-                return null;
-
-            System.Data.OleDb.OleDbDataReader odRdr = null;
-            List<AttendanceLogReport> attLogs = new List<AttendanceLogReport>();
-            foreach (DataRow drRp in dtReport.Rows)
-            {
-                AttendanceLogReport _attLog = new AttendanceLogReport();
-                if (typeof(DBNull) != drRp["WorkFrom"].GetType())
-                    _attLog.WorkFrom = (DateTime)drRp["WorkFrom"];
-                if (typeof(DBNull) != drRp["WorkTo"].GetType())
-                    _attLog.WorkTo = (DateTime)drRp["WorkTo"];
-                _attLog.EmployeeNumber = (int)drRp["EmployeeNumber"];
-
-                DataRow[] rdEmpl = dtEmpl.Select("EmployeeNumber=" + _attLog.EmployeeNumber);
-                if (rdEmpl.Length > 0)
-                    _attLog.FullName = rdEmpl[0]["FirstName"] + ", " + rdEmpl[0]["LastName"];
-                _attLog.AttendanceReportID = (int)drRp["AttendanceReportID"];
-                _attLog.DayTypeID = (int)drRp["DayTypeID"];
-                _attLog.OvertimeHour1 = (double)drRp["OvertimeHour1"];
-                _attLog.OvertimeHour2 = (double)drRp["OvertimeHour2"];
-                _attLog.OvertimeHour3 = (double)drRp["OvertimeHour3"];
-                _attLog.OvertimeHour4 = (double)drRp["OvertimeHour4"];
-                _attLog.OvertimeRate1 = (double)drRp["OvertimeRate1"];
-                _attLog.OvertimeRate2 = (double)drRp["OvertimeRate1"];
-                _attLog.OvertimeRate3 = (double)drRp["OvertimeRate1"];
-                _attLog.OvertimeRate4 = (double)drRp["OvertimeRate1"];
-                _attLog.PayPeriodID = (int)drRp["PayPeriodID"];
-                _attLog.RegularHour = (double)drRp["RegularHour"];
-                _attLog.RegularRate = (double)drRp["RegularRate"];
-
-                string sAttendanceRecordIDs = (string)drRp["AttendanceRecordIDList"];
-                sAttendanceRecordIDs = sAttendanceRecordIDs.Replace("{", "").Replace("}", ",").Trim(',');
-
-                odCom = BuildSelectCmd("AttendanceRecord", "*", "ID in(" + sAttendanceRecordIDs + ")");
-
-                List<DateTime> attTime = new List<DateTime>();
-                odRdr = odCom.ExecuteReader();
-                while (odRdr.Read())
-                {
-                    attTime.Add(Convert.ToDateTime(odRdr["Time"]));
-                }
-                odRdr.Close();
-
-                long totalTicks = 0;
-
-                for (int i = 0; i < attTime.Count - 1; i++)
-                {
-                    if (i % 2 == 0)
-                        totalTicks += attTime[i + 1].Ticks - attTime[i].Ticks;
-                }
-
-                double totalMinute = totalTicks / 600000000;
-                double totalHour = Math.Round(totalMinute / 60, 2);
-                _attLog.TotalHour = totalHour;
-
-                AttendanceLogReport attLog = GetRegularOvertime(_attLog, totalHour);
-
-                attLogs.Add(attLog);
-            }
-            return attLogs;
-        }
-
-        private bool AddAttendanceReport(AttendanceReport attendanceReport)
-        {
-            System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("AttendanceReport",
-                new string[] { "DayTypeID", "EmployeeNumber", "OvertimeHour1", "OvertimeHour2", "OvertimeHour3", "OvertimeHour4",
-                "OvertimeRate1","OvertimeRate2","OvertimeRate3","OvertimeRate4","PayPeriodID","RegularHour","RegularRate",
-                "WorkFrom","WorkTo","AttendanceRecordIDList"},
-                new object[] { attendanceReport.DayTypeID, attendanceReport.EmployeeNumber, attendanceReport.OvertimeHour1,
-                attendanceReport.OvertimeHour2,attendanceReport.OvertimeHour3,attendanceReport.OvertimeHour4, attendanceReport.OvertimeRate1,
-                attendanceReport.OvertimeRate2,attendanceReport.OvertimeRate3, attendanceReport.OvertimeRate4,attendanceReport.PayPeriodID,
-                attendanceReport.RegularHour,attendanceReport.RegularRate,attendanceReport.WorkFrom,attendanceReport.WorkTo,attendanceReport.AttendanceRecordIDList}
-                );
-
-            return ExecuteNonQuery(odCom1) > 0;
         }
 
         private bool UpdateAttendanceReport(AttendanceReport attendanceReport)
@@ -2752,7 +2787,7 @@ namespace FaceIDAppVBEta.Data
                 employee = new Employee();
 
                 employee.PayrollNumber = Convert.ToInt16(odRdr["PayrollNumber"]);
-                employee.EmployeeNumber = Convert.ToInt16(odRdr["EmployeeNumber"]);
+                employee.EmployeeNumber = Convert.ToInt32(odRdr["EmployeeNumber"]);
                 employee.DepartmentID = Convert.ToInt16(odRdr["DepartmentID"]);
                 employee.FirstName = odRdr["FirstName"].ToString();
                 employee.LastName = odRdr["LastName"].ToString();
@@ -2806,7 +2841,7 @@ namespace FaceIDAppVBEta.Data
             {
                 undeletedEmployeeNumber = new UndeletedEmployeeNumber();
 
-                undeletedEmployeeNumber.EmployeeNumber = Convert.ToInt16(odRdr["EmployeeNumber"]);
+                undeletedEmployeeNumber.EmployeeNumber = Convert.ToInt32(odRdr["EmployeeNumber"]);
                 undeletedEmployeeNumber.TerminalID = Convert.ToInt16(odRdr["TerminalID"]);
 
                 undeletedEmployeeNumberList.Add(undeletedEmployeeNumber);
@@ -2826,7 +2861,7 @@ namespace FaceIDAppVBEta.Data
             {
                 undeletedEmployeeNumber = new UndeletedEmployeeNumber();
 
-                undeletedEmployeeNumber.EmployeeNumber = Convert.ToInt16(odRdr["EmployeeNumber"]);
+                undeletedEmployeeNumber.EmployeeNumber = Convert.ToInt32(odRdr["EmployeeNumber"]);
                 undeletedEmployeeNumber.TerminalID = Convert.ToInt16(odRdr["TerminalID"]);
             }
 
@@ -2873,7 +2908,6 @@ namespace FaceIDAppVBEta.Data
         #endregion
 
         #region UncalculatedAttendanceRecord
-
         public void CalculateAttendanceRecord()
         {
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("AttendanceRecord", "*", "Id in(select AttendanceRecordID from UncalculatedAttendanceRecord)");
@@ -2991,6 +3025,24 @@ namespace FaceIDAppVBEta.Data
             odRdr.Close();
             return uncalculatedAttendanceRecord;
         }
+
+        public int AddUncalculatedAttendanceRecord(UncalculatedAttendanceRecord uncalculatedAttendanceRecord)
+        {
+            System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("UncalculatedAttendanceRecord",
+                new string[] { "AttendanceRecordID"
+                },
+                new object[] { uncalculatedAttendanceRecord.AttendanceRecordID
+                }
+            );
+
+            if (odCom1.ExecuteNonQuery() == 1)
+            {
+                odCom1.CommandText = "SELECT @@IDENTITY";
+                return Convert.ToInt16(odCom1.ExecuteScalar().ToString());
+            }
+            return -1;
+        }
+
 
         public bool AddUncalculatedAttendanceRecord(int Id)
         {
