@@ -2145,9 +2145,15 @@ namespace FaceIDAppVBEta.Data
 
                 odCom = BuildDelCmd("AttendanceRecord", "ID=@ID", new object[] { "@ID", id });
                 int irs = ExecuteNonQuery(odCom);
+                
                 odCom = BuildDelCmd("UncalculatedAttendanceRecord", "AttendanceRecordID=@ID", new object[] { "@ID", id });
                 ExecuteNonQuery(odCom);
-                bool ors = UpdateAttendanceReport(attReport);
+
+                bool ors = false;
+                if (string.IsNullOrEmpty(attReport.AttendanceRecordIDList))
+                    ors = DeleteAttendanceReport(attReport.AttendanceReportID);
+                else
+                    ors = UpdateAttendanceReport(attReport);
 
                 if (irs > 0 && ors)
                 {
@@ -2566,6 +2572,15 @@ namespace FaceIDAppVBEta.Data
                 attendanceReport.OvertimeRate2,attendanceReport.OvertimeRate3, attendanceReport.OvertimeRate4,attendanceReport.PayPeriodID,
                 attendanceReport.RegularHour,attendanceReport.RegularRate,attendanceReport.WorkFrom,attendanceReport.WorkTo,attendanceReport.AttendanceRecordIDList},
                 "AttendanceReportID=@ID", new object[] { "@ID", attendanceReport.AttendanceReportID }
+                );
+
+            return ExecuteNonQuery(odCom1) > 0;
+        }
+
+        private bool DeleteAttendanceReport(int Id)
+        {
+            System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("AttendanceReport",
+                "AttendanceReportID=@ID", new object[] { "@ID", Id }
                 );
 
             return ExecuteNonQuery(odCom1) > 0;
