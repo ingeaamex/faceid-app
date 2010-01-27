@@ -91,8 +91,20 @@ namespace FaceIDAppVBEta
             bool ors = dtCtrl.AddAttendanceRecord(attRecord);
             MessageBox.Show(ors ? "sucessfull" : "error");
             if (ors)
+            {
+                RefeshOwner();
                 this.Close();
+            }
+        }
 
+        private void RefeshOwner()
+        {
+            Control[] ctr = this.Owner.Controls.Find("btnView", true);
+            if (ctr != null && ctr.Length > 0)
+            {
+                Button btn = (Button)ctr[0];
+                btn.PerformClick();
+            }
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -105,8 +117,11 @@ namespace FaceIDAppVBEta
 
             bool ors = dtCtrl.UpdateAttendanceRecord(attRecord);
             MessageBox.Show(ors ? "sucessfull" : "error");
-            if(ors)
+            if (ors)
+            {
+                RefeshOwner();
                 this.Close();
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -118,6 +133,5 @@ namespace FaceIDAppVBEta
         {
             //txtEmployeeName.Text;
         }
-
     }
 }
