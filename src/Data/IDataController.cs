@@ -227,7 +227,7 @@ namespace FaceIDAppVBEta.Data
 
         bool AddUncalculatedAttendanceRecord(int id);
 
-        bool DeleteUncalculatedAttendanceRecord(int id);
+        bool DeleteUncalculatedAttendanceRecord(string attRcList);
 
         bool UpdateUncalculatedAttendanceRecord(UncalculatedAttendanceRecord uncalculatedAttendanceRecord);
         #endregion
@@ -243,6 +243,8 @@ namespace FaceIDAppVBEta.Data
 
         bool UpdateUndeletedEmployeeNumber(UndeletedEmployeeNumber undeletedEmployeeNumber);
         #endregion
+
+        List<PayrollExport> GetPayrollExportList(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate);
 
     }
 }
