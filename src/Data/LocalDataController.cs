@@ -1049,7 +1049,7 @@ namespace FaceIDAppVBEta.Data
             {
                 employeeNumber = new EmployeeNumber();
 
-                employeeNumber.ID = Convert.ToInt16(odRdr["EmployeeNumber"]);
+                employeeNumber.ID = Convert.ToInt32(odRdr["EmployeeNumber"]);
 
                 employeeNumberList.Add(employeeNumber);
             }

@@ -32,6 +32,7 @@
             this.btnAddWorkingCalendar = new System.Windows.Forms.Button();
             this.btnUpdateWorkingCalendar = new System.Windows.Forms.Button();
             this.btnDeleteWorkingCalendar = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvWorkingCalendar)).BeginInit();
             this.SuspendLayout();
             // 
@@ -41,20 +42,20 @@
             this.dgvWorkingCalendar.AllowUserToDeleteRows = false;
             this.dgvWorkingCalendar.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvWorkingCalendar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvWorkingCalendar.Location = new System.Drawing.Point(20, 35);
+            this.dgvWorkingCalendar.Location = new System.Drawing.Point(36, 107);
             this.dgvWorkingCalendar.MultiSelect = false;
             this.dgvWorkingCalendar.Name = "dgvWorkingCalendar";
             this.dgvWorkingCalendar.ReadOnly = true;
             this.dgvWorkingCalendar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvWorkingCalendar.Size = new System.Drawing.Size(598, 150);
+            this.dgvWorkingCalendar.Size = new System.Drawing.Size(772, 522);
             this.dgvWorkingCalendar.TabIndex = 0;
             this.dgvWorkingCalendar.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvWorkingCalendar_CellClick);
             // 
             // btnAddWorkingCalendar
             // 
-            this.btnAddWorkingCalendar.Location = new System.Drawing.Point(20, 192);
+            this.btnAddWorkingCalendar.Location = new System.Drawing.Point(124, 65);
             this.btnAddWorkingCalendar.Name = "btnAddWorkingCalendar";
-            this.btnAddWorkingCalendar.Size = new System.Drawing.Size(200, 23);
+            this.btnAddWorkingCalendar.Size = new System.Drawing.Size(185, 23);
             this.btnAddWorkingCalendar.TabIndex = 1;
             this.btnAddWorkingCalendar.Text = "Add new Working Calendar";
             this.btnAddWorkingCalendar.UseVisualStyleBackColor = true;
@@ -62,9 +63,9 @@
             // 
             // btnUpdateWorkingCalendar
             // 
-            this.btnUpdateWorkingCalendar.Location = new System.Drawing.Point(226, 192);
+            this.btnUpdateWorkingCalendar.Location = new System.Drawing.Point(330, 65);
             this.btnUpdateWorkingCalendar.Name = "btnUpdateWorkingCalendar";
-            this.btnUpdateWorkingCalendar.Size = new System.Drawing.Size(200, 23);
+            this.btnUpdateWorkingCalendar.Size = new System.Drawing.Size(185, 23);
             this.btnUpdateWorkingCalendar.TabIndex = 2;
             this.btnUpdateWorkingCalendar.Text = "Edit Selected Working Calendar";
             this.btnUpdateWorkingCalendar.UseVisualStyleBackColor = true;
@@ -72,7 +73,7 @@
             // 
             // btnDeleteWorkingCalendar
             // 
-            this.btnDeleteWorkingCalendar.Location = new System.Drawing.Point(433, 192);
+            this.btnDeleteWorkingCalendar.Location = new System.Drawing.Point(536, 65);
             this.btnDeleteWorkingCalendar.Name = "btnDeleteWorkingCalendar";
             this.btnDeleteWorkingCalendar.Size = new System.Drawing.Size(185, 23);
             this.btnDeleteWorkingCalendar.TabIndex = 3;
@@ -80,10 +81,20 @@
             this.btnDeleteWorkingCalendar.UseVisualStyleBackColor = true;
             this.btnDeleteWorkingCalendar.Click += new System.EventHandler(this.btnDeleteWorkingCalendar_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(362, 33);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(157, 13);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Working Calendar Management";
+            // 
             // ucWorkingCalendar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.btnDeleteWorkingCalendar);
             this.Controls.Add(this.btnUpdateWorkingCalendar);
             this.Controls.Add(this.btnAddWorkingCalendar);
@@ -92,6 +103,7 @@
             this.Size = new System.Drawing.Size(845, 662);
             ((System.ComponentModel.ISupportInitialize)(this.dgvWorkingCalendar)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -101,5 +113,6 @@
         private System.Windows.Forms.Button btnAddWorkingCalendar;
         private System.Windows.Forms.Button btnUpdateWorkingCalendar;
         private System.Windows.Forms.Button btnDeleteWorkingCalendar;
+        private System.Windows.Forms.Label label2;
     }
 }

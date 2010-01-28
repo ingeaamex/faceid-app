@@ -62,7 +62,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(114, 27);
+            this.label1.Location = new System.Drawing.Point(380, 36);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(94, 13);
             this.label1.TabIndex = 0;
@@ -70,15 +70,16 @@
             // 
             // dgvUser
             // 
+            this.dgvUser.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvUser.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvUser.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.EmployeeNumber,
             this.EmployeeName,
             this.Access});
             this.dgvUser.ContextMenuStrip = this.cmsDgvUser;
-            this.dgvUser.Location = new System.Drawing.Point(59, 72);
+            this.dgvUser.Location = new System.Drawing.Point(36, 73);
             this.dgvUser.Name = "dgvUser";
-            this.dgvUser.Size = new System.Drawing.Size(431, 150);
+            this.dgvUser.Size = new System.Drawing.Size(772, 299);
             this.dgvUser.TabIndex = 1;
             this.dgvUser.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUser_CellMouseEnter);
             // 
@@ -145,9 +146,9 @@
             this.gbxAddUpdateUser.Controls.Add(this.chbUserManagement);
             this.gbxAddUpdateUser.Controls.Add(this.label4);
             this.gbxAddUpdateUser.Controls.Add(this.label2);
-            this.gbxAddUpdateUser.Location = new System.Drawing.Point(59, 228);
+            this.gbxAddUpdateUser.Location = new System.Drawing.Point(36, 396);
             this.gbxAddUpdateUser.Name = "gbxAddUpdateUser";
-            this.gbxAddUpdateUser.Size = new System.Drawing.Size(524, 265);
+            this.gbxAddUpdateUser.Size = new System.Drawing.Size(772, 230);
             this.gbxAddUpdateUser.TabIndex = 2;
             this.gbxAddUpdateUser.TabStop = false;
             this.gbxAddUpdateUser.Text = "Add / Update User";
@@ -156,14 +157,14 @@
             // 
             this.cbxEmployeeNumber.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxEmployeeNumber.FormattingEnabled = true;
-            this.cbxEmployeeNumber.Location = new System.Drawing.Point(115, 20);
+            this.cbxEmployeeNumber.Location = new System.Drawing.Point(115, 21);
             this.cbxEmployeeNumber.Name = "cbxEmployeeNumber";
             this.cbxEmployeeNumber.Size = new System.Drawing.Size(121, 21);
             this.cbxEmployeeNumber.TabIndex = 19;
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(250, 215);
+            this.btnCancel.Location = new System.Drawing.Point(220, 187);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 18;
@@ -173,7 +174,7 @@
             // 
             // btnAddUpdateUser
             // 
-            this.btnAddUpdateUser.Location = new System.Drawing.Point(94, 215);
+            this.btnAddUpdateUser.Location = new System.Drawing.Point(139, 187);
             this.btnAddUpdateUser.Name = "btnAddUpdateUser";
             this.btnAddUpdateUser.Size = new System.Drawing.Size(75, 23);
             this.btnAddUpdateUser.TabIndex = 16;
@@ -184,7 +185,7 @@
             // chbAttendanceManagement
             // 
             this.chbAttendanceManagement.AutoSize = true;
-            this.chbAttendanceManagement.Location = new System.Drawing.Point(225, 181);
+            this.chbAttendanceManagement.Location = new System.Drawing.Point(219, 149);
             this.chbAttendanceManagement.Name = "chbAttendanceManagement";
             this.chbAttendanceManagement.Size = new System.Drawing.Size(146, 17);
             this.chbAttendanceManagement.TabIndex = 15;
@@ -194,7 +195,7 @@
             // chbWorkingCalendarManagement
             // 
             this.chbWorkingCalendarManagement.AutoSize = true;
-            this.chbWorkingCalendarManagement.Location = new System.Drawing.Point(225, 158);
+            this.chbWorkingCalendarManagement.Location = new System.Drawing.Point(219, 126);
             this.chbWorkingCalendarManagement.Name = "chbWorkingCalendarManagement";
             this.chbWorkingCalendarManagement.Size = new System.Drawing.Size(176, 17);
             this.chbWorkingCalendarManagement.TabIndex = 14;
@@ -204,7 +205,7 @@
             // chbEmployeeManagement
             // 
             this.chbEmployeeManagement.AutoSize = true;
-            this.chbEmployeeManagement.Location = new System.Drawing.Point(25, 181);
+            this.chbEmployeeManagement.Location = new System.Drawing.Point(19, 149);
             this.chbEmployeeManagement.Name = "chbEmployeeManagement";
             this.chbEmployeeManagement.Size = new System.Drawing.Size(137, 17);
             this.chbEmployeeManagement.TabIndex = 13;
@@ -214,7 +215,7 @@
             // chbTerminalManagement
             // 
             this.chbTerminalManagement.AutoSize = true;
-            this.chbTerminalManagement.Location = new System.Drawing.Point(225, 134);
+            this.chbTerminalManagement.Location = new System.Drawing.Point(219, 103);
             this.chbTerminalManagement.Name = "chbTerminalManagement";
             this.chbTerminalManagement.Size = new System.Drawing.Size(131, 17);
             this.chbTerminalManagement.TabIndex = 12;
@@ -224,7 +225,7 @@
             // chbCompanyDepartmentManagement
             // 
             this.chbCompanyDepartmentManagement.AutoSize = true;
-            this.chbCompanyDepartmentManagement.Location = new System.Drawing.Point(25, 158);
+            this.chbCompanyDepartmentManagement.Location = new System.Drawing.Point(19, 126);
             this.chbCompanyDepartmentManagement.Name = "chbCompanyDepartmentManagement";
             this.chbCompanyDepartmentManagement.Size = new System.Drawing.Size(195, 17);
             this.chbCompanyDepartmentManagement.TabIndex = 11;
@@ -234,7 +235,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(22, 98);
+            this.label6.Location = new System.Drawing.Point(16, 75);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(42, 13);
             this.label6.TabIndex = 10;
@@ -242,16 +243,16 @@
             // 
             // txtRetypePassword
             // 
-            this.txtRetypePassword.Location = new System.Drawing.Point(315, 59);
+            this.txtRetypePassword.Location = new System.Drawing.Point(351, 46);
             this.txtRetypePassword.Name = "txtRetypePassword";
-            this.txtRetypePassword.Size = new System.Drawing.Size(100, 20);
+            this.txtRetypePassword.Size = new System.Drawing.Size(115, 20);
             this.txtRetypePassword.TabIndex = 7;
             this.txtRetypePassword.UseSystemPasswordChar = true;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(200, 66);
+            this.label5.Location = new System.Drawing.Point(238, 50);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(89, 13);
             this.label5.TabIndex = 6;
@@ -259,16 +260,16 @@
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(94, 60);
+            this.txtPassword.Location = new System.Drawing.Point(93, 46);
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(100, 20);
+            this.txtPassword.Size = new System.Drawing.Size(121, 20);
             this.txtPassword.TabIndex = 5;
             this.txtPassword.UseSystemPasswordChar = true;
             // 
             // chbUserManagement
             // 
             this.chbUserManagement.AutoSize = true;
-            this.chbUserManagement.Location = new System.Drawing.Point(25, 134);
+            this.chbUserManagement.Location = new System.Drawing.Point(19, 103);
             this.chbUserManagement.Name = "chbUserManagement";
             this.chbUserManagement.Size = new System.Drawing.Size(113, 17);
             this.chbUserManagement.TabIndex = 4;
@@ -278,7 +279,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(22, 63);
+            this.label4.Location = new System.Drawing.Point(16, 50);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(53, 13);
             this.label4.TabIndex = 2;
@@ -287,7 +288,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 20);
+            this.label2.Location = new System.Drawing.Point(16, 25);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(93, 13);
             this.label2.TabIndex = 0;

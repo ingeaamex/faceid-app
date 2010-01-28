@@ -1948,7 +1948,8 @@
             this.ClientSize = new System.Drawing.Size(792, 566);
             this.Controls.Add(this.tabAddUpdateWorkingCalendar);
             this.Name = "frmAddUpdateWorkingCalendar";
-            this.Text = "frmAddUpdateWorkingCalendar";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Add New Working Calendar";
             this.tabAddUpdateWorkingCalendar.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();

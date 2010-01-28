@@ -61,9 +61,24 @@ namespace FaceIDAppVBEta
             {
                 _update = false;
                 cbxEmployeeNumber.Enabled = true;
+                if (cbxEmployeeNumber.Items.Count > 0)
+                    cbxEmployeeNumber.SelectedIndex = 1;
+                else
+                    cbxEmployeeNumber.SelectedIndex = -1;
+
+                txtPassword.Text = "";
+                txtRetypePassword.Text = "";
+                chbAttendanceManagement.Checked = false;
+                chbCompanyDepartmentManagement.Checked = false;
+                chbEmployeeManagement.Checked = false;
+                chbTerminalManagement.Checked = false;
+                chbUserManagement.Checked = false;
+                chbWorkingCalendarManagement.Checked = false;
 
                 gbxAddUpdateUser.Text = "Add new User";
                 btnAddUpdateUser.Text = "Add";
+
+
             }
             else //update
             {

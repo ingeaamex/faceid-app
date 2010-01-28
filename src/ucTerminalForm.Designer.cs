@@ -56,7 +56,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(43, 15);
+            this.label1.Location = new System.Drawing.Point(366, 34);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(112, 13);
             this.label1.TabIndex = 0;
@@ -64,7 +64,7 @@
             // 
             // btAdd
             // 
-            this.btAdd.Location = new System.Drawing.Point(13, 183);
+            this.btAdd.Location = new System.Drawing.Point(35, 91);
             this.btAdd.Name = "btAdd";
             this.btAdd.Size = new System.Drawing.Size(75, 23);
             this.btAdd.TabIndex = 1;
@@ -74,7 +74,7 @@
             // 
             // btUpdate
             // 
-            this.btUpdate.Location = new System.Drawing.Point(13, 183);
+            this.btUpdate.Location = new System.Drawing.Point(35, 91);
             this.btUpdate.Name = "btUpdate";
             this.btUpdate.Size = new System.Drawing.Size(75, 23);
             this.btUpdate.TabIndex = 2;
@@ -84,7 +84,7 @@
             // 
             // btCancel
             // 
-            this.btCancel.Location = new System.Drawing.Point(94, 183);
+            this.btCancel.Location = new System.Drawing.Point(116, 91);
             this.btCancel.Name = "btCancel";
             this.btCancel.Size = new System.Drawing.Size(75, 23);
             this.btCancel.TabIndex = 3;
@@ -101,9 +101,9 @@
             this.TerminalName,
             this.IPAddress,
             this.TerminalStatus});
-            this.dgvTerminal.Location = new System.Drawing.Point(46, 31);
+            this.dgvTerminal.Location = new System.Drawing.Point(36, 78);
             this.dgvTerminal.Name = "dgvTerminal";
-            this.dgvTerminal.Size = new System.Drawing.Size(456, 150);
+            this.dgvTerminal.Size = new System.Drawing.Size(772, 384);
             this.dgvTerminal.TabIndex = 4;
             this.dgvTerminal.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTerminal_CellMouseEnter);
             // 
@@ -169,16 +169,16 @@
             this.gBoxAction.Controls.Add(this.btAdd);
             this.gBoxAction.Controls.Add(this.btUpdate);
             this.gBoxAction.Controls.Add(this.btCancel);
-            this.gBoxAction.Location = new System.Drawing.Point(67, 187);
+            this.gBoxAction.Location = new System.Drawing.Point(36, 493);
             this.gBoxAction.Name = "gBoxAction";
-            this.gBoxAction.Size = new System.Drawing.Size(435, 223);
+            this.gBoxAction.Size = new System.Drawing.Size(772, 135);
             this.gBoxAction.TabIndex = 5;
             this.gBoxAction.TabStop = false;
             this.gBoxAction.Text = "Add New Terminal / Update Terminal";
             // 
             // mtbIpAddess
             // 
-            this.mtbIpAddess.Location = new System.Drawing.Point(105, 90);
+            this.mtbIpAddess.Location = new System.Drawing.Point(105, 53);
             this.mtbIpAddess.Mask = "000.000.000.000";
             this.mtbIpAddess.Name = "mtbIpAddess";
             this.mtbIpAddess.Size = new System.Drawing.Size(100, 20);
@@ -188,7 +188,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(20, 97);
+            this.label3.Location = new System.Drawing.Point(20, 57);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(58, 13);
             this.label3.TabIndex = 6;
@@ -196,7 +196,7 @@
             // 
             // tbTerminalName
             // 
-            this.tbTerminalName.Location = new System.Drawing.Point(105, 50);
+            this.tbTerminalName.Location = new System.Drawing.Point(105, 27);
             this.tbTerminalName.Name = "tbTerminalName";
             this.tbTerminalName.Size = new System.Drawing.Size(100, 20);
             this.tbTerminalName.TabIndex = 5;
@@ -204,7 +204,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(20, 50);
+            this.label2.Location = new System.Drawing.Point(20, 31);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(78, 13);
             this.label2.TabIndex = 4;
@@ -218,8 +218,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.gBoxAction);
             this.Controls.Add(this.dgvTerminal);
+            this.Controls.Add(this.gBoxAction);
             this.Controls.Add(this.label1);
             this.Name = "ucTerminalForm";
             this.Size = new System.Drawing.Size(845, 662);

@@ -42,6 +42,7 @@
             this.CompName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ActionEdit = new System.Windows.Forms.DataGridViewButtonColumn();
             this.ActionDelete = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCompany)).BeginInit();
             this.gBoxCompanyACtion.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errProviders)).BeginInit();
@@ -50,15 +51,16 @@
             // dgvCompany
             // 
             this.dgvCompany.AllowUserToAddRows = false;
+            this.dgvCompany.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvCompany.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCompany.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.tbCompany,
             this.btEdit,
             this.btDelete});
-            this.dgvCompany.Location = new System.Drawing.Point(14, 13);
+            this.dgvCompany.Location = new System.Drawing.Point(36, 71);
             this.dgvCompany.Name = "dgvCompany";
             this.dgvCompany.ReadOnly = true;
-            this.dgvCompany.Size = new System.Drawing.Size(485, 150);
+            this.dgvCompany.Size = new System.Drawing.Size(772, 418);
             this.dgvCompany.TabIndex = 0;
             this.dgvCompany.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCompany_CellClick);
             // 
@@ -68,7 +70,6 @@
             this.tbCompany.HeaderText = "Company Name";
             this.tbCompany.Name = "tbCompany";
             this.tbCompany.ReadOnly = true;
-            this.tbCompany.Width = 147;
             // 
             // btEdit
             // 
@@ -78,7 +79,6 @@
             this.btEdit.ReadOnly = true;
             this.btEdit.Text = "Edit";
             this.btEdit.UseColumnTextForButtonValue = true;
-            this.btEdit.Width = 148;
             // 
             // btDelete
             // 
@@ -88,7 +88,6 @@
             this.btDelete.ReadOnly = true;
             this.btDelete.Text = "Delete";
             this.btDelete.UseColumnTextForButtonValue = true;
-            this.btDelete.Width = 147;
             // 
             // gBoxCompanyACtion
             // 
@@ -96,16 +95,16 @@
             this.gBoxCompanyACtion.Controls.Add(this.btSubmit);
             this.gBoxCompanyACtion.Controls.Add(this.tbCompanyName);
             this.gBoxCompanyACtion.Controls.Add(this.label1);
-            this.gBoxCompanyACtion.Location = new System.Drawing.Point(14, 198);
+            this.gBoxCompanyACtion.Location = new System.Drawing.Point(36, 518);
             this.gBoxCompanyACtion.Name = "gBoxCompanyACtion";
-            this.gBoxCompanyACtion.Size = new System.Drawing.Size(485, 104);
+            this.gBoxCompanyACtion.Size = new System.Drawing.Size(772, 115);
             this.gBoxCompanyACtion.TabIndex = 1;
             this.gBoxCompanyACtion.TabStop = false;
             this.gBoxCompanyACtion.Text = "Add a new Company";
             // 
             // btCancel
             // 
-            this.btCancel.Location = new System.Drawing.Point(218, 57);
+            this.btCancel.Location = new System.Drawing.Point(175, 73);
             this.btCancel.Name = "btCancel";
             this.btCancel.Size = new System.Drawing.Size(75, 23);
             this.btCancel.TabIndex = 4;
@@ -115,7 +114,7 @@
             // 
             // btSubmit
             // 
-            this.btSubmit.Location = new System.Drawing.Point(137, 57);
+            this.btSubmit.Location = new System.Drawing.Point(94, 73);
             this.btSubmit.Name = "btSubmit";
             this.btSubmit.Size = new System.Drawing.Size(75, 23);
             this.btSubmit.TabIndex = 2;
@@ -125,7 +124,7 @@
             // 
             // tbCompanyName
             // 
-            this.tbCompanyName.Location = new System.Drawing.Point(137, 25);
+            this.tbCompanyName.Location = new System.Drawing.Point(107, 32);
             this.tbCompanyName.Name = "tbCompanyName";
             this.tbCompanyName.Size = new System.Drawing.Size(208, 20);
             this.tbCompanyName.TabIndex = 1;
@@ -133,7 +132,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(29, 32);
+            this.label1.Location = new System.Drawing.Point(19, 35);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(82, 13);
             this.label1.TabIndex = 0;
@@ -156,10 +155,20 @@
             // 
             this.ActionDelete.Name = "ActionDelete";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(364, 29);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(116, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Company Management";
+            // 
             // ucCompanyForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.dgvCompany);
             this.Controls.Add(this.gBoxCompanyACtion);
             this.Name = "ucCompanyForm";
@@ -169,6 +178,7 @@
             this.gBoxCompanyACtion.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errProviders)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -187,5 +197,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CompName;
         private System.Windows.Forms.DataGridViewButtonColumn ActionEdit;
         private System.Windows.Forms.DataGridViewButtonColumn ActionDelete;
+        private System.Windows.Forms.Label label2;
     }
 }

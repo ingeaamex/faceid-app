@@ -45,6 +45,7 @@
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.errProviders = new System.Windows.Forms.ErrorProvider(this.components);
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBoxDepartment.SuspendLayout();
             this.cmsTreeAction.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errProviders)).BeginInit();
@@ -52,9 +53,9 @@
             // 
             // tvDepartment
             // 
-            this.tvDepartment.Location = new System.Drawing.Point(20, 16);
+            this.tvDepartment.Location = new System.Drawing.Point(36, 83);
             this.tvDepartment.Name = "tvDepartment";
-            this.tvDepartment.Size = new System.Drawing.Size(471, 94);
+            this.tvDepartment.Size = new System.Drawing.Size(772, 362);
             this.tvDepartment.TabIndex = 0;
             this.tvDepartment.AfterCollapse += new System.Windows.Forms.TreeViewEventHandler(this.tvDepartment_AfterCollapse);
             this.tvDepartment.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tvDepartment_MouseClick);
@@ -70,16 +71,16 @@
             this.groupBoxDepartment.Controls.Add(this.label3);
             this.groupBoxDepartment.Controls.Add(this.label2);
             this.groupBoxDepartment.Controls.Add(this.label1);
-            this.groupBoxDepartment.Location = new System.Drawing.Point(20, 125);
+            this.groupBoxDepartment.Location = new System.Drawing.Point(36, 477);
             this.groupBoxDepartment.Name = "groupBoxDepartment";
-            this.groupBoxDepartment.Size = new System.Drawing.Size(471, 201);
+            this.groupBoxDepartment.Size = new System.Drawing.Size(772, 148);
             this.groupBoxDepartment.TabIndex = 1;
             this.groupBoxDepartment.TabStop = false;
             this.groupBoxDepartment.Text = "Add a Department";
             // 
             // btCancel
             // 
-            this.btCancel.Location = new System.Drawing.Point(118, 125);
+            this.btCancel.Location = new System.Drawing.Point(121, 103);
             this.btCancel.Name = "btCancel";
             this.btCancel.Size = new System.Drawing.Size(75, 23);
             this.btCancel.TabIndex = 8;
@@ -89,7 +90,7 @@
             // 
             // btSubmit
             // 
-            this.btSubmit.Location = new System.Drawing.Point(37, 125);
+            this.btSubmit.Location = new System.Drawing.Point(40, 103);
             this.btSubmit.Name = "btSubmit";
             this.btSubmit.Size = new System.Drawing.Size(75, 23);
             this.btSubmit.TabIndex = 6;
@@ -99,7 +100,7 @@
             // 
             // tbDepartmentName
             // 
-            this.tbDepartmentName.Location = new System.Drawing.Point(117, 74);
+            this.tbDepartmentName.Location = new System.Drawing.Point(120, 77);
             this.tbDepartmentName.Name = "tbDepartmentName";
             this.tbDepartmentName.Size = new System.Drawing.Size(121, 20);
             this.tbDepartmentName.TabIndex = 5;
@@ -109,7 +110,7 @@
             this.cbDepartment.DisplayMember = "Name";
             this.cbDepartment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbDepartment.FormattingEnabled = true;
-            this.cbDepartment.Location = new System.Drawing.Point(117, 43);
+            this.cbDepartment.Location = new System.Drawing.Point(120, 50);
             this.cbDepartment.Name = "cbDepartment";
             this.cbDepartment.Size = new System.Drawing.Size(121, 21);
             this.cbDepartment.TabIndex = 4;
@@ -121,7 +122,7 @@
             this.cbCompany.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbCompany.FormattingEnabled = true;
             this.cbCompany.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.cbCompany.Location = new System.Drawing.Point(117, 11);
+            this.cbCompany.Location = new System.Drawing.Point(120, 23);
             this.cbCompany.Name = "cbCompany";
             this.cbCompany.Size = new System.Drawing.Size(121, 21);
             this.cbCompany.TabIndex = 3;
@@ -131,7 +132,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(19, 74);
+            this.label3.Location = new System.Drawing.Point(22, 81);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(93, 13);
             this.label3.TabIndex = 2;
@@ -140,7 +141,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(19, 51);
+            this.label2.Location = new System.Drawing.Point(22, 54);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(90, 13);
             this.label2.TabIndex = 1;
@@ -149,7 +150,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(23, 20);
+            this.label1.Location = new System.Drawing.Point(22, 27);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(51, 13);
             this.label1.TabIndex = 0;
@@ -188,10 +189,20 @@
             this.imageList1.Images.SetKeyName(0, "error");
             this.imageList1.Images.SetKeyName(1, "ok");
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(359, 38);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(127, 13);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "Department Management";
+            // 
             // ucDepartmentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.groupBoxDepartment);
             this.Controls.Add(this.tvDepartment);
             this.Name = "ucDepartmentForm";
@@ -201,6 +212,7 @@
             this.cmsTreeAction.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errProviders)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -221,5 +233,6 @@
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.ErrorProvider errProviders;
         private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.Label label4;
     }
 }
