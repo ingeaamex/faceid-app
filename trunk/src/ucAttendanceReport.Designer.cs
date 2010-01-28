@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label5 = new System.Windows.Forms.Label();
             this.cbxDepartment = new System.Windows.Forms.ComboBox();
             this.cbxCompany = new System.Windows.Forms.ComboBox();
@@ -53,7 +53,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(208, 20);
+            this.label5.Location = new System.Drawing.Point(193, 13);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(62, 13);
             this.label5.TabIndex = 27;
@@ -64,7 +64,7 @@
             this.cbxDepartment.DisplayMember = "Name";
             this.cbxDepartment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxDepartment.FormattingEnabled = true;
-            this.cbxDepartment.Location = new System.Drawing.Point(276, 17);
+            this.cbxDepartment.Location = new System.Drawing.Point(264, 9);
             this.cbxDepartment.Name = "cbxDepartment";
             this.cbxDepartment.Size = new System.Drawing.Size(121, 21);
             this.cbxDepartment.TabIndex = 26;
@@ -75,7 +75,7 @@
             this.cbxCompany.DisplayMember = "Name";
             this.cbxCompany.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxCompany.FormattingEnabled = true;
-            this.cbxCompany.Location = new System.Drawing.Point(70, 17);
+            this.cbxCompany.Location = new System.Drawing.Point(63, 9);
             this.cbxCompany.Name = "cbxCompany";
             this.cbxCompany.Size = new System.Drawing.Size(121, 21);
             this.cbxCompany.TabIndex = 25;
@@ -85,7 +85,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(13, 20);
+            this.label4.Location = new System.Drawing.Point(3, 13);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(51, 13);
             this.label4.TabIndex = 24;
@@ -93,7 +93,7 @@
             // 
             // btnViewReport
             // 
-            this.btnViewReport.Location = new System.Drawing.Point(70, 78);
+            this.btnViewReport.Location = new System.Drawing.Point(6, 91);
             this.btnViewReport.Name = "btnViewReport";
             this.btnViewReport.Size = new System.Drawing.Size(75, 23);
             this.btnViewReport.TabIndex = 23;
@@ -103,7 +103,7 @@
             // 
             // btnPayrollExport
             // 
-            this.btnPayrollExport.Location = new System.Drawing.Point(276, 78);
+            this.btnPayrollExport.Location = new System.Drawing.Point(211, 91);
             this.btnPayrollExport.Name = "btnPayrollExport";
             this.btnPayrollExport.Size = new System.Drawing.Size(168, 23);
             this.btnPayrollExport.TabIndex = 22;
@@ -113,7 +113,7 @@
             // 
             // btnExportToMYOB
             // 
-            this.btnExportToMYOB.Location = new System.Drawing.Point(156, 78);
+            this.btnExportToMYOB.Location = new System.Drawing.Point(89, 91);
             this.btnExportToMYOB.Name = "btnExportToMYOB";
             this.btnExportToMYOB.Size = new System.Drawing.Size(114, 23);
             this.btnExportToMYOB.TabIndex = 20;
@@ -123,7 +123,7 @@
             // 
             // dtpAttedanceTo
             // 
-            this.dtpAttedanceTo.Location = new System.Drawing.Point(314, 52);
+            this.dtpAttedanceTo.Location = new System.Drawing.Point(304, 49);
             this.dtpAttedanceTo.Name = "dtpAttedanceTo";
             this.dtpAttedanceTo.Size = new System.Drawing.Size(200, 20);
             this.dtpAttedanceTo.TabIndex = 18;
@@ -131,7 +131,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(288, 52);
+            this.label3.Location = new System.Drawing.Point(267, 53);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(20, 13);
             this.label3.TabIndex = 17;
@@ -139,7 +139,7 @@
             // 
             // dtpAttendanceFrom
             // 
-            this.dtpAttendanceFrom.Location = new System.Drawing.Point(70, 52);
+            this.dtpAttendanceFrom.Location = new System.Drawing.Point(50, 49);
             this.dtpAttendanceFrom.Name = "dtpAttendanceFrom";
             this.dtpAttendanceFrom.Size = new System.Drawing.Size(200, 20);
             this.dtpAttendanceFrom.TabIndex = 16;
@@ -147,7 +147,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 59);
+            this.label2.Location = new System.Drawing.Point(3, 53);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(30, 13);
             this.label2.TabIndex = 15;
@@ -192,8 +192,8 @@
             // Date
             // 
             this.Date.DataPropertyName = "WorkFrom";
-            dataGridViewCellStyle4.Format = "d MMM yyyy";
-            this.Date.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Format = "d MMM yyyy";
+            this.Date.DefaultCellStyle = dataGridViewCellStyle1;
             this.Date.HeaderText = "Date";
             this.Date.Name = "Date";
             this.Date.ReadOnly = true;
