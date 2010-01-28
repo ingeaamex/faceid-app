@@ -89,7 +89,7 @@
             this.Controls.Add(this.btnAddWorkingCalendar);
             this.Controls.Add(this.dgvWorkingCalendar);
             this.Name = "ucWorkingCalendar";
-            this.Size = new System.Drawing.Size(822, 304);
+            this.Size = new System.Drawing.Size(845, 662);
             ((System.ComponentModel.ISupportInitialize)(this.dgvWorkingCalendar)).EndInit();
             this.ResumeLayout(false);
 

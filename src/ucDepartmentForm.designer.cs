@@ -161,19 +161,19 @@
             this.updateToolStripMenuItem,
             this.deleteToolStripMenuItem});
             this.cmsTreeAction.Name = "cmsTreeAction";
-            this.cmsTreeAction.Size = new System.Drawing.Size(113, 48);
+            this.cmsTreeAction.Size = new System.Drawing.Size(110, 48);
             // 
             // updateToolStripMenuItem
             // 
             this.updateToolStripMenuItem.Name = "updateToolStripMenuItem";
-            this.updateToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.updateToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
             this.updateToolStripMenuItem.Text = "Update";
             this.updateToolStripMenuItem.Click += new System.EventHandler(this.updateToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
@@ -195,7 +195,7 @@
             this.Controls.Add(this.groupBoxDepartment);
             this.Controls.Add(this.tvDepartment);
             this.Name = "ucDepartmentForm";
-            this.Size = new System.Drawing.Size(528, 349);
+            this.Size = new System.Drawing.Size(845, 662);
             this.groupBoxDepartment.ResumeLayout(false);
             this.groupBoxDepartment.PerformLayout();
             this.cmsTreeAction.ResumeLayout(false);

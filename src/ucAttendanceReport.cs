@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using FaceIDAppVBEta.Class;
 using FaceIDAppVBEta.Data;
+using System.IO;
 
 namespace FaceIDAppVBEta
 {
@@ -46,9 +47,41 @@ namespace FaceIDAppVBEta
             MessageBox.Show("This function has not been implemented yet.");
         }
 
-        private void btnPrint_Click(object sender, EventArgs e)
+        private void btnExportToMYOB_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("This function has not been implemented yet.");
+            ExportToMYOB();
+        }
+
+        private void ExportToMYOB()
+        {
+            try
+            {
+                List<AttendanceLogReport> attendanceLogReportList = (List<AttendanceLogReport>)dgvAttendanceReport.DataSource;
+                SaveFileDialog sfdMyobFile = new SaveFileDialog();
+                sfdMyobFile.Filter = "Text files (*.txt)|*.txt";
+                sfdMyobFile.FileName = DateTime.Now.Ticks.ToString();
+
+                if (sfdMyobFile.ShowDialog() == DialogResult.OK)
+                {
+                    StreamWriter sWriter = new StreamWriter(sfdMyobFile.FileName, false);
+
+                    sWriter.WriteLine("Emp. Co./Last Name,Emp. First Name,Payroll Category,Job,Cust. Co./Last Name,Cust. First Name,Notes,Date,Units");
+                    foreach (AttendanceLogReport attendanceLogReport in attendanceLogReportList)
+                    {
+
+                        sWriter.WriteLine(string.Format("{0},Base Hourly,,,,,{1},{2}", attendanceLogReport.FullName, attendanceLogReport.WorkTo.ToShortDateString(), attendanceLogReport.TotalHour));
+                    }
+
+                    sWriter.Close();
+
+                    MessageBox.Show("Export successfully");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Util.ShowErrorMessage(ex.Message);
+            }
         }
 
         private void btnViewReport_Click(object sender, EventArgs e)

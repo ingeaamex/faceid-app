@@ -34,6 +34,10 @@
             this.EmployeeNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EmployeeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Access = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmsDgvUser = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gbxAddUpdateUser = new System.Windows.Forms.GroupBox();
             this.cbxEmployeeNumber = new System.Windows.Forms.ComboBox();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -50,13 +54,9 @@
             this.chbUserManagement = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.cmsDgvUser = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUser)).BeginInit();
-            this.gbxAddUpdateUser.SuspendLayout();
             this.cmsDgvUser.SuspendLayout();
+            this.gbxAddUpdateUser.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -97,6 +97,36 @@
             // 
             this.Access.HeaderText = "Access";
             this.Access.Name = "Access";
+            // 
+            // cmsDgvUser
+            // 
+            this.cmsDgvUser.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editToolStripMenuItem,
+            this.deleteToolStripMenuItem,
+            this.closeToolStripMenuItem});
+            this.cmsDgvUser.Name = "cmsDgvUser";
+            this.cmsDgvUser.Size = new System.Drawing.Size(106, 70);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.editToolStripMenuItem.Text = "Edit";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+            // 
+            // closeToolStripMenuItem
+            // 
+            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.closeToolStripMenuItem.Text = "Close";
+            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
             // gbxAddUpdateUser
             // 
@@ -263,36 +293,6 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Employee Number";
             // 
-            // cmsDgvUser
-            // 
-            this.cmsDgvUser.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.editToolStripMenuItem,
-            this.deleteToolStripMenuItem,
-            this.closeToolStripMenuItem});
-            this.cmsDgvUser.Name = "cmsDgvUser";
-            this.cmsDgvUser.Size = new System.Drawing.Size(106, 70);
-            // 
-            // editToolStripMenuItem
-            // 
-            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
-            this.editToolStripMenuItem.Text = "Edit";
-            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
-            // 
-            // deleteToolStripMenuItem
-            // 
-            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
-            this.deleteToolStripMenuItem.Text = "Delete";
-            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
-            // 
-            // closeToolStripMenuItem
-            // 
-            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
-            this.closeToolStripMenuItem.Text = "Close";
-            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
-            // 
             // ucUserManagment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -301,11 +301,11 @@
             this.Controls.Add(this.dgvUser);
             this.Controls.Add(this.label1);
             this.Name = "ucUserManagment";
-            this.Size = new System.Drawing.Size(813, 536);
+            this.Size = new System.Drawing.Size(845, 662);
             ((System.ComponentModel.ISupportInitialize)(this.dgvUser)).EndInit();
+            this.cmsDgvUser.ResumeLayout(false);
             this.gbxAddUpdateUser.ResumeLayout(false);
             this.gbxAddUpdateUser.PerformLayout();
-            this.cmsDgvUser.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
