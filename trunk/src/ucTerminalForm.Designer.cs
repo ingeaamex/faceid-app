@@ -34,19 +34,19 @@
             this.btUpdate = new System.Windows.Forms.Button();
             this.btCancel = new System.Windows.Forms.Button();
             this.dgvTerminal = new System.Windows.Forms.DataGridView();
+            this.TerminaleID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cMnSaction = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TerminalName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IPAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TerminalStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gBoxAction = new System.Windows.Forms.GroupBox();
             this.mtbIpAddess = new System.Windows.Forms.MaskedTextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.tbTerminalName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.errProviders = new System.Windows.Forms.ErrorProvider(this.components);
-            this.TerminaleID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TerminalName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IPAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TerminalStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTerminal)).BeginInit();
             this.cMnSaction.SuspendLayout();
             this.gBoxAction.SuspendLayout();
@@ -107,27 +107,58 @@
             this.dgvTerminal.TabIndex = 4;
             this.dgvTerminal.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTerminal_CellMouseEnter);
             // 
+            // TerminaleID
+            // 
+            this.TerminaleID.ContextMenuStrip = this.cMnSaction;
+            this.TerminaleID.DataPropertyName = "ID";
+            this.TerminaleID.HeaderText = "ID";
+            this.TerminaleID.Name = "TerminaleID";
+            this.TerminaleID.ReadOnly = true;
+            // 
             // cMnSaction
             // 
             this.cMnSaction.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.updateToolStripMenuItem,
             this.deleteToolStripMenuItem});
             this.cMnSaction.Name = "cMnSaction";
-            this.cMnSaction.Size = new System.Drawing.Size(113, 48);
+            this.cMnSaction.Size = new System.Drawing.Size(110, 48);
             // 
             // updateToolStripMenuItem
             // 
             this.updateToolStripMenuItem.Name = "updateToolStripMenuItem";
-            this.updateToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.updateToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
             this.updateToolStripMenuItem.Text = "Update";
             this.updateToolStripMenuItem.Click += new System.EventHandler(this.updateToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+            // 
+            // TerminalName
+            // 
+            this.TerminalName.ContextMenuStrip = this.cMnSaction;
+            this.TerminalName.DataPropertyName = "Name";
+            this.TerminalName.HeaderText = "Terminal Name";
+            this.TerminalName.Name = "TerminalName";
+            this.TerminalName.ReadOnly = true;
+            // 
+            // IPAddress
+            // 
+            this.IPAddress.ContextMenuStrip = this.cMnSaction;
+            this.IPAddress.DataPropertyName = "IPAddress";
+            this.IPAddress.HeaderText = "IP Address";
+            this.IPAddress.Name = "IPAddress";
+            this.IPAddress.ReadOnly = true;
+            // 
+            // TerminalStatus
+            // 
+            this.TerminalStatus.ContextMenuStrip = this.cMnSaction;
+            this.TerminalStatus.HeaderText = "Status";
+            this.TerminalStatus.Name = "TerminalStatus";
+            this.TerminalStatus.ReadOnly = true;
             // 
             // gBoxAction
             // 
@@ -183,37 +214,6 @@
             // 
             this.errProviders.ContainerControl = this;
             // 
-            // TerminaleID
-            // 
-            this.TerminaleID.ContextMenuStrip = this.cMnSaction;
-            this.TerminaleID.DataPropertyName = "ID";
-            this.TerminaleID.HeaderText = "ID";
-            this.TerminaleID.Name = "TerminaleID";
-            this.TerminaleID.ReadOnly = true;
-            // 
-            // TerminalName
-            // 
-            this.TerminalName.ContextMenuStrip = this.cMnSaction;
-            this.TerminalName.DataPropertyName = "Name";
-            this.TerminalName.HeaderText = "Terminal Name";
-            this.TerminalName.Name = "TerminalName";
-            this.TerminalName.ReadOnly = true;
-            // 
-            // IPAddress
-            // 
-            this.IPAddress.ContextMenuStrip = this.cMnSaction;
-            this.IPAddress.DataPropertyName = "IPAddress";
-            this.IPAddress.HeaderText = "IP Address";
-            this.IPAddress.Name = "IPAddress";
-            this.IPAddress.ReadOnly = true;
-            // 
-            // TerminalStatus
-            // 
-            this.TerminalStatus.ContextMenuStrip = this.cMnSaction;
-            this.TerminalStatus.HeaderText = "Status";
-            this.TerminalStatus.Name = "TerminalStatus";
-            this.TerminalStatus.ReadOnly = true;
-            // 
             // ucTerminalForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -222,7 +222,7 @@
             this.Controls.Add(this.dgvTerminal);
             this.Controls.Add(this.label1);
             this.Name = "ucTerminalForm";
-            this.Size = new System.Drawing.Size(857, 468);
+            this.Size = new System.Drawing.Size(845, 662);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTerminal)).EndInit();
             this.cMnSaction.ResumeLayout(false);
             this.gBoxAction.ResumeLayout(false);

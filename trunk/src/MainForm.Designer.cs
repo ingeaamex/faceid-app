@@ -69,34 +69,34 @@
             this.employeeToolStripMenuItem,
             this.terminalToolStripMenuItem});
             this.filesToolStripMenuItem.Name = "filesToolStripMenuItem";
-            this.filesToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.filesToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.filesToolStripMenuItem.Text = "Forms";
             // 
             // companyToolStripMenuItem
             // 
             this.companyToolStripMenuItem.Name = "companyToolStripMenuItem";
-            this.companyToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.companyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.companyToolStripMenuItem.Text = "Company";
             this.companyToolStripMenuItem.Click += new System.EventHandler(this.companyToolStripMenuItem_Click);
             // 
             // departmentToolStripMenuItem
             // 
             this.departmentToolStripMenuItem.Name = "departmentToolStripMenuItem";
-            this.departmentToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.departmentToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.departmentToolStripMenuItem.Text = "Department";
             this.departmentToolStripMenuItem.Click += new System.EventHandler(this.departmentToolStripMenuItem_Click);
             // 
             // employeeToolStripMenuItem
             // 
             this.employeeToolStripMenuItem.Name = "employeeToolStripMenuItem";
-            this.employeeToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.employeeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.employeeToolStripMenuItem.Text = "Employee";
             this.employeeToolStripMenuItem.Click += new System.EventHandler(this.employeeToolStripMenuItem_Click);
             // 
             // terminalToolStripMenuItem
             // 
             this.terminalToolStripMenuItem.Name = "terminalToolStripMenuItem";
-            this.terminalToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.terminalToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.terminalToolStripMenuItem.Text = "Terminal";
             this.terminalToolStripMenuItem.Click += new System.EventHandler(this.terminalToolStripMenuItem_Click);
             // 
@@ -106,20 +106,20 @@
             this.configToolStripMenuItem,
             this.updateToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // configToolStripMenuItem
             // 
             this.configToolStripMenuItem.Name = "configToolStripMenuItem";
-            this.configToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
+            this.configToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.configToolStripMenuItem.Text = "Config";
             this.configToolStripMenuItem.Click += new System.EventHandler(this.configToolStripMenuItem_Click);
             // 
             // updateToolStripMenuItem
             // 
             this.updateToolStripMenuItem.Name = "updateToolStripMenuItem";
-            this.updateToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
+            this.updateToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.updateToolStripMenuItem.Text = "Calculated Attendance Record";
             this.updateToolStripMenuItem.Click += new System.EventHandler(this.updateToolStripMenuItem_Click);
             // 
@@ -143,15 +143,15 @@
             // sctMain.Panel2
             // 
             this.sctMain.Panel2.AccessibleName = "pnlMain";
-            this.sctMain.Size = new System.Drawing.Size(1016, 710);
-            this.sctMain.SplitterDistance = 229;
+            this.sctMain.Size = new System.Drawing.Size(1016, 662);
+            this.sctMain.SplitterDistance = 167;
             this.sctMain.TabIndex = 1;
             // 
             // btnUser
             // 
             this.btnUser.Location = new System.Drawing.Point(3, 435);
             this.btnUser.Name = "btnUser";
-            this.btnUser.Size = new System.Drawing.Size(225, 66);
+            this.btnUser.Size = new System.Drawing.Size(163, 66);
             this.btnUser.TabIndex = 6;
             this.btnUser.Text = "User Management";
             this.btnUser.UseVisualStyleBackColor = true;
@@ -159,9 +159,9 @@
             // 
             // btnAttendance
             // 
-            this.btnAttendance.Location = new System.Drawing.Point(3, 363);
+            this.btnAttendance.Location = new System.Drawing.Point(2, 363);
             this.btnAttendance.Name = "btnAttendance";
-            this.btnAttendance.Size = new System.Drawing.Size(225, 66);
+            this.btnAttendance.Size = new System.Drawing.Size(163, 66);
             this.btnAttendance.TabIndex = 5;
             this.btnAttendance.Text = "Attendance";
             this.btnAttendance.UseVisualStyleBackColor = true;
@@ -169,9 +169,9 @@
             // 
             // btnWorkingCalendar
             // 
-            this.btnWorkingCalendar.Location = new System.Drawing.Point(3, 291);
+            this.btnWorkingCalendar.Location = new System.Drawing.Point(2, 291);
             this.btnWorkingCalendar.Name = "btnWorkingCalendar";
-            this.btnWorkingCalendar.Size = new System.Drawing.Size(225, 66);
+            this.btnWorkingCalendar.Size = new System.Drawing.Size(163, 66);
             this.btnWorkingCalendar.TabIndex = 4;
             this.btnWorkingCalendar.Text = "Working Calendar";
             this.btnWorkingCalendar.UseVisualStyleBackColor = true;
@@ -179,9 +179,9 @@
             // 
             // btnTerminal
             // 
-            this.btnTerminal.Location = new System.Drawing.Point(3, 219);
+            this.btnTerminal.Location = new System.Drawing.Point(2, 219);
             this.btnTerminal.Name = "btnTerminal";
-            this.btnTerminal.Size = new System.Drawing.Size(225, 66);
+            this.btnTerminal.Size = new System.Drawing.Size(163, 66);
             this.btnTerminal.TabIndex = 3;
             this.btnTerminal.Text = "Terminal";
             this.btnTerminal.UseVisualStyleBackColor = true;
@@ -189,9 +189,9 @@
             // 
             // btnEmployee
             // 
-            this.btnEmployee.Location = new System.Drawing.Point(3, 147);
+            this.btnEmployee.Location = new System.Drawing.Point(2, 147);
             this.btnEmployee.Name = "btnEmployee";
-            this.btnEmployee.Size = new System.Drawing.Size(225, 66);
+            this.btnEmployee.Size = new System.Drawing.Size(163, 66);
             this.btnEmployee.TabIndex = 2;
             this.btnEmployee.Text = "Employee";
             this.btnEmployee.UseVisualStyleBackColor = true;
@@ -199,9 +199,9 @@
             // 
             // btnDepartment
             // 
-            this.btnDepartment.Location = new System.Drawing.Point(3, 75);
+            this.btnDepartment.Location = new System.Drawing.Point(2, 75);
             this.btnDepartment.Name = "btnDepartment";
-            this.btnDepartment.Size = new System.Drawing.Size(225, 66);
+            this.btnDepartment.Size = new System.Drawing.Size(163, 66);
             this.btnDepartment.TabIndex = 1;
             this.btnDepartment.Text = "Department";
             this.btnDepartment.UseVisualStyleBackColor = true;
@@ -209,9 +209,9 @@
             // 
             // btnCompany
             // 
-            this.btnCompany.Location = new System.Drawing.Point(3, 3);
+            this.btnCompany.Location = new System.Drawing.Point(2, 3);
             this.btnCompany.Name = "btnCompany";
-            this.btnCompany.Size = new System.Drawing.Size(225, 66);
+            this.btnCompany.Size = new System.Drawing.Size(163, 66);
             this.btnCompany.TabIndex = 0;
             this.btnCompany.Text = "Company";
             this.btnCompany.UseVisualStyleBackColor = true;
@@ -221,12 +221,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1016, 734);
+            this.AutoSize = true;
+            this.ClientSize = new System.Drawing.Size(1016, 686);
             this.Controls.Add(this.sctMain);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
-            this.Text = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "FaceID Application";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.sctMain.Panel1.ResumeLayout(false);

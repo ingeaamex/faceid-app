@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btReset = new System.Windows.Forms.Button();
+            this.btSubmit = new System.Windows.Forms.Button();
             this.btBrowse = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.tbFilePath = new System.Windows.Forms.TextBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.btSubmit = new System.Windows.Forms.Button();
-            this.btReset = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,6 +51,26 @@
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Config";
+            // 
+            // btReset
+            // 
+            this.btReset.Location = new System.Drawing.Point(175, 73);
+            this.btReset.Name = "btReset";
+            this.btReset.Size = new System.Drawing.Size(75, 23);
+            this.btReset.TabIndex = 4;
+            this.btReset.Text = "Reset";
+            this.btReset.UseVisualStyleBackColor = true;
+            this.btReset.Click += new System.EventHandler(this.btReset_Click);
+            // 
+            // btSubmit
+            // 
+            this.btSubmit.Location = new System.Drawing.Point(94, 73);
+            this.btSubmit.Name = "btSubmit";
+            this.btSubmit.Size = new System.Drawing.Size(75, 23);
+            this.btSubmit.TabIndex = 3;
+            this.btSubmit.Text = "Save";
+            this.btSubmit.UseVisualStyleBackColor = true;
+            this.btSubmit.Click += new System.EventHandler(this.btSubmit_Click);
             // 
             // btBrowse
             // 
@@ -78,33 +98,13 @@
             this.tbFilePath.Size = new System.Drawing.Size(246, 20);
             this.tbFilePath.TabIndex = 1;
             // 
-            // btSubmit
-            // 
-            this.btSubmit.Location = new System.Drawing.Point(94, 73);
-            this.btSubmit.Name = "btSubmit";
-            this.btSubmit.Size = new System.Drawing.Size(75, 23);
-            this.btSubmit.TabIndex = 3;
-            this.btSubmit.Text = "Save";
-            this.btSubmit.UseVisualStyleBackColor = true;
-            this.btSubmit.Click += new System.EventHandler(this.btSubmit_Click);
-            // 
-            // btReset
-            // 
-            this.btReset.Location = new System.Drawing.Point(175, 73);
-            this.btReset.Name = "btReset";
-            this.btReset.Size = new System.Drawing.Size(75, 23);
-            this.btReset.TabIndex = 4;
-            this.btReset.Text = "Reset";
-            this.btReset.UseVisualStyleBackColor = true;
-            this.btReset.Click += new System.EventHandler(this.btReset_Click);
-            // 
             // ucConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);
             this.Name = "ucConfigForm";
-            this.Size = new System.Drawing.Size(694, 340);
+            this.Size = new System.Drawing.Size(845, 662);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

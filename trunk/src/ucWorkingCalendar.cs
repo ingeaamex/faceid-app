@@ -95,6 +95,9 @@ namespace FaceIDAppVBEta
 
         private void btnDeleteWorkingCalendar_Click(object sender, EventArgs e)
         {
+            if (Util.Confirm("Are you sure you want to delete this working calendar? This can not be undone.") == false)
+                return;
+
             try
             {
                 int workingCalendarID = Convert.ToInt16(dgvWorkingCalendar.SelectedRows[0].Cells[0].Value);
