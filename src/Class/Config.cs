@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FaceIDAppVBEta.Class
 {
-    public class Config
+    public class Config : MarshalByRefObject
     {
         public string DatabasePath { get; set; }
     }

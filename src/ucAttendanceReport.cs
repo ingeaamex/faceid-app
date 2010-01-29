@@ -69,7 +69,7 @@ namespace FaceIDAppVBEta
                     foreach (AttendanceLogReport attendanceLogReport in attendanceLogReportList)
                     {
 
-                        sWriter.WriteLine(string.Format("{0},Base Hourly,,,,,{1},{2}", attendanceLogReport.FullName, attendanceLogReport.WorkTo.ToShortDateString(), attendanceLogReport.TotalHour));
+                        sWriter.WriteLine(string.Format("{0},Base Hourly,,,,,{1},{2}", attendanceLogReport.FullName, attendanceLogReport.WorkTo.ToString("MM/dd/yyyy"), attendanceLogReport.TotalHour));
                     }
 
                     sWriter.Close();
@@ -99,7 +99,7 @@ namespace FaceIDAppVBEta
             if (cbxDepartment.Enabled)
                 iDepartment = (int)cbxDepartment.SelectedValue;
 
-            List<AttendanceLogReport> attendanceLogs = dtCtrl.GetAttendanceReportList(iCompany, iDepartment, beginDate, endDate);
+            List<AttendanceLogReport> attendanceLogs = dtCtrl.GetAttendanceLogReportList(iCompany, iDepartment, beginDate, endDate);
 
             dgvAttendanceReport.AutoGenerateColumns = false;
             dgvAttendanceReport.DataSource = attendanceLogs;

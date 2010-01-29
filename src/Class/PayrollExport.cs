@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FaceIDAppVBEta.Class
 {
-    public class PayrollExport
+    public class PayrollExport : MarshalByRefObject
     {
         public int PayrollNumber { get; set; }
         public int EmployeeNumber { get; set; }

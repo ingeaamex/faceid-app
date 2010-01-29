@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FaceIDAppVBEta.Class
 {
-    public class PaymentRate
+    public class PaymentRate : MarshalByRefObject
     {
         public int ID { get; set; }
         public double NumberOfRegularHours { get; set; }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FaceIDAppVBEta.Class
 {
-    public class FaceIDUser
+    public class FaceIDUser : MarshalByRefObject
     {
         public int EmployeeNumber { get; set; }
         public string Password { get; set; }

@@ -4,9 +4,9 @@ using System.Text;
 
 namespace FaceIDAppVBEta.Class
 {
-    public class AttendanceReport
+    public class AttendanceReport : MarshalByRefObject
     {
-        public int AttendanceReportID { get; set; }
+        public int ID { get; set; }
         public int EmployeeNumber { get; set; }
         public DateTime WorkFrom { get; set; }
         public DateTime WorkTo { get; set; }

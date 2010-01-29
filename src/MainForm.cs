@@ -92,5 +92,10 @@ namespace FaceIDAppVBEta
             FaceIDAppVBEta.Data.LocalDataController dtCtrl = FaceIDAppVBEta.Data.LocalDataController.Instance;
             dtCtrl.CalculateAttendanceRecord();
         }
+
+        private void btnAttTest_Click(object sender, EventArgs e)
+        {
+            new FaceIDApp.Test().Show();
+        }
     }
 }

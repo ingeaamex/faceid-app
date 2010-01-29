@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FaceIDAppVBEta.Class
 {
-    public class EmployeeReport
+    public class EmployeeReport : MarshalByRefObject
     {
         private DateTime _hiredDate = DateTime.MaxValue;
         public int EmployeeNo { get; set; }

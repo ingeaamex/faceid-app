@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FaceIDAppVBEta.Class
 {
-    public class WorkingCalendar
+    public class WorkingCalendar : MarshalByRefObject
     {
         public int ID { get; set; }
         public string Name { get; set; }
