@@ -60,7 +60,7 @@ namespace FaceIDAppVBEta
                                     attRecord.Note = "";
                                     attRecord.PhotoData = "";
 
-                                    if (_dtCtrl.AddAttendanceRecord(attRecord) == false)
+                                    if (_dtCtrl.AddAttendanceRecord(attRecord) <= 0)
                                     {
                                         throw new Exception("Cannot save attendance records to database");
                                     }

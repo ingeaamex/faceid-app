@@ -17,6 +17,7 @@ namespace FaceIDAppVBEta
         private IDataController _dtCtrl;
         private Point _cellContext;
         private List<Point> _pData = null;
+
         public ucAttendanceLog()
         {
             InitializeComponent();
@@ -42,7 +43,7 @@ namespace FaceIDAppVBEta
 
             _pData = new List<Point>();
 
-            List<AttendanceLogRecord> attendanceLogs = _dtCtrl.GetAttendanceRecordList(iCompany, iDepartment, beginDate, endDate);
+            List<AttendanceLogRecord> attendanceLogs = _dtCtrl.GetAttendanceLogRecordList(iCompany, iDepartment, beginDate, endDate);
 
             dgvAttendanceLog.AutoGenerateColumns = false;
             dgvAttendanceLog.DataSource = attendanceLogs;
@@ -125,7 +126,7 @@ namespace FaceIDAppVBEta
             if (RcID == -1)
                 return;
             DialogResult dlogRs = MessageBox.Show(Form.ActiveForm, "Are you sure?", "Confirm", MessageBoxButtons.YesNo);
-            if (dlogRs.ToString().Equals("Yes"))
+            if (Util.Confirm("Are you sure?"))
             {
                 bool ors = _dtCtrl.DeleteAttendanceRecord(RcID);
                 MessageBox.Show(ors ? "successful" : "error");
@@ -167,7 +168,7 @@ namespace FaceIDAppVBEta
                         int count = 0;
                         switch (e.ColumnIndex)
                         {
-                            case 3:
+                            case 3: //Attendance Detail
                                 List<object[]> sInOut = attendanceLog.InOutTime;
                                 bool isIn = true;
                                 foreach (object[] time in sInOut)
@@ -186,7 +187,7 @@ namespace FaceIDAppVBEta
                                     count++;
                                 }
                                 break;
-                            case 2:
+                            case 2: //Date
                                 List<DateTime> dTime = attendanceLog.DateLog;
                                 List<object[]> lTotalHour = attendanceLog.TotalHour;
                                 int cellHeight2 = 0;
@@ -201,7 +202,7 @@ namespace FaceIDAppVBEta
                                     e.Graphics.DrawLine(gridLinePen, e.CellBounds.Left, e.CellBounds.Y + cellHeight2, e.CellBounds.Right, e.CellBounds.Y + cellHeight2);
                                 }
                                 break;
-                            case 4:
+                            case 4: //Total Hours
                                 List<object[]> lTotalHours = attendanceLog.TotalHour;
                                 int cellHeight1 = 0;
                                 for (int i = 0; i < lTotalHours.Count; i++)
@@ -215,7 +216,7 @@ namespace FaceIDAppVBEta
                                     e.Graphics.DrawLine(gridLinePen, e.CellBounds.Left, e.CellBounds.Y + cellHeight1, e.CellBounds.Right, e.CellBounds.Y + cellHeight1);
                                 }
                                 break;
-                            case 5:
+                            case 5: //Note
                                 count = 0;
                                 List<string> sNote = attendanceLog.Note;
                                 foreach (string note in sNote)

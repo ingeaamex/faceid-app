@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FaceIDAppVBEta.Class
 {
-    public class AttendanceLogRecord
+    public class AttendanceLogRecord : MarshalByRefObject
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

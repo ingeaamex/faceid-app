@@ -1745,7 +1745,7 @@ namespace FaceIDAppVBEta.Data
             return empls;
         }
 
-        public List<AttendanceLogReport> GetAttendanceReportList(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate)
+        public List<AttendanceLogReport> GetAttendanceLogReportList(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate)
         {
             List<string> lEmplNumbers = GetEmployeeNumberList(iCompany, iDepartment);
             if (lEmplNumbers.Count == 0)
@@ -1785,7 +1785,7 @@ namespace FaceIDAppVBEta.Data
                 DataRow[] rdEmpl = dtEmpl.Select("EmployeeNumber=" + _attLog.EmployeeNumber);
                 if (rdEmpl.Length > 0)
                     _attLog.FullName = rdEmpl[0]["FirstName"] + ", " + rdEmpl[0]["LastName"];
-                _attLog.AttendanceReportID = (int)drRp["AttendanceReportID"];
+                _attLog.ID = (int)drRp["ID"];
                 _attLog.DayTypeID = (int)drRp["DayTypeID"];
                 _attLog.OvertimeHour1 = (double)drRp["OvertimeHour1"];
                 _attLog.OvertimeHour2 = (double)drRp["OvertimeHour2"];
@@ -1842,7 +1842,7 @@ namespace FaceIDAppVBEta.Data
             return attLogs;
         }
 
-        public List<AttendanceLogRecord> GetAttendanceRecordList(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate)
+        public List<AttendanceLogRecord> GetAttendanceLogRecordList(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate)
         {
             List<string> lEmplNumbers = GetEmployeeNumberList(iCompany, iDepartment);
             if (lEmplNumbers.Count == 0)
@@ -2088,13 +2088,13 @@ namespace FaceIDAppVBEta.Data
             return paymentRate;
         }
 
-        public bool AddAttendanceRecord(AttendanceRecord attRecord)
+        public int AddAttendanceRecord(AttendanceRecord attRecord)
         {
             if (attRecord == null)
-                return false;
+                return -1;
 
             if (IsNotValidAttendanceRecord(attRecord, false))
-                return true;
+                return 1;
 
             int employeeNumber = attRecord.EmployeeNumber;
             int attRecordID = 0;
@@ -2124,7 +2124,7 @@ namespace FaceIDAppVBEta.Data
                     attendanceReport.WorkFrom = (DateTime)odRdr["WorkFrom"];
                 if (typeof(DBNull) != odRdr["WorkTo"].GetType())
                     attendanceReport.WorkTo = (DateTime)odRdr["WorkTo"];
-                attendanceReport.AttendanceReportID = (int)odRdr["AttendanceReportID"];
+                attendanceReport.ID = (int)odRdr["ID"];
 
                 attendanceReport.AttendanceRecordIDList = odRdr["AttendanceRecordIDList"].ToString();
 
@@ -2147,7 +2147,7 @@ namespace FaceIDAppVBEta.Data
             if (attRecordID == 0)
             {
                 RollbackTransaction();
-                return false;
+                return -1;
             }
 
             if (attendanceReport != null)
@@ -2163,7 +2163,7 @@ namespace FaceIDAppVBEta.Data
             else
                 RollbackTransaction();
 
-            return oRs;
+            return attRecordID;
         }
 
         public bool DeleteAttendanceRecord(int id)
@@ -2195,7 +2195,7 @@ namespace FaceIDAppVBEta.Data
 
                 bool ors = false;
                 if (string.IsNullOrEmpty(attReport.AttendanceRecordIDList))
-                    ors = DeleteAttendanceReport(attReport.AttendanceReportID);
+                    ors = DeleteAttendanceReport(attReport.ID);
                 else
                     ors = UpdateAttendanceReport(attReport);
 
@@ -2231,8 +2231,8 @@ namespace FaceIDAppVBEta.Data
             else
             {
                 bool ors1 = DeleteAttendanceRecord(attRecord.ID);
-                bool ors2 = AddAttendanceRecord(attRecord);
-                return ors1 && ors2;
+                int attRecordID = AddAttendanceRecord(attRecord);
+                return ors1 && (attRecordID > 0);
             }
         }
 
@@ -2536,7 +2536,7 @@ namespace FaceIDAppVBEta.Data
                     attendanceReport.WorkFrom = (DateTime)odRdr["WorkFrom"];
                 if (typeof(DBNull) != odRdr["WorkTo"].GetType())
                     attendanceReport.WorkTo = (DateTime)odRdr["WorkTo"];
-                attendanceReport.AttendanceReportID = (int)odRdr["AttendanceReportID"];
+                attendanceReport.ID = (int)odRdr["ID"];
                 attendanceReport.AttendanceRecordIDList = odRdr["AttendanceRecordIDList"].ToString();
             }
             odRdr.Close();
@@ -2615,16 +2615,16 @@ namespace FaceIDAppVBEta.Data
                 attendanceReport.OvertimeHour2,attendanceReport.OvertimeHour3,attendanceReport.OvertimeHour4, attendanceReport.OvertimeRate1,
                 attendanceReport.OvertimeRate2,attendanceReport.OvertimeRate3, attendanceReport.OvertimeRate4,attendanceReport.PayPeriodID,
                 attendanceReport.RegularHour,attendanceReport.RegularRate,attendanceReport.WorkFrom,attendanceReport.WorkTo,attendanceReport.AttendanceRecordIDList},
-                "AttendanceReportID=@ID", new object[] { "@ID", attendanceReport.AttendanceReportID }
+                "ID=@ID", new object[] { "@ID", attendanceReport.ID }
                 );
 
             return ExecuteNonQuery(odCom1) > 0;
         }
 
-        private bool DeleteAttendanceReport(int Id)
+        public bool DeleteAttendanceReport(int id)
         {
             System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("AttendanceReport",
-                "AttendanceReportID=@ID", new object[] { "@ID", Id }
+                "ID=@ID", new object[] { "@ID", id }
                 );
 
             return ExecuteNonQuery(odCom1) > 0;
@@ -3118,7 +3118,7 @@ namespace FaceIDAppVBEta.Data
             {
                 uncalculatedAttendanceRecord = new UncalculatedAttendanceRecord();
 
-                uncalculatedAttendanceRecord.AttendanceRecordID = Convert.ToInt16(odRdr["AttendanceRecordID"]);
+                uncalculatedAttendanceRecord.AttendanceRecordID = Convert.ToInt32(odRdr["AttendanceRecordID"]);
 
                 uncalculatedAttendanceRecordList.Add(uncalculatedAttendanceRecord);
             }
@@ -3192,11 +3192,17 @@ namespace FaceIDAppVBEta.Data
             return odCom1.ExecuteNonQuery() > 0 ? true : false;
         }
 
+        public bool DeleteUncalculatedAttendanceRecord(int id)
+        {
+            System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("UncalculatedAttendanceRecord", "AttendanceRecordID=" + id);
+            return odCom1.ExecuteNonQuery() > 0 ? true : false;
+        }
+
         #endregion
 
         public List<PayrollExport> GetPayrollExportList(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate)
         {
-            List<AttendanceLogReport> attendanceLogReportList = GetAttendanceReportList(iCompany, iDepartment, beginDate, endDate);
+            List<AttendanceLogReport> attendanceLogReportList = GetAttendanceLogReportList(iCompany, iDepartment, beginDate, endDate);
             if (attendanceLogReportList.Count == 0)
                 return null;
 
@@ -3329,6 +3335,65 @@ namespace FaceIDAppVBEta.Data
             }
 
             return payrollExportList;
+        }
+
+        public List<AttendanceRecord> GetAttendanceRecordList()
+        {
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("AttendanceRecord", "*", null);
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+            List<AttendanceRecord> attendanceRecordList = new List<AttendanceRecord>();
+            AttendanceRecord attendanceRecord = null;
+            while (odRdr.Read())
+            {
+                attendanceRecord = new AttendanceRecord();
+
+                attendanceRecord.ID = Convert.ToInt32(odRdr["ID"]);
+                attendanceRecord.EmployeeNumber = Convert.ToInt32(odRdr["EmployeeNumber"]);
+                attendanceRecord.Time = Convert.ToDateTime(odRdr["Time"]);
+                attendanceRecord.CheckIn = Convert.ToBoolean(odRdr["CheckIn"]);
+                attendanceRecord.PhotoData = odRdr["PhotoData"].ToString();
+                attendanceRecord.Note = odRdr["Note"].ToString();
+
+                attendanceRecordList.Add(attendanceRecord);
+            }
+
+            odRdr.Close();
+            return attendanceRecordList;
+        }
+
+        public List<AttendanceReport> GetAttendanceReportList()
+        {
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("AttendanceReport", "*", null);
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+            List<AttendanceReport> attendanceReportList = new List<AttendanceReport>();
+            AttendanceReport attendanceReport = null;
+            while (odRdr.Read())
+            {
+                attendanceReport = new AttendanceReport();
+
+                attendanceReport.ID = Convert.ToInt32(odRdr["ID"]);
+                attendanceReport.EmployeeNumber = Convert.ToInt32(odRdr["EmployeeNumber"]);
+                attendanceReport.WorkFrom = Convert.ToDateTime(odRdr["WorkFrom"]);
+                attendanceReport.WorkTo = Convert.ToDateTime(odRdr["WorkTo"]);
+                attendanceReport.RegularHour = Convert.ToDouble(odRdr["RegularHour"]);
+                attendanceReport.RegularRate = Convert.ToDouble(odRdr["RegularRate"]);
+                attendanceReport.OvertimeHour1 = Convert.ToDouble(odRdr["OvertimeHour1"]);
+                attendanceReport.OvertimeRate1 = Convert.ToDouble(odRdr["OvertimeRate1"]);
+                attendanceReport.OvertimeHour2 = Convert.ToDouble(odRdr["OvertimeHour2"]);
+                attendanceReport.OvertimeRate2 = Convert.ToDouble(odRdr["OvertimeRate2"]);
+                attendanceReport.OvertimeHour3 = Convert.ToDouble(odRdr["OvertimeHour3"]);
+                attendanceReport.OvertimeRate3 = Convert.ToDouble(odRdr["OvertimeRate3"]);
+                attendanceReport.OvertimeHour4 = Convert.ToDouble(odRdr["OvertimeHour4"]);
+                attendanceReport.OvertimeRate4 = Convert.ToDouble(odRdr["OvertimeRate4"]);
+                attendanceReport.DayTypeID = Convert.ToInt16(odRdr["DayTypeID"]);
+                attendanceReport.PayPeriodID = Convert.ToInt16(odRdr["PayPeriodID"]);
+                attendanceReport.AttendanceRecordIDList = odRdr["AttendanceRecordIDList"].ToString();
+
+                attendanceReportList.Add(attendanceReport);
+            }
+
+            odRdr.Close();
+            return attendanceReportList;
         }
     }
 }

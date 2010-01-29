@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FaceIDAppVBEta.Class
 {
-    public class Rate
+    public class Rate : MarshalByRefObject
     {
         public Rate(double value, string name)
         {

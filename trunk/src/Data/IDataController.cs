@@ -183,14 +183,13 @@ namespace FaceIDAppVBEta.Data
         #endregion
 
         #region AttendanceRecord
+        List<AttendanceLogRecord> GetAttendanceLogRecordList(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate);
 
-        List<AttendanceLogReport> GetAttendanceReportList(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate);
-
-        List<AttendanceLogRecord> GetAttendanceRecordList(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate);
+        List<AttendanceRecord> GetAttendanceRecordList();
 
         AttendanceRecord GetAttendanceRecord(int id);
 
-        bool AddAttendanceRecord(AttendanceRecord attRecord);
+        int AddAttendanceRecord(AttendanceRecord attRecord);
 
         bool DeleteAttendanceRecord(int id);
 
@@ -199,7 +198,13 @@ namespace FaceIDAppVBEta.Data
         #endregion Attendance Record
 
         #region Attendance Report
+        List<AttendanceLogReport> GetAttendanceLogReportList(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate);
+      
+        List<AttendanceReport> GetAttendanceReportList();
+        
         DataTable GetAttendanceReport(int companyID, int departmentID, DateTime dtFrom, DateTime dtTo);
+
+        bool DeleteAttendanceReport(int id);
         #endregion Attendance Report
 
         #region FaceIDUser
@@ -229,6 +234,8 @@ namespace FaceIDAppVBEta.Data
 
         bool DeleteUncalculatedAttendanceRecord(string attRcList);
 
+        bool DeleteUncalculatedAttendanceRecord(int id);
+
         bool UpdateUncalculatedAttendanceRecord(UncalculatedAttendanceRecord uncalculatedAttendanceRecord);
         #endregion
 
@@ -245,6 +252,5 @@ namespace FaceIDAppVBEta.Data
         #endregion
 
         List<PayrollExport> GetPayrollExportList(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate);
-
     }
 }

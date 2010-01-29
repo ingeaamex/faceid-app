@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FaceIDAppVBEta.Class
 {
-    public class UncalculatedAttendanceRecord
+    public class UncalculatedAttendanceRecord : MarshalByRefObject
     {
         public int AttendanceRecordID { get; set; }
     }

@@ -45,6 +45,7 @@
             this.btnEmployee = new System.Windows.Forms.Button();
             this.btnDepartment = new System.Windows.Forms.Button();
             this.btnCompany = new System.Windows.Forms.Button();
+            this.btnAttTest = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.sctMain.Panel1.SuspendLayout();
             this.sctMain.SuspendLayout();
@@ -75,28 +76,28 @@
             // companyToolStripMenuItem
             // 
             this.companyToolStripMenuItem.Name = "companyToolStripMenuItem";
-            this.companyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.companyToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.companyToolStripMenuItem.Text = "Company";
             this.companyToolStripMenuItem.Click += new System.EventHandler(this.companyToolStripMenuItem_Click);
             // 
             // departmentToolStripMenuItem
             // 
             this.departmentToolStripMenuItem.Name = "departmentToolStripMenuItem";
-            this.departmentToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.departmentToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.departmentToolStripMenuItem.Text = "Department";
             this.departmentToolStripMenuItem.Click += new System.EventHandler(this.departmentToolStripMenuItem_Click);
             // 
             // employeeToolStripMenuItem
             // 
             this.employeeToolStripMenuItem.Name = "employeeToolStripMenuItem";
-            this.employeeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.employeeToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.employeeToolStripMenuItem.Text = "Employee";
             this.employeeToolStripMenuItem.Click += new System.EventHandler(this.employeeToolStripMenuItem_Click);
             // 
             // terminalToolStripMenuItem
             // 
             this.terminalToolStripMenuItem.Name = "terminalToolStripMenuItem";
-            this.terminalToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.terminalToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.terminalToolStripMenuItem.Text = "Terminal";
             this.terminalToolStripMenuItem.Click += new System.EventHandler(this.terminalToolStripMenuItem_Click);
             // 
@@ -132,6 +133,7 @@
             // sctMain.Panel1
             // 
             this.sctMain.Panel1.AccessibleName = "pnlLeft";
+            this.sctMain.Panel1.Controls.Add(this.btnAttTest);
             this.sctMain.Panel1.Controls.Add(this.btnUser);
             this.sctMain.Panel1.Controls.Add(this.btnAttendance);
             this.sctMain.Panel1.Controls.Add(this.btnWorkingCalendar);
@@ -217,6 +219,18 @@
             this.btnCompany.UseVisualStyleBackColor = true;
             this.btnCompany.Click += new System.EventHandler(this.btnCompany_Click);
             // 
+            // btnAttTest
+            // 
+            this.btnAttTest.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAttTest.ForeColor = System.Drawing.Color.Red;
+            this.btnAttTest.Location = new System.Drawing.Point(3, 507);
+            this.btnAttTest.Name = "btnAttTest";
+            this.btnAttTest.Size = new System.Drawing.Size(163, 66);
+            this.btnAttTest.TabIndex = 7;
+            this.btnAttTest.Text = "ATT TEST";
+            this.btnAttTest.UseVisualStyleBackColor = true;
+            this.btnAttTest.Click += new System.EventHandler(this.btnAttTest_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -257,6 +271,7 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem configToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem updateToolStripMenuItem;
+        private System.Windows.Forms.Button btnAttTest;
 
     }
 }
