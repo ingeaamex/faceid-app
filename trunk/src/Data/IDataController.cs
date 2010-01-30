@@ -195,6 +195,7 @@ namespace FaceIDAppVBEta.Data
 
         bool UpdateAttendanceRecord(AttendanceRecord attRecord);
 
+        bool DeleteAllAttendanceRecord();
         #endregion Attendance Record
 
         #region Attendance Report
@@ -205,6 +206,8 @@ namespace FaceIDAppVBEta.Data
         DataTable GetAttendanceReport(int companyID, int departmentID, DateTime dtFrom, DateTime dtTo);
 
         bool DeleteAttendanceReport(int id);
+
+        bool DeleteAllAttendanceReport();
         #endregion Attendance Report
 
         #region FaceIDUser
@@ -237,6 +240,8 @@ namespace FaceIDAppVBEta.Data
         bool DeleteUncalculatedAttendanceRecord(int id);
 
         bool UpdateUncalculatedAttendanceRecord(UncalculatedAttendanceRecord uncalculatedAttendanceRecord);
+
+        bool DeleteAllUncalculatedAttendanceRecord();
         #endregion
 
         #region UndeletedEmployeeNumber
@@ -252,5 +257,7 @@ namespace FaceIDAppVBEta.Data
         #endregion
 
         List<PayrollExport> GetPayrollExportList(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate);
+
+        void RefreshConnection();
     }
 }

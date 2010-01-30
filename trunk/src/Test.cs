@@ -21,8 +21,9 @@ namespace FaceIDApp
         private Button btnClearAll;
         private Label label3;
         private NumericUpDown nudAdd;
+        private Button btnStop;
         private Button btnAddRecord;
-    
+
         private void InitializeComponent()
         {
             this.btnAddRecord = new System.Windows.Forms.Button();
@@ -35,6 +36,7 @@ namespace FaceIDApp
             this.btnClearAll = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.nudAdd = new System.Windows.Forms.NumericUpDown();
+            this.btnStop = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudAdd)).BeginInit();
             this.SuspendLayout();
             // 
@@ -135,9 +137,21 @@ namespace FaceIDApp
             this.nudAdd.TabIndex = 11;
             this.nudAdd.ThousandsSeparator = true;
             // 
+            // btnStop
+            // 
+            this.btnStop.Enabled = false;
+            this.btnStop.Location = new System.Drawing.Point(421, 12);
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(75, 23);
+            this.btnStop.TabIndex = 12;
+            this.btnStop.Text = "Stop";
+            this.btnStop.UseVisualStyleBackColor = true;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            // 
             // Test
             // 
             this.ClientSize = new System.Drawing.Size(632, 265);
+            this.Controls.Add(this.btnStop);
             this.Controls.Add(this.nudAdd);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnClearAll);
@@ -161,22 +175,32 @@ namespace FaceIDApp
         }
 
         private Random _rand = new Random();
-        private long _startPoint = 0;
         
+        private long _startPoint = 0;
+
         private List<AttendanceRecord> _attRecordList = new List<AttendanceRecord>();
         private List<Employee> _empList = new List<Employee>();
+        
         private IDataController _dtCtrl = LocalDataController.Instance;
+
+        private Thread _thrAdd;
+        private Thread _thrDel;
+        private Thread _thrClear;
 
         private void btnAddRecord_Click(object sender, EventArgs e)
         {
-            new Thread(new ThreadStart(AddRecord)).Start();
+            _thrAdd = new Thread(new ThreadStart(AddRecord));
+            _thrAdd.Start();
         }
 
         private delegate void InitProgressCallBack(int maxValue);
         private delegate void AddProgressCallBack(int value);
-
+        
         private delegate void SetTextCallBack(TextBox txtBox, string text);
         private delegate void AddTextCallBack(TextBox txtBox, string text);
+
+        private delegate void EnableButtonCallBack(Button btn, bool enable);
+
 
         private void InitProgress(int maxValue)
         {
@@ -205,6 +229,7 @@ namespace FaceIDApp
             {
                 _startPoint = DateTime.Now.Ticks;
 
+                SetState(1);
                 int toBeAdded = (int)nudAdd.Value;
 
                 Invoke(new InitProgressCallBack(InitProgress), new object[] { toBeAdded });
@@ -233,12 +258,15 @@ namespace FaceIDApp
                     Invoke(new SetTextCallBack(SetText), new object[] { txtProgress, textProgress });
                     Invoke(new SetTextCallBack(SetText), new object[] { txtDuration, GetDuration() });
                 }
+                
 
                 Invoke(new SetTextCallBack(AddText), new object[] { txtProgress, "Calculating" });
 
                 _dtCtrl.CalculateAttendanceRecord();
+                _dtCtrl.RefreshConnection();
+
                 Invoke(new SetTextCallBack(AddText), new object[] { txtProgress, "DONE" });
-                Invoke(new SetTextCallBack(SetText), new object[] { txtDuration, GetDuration()});
+                Invoke(new SetTextCallBack(SetText), new object[] { txtDuration, GetDuration() });
 
                 MessageBox.Show(added + " records have been added");
             }
@@ -246,6 +274,8 @@ namespace FaceIDApp
             {
                 MessageBox.Show(ex.Message);
             }
+
+            SetState(0);
         }
 
         private int GetRandomEmployeeNumber()
@@ -268,7 +298,8 @@ namespace FaceIDApp
 
         private void btnDelRecord_Click(object sender, EventArgs e)
         {
-            new Thread(new ThreadStart(DelRecord)).Start();
+            _thrDel = new Thread(new ThreadStart(DelRecord));
+            _thrDel.Start();
         }
 
         private void DelRecord()
@@ -276,6 +307,8 @@ namespace FaceIDApp
             try
             {
                 _startPoint = DateTime.Now.Ticks;
+                
+                SetState(1);
                 int toBeDeleted = _attRecordList.Count;
 
                 Invoke(new InitProgressCallBack(InitProgress), new object[] { toBeDeleted });
@@ -285,7 +318,7 @@ namespace FaceIDApp
                 int deleteing = 0;
                 int deleted = 0;
 
-                for(int i = toBeDeleted - 1; i >= 0; i--)
+                for (int i = toBeDeleted - 1; i >= 0; i--)
                 {
                     AttendanceRecord attRecord = _attRecordList[i];
 
@@ -309,11 +342,14 @@ namespace FaceIDApp
             {
                 MessageBox.Show(ex.Message);
             }
+
+            SetState(0);
         }
 
         private void btnClearAll_Click(object sender, EventArgs e)
         {
-            new Thread(new ThreadStart(ClearAll)).Start();
+            _thrClear = new Thread(new ThreadStart(ClearAll));
+            _thrClear.Start();
         }
 
         private void ClearAll()
@@ -321,12 +357,10 @@ namespace FaceIDApp
             try
             {
                 _startPoint = DateTime.Now.Ticks;
-                List<UncalculatedAttendanceRecord> uncalAttList = _dtCtrl.GetUncalculatedAttendanceRecordList();
+                
+                SetState(1);
 
-                List<AttendanceRecord> attList = _dtCtrl.GetAttendanceRecordList();
-                List<AttendanceReport> attReportList = _dtCtrl.GetAttendanceReportList();
-
-                int toBeCleared = uncalAttList.Count + attList.Count + attReportList.Count;
+                int toBeCleared = 3;
 
                 Invoke(new InitProgressCallBack(InitProgress), new object[] { toBeCleared });
                 Invoke(new SetTextCallBack(SetText), new object[] { txtProgress, "" });
@@ -335,54 +369,45 @@ namespace FaceIDApp
                 int clearing = 0;
                 int cleared = 0;
 
-                foreach (UncalculatedAttendanceRecord uncalAtt in uncalAttList)
-                {
-                    clearing++;
+                clearing++;
+                if (_dtCtrl.DeleteAllUncalculatedAttendanceRecord())
+                    cleared++;
 
-                    if (_dtCtrl.DeleteUncalculatedAttendanceRecord(uncalAtt.AttendanceRecordID))
-                        cleared++;
+                string textProgress = "Clearing: " + clearing + "/" + toBeCleared + " (Cleared: " + cleared + ")";
 
-                    string textProgress = "Clearing: " + clearing + "/" + toBeCleared + " (Cleared: " + cleared + ")";
+                Invoke(new AddProgressCallBack(AddProgress), new object[] { 1 });
+                Invoke(new SetTextCallBack(SetText), new object[] { txtProgress, textProgress });
+                Invoke(new SetTextCallBack(SetText), new object[] { txtDuration, GetDuration() });
 
-                    Invoke(new AddProgressCallBack(AddProgress), new object[] { 1 });
-                    Invoke(new SetTextCallBack(SetText), new object[] { txtProgress, textProgress });
-                    Invoke(new SetTextCallBack(SetText), new object[] { txtDuration, GetDuration() });
-                }
+                clearing++;
+                if (_dtCtrl.DeleteAllAttendanceRecord())
+                    cleared++;
 
-                foreach (AttendanceRecord att in attList)
-                {
-                    clearing++;
+                textProgress = "Clearing: " + clearing + "/" + toBeCleared + " (Cleared: " + cleared + ")";
 
-                    if (_dtCtrl.DeleteAttendanceRecord(att.ID))
-                        cleared++;
+                Invoke(new AddProgressCallBack(AddProgress), new object[] { 1 });
+                Invoke(new SetTextCallBack(SetText), new object[] { txtProgress, textProgress });
+                Invoke(new SetTextCallBack(SetText), new object[] { txtDuration, GetDuration() });
 
-                    string textProgress = "Clearing: " + clearing + "/" + toBeCleared + " (Cleared: " + cleared + ")";
+                clearing++;
+                if (_dtCtrl.DeleteAllAttendanceReport())
+                    cleared++;
 
-                    Invoke(new AddProgressCallBack(AddProgress), new object[] { 1 });
-                    Invoke(new SetTextCallBack(SetText), new object[] { txtProgress, textProgress });
-                    Invoke(new SetTextCallBack(SetText), new object[] { txtDuration, GetDuration() });
-                }
+                textProgress = "Clearing: " + clearing + "/" + toBeCleared + " (Cleared: " + cleared + ")";
 
-                foreach (AttendanceReport attReport in attReportList)
-                {
-                    clearing++;
+                Invoke(new AddProgressCallBack(AddProgress), new object[] { 1 });
+                Invoke(new SetTextCallBack(SetText), new object[] { txtProgress, textProgress });
+                Invoke(new SetTextCallBack(SetText), new object[] { txtDuration, GetDuration() });
 
-                    if (_dtCtrl.DeleteAttendanceReport(attReport.ID))
-                        cleared++;
 
-                    string textProgress = "Clearing: " + clearing + "/" + toBeCleared + " (Cleared: " + cleared + ")";
-
-                    Invoke(new AddProgressCallBack(AddProgress), new object[] { 1 });
-                    Invoke(new SetTextCallBack(SetText), new object[] { txtProgress, textProgress });
-                    Invoke(new SetTextCallBack(SetText), new object[] { txtDuration, GetDuration() });
-                }
-
-                MessageBox.Show(cleared + " records have been cleared");
+                MessageBox.Show(cleared + " table(s) have been cleared");
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+
+            SetState(0);
         }
 
         private string GetDuration()
@@ -406,6 +431,40 @@ namespace FaceIDApp
             text += mil.ToString();
 
             return text;
+        }
+
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _thrAdd.Abort();
+            }
+            catch { }
+            try
+            {
+                _thrDel.Abort();
+            }
+            catch { }
+            try
+            {
+                _thrClear.Abort();
+            }
+            catch { }
+
+            SetState(0);
+        }
+
+        private void SetState(int state)
+        {
+            Invoke(new EnableButtonCallBack(EnableButton), new object[]{ btnStop, (state > 0) });
+            Invoke(new EnableButtonCallBack(EnableButton), new object[] { btnAddRecord, (state == 0) });
+            Invoke(new EnableButtonCallBack(EnableButton), new object[] { btnDelRecord, (state == 0) });
+            Invoke(new EnableButtonCallBack(EnableButton), new object[] { btnClearAll, (state == 0) });
+        }
+
+        private void EnableButton(Button btn, bool enable)
+        {
+            btn.Enabled = enable;
         }
 
         //public delegate int Functotaldonetp(int total, int nDone);
