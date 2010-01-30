@@ -41,7 +41,26 @@ namespace FaceIDAppVBEta.Data
         }
 
         #region Connection
-        private static void ConnectToDatabase()
+        public void RefreshConnection()
+        {
+            if (dbConnection == null)
+            {
+                string connectionString = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";// +config.DatabasePath;
+                dbConnection = new OleDbConnection(connectionString);
+            }
+            while (dbConnection.State != ConnectionState.Closed)
+            {
+                dbConnection.Close();
+                System.Threading.Thread.Sleep(500);
+            }
+            while (dbConnection.State != ConnectionState.Open)
+            {
+                dbConnection.Open();
+                System.Threading.Thread.Sleep(500);
+            }
+        }
+
+        public static void ConnectToDatabase()
         {
             if (dbConnection == null)
             {
@@ -57,7 +76,7 @@ namespace FaceIDAppVBEta.Data
             }
         }
 
-        private static void DisconnectFromDatabase()
+        public static void DisconnectFromDatabase()
         {
             if (dbConnection != null)
             {
@@ -100,8 +119,6 @@ namespace FaceIDAppVBEta.Data
         #region Company
         public List<Company> GetCompanyList()
         {
-            ConnectToDatabase();
-
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Company", "*", null);
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
             List<Company> companyList = new List<Company>();
@@ -3395,5 +3412,27 @@ namespace FaceIDAppVBEta.Data
             odRdr.Close();
             return attendanceReportList;
         }
+
+        #region IDataController Members
+
+        public bool DeleteAllAttendanceRecord()
+        {
+            System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("AttendanceRecord", "1=1");
+            return odCom1.ExecuteNonQuery() > 0 ? true : false;
+        }
+
+        public bool DeleteAllAttendanceReport()
+        {
+            System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("AttendanceReport", "1=1");
+            return odCom1.ExecuteNonQuery() > 0 ? true : false;
+        }
+
+        public bool DeleteAllUncalculatedAttendanceRecord()
+        {
+            System.Data.OleDb.OleDbCommand odCom1 = BuildDelCmd("UncalculatedAttendanceRecord", "1=1");
+            return odCom1.ExecuteNonQuery() > 0 ? true : false;
+        }
+
+        #endregion
     }
 }
