@@ -151,7 +151,7 @@ namespace FaceIDAppVBEta
                     undeletedEmployeeNumber.EmployeeNumber = employee.EmployeeNumber;
                     undeletedEmployeeNumber.TerminalID = terminal.ID;
 
-                    if (_dtCtrl.AddUndeletedEmployeeNumber(undeletedEmployeeNumber) < 0)
+                    if (_dtCtrl.AddUndeletedEmployeeNumber(undeletedEmployeeNumber))
                         throw new Exception("User could not be deleted");
                 }
             }

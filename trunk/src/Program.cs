@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using FaceIDpp;
+using FaceIDAppVBEta;
+using FaceIDAppVBEta.Class;
+using FaceIDAppVBEta.UnitTest;
 
 namespace FaceIDApp
 {
@@ -16,6 +18,11 @@ namespace FaceIDApp
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
+
+            new testEmployeeFunction().TestAddEmployee();
+
+            //Application.Run(new testTerminalController());
+            //Application.Run(new Test());
         }
     }
 }
