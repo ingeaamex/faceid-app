@@ -13,10 +13,9 @@ namespace FaceIDAppVBEta.UnitTest
         private IDataController _dtCtrl = LocalDataController.Instance;
         
         private PayPeriod payPeriod = new PayPeriod();
-        
-        //private WorkingCalendar wCal = null;
 
-        //private int originalPayPeriodID;
+        private WorkingCalendar wCal = null;
+        private int originalPayPeriodID;
 
         private void AddPayPeriod()
         {
@@ -26,18 +25,18 @@ namespace FaceIDAppVBEta.UnitTest
 
             payPeriod.ID = _dtCtrl.AddPayPeriod(payPeriod);
 
-            //wCal = _dtCtrl.GetWorkingCalendarList()[0];
-            //originalPayPeriodID = wCal.PayPeriodID;
-            //wCal.PayPeriodID = payPeriod.ID;
-            //_dtCtrl.UpdateWorkingCalendar(wCal);
+            wCal = _dtCtrl.GetWorkingCalendarList()[0];
+            originalPayPeriodID = wCal.PayPeriodID;
+            wCal.PayPeriodID = payPeriod.ID;
+            _dtCtrl.UpdateWorkingCalendar(wCal);
         }
 
         private void DelPeriod()
         {
-            //wCal.PayPeriodID = originalPayPeriodID;
-            //_dtCtrl.UpdateWorkingCalendar(wCal);
+            wCal.PayPeriodID = originalPayPeriodID;
+            _dtCtrl.UpdateWorkingCalendar(wCal);
 
-            _dtCtrl.DeleteBreak(payPeriod.ID);
+            _dtCtrl.DeletePayPeriod(payPeriod.ID);
         }
 
         [Test]
@@ -65,7 +64,7 @@ namespace FaceIDAppVBEta.UnitTest
         {
             AddPayPeriod();
 
-            //TODO
+            Assert.AreEqual(payPeriod.ID, _dtCtrl.GetPayPeriod(payPeriod.ID).ID);
 
             DelPeriod();
         }
@@ -75,6 +74,8 @@ namespace FaceIDAppVBEta.UnitTest
         {
             AddPayPeriod();
 
+            wCal.PayPeriodID = originalPayPeriodID;
+            _dtCtrl.UpdateWorkingCalendar(wCal);
             Assert.AreEqual(true, _dtCtrl.DeletePayPeriod(payPeriod.ID));
 
             DelPeriod();
