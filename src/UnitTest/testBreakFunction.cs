@@ -11,8 +11,9 @@ namespace FaceIDAppVBEta.UnitTest
     class testBreakFunction
     {
         private IDataController _dtCtrl = LocalDataController.Instance;
+        
         private Break break1 = new Break();
-
+        
         private void AddBreak()
         {
             break1.From = DateTime.Now;
@@ -68,6 +69,20 @@ namespace FaceIDAppVBEta.UnitTest
             AddBreak();
 
             Assert.AreEqual(true, _dtCtrl.DeleteBreak(break1.ID));
+
+            DelBreak();
+        }
+
+        [Test]
+        public void TestGetBreakListByWorkingCalendar()
+        {
+            AddBreak();
+
+            Assert.AreEqual(true, _dtCtrl.GetBreakListByWorkingCalendar(break1.WorkingCalendarID).Exists(delegate(Break _break)
+                {
+                    return _break.ID == break1.ID;
+                })
+                );
 
             DelBreak();
         }

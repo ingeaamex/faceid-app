@@ -52,7 +52,7 @@ namespace FaceIDAppVBEta.UnitTest
             emp.Address = DateTime.Now.Ticks.ToString(); ;
             emp.Birthday = DateTime.Today.AddYears(-20);
             emp.DepartmentID = dep.ID;
-            emp.EmployeeNumber = 1;
+            emp.EmployeeNumber = -1;
             emp.FirstName = DateTime.Now.Ticks.ToString();
             emp.JobDescription = DateTime.Now.Ticks.ToString();
             emp.HiredDate = DateTime.Today;
@@ -60,7 +60,25 @@ namespace FaceIDAppVBEta.UnitTest
             emp.LastName = DateTime.Now.Ticks.ToString();
             emp.PhoneNumber = DateTime.Now.Ticks.ToString(); ;
             emp.WorkingCalendarID = wCal.ID;
-            emp.PayrollNumber = _dtCtrl.AddEmployee(emp);
+            emp.FaceData1 = "";
+            emp.FaceData2 = "";
+            emp.FaceData3 = "";
+            emp.FaceData4 = "";
+            emp.FaceData5 = "";
+            emp.FaceData6 = "";
+            emp.FaceData7 = "";
+            emp.FaceData8 = "";
+            emp.FaceData9 = "";
+            emp.FaceData10 = "";
+            emp.FaceData11 = "";
+            emp.FaceData12 = "";
+            emp.FaceData13 = "";
+            emp.FaceData14 = "";
+            emp.FaceData15 = "";
+            emp.FaceData16 = "";
+            emp.FaceData17 = "";
+            emp.FaceData18 = "";
+            emp.PayrollNumber = _dtCtrl.AddEmployee(emp, new List<Terminal>());
         }
 
         private void DelWCal()

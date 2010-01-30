@@ -50,14 +50,14 @@ namespace FaceIDAppVBEta.UnitTest
             com = _dtCtrl.GetCompany(dep.CompanyID);
             wCal = _dtCtrl.GetWorkingCalendarList()[0];
 
-            Employee emp = new Employee();
+            emp = new Employee();
             emp.Active = true;
             emp.ActiveFrom = DateTime.Today;
             emp.ActiveTo = DateTime.Today.AddDays(1);
             emp.Address = DateTime.Now.Ticks.ToString();
             emp.Birthday = DateTime.Today.AddYears(-20);
             emp.DepartmentID = dep.ID;
-            emp.EmployeeNumber = 999;
+            emp.EmployeeNumber = 0;
             emp.FirstName = DateTime.Now.Ticks.ToString();
             emp.JobDescription = DateTime.Now.Ticks.ToString();
             emp.HiredDate = DateTime.Today;
@@ -65,8 +65,26 @@ namespace FaceIDAppVBEta.UnitTest
             emp.LastName = DateTime.Now.Ticks.ToString();
             emp.PhoneNumber = DateTime.Now.Ticks.ToString();
             emp.WorkingCalendarID = wCal.ID;
+            emp.FaceData1 = "";
+            emp.FaceData2 = "";
+            emp.FaceData3 = "";
+            emp.FaceData4 = "";
+            emp.FaceData5 = "";
+            emp.FaceData6 = "";
+            emp.FaceData7 = "";
+            emp.FaceData8 = "";
+            emp.FaceData9 = "";
+            emp.FaceData10 = "";
+            emp.FaceData11 = "";
+            emp.FaceData12 = "";
+            emp.FaceData13 = "";
+            emp.FaceData14 = "";
+            emp.FaceData15 = "";
+            emp.FaceData16 = "";
+            emp.FaceData17 = "";
+            emp.FaceData18 = "";
 
-            emp.PayrollNumber = _dtCtrl.AddEmployee(emp);
+            emp.PayrollNumber = _dtCtrl.AddEmployee(emp, new List<Terminal>());
         }
 
         private void DeleteEmployee()
@@ -83,6 +101,7 @@ namespace FaceIDAppVBEta.UnitTest
             AddEmployee();
 
             Assert.Greater(emp.PayrollNumber, 0);
+            Assert.AreEqual(true, _dtCtrl.GetEmployee(emp.PayrollNumber).Active);
 
             DeleteEmployee();
         }
@@ -136,7 +155,27 @@ namespace FaceIDAppVBEta.UnitTest
             AddEmployee();
 
             Assert.AreEqual(true, _dtCtrl.DeleteEmployee(emp.PayrollNumber));
-            Assert.AreEqual(null, _dtCtrl.GetEmployee(emp.PayrollNumber));
+            Assert.AreEqual(false, _dtCtrl.GetEmployee(emp.PayrollNumber).Active);
+
+            DeleteEmployee();
+        }
+
+        [Test]
+        public void TestIsNewEmployee()
+        {
+            AddEmployee();
+
+            Assert.AreEqual(false, _dtCtrl.IsNewEmployee(emp));
+
+            DeleteEmployee();
+        }
+
+        [Test]
+        public void TestGetEmployeeListByTerminal()
+        {
+            AddEmployee();
+
+            //Assert.AreEqual(false, true);
 
             DeleteEmployee();
         }

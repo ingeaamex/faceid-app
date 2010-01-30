@@ -1134,8 +1134,7 @@ namespace FaceIDAppVBEta.Data
 
                 if (odCom1.ExecuteNonQuery() == 1)
                 {
-                    odCom1.CommandText = "SELECT @@IDENTITY";
-                    return Convert.ToInt32(odCom1.ExecuteScalar().ToString());
+                    return employeeNumber;
                 }
             }
             return -1;
@@ -1194,7 +1193,7 @@ namespace FaceIDAppVBEta.Data
         public WorkingCalendar GetWorkingCalendarByEmployee(int employeeNumber)
         {
             System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("WorkingCalendar", "*",
-                "ID=(Select top 1 WorkingCalendarID From Employee Where EmployeeNumber=@ID)", new object[] { "@ID", employeeNumber });
+                "ID=(Select TOP 1 WorkingCalendarID From Employee Where EmployeeNumber=@ID AND Active=TRUE)", new object[] { "@ID", employeeNumber });
 
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
 
@@ -2989,7 +2988,7 @@ namespace FaceIDAppVBEta.Data
             return undeletedEmployeeNumber;
         }
 
-        public int AddUndeletedEmployeeNumber(UndeletedEmployeeNumber undeletedEmployeeNumber)
+        public bool AddUndeletedEmployeeNumber(UndeletedEmployeeNumber undeletedEmployeeNumber)
         {
             System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("UndeletedEmployeeNumber",
                 new string[] { "TerminalID"
@@ -3000,10 +2999,9 @@ namespace FaceIDAppVBEta.Data
 
             if (odCom1.ExecuteNonQuery() == 1)
             {
-                odCom1.CommandText = "SELECT @@IDENTITY";
-                return Convert.ToInt16(odCom1.ExecuteScalar().ToString());
+                return true;
             }
-            return -1;
+            return false;
         }
 
         public bool UpdateUndeletedEmployeeNumber(UndeletedEmployeeNumber undeletedEmployeeNumber)

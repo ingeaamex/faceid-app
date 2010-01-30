@@ -249,7 +249,7 @@ namespace FaceIDAppVBEta.Data
 
         UndeletedEmployeeNumber GetUndeletedEmployeeNumber(int employeeNumber, int terminalID);
 
-        int AddUndeletedEmployeeNumber(UndeletedEmployeeNumber undeletedEmployeeNumber);
+        bool AddUndeletedEmployeeNumber(UndeletedEmployeeNumber undeletedEmployeeNumber);
 
         bool DeleteUndeletedEmployeeNumber(UndeletedEmployeeNumber undeletedEmployeeNumber);
 
