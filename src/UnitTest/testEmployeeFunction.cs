@@ -17,6 +17,7 @@ namespace FaceIDAppVBEta.UnitTest
         private Company com = new Company();
         private Department dep = new Department();
         private WorkingCalendar wCal = new WorkingCalendar();
+        private Terminal ter = new Terminal();
 
         private void AddEmployee()
         {
@@ -49,6 +50,7 @@ namespace FaceIDAppVBEta.UnitTest
             dep = _dtCtrl.GetDepartmentList()[0];
             com = _dtCtrl.GetCompany(dep.CompanyID);
             wCal = _dtCtrl.GetWorkingCalendarList()[0];
+            ter = _dtCtrl.GetTerminalList()[0];
 
             emp = new Employee();
             emp.Active = true;
@@ -84,7 +86,7 @@ namespace FaceIDAppVBEta.UnitTest
             emp.FaceData17 = "";
             emp.FaceData18 = "";
 
-            emp.PayrollNumber = _dtCtrl.AddEmployee(emp, new List<Terminal>());
+            emp.PayrollNumber = _dtCtrl.AddEmployee(emp, new List<Terminal>(){ter});
         }
 
         private void DeleteEmployee()
@@ -175,7 +177,10 @@ namespace FaceIDAppVBEta.UnitTest
         {
             AddEmployee();
 
-            //Assert.AreEqual(false, true);
+            Assert.AreEqual(true, _dtCtrl.GetEmployeeListByTerminal(ter.ID).Exists(delegate(Employee _emp)
+            {
+                return _emp.PayrollNumber == emp.PayrollNumber;
+            }));
 
             DeleteEmployee();
         }

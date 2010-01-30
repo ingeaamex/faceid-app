@@ -72,16 +72,19 @@ namespace FaceIDAppVBEta.Data
 
         #region Terminal
         List<Terminal> GetTerminalList();
-		Terminal GetTerminal(int id);
+		
+        Terminal GetTerminal(int id);
+        
         int AddTerminal(Terminal _terminal);
+        
         bool DeleteTerminal(int id);
+        
         bool UpdateTerminal(Terminal _terminal);
+
+        List<Terminal> GetTerminalListByEmployee(int employeeNumber);
         #endregion Terminal
 
         #region EmployeeTerminal
-
-        List<Terminal> GetTerminalListByEmployee(int employeeNumber);
-
         List<EmployeeTerminal> GetEmployeeTerminalList();
 
         int AddEmployeeTerminal(List<EmployeeTerminal> emplTerminals);
@@ -115,8 +118,6 @@ namespace FaceIDAppVBEta.Data
 
         bool UpdateWorkingCalendar(WorkingCalendar wCal);
 
-        PayPeriod GetPayPeriodByName(string payPeriodName);
-
         bool IsDuplicateWorkingCalendarName(string name);
 
         bool IsDuplicateWorkingCalendarName(string name, int workingCalendarID);
@@ -133,7 +134,6 @@ namespace FaceIDAppVBEta.Data
         int AddPayPeriod(PayPeriod payPeriod);
 
         bool DeletePayPeriod(int id);
-
         #endregion
 
         #region PayPeriodType
@@ -198,17 +198,23 @@ namespace FaceIDAppVBEta.Data
         bool DeleteAllAttendanceRecord();
         #endregion Attendance Record
 
-        #region Attendance Report
+        #region AttendanceReport
         List<AttendanceLogReport> GetAttendanceLogReportList(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate);
       
         List<AttendanceReport> GetAttendanceReportList();
         
         DataTable GetAttendanceReport(int companyID, int departmentID, DateTime dtFrom, DateTime dtTo);
 
+        AttendanceReport GetAttendanceReportByAttendanceRecord(int attendanceRecordID);
+
         bool DeleteAttendanceReport(int id);
 
         bool DeleteAllAttendanceReport();
-        #endregion Attendance Report
+
+        int AddAttendanceReport(AttendanceReport attendanceReport, bool returnID);
+
+        bool UpdateAttendanceReport(AttendanceReport attendanceReport);
+        #endregion
 
         #region FaceIDUser
         List<FaceIDUser> GetFaceIDUserList();

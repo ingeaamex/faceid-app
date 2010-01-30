@@ -15,6 +15,7 @@ namespace FaceIDAppVBEta.Data
         private static readonly Object mutex = new Object();
         private int timeBound = 60;
         private int validTimeBound = 0;
+
         private LocalDataController() { }
 
         public static LocalDataController Instance
@@ -1623,11 +1624,6 @@ namespace FaceIDAppVBEta.Data
             return odCom1.ExecuteNonQuery() > 0 ? true : false;
         }
 
-        public PayPeriod GetPayPeriodByName(string payPeriodName)
-        {
-            throw new NotImplementedException();
-        }
-
         public bool IsDuplicateWorkingCalendarName(string name)
         {
             bool result = false;
@@ -2184,7 +2180,7 @@ namespace FaceIDAppVBEta.Data
 
         public bool DeleteAttendanceRecord(int id)
         {
-            AttendanceReport attReport = GetAttendanceReport(id);
+            AttendanceReport attReport = GetAttendanceReportByAttendanceRecord(id);
             System.Data.OleDb.OleDbCommand odCom = null;
             if (attReport == null)
             {
@@ -2511,7 +2507,12 @@ namespace FaceIDAppVBEta.Data
         #endregion utils
 
         #region AttendanceReport
-        private bool AddAttendanceReport(AttendanceReport attendanceReport)
+        public bool AddAttendanceReport(AttendanceReport attendanceReport)
+        {
+            return AddAttendanceReport(attendanceReport, false) > 0;
+        }
+
+        public int AddAttendanceReport(AttendanceReport attendanceReport, bool returnID)
         {
             System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("AttendanceReport",
                 new string[] { "DayTypeID", "EmployeeNumber", "OvertimeHour1", "OvertimeHour2", "OvertimeHour3", "OvertimeHour4",
@@ -2523,12 +2524,25 @@ namespace FaceIDAppVBEta.Data
                 attendanceReport.RegularHour,attendanceReport.RegularRate,attendanceReport.WorkFrom,attendanceReport.WorkTo,attendanceReport.AttendanceRecordIDList}
                 );
 
-            return ExecuteNonQuery(odCom1) > 0;
+            if (odCom1.ExecuteNonQuery() > 0)
+            {
+                if (returnID)
+                {
+                    odCom1.CommandText = "SELECT @@IDENTITY";
+                    return Convert.ToInt32(odCom1.ExecuteScalar().ToString());
+                }
+                else
+                {
+                    return 1;
+                }
+            }
+
+            return -1;
         }
 
-        private AttendanceReport GetAttendanceReport(int attRcId)
+        public AttendanceReport GetAttendanceReportByAttendanceRecord(int attendanceRecordID)
         {
-            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("AttendanceReport", "*", "AttendanceRecordIDList like '*{" + attRcId + "}*'");
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("AttendanceReport", "*", "AttendanceRecordIDList LIKE '*{" + attendanceRecordID + "}*'");
             System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
             AttendanceReport attendanceReport = null;
             if (odRdr.Read())
@@ -2601,14 +2615,12 @@ namespace FaceIDAppVBEta.Data
                     }
                     else
                         overtimeHour2 = _totalHour;
-
                 }
                 else
                     overtimeHour1 = _totalHour;
             }
             else
                 totalHour = _totalHour;
-
 
             AttendanceLogReport attReport = _attReport;
 
@@ -2621,7 +2633,7 @@ namespace FaceIDAppVBEta.Data
             return attReport;
         }
 
-        private bool UpdateAttendanceReport(AttendanceReport attendanceReport)
+        public bool UpdateAttendanceReport(AttendanceReport attendanceReport)
         {
             System.Data.OleDb.OleDbCommand odCom1 = BuildUpdateCmd("AttendanceReport",
                 new string[] { "DayTypeID", "EmployeeNumber", "OvertimeHour1", "OvertimeHour2", "OvertimeHour3", "OvertimeHour4",
