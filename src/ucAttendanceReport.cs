@@ -223,7 +223,7 @@ namespace FaceIDAppVBEta
                                 float regWidth = 60;
                                 double regHour = attendanceLog.RegularHour;
                                 double workHour = attendanceLog.WorkingHour;
-                                double overHour = attendanceLog.OvertimeHour1 + attendanceLog.OvertimeHour1 + attendanceLog.OvertimeHour1 + attendanceLog.OvertimeHour4;
+                                double overHour = attendanceLog.OvertimeHour1 + attendanceLog.OvertimeHour2 + attendanceLog.OvertimeHour3 + attendanceLog.OvertimeHour4;
 
                                 float fWidth = Convert.ToSingle(regWidth * workHour / regHour);
                                 float fOverWidth = Convert.ToSingle(regWidth * overHour / regHour);
