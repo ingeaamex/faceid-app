@@ -127,8 +127,6 @@ namespace FaceIDAppVBEta.Data
         #endregion
 
         #region PayPeriod
-        PayPeriod GetPayPeriodByWorkingCalendar(int workingCalendarID);
-
         PayPeriod GetPayPeriod(int id);
 
         int AddPayPeriod(PayPeriod payPeriod);

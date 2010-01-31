@@ -113,13 +113,13 @@ namespace FaceIDAppVBEta
             cbx.DisplayMember = "Name";
 
             cbx.Items.Add(new Rate(0.00, "0%"));
-            cbx.Items.Add(new Rate(1.00, "100%"));
-            cbx.Items.Add(new Rate(1.25, "125%"));
-            cbx.Items.Add(new Rate(1.50, "150%"));
-            cbx.Items.Add(new Rate(2.00, "200%"));
-            cbx.Items.Add(new Rate(3.00, "300%"));
+            cbx.Items.Add(new Rate(100, "100%"));
+            cbx.Items.Add(new Rate(125, "125%"));
+            cbx.Items.Add(new Rate(150, "150%"));
+            cbx.Items.Add(new Rate(200, "200%"));
+            cbx.Items.Add(new Rate(300, "300%"));
 
-            //cbx.Items.Add(new Rate(-1, "Custom Rate"));
+            cbx.Items.Add(new Rate(-1, "Custom Rate"));
 
             cbx.SelectedIndex = 0;
         }
@@ -129,7 +129,7 @@ namespace FaceIDAppVBEta
             cbx.Items.Add("Yes");
             cbx.Items.Add("No");
 
-            cbx.SelectedIndex = 1;
+            cbx.SelectedIndex = 0;
         }
 
         private void SetState(int workingCalendarID)
