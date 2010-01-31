@@ -178,6 +178,7 @@
             this.dgvAttendanceReport.ReadOnly = true;
             this.dgvAttendanceReport.Size = new System.Drawing.Size(825, 448);
             this.dgvAttendanceReport.TabIndex = 28;
+            this.dgvAttendanceReport.Scroll += new System.Windows.Forms.ScrollEventHandler(this.dgvAttendanceReport_Scroll);
             this.dgvAttendanceReport.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvAttendanceReport_CellPainting);
             // 
             // dataGridViewTextBoxColumn1
@@ -208,13 +209,16 @@
             this.dataGridViewTextBoxColumn3.DataPropertyName = "WorkFrom";
             dataGridViewCellStyle2.Format = "d MMM yyyy";
             this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridViewTextBoxColumn3.FillWeight = 96F;
             this.dataGridViewTextBoxColumn3.HeaderText = "Date";
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn3.Width = 96;
             // 
             // dataGridViewTextBoxColumn4
             // 
             this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "WorkingHour";
             this.dataGridViewTextBoxColumn4.FillWeight = 140F;
             this.dataGridViewTextBoxColumn4.HeaderText = "Attendance Detail";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
@@ -226,13 +230,16 @@
             // 
             this.dataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.dataGridViewTextBoxColumn5.DataPropertyName = "TotalHour";
+            this.dataGridViewTextBoxColumn5.FillWeight = 98F;
             this.dataGridViewTextBoxColumn5.HeaderText = "Total of Hours";
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            this.dataGridViewTextBoxColumn5.Width = 98;
             // 
             // dataGridViewTextBoxColumn6
             // 
             this.dataGridViewTextBoxColumn6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.dataGridViewTextBoxColumn6.DataPropertyName = "ChartData";
             this.dataGridViewTextBoxColumn6.FillWeight = 28.23705F;
             this.dataGridViewTextBoxColumn6.HeaderText = "Chart";
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
@@ -265,7 +272,7 @@
             // Date
             // 
             this.Date.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Date.DataPropertyName = "WorkFrom";
+            this.Date.DataPropertyName = "DateLog";
             dataGridViewCellStyle1.Format = "d MMM yyyy";
             this.Date.DefaultCellStyle = dataGridViewCellStyle1;
             this.Date.FillWeight = 96F;
@@ -277,6 +284,7 @@
             // AttendanceDetail
             // 
             this.AttendanceDetail.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.AttendanceDetail.DataPropertyName = "WorkingHour";
             this.AttendanceDetail.FillWeight = 130F;
             this.AttendanceDetail.HeaderText = "Attendance Detail";
             this.AttendanceDetail.Name = "AttendanceDetail";
@@ -297,6 +305,7 @@
             // Chart
             // 
             this.Chart.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Chart.DataPropertyName = "ChartData";
             this.Chart.FillWeight = 188F;
             this.Chart.HeaderText = "Chart";
             this.Chart.Name = "Chart";
