@@ -1473,6 +1473,7 @@
             // 
             // dgvHoliday
             // 
+            this.dgvHoliday.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvHoliday.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvHoliday.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.HolidayDate,
