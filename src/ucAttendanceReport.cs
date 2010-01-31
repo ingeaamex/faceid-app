@@ -143,20 +143,28 @@ namespace FaceIDAppVBEta
 
         private void dgvAttendanceReport_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
-            if (e.RowIndex >= 0 && (e.ColumnIndex != 3))
+            if (e.RowIndex >= 0 && (e.ColumnIndex != 3 && e.ColumnIndex != -1))
             {
                 using (Brush gridBrush = new SolidBrush(dgvAttendanceReport.GridColor),
                     backColorBrush = new SolidBrush(e.CellStyle.BackColor),
                     grayColorBrush = new SolidBrush(Color.LightGray),
                     redColorBrush = new SolidBrush(Color.Red),
-                    greenColorBrush = new SolidBrush(Color.LimeGreen))
+                    greenColorBrush = new SolidBrush(Color.LimeGreen),
+                    blackColorBrush = new SolidBrush(Color.Black))
                 {
-                    using (Pen gridLinePen = new Pen(gridBrush))
+                    using (Pen gridLinePen = new Pen(gridBrush), backColorPen = new Pen(backColorBrush))
                     {
-                        e.Graphics.FillRectangle(backColorBrush, e.CellBounds);
+                        Rectangle recCell = e.CellBounds;
+                        recCell.Height -= 1;
+                        e.Graphics.FillRectangle(backColorBrush, recCell);
+
                         e.Graphics.DrawLine(gridLinePen, e.CellBounds.Right - 1,
                             e.CellBounds.Top, e.CellBounds.Right - 1,
                             e.CellBounds.Bottom);
+
+                        e.Graphics.DrawLine(backColorPen, e.CellBounds.Left,
+                            e.CellBounds.Top - 1, e.CellBounds.Right - 2,
+                            e.CellBounds.Top - 1);
 
                         if (e.ColumnIndex == 0)
                         {
@@ -168,7 +176,7 @@ namespace FaceIDAppVBEta
 
                                 Rectangle rec = dgvAttendanceReport.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
                                 e.Graphics.DrawString(e.Value.ToString(), e.CellStyle.Font,
-                                    Brushes.Black, rec.Left + 5,
+                                    blackColorBrush, rec.Left + 5,
                                     rec.Top + 5, StringFormat.GenericDefault);
                             }
                         }
@@ -182,7 +190,7 @@ namespace FaceIDAppVBEta
 
                                 Rectangle rec = dgvAttendanceReport.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
                                 e.Graphics.DrawString(e.Value.ToString(), e.CellStyle.Font,
-                                    Brushes.Black, rec.Left + 5,
+                                    blackColorBrush, rec.Left + 5,
                                     rec.Top + 5, StringFormat.GenericDefault);
                             }
                         }
@@ -196,7 +204,7 @@ namespace FaceIDAppVBEta
 
                                 Rectangle rec = dgvAttendanceReport.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
                                 e.Graphics.DrawString(Convert.ToDateTime(e.Value).ToString("d MMM yyyy"), e.CellStyle.Font,
-                                    Brushes.Black, rec.Left + 5,
+                                    blackColorBrush, rec.Left + 5,
                                     rec.Top + 5, StringFormat.GenericDefault);
                             }
                         }
@@ -210,7 +218,7 @@ namespace FaceIDAppVBEta
 
                                 Rectangle rec = dgvAttendanceReport.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
                                 e.Graphics.DrawString(e.Value.ToString(), e.CellStyle.Font,
-                                    Brushes.Black, rec.Left + 5,
+                                    blackColorBrush, rec.Left + 5,
                                     rec.Top + 5, StringFormat.GenericDefault);
                             }
                         }
@@ -239,11 +247,11 @@ namespace FaceIDAppVBEta
 
                                 e.Graphics.FillRectangle(grayColorBrush, fx, fy, regWidth, 16);
                                 e.Graphics.FillRectangle(greenColorBrush, fx, fy, fWidth, 16);
-                                e.Graphics.DrawString(workHour.ToString() + " hrs", e.CellStyle.Font, Brushes.Black, fx + 5, fy + 2, StringFormat.GenericDefault);
+                                e.Graphics.DrawString(workHour.ToString() + " hrs", e.CellStyle.Font, blackColorBrush, fx + 5, fy + 2, StringFormat.GenericDefault);
                                 if (fOverWidth > 0)
                                 {
                                     e.Graphics.FillRectangle(redColorBrush, fx + fWidth, fy, fOverWidth, 16);
-                                    e.Graphics.DrawString(overHour.ToString() + " hrs", e.CellStyle.Font, Brushes.Black, fx + fWidth + 5, fy + 2, StringFormat.GenericDefault);
+                                    e.Graphics.DrawString(overHour.ToString() + " hrs", e.CellStyle.Font, blackColorBrush, fx + fWidth + 5, fy + 2, StringFormat.GenericDefault);
                                 }
                             }
                         }

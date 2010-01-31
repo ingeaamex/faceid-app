@@ -129,15 +129,24 @@ namespace FaceIDAppVBEta
         {
             if (e.RowIndex >= 0 && (e.ColumnIndex == 0 || e.ColumnIndex == 1 || e.ColumnIndex == 2 || e.ColumnIndex == 4))
             {
-                using (Brush gridBrush = new SolidBrush(dgvAttendanceLog.GridColor), backColorBrush = new SolidBrush(e.CellStyle.BackColor))
+                using (Brush gridBrush = new SolidBrush(dgvAttendanceLog.GridColor), 
+                    backColorBrush = new SolidBrush(e.CellStyle.BackColor), 
+                    blackColorBrush = new SolidBrush(Color.Black))
                 {
-                    using (Pen gridLinePen = new Pen(gridBrush))
+                    using (Pen gridLinePen = new Pen(gridBrush), backColorPen = new Pen(backColorBrush))
                     {
-                        e.Graphics.FillRectangle(backColorBrush, e.CellBounds);
+                        Rectangle recCell = e.CellBounds;
+                        recCell.Height -= 1;
+                        e.Graphics.FillRectangle(backColorBrush, recCell);
+
                         e.Graphics.DrawLine(gridLinePen, e.CellBounds.Right - 1,
                             e.CellBounds.Top, e.CellBounds.Right - 1,
                             e.CellBounds.Bottom);
 
+                        e.Graphics.DrawLine(backColorPen, e.CellBounds.Left,
+                            e.CellBounds.Top - 1, e.CellBounds.Right - 2,
+                            e.CellBounds.Top - 1);
+                        
                         if (e.ColumnIndex == 0)
                         {
                             if ((int)e.Value != 0)
@@ -148,7 +157,7 @@ namespace FaceIDAppVBEta
 
                                 Rectangle rec = dgvAttendanceLog.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
                                 e.Graphics.DrawString(e.Value.ToString(), e.CellStyle.Font,
-                                    Brushes.Black, rec.Left + 5,
+                                    blackColorBrush, rec.Left + 5,
                                     rec.Top + 5, StringFormat.GenericDefault);
                             }
                         }
@@ -162,7 +171,7 @@ namespace FaceIDAppVBEta
 
                                 Rectangle rec = dgvAttendanceLog.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
                                 e.Graphics.DrawString(e.Value.ToString(), e.CellStyle.Font,
-                                    Brushes.Black, rec.Left + 5,
+                                    blackColorBrush, rec.Left + 5,
                                     rec.Top + 5, StringFormat.GenericDefault);
                             }
                         }
@@ -176,7 +185,7 @@ namespace FaceIDAppVBEta
 
                                 Rectangle rec = dgvAttendanceLog.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
                                 e.Graphics.DrawString(Convert.ToDateTime(e.Value).ToString("d MMM yyyy"), e.CellStyle.Font,
-                                    Brushes.Black, rec.Left + 5,
+                                    blackColorBrush, rec.Left + 5,
                                     rec.Top + 5, StringFormat.GenericDefault);
                             }
                         }
@@ -190,7 +199,7 @@ namespace FaceIDAppVBEta
 
                                 Rectangle rec = dgvAttendanceLog.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
                                 e.Graphics.DrawString(e.Value.ToString(), e.CellStyle.Font,
-                                    Brushes.Black, rec.Left + 5,
+                                    blackColorBrush, rec.Left + 5,
                                     rec.Top + 5, StringFormat.GenericDefault);
                             }
                         }

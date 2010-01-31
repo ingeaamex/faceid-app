@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label5 = new System.Windows.Forms.Label();
             this.cbxDepartment = new System.Windows.Forms.ComboBox();
             this.cbxCompany = new System.Windows.Forms.ComboBox();
@@ -185,11 +187,15 @@
             // 
             this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.dataGridViewTextBoxColumn1.DataPropertyName = "EmployeeNumber";
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Transparent;
+            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewTextBoxColumn1.FillWeight = 120F;
             this.dataGridViewTextBoxColumn1.HeaderText = "Employee Number";
             this.dataGridViewTextBoxColumn1.MinimumWidth = 10;
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.dataGridViewTextBoxColumn1.Width = 120;
             // 
             // dataGridViewTextBoxColumn2
@@ -201,18 +207,22 @@
             this.dataGridViewTextBoxColumn2.MinimumWidth = 10;
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTextBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.dataGridViewTextBoxColumn2.Width = 161;
             // 
             // dataGridViewTextBoxColumn3
             // 
             this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.dataGridViewTextBoxColumn3.DataPropertyName = "WorkFrom";
-            dataGridViewCellStyle2.Format = "d MMM yyyy";
-            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Format = "d MMM yyyy";
+            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridViewTextBoxColumn3.FillWeight = 96F;
             this.dataGridViewTextBoxColumn3.HeaderText = "Date";
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTextBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.dataGridViewTextBoxColumn3.Width = 96;
             // 
             // dataGridViewTextBoxColumn4
@@ -234,6 +244,8 @@
             this.dataGridViewTextBoxColumn5.HeaderText = "Total of Hours";
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            this.dataGridViewTextBoxColumn5.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTextBoxColumn5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.dataGridViewTextBoxColumn5.Width = 98;
             // 
             // dataGridViewTextBoxColumn6
@@ -244,6 +256,7 @@
             this.dataGridViewTextBoxColumn6.HeaderText = "Chart";
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             this.dataGridViewTextBoxColumn6.ReadOnly = true;
+            this.dataGridViewTextBoxColumn6.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewTextBoxColumn6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.dataGridViewTextBoxColumn6.Width = 161;
             // 
@@ -251,11 +264,15 @@
             // 
             this.EmployeeNumber.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.EmployeeNumber.DataPropertyName = "EmployeeNumber";
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Transparent;
+            this.EmployeeNumber.DefaultCellStyle = dataGridViewCellStyle1;
             this.EmployeeNumber.FillWeight = 120F;
             this.EmployeeNumber.HeaderText = "Employee Number";
             this.EmployeeNumber.MinimumWidth = 10;
             this.EmployeeNumber.Name = "EmployeeNumber";
             this.EmployeeNumber.ReadOnly = true;
+            this.EmployeeNumber.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.EmployeeNumber.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.EmployeeNumber.Width = 120;
             // 
             // EmployeeName
@@ -267,18 +284,22 @@
             this.EmployeeName.MinimumWidth = 10;
             this.EmployeeName.Name = "EmployeeName";
             this.EmployeeName.ReadOnly = true;
+            this.EmployeeName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.EmployeeName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.EmployeeName.Width = 150;
             // 
             // Date
             // 
             this.Date.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.Date.DataPropertyName = "DateLog";
-            dataGridViewCellStyle1.Format = "d MMM yyyy";
-            this.Date.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Format = "d MMM yyyy";
+            this.Date.DefaultCellStyle = dataGridViewCellStyle2;
             this.Date.FillWeight = 96F;
             this.Date.HeaderText = "Date";
             this.Date.Name = "Date";
             this.Date.ReadOnly = true;
+            this.Date.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Date.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.Date.Width = 96;
             // 
             // AttendanceDetail
@@ -300,6 +321,8 @@
             this.TotalHours.HeaderText = "Total of Hours";
             this.TotalHours.Name = "TotalHours";
             this.TotalHours.ReadOnly = true;
+            this.TotalHours.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.TotalHours.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.TotalHours.Width = 98;
             // 
             // Chart
@@ -310,6 +333,7 @@
             this.Chart.HeaderText = "Chart";
             this.Chart.Name = "Chart";
             this.Chart.ReadOnly = true;
+            this.Chart.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Chart.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // ucAttendanceReport
