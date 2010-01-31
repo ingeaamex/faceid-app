@@ -7,11 +7,14 @@ namespace FaceIDAppVBEta.Class
     public class AttendanceLogReport : MarshalByRefObject
     {
         public int ID { get; set; }
+        public int PayrollNumber { get; set; }
         public int EmployeeNumber { get; set; }
         public string FullName { get; set; }
+        public string JobDescription { get; set; }
         public DateTime WorkFrom { get; set; }
         public DateTime WorkTo { get; set; }
         public double RegularHour { get; set; }
+        public double WorkingHour { get; set; }
         public double TotalHour { get; set; }
         public double RegularRate { get; set; }
         public double OvertimeHour1 { get; set; }

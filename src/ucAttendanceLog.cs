@@ -15,16 +15,20 @@ namespace FaceIDAppVBEta
     public partial class ucAttendanceLog : UserControl
     {
         private IDataController _dtCtrl;
-        private Point _cellContext;
-        private List<Point> _pData = null;
+        private List<AttendanceLogRecord> attendanceLogs;
+        private int editRecordId = 0;
 
         public ucAttendanceLog()
         {
             InitializeComponent();
             _dtCtrl = LocalDataController.Instance;
-            BindData();
         }
 
+        private void ucAttendanceLog_Load(object sender, EventArgs e)
+        {
+            BindData();
+        }
+        
         private void BindData()
         {
             BindCompany();
@@ -41,10 +45,7 @@ namespace FaceIDAppVBEta
             if (cbxDepartment.Enabled)
                 iDepartment = (int)cbxDepartment.SelectedValue;
 
-            _pData = new List<Point>();
-
-            List<AttendanceLogRecord> attendanceLogs = _dtCtrl.GetAttendanceLogRecordList(iCompany, iDepartment, beginDate, endDate);
-
+            attendanceLogs = _dtCtrl.GetAttendanceLogRecordList(iCompany, iDepartment, beginDate, endDate);
             dgvAttendanceLog.AutoGenerateColumns = false;
             dgvAttendanceLog.DataSource = attendanceLogs;
         }
@@ -95,168 +96,109 @@ namespace FaceIDAppVBEta
             LoadAttdanceLog();
         }
 
-        private int GetEditRecordID()
-        {
-            int min = 7 - dgvAttendanceLog.ColumnHeadersHeight;
-            int max = dgvAttendanceLog.ColumnHeadersHeight - 16;
-            int idx = _cellContext.Y;
-            for (int i = 0; i < _pData.Count; i++)
-            {
-                if (_pData[i].Y - idx >= min && _pData[i].Y - idx <= max)
-                {
-                    return _pData[i].X;
-                }
-            }
-            return -1;
-        }
-
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int RcID = GetEditRecordID();
-            if (RcID == -1)
-                return;
-
-            frmAddUpdateAttendanceRecord attForm = new frmAddUpdateAttendanceRecord(RcID);
+            frmAddUpdateAttendanceRecord attForm = new frmAddUpdateAttendanceRecord(editRecordId);
             attForm.ShowDialog(this);
         }
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int RcID = GetEditRecordID();
-            if (RcID == -1)
-                return;
-            DialogResult dlogRs = MessageBox.Show(Form.ActiveForm, "Are you sure?", "Confirm", MessageBoxButtons.YesNo);
             if (Util.Confirm("Are you sure?"))
             {
-                bool ors = _dtCtrl.DeleteAttendanceRecord(RcID);
+                bool ors = _dtCtrl.DeleteAttendanceRecord(editRecordId);
                 MessageBox.Show(ors ? "successful" : "error");
                 if (ors)
                     LoadAttdanceLog();
             }
         }
 
-        private void dataGridView1_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        private void dgvAttendanceLog_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
+            if (e.RowIndex != -1)
+                editRecordId = attendanceLogs[e.RowIndex].ID;
+        }
+
+        private void dgvAttendanceLog_Scroll(object sender, ScrollEventArgs e)
+        {
+            dgvAttendanceLog.InvalidateColumn(0);
+            dgvAttendanceLog.InvalidateColumn(1);
+        }
+
+        private void dgvAttendanceLog_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.RowIndex >= 0 && (e.ColumnIndex == 0 || e.ColumnIndex == 1 || e.ColumnIndex == 2 || e.ColumnIndex == 4))
             {
-                List<AttendanceLogRecord> attendanceLogs = (List<AttendanceLogRecord>)dgvAttendanceLog.DataSource;
-                if (attendanceLogs == null)
-                    return;
-                AttendanceLogRecord attendanceLog = attendanceLogs[e.RowIndex];
-
-                if (e.ColumnIndex == 1)
-                {
-                    int rHieght = attendanceLog.Note.Count * 20;
-                    if (rHieght > 0)
-                        dgvAttendanceLog.Rows[e.RowIndex].Height = rHieght;
-                }
-                if (e.ColumnIndex < 2)
-                    return;
-
-                using (Brush gridBrush = new SolidBrush(this.dgvAttendanceLog.GridColor), backColorBrush = new SolidBrush(e.CellStyle.BackColor))
+                using (Brush gridBrush = new SolidBrush(dgvAttendanceLog.GridColor), backColorBrush = new SolidBrush(e.CellStyle.BackColor))
                 {
                     using (Pen gridLinePen = new Pen(gridBrush))
                     {
                         e.Graphics.FillRectangle(backColorBrush, e.CellBounds);
-                        e.Graphics.DrawLine(gridLinePen, e.CellBounds.Left,
-                            e.CellBounds.Bottom - 1, e.CellBounds.Right - 1,
-                            e.CellBounds.Bottom - 1);
                         e.Graphics.DrawLine(gridLinePen, e.CellBounds.Right - 1,
                             e.CellBounds.Top, e.CellBounds.Right - 1,
                             e.CellBounds.Bottom);
 
-                        int count = 0;
-                        switch (e.ColumnIndex)
+                        if (e.ColumnIndex == 0)
                         {
-                            case 3: //Attendance Detail
-                                List<object[]> sInOut = attendanceLog.InOutTime;
-                                bool isIn = true;
-                                foreach (object[] time in sInOut)
-                                {
-                                    int y = (e.CellBounds.Y) + count * 20;
-                                    string timesp = (isIn ? "In " : "Out ") + time[1];
-                                    isIn = !isIn;
-                                    e.Graphics.DrawString(timesp, e.CellStyle.Font,
-                                        Brushes.Black, e.CellBounds.X + 5,
-                                        y + 5, StringFormat.GenericDefault);
+                            if ((int)e.Value != 0)
+                            {
+                                e.Graphics.DrawLine(gridLinePen, e.CellBounds.Left,
+                                    e.CellBounds.Top - 1, e.CellBounds.Right - 1,
+                                    e.CellBounds.Top - 1);
 
-                                    if (!_pData.Contains(new Point((int)time[0], y + 5)))
-                                        _pData.Add(new Point((int)time[0], y + 5));
-
-                                    e.Graphics.DrawLine(gridLinePen, e.CellBounds.Left, y + 20, e.CellBounds.Right, y + 20);
-                                    count++;
-                                }
-                                break;
-                            case 2: //Date
-                                List<DateTime> dTime = attendanceLog.DateLog;
-                                List<object[]> lTotalHour = attendanceLog.TotalHour;
-                                int cellHeight2 = 0;
-                                for (int i = 0; i < dTime.Count; i++)
-                                {
-                                    int numRs = (int)((object[])lTotalHour[i])[1];
-                                    cellHeight2 += 20 * numRs;
-                                    string timesp = dTime[i].ToString("d MMM yyyy");
-                                    e.Graphics.DrawString(timesp, e.CellStyle.Font,
-                                        Brushes.Black, e.CellBounds.X + 5,
-                                        e.CellBounds.Y - 7 + cellHeight2 - (10 * numRs), StringFormat.GenericDefault);
-                                    e.Graphics.DrawLine(gridLinePen, e.CellBounds.Left, e.CellBounds.Y + cellHeight2, e.CellBounds.Right, e.CellBounds.Y + cellHeight2);
-                                }
-                                break;
-                            case 4: //Total Hours
-                                List<object[]> lTotalHours = attendanceLog.TotalHour;
-                                int cellHeight1 = 0;
-                                for (int i = 0; i < lTotalHours.Count; i++)
-                                {
-                                    int numRs = (int)((object[])lTotalHours[i])[1];
-                                    cellHeight1 += 20 * numRs;
-                                    string timesp = lTotalHours[i][0].ToString();
-                                    e.Graphics.DrawString(timesp, e.CellStyle.Font,
-                                        Brushes.Black, e.CellBounds.X + 5,
-                                        e.CellBounds.Y - 7 + cellHeight1 - (10 * numRs), StringFormat.GenericDefault);
-                                    e.Graphics.DrawLine(gridLinePen, e.CellBounds.Left, e.CellBounds.Y + cellHeight1, e.CellBounds.Right, e.CellBounds.Y + cellHeight1);
-                                }
-                                break;
-                            case 5: //Note
-                                count = 0;
-                                List<string> sNote = attendanceLog.Note;
-                                foreach (string note in sNote)
-                                {
-                                    int y = (e.CellBounds.Y) + count * 20;
-                                    e.Graphics.DrawString(note, e.CellStyle.Font,
-                                        Brushes.Black, e.CellBounds.X + 5,
-                                        y + 5, StringFormat.GenericDefault);
-
-                                    e.Graphics.DrawLine(gridLinePen, e.CellBounds.Left, y + 20, e.CellBounds.Right, y + 20);
-                                    count++;
-                                }
-                                break;
+                                Rectangle rec = dgvAttendanceLog.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
+                                e.Graphics.DrawString(e.Value.ToString(), e.CellStyle.Font,
+                                    Brushes.Black, rec.Left + 5,
+                                    rec.Top + 5, StringFormat.GenericDefault);
+                            }
                         }
-                        e.Handled = true;
+                        else if (e.ColumnIndex == 1)
+                        {
+                            if (e.Value != null)
+                            {
+                                e.Graphics.DrawLine(gridLinePen, e.CellBounds.Left,
+                                    e.CellBounds.Top - 1, e.CellBounds.Right - 1,
+                                    e.CellBounds.Top - 1);
+
+                                Rectangle rec = dgvAttendanceLog.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
+                                e.Graphics.DrawString(e.Value.ToString(), e.CellStyle.Font,
+                                    Brushes.Black, rec.Left + 5,
+                                    rec.Top + 5, StringFormat.GenericDefault);
+                            }
+                        }
+                        else if (e.ColumnIndex == 2)
+                        {
+                            if (Convert.ToDateTime(e.Value).Equals(DateTime.MinValue) == false)
+                            {
+                                e.Graphics.DrawLine(gridLinePen, e.CellBounds.Left,
+                                    e.CellBounds.Top - 1, e.CellBounds.Right - 1,
+                                    e.CellBounds.Top - 1);
+
+                                Rectangle rec = dgvAttendanceLog.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
+                                e.Graphics.DrawString(Convert.ToDateTime(e.Value).ToString("d MMM yyyy"), e.CellStyle.Font,
+                                    Brushes.Black, rec.Left + 5,
+                                    rec.Top + 5, StringFormat.GenericDefault);
+                            }
+                        }
+                        else if (e.ColumnIndex == 4)
+                        {
+                            if ((double)e.Value != -1)
+                            {
+                                e.Graphics.DrawLine(gridLinePen, e.CellBounds.Left,
+                                    e.CellBounds.Top - 1, e.CellBounds.Right - 1,
+                                    e.CellBounds.Top - 1);
+
+                                Rectangle rec = dgvAttendanceLog.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
+                                e.Graphics.DrawString(e.Value.ToString(), e.CellStyle.Font,
+                                    Brushes.Black, rec.Left + 5,
+                                    rec.Top + 5, StringFormat.GenericDefault);
+                            }
+                        }
                     }
                 }
+                e.Handled = true;
             }
         }
 
-        private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            if (e.ColumnIndex == dgvAttendanceLog.Columns["EmployeeName1"].Index)
-            {
-                List<AttendanceLogRecord> attendanceLogs = (List<AttendanceLogRecord>)dgvAttendanceLog.DataSource;
-                if (attendanceLogs == null)
-                    return;
-                AttendanceLogRecord attendanceLog = attendanceLogs[e.RowIndex];
-
-                e.FormattingApplied = true;
-                e.Value = string.Format("{0}, {1}", attendanceLog.LastName, attendanceLog.FirstName);
-            }
-        }
-
-        private void dataGridView1_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                _cellContext = new Point(e.X, e.Y + dgvAttendanceLog.VerticalScrollingOffset);
-            }
-        }
     }
 }

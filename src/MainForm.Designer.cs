@@ -58,7 +58,7 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1016, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1310, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -145,8 +145,10 @@
             // sctMain.Panel2
             // 
             this.sctMain.Panel2.AccessibleName = "pnlMain";
+
             this.sctMain.Size = new System.Drawing.Size(1016, 662);
             this.sctMain.SplitterDistance = 167;
+
             this.sctMain.TabIndex = 1;
             // 
             // btnUser
@@ -235,8 +237,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1016, 686);
+
             this.Controls.Add(this.sctMain);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
