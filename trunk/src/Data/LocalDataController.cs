@@ -9,6 +9,8 @@ namespace FaceIDAppVBEta.Data
 {
     public class LocalDataController : IDataController
     {
+        private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";
+
         private OleDbTransaction transaction;
         private static OleDbConnection dbConnection;
         private static LocalDataController instance;
@@ -46,8 +48,7 @@ namespace FaceIDAppVBEta.Data
         {
             if (dbConnection == null)
             {
-                string connectionString = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";// +config.DatabasePath;
-                dbConnection = new OleDbConnection(connectionString);
+                dbConnection = new OleDbConnection(connStr);
             }
             while (dbConnection.State != ConnectionState.Closed)
             {
@@ -65,11 +66,7 @@ namespace FaceIDAppVBEta.Data
         {
             if (dbConnection == null)
             {
-                //Config config = Util.GetConfig();
-                //if (config == null)
-                //    throw new Exception();
-                string connectionString = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\vnanh\project\FaceID\db\FaceIDdb.mdb";// +config.DatabasePath;
-                dbConnection = new OleDbConnection(connectionString);
+                dbConnection = new OleDbConnection(connStr);
             }
             if (dbConnection.State != ConnectionState.Open)
             {
@@ -1695,6 +1692,9 @@ namespace FaceIDAppVBEta.Data
 
             try
             {
+                if (IsInUseWorkingCalendar(workingCalendarID))
+                    throw new Exception("Working Calendar is assigned to employees and cannot be deleted");
+
                 //delete pay period
                 //Pay Period is kept for reports, so no deleting here
 
@@ -1726,10 +1726,24 @@ namespace FaceIDAppVBEta.Data
             catch (Exception)
             {
                 RollbackTransaction();
-                return false;
+                throw;
             }
 
             return true;
+        }
+
+        private bool IsInUseWorkingCalendar(int workingCalendarID)
+        {
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Employee", "TOP 1 PayrollNumber",
+                "WorkingCalendarID=@WorkingCalendarID AND Active=TRUE", new object[] { "@WorkingCalendarID", workingCalendarID });
+
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+
+
+            bool result = odRdr.Read();
+            
+            odRdr.Close();
+            return result;
         }
         #endregion
 
