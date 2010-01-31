@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvEmpl = new System.Windows.Forms.DataGridView();
             this.EmployeeNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -91,8 +91,8 @@
             // 
             this.EmployeeNumber.ContextMenuStrip = this.cMnSaction;
             this.EmployeeNumber.DataPropertyName = "EmployeeNumber";
-            dataGridViewCellStyle6.NullValue = null;
-            this.EmployeeNumber.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle1.NullValue = null;
+            this.EmployeeNumber.DefaultCellStyle = dataGridViewCellStyle1;
             this.EmployeeNumber.HeaderText = "EmployeeNumber";
             this.EmployeeNumber.Name = "EmployeeNumber";
             this.EmployeeNumber.ReadOnly = true;
@@ -122,9 +122,9 @@
             // EmployeeName
             // 
             this.EmployeeName.ContextMenuStrip = this.cMnSaction;
-            dataGridViewCellStyle5.Format = "{0} {1}";
-            dataGridViewCellStyle5.NullValue = null;
-            this.EmployeeName.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Format = "{0} {1}";
+            dataGridViewCellStyle2.NullValue = null;
+            this.EmployeeName.DefaultCellStyle = dataGridViewCellStyle2;
             this.EmployeeName.HeaderText = "Name";
             this.EmployeeName.Name = "EmployeeName";
             this.EmployeeName.ReadOnly = true;
@@ -140,8 +140,8 @@
             // WorkingCalendar
             // 
             this.WorkingCalendar.DataPropertyName = "WorkingCalendarID";
-            dataGridViewCellStyle4.NullValue = null;
-            this.WorkingCalendar.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle3.NullValue = null;
+            this.WorkingCalendar.DefaultCellStyle = dataGridViewCellStyle3;
             this.WorkingCalendar.HeaderText = "Working Calendar";
             this.WorkingCalendar.Name = "WorkingCalendar";
             this.WorkingCalendar.ReadOnly = true;
@@ -178,7 +178,6 @@
             // 
             // btNewEmpl
             // 
-            this.btNewEmpl.Enabled = false;
             this.btNewEmpl.Location = new System.Drawing.Point(114, 89);
             this.btNewEmpl.Name = "btNewEmpl";
             this.btNewEmpl.Size = new System.Drawing.Size(126, 23);
