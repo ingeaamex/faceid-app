@@ -9,7 +9,9 @@ namespace FaceIDAppVBEta.Data
 {
     public class LocalDataController : IDataController
     {
-        private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\vnanh\project\FaceID\db\FaceIDdb.mdb";
+        private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";
+
+        //private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\vnanh\project\FaceID\db\FaceIDdb.mdb";
 
         //private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=FaceIDdb.mdb";
 
@@ -1384,11 +1386,6 @@ namespace FaceIDAppVBEta.Data
 
             odRdr.Close();
             return holidayList;
-        }
-
-        public PayPeriod GetPayPeriodByWorkingCalendar(int workingCalendarID)
-        {
-            throw new NotImplementedException();
         }
 
         public int AddWorkingCalendar(WorkingCalendar workingCalendar, List<Break> breakList, List<Holiday> holidayList, PaymentRate workingDayPaymentRate, PaymentRate nonWorkingDayPaymentRate, PaymentRate holidayPaymentRate, PayPeriod payPeriod)
