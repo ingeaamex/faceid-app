@@ -9,7 +9,7 @@ namespace FaceIDAppVBEta.Data
 {
     public class LocalDataController : IDataController
     {
-        private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";
+        private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\vnanh\project\FaceID\db\FaceIDdb.mdb";
 
         //private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=FaceIDdb.mdb";
 
@@ -1773,6 +1773,57 @@ namespace FaceIDAppVBEta.Data
             return empls;
         }
 
+        public List<AttendanceSummaryReport> GetAttendanceSummaryReport(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate)
+        {
+            List<AttendanceSummaryReport> attSummarys = new List<AttendanceSummaryReport>();
+
+            List<AttendanceLogReport> attReports = GetAttendanceLogReportList(iCompany, iDepartment, beginDate, endDate);
+
+            AttendanceSummaryReport attSummary = null;
+            
+            foreach (AttendanceLogReport attRp in attReports)
+            {
+                attSummary = new AttendanceSummaryReport();
+                attSummary.EmployeeNumber = attRp.EmployeeNumber;
+                attSummary.FullName = attRp.FullName;
+                attSummary.TotalHour = attRp.TotalHour;
+                attSummary.DateLog= attRp.WorkFrom;
+                attSummary.WorkingHour = "Regular Hour : " + attRp.WorkingHour;
+                attSummary.ChartData = new double[] { attRp.RegularHour, attRp.WorkingHour, attRp.OvertimeHour1 + attRp.OvertimeHour2 + attRp.OvertimeHour3 + attRp.OvertimeHour4 };
+                attSummarys.Add(attSummary);
+
+                if (attRp.OvertimeHour1 > 0)
+                {
+                    attSummary = new AttendanceSummaryReport();
+                    attSummary.WorkingHour = "Overtime Hour 1 : " + attRp.OvertimeHour1;
+                    attSummarys.Add(attSummary);
+
+                    if (attRp.OvertimeHour2 > 0)
+                    {
+                        attSummary = new AttendanceSummaryReport();
+                        attSummary.WorkingHour = "Overtime Hour 2 : " + attRp.OvertimeHour2;
+                        attSummarys.Add(attSummary);
+
+                        if (attRp.OvertimeHour3 > 0)
+                        {
+                            attSummary = new AttendanceSummaryReport();
+                            attSummary.WorkingHour = "Overtime Hour 3 : " + attRp.OvertimeHour3;
+                            attSummarys.Add(attSummary);
+
+                            if (attRp.OvertimeHour4 > 0)
+                            {
+                                attSummary = new AttendanceSummaryReport();
+                                attSummary.WorkingHour = "Overtime Hour 4 : " + attRp.OvertimeHour4;
+                                attSummarys.Add(attSummary);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return attSummarys;
+        }
+
         public List<AttendanceLogReport> GetAttendanceLogReportList(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate)
         {
             List<string> lEmplNumbers = GetEmployeeNumberList(iCompany, iDepartment);
@@ -1926,7 +1977,7 @@ namespace FaceIDAppVBEta.Data
 
             List<AttendanceLogRecord> attRcTimes = new List<AttendanceLogRecord>();
             AttendanceLogRecord attRcTime = null;
-            
+
             foreach (string emplNumber in lEmplNumbers)
             {
                 List<AttendanceRecord> attRds = attRecords.FindAll(delegate(AttendanceRecord attRd)
@@ -1993,12 +2044,12 @@ namespace FaceIDAppVBEta.Data
                             attRcTime.ID = att.ID;
                             attRcTime.TimeLog = (isCheckIn ? "In " : "Out ") + (att.Time.Hour > 9 ? "" : "0") + att.Time.Hour + ":" + (att.Time.Minute > 9 ? "" : "0") + att.Time.Minute + ":" + (att.Time.Second > 9 ? "" : "0") + att.Time.Second;
                             attRcTime.Note = att.Note;
-                            
+
                             attRcTimes.Add(attRcTime);
                             isCheckIn = !isCheckIn;
                         }
                         totalRecord.Add(attRds1.Count);
-  
+
                     }
                 }
             }

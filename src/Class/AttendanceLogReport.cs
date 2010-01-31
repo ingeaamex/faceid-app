@@ -29,4 +29,16 @@ namespace FaceIDAppVBEta.Class
         public int PayPeriodID { get; set; }
         public string AttendanceRecordIDList { get; set; }
     }
+
+    public class AttendanceSummaryReport
+    {
+        private double _totalHour = -1;
+
+        public int EmployeeNumber { get; set; }
+        public string FullName { get; set; }
+        public DateTime DateLog { get; set; }
+        public string WorkingHour { get; set; }
+        public double TotalHour { get { return _totalHour; } set { _totalHour = value; } }
+        public double[] ChartData { get; set; }
+    }
 }

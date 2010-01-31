@@ -199,6 +199,9 @@ namespace FaceIDAppVBEta.Data
         #endregion Attendance Record
 
         #region AttendanceReport
+
+        List<AttendanceSummaryReport> GetAttendanceSummaryReport(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate);
+
         List<AttendanceLogReport> GetAttendanceLogReportList(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate);
       
         List<AttendanceReport> GetAttendanceReportList();
