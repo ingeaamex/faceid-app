@@ -169,7 +169,7 @@ namespace FaceIDAppVBEta
             if (employee == null)
                 return;
 
-            employee.PayrollNumber = this._employeeID;
+            //TODO transaction here
 
             bool rs1 = _dtCtrl.UpdateEmployee(employee);
 
@@ -208,19 +208,29 @@ namespace FaceIDAppVBEta
             string sPhoneNumber = tbPhoneNumber.Text;
             string sAddress = tbAddress.Text;
             string sJobDesc = tbJobDesc.Text;
+
             DateTime dBirthday = dtpBirthday.Value;
             DateTime dJoinedDate = dtpJoinedDate.Value;
             DateTime dLeftDate = dtpLeftDate.Value;
 
+            if (dtpBirthday.Checked == false)
+                dBirthday = DateTime.MinValue;
+
+            if (dtpJoinedDate.Checked == false)
+                dJoinedDate = DateTime.MinValue;
+
+            if (dtpLeftDate.Checked == false)
+                dLeftDate = DateTime.MinValue;
+
             bool isValid = true;
 
-            if (dLeftDate.Date.CompareTo(dJoinedDate.Date) != 1)
+            if (dLeftDate.Date.CompareTo(dJoinedDate.Date) != 1 && dLeftDate != DateTime.MinValue && dJoinedDate != DateTime.MinValue)
             {
                 MessageBox.Show("Left date < Joined date");
                 isValid = false;
             }
 
-            if (dJoinedDate.Date.CompareTo(dBirthday.Date) != 1)
+            if (dJoinedDate.Date.CompareTo(dBirthday.Date) != 1 && dJoinedDate != DateTime.MinValue && dBirthday != DateTime.MinValue)
             {
                 MessageBox.Show("Joined date < birthday");
                 isValid = false;
