@@ -91,6 +91,11 @@
             // nudEmployeeNumber
             // 
             this.nudEmployeeNumber.Location = new System.Drawing.Point(211, 61);
+            this.nudEmployeeNumber.Maximum = new decimal(new int[] {
+            999999,
+            0,
+            0,
+            0});
             this.nudEmployeeNumber.Name = "nudEmployeeNumber";
             this.nudEmployeeNumber.Size = new System.Drawing.Size(120, 20);
             this.nudEmployeeNumber.TabIndex = 4;

@@ -142,59 +142,105 @@ namespace FaceIDAppVBEta
 
         private void dgvAttendanceReport_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
-            if (e.RowIndex >= 0)
+            if (e.RowIndex >= 0 && (e.ColumnIndex == 3 || e.ColumnIndex == 5))
             {
                 List<AttendanceLogReport> attendanceLogs = (List<AttendanceLogReport>)dgvAttendanceReport.DataSource;
                 if (attendanceLogs == null)
                     return;
                 AttendanceLogReport attendanceLog = attendanceLogs[e.RowIndex];
-
-                if (e.ColumnIndex == 3 || e.ColumnIndex == 5)
+                using (Brush gridBrush = new SolidBrush(this.dgvAttendanceReport.GridColor), 
+                    backColorBrush = new SolidBrush(e.CellStyle.BackColor), 
+                    redColorBrush= new SolidBrush(Color.Red),
+                    greenColorBrush = new SolidBrush(Color.Green))
                 {
-                    using (Brush gridBrush = new SolidBrush(this.dgvAttendanceReport.GridColor), backColorBrush = new SolidBrush(e.CellStyle.BackColor))
+                    using (Pen gridLinePen = new Pen(gridBrush))
                     {
-                        using (Pen gridLinePen = new Pen(gridBrush))
+                        e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                        e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                        e.Graphics.FillRectangle(backColorBrush, e.CellBounds);
+                        e.Graphics.DrawLine(gridLinePen, e.CellBounds.Left,
+                            e.CellBounds.Bottom - 1, e.CellBounds.Right - 1,
+                            e.CellBounds.Bottom - 1);
+                        e.Graphics.DrawLine(gridLinePen, e.CellBounds.Right - 1,
+                            e.CellBounds.Top, e.CellBounds.Right - 1,
+                            e.CellBounds.Bottom);
+
+                        int count = 0;
+                        switch (e.ColumnIndex)
                         {
-                            e.Graphics.FillRectangle(backColorBrush, e.CellBounds);
-                            e.Graphics.DrawLine(gridLinePen, e.CellBounds.Left,
-                                e.CellBounds.Bottom - 1, e.CellBounds.Right - 1,
-                                e.CellBounds.Bottom - 1);
-                            e.Graphics.DrawLine(gridLinePen, e.CellBounds.Right - 1,
-                                e.CellBounds.Top, e.CellBounds.Right - 1,
-                                e.CellBounds.Bottom);
-
-                            int count = 0;
-                            switch (e.ColumnIndex)
-                            {
-                                case 3:
-                                    List<string> lTime = new List<string>();
-                                    lTime.Add("Regular Hour : " + attendanceLog.RegularHour.ToString());
-                                    if (attendanceLog.OvertimeHour1 > 0)
-                                        lTime.Add("Overtime Hour 1 : " + attendanceLog.OvertimeHour1.ToString());
+                            case 3:
+                                List<string> lTime = new List<string>();
+                                lTime.Add("Regular Hour : " + attendanceLog.WorkingHour.ToString());
+                                if (attendanceLog.OvertimeHour1 > 0)
+                                {
+                                    lTime.Add("Overtime Hour 1 : " + attendanceLog.OvertimeHour1.ToString());
                                     if (attendanceLog.OvertimeHour2 > 0)
-                                        lTime.Add("Overtime Hour 2 : " + attendanceLog.OvertimeHour2.ToString());
-                                    if (attendanceLog.OvertimeHour3 > 0)
-                                        lTime.Add("Overtime Hour 3 : " + attendanceLog.OvertimeHour3.ToString());
-                                    if (attendanceLog.OvertimeHour4 > 0)
-                                        lTime.Add("Overtime Hour 4 : " + attendanceLog.OvertimeHour4.ToString());
-                                    count = 0;
-                                    foreach (string time in lTime)
                                     {
-                                        int y = (e.CellBounds.Y) + count * 20;
-                                        e.Graphics.DrawString(time, e.CellStyle.Font, Brushes.Black, e.CellBounds.X + 5, y + 5, StringFormat.GenericDefault);
-                                        e.Graphics.DrawLine(gridLinePen, e.CellBounds.Left, y + 20, e.CellBounds.Right, y + 20);
-                                        count++;
+                                        lTime.Add("Overtime Hour 2 : " + attendanceLog.OvertimeHour2.ToString());
+                                        if (attendanceLog.OvertimeHour3 > 0)
+                                        {
+                                            lTime.Add("Overtime Hour 3 : " + attendanceLog.OvertimeHour3.ToString());
+                                            if (attendanceLog.OvertimeHour4 > 0)
+                                                lTime.Add("Overtime Hour 4 : " + attendanceLog.OvertimeHour4.ToString());
+                                        }
+
                                     }
+                                }
+                                count = 0;
+                                foreach (string time in lTime)
+                                {
+                                    int y = (e.CellBounds.Y) + count * 20;
+                                    e.Graphics.DrawString(time, e.CellStyle.Font, Brushes.Black, e.CellBounds.X + 5, y + 5, StringFormat.GenericDefault);
+                                    e.Graphics.DrawLine(gridLinePen, e.CellBounds.Left, y + 20, e.CellBounds.Right, y + 20);
+                                    count++;
+                                }
 
-                                    if (lTime.Count > 0)
-                                        dgvAttendanceReport.Rows[e.RowIndex].Height = lTime.Count * 20;
+                                if (lTime.Count > 0)
+                                {
+                                    dgvAttendanceReport.Rows[e.RowIndex].Height = lTime.Count * 20;
+                                }
 
-                                    break;
-                                case 5:
-                                    break;
-                            }
-                            e.Handled = true;
+                                break;
+
+                            case 5:
+                                int c = 0;
+                                if (attendanceLog.OvertimeHour1 > 0)
+                                {
+                                    c++;
+                                    if (attendanceLog.OvertimeHour2 > 0)
+                                    {
+                                        c++;
+                                        if (attendanceLog.OvertimeHour3 > 0)
+                                        {
+                                            c++;
+                                            if (attendanceLog.OvertimeHour4 > 0)
+                                                c++;
+                                        }
+                                    }
+                                }
+                                float fx = e.CellBounds.Left + 5;
+                                float fy = e.CellBounds.Y + c * 10;
+
+                                float regWidth = 60;
+                                double regHour = attendanceLog.RegularHour;
+                                double workHour = attendanceLog.WorkingHour;
+                                double overHour = attendanceLog.OvertimeHour1 + attendanceLog.OvertimeHour1 + attendanceLog.OvertimeHour1 + attendanceLog.OvertimeHour4;
+
+                                float fWidth = Convert.ToSingle(regWidth * workHour / regHour);
+                                float fOverWidth = Convert.ToSingle(regWidth * overHour / regHour);
+
+                                e.Graphics.DrawRectangle(gridLinePen, fx, fy, regWidth, 18);
+                                e.Graphics.FillRectangle(greenColorBrush, fx, fy, fWidth, 18);
+                                e.Graphics.DrawString(workHour.ToString() + " hrs", e.CellStyle.Font, Brushes.Black, fx + 5, fy + 4, StringFormat.GenericDefault);
+                                if (fOverWidth > 0)
+                                {
+                                    e.Graphics.DrawRectangle(gridLinePen, fx + fWidth, fy, fOverWidth, 18);
+                                    e.Graphics.FillRectangle(redColorBrush, fx + fWidth, fy, fOverWidth, 18);
+                                    e.Graphics.DrawString(overHour.ToString() + " hrs", e.CellStyle.Font, Brushes.Black, fx + fWidth + 5, fy + 4, StringFormat.GenericDefault);
+                                }
+                                break;
                         }
+                        e.Handled = true;
                     }
                 }
             }
@@ -202,4 +248,5 @@ namespace FaceIDAppVBEta
 
     }
 }
+
 

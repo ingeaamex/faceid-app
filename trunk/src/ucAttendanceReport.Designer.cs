@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label5 = new System.Windows.Forms.Label();
             this.cbxDepartment = new System.Windows.Forms.ComboBox();
             this.cbxCompany = new System.Windows.Forms.ComboBox();
@@ -41,12 +41,12 @@
             this.dtpAttendanceFrom = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.dgvAttendanceReport = new System.Windows.Forms.DataGridView();
-            this.EmployeeNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EmployeeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AttendanceDetail = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TotalHours = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Chart = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TotalHours = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AttendanceDetail = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EmployeeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EmployeeNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAttendanceReport)).BeginInit();
             this.SuspendLayout();
             // 
@@ -173,13 +173,35 @@
             this.dgvAttendanceReport.TabIndex = 28;
             this.dgvAttendanceReport.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvAttendanceReport_CellPainting);
             // 
-            // EmployeeNumber
+            // Chart
             // 
-            this.EmployeeNumber.DataPropertyName = "EmployeeNumber";
-            this.EmployeeNumber.HeaderText = "Employee Number";
-            this.EmployeeNumber.MinimumWidth = 10;
-            this.EmployeeNumber.Name = "EmployeeNumber";
-            this.EmployeeNumber.ReadOnly = true;
+            this.Chart.HeaderText = "Chart";
+            this.Chart.Name = "Chart";
+            this.Chart.ReadOnly = true;
+            this.Chart.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // TotalHours
+            // 
+            this.TotalHours.DataPropertyName = "TotalHour";
+            this.TotalHours.HeaderText = "Total of Hours";
+            this.TotalHours.Name = "TotalHours";
+            this.TotalHours.ReadOnly = true;
+            // 
+            // AttendanceDetail
+            // 
+            this.AttendanceDetail.HeaderText = "Attendance Detail";
+            this.AttendanceDetail.Name = "AttendanceDetail";
+            this.AttendanceDetail.ReadOnly = true;
+            this.AttendanceDetail.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Date
+            // 
+            this.Date.DataPropertyName = "WorkFrom";
+            dataGridViewCellStyle3.Format = "d MMM yyyy";
+            this.Date.DefaultCellStyle = dataGridViewCellStyle3;
+            this.Date.HeaderText = "Date";
+            this.Date.Name = "Date";
+            this.Date.ReadOnly = true;
             // 
             // EmployeeName
             // 
@@ -189,35 +211,13 @@
             this.EmployeeName.Name = "EmployeeName";
             this.EmployeeName.ReadOnly = true;
             // 
-            // Date
+            // EmployeeNumber
             // 
-            this.Date.DataPropertyName = "WorkFrom";
-            dataGridViewCellStyle1.Format = "d MMM yyyy";
-            this.Date.DefaultCellStyle = dataGridViewCellStyle1;
-            this.Date.HeaderText = "Date";
-            this.Date.Name = "Date";
-            this.Date.ReadOnly = true;
-            // 
-            // AttendanceDetail
-            // 
-            this.AttendanceDetail.HeaderText = "Attendance Detail";
-            this.AttendanceDetail.Name = "AttendanceDetail";
-            this.AttendanceDetail.ReadOnly = true;
-            this.AttendanceDetail.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // TotalHours
-            // 
-            this.TotalHours.DataPropertyName = "TotalHour";
-            this.TotalHours.HeaderText = "Total of Hours";
-            this.TotalHours.Name = "TotalHours";
-            this.TotalHours.ReadOnly = true;
-            // 
-            // Chart
-            // 
-            this.Chart.HeaderText = "Chart";
-            this.Chart.Name = "Chart";
-            this.Chart.ReadOnly = true;
-            this.Chart.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.EmployeeNumber.DataPropertyName = "EmployeeNumber";
+            this.EmployeeNumber.HeaderText = "Employee Number";
+            this.EmployeeNumber.MinimumWidth = 10;
+            this.EmployeeNumber.Name = "EmployeeNumber";
+            this.EmployeeNumber.ReadOnly = true;
             // 
             // ucAttendanceReport
             // 
@@ -256,12 +256,12 @@
         private System.Windows.Forms.DateTimePicker dtpAttendanceFrom;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView dgvAttendanceReport;
+        private System.Windows.Forms.DateTimePicker dtpAttedanceTo;
         private System.Windows.Forms.DataGridViewTextBoxColumn EmployeeNumber;
         private System.Windows.Forms.DataGridViewTextBoxColumn EmployeeName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Date;
         private System.Windows.Forms.DataGridViewTextBoxColumn AttendanceDetail;
         private System.Windows.Forms.DataGridViewTextBoxColumn TotalHours;
         private System.Windows.Forms.DataGridViewTextBoxColumn Chart;
-        private System.Windows.Forms.DateTimePicker dtpAttedanceTo;
     }
 }

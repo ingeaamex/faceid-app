@@ -46,7 +46,7 @@ namespace FaceIDAppVBEta
         private AttendanceRecord GetAttRecordUserInput()
         {
             AttendanceRecord attRecord = new AttendanceRecord();
-            int iEmployeeNumber = Convert.ToInt16(nudEmployeeNumber.Value);
+            int iEmployeeNumber = Convert.ToInt32(nudEmployeeNumber.Value);
 
             if (iEmployeeNumber == 0
                 || !dtCtrl.IsExistEmployeeNumber(iEmployeeNumber))
@@ -56,9 +56,9 @@ namespace FaceIDAppVBEta
             }
 
             DateTime dAttDate = (DateTime)dtpAttDate.Value;
-            int hour = Convert.ToInt16(nudAttHour.Value);
-            int minute = Convert.ToInt16(nudAttMin.Value);
-            int second = Convert.ToInt16(nudAttSec.Value);
+            int hour = Convert.ToInt32(nudAttHour.Value);
+            int minute = Convert.ToInt32(nudAttMin.Value);
+            int second = Convert.ToInt32(nudAttSec.Value);
             dAttDate = new DateTime(dAttDate.Year, dAttDate.Month, dAttDate.Day, hour, minute, second);
             string sNote = txtNote.Text;
 
