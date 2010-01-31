@@ -149,14 +149,13 @@ namespace FaceIDAppVBEta
                     return;
                 AttendanceLogReport attendanceLog = attendanceLogs[e.RowIndex];
                 using (Brush gridBrush = new SolidBrush(this.dgvAttendanceReport.GridColor), 
-                    backColorBrush = new SolidBrush(e.CellStyle.BackColor), 
+                    backColorBrush = new SolidBrush(e.CellStyle.BackColor),
+                    grayColorBrush = new SolidBrush(Color.LightGray),
                     redColorBrush= new SolidBrush(Color.Red),
-                    greenColorBrush = new SolidBrush(Color.Green))
+                    greenColorBrush = new SolidBrush(Color.LimeGreen))
                 {
                     using (Pen gridLinePen = new Pen(gridBrush))
                     {
-                        e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-                        e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
                         e.Graphics.FillRectangle(backColorBrush, e.CellBounds);
                         e.Graphics.DrawLine(gridLinePen, e.CellBounds.Left,
                             e.CellBounds.Bottom - 1, e.CellBounds.Right - 1,
@@ -189,15 +188,15 @@ namespace FaceIDAppVBEta
                                 count = 0;
                                 foreach (string time in lTime)
                                 {
-                                    int y = (e.CellBounds.Y) + count * 20;
+                                    int y = (e.CellBounds.Y) + count * 22;
                                     e.Graphics.DrawString(time, e.CellStyle.Font, Brushes.Black, e.CellBounds.X + 5, y + 5, StringFormat.GenericDefault);
-                                    e.Graphics.DrawLine(gridLinePen, e.CellBounds.Left, y + 20, e.CellBounds.Right, y + 20);
+                                    e.Graphics.DrawLine(gridLinePen, e.CellBounds.Left, y + 22, e.CellBounds.Right, y + 22);
                                     count++;
                                 }
 
                                 if (lTime.Count > 0)
                                 {
-                                    dgvAttendanceReport.Rows[e.RowIndex].Height = lTime.Count * 20;
+                                    dgvAttendanceReport.Rows[e.RowIndex].Height = lTime.Count * 22;
                                 }
 
                                 break;
@@ -219,7 +218,7 @@ namespace FaceIDAppVBEta
                                     }
                                 }
                                 float fx = e.CellBounds.Left + 5;
-                                float fy = e.CellBounds.Y + c * 10;
+                                float fy = e.CellBounds.Y + c * 11 + 2;
 
                                 float regWidth = 60;
                                 double regHour = attendanceLog.RegularHour;
@@ -229,14 +228,13 @@ namespace FaceIDAppVBEta
                                 float fWidth = Convert.ToSingle(regWidth * workHour / regHour);
                                 float fOverWidth = Convert.ToSingle(regWidth * overHour / regHour);
 
-                                e.Graphics.DrawRectangle(gridLinePen, fx, fy, regWidth, 18);
-                                e.Graphics.FillRectangle(greenColorBrush, fx, fy, fWidth, 18);
-                                e.Graphics.DrawString(workHour.ToString() + " hrs", e.CellStyle.Font, Brushes.Black, fx + 5, fy + 4, StringFormat.GenericDefault);
+                                e.Graphics.FillRectangle(grayColorBrush, fx, fy, regWidth, 16);
+                                e.Graphics.FillRectangle(greenColorBrush, fx, fy, fWidth, 16);
+                                e.Graphics.DrawString(workHour.ToString() + " hrs", e.CellStyle.Font, Brushes.Black, fx + 5, fy + 2, StringFormat.GenericDefault);
                                 if (fOverWidth > 0)
                                 {
-                                    e.Graphics.DrawRectangle(gridLinePen, fx + fWidth, fy, fOverWidth, 18);
-                                    e.Graphics.FillRectangle(redColorBrush, fx + fWidth, fy, fOverWidth, 18);
-                                    e.Graphics.DrawString(overHour.ToString() + " hrs", e.CellStyle.Font, Brushes.Black, fx + fWidth + 5, fy + 4, StringFormat.GenericDefault);
+                                    e.Graphics.FillRectangle(redColorBrush, fx + fWidth, fy, fOverWidth, 16);
+                                    e.Graphics.DrawString(overHour.ToString() + " hrs", e.CellStyle.Font, Brushes.Black, fx + fWidth + 5, fy + 2, StringFormat.GenericDefault);
                                 }
                                 break;
                         }

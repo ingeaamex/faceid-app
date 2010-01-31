@@ -3107,14 +3107,14 @@ namespace FaceIDAppVBEta.Data
                 {
                     uncalAttRc.RemoveAll(delegate(AttendanceRecord attRd)
                     {
-                        return attRd.EmployeeNumber == employeeNumber && attRd.Time >= dWorkingFrom && attRc.Time < dWorkingTo;
+                        return (attRd.EmployeeNumber == employeeNumber) && (attRd.Time.CompareTo(dWorkingFrom) >= 0) && (attRd.Time.CompareTo(dWorkingTo) == -1);
                     });
                 }
                 else
                 {
                     List<AttendanceRecord> subAttRecord = uncalAttRc.FindAll(delegate(AttendanceRecord attRd)
                     {
-                        return attRd.EmployeeNumber == employeeNumber && attRd.Time >= dWorkingFrom && attRc.Time < dWorkingTo;
+                        return (attRd.EmployeeNumber == employeeNumber) && (attRd.Time.CompareTo(dWorkingFrom) >= 0) && (attRd.Time.CompareTo(dWorkingTo) == -1);
                     });
                     if (subAttRecord.Count > 0)
                     {
@@ -3160,7 +3160,7 @@ namespace FaceIDAppVBEta.Data
 
                         uncalAttRc.RemoveAll(delegate(AttendanceRecord attRd)
                         {
-                            return attRd.EmployeeNumber == employeeNumber && attRd.Time >= dWorkingFrom && attRc.Time < dWorkingTo;
+                            return (attRd.EmployeeNumber == employeeNumber) && (attRd.Time.CompareTo(dWorkingFrom) >= 0) && (attRd.Time.CompareTo(dWorkingTo) == -1);
                         });
                     }
                 }
