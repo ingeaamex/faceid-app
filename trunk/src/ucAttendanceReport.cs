@@ -57,7 +57,7 @@ namespace FaceIDAppVBEta
         {
             try
             {
-                List<AttendanceLogReport> attendanceLogReportList = (List<AttendanceLogReport>)dgvAttendanceReport.DataSource;
+                List<AttendanceSummaryReport> attendanceSummaryReportList = (List<AttendanceSummaryReport>)dgvAttendanceReport.DataSource;
                 SaveFileDialog sfdMyobFile = new SaveFileDialog();
                 sfdMyobFile.Filter = "Text files (*.txt)|*.txt";
                 sfdMyobFile.FileName = DateTime.Now.Ticks.ToString();
@@ -67,10 +67,10 @@ namespace FaceIDAppVBEta
                     StreamWriter sWriter = new StreamWriter(sfdMyobFile.FileName, false);
 
                     sWriter.WriteLine("Emp. Co./Last Name,Emp. First Name,Payroll Category,Job,Cust. Co./Last Name,Cust. First Name,Notes,Date,Units");
-                    foreach (AttendanceLogReport attendanceLogReport in attendanceLogReportList)
+                    foreach (AttendanceSummaryReport attendanceSummaryReport in attendanceSummaryReportList)
                     {
 
-                        sWriter.WriteLine(string.Format("{0},Base Hourly,,,,,{1},{2}", attendanceLogReport.FullName, attendanceLogReport.WorkTo.ToString("MM/dd/yyyy"), attendanceLogReport.TotalHour));
+                        sWriter.WriteLine(string.Format("{0},Base Hourly,,,,,{1},{2}", attendanceSummaryReport.FullName, attendanceSummaryReport.DateLog.ToString("MM/dd/yyyy"), attendanceSummaryReport.TotalHour));
                     }
 
                     sWriter.Close();
@@ -197,7 +197,7 @@ namespace FaceIDAppVBEta
                         }
                         else if (e.ColumnIndex == 2)
                         {
-                            if (Convert.ToDateTime(e.Value).Equals(DateTime.MinValue) == false)
+                            if (Convert.ToDateTime(e.Value).Equals(Config.MinDate) == false)
                             {
                                 e.Graphics.DrawLine(gridLinePen, e.CellBounds.Left,
                                     e.CellBounds.Top - 1, e.CellBounds.Right - 1,

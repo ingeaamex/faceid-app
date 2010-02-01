@@ -102,10 +102,11 @@ namespace FaceIDAppVBEta
             Employee employee = _dtCtrl.GetEmployee(employeeID);
             if (employee == null)
             {
-                MessageBox.Show("error");
-                return;
+                MessageBox.Show("Employee not found or has been deleted.");
+                this.Close();
             }
-            this._employeeID = employeeID;
+            _employeeID = employeeID;
+            _employeeNumber = employee.EmployeeNumber;
 
             Department department = _dtCtrl.GetDepartment(employee.DepartmentID);
 
@@ -124,7 +125,10 @@ namespace FaceIDAppVBEta
             dtpBirthday.Value = employee.Birthday;
             dtpJoinedDate.Value = employee.HiredDate;
             dtpLeftDate.Value = employee.LeftDate;
-            _employeeNumber = employee.EmployeeNumber;
+
+            dtpBirthday.Checked = (employee.Birthday != Config.MinDate);
+            dtpJoinedDate.Checked = (employee.HiredDate != Config.MinDate);
+            dtpLeftDate.Checked = (employee.LeftDate != Config.MinDate);
 
             List<Terminal> terminals = _dtCtrl.GetTerminalListByEmployee(_employeeNumber);
             foreach (Terminal terminal in terminals)
@@ -214,23 +218,23 @@ namespace FaceIDAppVBEta
             DateTime dLeftDate = dtpLeftDate.Value;
 
             if (dtpBirthday.Checked == false)
-                dBirthday = DateTime.MinValue;
+                dBirthday = Config.MinDate;
 
             if (dtpJoinedDate.Checked == false)
-                dJoinedDate = DateTime.MinValue;
+                dJoinedDate = Config.MinDate;
 
             if (dtpLeftDate.Checked == false)
-                dLeftDate = DateTime.MinValue;
+                dLeftDate = Config.MinDate;
 
             bool isValid = true;
 
-            if (dLeftDate.Date.CompareTo(dJoinedDate.Date) != 1 && dLeftDate != DateTime.MinValue && dJoinedDate != DateTime.MinValue)
+            if (dLeftDate.Date.CompareTo(dJoinedDate.Date) != 1 && dLeftDate != Config.MinDate && dJoinedDate != Config.MinDate)
             {
                 MessageBox.Show("Left date < Joined date");
                 isValid = false;
             }
 
-            if (dJoinedDate.Date.CompareTo(dBirthday.Date) != 1 && dJoinedDate != DateTime.MinValue && dBirthday != DateTime.MinValue)
+            if (dJoinedDate.Date.CompareTo(dBirthday.Date) != 1 && dJoinedDate != Config.MinDate && dBirthday != Config.MinDate)
             {
                 MessageBox.Show("Joined date < birthday");
                 isValid = false;

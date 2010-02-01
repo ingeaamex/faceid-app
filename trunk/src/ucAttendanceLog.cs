@@ -177,7 +177,7 @@ namespace FaceIDAppVBEta
                         }
                         else if (e.ColumnIndex == 2)
                         {
-                            if (Convert.ToDateTime(e.Value).Equals(DateTime.MinValue) == false)
+                            if (Convert.ToDateTime(e.Value).Equals(Config.MinDate) == false)
                             {
                                 e.Graphics.DrawLine(gridLinePen, e.CellBounds.Left,
                                     e.CellBounds.Top - 1, e.CellBounds.Right - 1,

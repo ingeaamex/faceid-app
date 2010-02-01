@@ -184,5 +184,15 @@ namespace FaceIDAppVBEta.UnitTest
 
             DeleteEmployee();
         }
+
+        [Test]
+        public void TestGetEmployeeByEmployeeNumber()
+        {
+            AddEmployee();
+
+            Assert.AreEqual(emp.PayrollNumber, _dtCtrl.GetEmployeeByEmployeeNumber(emp.EmployeeNumber).PayrollNumber);
+
+            DeleteEmployee();
+        }
     }
 }
