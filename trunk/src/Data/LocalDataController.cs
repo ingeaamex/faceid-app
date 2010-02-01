@@ -11,9 +11,9 @@ namespace FaceIDAppVBEta.Data
 {
     public class LocalDataController : IDataController
     {
-        private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";
+        //private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";
 
-        //private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\vnanh\project\FaceID\db\FaceIDdb.mdb";
+        private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\vnanh\project\FaceID\db\FaceIDdb.mdb";
 
         //private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=FaceIDdb.mdb";
 
@@ -1769,6 +1769,9 @@ namespace FaceIDAppVBEta.Data
             List<AttendanceSummaryReport> attSummarys = new List<AttendanceSummaryReport>();
 
             List<AttendanceLogReport> attReports = GetAttendanceLogReportList(iCompany, iDepartment, beginDate, endDate);
+
+            if (attReports == null)
+                return null;
 
             AttendanceSummaryReport attSummary = null;
             
