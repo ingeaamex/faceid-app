@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label5 = new System.Windows.Forms.Label();
             this.cbxDepartment = new System.Windows.Forms.ComboBox();
             this.cbxCompany = new System.Windows.Forms.ComboBox();
@@ -44,18 +44,18 @@
             this.dtpAttendanceFrom = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.dgvAttendanceReport = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EmployeeNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EmployeeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AttendanceDetail = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TotalHours = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Chart = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAttendanceReport)).BeginInit();
             this.SuspendLayout();
             // 
@@ -116,7 +116,7 @@
             this.btnPayrollExport.Name = "btnPayrollExport";
             this.btnPayrollExport.Size = new System.Drawing.Size(168, 23);
             this.btnPayrollExport.TabIndex = 22;
-            this.btnPayrollExport.Text = "Print";
+            this.btnPayrollExport.Text = "Payroll";
             this.btnPayrollExport.UseVisualStyleBackColor = true;
             this.btnPayrollExport.Click += new System.EventHandler(this.btnPayrollExport_Click);
             // 
@@ -182,6 +182,82 @@
             this.dgvAttendanceReport.TabIndex = 28;
             this.dgvAttendanceReport.Scroll += new System.Windows.Forms.ScrollEventHandler(this.dgvAttendanceReport_Scroll);
             this.dgvAttendanceReport.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvAttendanceReport_CellPainting);
+            // 
+            // EmployeeNumber
+            // 
+            this.EmployeeNumber.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.EmployeeNumber.DataPropertyName = "EmployeeNumber";
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Transparent;
+            this.EmployeeNumber.DefaultCellStyle = dataGridViewCellStyle1;
+            this.EmployeeNumber.FillWeight = 120F;
+            this.EmployeeNumber.HeaderText = "Employee Number";
+            this.EmployeeNumber.MinimumWidth = 10;
+            this.EmployeeNumber.Name = "EmployeeNumber";
+            this.EmployeeNumber.ReadOnly = true;
+            this.EmployeeNumber.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.EmployeeNumber.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.EmployeeNumber.Width = 120;
+            // 
+            // EmployeeName
+            // 
+            this.EmployeeName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.EmployeeName.DataPropertyName = "FullName";
+            this.EmployeeName.FillWeight = 150F;
+            this.EmployeeName.HeaderText = "Employee Name";
+            this.EmployeeName.MinimumWidth = 10;
+            this.EmployeeName.Name = "EmployeeName";
+            this.EmployeeName.ReadOnly = true;
+            this.EmployeeName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.EmployeeName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.EmployeeName.Width = 150;
+            // 
+            // Date
+            // 
+            this.Date.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Date.DataPropertyName = "DateLog";
+            dataGridViewCellStyle2.Format = "d MMM yyyy";
+            this.Date.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Date.FillWeight = 96F;
+            this.Date.HeaderText = "Date";
+            this.Date.Name = "Date";
+            this.Date.ReadOnly = true;
+            this.Date.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Date.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Date.Width = 96;
+            // 
+            // AttendanceDetail
+            // 
+            this.AttendanceDetail.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.AttendanceDetail.DataPropertyName = "WorkingHour";
+            this.AttendanceDetail.FillWeight = 130F;
+            this.AttendanceDetail.HeaderText = "Attendance Detail";
+            this.AttendanceDetail.Name = "AttendanceDetail";
+            this.AttendanceDetail.ReadOnly = true;
+            this.AttendanceDetail.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.AttendanceDetail.Width = 130;
+            // 
+            // TotalHours
+            // 
+            this.TotalHours.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.TotalHours.DataPropertyName = "TotalHour";
+            this.TotalHours.FillWeight = 98F;
+            this.TotalHours.HeaderText = "Total of Hours";
+            this.TotalHours.Name = "TotalHours";
+            this.TotalHours.ReadOnly = true;
+            this.TotalHours.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.TotalHours.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.TotalHours.Width = 98;
+            // 
+            // Chart
+            // 
+            this.Chart.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Chart.DataPropertyName = "ChartData";
+            this.Chart.FillWeight = 188F;
+            this.Chart.HeaderText = "Chart";
+            this.Chart.Name = "Chart";
+            this.Chart.ReadOnly = true;
+            this.Chart.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Chart.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -259,82 +335,6 @@
             this.dataGridViewTextBoxColumn6.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewTextBoxColumn6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.dataGridViewTextBoxColumn6.Width = 161;
-            // 
-            // EmployeeNumber
-            // 
-            this.EmployeeNumber.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.EmployeeNumber.DataPropertyName = "EmployeeNumber";
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Transparent;
-            this.EmployeeNumber.DefaultCellStyle = dataGridViewCellStyle1;
-            this.EmployeeNumber.FillWeight = 120F;
-            this.EmployeeNumber.HeaderText = "Employee Number";
-            this.EmployeeNumber.MinimumWidth = 10;
-            this.EmployeeNumber.Name = "EmployeeNumber";
-            this.EmployeeNumber.ReadOnly = true;
-            this.EmployeeNumber.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.EmployeeNumber.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.EmployeeNumber.Width = 120;
-            // 
-            // EmployeeName
-            // 
-            this.EmployeeName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.EmployeeName.DataPropertyName = "FullName";
-            this.EmployeeName.FillWeight = 150F;
-            this.EmployeeName.HeaderText = "Employee Name";
-            this.EmployeeName.MinimumWidth = 10;
-            this.EmployeeName.Name = "EmployeeName";
-            this.EmployeeName.ReadOnly = true;
-            this.EmployeeName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.EmployeeName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.EmployeeName.Width = 150;
-            // 
-            // Date
-            // 
-            this.Date.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Date.DataPropertyName = "DateLog";
-            dataGridViewCellStyle2.Format = "d MMM yyyy";
-            this.Date.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Date.FillWeight = 96F;
-            this.Date.HeaderText = "Date";
-            this.Date.Name = "Date";
-            this.Date.ReadOnly = true;
-            this.Date.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Date.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Date.Width = 96;
-            // 
-            // AttendanceDetail
-            // 
-            this.AttendanceDetail.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.AttendanceDetail.DataPropertyName = "WorkingHour";
-            this.AttendanceDetail.FillWeight = 130F;
-            this.AttendanceDetail.HeaderText = "Attendance Detail";
-            this.AttendanceDetail.Name = "AttendanceDetail";
-            this.AttendanceDetail.ReadOnly = true;
-            this.AttendanceDetail.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.AttendanceDetail.Width = 130;
-            // 
-            // TotalHours
-            // 
-            this.TotalHours.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.TotalHours.DataPropertyName = "TotalHour";
-            this.TotalHours.FillWeight = 98F;
-            this.TotalHours.HeaderText = "Total of Hours";
-            this.TotalHours.Name = "TotalHours";
-            this.TotalHours.ReadOnly = true;
-            this.TotalHours.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.TotalHours.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.TotalHours.Width = 98;
-            // 
-            // Chart
-            // 
-            this.Chart.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Chart.DataPropertyName = "ChartData";
-            this.Chart.FillWeight = 188F;
-            this.Chart.HeaderText = "Chart";
-            this.Chart.Name = "Chart";
-            this.Chart.ReadOnly = true;
-            this.Chart.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Chart.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // ucAttendanceReport
             // 

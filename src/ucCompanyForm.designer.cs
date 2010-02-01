@@ -30,19 +30,19 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dgvCompany = new System.Windows.Forms.DataGridView();
-            this.tbCompany = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btEdit = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.btDelete = new System.Windows.Forms.DataGridViewButtonColumn();
             this.gBoxCompanyACtion = new System.Windows.Forms.GroupBox();
             this.btCancel = new System.Windows.Forms.Button();
             this.btSubmit = new System.Windows.Forms.Button();
             this.tbCompanyName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.errProviders = new System.Windows.Forms.ErrorProvider(this.components);
-            this.CompName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tbCompany = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ActionEdit = new System.Windows.Forms.DataGridViewButtonColumn();
             this.ActionDelete = new System.Windows.Forms.DataGridViewButtonColumn();
             this.label2 = new System.Windows.Forms.Label();
+            this.tbCompany = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btEdit = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.btDelete = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCompany)).BeginInit();
             this.gBoxCompanyACtion.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errProviders)).BeginInit();
@@ -60,34 +60,10 @@
             this.dgvCompany.Location = new System.Drawing.Point(36, 71);
             this.dgvCompany.Name = "dgvCompany";
             this.dgvCompany.ReadOnly = true;
+            this.dgvCompany.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCompany.Size = new System.Drawing.Size(772, 418);
             this.dgvCompany.TabIndex = 0;
             this.dgvCompany.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCompany_CellClick);
-            // 
-            // tbCompany
-            // 
-            this.tbCompany.DataPropertyName = "Name";
-            this.tbCompany.HeaderText = "Company Name";
-            this.tbCompany.Name = "tbCompany";
-            this.tbCompany.ReadOnly = true;
-            // 
-            // btEdit
-            // 
-            this.btEdit.DataPropertyName = "CompanyID";
-            this.btEdit.HeaderText = "Edit";
-            this.btEdit.Name = "btEdit";
-            this.btEdit.ReadOnly = true;
-            this.btEdit.Text = "Edit";
-            this.btEdit.UseColumnTextForButtonValue = true;
-            // 
-            // btDelete
-            // 
-            this.btDelete.DataPropertyName = "CompanyID";
-            this.btDelete.HeaderText = "Delete";
-            this.btDelete.Name = "btDelete";
-            this.btDelete.ReadOnly = true;
-            this.btDelete.Text = "Delete";
-            this.btDelete.UseColumnTextForButtonValue = true;
             // 
             // gBoxCompanyACtion
             // 
@@ -142,10 +118,10 @@
             // 
             this.errProviders.ContainerControl = this;
             // 
-            // CompName
+            // tbCompany
             // 
-            this.CompName.HeaderText = "Company Name";
-            this.CompName.Name = "Name";
+            this.tbCompany.HeaderText = "Company Name";
+            this.tbCompany.Name = "Name";
             // 
             // ActionEdit
             // 
@@ -163,6 +139,33 @@
             this.label2.Size = new System.Drawing.Size(116, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "Company Management";
+            // 
+            // tbCompany
+            // 
+            this.tbCompany.DataPropertyName = "Name";
+            this.tbCompany.HeaderText = "Company Name";
+            this.tbCompany.Name = "tbCompany";
+            this.tbCompany.ReadOnly = true;
+            // 
+            // btEdit
+            // 
+            this.btEdit.DataPropertyName = "CompanyID";
+            this.btEdit.HeaderText = "Edit";
+            this.btEdit.Name = "btEdit";
+            this.btEdit.ReadOnly = true;
+            this.btEdit.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.btEdit.Text = "Edit";
+            this.btEdit.UseColumnTextForButtonValue = true;
+            // 
+            // btDelete
+            // 
+            this.btDelete.DataPropertyName = "CompanyID";
+            this.btDelete.HeaderText = "Delete";
+            this.btDelete.Name = "btDelete";
+            this.btDelete.ReadOnly = true;
+            this.btDelete.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.btDelete.Text = "Delete";
+            this.btDelete.UseColumnTextForButtonValue = true;
             // 
             // ucCompanyForm
             // 
@@ -190,13 +193,13 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btCancel;
         private System.Windows.Forms.DataGridView dgvCompany;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tbCompany;
-        private System.Windows.Forms.DataGridViewButtonColumn btEdit;
-        private System.Windows.Forms.DataGridViewButtonColumn btDelete;
         private System.Windows.Forms.ErrorProvider errProviders;
         private System.Windows.Forms.DataGridViewTextBoxColumn CompName;
         private System.Windows.Forms.DataGridViewButtonColumn ActionEdit;
         private System.Windows.Forms.DataGridViewButtonColumn ActionDelete;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tbCompany;
+        private System.Windows.Forms.DataGridViewButtonColumn btEdit;
+        private System.Windows.Forms.DataGridViewButtonColumn btDelete;
     }
 }

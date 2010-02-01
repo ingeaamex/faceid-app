@@ -21,6 +21,8 @@ namespace FaceIDAppVBEta
         private Color _nonWorkdayColor = Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
         private Color _holidayColor = Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
 
+        List<int> _formattedMonth = new List<int>();
+
         public frmPreviewWorkingCalendar(int workingCalendarID)
         {
             InitializeComponent();
@@ -143,45 +145,38 @@ namespace FaceIDAppVBEta
                 //set calendar
                 _holidayList = _dtCtrl.GetHolidayListByWorkingCalendar(workingCalendarID);
 
-                WhatEverHere(DateTime.Today.Year, DateTime.Today.Month);
+                FormatCalendar(DateTime.Today.Year, DateTime.Today.Month);
             }
         }
 
-        List<int> formattedMonth = new List<int>();
 
-        private void WhatEverHere(int year, int month)
+        private void FormatCalendar(int year, int month)
         {
-            WhatEverHere(year, month, true);
+            FormatCalendar(year, month, true);
         }
 
-        private void WhatEverHere(int year, int month, bool loop)
+        private void FormatCalendar(int year, int month, bool loop)
         {
             int yearMonth = Convert.ToInt32(year + "" + month);
             int daysInMonth = DateTime.DaysInMonth(year, month);
 
-            if (formattedMonth.Contains(yearMonth) == false)
+            if (_formattedMonth.Contains(yearMonth) == false)
             {
                 for (int i = 1; i <= daysInMonth; i++)
                 {
                     DateTime date = new DateTime(year, month, i);
 
-                    for (int j = _holidayList.Count - 1; j >= 0; j--)
+                    
+
+                    if (IsHoliday(date))
                     {
-                        Holiday holiday = _holidayList[j];
+                        DateItem dateItem = new DateItem();
+                        dateItem.BackColor1 = _holidayColor;
+                        dateItem.Date = date;
 
-                        if (date.Month == holiday.Date.Month && date.Day == holiday.Date.Day)
-                        {
-                            _holidayList.RemoveAt(j);
-
-                            DateItem dateItem = new DateItem();
-                            dateItem.BackColor1 = _holidayColor;
-                            dateItem.Date = date;
-
-                            mclWorkingCalendar.AddDateInfo(dateItem);
-                        }
+                        mclWorkingCalendar.AddDateInfo(dateItem);
                     }
-
-                    if (IsNonWorkDay(date))
+                    else if (IsNonWorkDay(date))
                     {
                         DateItem dateItem = new DateItem();
                         dateItem.BackColor1 = _nonWorkdayColor;
@@ -191,20 +186,35 @@ namespace FaceIDAppVBEta
                     }
                 }
 
-                formattedMonth.Add(yearMonth);
+                _formattedMonth.Add(yearMonth);
             }
 
             if (loop)
             {
                 if (month == 12)
-                    WhatEverHere(year + 1, 1, false);
+                    FormatCalendar(year + 1, 1, false);
                 else
-                    WhatEverHere(year, month + 1, false);
+                    FormatCalendar(year, month + 1, false);
                 if (month == 1)
-                    WhatEverHere(year - 1, 12, false);
+                    FormatCalendar(year - 1, 12, false);
                 else
-                    WhatEverHere(year, month - 1, false);
+                    FormatCalendar(year, month - 1, false);
             }
+        }
+
+        private bool IsHoliday(DateTime date)
+        {
+            for (int i = _holidayList.Count - 1; i >= 0; i--)
+            {
+                Holiday holiday = _holidayList[i];
+
+                if (date.Month == holiday.Date.Month && date.Day == holiday.Date.Day)
+                {
+                    _holidayList.RemoveAt(i);
+                    return true;
+                }
+            }
+            return false;
         }
 
         private bool IsNonWorkDay(DateTime date)
@@ -249,7 +259,13 @@ namespace FaceIDAppVBEta
 
         private void mclWorkingCalendar_MonthChanged(object sender, Pabo.Calendar.MonthChangedEventArgs e)
         {
-            WhatEverHere(e.Year, e.Month);
+            FormatCalendar(e.Year, e.Month);
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            new frmAddUpdateWorkingCalendar(_workingCalendar.ID).Show();
+            this.Close();
         }
     }
 }

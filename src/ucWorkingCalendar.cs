@@ -119,8 +119,25 @@ namespace FaceIDAppVBEta
             }
         }
 
-        private void dgvWorkingCalendar_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void btnPreviewWorkingCalendar_Click(object sender, EventArgs e)
         {
+            try
+            {
+                int workingCalendarID = Convert.ToInt16(dgvWorkingCalendar.SelectedRows[0].Cells[0].Value);
+                if (workingCalendarID < 0)
+                {
+                    MessageBox.Show("No working calendar is selected.");
+                }
+                else
+                {
+                    new frmPreviewWorkingCalendar(workingCalendarID).ShowDialog(this);
+                    BindWorkingCalendar();
+                }
+            }
+            catch (Exception ex)
+            {
+                Util.ShowErrorMessage("There has been an error: " + ex.Message + ". Please try again");
+            }
         }
     }
 }

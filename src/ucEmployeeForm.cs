@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using FaceIDAppVBEta.Data;
 using FaceIDAppVBEta.Class;
 using System.IO;
+using System.Collections;
 
 namespace FaceIDAppVBEta
 {
@@ -191,7 +192,37 @@ namespace FaceIDAppVBEta
 
                 e.FormattingApplied = true;
                 e.Value = terminalNames;
+            }
+            else if (e.ColumnIndex == dgvEmpl.Columns["WorkingCalendar"].Index)
+            {
+                int workingCalendarID = Convert.ToInt32(dgvEmpl[dgvEmpl.Columns["WorkingCalendarID"].Index, e.RowIndex].Value);
+                e.Value = GetWorkingCalendarName(workingCalendarID);
+            }
+        }
 
+        private Hashtable _htbWorkingCalendar = new Hashtable();
+
+        private string GetWorkingCalendarName(int workingCalendarID)
+        {
+            if(workingCalendarID <= 0)
+                return "";
+
+            if (_htbWorkingCalendar.Contains(workingCalendarID))
+            {
+                return _htbWorkingCalendar[workingCalendarID].ToString();
+            }
+            else
+            {
+                WorkingCalendar workingCalendar = _dtCtrl.GetWorkingCalendar(workingCalendarID);
+                if(workingCalendar != null)
+                {
+                    _htbWorkingCalendar.Add(workingCalendarID, workingCalendar.Name);
+                    return workingCalendar.Name;
+                }
+                else
+                {
+                    throw new NullReferenceException();
+                }
             }
         }
 
@@ -356,10 +387,11 @@ namespace FaceIDAppVBEta
 
         private void dgvEmpl_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 3)
+            if (e.ColumnIndex == dgvEmpl.Columns["WorkingCalendar"].Index && e.RowIndex >= 0)
             {
                 List<Employee> employeeList = (List<Employee>)dgvEmpl.DataSource;
                 Employee employee = employeeList[e.RowIndex];
+
                 if (employee != null)
                 {
                     frmPreviewWorkingCalendar form = new frmPreviewWorkingCalendar(employee.WorkingCalendarID);
