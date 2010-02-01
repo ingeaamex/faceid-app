@@ -57,6 +57,9 @@ namespace FaceIDAppVBEta
         {
             try
             {
+                if (dgvAttendanceReport.DataSource == null)
+                    return;
+
                 List<AttendanceSummaryReport> attendanceSummaryReportList = (List<AttendanceSummaryReport>)dgvAttendanceReport.DataSource;
                 SaveFileDialog sfdMyobFile = new SaveFileDialog();
                 sfdMyobFile.Filter = "Text files (*.txt)|*.txt";
@@ -88,6 +91,9 @@ namespace FaceIDAppVBEta
         private void btnViewReport_Click(object sender, EventArgs e)
         {
             dtCtrl.CalculateAttendanceRecord();
+
+            btnExportToMYOB.Enabled = true;
+
             ShowReport();
         }
 
