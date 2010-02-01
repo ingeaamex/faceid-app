@@ -13,13 +13,30 @@ namespace FaceIDAppVBEta
 {
     public partial class frmAddUpdateAttendanceRecord : Form
     {
-        private IDataController dtCtrl;
-        private int iAttendanceRecordID = 0;
+        private IDataController _dtCtrl = LocalDataController.Instance;
+        private int _attRecordID = 0;
+        private string _seperator = " - ";
+
         public frmAddUpdateAttendanceRecord(int attRecord)
         {
             InitializeComponent();
-            dtCtrl = LocalDataController.Instance;
+
+            BindEmployeeNumber();
+
             SetState(attRecord);
+        }
+
+        private void BindEmployeeNumber()
+        {
+            List<Employee> employeeList = _dtCtrl.GetEmployeeList();
+
+            cbxEmployeeNumber.DisplayMember = "EmployeeNumber";
+            cbxEmployeeNumber.ValueMember = "EmployeeNumber";
+
+            cbxEmployeeNumber.DataSource = employeeList;
+
+            if (cbxEmployeeNumber.Items.Count > 0)
+                cbxEmployeeNumber.SelectedIndex = 0;
         }
 
         private void SetState(int attRecord)
@@ -30,6 +47,8 @@ namespace FaceIDAppVBEta
                 lbHeaderAction.Text = "Add New Attendance Record";
                 btnAdd.Visible = true;
                 btnUpdate.Visible = false;
+
+                InitEmployeeNameAutoComplete();
             }
             else//update
             {
@@ -37,29 +56,47 @@ namespace FaceIDAppVBEta
                 lbHeaderAction.Text = "Update Attendance Record";
                 btnAdd.Visible = false;
                 btnUpdate.Visible = true;
-                nudEmployeeNumber.Enabled = false;
+
+                cbxEmployeeNumber.Enabled = false;
                 txtEmployeeName.Enabled = false;
+
                 BindAttRecordData(attRecord);
+            }
+        }
+
+        private void InitEmployeeNameAutoComplete()
+        {
+            List<Employee> employeeList = _dtCtrl.GetEmployeeList();
+
+            txtEmployeeName.AutoCompleteCustomSource.Clear();
+
+            foreach (Employee employee in employeeList)
+            {
+                txtEmployeeName.AutoCompleteCustomSource.Add(employee.FirstName + " " + employee.LastName.ToUpper() + _seperator + employee.EmployeeNumber);
+                txtEmployeeName.AutoCompleteCustomSource.Add(employee.LastName.ToUpper() + " " + employee.FirstName + _seperator + employee.EmployeeNumber);
+                txtEmployeeName.AutoCompleteCustomSource.Add(employee.EmployeeNumber + _seperator + employee.FirstName + " " + employee.LastName.ToUpper());
             }
         }
 
         private AttendanceRecord GetAttRecordUserInput()
         {
             AttendanceRecord attRecord = new AttendanceRecord();
-            int iEmployeeNumber = Convert.ToInt32(nudEmployeeNumber.Value);
+            int iEmployeeNumber = 0;
 
-            if (iEmployeeNumber == 0
-                || !dtCtrl.IsExistEmployeeNumber(iEmployeeNumber))
+            try
             {
-                errProviders.SetError(nudEmployeeNumber, "Employee number does not exist");
+                iEmployeeNumber = Convert.ToInt32(cbxEmployeeNumber.SelectedText);
+            }
+            catch
+            {
+                errProviders.SetError(cbxEmployeeNumber, "Employee number is invalid.");
                 return null;
             }
 
             DateTime dAttDate = (DateTime)dtpAttDate.Value;
-            int hour = Convert.ToInt32(nudAttHour.Value);
-            int minute = Convert.ToInt32(nudAttMin.Value);
-            int second = Convert.ToInt32(nudAttSec.Value);
-            dAttDate = new DateTime(dAttDate.Year, dAttDate.Month, dAttDate.Day, hour, minute, second);
+            DateTime dAttTime = (DateTime)dtpAttTime.Value;
+
+            dAttDate = new DateTime(dAttDate.Year, dAttDate.Month, dAttDate.Day, dAttTime.Hour, dAttTime.Minute, dAttTime.Second);
             string sNote = txtNote.Text;
 
             attRecord.EmployeeNumber = iEmployeeNumber;
@@ -70,15 +107,28 @@ namespace FaceIDAppVBEta
 
         private void BindAttRecordData(int attRecord)
         {
-            iAttendanceRecordID = attRecord;
-            AttendanceRecord attendanceRecord = dtCtrl.GetAttendanceRecord(attRecord);
-            nudEmployeeNumber.Value = attendanceRecord.EmployeeNumber;
+            _attRecordID = attRecord;
+
+            AttendanceRecord attendanceRecord = _dtCtrl.GetAttendanceRecord(attRecord);
+
+            if (attendanceRecord == null)
+            {
+                //TODO
+            }
+
+            Employee employee = _dtCtrl.GetEmployeeByEmployeeNumber(attendanceRecord.EmployeeNumber);
+
+            if (employee == null)
+            {
+                //TODO
+            }
+
+            cbxEmployeeNumber.SelectedIndex = cbxEmployeeNumber.FindString(employee.ToString());
+            txtEmployeeName.Text = employee.FirstName + " " + employee.LastName.ToUpper() + _seperator + employee.EmployeeNumber;
+
             txtNote.Text = attendanceRecord.Note;
-            DateTime dt = attendanceRecord.Time;
-            dtpAttDate.Value = dt;
-            nudAttHour.Value = dt.Hour;
-            nudAttMin.Value = dt.Minute;
-            nudAttSec.Value = dt.Second;
+            dtpAttDate.Value = attendanceRecord.Time;
+            dtpAttTime.Value = attendanceRecord.Time;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -88,7 +138,7 @@ namespace FaceIDAppVBEta
                 return;
 
             attRecord.PhotoData = "";
-            bool ors = dtCtrl.AddAttendanceRecord(attRecord) > 0;
+            bool ors = _dtCtrl.AddAttendanceRecord(attRecord) > 0;
             MessageBox.Show(ors ? "successful" : "error");
             if (ors)
             {
@@ -110,12 +160,13 @@ namespace FaceIDAppVBEta
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             AttendanceRecord attRecord = GetAttRecordUserInput();
+
             if (attRecord == null)
                 return;
 
-            attRecord.ID = iAttendanceRecordID;
+            attRecord.ID = _attRecordID;
 
-            bool ors = dtCtrl.UpdateAttendanceRecord(attRecord);
+            bool ors = _dtCtrl.UpdateAttendanceRecord(attRecord);
             MessageBox.Show(ors ? "successful" : "error");
             if (ors)
             {
@@ -129,9 +180,52 @@ namespace FaceIDAppVBEta
             this.Close();
         }
 
-        private void txtEmployeeName_TextChanged(object sender, EventArgs e)
+        private void cbxEmployeeNumber_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //txtEmployeeName.Text;
+            try{
+                int employeeNumber = Convert.ToInt32(cbxEmployeeNumber.SelectedValue);
+            Employee employee = _dtCtrl.GetEmployeeByEmployeeNumber(employeeNumber);
+
+            if (employee != null)
+            {
+                txtEmployeeName.Text = employee.FirstName + " " + employee.LastName;
+            }
+            else
+            {
+                //TODO
+            }
+            }
+            catch{}
+        }
+
+        private void txtEmployeeName_Leave(object sender, EventArgs e)
+        {
+            int iFrom, iTo, employeeNumber = 0;
+
+            iFrom = 0;
+            iTo = txtEmployeeName.Text.IndexOf(_seperator);
+
+            try
+            {
+                employeeNumber = Convert.ToInt32(txtEmployeeName.Text.Substring(iFrom, iTo - iFrom));
+            }
+            catch { }
+            
+            if (employeeNumber == 0)
+            {
+                iFrom = txtEmployeeName.Text.IndexOf(_seperator);
+                iFrom += _seperator.Length;
+
+                iTo = txtEmployeeName.Text.Length;
+
+                try
+                {
+                    employeeNumber = Convert.ToInt32(txtEmployeeName.Text.Substring(iFrom, iTo - iFrom));
+                }
+                catch { }
+            }
+
+            cbxEmployeeNumber.SelectedIndex = cbxEmployeeNumber.FindString(employeeNumber.ToString());
         }
     }
 }

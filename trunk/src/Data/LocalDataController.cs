@@ -11,11 +11,11 @@ namespace FaceIDAppVBEta.Data
 {
     public class LocalDataController : IDataController
     {
-        //private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";
+        private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";
 
         //private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\vnanh\project\FaceID\db\FaceIDdb.mdb";
 
-        private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=FaceIDdb.mdb";
+        //private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=FaceIDdb.mdb";
 
         private OleDbTransaction transaction;
         private static OleDbConnection dbConnection;
@@ -504,26 +504,22 @@ namespace FaceIDAppVBEta.Data
             if (odRdr.Read())
             {
                 employee = new Employee();
-                employee.Active = (bool)odRdr["Active"];
-                employee.Address = odRdr["Address"].ToString();
-                if (typeof(DBNull) != odRdr["Birthday"].GetType())
-                    employee.Birthday = (DateTime)odRdr["Birthday"];
-                employee.DepartmentID = (int)odRdr["DepartmentID"];
-                employee.EmployeeNumber = (int)odRdr["EmployeeNumber"];
-                employee.FirstName = odRdr["FirstName"].ToString();
-                if (typeof(DBNull) != odRdr["HiredDate"].GetType())
-                    employee.HiredDate = (DateTime)odRdr["HiredDate"];
-                employee.JobDescription = odRdr["JobDescription"].ToString();
-                employee.LastName = odRdr["LastName"].ToString();
-                if (typeof(DBNull) != odRdr["LeftDate"].GetType())
-                    employee.LeftDate = (DateTime)odRdr["LeftDate"];
+
                 employee.PayrollNumber = (int)odRdr["PayrollNumber"];
-                employee.PhoneNumber = odRdr["PhoneNumber"].ToString();
+                employee.EmployeeNumber = (int)odRdr["EmployeeNumber"];
+                employee.DepartmentID = (int)odRdr["DepartmentID"];
+                employee.FirstName = odRdr["FirstName"].ToString();
+                employee.LastName = odRdr["LastName"].ToString();
                 employee.WorkingCalendarID = (int)odRdr["WorkingCalendarID"];
-                if (typeof(DBNull) != odRdr["ActiveFrom"].GetType())
-                    employee.ActiveFrom = (DateTime)odRdr["ActiveFrom"];
-                if (typeof(DBNull) != odRdr["ActiveTo"].GetType())
-                    employee.ActiveTo = (DateTime)odRdr["ActiveTo"];
+                employee.HiredDate = odRdr["HiredDate"].GetType() != typeof(DBNull) ? Convert.ToDateTime(odRdr["HiredDate"]) : DateTime.MinValue;
+                employee.LeftDate = odRdr["LeftDate"].GetType() != typeof(DBNull) ? Convert.ToDateTime(odRdr["LeftDate"]) : DateTime.MinValue;
+                employee.Birthday = odRdr["Birthday"].GetType() != typeof(DBNull) ? Convert.ToDateTime(odRdr["Birthday"]) : DateTime.MinValue;
+                employee.JobDescription = odRdr["JobDescription"].ToString();
+                employee.PhoneNumber = odRdr["PhoneNumber"].ToString();
+                employee.Address = odRdr["Address"].ToString();
+                employee.Active = Convert.ToBoolean(odRdr["Active"]);
+                employee.ActiveFrom = odRdr["ActiveFrom"].GetType() != typeof(DBNull) ? Convert.ToDateTime(odRdr["ActiveFrom"]) : DateTime.MinValue;
+                employee.ActiveTo = odRdr["ActiveTo"].GetType() != typeof(DBNull) ? Convert.ToDateTime(odRdr["ActiveTo"]) : DateTime.MinValue;
                 employee.FaceData1 = odRdr["FaceData1"].ToString();
                 employee.FaceData2 = odRdr["FaceData2"].ToString();
                 employee.FaceData3 = odRdr["FaceData3"].ToString();
@@ -565,26 +561,22 @@ namespace FaceIDAppVBEta.Data
             while (odRdr.Read())
             {
                 employee = new Employee();
-                employee.Active = (bool)odRdr["Active"];
-                employee.Address = odRdr["Address"].ToString();
-                if (typeof(DBNull) != odRdr["Birthday"].GetType())
-                    employee.Birthday = (DateTime)odRdr["Birthday"];
-                employee.DepartmentID = (int)odRdr["DepartmentID"];
-                employee.EmployeeNumber = (int)odRdr["EmployeeNumber"];
-                employee.FirstName = odRdr["FirstName"].ToString();
-                if (typeof(DBNull) != odRdr["HiredDate"].GetType())
-                    employee.HiredDate = (DateTime)odRdr["HiredDate"];
-                employee.JobDescription = odRdr["JobDescription"].ToString();
-                employee.LastName = odRdr["LastName"].ToString();
-                if (typeof(DBNull) != odRdr["LeftDate"].GetType())
-                    employee.LeftDate = (DateTime)odRdr["LeftDate"];
+
                 employee.PayrollNumber = (int)odRdr["PayrollNumber"];
-                employee.PhoneNumber = odRdr["PhoneNumber"].ToString();
+                employee.EmployeeNumber = (int)odRdr["EmployeeNumber"];
+                employee.DepartmentID = (int)odRdr["DepartmentID"];
+                employee.FirstName = odRdr["FirstName"].ToString();
+                employee.LastName = odRdr["LastName"].ToString();
                 employee.WorkingCalendarID = (int)odRdr["WorkingCalendarID"];
-                if (typeof(DBNull) != odRdr["ActiveFrom"].GetType())
-                    employee.ActiveFrom = (DateTime)odRdr["ActiveFrom"];
-                if (typeof(DBNull) != odRdr["ActiveTo"].GetType())
-                    employee.ActiveTo = (DateTime)odRdr["ActiveTo"];
+                employee.HiredDate = odRdr["HiredDate"].GetType() != typeof(DBNull) ? Convert.ToDateTime(odRdr["HiredDate"]) : DateTime.MinValue;
+                employee.LeftDate = odRdr["LeftDate"].GetType() != typeof(DBNull) ? Convert.ToDateTime(odRdr["LeftDate"]) : DateTime.MinValue;
+                employee.Birthday = odRdr["Birthday"].GetType() != typeof(DBNull) ? Convert.ToDateTime(odRdr["Birthday"]) : DateTime.MinValue;
+                employee.JobDescription = odRdr["JobDescription"].ToString();
+                employee.PhoneNumber = odRdr["PhoneNumber"].ToString();
+                employee.Address = odRdr["Address"].ToString();
+                employee.Active = Convert.ToBoolean(odRdr["Active"]);
+                employee.ActiveFrom = odRdr["ActiveFrom"].GetType() != typeof(DBNull) ? Convert.ToDateTime(odRdr["ActiveFrom"]) : DateTime.MinValue;
+                employee.ActiveTo = odRdr["ActiveTo"].GetType() != typeof(DBNull) ? Convert.ToDateTime(odRdr["ActiveTo"]) : DateTime.MinValue;
                 employee.FaceData1 = odRdr["FaceData1"].ToString();
                 employee.FaceData2 = odRdr["FaceData2"].ToString();
                 employee.FaceData3 = odRdr["FaceData3"].ToString();
@@ -3523,6 +3515,54 @@ namespace FaceIDAppVBEta.Data
         {
             OleDbCommand odCom1 = BuildDelCmd("UncalculatedAttendanceRecord", "1=1");
             return odCom1.ExecuteNonQuery() > 0 ? true : false;
+        }
+
+        public Employee GetEmployeeByEmployeeNumber(int employeeNumber)
+        {
+            OleDbCommand odCom = BuildSelectCmd("Employee", "*", "EmployeeNumber=@EmployeeNumber AND Active=TRUE", "@ID", employeeNumber);
+            OleDbDataReader odRdr = odCom.ExecuteReader();
+
+            Employee employee = null;
+            if (odRdr.Read())
+            {
+                employee = new Employee();
+
+                employee.PayrollNumber = (int)odRdr["PayrollNumber"];
+                employee.EmployeeNumber = (int)odRdr["EmployeeNumber"];
+                employee.DepartmentID = (int)odRdr["DepartmentID"];
+                employee.FirstName = odRdr["FirstName"].ToString();
+                employee.LastName = odRdr["LastName"].ToString();
+                employee.WorkingCalendarID = (int)odRdr["WorkingCalendarID"];
+                employee.HiredDate = odRdr["HiredDate"].GetType() != typeof(DBNull) ? Convert.ToDateTime(odRdr["HiredDate"]) : DateTime.MinValue;
+                employee.LeftDate = odRdr["LeftDate"].GetType() != typeof(DBNull) ? Convert.ToDateTime(odRdr["LeftDate"]) : DateTime.MinValue;
+                employee.Birthday = odRdr["Birthday"].GetType() != typeof(DBNull) ? Convert.ToDateTime(odRdr["Birthday"]) : DateTime.MinValue;
+                employee.JobDescription = odRdr["JobDescription"].ToString();
+                employee.PhoneNumber = odRdr["PhoneNumber"].ToString();
+                employee.Address = odRdr["Address"].ToString();
+                employee.Active = Convert.ToBoolean(odRdr["Active"]);
+                employee.ActiveFrom = odRdr["ActiveFrom"].GetType() != typeof(DBNull) ? Convert.ToDateTime(odRdr["ActiveFrom"]) : DateTime.MinValue;
+                employee.ActiveTo = odRdr["ActiveTo"].GetType() != typeof(DBNull) ? Convert.ToDateTime(odRdr["ActiveTo"]) : DateTime.MinValue;
+                employee.FaceData1 = odRdr["FaceData1"].ToString();
+                employee.FaceData2 = odRdr["FaceData2"].ToString();
+                employee.FaceData3 = odRdr["FaceData3"].ToString();
+                employee.FaceData4 = odRdr["FaceData4"].ToString();
+                employee.FaceData5 = odRdr["FaceData5"].ToString();
+                employee.FaceData6 = odRdr["FaceData6"].ToString();
+                employee.FaceData7 = odRdr["FaceData7"].ToString();
+                employee.FaceData8 = odRdr["FaceData8"].ToString();
+                employee.FaceData9 = odRdr["FaceData9"].ToString();
+                employee.FaceData10 = odRdr["FaceData10"].ToString();
+                employee.FaceData11 = odRdr["FaceData11"].ToString();
+                employee.FaceData12 = odRdr["FaceData12"].ToString();
+                employee.FaceData13 = odRdr["FaceData13"].ToString();
+                employee.FaceData14 = odRdr["FaceData14"].ToString();
+                employee.FaceData15 = odRdr["FaceData15"].ToString();
+                employee.FaceData16 = odRdr["FaceData16"].ToString();
+                employee.FaceData17 = odRdr["FaceData17"].ToString();
+                employee.FaceData18 = odRdr["FaceData18"].ToString();
+            }
+            odRdr.Close();
+            return employee;
         }
 
         #endregion

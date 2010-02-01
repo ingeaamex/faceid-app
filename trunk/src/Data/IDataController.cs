@@ -68,6 +68,8 @@ namespace FaceIDAppVBEta.Data
 
         List<Employee> GetEmployeeListByTerminal(int terminalID);
 
+        Employee GetEmployeeByEmployeeNumber(int employeeNumber);
+
         #endregion Employee
 
         #region Terminal
