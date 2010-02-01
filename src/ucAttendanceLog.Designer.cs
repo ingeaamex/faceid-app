@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label2 = new System.Windows.Forms.Label();
             this.dtpAttendanceFrom = new System.Windows.Forms.DateTimePicker();
             this.dtpAttedanceTo = new System.Windows.Forms.DateTimePicker();
@@ -74,22 +74,24 @@
             // 
             // dtpAttendanceFrom
             // 
-            this.dtpAttendanceFrom.Location = new System.Drawing.Point(50, 49);
+            this.dtpAttendanceFrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpAttendanceFrom.Location = new System.Drawing.Point(63, 49);
             this.dtpAttendanceFrom.Name = "dtpAttendanceFrom";
-            this.dtpAttendanceFrom.Size = new System.Drawing.Size(200, 20);
+            this.dtpAttendanceFrom.Size = new System.Drawing.Size(121, 20);
             this.dtpAttendanceFrom.TabIndex = 3;
             // 
             // dtpAttedanceTo
             // 
-            this.dtpAttedanceTo.Location = new System.Drawing.Point(304, 49);
+            this.dtpAttedanceTo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpAttedanceTo.Location = new System.Drawing.Point(264, 49);
             this.dtpAttedanceTo.Name = "dtpAttedanceTo";
-            this.dtpAttedanceTo.Size = new System.Drawing.Size(200, 20);
+            this.dtpAttedanceTo.Size = new System.Drawing.Size(121, 20);
             this.dtpAttedanceTo.TabIndex = 5;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(267, 53);
+            this.label3.Location = new System.Drawing.Point(193, 53);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(20, 13);
             this.label3.TabIndex = 4;
@@ -239,8 +241,8 @@
             // Date1
             // 
             this.Date1.DataPropertyName = "DateLog";
-            dataGridViewCellStyle25.Format = "d MMM yyyy";
-            this.Date1.DefaultCellStyle = dataGridViewCellStyle25;
+            dataGridViewCellStyle3.Format = "d MMM yyyy";
+            this.Date1.DefaultCellStyle = dataGridViewCellStyle3;
             this.Date1.HeaderText = "Date";
             this.Date1.Name = "Date1";
             this.Date1.ReadOnly = true;
@@ -284,8 +286,8 @@
             // 
             // dataGridViewTextBoxColumn3
             // 
-            dataGridViewCellStyle26.Format = "d MMM yyyy";
-            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle26;
+            dataGridViewCellStyle4.Format = "d MMM yyyy";
+            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridViewTextBoxColumn3.HeaderText = "Date";
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;

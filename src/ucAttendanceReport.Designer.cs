@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label5 = new System.Windows.Forms.Label();
             this.cbxDepartment = new System.Windows.Forms.ComboBox();
             this.cbxCompany = new System.Windows.Forms.ComboBox();
@@ -116,7 +116,7 @@
             this.btnPayrollExport.Name = "btnPayrollExport";
             this.btnPayrollExport.Size = new System.Drawing.Size(168, 23);
             this.btnPayrollExport.TabIndex = 22;
-            this.btnPayrollExport.Text = "Payroll";
+            this.btnPayrollExport.Text = "View Payroll";
             this.btnPayrollExport.UseVisualStyleBackColor = true;
             this.btnPayrollExport.Click += new System.EventHandler(this.btnPayrollExport_Click);
             // 
@@ -132,15 +132,16 @@
             // 
             // dtpAttedanceTo
             // 
-            this.dtpAttedanceTo.Location = new System.Drawing.Point(304, 49);
+            this.dtpAttedanceTo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpAttedanceTo.Location = new System.Drawing.Point(264, 49);
             this.dtpAttedanceTo.Name = "dtpAttedanceTo";
-            this.dtpAttedanceTo.Size = new System.Drawing.Size(200, 20);
+            this.dtpAttedanceTo.Size = new System.Drawing.Size(121, 20);
             this.dtpAttedanceTo.TabIndex = 18;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(267, 53);
+            this.label3.Location = new System.Drawing.Point(193, 53);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(20, 13);
             this.label3.TabIndex = 17;
@@ -148,9 +149,10 @@
             // 
             // dtpAttendanceFrom
             // 
-            this.dtpAttendanceFrom.Location = new System.Drawing.Point(50, 49);
+            this.dtpAttendanceFrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpAttendanceFrom.Location = new System.Drawing.Point(63, 49);
             this.dtpAttendanceFrom.Name = "dtpAttendanceFrom";
-            this.dtpAttendanceFrom.Size = new System.Drawing.Size(200, 20);
+            this.dtpAttendanceFrom.Size = new System.Drawing.Size(121, 20);
             this.dtpAttendanceFrom.TabIndex = 16;
             // 
             // label2
@@ -187,8 +189,8 @@
             // 
             this.EmployeeNumber.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.EmployeeNumber.DataPropertyName = "EmployeeNumber";
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Transparent;
-            this.EmployeeNumber.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.Transparent;
+            this.EmployeeNumber.DefaultCellStyle = dataGridViewCellStyle9;
             this.EmployeeNumber.FillWeight = 120F;
             this.EmployeeNumber.HeaderText = "Employee Number";
             this.EmployeeNumber.MinimumWidth = 10;
@@ -215,8 +217,8 @@
             // 
             this.Date.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.Date.DataPropertyName = "DateLog";
-            dataGridViewCellStyle2.Format = "d MMM yyyy";
-            this.Date.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle10.Format = "d MMM yyyy";
+            this.Date.DefaultCellStyle = dataGridViewCellStyle10;
             this.Date.FillWeight = 96F;
             this.Date.HeaderText = "Date";
             this.Date.Name = "Date";
@@ -263,8 +265,8 @@
             // 
             this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.dataGridViewTextBoxColumn1.DataPropertyName = "EmployeeNumber";
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Transparent;
-            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.Transparent;
+            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle11;
             this.dataGridViewTextBoxColumn1.FillWeight = 120F;
             this.dataGridViewTextBoxColumn1.HeaderText = "Employee Number";
             this.dataGridViewTextBoxColumn1.MinimumWidth = 10;
@@ -291,8 +293,8 @@
             // 
             this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.dataGridViewTextBoxColumn3.DataPropertyName = "WorkFrom";
-            dataGridViewCellStyle4.Format = "d MMM yyyy";
-            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle12.Format = "d MMM yyyy";
+            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle12;
             this.dataGridViewTextBoxColumn3.FillWeight = 96F;
             this.dataGridViewTextBoxColumn3.HeaderText = "Date";
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";

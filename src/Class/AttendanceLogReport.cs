@@ -30,7 +30,7 @@ namespace FaceIDAppVBEta.Class
         public string AttendanceRecordIDList { get; set; }
     }
 
-    public class AttendanceSummaryReport
+    public class AttendanceSummaryReport : MarshalByRefObject
     {
         private double _totalHour = -1;
 

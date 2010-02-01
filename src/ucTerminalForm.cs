@@ -181,14 +181,14 @@ namespace FaceIDAppVBEta
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            object oId = dgvTerminal.Rows[_cellContext.X].Cells[dgvTerminal.Columns["TerminalID"].Index].Value;
+            int terminalID = Convert.ToInt16(dgvTerminal.Rows[_cellContext.X].Cells[dgvTerminal.Columns["TerminalID"].Index].Value);
 
-            DialogResult dlogRs = MessageBox.Show(Form.ActiveForm, "Are you sure?", "Confirm", MessageBoxButtons.YesNo);
-            if (dlogRs.ToString().Equals("Yes"))
+            if (Util.Confirm("Are you sure?"))
             {
                 _dtCtrl.BeginTransaction();
-                bool brs1 = _dtCtrl.DeleteTerminal((int)oId);
-                bool brs2 = _dtCtrl.DeleteEmployeeTerminal((int)oId);
+
+                bool brs1 = _dtCtrl.DeleteTerminal(terminalID);
+                bool brs2 = _dtCtrl.DeleteEmployeeTerminal(terminalID);
                 if (brs1 && brs2)
                 {
                     _dtCtrl.CommitTransaction();
