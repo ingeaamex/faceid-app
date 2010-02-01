@@ -22,6 +22,7 @@ namespace FaceIDAppVBEta
         {
             InitializeComponent();
             BindCompany();
+            
         }
 
         private void btView_Click(object sender, EventArgs e)
@@ -349,6 +350,20 @@ namespace FaceIDAppVBEta
                 finally
                 {
                     sWrite.Close();
+                }
+            }
+        }
+
+        private void dgvEmpl_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 3)
+            {
+                List<Employee> employeeList = (List<Employee>)dgvEmpl.DataSource;
+                Employee employee = employeeList[e.RowIndex];
+                if (employee != null)
+                {
+                    frmPreviewWorkingCalendar form = new frmPreviewWorkingCalendar(employee.WorkingCalendarID);
+                    form.ShowDialog(this);
                 }
             }
         }
