@@ -97,23 +97,26 @@ namespace FaceIDAppVBEta
 
         private void updateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int id = (int)dgvEmpl.Rows[_cellContext.X].Cells[4].Value;
+            int id = (int)dgvEmpl.Rows[_cellContext.X].Cells[dgvEmpl.Columns["PayrollNumber"].Index].Value;
             frmAddUpdateEmployee objForm = new frmAddUpdateEmployee(id);
             objForm.ShowDialog(this);
         }
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            object oId = dgvEmpl.Rows[_cellContext.X].Cells[4].Value;
-            //DialogResult dlogRs = MessageBox.Show(Form.ActiveForm, , "Confirm", MessageBoxButtons.YesNo);
+            object employeeID = dgvEmpl.Rows[_cellContext.X].Cells[dgvEmpl.Columns["PayrollNumber"].Index].Value;
 
             if (Util.Confirm("Are you sure?"))
             {
-                Employee employee = _dtCtrl.GetEmployee((int)oId);
+                Employee employee = _dtCtrl.GetEmployee((int)employeeID);
+
+                if (employee == null)
+                    throw new NullReferenceException("Employee not found or has been deleted");
+
                 _dtCtrl.BeginTransaction();
                 try
                 {
-                    _dtCtrl.DeleteEmployee((int)oId);
+                    _dtCtrl.DeleteEmployee((int)employeeID);
                     _dtCtrl.DeleteEmployeeTerminalByEmployee(employee.EmployeeNumber);
 
                     RemoveEmployeeFromTerminal(employee);

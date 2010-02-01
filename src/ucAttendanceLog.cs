@@ -209,5 +209,15 @@ namespace FaceIDAppVBEta
             }
         }
 
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSaveToFile_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

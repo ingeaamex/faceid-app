@@ -13,13 +13,15 @@ namespace FaceIDAppVBEta
 {
     public partial class ucTerminalForm : UserControl
     {
-        private Point cellContext;
-        private IDataController dtCtrl;
-        private int terminalID;
+        private Point _cellContext;
+        private IDataController _dtCtrl = LocalDataController.Instance;
+        private int _terminalID;
+
+        private ITerminalController _terCtrl = new TerminalController();
+
         public ucTerminalForm()
         {
             InitializeComponent();
-            dtCtrl = LocalDataController.Instance;
             SetState(0);
             LoadData();
         }
@@ -56,10 +58,10 @@ namespace FaceIDAppVBEta
             }
             else
             {
-                Terminal terminal = dtCtrl.GetTerminal(terminalID);
+                Terminal terminal = _dtCtrl.GetTerminal(terminalID);
                 if (terminal == null)
                     return;
-                this.terminalID = terminalID;
+                this._terminalID = terminalID;
                 tbTerminalName.Text = terminal.Name;
                 string[] ip = terminal.IPAddress.Split('.');
                 for (int i = 0; i < ip.Length;i++ )
@@ -77,8 +79,26 @@ namespace FaceIDAppVBEta
 
         private void LoadData()
         {
-            List<Terminal> terminals = dtCtrl.GetTerminalList();
-            dgvTerminal.DataSource = terminals;
+            List<Terminal> terminalList = _dtCtrl.GetTerminalList();
+
+            DataTable dtTerminal = new DataTable();
+            dtTerminal.Columns.Add("ID");
+            dtTerminal.Columns.Add("Name");
+            dtTerminal.Columns.Add("IPAddress");
+            dtTerminal.Columns.Add("Status");
+
+            foreach (Terminal terminal in terminalList)
+            {
+                DataRow dr = dtTerminal.NewRow();
+                dr["ID"] = terminal.ID;
+                dr["Name"] = terminal.Name;
+                dr["IPAddress"] = terminal.IPAddress;
+                dr["Status"] = ""; // _terCtrl.IsTerminalConnected(terminal) ? "Connected" : "Not Connected";
+
+                dtTerminal.Rows.Add(dr);
+            }
+
+            dgvTerminal.DataSource = dtTerminal;
         }
 
         private Terminal GetTerminalUserInput()
@@ -117,7 +137,7 @@ namespace FaceIDAppVBEta
             if (terminal == null)
                 return;
 
-            int id = dtCtrl.AddTerminal(terminal);
+            int id = _dtCtrl.AddTerminal(terminal);
 
             MessageBox.Show(id > 0 ? "successful" : "error");
 
@@ -135,9 +155,9 @@ namespace FaceIDAppVBEta
             if (terminal == null)
                 return;
 
-            terminal.ID = terminalID;
+            terminal.ID = _terminalID;
 
-            bool rs = dtCtrl.UpdateTerminal(terminal);
+            bool rs = _dtCtrl.UpdateTerminal(terminal);
             MessageBox.Show(rs ? "successful" : "error");
             if (rs)
             {
@@ -154,29 +174,29 @@ namespace FaceIDAppVBEta
 
         private void updateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int id = (int)dgvTerminal.Rows[cellContext.X].Cells[1].Value;
+            int id = (int)dgvTerminal.Rows[_cellContext.X].Cells[1].Value;
             BindTerminalData(id);
             SetState(id);
         }
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            object oId = dgvTerminal.Rows[cellContext.X].Cells[1].Value;
+            object oId = dgvTerminal.Rows[_cellContext.X].Cells[dgvTerminal.Columns["ID"].Index].Value;
             DialogResult dlogRs = MessageBox.Show(Form.ActiveForm, "Are you sure?", "Confirm", MessageBoxButtons.YesNo);
             if (dlogRs.ToString().Equals("Yes"))
             {
-                dtCtrl.BeginTransaction();
-                bool brs1 = dtCtrl.DeleteTerminal((int)oId);
-                bool brs2 = dtCtrl.DeleteEmployeeTerminal((int)oId);
+                _dtCtrl.BeginTransaction();
+                bool brs1 = _dtCtrl.DeleteTerminal((int)oId);
+                bool brs2 = _dtCtrl.DeleteEmployeeTerminal((int)oId);
                 if (brs1 && brs2)
                 {
-                    dtCtrl.CommitTransaction();
+                    _dtCtrl.CommitTransaction();
                     LoadData();
                     MessageBox.Show("successful");
                 }
                 else
                 {
-                    dtCtrl.RollbackTransaction();
+                    _dtCtrl.RollbackTransaction();
                     MessageBox.Show("error");
                 }
             }
@@ -184,7 +204,7 @@ namespace FaceIDAppVBEta
 
         private void dgvTerminal_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
-            cellContext = new Point(e.RowIndex, e.ColumnIndex);
+            _cellContext = new Point(e.RowIndex, e.ColumnIndex);
         }
     }
 }

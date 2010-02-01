@@ -194,7 +194,6 @@
         private System.Windows.Forms.Button btCancel;
         private System.Windows.Forms.DataGridView dgvCompany;
         private System.Windows.Forms.ErrorProvider errProviders;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CompName;
         private System.Windows.Forms.DataGridViewButtonColumn ActionEdit;
         private System.Windows.Forms.DataGridViewButtonColumn ActionDelete;
         private System.Windows.Forms.Label label2;
