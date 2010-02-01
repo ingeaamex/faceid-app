@@ -290,7 +290,10 @@ namespace FaceIDApp
         {
             DateTime minDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1, 0, 0, 0);
 
-            int maxSeconds = (DateTime.Today.Day - minDate.Day) * 24 * 60 * 60;
+            if (DateTime.Today.Day == 1)
+                minDate = minDate.AddDays(-30);
+
+            int maxSeconds = (DateTime.Today.DayOfYear - minDate.DayOfYear) * 24 * 60 * 60;
             if (maxSeconds == 0) maxSeconds = 30 * 24 * 60 * 60;
 
             return minDate.AddSeconds(_rand.Next(maxSeconds));
