@@ -81,11 +81,14 @@ namespace FaceIDAppVBEta
         private AttendanceRecord GetAttRecordUserInput()
         {
             AttendanceRecord attRecord = new AttendanceRecord();
-            int iEmployeeNumber = 0;
+            int employeeNumber = 0;
 
             try
             {
-                iEmployeeNumber = Convert.ToInt32(cbxEmployeeNumber.SelectedText);
+                employeeNumber = Convert.ToInt32(cbxEmployeeNumber.SelectedValue);
+
+                if (employeeNumber <= 0)
+                    throw new Exception();
             }
             catch
             {
@@ -99,9 +102,10 @@ namespace FaceIDAppVBEta
             dAttDate = new DateTime(dAttDate.Year, dAttDate.Month, dAttDate.Day, dAttTime.Hour, dAttTime.Minute, dAttTime.Second);
             string sNote = txtNote.Text;
 
-            attRecord.EmployeeNumber = iEmployeeNumber;
+            attRecord.EmployeeNumber = employeeNumber;
             attRecord.Note = sNote;
             attRecord.Time = dAttDate;
+
             return attRecord;
         }
 

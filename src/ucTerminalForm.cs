@@ -174,14 +174,15 @@ namespace FaceIDAppVBEta
 
         private void updateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int id = (int)dgvTerminal.Rows[_cellContext.X].Cells[1].Value;
+            int id = (int)dgvTerminal.Rows[_cellContext.X].Cells[dgvTerminal.Columns["TerminalID"].Index].Value;
             BindTerminalData(id);
             SetState(id);
         }
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            object oId = dgvTerminal.Rows[_cellContext.X].Cells[dgvTerminal.Columns["ID"].Index].Value;
+            object oId = dgvTerminal.Rows[_cellContext.X].Cells[dgvTerminal.Columns["TerminalID"].Index].Value;
+
             DialogResult dlogRs = MessageBox.Show(Form.ActiveForm, "Are you sure?", "Confirm", MessageBoxButtons.YesNo);
             if (dlogRs.ToString().Equals("Yes"))
             {

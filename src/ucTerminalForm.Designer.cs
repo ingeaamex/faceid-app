@@ -191,7 +191,7 @@
             this.TerminaleID.ContextMenuStrip = this.cMnSaction;
             this.TerminaleID.DataPropertyName = "ID";
             this.TerminaleID.HeaderText = "ID";
-            this.TerminaleID.Name = "TerminaleID";
+            this.TerminaleID.Name = "TerminalID";
             this.TerminaleID.ReadOnly = true;
             this.TerminaleID.Visible = false;
             // 

@@ -144,7 +144,7 @@
             this.btnCancel.Location = new System.Drawing.Point(203, 244);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 8;
+            this.btnCancel.TabIndex = 7;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -174,11 +174,12 @@
             // 
             // cbxEmployeeNumber
             // 
+            this.cbxEmployeeNumber.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxEmployeeNumber.FormattingEnabled = true;
             this.cbxEmployeeNumber.Location = new System.Drawing.Point(122, 48);
             this.cbxEmployeeNumber.Name = "cbxEmployeeNumber";
             this.cbxEmployeeNumber.Size = new System.Drawing.Size(120, 21);
-            this.cbxEmployeeNumber.TabIndex = 15;
+            this.cbxEmployeeNumber.TabIndex = 1;
             this.cbxEmployeeNumber.SelectedIndexChanged += new System.EventHandler(this.cbxEmployeeNumber_SelectedIndexChanged);
             // 
             // frmAddUpdateAttendanceRecord
