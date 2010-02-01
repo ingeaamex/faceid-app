@@ -33,9 +33,16 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvEmpl = new System.Windows.Forms.DataGridView();
+            this.EmployeeNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cMnSaction = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.EmployeeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.JobDesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PayrollNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WorkingCalendarID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WorkingCalendar = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.Terminal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btPrint = new System.Windows.Forms.Button();
             this.btNewEmpl = new System.Windows.Forms.Button();
             this.btView = new System.Windows.Forms.Button();
@@ -46,13 +53,7 @@
             this.btnGetEmployeeFromTerminal = new System.Windows.Forms.Button();
             this.btnSendEmployeeToTerminal = new System.Windows.Forms.Button();
             this.btnExportToFile = new System.Windows.Forms.Button();
-            this.EmployeeNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EmployeeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.JobDesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PayrollNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.WorkingCalendarID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.WorkingCalendar = new System.Windows.Forms.DataGridViewLinkColumn();
-            this.Terminal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnImportFromFile = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmpl)).BeginInit();
             this.cMnSaction.SuspendLayout();
             this.SuspendLayout();
@@ -91,6 +92,16 @@
             this.dgvEmpl.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmpl_CellMouseEnter);
             this.dgvEmpl.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmpl_CellContentClick);
             // 
+            // EmployeeNumber
+            // 
+            this.EmployeeNumber.ContextMenuStrip = this.cMnSaction;
+            this.EmployeeNumber.DataPropertyName = "EmployeeNumber";
+            dataGridViewCellStyle1.NullValue = null;
+            this.EmployeeNumber.DefaultCellStyle = dataGridViewCellStyle1;
+            this.EmployeeNumber.HeaderText = "EmployeeNumber";
+            this.EmployeeNumber.Name = "EmployeeNumber";
+            this.EmployeeNumber.ReadOnly = true;
+            // 
             // cMnSaction
             // 
             this.cMnSaction.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -113,11 +124,59 @@
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
+            // EmployeeName
+            // 
+            this.EmployeeName.ContextMenuStrip = this.cMnSaction;
+            dataGridViewCellStyle2.Format = "{0} {1}";
+            dataGridViewCellStyle2.NullValue = null;
+            this.EmployeeName.DefaultCellStyle = dataGridViewCellStyle2;
+            this.EmployeeName.HeaderText = "Name";
+            this.EmployeeName.Name = "EmployeeName";
+            this.EmployeeName.ReadOnly = true;
+            // 
+            // JobDesc
+            // 
+            this.JobDesc.ContextMenuStrip = this.cMnSaction;
+            this.JobDesc.DataPropertyName = "JobDescription";
+            this.JobDesc.HeaderText = "Job Description";
+            this.JobDesc.Name = "JobDesc";
+            this.JobDesc.ReadOnly = true;
+            // 
+            // PayrollNumber
+            // 
+            this.PayrollNumber.ContextMenuStrip = this.cMnSaction;
+            this.PayrollNumber.DataPropertyName = "PayrollNumber";
+            this.PayrollNumber.HeaderText = "Payroll Number";
+            this.PayrollNumber.Name = "PayrollNumber";
+            this.PayrollNumber.ReadOnly = true;
+            // 
+            // WorkingCalendarID
+            // 
+            this.WorkingCalendarID.DataPropertyName = "WorkingCalendarID";
+            this.WorkingCalendarID.HeaderText = "WorkingCalendarID";
+            this.WorkingCalendarID.Name = "WorkingCalendarID";
+            this.WorkingCalendarID.ReadOnly = true;
+            this.WorkingCalendarID.Visible = false;
+            // 
+            // WorkingCalendar
+            // 
+            this.WorkingCalendar.HeaderText = "WorkingCalendar";
+            this.WorkingCalendar.Name = "WorkingCalendar";
+            this.WorkingCalendar.ReadOnly = true;
+            // 
+            // Terminal
+            // 
+            this.Terminal.ContextMenuStrip = this.cMnSaction;
+            this.Terminal.DataPropertyName = "EmployeeNumber";
+            this.Terminal.HeaderText = "Terminal Registered";
+            this.Terminal.Name = "Terminal";
+            this.Terminal.ReadOnly = true;
+            // 
             // btPrint
             // 
             this.btPrint.Location = new System.Drawing.Point(36, 89);
             this.btPrint.Name = "btPrint";
-            this.btPrint.Size = new System.Drawing.Size(75, 23);
+            this.btPrint.Size = new System.Drawing.Size(51, 23);
             this.btPrint.TabIndex = 2;
             this.btPrint.Text = "Print";
             this.btPrint.UseVisualStyleBackColor = true;
@@ -209,74 +268,27 @@
             this.btnExportToFile.Enabled = false;
             this.btnExportToFile.Location = new System.Drawing.Point(639, 89);
             this.btnExportToFile.Name = "btnExportToFile";
-            this.btnExportToFile.Size = new System.Drawing.Size(75, 23);
+            this.btnExportToFile.Size = new System.Drawing.Size(105, 23);
             this.btnExportToFile.TabIndex = 11;
             this.btnExportToFile.Text = "Export to file";
             this.btnExportToFile.UseVisualStyleBackColor = true;
             this.btnExportToFile.Click += new System.EventHandler(this.btnExportToFile_Click);
             // 
-            // EmployeeNumber
+            // btnImportFromFile
             // 
-            this.EmployeeNumber.ContextMenuStrip = this.cMnSaction;
-            this.EmployeeNumber.DataPropertyName = "EmployeeNumber";
-            dataGridViewCellStyle1.NullValue = null;
-            this.EmployeeNumber.DefaultCellStyle = dataGridViewCellStyle1;
-            this.EmployeeNumber.HeaderText = "EmployeeNumber";
-            this.EmployeeNumber.Name = "EmployeeNumber";
-            this.EmployeeNumber.ReadOnly = true;
-            // 
-            // EmployeeName
-            // 
-            this.EmployeeName.ContextMenuStrip = this.cMnSaction;
-            dataGridViewCellStyle2.Format = "{0} {1}";
-            dataGridViewCellStyle2.NullValue = null;
-            this.EmployeeName.DefaultCellStyle = dataGridViewCellStyle2;
-            this.EmployeeName.HeaderText = "Name";
-            this.EmployeeName.Name = "EmployeeName";
-            this.EmployeeName.ReadOnly = true;
-            // 
-            // JobDesc
-            // 
-            this.JobDesc.ContextMenuStrip = this.cMnSaction;
-            this.JobDesc.DataPropertyName = "JobDescription";
-            this.JobDesc.HeaderText = "Job Description";
-            this.JobDesc.Name = "JobDesc";
-            this.JobDesc.ReadOnly = true;
-            // 
-            // PayrollNumber
-            // 
-            this.PayrollNumber.ContextMenuStrip = this.cMnSaction;
-            this.PayrollNumber.DataPropertyName = "PayrollNumber";
-            this.PayrollNumber.HeaderText = "Payroll Number";
-            this.PayrollNumber.Name = "PayrollNumber";
-            this.PayrollNumber.ReadOnly = true;
-            // 
-            // WorkingCalendarID
-            // 
-            this.WorkingCalendarID.DataPropertyName = "WorkingCalendarID";
-            this.WorkingCalendarID.HeaderText = "WorkingCalendarID";
-            this.WorkingCalendarID.Name = "WorkingCalendarID";
-            this.WorkingCalendarID.ReadOnly = true;
-            this.WorkingCalendarID.Visible = false;
-            // 
-            // WorkingCalendar
-            // 
-            this.WorkingCalendar.HeaderText = "WorkingCalendar";
-            this.WorkingCalendar.Name = "WorkingCalendar";
-            this.WorkingCalendar.ReadOnly = true;
-            // 
-            // Terminal
-            // 
-            this.Terminal.ContextMenuStrip = this.cMnSaction;
-            this.Terminal.DataPropertyName = "EmployeeNumber";
-            this.Terminal.HeaderText = "Terminal Registered";
-            this.Terminal.Name = "Terminal";
-            this.Terminal.ReadOnly = true;
+            this.btnImportFromFile.Location = new System.Drawing.Point(639, 60);
+            this.btnImportFromFile.Name = "btnImportFromFile";
+            this.btnImportFromFile.Size = new System.Drawing.Size(105, 23);
+            this.btnImportFromFile.TabIndex = 12;
+            this.btnImportFromFile.Text = "Import from file";
+            this.btnImportFromFile.UseVisualStyleBackColor = true;
+            this.btnImportFromFile.Click += new System.EventHandler(this.btnImportFromFile_Click);
             // 
             // ucEmployeeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnImportFromFile);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnExportToFile);
             this.Controls.Add(this.btnSendEmployeeToTerminal);
@@ -322,5 +334,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn WorkingCalendarID;
         private System.Windows.Forms.DataGridViewLinkColumn WorkingCalendar;
         private System.Windows.Forms.DataGridViewTextBoxColumn Terminal;
+        private System.Windows.Forms.Button btnImportFromFile;
     }
 }

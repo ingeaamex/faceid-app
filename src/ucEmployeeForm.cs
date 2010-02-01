@@ -402,5 +402,40 @@ namespace FaceIDAppVBEta
                 }
             }
         }
+
+        private void btnImportFromFile_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                OpenFileDialog ofdImport = new OpenFileDialog();
+                ofdImport.Filter = "Text files (*.txt)|*.txt";
+
+                if (ofdImport.ShowDialog() == DialogResult.OK)
+                {
+                    StreamReader sReader = new StreamReader(ofdImport.FileName);
+                    
+                    string line = "";
+                    List<Employee> employeeList = new List<Employee>();
+
+                    while ((line = sReader.ReadLine()) != null)
+                    {
+                        throw new NotImplementedException();
+
+                        Employee employee = new Employee();
+                        employeeList.Add(employee);
+                    }
+
+                    foreach (Employee employee in employeeList)
+                    {
+                        if (_dtCtrl.AddEmployee(employee, new List<Terminal>()) <= 0)
+                            throw new Exception("Can not import employee " + employee.EmployeeNumber);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Util.ShowErrorMessage("There has been an error: " + ex.Message + ". Please try again");
+            }
+        }
     }
 }

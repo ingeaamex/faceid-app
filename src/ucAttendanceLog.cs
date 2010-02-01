@@ -15,7 +15,7 @@ namespace FaceIDAppVBEta
     public partial class ucAttendanceLog : UserControl
     {
         private IDataController _dtCtrl;
-        private List<AttendanceLogRecord> attendanceLogs;
+        private List<AttendanceLogRecord> attendanceLogRecordList;
         private int editRecordId = 0;
 
         public ucAttendanceLog()
@@ -40,14 +40,20 @@ namespace FaceIDAppVBEta
             DateTime beginDate = dtpAttendanceFrom.Value;
             DateTime endDate = dtpAttedanceTo.Value.Date.AddHours(23).AddMinutes(59);
 
-            int iCompany = (int)cbxCompany.SelectedValue;
-            int iDepartment = -1;
+            int companyID = (int)cbxCompany.SelectedValue;
+            int departmentID = -1;
             if (cbxDepartment.Enabled)
-                iDepartment = (int)cbxDepartment.SelectedValue;
+                departmentID = (int)cbxDepartment.SelectedValue;
 
-            attendanceLogs = _dtCtrl.GetAttendanceLogRecordList(iCompany, iDepartment, beginDate, endDate);
+            attendanceLogRecordList = _dtCtrl.GetAttendanceLogRecordList(companyID, departmentID, beginDate, endDate);
+
+            if (attendanceLogRecordList.Count == 0)
+            {
+                MessageBox.Show("There's no records within the selected range. Please try again");
+            }
+
             dgvAttendanceLog.AutoGenerateColumns = false;
-            dgvAttendanceLog.DataSource = attendanceLogs;
+            dgvAttendanceLog.DataSource = attendanceLogRecordList;
         }
 
         private void btnAddNewAttendaceRecord_Click(object sender, EventArgs e)
@@ -116,7 +122,7 @@ namespace FaceIDAppVBEta
         private void dgvAttendanceLog_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex != -1)
-                editRecordId = attendanceLogs[e.RowIndex].ID;
+                editRecordId = attendanceLogRecordList[e.RowIndex].ID;
         }
 
         private void dgvAttendanceLog_Scroll(object sender, ScrollEventArgs e)
