@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace FaceIDAppVBEta.Data
 {
-    public class LocalDataController : IDataController
+    public class LocalDataController : MarshalByRefObject, IDataController
     {
         private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";
 
@@ -24,7 +24,7 @@ namespace FaceIDAppVBEta.Data
         private int timeBound = 60;
         private int validTimeBound = 0;
 
-        private LocalDataController() { }
+        public LocalDataController() { }
 
         public static LocalDataController Instance
         {
