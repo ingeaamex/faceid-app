@@ -41,7 +41,7 @@ namespace FaceIDAppVBEta
 
         private void RegisterService()
         {
-            Type registeredType = typeof(Service);
+            Type registeredType = typeof(LocalDataController);
             RemotingConfiguration.RegisterWellKnownServiceType(registeredType, "DataController", WellKnownObjectMode.Singleton);
         }
 
