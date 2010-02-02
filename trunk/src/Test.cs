@@ -288,10 +288,7 @@ namespace FaceIDApp
 
         private DateTime GetRandomTime()
         {
-            DateTime minDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1, 0, 0, 0);
-
-            if (DateTime.Today.Day == 1)
-                minDate = minDate.AddDays(-30);
+            DateTime minDate = DateTime.Now.AddDays(-30);
 
             int maxSeconds = (DateTime.Today.DayOfYear - minDate.DayOfYear) * 24 * 60 * 60;
             if (maxSeconds == 0) maxSeconds = 30 * 24 * 60 * 60;
