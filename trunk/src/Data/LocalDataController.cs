@@ -2953,6 +2953,8 @@ namespace FaceIDAppVBEta.Data
 
         public int AddHoliday(Holiday holiday)
         {
+            ConnectToDatabase();
+
             OleDbCommand odCom1 = BuildInsertCmd("Holiday",
                 new string[] { "Date"
                 ,"Description"

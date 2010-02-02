@@ -5,6 +5,14 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Runtime.Remoting.Channels;
+using FaceIDAppVBEta.Class;
+using System.Runtime.Remoting;
+using System.Runtime.Remoting.Channels.Tcp;
+using FaceIDAppVBEta.Data;
+using System.Collections;
+using System.Runtime.Remoting.Channels.Http;
+using System.Runtime.Serialization.Formatters;
 
 namespace FaceIDAppVBEta
 {
@@ -14,31 +22,63 @@ namespace FaceIDAppVBEta
         {
             InitializeComponent();
 
+            SetSecurity();
+
             BeServer();
+
+            //BeClient();
+        }
+
+        private void SetSecurity()
+        {
+            //BinaryServerFormatterSinkProvider serverProv = new BinaryServerFormatterSinkProvider();
+            //serverProv.TypeFilterLevel = System.Runtime.Serialization.Formatters.TypeFilterLevel.Full;
+
+            ////TcpChannel tcpChannel = new TcpChannel(9998);
+            ////ChannelServices.RegisterChannel(tcpChannel, false);
+
+            //BinaryClientFormatterSinkProvider clientProv = new BinaryClientFormatterSinkProvider();
+
+            //IDictionary props = new Hashtable();
+            //props["port"] = 9998;
+
+            //HttpChannel chan = new HttpChannel(props, clientProv, serverProv);
+            //ChannelServices.RegisterChannel(chan, false);
+
+            SoapServerFormatterSinkProvider provider = new SoapServerFormatterSinkProvider();
+            provider.TypeFilterLevel = TypeFilterLevel.Full;
+            IDictionary props = new Hashtable();
+            props["port"] = 9998;
+            ChannelServices.RegisterChannel(new TcpChannel(props, null, provider), false);
         }
 
         private void BeServer()
+        {           
+            //ChannelServices.RegisterChannel(new TcpChannel(50050), false);
+
+            //// Register an object created by the server
+            //LocalDataController dtCtrl = new LocalDataController();
+
+            //ObjRef refGreeter = RemotingServices.Marshal(dtCtrl, "Greeter");
+
+            //LocalDataController dtCtrl2 = (LocalDataController)Activator.GetObject(
+            //    typeof(LocalDataController), "tcp://localhost:50050/Greeter");
+
+            //dtCtrl2.AddHoliday(new Holiday());
+
+            Type registeredType = typeof(LocalDataController);
+            RemotingConfiguration.RegisterWellKnownServiceType(registeredType, "DataController", WellKnownObjectMode.SingleCall);
+        }
+
+        private void BeClient()
         {
-            //System.Runtime.Remoting.Channels.Tcp.TcpChannel channel = new System.Runtime.Remoting.Channels.Tcp.TcpChannel(9999);
-            //System.Runtime.Remoting.Channels.ChannelServices.RegisterChannel(channel, true);
-            ////System.Runtime.Remoting.RemotingConfiguration.RegisterWellKnownServiceType(typeof(FaceIDAppVBEta.Data.LocalDataController), "tcp://localhost:9999/DataController", System.Runtime.Remoting.WellKnownObjectMode.Singleton);
+            //TcpChannel tcpChannel = new TcpChannel();
+            //ChannelServices.RegisterChannel(tcpChannel, false);
 
-            ////System.Runtime.Remoting.RemotingServices.Marshal(FaceIDAppVBEta.Data.LocalDataController.Instance, "DataController");
-            //System.Runtime.Remoting.RemotingConfiguration.RegisterActivatedServiceType(typeof(FaceIDAppVBEta.Data.LocalDataController));
+            Type lookupType = typeof(IDataController);
+            IDataController dtCtrl = (IDataController)Activator.GetObject(lookupType, "http://localhost:9998/DataController");
 
-            //FaceIDAppVBEta.Class.Holiday holiday = new FaceIDAppVBEta.Class.Holiday();
-            //holiday.Date = DateTime.Today;
-            //holiday.Description = "";
-
-            ////holiday.ID = FaceIDAppVBEta.Data.RemoteDataController.Instance.AddHoliday(holiday);
-
-            ////FaceIDAppVBEta.Data.IDataController _dtCtrl = (FaceIDAppVBEta.Data.IDataController)Activator.GetObject(typeof(FaceIDAppVBEta.Data.LocalDataController), "tcp://localhost:9999/DataController");
-
-            //object[] attr = { new System.Runtime.Remoting.Activation.UrlAttribute("tcp://localhost:9999") };
-            //object[] args = { "Sample constructor argument" };
-            //FaceIDAppVBEta.Data.IDataController _dtCtrl = (FaceIDAppVBEta.Data.IDataController)Activator.CreateInstance(typeof(FaceIDAppVBEta.Data.LocalDataController), args, attr);
-
-            //int i = _dtCtrl.AddHoliday(holiday);
+            dtCtrl.AddHoliday(new Holiday());
         }
 
         private void companyToolStripMenuItem_Click(object sender, EventArgs e)
