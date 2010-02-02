@@ -22,61 +22,33 @@ namespace FaceIDAppVBEta
         {
             InitializeComponent();
 
-            SetSecurity();
-
-            BeServer();
-
-            //BeClient();
+            RegisterChannel();
+            RegisterService();
         }
 
-        private void SetSecurity()
+        //http://msdn.microsoft.com/en-us/library/5dxse167%28VS.71%29.aspx
+        private void RegisterChannel()
         {
-            //BinaryServerFormatterSinkProvider serverProv = new BinaryServerFormatterSinkProvider();
-            //serverProv.TypeFilterLevel = System.Runtime.Serialization.Formatters.TypeFilterLevel.Full;
-
-            ////TcpChannel tcpChannel = new TcpChannel(9998);
-            ////ChannelServices.RegisterChannel(tcpChannel, false);
-
-            //BinaryClientFormatterSinkProvider clientProv = new BinaryClientFormatterSinkProvider();
-
-            //IDictionary props = new Hashtable();
-            //props["port"] = 9998;
-
-            //HttpChannel chan = new HttpChannel(props, clientProv, serverProv);
-            //ChannelServices.RegisterChannel(chan, false);
-
-            SoapServerFormatterSinkProvider provider = new SoapServerFormatterSinkProvider();
+            BinaryServerFormatterSinkProvider provider = new BinaryServerFormatterSinkProvider();
             provider.TypeFilterLevel = TypeFilterLevel.Full;
+
+            // Creating the IDictionary to set the port on the channel instance.
             IDictionary props = new Hashtable();
-            props["port"] = 9998;
+            props["port"] = 9999;
+
             ChannelServices.RegisterChannel(new TcpChannel(props, null, provider), false);
         }
 
-        private void BeServer()
-        {           
-            //ChannelServices.RegisterChannel(new TcpChannel(50050), false);
-
-            //// Register an object created by the server
-            //LocalDataController dtCtrl = new LocalDataController();
-
-            //ObjRef refGreeter = RemotingServices.Marshal(dtCtrl, "Greeter");
-
-            //LocalDataController dtCtrl2 = (LocalDataController)Activator.GetObject(
-            //    typeof(LocalDataController), "tcp://localhost:50050/Greeter");
-
-            //dtCtrl2.AddHoliday(new Holiday());
-
-            Type registeredType = typeof(LocalDataController);
-            RemotingConfiguration.RegisterWellKnownServiceType(registeredType, "DataController", WellKnownObjectMode.SingleCall);
+        private void RegisterService()
+        {
+            Type registeredType = typeof(Service);
+            RemotingConfiguration.RegisterWellKnownServiceType(registeredType, "DataController", WellKnownObjectMode.Singleton);
         }
 
         private void BeClient()
         {
-            //TcpChannel tcpChannel = new TcpChannel();
-            //ChannelServices.RegisterChannel(tcpChannel, false);
-
             Type lookupType = typeof(IDataController);
-            IDataController dtCtrl = (IDataController)Activator.GetObject(lookupType, "http://localhost:9998/DataController");
+            IDataController dtCtrl = (IDataController)Activator.GetObject(lookupType, "tcp://localhost:9999/DataController");
 
             dtCtrl.AddHoliday(new Holiday());
         }
