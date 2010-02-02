@@ -97,5 +97,11 @@ namespace FaceIDAppVBEta
         {
             new FaceIDApp.Test().Show();
         }
+
+        private void btnReprocess_Click(object sender, EventArgs e)
+        {
+            sctMain.Panel2.Controls.Clear();
+            sctMain.Panel2.Controls.Add(new ucReprocess());
+        }
     }
 }
