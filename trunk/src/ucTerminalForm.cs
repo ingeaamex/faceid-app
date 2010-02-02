@@ -174,7 +174,7 @@ namespace FaceIDAppVBEta
 
         private void updateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int id = (int)dgvTerminal.Rows[_cellContext.X].Cells[dgvTerminal.Columns["TerminalID"].Index].Value;
+            int id = Convert.ToInt16(dgvTerminal.Rows[_cellContext.X].Cells[dgvTerminal.Columns["TerminalID"].Index].Value);
             BindTerminalData(id);
             SetState(id);
         }

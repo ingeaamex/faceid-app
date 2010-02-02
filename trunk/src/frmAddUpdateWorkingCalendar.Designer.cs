@@ -145,6 +145,7 @@
             this.btnNext5 = new System.Windows.Forms.Button();
             this.label49 = new System.Windows.Forms.Label();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.label70 = new System.Windows.Forms.Label();
             this.btnBack6 = new System.Windows.Forms.Button();
             this.btnCancel6 = new System.Windows.Forms.Button();
             this.btnNext6 = new System.Windows.Forms.Button();
@@ -199,7 +200,6 @@
             this.btnCancel8 = new System.Windows.Forms.Button();
             this.btnFinish = new System.Windows.Forms.Button();
             this.label81 = new System.Windows.Forms.Label();
-            this.label70 = new System.Windows.Forms.Label();
             this.tabAddUpdateWorkingCalendar.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -1425,6 +1425,15 @@
             this.tabPage6.Text = "Step 6";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
+            // label70
+            // 
+            this.label70.AutoSize = true;
+            this.label70.Location = new System.Drawing.Point(32, 32);
+            this.label70.Name = "label70";
+            this.label70.Size = new System.Drawing.Size(66, 13);
+            this.label70.TabIndex = 149;
+            this.label70.Text = "Set Holidays";
+            // 
             // btnBack6
             // 
             this.btnBack6.Location = new System.Drawing.Point(113, 246);
@@ -1483,6 +1492,8 @@
             // 
             // dgvHoliday
             // 
+            this.dgvHoliday.AllowUserToAddRows = false;
+            this.dgvHoliday.AllowUserToDeleteRows = false;
             this.dgvHoliday.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvHoliday.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvHoliday.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -1951,15 +1962,6 @@
             this.label81.Size = new System.Drawing.Size(77, 13);
             this.label81.TabIndex = 171;
             this.label81.Text = "Set Pay Period";
-            // 
-            // label70
-            // 
-            this.label70.AutoSize = true;
-            this.label70.Location = new System.Drawing.Point(32, 32);
-            this.label70.Name = "label70";
-            this.label70.Size = new System.Drawing.Size(66, 13);
-            this.label70.TabIndex = 149;
-            this.label70.Text = "Set Holidays";
             // 
             // frmAddUpdateWorkingCalendar
             // 
