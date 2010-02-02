@@ -13,6 +13,32 @@ namespace FaceIDAppVBEta
         public MainForm()
         {
             InitializeComponent();
+
+            BeServer();
+        }
+
+        private void BeServer()
+        {
+            //System.Runtime.Remoting.Channels.Tcp.TcpChannel channel = new System.Runtime.Remoting.Channels.Tcp.TcpChannel(9999);
+            //System.Runtime.Remoting.Channels.ChannelServices.RegisterChannel(channel, true);
+            ////System.Runtime.Remoting.RemotingConfiguration.RegisterWellKnownServiceType(typeof(FaceIDAppVBEta.Data.LocalDataController), "tcp://localhost:9999/DataController", System.Runtime.Remoting.WellKnownObjectMode.Singleton);
+
+            ////System.Runtime.Remoting.RemotingServices.Marshal(FaceIDAppVBEta.Data.LocalDataController.Instance, "DataController");
+            //System.Runtime.Remoting.RemotingConfiguration.RegisterActivatedServiceType(typeof(FaceIDAppVBEta.Data.LocalDataController));
+
+            //FaceIDAppVBEta.Class.Holiday holiday = new FaceIDAppVBEta.Class.Holiday();
+            //holiday.Date = DateTime.Today;
+            //holiday.Description = "";
+
+            ////holiday.ID = FaceIDAppVBEta.Data.RemoteDataController.Instance.AddHoliday(holiday);
+
+            ////FaceIDAppVBEta.Data.IDataController _dtCtrl = (FaceIDAppVBEta.Data.IDataController)Activator.GetObject(typeof(FaceIDAppVBEta.Data.LocalDataController), "tcp://localhost:9999/DataController");
+
+            //object[] attr = { new System.Runtime.Remoting.Activation.UrlAttribute("tcp://localhost:9999") };
+            //object[] args = { "Sample constructor argument" };
+            //FaceIDAppVBEta.Data.IDataController _dtCtrl = (FaceIDAppVBEta.Data.IDataController)Activator.CreateInstance(typeof(FaceIDAppVBEta.Data.LocalDataController), args, attr);
+
+            //int i = _dtCtrl.AddHoliday(holiday);
         }
 
         private void companyToolStripMenuItem_Click(object sender, EventArgs e)
