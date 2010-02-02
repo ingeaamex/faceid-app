@@ -546,14 +546,14 @@ namespace FaceIDAppVBEta.Data
         public List<Employee> GetEmployeeList(int compantId, int departmentId)
         {
             OleDbCommand odCom;
-            if (departmentId == 1 || compantId == 1)
-                odCom = BuildSelectCmd("Employee", "*", "DepartmentID=1");
+            if (departmentId == 1 || compantId == 1) //default company and default department
+                odCom = BuildSelectCmd("Employee", "*", "DepartmentID=1 AND Active=TRUE");
             else if (departmentId > 0)
                 odCom = BuildSelectCmd("Employee", "*", "DepartmentID=@ID AND Active=TRUE", "@ID", departmentId);
             else if (compantId > 0)
-                odCom = BuildSelectCmd("Employee", "*", "DepartmentID in (SELECT ID FROM Department WHERE CompanyID=@ID) AND Active=true", new object[] { "@ID", compantId });
-            else
-                odCom = BuildSelectCmd("Employee", "*", "Active=true");
+                odCom = BuildSelectCmd("Employee", "*", "DepartmentID in (SELECT ID FROM Department WHERE CompanyID=@ID) AND Active=TRUE", new object[] { "@ID", compantId });
+            else // all companies and all department
+                odCom = BuildSelectCmd("Employee", "*", "Active=TRUE");
 
             OleDbDataReader odRdr = odCom.ExecuteReader();
             List<Employee> employeeList = new List<Employee>();
@@ -1073,7 +1073,7 @@ namespace FaceIDAppVBEta.Data
 
         public int GetAvailEmployeeNumber()
         {
-            OleDbCommand odCom = BuildSelectCmd("Employee", "MIN(EmployeeNumber) AS EmployeeNumber", "Active=FALSE");
+            OleDbCommand odCom = BuildSelectCmd("Employee", "MIN(EmployeeNumber) AS EmployeeNumber", "Active=FALSE AND EmployeeNumber NOT IN(SELECT EmployeeNumber FROM Employee WHERE Active=TRUE)");
             OleDbDataReader odRdr = odCom.ExecuteReader();
 
             int employeeNumber = 1;
