@@ -38,6 +38,7 @@
             this.configToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sctMain = new System.Windows.Forms.SplitContainer();
+            this.btnAttTest = new System.Windows.Forms.Button();
             this.btnUser = new System.Windows.Forms.Button();
             this.btnAttendance = new System.Windows.Forms.Button();
             this.btnWorkingCalendar = new System.Windows.Forms.Button();
@@ -45,7 +46,7 @@
             this.btnEmployee = new System.Windows.Forms.Button();
             this.btnDepartment = new System.Windows.Forms.Button();
             this.btnCompany = new System.Windows.Forms.Button();
-            this.btnAttTest = new System.Windows.Forms.Button();
+            this.btnReprocess = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.sctMain.Panel1.SuspendLayout();
             this.sctMain.SuspendLayout();
@@ -58,7 +59,7 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1310, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1016, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -133,6 +134,7 @@
             // sctMain.Panel1
             // 
             this.sctMain.Panel1.AccessibleName = "pnlLeft";
+            this.sctMain.Panel1.Controls.Add(this.btnReprocess);
             this.sctMain.Panel1.Controls.Add(this.btnAttTest);
             this.sctMain.Panel1.Controls.Add(this.btnUser);
             this.sctMain.Panel1.Controls.Add(this.btnAttendance);
@@ -145,11 +147,21 @@
             // sctMain.Panel2
             // 
             this.sctMain.Panel2.AccessibleName = "pnlMain";
-
             this.sctMain.Size = new System.Drawing.Size(1016, 662);
             this.sctMain.SplitterDistance = 167;
-
             this.sctMain.TabIndex = 1;
+            // 
+            // btnAttTest
+            // 
+            this.btnAttTest.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAttTest.ForeColor = System.Drawing.Color.Red;
+            this.btnAttTest.Location = new System.Drawing.Point(0, 579);
+            this.btnAttTest.Name = "btnAttTest";
+            this.btnAttTest.Size = new System.Drawing.Size(163, 66);
+            this.btnAttTest.TabIndex = 7;
+            this.btnAttTest.Text = "ATT TEST";
+            this.btnAttTest.UseVisualStyleBackColor = true;
+            this.btnAttTest.Click += new System.EventHandler(this.btnAttTest_Click);
             // 
             // btnUser
             // 
@@ -221,26 +233,22 @@
             this.btnCompany.UseVisualStyleBackColor = true;
             this.btnCompany.Click += new System.EventHandler(this.btnCompany_Click);
             // 
-            // btnAttTest
+            // btnReprocess
             // 
-            this.btnAttTest.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAttTest.ForeColor = System.Drawing.Color.Red;
-            this.btnAttTest.Location = new System.Drawing.Point(3, 507);
-            this.btnAttTest.Name = "btnAttTest";
-            this.btnAttTest.Size = new System.Drawing.Size(163, 66);
-            this.btnAttTest.TabIndex = 7;
-            this.btnAttTest.Text = "ATT TEST";
-            this.btnAttTest.UseVisualStyleBackColor = true;
-            this.btnAttTest.Click += new System.EventHandler(this.btnAttTest_Click);
+            this.btnReprocess.Location = new System.Drawing.Point(2, 507);
+            this.btnReprocess.Name = "btnReprocess";
+            this.btnReprocess.Size = new System.Drawing.Size(163, 66);
+            this.btnReprocess.TabIndex = 8;
+            this.btnReprocess.Text = "Reprocess";
+            this.btnReprocess.UseVisualStyleBackColor = true;
+            this.btnReprocess.Click += new System.EventHandler(this.btnReprocess_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1016, 686);
-
             this.Controls.Add(this.sctMain);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -276,6 +284,7 @@
         private System.Windows.Forms.ToolStripMenuItem configToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem updateToolStripMenuItem;
         private System.Windows.Forms.Button btnAttTest;
+        private System.Windows.Forms.Button btnReprocess;
 
     }
 }
