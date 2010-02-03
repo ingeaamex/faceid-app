@@ -11,9 +11,9 @@ namespace FaceIDAppVBEta
 {
     public partial class frmCustomRate : Form
     {
-        private ICustomeRateCaller _caller = null;
+        private ICustomRateCaller _caller = null;
 
-        public frmCustomRate(ICustomeRateCaller caller)
+        public frmCustomRate(ICustomRateCaller caller)
         {
             _caller = caller;
             InitializeComponent();

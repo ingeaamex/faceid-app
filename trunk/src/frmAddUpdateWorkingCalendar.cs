@@ -10,7 +10,7 @@ using FaceIDAppVBEta.Class;
 
 namespace FaceIDAppVBEta
 {
-    public partial class frmAddUpdateWorkingCalendar : Form, ICustomeRateCaller
+    public partial class frmAddUpdateWorkingCalendar : Form, ICustomRateCaller
     {
         private IDataController _dtCtrl = LocalDataController.Instance;
 

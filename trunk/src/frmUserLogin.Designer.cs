@@ -48,6 +48,7 @@
             // 
             // btnExit
             // 
+            this.btnExit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnExit.Location = new System.Drawing.Point(128, 84);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(75, 23);
@@ -91,8 +92,10 @@
             // 
             // frmUserLogin
             // 
+            this.AcceptButton = this.btnLogin;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnExit;
             this.ClientSize = new System.Drawing.Size(292, 133);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.txtEmployeeNumber);
@@ -100,8 +103,12 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnLogin);
+            this.Cursor = System.Windows.Forms.Cursors.Default;
             this.Name = "frmUserLogin";
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "frmUserLogin";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmUserLogin_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 
