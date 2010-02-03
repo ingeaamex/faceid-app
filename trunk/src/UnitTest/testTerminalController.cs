@@ -8,20 +8,14 @@ using System.Windows.Forms;
 
 namespace FaceIDAppVBEta.UnitTest
 {
-    class testTerminalController : Form
+    [TestFixture]
+    class testTerminalController
     {
         IDataController _dtCtrl = LocalDataController.Instance;
         ITerminalController _terCtrl = new TerminalController();
         
         private Terminal ter = new Terminal();
-        private TextBox textBox1;
-        private Button button1;
         private Employee emp;
-
-        public testTerminalController()
-        {
-            InitializeComponent();
-        }
 
         private void SetUp()
         {
@@ -40,125 +34,67 @@ namespace FaceIDAppVBEta.UnitTest
             _dtCtrl.DeleteTerminal(ter.ID);
         }
 
-        private void AddText(String text)
-        {
-            textBox1.Text += text + "\r\n";
-
-            textBox1.SelectionStart = textBox1.Text.Length;
-            textBox1.ScrollToCaret();
-        }
-
+        [Test]
         public void TestGetAttendanceRecord()
         {
-            AddText("TestGetAttendanceRecord");
-            AddText("Expected :" + "Greater than 0");
-            AddText("Got: "+ _terCtrl.GetAttendanceRecord(ter, DateTime.Today.AddYears(-1), DateTime.Today).Count);
+            SetUp();
+
+            Assert.AreEqual(true, _terCtrl.GetAttendanceRecord(ter, DateTime.Today.AddYears(-1), DateTime.Today).Count > 0);
+
+            CleanUp();
         }
 
+        [Test]
         public void TestDeleteAttendanceRecord()
         {
-            AddText("TestDeleteAttendanceRecord");
-            AddText("Expected :" + "true");
-            AddText("Got: " + _terCtrl.DeleteAttendanceRecord(ter));
+            SetUp();
 
-            AddText("Expected :" + "0");
-            AddText("Got: " + _terCtrl.GetAttendanceRecord(ter, DateTime.Today.AddYears(-1), DateTime.Today).Count);
+            Assert.AreEqual(true, _terCtrl.DeleteAttendanceRecord(ter));
+            Assert.AreEqual(0, _terCtrl.GetAttendanceRecord(ter, DateTime.Today.AddYears(-1), DateTime.Today).Count);
+
+            CleanUp();
         }
 
+        [Test]
         public void TestUpdateEmployee()
         {
-            AddText("TestUpdateEmployee");
-            AddText("Expected :" + "true");
-            AddText("Got: " + _terCtrl.UpdateEmployee(ter, emp));
+            SetUp();
 
-            AddText("Expected :" + emp.FirstName);
-            AddText("Got: " + _terCtrl.GetEmployee(ter, emp.EmployeeNumber).FirstName);
+            Assert.AreEqual(true, _terCtrl.UpdateEmployee(ter, emp));
+            Assert.AreEqual(emp.FirstName, _terCtrl.GetEmployee(ter, emp.EmployeeNumber).FirstName);
+
+            CleanUp();
         }
 
+        [Test]
         public void TestGetEmployee()
         {
-            AddText("TestGetEmployee");
-            AddText("Expected :" + emp.FirstName);
-            AddText("Got: " + _terCtrl.GetEmployee(ter, emp.EmployeeNumber).FirstName);
+            SetUp();
+
+            Assert.AreEqual(emp.FirstName, _terCtrl.GetEmployee(ter, emp.EmployeeNumber).FirstName);
+
+            CleanUp();
         }
 
+        [Test]
         public void TestGetAllEmployee()
         {
-            AddText("TestGetAllEmployee");
-            AddText("Expected :" + "Greater than 0");
-            AddText("Got: " + _terCtrl.GetAllEmployee(ter).Count);
+            SetUp();
+
+            Assert.AreEqual(true, _terCtrl.GetAllEmployee(ter).Count > 0);
+
+            CleanUp();
         }
 
+        [Test]
         public void TestRemoveEmployee()
         {
-            AddText("TestRemoveEmployee");
-            AddText("Expected :" + "true");
-            AddText("Got: " + _terCtrl.RemoveEmployee(ter, emp));
+            SetUp();
 
-            AddText("Expected :" + "null");
-            AddText("Got: " + _terCtrl.GetEmployee(ter, emp.EmployeeNumber));
-        }
+            Assert.AreEqual(true, _terCtrl.RemoveEmployee(ter, emp));
+            Assert.AreEqual(null, _terCtrl.GetEmployee(ter, emp.EmployeeNumber));
 
-        private void InitializeComponent()
-        {
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.SuspendLayout();
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(19, 12);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(418, 292);
-            this.textBox1.TabIndex = 0;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(19, 310);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(418, 58);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Test";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // testTerminalController
-            // 
-            this.ClientSize = new System.Drawing.Size(456, 380);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox1);
-            this.Name = "testTerminalController";
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Test();
-        }
-
-        private void Test()
-        {
-            try
-            {
-                SetUp();
-                textBox1.Text = "";
-
-                TestGetAttendanceRecord();
-                //TestDeleteAttendanceRecord();
-                TestUpdateEmployee();
-                //TestRemoveEmployee();
-                TestGetEmployee();
-                TestGetAllEmployee();
-
-                CleanUp();
-            }
-            catch (Exception ex)
-            {
-                AddText(ex.Message);
-            }
+            CleanUp();
         }
     }
 }
