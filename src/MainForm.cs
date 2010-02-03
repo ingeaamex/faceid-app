@@ -6,13 +6,12 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Runtime.Remoting.Channels;
-using FaceIDAppVBEta.Class;
-using System.Runtime.Remoting;
+using System.Runtime.Serialization.Formatters;
+using System.Collections;
 using System.Runtime.Remoting.Channels.Tcp;
 using FaceIDAppVBEta.Data;
-using System.Collections;
-using System.Runtime.Remoting.Channels.Http;
-using System.Runtime.Serialization.Formatters;
+using System.Runtime.Remoting;
+using FaceIDAppVBEta.Class;
 
 namespace FaceIDAppVBEta
 {
