@@ -13,9 +13,14 @@ namespace FaceIDAppVBEta
 {
     public partial class frmUserLogin : Form
     {
-        public frmUserLogin()
+        private IUserLoginCaller _userLoginCaller = null;
+        private FaceIDUser _user = null;
+        private bool _isMaster = false;
+
+        public frmUserLogin(IUserLoginCaller userLoginCaller)
         {
             InitializeComponent();
+            _userLoginCaller = userLoginCaller;
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -34,6 +39,7 @@ namespace FaceIDAppVBEta
 
             if (IsMasterPassword(password))
             {
+                _isMaster = true;
                 this.Close();
             }
             else
@@ -43,21 +49,22 @@ namespace FaceIDAppVBEta
                     IDataController dtCtrl = LocalDataController.Instance;
 
                     int employeeNumber = Convert.ToInt32(txtEmployeeNumber.Text);
-                    FaceIDUser faceIDUser = dtCtrl.GetFaceIDUser(employeeNumber);
+                    _user = dtCtrl.GetFaceIDUser(employeeNumber);
 
-                    if (faceIDUser == null)
+                    if (_user == null)
                     {
                         MessageBox.Show("User not found. Please try again.");
                     }
                     else
                     {
-                        if (faceIDUser.Password != password)
+                        if (_user.Password != password)
                         {
                             MessageBox.Show("Incorrect password. Please try again.");
                         }
                         else
                         {
-                            this.Close();
+                            _userLoginCaller.SetUserAccess(_user);
+                            this.Close();                            
                         }
                     }
                 }
@@ -79,6 +86,12 @@ namespace FaceIDAppVBEta
         private bool IsMasterPassword(string password)
         {
             return password == Util.GetMasterPassword();
+        }
+
+        private void frmUserLogin_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (_isMaster == false && _user == null)
+                Application.Exit();
         }
     }
 }

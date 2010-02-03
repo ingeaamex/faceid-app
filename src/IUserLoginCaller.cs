@@ -5,8 +5,8 @@ using FaceIDAppVBEta.Class;
 
 namespace FaceIDAppVBEta
 {
-    public interface ICustomeRateCaller
+    public interface IUserLoginCaller
     {
-        void ImplementNewRate(Rate newRate);
+        void SetUserAccess(FaceIDUser user);
     }
 }

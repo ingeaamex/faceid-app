@@ -21,7 +21,6 @@ namespace FaceIDAppVBEta.UnitTest
         {
             ter.IPAddress = "10.0.0.101";
             ter.Name = "Ter1";
-            //ter.ID = _dtCtrl.AddTerminal(ter);
 
             Department dep = _dtCtrl.GetDepartmentList()[0];
             Company com = _dtCtrl.GetCompany(dep.CompanyID);

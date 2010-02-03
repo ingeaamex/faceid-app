@@ -12,17 +12,37 @@ using System.Runtime.Remoting.Channels.Tcp;
 using FaceIDAppVBEta.Data;
 using System.Runtime.Remoting;
 using FaceIDAppVBEta.Class;
+using System.Data.OleDb;
 
 namespace FaceIDAppVBEta
 {
-    public partial class MainForm : Form
+    public partial class MainForm : Form, IUserLoginCaller
     {
         public MainForm()
         {
             InitializeComponent();
 
+            //VerifyUser();
+
             RegisterChannel();
             RegisterService();
+        }
+
+        private void VerifyUser()
+        {
+            try
+            {
+                IDataController dtCtrl = LocalDataController.Instance;
+                if (dtCtrl.GetFaceIDUserList().Count != 0)
+                {
+                    FaceIDUser user = null;
+                    new frmUserLogin(this).ShowDialog(this);
+                }
+            }
+            catch (OleDbException)
+            {
+                MessageBox.Show("Cannot connect to Database. Please check then try again.");
+            }
         }
 
         //http://msdn.microsoft.com/en-us/library/5dxse167%28VS.71%29.aspx
@@ -44,7 +64,7 @@ namespace FaceIDAppVBEta
             RemotingConfiguration.RegisterWellKnownServiceType(registeredType, "DataController", WellKnownObjectMode.Singleton);
         }
 
-        private void BeClient()
+        private void RequestService()
         {
             Type lookupType = typeof(IDataController);
             IDataController dtCtrl = (IDataController)Activator.GetObject(lookupType, "tcp://localhost:9999/DataController");
@@ -140,5 +160,24 @@ namespace FaceIDAppVBEta
             sctMain.Panel2.Controls.Clear();
             sctMain.Panel2.Controls.Add(new ucReprocess());
         }
+
+        #region IUserLoginCaller Members
+
+        public void SetUserAccess(FaceIDUser user)
+        {
+            if (user != null) //not master
+            {
+                btnAttendance.Enabled = user.AttendanceManagementAccess;
+                btnCompany.Enabled = user.CompanyDepartmentManagementAccess;
+                btnDepartment.Enabled = user.CompanyDepartmentManagementAccess;
+                btnEmployee.Enabled = user.EmployeeManagementAccess;
+                btnReprocess.Enabled = user.AttendanceManagementAccess;
+                btnTerminal.Enabled = user.TerminalManagementAccess;
+                btnUser.Enabled = user.UserManagementAccess;
+                btnWorkingCalendar.Enabled = user.WorkingCalendarManagementAccess;
+            }
+        }
+
+        #endregion
     }
 }
