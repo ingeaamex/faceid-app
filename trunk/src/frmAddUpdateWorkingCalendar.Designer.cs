@@ -1468,6 +1468,8 @@
             // 
             this.mcdHoliday.Location = new System.Drawing.Point(437, 70);
             this.mcdHoliday.Name = "mcdHoliday";
+            this.mcdHoliday.ShowToday = false;
+            this.mcdHoliday.ShowTodayCircle = false;
             this.mcdHoliday.TabIndex = 102;
             // 
             // btnRemoveHoliday
@@ -1500,7 +1502,10 @@
             this.HolidayDate,
             this.Description});
             this.dgvHoliday.Location = new System.Drawing.Point(32, 72);
+            this.dgvHoliday.MultiSelect = false;
             this.dgvHoliday.Name = "dgvHoliday";
+            this.dgvHoliday.ReadOnly = true;
+            this.dgvHoliday.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvHoliday.Size = new System.Drawing.Size(288, 150);
             this.dgvHoliday.TabIndex = 99;
             // 
