@@ -83,8 +83,13 @@ namespace FaceIDAppVBEta
             {
                 this.Text = "Add New Employee";
                 lblAddUpdateEmployee.Text = "Add New Employee";
+                
                 btnAddEmployee.Visible = true;
                 btnUpdateEmployee.Visible = false;
+
+                dtpBirthday.Value = DateTime.Today;
+                dtpJoinedDate.Value = DateTime.Today;
+                dtpLeftDate.Value = DateTime.Today.AddYears(50);
             }
             else//update
             {
@@ -122,13 +127,39 @@ namespace FaceIDAppVBEta
             tbJobDesc.Text = employee.JobDescription;
             tbEmployeeNumber.Text = employee.EmployeeNumber.ToString();
             tbPayrollNumber.Text = employee.PayrollNumber.ToString();
-            dtpBirthday.Value = employee.Birthday;
-            dtpJoinedDate.Value = employee.HiredDate;
-            dtpLeftDate.Value = employee.LeftDate;
+            
+            if(employee.Birthday != Config.MinDate)
+            {
+                dtpBirthday.Value = employee.Birthday;
+                dtpBirthday.Checked = false;
+            }
+            else
+            {
+                dtpBirthday.Value = DateTime.Today;
+                dtpBirthday.Checked = true;
+            }
+            
+            if(employee.HiredDate != Config.MinDate)
+            {
+                dtpJoinedDate.Value = employee.HiredDate;
+                dtpJoinedDate.Checked = false;
+            }
+            else
+            {
+                dtpJoinedDate.Value = DateTime.Today;
+                dtpJoinedDate.Checked = true;
+            }
 
-            dtpBirthday.Checked = (employee.Birthday != Config.MinDate);
-            dtpJoinedDate.Checked = (employee.HiredDate != Config.MinDate);
-            dtpLeftDate.Checked = (employee.LeftDate != Config.MinDate);
+            if (employee.LeftDate != Config.MinDate)
+            {
+                dtpLeftDate.Value = employee.LeftDate;
+                dtpLeftDate.Checked = false;
+            }
+            else
+            {
+                dtpLeftDate.Value = DateTime.Today.AddYears(50);
+                dtpLeftDate.Checked = true;
+            }
 
             List<Terminal> terminals = _dtCtrl.GetTerminalListByEmployee(_employeeNumber);
             foreach (Terminal terminal in terminals)
@@ -202,7 +233,6 @@ namespace FaceIDAppVBEta
 
         private Employee GetEmployeeUserInput()
         {
-            //Employee employee = new Employee();
             Employee employee = _employeeID > 0 ? _dtCtrl.GetEmployee(_employeeID) : new Employee();
 
             object oDepartment = cbxDepartment.SelectedValue;
@@ -255,22 +285,11 @@ namespace FaceIDAppVBEta
                 errProviders.SetError(tbLastName, "Enter last name");
                 isValid = false;
             }
-            if (string.IsNullOrEmpty(sPhoneNumber))
-            {
-                errProviders.SetError(tbPhoneNumber, "Enter phone number");
-                isValid = false;
-            }
-            if (string.IsNullOrEmpty(sAddress))
-            {
-                errProviders.SetError(tbAddress, "Enter address");
-                isValid = false;
-            }
             if (string.IsNullOrEmpty(sJobDesc))
             {
                 errProviders.SetError(tbJobDesc, "Enter job description");
                 isValid = false;
             }
-
 
             if (!isValid)
                 return null;

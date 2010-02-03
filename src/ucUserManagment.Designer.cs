@@ -257,9 +257,9 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(256, 50);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(89, 13);
+            this.label5.Size = new System.Drawing.Size(118, 13);
             this.label5.TabIndex = 6;
-            this.label5.Text = "Retype password";
+            this.label5.Text = "Re-type New Password";
             // 
             // txtPassword
             // 
@@ -284,9 +284,9 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(16, 50);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(53, 13);
+            this.label4.Size = new System.Drawing.Size(78, 13);
             this.label4.TabIndex = 2;
-            this.label4.Text = "Password";
+            this.label4.Text = "New Password";
             // 
             // label2
             // 

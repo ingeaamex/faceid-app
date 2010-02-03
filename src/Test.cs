@@ -163,6 +163,7 @@ namespace FaceIDApp
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnAddRecord);
             this.Name = "Test";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             ((System.ComponentModel.ISupportInitialize)(this.nudAdd)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

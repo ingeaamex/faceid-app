@@ -264,7 +264,7 @@ namespace FaceIDAppVBEta
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            new frmAddUpdateWorkingCalendar(_workingCalendar.ID).Show();
+            new frmAddUpdateWorkingCalendar(_workingCalendar.ID).ShowDialog(this.Parent);
             this.Close();
         }
     }
