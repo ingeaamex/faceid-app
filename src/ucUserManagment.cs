@@ -27,8 +27,63 @@ namespace FaceIDAppVBEta
 
         private void BindUser()
         {
-            dgvUser.AutoGenerateColumns = false;
-            dgvUser.DataSource = _dtCtrl.GetFaceIDUserList();
+            List<FaceIDUser> userList = _dtCtrl.GetFaceIDUserList();
+            List<Employee> employeeList = _dtCtrl.GetEmployeeList();
+
+            userList.Sort(delegate(FaceIDUser user1, FaceIDUser user2)
+            {
+                return user1.EmployeeNumber - user2.EmployeeNumber;
+            });
+
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Employee Number");
+            dt.Columns.Add("Employee Name");
+            dt.Columns.Add("Access");
+
+            foreach (FaceIDUser user in userList)
+            {
+                DataRow dr = dt.NewRow();
+                dr["Employee Number"] = user.EmployeeNumber;
+
+                Employee employe = employeeList.Find(delegate(Employee emp)
+                {
+                    return (emp.EmployeeNumber == user.EmployeeNumber) && (emp.Active == true);
+                });
+                dr["Employee Name"] = employe != null ? employe.LastName + ", " + employe.FirstName : "";
+                dr["Access"] = GetAccessStr(user);
+
+                dt.Rows.Add(dr);
+            }
+
+            dgvUser.AutoGenerateColumns = true;
+            dgvUser.Columns.Clear();
+
+            dgvUser.DataSource = dt;
+
+            //dgvUser.AutoGenerateColumns = false;
+            //dgvUser.DataSource = _dtCtrl.GetFaceIDUserList();
+        }
+
+        private string GetAccessStr(FaceIDUser user)
+        {
+            string accessStr = "";
+
+            if (user.AttendanceManagementAccess)
+                accessStr += "Attendance" + "\r\n";
+            if (user.CompanyDepartmentManagementAccess)
+                accessStr += "Company/Department" + "\r\n";
+            if (user.EmployeeManagementAccess)
+                accessStr += "Employee" + "\r\n";
+            if (user.TerminalManagementAccess)
+                accessStr += "Terminal" + "\r\n";
+            if (user.UserManagementAccess)
+                accessStr += "User" + "\r\n";
+            if (user.WorkingCalendarManagementAccess)
+                accessStr += "WorkingCalendar" + "\r\n";
+            if (accessStr == "")
+                accessStr = "None";
+
+            return accessStr;
         }
 
         private void BindEmployeeNumber()
@@ -99,6 +154,7 @@ namespace FaceIDAppVBEta
             if (fUser == null)
             {
                 MessageBox.Show("User does not exist or has been deleted. Please try again.");
+                SetState(-1);
             }
             else
             {
@@ -162,14 +218,16 @@ namespace FaceIDAppVBEta
 
                     if (_dtCtrl.AddFaceIDUser(fUser) > 0)
                     {
-                        MessageBox.Show("This employee has been added as an user successfully.");
+                        MessageBox.Show("User added successfully.");
+                        SetState(-1);
                     }
                 }
                 else
                 {
                     if (_dtCtrl.UpdateFaceIDUser(fUser))
                     {
-                        MessageBox.Show("This user has been updated successfully.");
+                        MessageBox.Show("User updated successfully.");
+                        SetState(-1);
                     }
                 }
             }
