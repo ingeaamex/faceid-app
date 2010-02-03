@@ -256,9 +256,8 @@ namespace FaceIDAppVBEta
                 #endregion
 
                 #region Set Holidays
-                List<Holiday> holidayList = _dtCtrl.GetHolidayListByWorkingCalendar(workingCalendarID);
-                dgvHoliday.AutoGenerateColumns = false;
-                dgvHoliday.DataSource = holidayList;
+                _holidayList = _dtCtrl.GetHolidayListByWorkingCalendar(workingCalendarID);
+                BindHoliday();
                 #endregion
 
                 #region Set Pay Period
@@ -855,10 +854,52 @@ namespace FaceIDAppVBEta
             holiday.Date = mcdHoliday.SelectionStart;
             holiday.Description = "";
 
-            _holidayList.Add(holiday);
+            if (_holidayList.Find(delegate(Holiday hday)
+            {
+                return hday.Date.Day == holiday.Date.Day && hday.Date.Month == holiday.Date.Month;
+            }) != null)
+            {
+                MessageBox.Show(holiday.Date.Day + @"/" + holiday.Date.Month + " has already been added. Please choose another day.");
+                return;
+            }
+            else
+            {
+                new frmAddUpdateHoliday(ref holiday).ShowDialog(this);
+                if (holiday != null)
+                {
+                    _holidayList.Add(holiday);
+                    _holidayList.Sort(delegate(Holiday hday1, Holiday hday2)
+                    {
+                        if (hday1.Date.Month != hday2.Date.Month)
+                            return hday1.Date.Month - hday2.Date.Month;
+                        else
+                            return hday1.Date.Day - hday2.Date.Day;
+                    });
 
-            dgvHoliday.AutoGenerateColumns = false;
-            dgvHoliday.DataSource = _holidayList;
+                    BindHoliday();
+                }
+            }
+        }
+
+        private void BindHoliday()
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Holiday");
+            dt.Columns.Add("Description");
+
+            foreach (Holiday holiday in _holidayList)
+            {
+                DataRow dr = dt.NewRow();
+                dr["Holiday"] = holiday.Date.Day + @"/" + holiday.Date.Month;
+                dr["Description"] = holiday.Description;
+
+                dt.Rows.Add(dr);
+            }
+
+            dgvHoliday.AutoGenerateColumns = true;
+            dgvHoliday.Columns.Clear();
+
+            dgvHoliday.DataSource = dt;
         }
 
         private void btnRemoveHoliday_Click(object sender, EventArgs e)
@@ -869,14 +910,13 @@ namespace FaceIDAppVBEta
         private void RemoveHoliday()
         {
             DataGridViewSelectedRowCollection rowCollection = dgvHoliday.SelectedRows;
-
+            
             for (int i = rowCollection.Count - 1; i >= 0; i--)
             {
-                _holidayList.RemoveAt(i);
+                _holidayList.RemoveAt(rowCollection[i].Index);
             }
 
-            dgvHoliday.AutoGenerateColumns = false;
-            dgvHoliday.DataSource = _holidayList;            
+            BindHoliday();
         }
 
         private void nudRegularWorkFromHour_ValueChanged(object sender, EventArgs e)
