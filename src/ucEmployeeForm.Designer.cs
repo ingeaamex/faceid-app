@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvEmpl = new System.Windows.Forms.DataGridView();
             this.EmployeeNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -43,9 +43,9 @@
             this.WorkingCalendarID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.WorkingCalendar = new System.Windows.Forms.DataGridViewLinkColumn();
             this.Terminal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btPrint = new System.Windows.Forms.Button();
-            this.btNewEmpl = new System.Windows.Forms.Button();
-            this.btView = new System.Windows.Forms.Button();
+            this.btnPrint = new System.Windows.Forms.Button();
+            this.btnAddNewEmployee = new System.Windows.Forms.Button();
+            this.btnViewEmployee = new System.Windows.Forms.Button();
             this.cbCompany = new System.Windows.Forms.ComboBox();
             this.cbDepartment = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -96,8 +96,8 @@
             // 
             this.EmployeeNumber.ContextMenuStrip = this.cMnSaction;
             this.EmployeeNumber.DataPropertyName = "EmployeeNumber";
-            dataGridViewCellStyle1.NullValue = null;
-            this.EmployeeNumber.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.NullValue = null;
+            this.EmployeeNumber.DefaultCellStyle = dataGridViewCellStyle2;
             this.EmployeeNumber.HeaderText = "EmployeeNumber";
             this.EmployeeNumber.Name = "EmployeeNumber";
             this.EmployeeNumber.ReadOnly = true;
@@ -127,9 +127,9 @@
             // EmployeeName
             // 
             this.EmployeeName.ContextMenuStrip = this.cMnSaction;
-            dataGridViewCellStyle2.Format = "{0} {1}";
-            dataGridViewCellStyle2.NullValue = null;
-            this.EmployeeName.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.Format = "{0} {1}";
+            dataGridViewCellStyle3.NullValue = null;
+            this.EmployeeName.DefaultCellStyle = dataGridViewCellStyle3;
             this.EmployeeName.HeaderText = "Name";
             this.EmployeeName.Name = "EmployeeName";
             this.EmployeeName.ReadOnly = true;
@@ -172,35 +172,35 @@
             this.Terminal.Name = "Terminal";
             this.Terminal.ReadOnly = true;
             // 
-            // btPrint
+            // btnPrint
             // 
-            this.btPrint.Location = new System.Drawing.Point(36, 89);
-            this.btPrint.Name = "btPrint";
-            this.btPrint.Size = new System.Drawing.Size(51, 23);
-            this.btPrint.TabIndex = 2;
-            this.btPrint.Text = "Print";
-            this.btPrint.UseVisualStyleBackColor = true;
-            this.btPrint.Click += new System.EventHandler(this.btPrint_Click);
+            this.btnPrint.Location = new System.Drawing.Point(36, 74);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(126, 23);
+            this.btnPrint.TabIndex = 2;
+            this.btnPrint.Text = "Print";
+            this.btnPrint.UseVisualStyleBackColor = true;
+            this.btnPrint.Click += new System.EventHandler(this.btPrint_Click);
             // 
-            // btNewEmpl
+            // btnAddNewEmployee
             // 
-            this.btNewEmpl.Location = new System.Drawing.Point(114, 89);
-            this.btNewEmpl.Name = "btNewEmpl";
-            this.btNewEmpl.Size = new System.Drawing.Size(126, 23);
-            this.btNewEmpl.TabIndex = 3;
-            this.btNewEmpl.Text = "Add New Employee";
-            this.btNewEmpl.UseVisualStyleBackColor = true;
-            this.btNewEmpl.Click += new System.EventHandler(this.btNewEmpl_Click);
+            this.btnAddNewEmployee.Location = new System.Drawing.Point(36, 103);
+            this.btnAddNewEmployee.Name = "btnAddNewEmployee";
+            this.btnAddNewEmployee.Size = new System.Drawing.Size(126, 23);
+            this.btnAddNewEmployee.TabIndex = 3;
+            this.btnAddNewEmployee.Text = "Add New Employee";
+            this.btnAddNewEmployee.UseVisualStyleBackColor = true;
+            this.btnAddNewEmployee.Click += new System.EventHandler(this.btNewEmpl_Click);
             // 
-            // btView
+            // btnViewEmployee
             // 
-            this.btView.Location = new System.Drawing.Point(423, 44);
-            this.btView.Name = "btView";
-            this.btView.Size = new System.Drawing.Size(75, 23);
-            this.btView.TabIndex = 4;
-            this.btView.Text = "View";
-            this.btView.UseVisualStyleBackColor = true;
-            this.btView.Click += new System.EventHandler(this.btView_Click);
+            this.btnViewEmployee.Location = new System.Drawing.Point(421, 44);
+            this.btnViewEmployee.Name = "btnViewEmployee";
+            this.btnViewEmployee.Size = new System.Drawing.Size(126, 23);
+            this.btnViewEmployee.TabIndex = 4;
+            this.btnViewEmployee.Text = "View Employees";
+            this.btnViewEmployee.UseVisualStyleBackColor = true;
+            this.btnViewEmployee.Click += new System.EventHandler(this.btView_Click);
             // 
             // cbCompany
             // 
@@ -245,7 +245,7 @@
             // 
             // btnGetEmployeeFromTerminal
             // 
-            this.btnGetEmployeeFromTerminal.Location = new System.Drawing.Point(243, 89);
+            this.btnGetEmployeeFromTerminal.Location = new System.Drawing.Point(168, 74);
             this.btnGetEmployeeFromTerminal.Name = "btnGetEmployeeFromTerminal";
             this.btnGetEmployeeFromTerminal.Size = new System.Drawing.Size(195, 23);
             this.btnGetEmployeeFromTerminal.TabIndex = 9;
@@ -255,7 +255,7 @@
             // 
             // btnSendEmployeeToTerminal
             // 
-            this.btnSendEmployeeToTerminal.Location = new System.Drawing.Point(441, 89);
+            this.btnSendEmployeeToTerminal.Location = new System.Drawing.Point(168, 103);
             this.btnSendEmployeeToTerminal.Name = "btnSendEmployeeToTerminal";
             this.btnSendEmployeeToTerminal.Size = new System.Drawing.Size(195, 23);
             this.btnSendEmployeeToTerminal.TabIndex = 10;
@@ -266,7 +266,7 @@
             // btnExportToFile
             // 
             this.btnExportToFile.Enabled = false;
-            this.btnExportToFile.Location = new System.Drawing.Point(639, 89);
+            this.btnExportToFile.Location = new System.Drawing.Point(369, 103);
             this.btnExportToFile.Name = "btnExportToFile";
             this.btnExportToFile.Size = new System.Drawing.Size(105, 23);
             this.btnExportToFile.TabIndex = 11;
@@ -276,7 +276,7 @@
             // 
             // btnImportFromFile
             // 
-            this.btnImportFromFile.Location = new System.Drawing.Point(639, 60);
+            this.btnImportFromFile.Location = new System.Drawing.Point(369, 74);
             this.btnImportFromFile.Name = "btnImportFromFile";
             this.btnImportFromFile.Size = new System.Drawing.Size(105, 23);
             this.btnImportFromFile.TabIndex = 12;
@@ -288,19 +288,19 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.btnImportFromFile);
             this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.btnImportFromFile);
+            this.Controls.Add(this.cbDepartment);
             this.Controls.Add(this.btnExportToFile);
             this.Controls.Add(this.btnSendEmployeeToTerminal);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.btnGetEmployeeFromTerminal);
-            this.Controls.Add(this.cbDepartment);
             this.Controls.Add(this.cbCompany);
+            this.Controls.Add(this.btnGetEmployeeFromTerminal);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.btView);
-            this.Controls.Add(this.btNewEmpl);
-            this.Controls.Add(this.btPrint);
+            this.Controls.Add(this.btnViewEmployee);
+            this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.dgvEmpl);
+            this.Controls.Add(this.btnAddNewEmployee);
             this.Name = "ucEmployeeForm";
             this.Size = new System.Drawing.Size(845, 662);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmpl)).EndInit();
@@ -314,9 +314,9 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dgvEmpl;
-        private System.Windows.Forms.Button btPrint;
-        private System.Windows.Forms.Button btNewEmpl;
-        private System.Windows.Forms.Button btView;
+        private System.Windows.Forms.Button btnPrint;
+        private System.Windows.Forms.Button btnAddNewEmployee;
+        private System.Windows.Forms.Button btnViewEmployee;
         private System.Windows.Forms.ComboBox cbCompany;
         private System.Windows.Forms.ComboBox cbDepartment;
         private System.Windows.Forms.Label label2;

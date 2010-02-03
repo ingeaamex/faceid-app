@@ -202,6 +202,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lbHeaderAction);
             this.Name = "frmAddUpdateAttendanceRecord";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "frmAddUpdateAttendanceRecord";
             ((System.ComponentModel.ISupportInitialize)(this.errProviders)).EndInit();
             this.ResumeLayout(false);

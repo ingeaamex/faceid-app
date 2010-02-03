@@ -40,11 +40,8 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.ucWorkingDayPaymentRate = new FaceIDAppVBEta.ucPaymentRate();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.ucNonWorkingDayPaymentRate = new FaceIDAppVBEta.ucPaymentRate();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.ucHolidayPaymentRate = new FaceIDAppVBEta.ucPaymentRate();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lblPayPeriodStartFrom = new System.Windows.Forms.Label();
             this.lblPayPeriod = new System.Windows.Forms.Label();
@@ -59,6 +56,9 @@
             this.label88 = new System.Windows.Forms.Label();
             this.label89 = new System.Windows.Forms.Label();
             this.label90 = new System.Windows.Forms.Label();
+            this.ucWorkingDayPaymentRate = new FaceIDAppVBEta.ucPaymentRate();
+            this.ucNonWorkingDayPaymentRate = new FaceIDAppVBEta.ucPaymentRate();
+            this.ucHolidayPaymentRate = new FaceIDAppVBEta.ucPaymentRate();
             this.gbxWorkingHours.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -192,13 +192,6 @@
             this.tabPage1.Text = "Working day rate";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // ucWorkingDayPaymentRate
-            // 
-            this.ucWorkingDayPaymentRate.Location = new System.Drawing.Point(0, 0);
-            this.ucWorkingDayPaymentRate.Name = "ucWorkingDayPaymentRate";
-            this.ucWorkingDayPaymentRate.Size = new System.Drawing.Size(280, 130);
-            this.ucWorkingDayPaymentRate.TabIndex = 0;
-            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.ucNonWorkingDayPaymentRate);
@@ -210,13 +203,6 @@
             this.tabPage2.Text = "Non-working day rate";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // ucNonWorkingDayPaymentRate
-            // 
-            this.ucNonWorkingDayPaymentRate.Location = new System.Drawing.Point(0, 0);
-            this.ucNonWorkingDayPaymentRate.Name = "ucNonWorkingDayPaymentRate";
-            this.ucNonWorkingDayPaymentRate.Size = new System.Drawing.Size(280, 130);
-            this.ucNonWorkingDayPaymentRate.TabIndex = 0;
-            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.ucHolidayPaymentRate);
@@ -227,13 +213,6 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Holiday rate";
             this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // ucHolidayPaymentRate
-            // 
-            this.ucHolidayPaymentRate.Location = new System.Drawing.Point(0, 0);
-            this.ucHolidayPaymentRate.Name = "ucHolidayPaymentRate";
-            this.ucHolidayPaymentRate.Size = new System.Drawing.Size(280, 130);
-            this.ucHolidayPaymentRate.TabIndex = 0;
             // 
             // groupBox2
             // 
@@ -292,6 +271,7 @@
             this.mclWorkingCalendar.Footer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.mclWorkingCalendar.Header.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.mclWorkingCalendar.Header.TextColor = System.Drawing.Color.White;
+            this.mclWorkingCalendar.Header.YearSelectors = true;
             this.mclWorkingCalendar.ImageList = null;
             this.mclWorkingCalendar.Location = new System.Drawing.Point(12, 12);
             this.mclWorkingCalendar.MaxDate = new System.DateTime(2900, 12, 31, 0, 0, 0, 0);
@@ -300,8 +280,8 @@
             this.mclWorkingCalendar.Month.DateFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.mclWorkingCalendar.Month.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.mclWorkingCalendar.Name = "mclWorkingCalendar";
+            this.mclWorkingCalendar.SelectionMode = Pabo.Calendar.mcSelectionMode.None;
             this.mclWorkingCalendar.ShowFooter = false;
-            this.mclWorkingCalendar.ShowToday = false;
             this.mclWorkingCalendar.Size = new System.Drawing.Size(300, 300);
             this.mclWorkingCalendar.TabIndex = 3;
             this.mclWorkingCalendar.Weekdays.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
@@ -385,6 +365,27 @@
             this.label90.TabIndex = 11;
             this.label90.Text = "Holiday";
             // 
+            // ucWorkingDayPaymentRate
+            // 
+            this.ucWorkingDayPaymentRate.Location = new System.Drawing.Point(0, 0);
+            this.ucWorkingDayPaymentRate.Name = "ucWorkingDayPaymentRate";
+            this.ucWorkingDayPaymentRate.Size = new System.Drawing.Size(280, 130);
+            this.ucWorkingDayPaymentRate.TabIndex = 0;
+            // 
+            // ucNonWorkingDayPaymentRate
+            // 
+            this.ucNonWorkingDayPaymentRate.Location = new System.Drawing.Point(0, 0);
+            this.ucNonWorkingDayPaymentRate.Name = "ucNonWorkingDayPaymentRate";
+            this.ucNonWorkingDayPaymentRate.Size = new System.Drawing.Size(280, 130);
+            this.ucNonWorkingDayPaymentRate.TabIndex = 0;
+            // 
+            // ucHolidayPaymentRate
+            // 
+            this.ucHolidayPaymentRate.Location = new System.Drawing.Point(0, 0);
+            this.ucHolidayPaymentRate.Name = "ucHolidayPaymentRate";
+            this.ucHolidayPaymentRate.Size = new System.Drawing.Size(280, 130);
+            this.ucHolidayPaymentRate.TabIndex = 0;
+            // 
             // frmPreviewWorkingCalendar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -403,6 +404,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.gbxWorkingHours);
             this.Name = "frmPreviewWorkingCalendar";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Working Calendar Preview";
             this.gbxWorkingHours.ResumeLayout(false);
             this.gbxWorkingHours.PerformLayout();

@@ -149,7 +149,6 @@
             this.btnBack6 = new System.Windows.Forms.Button();
             this.btnCancel6 = new System.Windows.Forms.Button();
             this.btnNext6 = new System.Windows.Forms.Button();
-            this.mcdHoliday = new System.Windows.Forms.MonthCalendar();
             this.btnRemoveHoliday = new System.Windows.Forms.Button();
             this.btnAddHoliday = new System.Windows.Forms.Button();
             this.dgvHoliday = new System.Windows.Forms.DataGridView();
@@ -200,6 +199,7 @@
             this.btnCancel8 = new System.Windows.Forms.Button();
             this.btnFinish = new System.Windows.Forms.Button();
             this.label81 = new System.Windows.Forms.Label();
+            this.mcdHoliday = new Pabo.Calendar.MonthCalendar();
             this.tabAddUpdateWorkingCalendar.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -1410,11 +1410,11 @@
             // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.mcdHoliday);
             this.tabPage6.Controls.Add(this.label70);
             this.tabPage6.Controls.Add(this.btnBack6);
             this.tabPage6.Controls.Add(this.btnCancel6);
             this.tabPage6.Controls.Add(this.btnNext6);
-            this.tabPage6.Controls.Add(this.mcdHoliday);
             this.tabPage6.Controls.Add(this.btnRemoveHoliday);
             this.tabPage6.Controls.Add(this.btnAddHoliday);
             this.tabPage6.Controls.Add(this.dgvHoliday);
@@ -1464,17 +1464,9 @@
             this.btnNext6.UseVisualStyleBackColor = true;
             this.btnNext6.Click += new System.EventHandler(this.btnNext6_Click);
             // 
-            // mcdHoliday
-            // 
-            this.mcdHoliday.Location = new System.Drawing.Point(437, 70);
-            this.mcdHoliday.Name = "mcdHoliday";
-            this.mcdHoliday.ShowToday = false;
-            this.mcdHoliday.ShowTodayCircle = false;
-            this.mcdHoliday.TabIndex = 102;
-            // 
             // btnRemoveHoliday
             // 
-            this.btnRemoveHoliday.Location = new System.Drawing.Point(341, 128);
+            this.btnRemoveHoliday.Location = new System.Drawing.Point(326, 129);
             this.btnRemoveHoliday.Name = "btnRemoveHoliday";
             this.btnRemoveHoliday.Size = new System.Drawing.Size(75, 23);
             this.btnRemoveHoliday.TabIndex = 101;
@@ -1484,7 +1476,7 @@
             // 
             // btnAddHoliday
             // 
-            this.btnAddHoliday.Location = new System.Drawing.Point(341, 99);
+            this.btnAddHoliday.Location = new System.Drawing.Point(326, 100);
             this.btnAddHoliday.Name = "btnAddHoliday";
             this.btnAddHoliday.Size = new System.Drawing.Size(75, 23);
             this.btnAddHoliday.TabIndex = 100;
@@ -1514,12 +1506,14 @@
             this.HolidayDate.DataPropertyName = "Date";
             this.HolidayDate.HeaderText = "Date";
             this.HolidayDate.Name = "HolidayDate";
+            this.HolidayDate.ReadOnly = true;
             // 
             // Description
             // 
             this.Description.DataPropertyName = "Description";
             this.Description.HeaderText = "Description";
             this.Description.Name = "Description";
+            this.Description.ReadOnly = true;
             // 
             // tabPage7
             // 
@@ -1968,6 +1962,30 @@
             this.label81.TabIndex = 171;
             this.label81.Text = "Set Pay Period";
             // 
+            // mcdHoliday
+            // 
+            this.mcdHoliday.ActiveMonth.Month = 2;
+            this.mcdHoliday.ActiveMonth.Year = 2010;
+            this.mcdHoliday.Culture = new System.Globalization.CultureInfo("en-AU");
+            this.mcdHoliday.Footer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.mcdHoliday.Header.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.mcdHoliday.Header.TextColor = System.Drawing.Color.White;
+            this.mcdHoliday.Header.YearSelectors = true;
+            this.mcdHoliday.ImageList = null;
+            this.mcdHoliday.Location = new System.Drawing.Point(407, 52);
+            this.mcdHoliday.MaxDate = new System.DateTime(2020, 2, 3, 23, 39, 41, 696);
+            this.mcdHoliday.MinDate = new System.DateTime(2000, 2, 3, 23, 39, 41, 696);
+            this.mcdHoliday.Month.BackgroundImage = null;
+            this.mcdHoliday.Month.DateFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.mcdHoliday.Month.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.mcdHoliday.Name = "mcdHoliday";
+            this.mcdHoliday.SelectionMode = Pabo.Calendar.mcSelectionMode.One;
+            this.mcdHoliday.SelectTrailingDates = false;
+            this.mcdHoliday.Size = new System.Drawing.Size(215, 215);
+            this.mcdHoliday.TabIndex = 150;
+            this.mcdHoliday.Weekdays.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.mcdHoliday.Weeknumbers.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            // 
             // frmAddUpdateWorkingCalendar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2130,7 +2148,6 @@
         private System.Windows.Forms.Button btnBack6;
         private System.Windows.Forms.Button btnCancel6;
         private System.Windows.Forms.Button btnNext6;
-        private System.Windows.Forms.MonthCalendar mcdHoliday;
         private System.Windows.Forms.Button btnRemoveHoliday;
         private System.Windows.Forms.Button btnAddHoliday;
         private System.Windows.Forms.DataGridView dgvHoliday;
@@ -2189,5 +2206,6 @@
         private System.Windows.Forms.DateTimePicker dtpBreakFrom3;
         private System.Windows.Forms.DateTimePicker dtpBreakTo2;
         private System.Windows.Forms.Label label70;
+        private Pabo.Calendar.MonthCalendar mcdHoliday;
     }
 }

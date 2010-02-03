@@ -67,6 +67,7 @@
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.label1);
             this.Name = "frmReprocessStatus";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmReprocessStatus";
             this.ResumeLayout(false);
             this.PerformLayout();
