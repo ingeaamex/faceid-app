@@ -22,7 +22,7 @@ namespace FaceIDAppVBEta
         {
             InitializeComponent();
 
-            //VerifyUser();
+            VerifyUser();
 
             RegisterChannel();
             RegisterService();
@@ -35,7 +35,6 @@ namespace FaceIDAppVBEta
                 IDataController dtCtrl = LocalDataController.Instance;
                 if (dtCtrl.GetFaceIDUserList().Count != 0)
                 {
-                    FaceIDUser user = null;
                     new frmUserLogin(this).ShowDialog(this);
                 }
             }
