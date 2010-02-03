@@ -43,11 +43,6 @@ namespace FaceIDAppVBEta
             formExport.ShowDialog(this);
         }
 
-        private void btnCollectData_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("This function has not been implemented yet.");
-        }
-
         private void btnExportToMYOB_Click(object sender, EventArgs e)
         {
             ExportToMYOB();
@@ -58,33 +53,46 @@ namespace FaceIDAppVBEta
             try
             {
                 if (dgvAttendanceReport.DataSource == null)
-                    return;
-
-                List<AttendanceSummaryReport> attendanceSummaryReportList = (List<AttendanceSummaryReport>)dgvAttendanceReport.DataSource;
-                SaveFileDialog sfdMyobFile = new SaveFileDialog();
-                sfdMyobFile.Filter = "Text files (*.txt)|*.txt";
-                sfdMyobFile.FileName = DateTime.Now.Ticks.ToString();
-
-                if (sfdMyobFile.ShowDialog() == DialogResult.OK)
                 {
-                    StreamWriter sWriter = new StreamWriter(sfdMyobFile.FileName, false);
+                    MessageBox.Show("There's no data to export"); 
+                    return;
+                }
+                else
+                {
 
-                    sWriter.WriteLine("Emp. Co./Last Name,Emp. First Name,Payroll Category,Job,Cust. Co./Last Name,Cust. First Name,Notes,Date,Units");
-                    foreach (AttendanceSummaryReport attendanceSummaryReport in attendanceSummaryReportList)
+                    List<AttendanceSummaryReport> attendanceSummaryReportList = (List<AttendanceSummaryReport>)dgvAttendanceReport.DataSource;
+
+                    if (attendanceSummaryReportList.Count == 0)
                     {
-
-                        sWriter.WriteLine(string.Format("{0},Base Hourly,,,,,{1},{2}", attendanceSummaryReport.FullName, attendanceSummaryReport.DateLog.ToString("MM/dd/yyyy"), attendanceSummaryReport.TotalHour));
+                        MessageBox.Show("There's no data to export");
+                        return;
                     }
 
-                    sWriter.Close();
+                    SaveFileDialog sfdMyobFile = new SaveFileDialog();
+                    sfdMyobFile.Filter = "Text files (*.txt)|*.txt";
+                    sfdMyobFile.FileName = DateTime.Now.Ticks.ToString();
 
-                    MessageBox.Show("Export successfully");
+                    if (sfdMyobFile.ShowDialog() == DialogResult.OK)
+                    {
+                        StreamWriter sWriter = new StreamWriter(sfdMyobFile.FileName, false);
+
+                        sWriter.WriteLine("Emp. Co./Last Name,Emp. First Name,Payroll Category,Job,Cust. Co./Last Name,Cust. First Name,Notes,Date,Units");
+                        foreach (AttendanceSummaryReport attendanceSummaryReport in attendanceSummaryReportList)
+                        {
+
+                            sWriter.WriteLine(string.Format("{0},Base Hourly,,,,,{1},{2}", attendanceSummaryReport.FullName, attendanceSummaryReport.DateLog.ToString("MM/dd/yyyy"), attendanceSummaryReport.TotalHour));
+                        }
+
+                        sWriter.Close();
+
+                        MessageBox.Show("Export successfully");
+                    }
                 }
 
             }
             catch (Exception ex)
             {
-                Util.ShowErrorMessage(ex.Message);
+                Util.ShowErrorMessage("There has been an error: " + ex.Message + ". Please try again");
             }
         }
 

@@ -11,20 +11,24 @@ namespace FaceIDAppVBEta.Data
 {
     public class LocalDataController : MarshalByRefObject, IDataController
     {
-        private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";
+        //private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";
 
         //private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\vnanh\project\FaceID\db\FaceIDdb.mdb";
 
-        //private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=FaceIDdb.mdb";
+        private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=FaceIDdb.mdb";
 
         private OleDbTransaction transaction;
         private static OleDbConnection dbConnection;
         private static LocalDataController instance;
         private static readonly Object mutex = new Object();
+
         private int timeBound = 60;
         private int validTimeBound = 0;
 
-        public LocalDataController() { }
+        public LocalDataController()
+        {
+            ConnectToDatabase();
+        }
 
         public static LocalDataController Instance
         {
@@ -97,24 +101,18 @@ namespace FaceIDAppVBEta.Data
 
         public void BeginTransaction()
         {
-            //if (dbConnection.State != ConnectionState.Open)
-            //{
-            //    dbConnection.Open();
-            //}
             transaction = dbConnection.BeginTransaction();
         }
 
         public void CommitTransaction()
         {
             transaction.Commit();
-            //dbConnection.Close();
             transaction.Dispose();
         }
 
         public void RollbackTransaction()
         {
             transaction.Rollback();
-            //dbConnection.Close();
             transaction.Dispose();
         }
 
