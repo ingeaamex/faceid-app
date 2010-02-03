@@ -438,6 +438,7 @@ namespace FaceIDAppVBEta
                             throw new Exception("Can not import employee " + employee.EmployeeNumber);
                     }
 
+                    
                     MessageBox.Show("Import successfully");
                 }
             }
@@ -447,7 +448,11 @@ namespace FaceIDAppVBEta
             }
             finally
             {
-                sReader.Close();
+                try
+                {
+                    sReader.Close();
+                }
+                catch { }
             }
         }
 

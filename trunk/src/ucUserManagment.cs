@@ -59,9 +59,6 @@ namespace FaceIDAppVBEta
             dgvUser.Columns.Clear();
 
             dgvUser.DataSource = dt;
-
-            //dgvUser.AutoGenerateColumns = false;
-            //dgvUser.DataSource = _dtCtrl.GetFaceIDUserList();
         }
 
         private string GetAccessStr(FaceIDUser user)
@@ -88,9 +85,9 @@ namespace FaceIDAppVBEta
 
         private void BindEmployeeNumber()
         {
-            List<EmployeeNumber> employeeNumberList = _dtCtrl.GetEmployeeNumberList();
+            List<Employee> employeeList = _dtCtrl.GetEmployeeList();
 
-            if (employeeNumberList.Count == 0)
+            if (employeeList.Count == 0)
             {
                 btnAddUpdateUser.Enabled = false;
                 MessageBox.Show("There's no employee to be added as user. Please add an employee first.");
@@ -100,9 +97,18 @@ namespace FaceIDAppVBEta
                 cbxEmployeeNumber.DisplayMember = "Name";
                 cbxEmployeeNumber.ValueMember = "Value";
 
-                foreach (EmployeeNumber employeeNumber in employeeNumberList)
+                employeeList.Sort(delegate(Employee emp1, Employee emp2)
                 {
-                    ListItem listItem = new ListItem(employeeNumber.ID, employeeNumber.ID);
+                    return emp1.EmployeeNumber - emp2.EmployeeNumber;
+                });
+
+                foreach (Employee employee in employeeList)
+                {
+                    object value = employee.EmployeeNumber;
+                    object name = string.Format("{0} {1} {2}", employee.EmployeeNumber, employee.FirstName, employee.LastName);
+
+                    ListItem listItem = new ListItem(value, name);
+
                     cbxEmployeeNumber.Items.Add(listItem);
                 }
 
@@ -132,8 +138,6 @@ namespace FaceIDAppVBEta
 
                 gbxAddUpdateUser.Text = "Add new User";
                 btnAddUpdateUser.Text = "Add";
-
-
             }
             else //update
             {

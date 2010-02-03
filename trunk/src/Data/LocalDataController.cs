@@ -2402,8 +2402,7 @@ namespace FaceIDAppVBEta.Data
 
             if (odCom1.ExecuteNonQuery() == 1)
             {
-                odCom1.CommandText = "SELECT @@IDENTITY";
-                return Convert.ToInt16(odCom1.ExecuteScalar().ToString());
+                return faceIDUser.EmployeeNumber;
             }
             return -1;
         }
