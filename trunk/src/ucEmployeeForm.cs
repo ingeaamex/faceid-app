@@ -10,6 +10,7 @@ using FaceIDAppVBEta.Data;
 using FaceIDAppVBEta.Class;
 using System.IO;
 using System.Collections;
+using System.Globalization;
 
 namespace FaceIDAppVBEta
 {
@@ -23,7 +24,7 @@ namespace FaceIDAppVBEta
         {
             InitializeComponent();
             BindCompany();
-            
+
         }
 
         private void btView_Click(object sender, EventArgs e)
@@ -126,7 +127,7 @@ namespace FaceIDAppVBEta
                     MessageBox.Show("Employee deleted successfully.");
                     BindEmployee();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     _dtCtrl.RollbackTransaction();
                     MessageBox.Show("There has been an error: " + ex.Message + ". Please try again");
@@ -207,7 +208,7 @@ namespace FaceIDAppVBEta
 
         private string GetWorkingCalendarName(int workingCalendarID)
         {
-            if(workingCalendarID <= 0)
+            if (workingCalendarID <= 0)
                 return "";
 
             if (_htbWorkingCalendar.Contains(workingCalendarID))
@@ -217,7 +218,7 @@ namespace FaceIDAppVBEta
             else
             {
                 WorkingCalendar workingCalendar = _dtCtrl.GetWorkingCalendar(workingCalendarID);
-                if(workingCalendar != null)
+                if (workingCalendar != null)
                 {
                     _htbWorkingCalendar.Add(workingCalendarID, workingCalendar.Name);
                     return workingCalendar.Name;
@@ -375,7 +376,7 @@ namespace FaceIDAppVBEta
                         sWrite.WriteLine(")");
                     }
 
-                    MessageBox.Show("Well done. Congratulation.");
+                    MessageBox.Show("Export successfully.");
                 }
                 catch (Exception ex)
                 {
@@ -405,6 +406,7 @@ namespace FaceIDAppVBEta
 
         private void btnImportFromFile_Click(object sender, EventArgs e)
         {
+            StreamReader sReader = null;
             try
             {
                 OpenFileDialog ofdImport = new OpenFileDialog();
@@ -412,17 +414,22 @@ namespace FaceIDAppVBEta
 
                 if (ofdImport.ShowDialog() == DialogResult.OK)
                 {
-                    StreamReader sReader = new StreamReader(ofdImport.FileName);
-                    
+                    sReader = new StreamReader(ofdImport.FileName);
+
                     string line = "";
                     List<Employee> employeeList = new List<Employee>();
 
                     while ((line = sReader.ReadLine()) != null)
                     {
-                        throw new NotImplementedException();
+                        if (line.StartsWith("Co./Last Name,First Name")) //is header
+                            continue; //go to next line
+                        else
+                        {
+                            Employee employee = new Employee();
+                            GetEmployeeData(line, ref employee);
 
-                        Employee employee = new Employee();
-                        employeeList.Add(employee);
+                            employeeList.Add(employee);
+                        }
                     }
 
                     foreach (Employee employee in employeeList)
@@ -430,11 +437,43 @@ namespace FaceIDAppVBEta
                         if (_dtCtrl.AddEmployee(employee, new List<Terminal>()) <= 0)
                             throw new Exception("Can not import employee " + employee.EmployeeNumber);
                     }
+
+                    MessageBox.Show("Import successfully");
                 }
             }
             catch (Exception ex)
             {
                 Util.ShowErrorMessage("There has been an error: " + ex.Message + ". Please try again");
+            }
+            finally
+            {
+                sReader.Close();
+            }
+        }
+
+        private void GetEmployeeData(string line, ref Employee employee)
+        {
+            try
+            {
+                string[] data = line.Split(',');
+
+                employee.Active = true;
+                employee.Address = data[4] + " " + data[5] + " " + data[6] + " " + data[7];
+                employee.Birthday = data[108] != "" ? Convert.ToDateTime(data[108], new CultureInfo("en-US")) : Config.MinDate;
+                employee.DepartmentID = 1; //default department
+                employee.EmployeeNumber = Convert.ToInt32(data[2]);
+                employee.HiredDate = data[110] != "" ? Convert.ToDateTime(data[110], new CultureInfo("en-US")) : Config.MinDate;
+                employee.LastName = data[0];
+                employee.PhoneNumber = data[12];
+                employee.WorkingCalendarID = -1;
+            }
+            catch (FormatException)
+            {
+                throw new Exception("Employee's CardID must be in number only");
+            }
+            catch (IndexOutOfRangeException)
+            {
+                throw new Exception("File format not supported");
             }
         }
     }
