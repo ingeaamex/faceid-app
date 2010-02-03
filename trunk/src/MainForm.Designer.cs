@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.filesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.companyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -39,6 +40,8 @@
             this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sctMain = new System.Windows.Forms.SplitContainer();
             this.btnAttTest = new System.Windows.Forms.Button();
+            this.btnConfiguration = new System.Windows.Forms.Button();
+            this.btnReprocess = new System.Windows.Forms.Button();
             this.btnUser = new System.Windows.Forms.Button();
             this.btnAttendance = new System.Windows.Forms.Button();
             this.btnWorkingCalendar = new System.Windows.Forms.Button();
@@ -46,7 +49,6 @@
             this.btnEmployee = new System.Windows.Forms.Button();
             this.btnDepartment = new System.Windows.Forms.Button();
             this.btnCompany = new System.Windows.Forms.Button();
-            this.btnReprocess = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.sctMain.Panel1.SuspendLayout();
             this.sctMain.SuspendLayout();
@@ -134,6 +136,7 @@
             // sctMain.Panel1
             // 
             this.sctMain.Panel1.AccessibleName = "pnlLeft";
+            this.sctMain.Panel1.Controls.Add(this.btnConfiguration);
             this.sctMain.Panel1.Controls.Add(this.btnReprocess);
             this.sctMain.Panel1.Controls.Add(this.btnAttTest);
             this.sctMain.Panel1.Controls.Add(this.btnUser);
@@ -155,19 +158,44 @@
             // 
             this.btnAttTest.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAttTest.ForeColor = System.Drawing.Color.Red;
-            this.btnAttTest.Location = new System.Drawing.Point(0, 579);
+            this.btnAttTest.Location = new System.Drawing.Point(2, 609);
             this.btnAttTest.Name = "btnAttTest";
-            this.btnAttTest.Size = new System.Drawing.Size(163, 66);
+            this.btnAttTest.Size = new System.Drawing.Size(163, 50);
             this.btnAttTest.TabIndex = 7;
             this.btnAttTest.Text = "ATT TEST";
             this.btnAttTest.UseVisualStyleBackColor = true;
             this.btnAttTest.Click += new System.EventHandler(this.btnAttTest_Click);
             // 
+            // btnConfiguration
+            // 
+            this.btnConfiguration.Image = global::FaceIDAppVBEta.Properties.Resources.Configure;
+            this.btnConfiguration.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnConfiguration.Location = new System.Drawing.Point(2, 451);
+            this.btnConfiguration.Name = "btnConfiguration";
+            this.btnConfiguration.Size = new System.Drawing.Size(163, 50);
+            this.btnConfiguration.TabIndex = 9;
+            this.btnConfiguration.Text = "Configuration";
+            this.btnConfiguration.UseVisualStyleBackColor = true;
+            // 
+            // btnReprocess
+            // 
+            this.btnReprocess.Image = global::FaceIDAppVBEta.Properties.Resources.Refresh;
+            this.btnReprocess.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnReprocess.Location = new System.Drawing.Point(2, 395);
+            this.btnReprocess.Name = "btnReprocess";
+            this.btnReprocess.Size = new System.Drawing.Size(163, 50);
+            this.btnReprocess.TabIndex = 8;
+            this.btnReprocess.Text = "Reprocess";
+            this.btnReprocess.UseVisualStyleBackColor = true;
+            this.btnReprocess.Click += new System.EventHandler(this.btnReprocess_Click);
+            // 
             // btnUser
             // 
-            this.btnUser.Location = new System.Drawing.Point(3, 435);
+            this.btnUser.Image = global::FaceIDAppVBEta.Properties.Resources.People;
+            this.btnUser.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnUser.Location = new System.Drawing.Point(2, 339);
             this.btnUser.Name = "btnUser";
-            this.btnUser.Size = new System.Drawing.Size(163, 66);
+            this.btnUser.Size = new System.Drawing.Size(163, 50);
             this.btnUser.TabIndex = 6;
             this.btnUser.Text = "User Management";
             this.btnUser.UseVisualStyleBackColor = true;
@@ -175,9 +203,11 @@
             // 
             // btnAttendance
             // 
-            this.btnAttendance.Location = new System.Drawing.Point(2, 363);
+            this.btnAttendance.Image = global::FaceIDAppVBEta.Properties.Resources.Chart_02;
+            this.btnAttendance.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAttendance.Location = new System.Drawing.Point(2, 283);
             this.btnAttendance.Name = "btnAttendance";
-            this.btnAttendance.Size = new System.Drawing.Size(163, 66);
+            this.btnAttendance.Size = new System.Drawing.Size(163, 50);
             this.btnAttendance.TabIndex = 5;
             this.btnAttendance.Text = "Attendance";
             this.btnAttendance.UseVisualStyleBackColor = true;
@@ -185,9 +215,11 @@
             // 
             // btnWorkingCalendar
             // 
-            this.btnWorkingCalendar.Location = new System.Drawing.Point(2, 291);
+            this.btnWorkingCalendar.Image = global::FaceIDAppVBEta.Properties.Resources.Calendar;
+            this.btnWorkingCalendar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnWorkingCalendar.Location = new System.Drawing.Point(2, 227);
             this.btnWorkingCalendar.Name = "btnWorkingCalendar";
-            this.btnWorkingCalendar.Size = new System.Drawing.Size(163, 66);
+            this.btnWorkingCalendar.Size = new System.Drawing.Size(163, 50);
             this.btnWorkingCalendar.TabIndex = 4;
             this.btnWorkingCalendar.Text = "Working Calendar";
             this.btnWorkingCalendar.UseVisualStyleBackColor = true;
@@ -195,9 +227,11 @@
             // 
             // btnTerminal
             // 
-            this.btnTerminal.Location = new System.Drawing.Point(2, 219);
+            this.btnTerminal.Image = global::FaceIDAppVBEta.Properties.Resources.Calculator;
+            this.btnTerminal.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnTerminal.Location = new System.Drawing.Point(2, 171);
             this.btnTerminal.Name = "btnTerminal";
-            this.btnTerminal.Size = new System.Drawing.Size(163, 66);
+            this.btnTerminal.Size = new System.Drawing.Size(163, 50);
             this.btnTerminal.TabIndex = 3;
             this.btnTerminal.Text = "Terminal";
             this.btnTerminal.UseVisualStyleBackColor = true;
@@ -205,9 +239,11 @@
             // 
             // btnEmployee
             // 
-            this.btnEmployee.Location = new System.Drawing.Point(2, 147);
+            this.btnEmployee.Image = global::FaceIDAppVBEta.Properties.Resources.UserCard;
+            this.btnEmployee.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnEmployee.Location = new System.Drawing.Point(2, 115);
             this.btnEmployee.Name = "btnEmployee";
-            this.btnEmployee.Size = new System.Drawing.Size(163, 66);
+            this.btnEmployee.Size = new System.Drawing.Size(163, 50);
             this.btnEmployee.TabIndex = 2;
             this.btnEmployee.Text = "Employee";
             this.btnEmployee.UseVisualStyleBackColor = true;
@@ -215,9 +251,11 @@
             // 
             // btnDepartment
             // 
-            this.btnDepartment.Location = new System.Drawing.Point(2, 75);
+            this.btnDepartment.Image = global::FaceIDAppVBEta.Properties.Resources.Catalog;
+            this.btnDepartment.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDepartment.Location = new System.Drawing.Point(2, 59);
             this.btnDepartment.Name = "btnDepartment";
-            this.btnDepartment.Size = new System.Drawing.Size(163, 66);
+            this.btnDepartment.Size = new System.Drawing.Size(163, 50);
             this.btnDepartment.TabIndex = 1;
             this.btnDepartment.Text = "Department";
             this.btnDepartment.UseVisualStyleBackColor = true;
@@ -225,23 +263,15 @@
             // 
             // btnCompany
             // 
+            this.btnCompany.Image = global::FaceIDAppVBEta.Properties.Resources.Department;
+            this.btnCompany.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnCompany.Location = new System.Drawing.Point(2, 3);
             this.btnCompany.Name = "btnCompany";
-            this.btnCompany.Size = new System.Drawing.Size(163, 66);
+            this.btnCompany.Size = new System.Drawing.Size(163, 50);
             this.btnCompany.TabIndex = 0;
             this.btnCompany.Text = "Company";
             this.btnCompany.UseVisualStyleBackColor = true;
             this.btnCompany.Click += new System.EventHandler(this.btnCompany_Click);
-            // 
-            // btnReprocess
-            // 
-            this.btnReprocess.Location = new System.Drawing.Point(2, 507);
-            this.btnReprocess.Name = "btnReprocess";
-            this.btnReprocess.Size = new System.Drawing.Size(163, 66);
-            this.btnReprocess.TabIndex = 8;
-            this.btnReprocess.Text = "Reprocess";
-            this.btnReprocess.UseVisualStyleBackColor = true;
-            this.btnReprocess.Click += new System.EventHandler(this.btnReprocess_Click);
             // 
             // MainForm
             // 
@@ -251,6 +281,7 @@
             this.ClientSize = new System.Drawing.Size(1016, 686);
             this.Controls.Add(this.sctMain);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -285,6 +316,7 @@
         private System.Windows.Forms.ToolStripMenuItem updateToolStripMenuItem;
         private System.Windows.Forms.Button btnAttTest;
         private System.Windows.Forms.Button btnReprocess;
+        private System.Windows.Forms.Button btnConfiguration;
 
     }
 }

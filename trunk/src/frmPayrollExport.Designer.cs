@@ -58,6 +58,7 @@
             this.ClientSize = new System.Drawing.Size(1146, 533);
             this.Controls.Add(this.reportViewer1);
             this.Name = "frmPayrollExport";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "frmPayrollExport";
             this.Load += new System.EventHandler(this.frmPayrollExport_Load);
             ((System.ComponentModel.ISupportInitialize)(this.BindingSource)).EndInit();

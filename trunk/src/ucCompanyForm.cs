@@ -49,7 +49,7 @@ namespace FaceIDAppVBEta
                     //check employee!!!
                     if (departments != null && departments.Count > 0)
                     {
-                        MessageBox.Show("Company is in used");
+                        MessageBox.Show("Company is in use");
                     }
                     else
                     {

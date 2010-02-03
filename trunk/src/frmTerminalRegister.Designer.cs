@@ -41,7 +41,7 @@
             // lblRegTerminal
             // 
             this.lblRegTerminal.AutoSize = true;
-            this.lblRegTerminal.Location = new System.Drawing.Point(75, 43);
+            this.lblRegTerminal.Location = new System.Drawing.Point(32, 19);
             this.lblRegTerminal.Name = "lblRegTerminal";
             this.lblRegTerminal.Size = new System.Drawing.Size(101, 13);
             this.lblRegTerminal.TabIndex = 0;
@@ -50,7 +50,7 @@
             // lblAvailTerminal
             // 
             this.lblAvailTerminal.AutoSize = true;
-            this.lblAvailTerminal.Location = new System.Drawing.Point(434, 43);
+            this.lblAvailTerminal.Location = new System.Drawing.Point(309, 19);
             this.lblAvailTerminal.Name = "lblAvailTerminal";
             this.lblAvailTerminal.Size = new System.Drawing.Size(93, 13);
             this.lblAvailTerminal.TabIndex = 1;
@@ -60,7 +60,7 @@
             // 
             this.lbxRegTerminal.DisplayMember = "Name";
             this.lbxRegTerminal.FormattingEnabled = true;
-            this.lbxRegTerminal.Location = new System.Drawing.Point(67, 76);
+            this.lbxRegTerminal.Location = new System.Drawing.Point(22, 52);
             this.lbxRegTerminal.Name = "lbxRegTerminal";
             this.lbxRegTerminal.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.lbxRegTerminal.Size = new System.Drawing.Size(120, 95);
@@ -71,7 +71,7 @@
             // 
             this.lbxAvailTerminal.DisplayMember = "Name";
             this.lbxAvailTerminal.FormattingEnabled = true;
-            this.lbxAvailTerminal.Location = new System.Drawing.Point(421, 76);
+            this.lbxAvailTerminal.Location = new System.Drawing.Point(295, 52);
             this.lbxAvailTerminal.Name = "lbxAvailTerminal";
             this.lbxAvailTerminal.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.lbxAvailTerminal.Size = new System.Drawing.Size(120, 95);
@@ -80,7 +80,7 @@
             // 
             // btnAddTerminal
             // 
-            this.btnAddTerminal.Location = new System.Drawing.Point(232, 89);
+            this.btnAddTerminal.Location = new System.Drawing.Point(158, 52);
             this.btnAddTerminal.Name = "btnAddTerminal";
             this.btnAddTerminal.Size = new System.Drawing.Size(121, 23);
             this.btnAddTerminal.TabIndex = 4;
@@ -90,7 +90,7 @@
             // 
             // btnRemoveTerminal
             // 
-            this.btnRemoveTerminal.Location = new System.Drawing.Point(232, 119);
+            this.btnRemoveTerminal.Location = new System.Drawing.Point(158, 82);
             this.btnRemoveTerminal.Name = "btnRemoveTerminal";
             this.btnRemoveTerminal.Size = new System.Drawing.Size(121, 23);
             this.btnRemoveTerminal.TabIndex = 5;
@@ -100,7 +100,7 @@
             // 
             // btnSubmit
             // 
-            this.btnSubmit.Location = new System.Drawing.Point(202, 207);
+            this.btnSubmit.Location = new System.Drawing.Point(142, 165);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(75, 23);
             this.btnSubmit.TabIndex = 6;
@@ -110,7 +110,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(284, 207);
+            this.btnCancel.Location = new System.Drawing.Point(224, 165);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 7;
@@ -122,7 +122,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(710, 266);
+            this.ClientSize = new System.Drawing.Size(437, 207);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSubmit);
             this.Controls.Add(this.btnRemoveTerminal);
@@ -132,6 +132,7 @@
             this.Controls.Add(this.lblAvailTerminal);
             this.Controls.Add(this.lblRegTerminal);
             this.Name = "frmTerminalRegister";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "frmTerminalRegister";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmTerminalRegister_FormClosing);
             this.ResumeLayout(false);

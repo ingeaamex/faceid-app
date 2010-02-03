@@ -54,6 +54,7 @@
             this.ClientSize = new System.Drawing.Size(865, 384);
             this.Controls.Add(this.reportViewer1);
             this.Name = "frmEmployeeReport";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "frmEmployeeReport";
             this.Load += new System.EventHandler(this.frmEmployeeReport_Load);
             ((System.ComponentModel.ISupportInitialize)(this.BindingSource)).EndInit();

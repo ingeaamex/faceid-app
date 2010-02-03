@@ -850,33 +850,41 @@ namespace FaceIDAppVBEta
 
         private void AddHoliday()
         {
-            Holiday holiday = new Holiday();
-            holiday.Date = mcdHoliday.SelectionStart;
-            holiday.Description = "";
-
-            if (_holidayList.Find(delegate(Holiday hday)
+            if (mcdHoliday.SelectedDates.Count == 0)
             {
-                return hday.Date.Day == holiday.Date.Day && hday.Date.Month == holiday.Date.Month;
-            }) != null)
-            {
-                MessageBox.Show(holiday.Date.Day + @"/" + holiday.Date.Month + " has already been added. Please choose another day.");
+                MessageBox.Show("Please select a day.");
                 return;
             }
             else
             {
-                new frmAddUpdateHoliday(ref holiday).ShowDialog(this);
-                if (holiday != null)
-                {
-                    _holidayList.Add(holiday);
-                    _holidayList.Sort(delegate(Holiday hday1, Holiday hday2)
-                    {
-                        if (hday1.Date.Month != hday2.Date.Month)
-                            return hday1.Date.Month - hday2.Date.Month;
-                        else
-                            return hday1.Date.Day - hday2.Date.Day;
-                    });
+                Holiday holiday = new Holiday();
+                holiday.Date = mcdHoliday.SelectedDates[0];
+                holiday.Description = "";
 
-                    BindHoliday();
+                if (_holidayList.Find(delegate(Holiday hday)
+                {
+                    return hday.Date.Day == holiday.Date.Day && hday.Date.Month == holiday.Date.Month;
+                }) != null)
+                {
+                    MessageBox.Show(holiday.Date.Day + @"/" + holiday.Date.Month + " has already been added. Please choose another day.");
+                    return;
+                }
+                else
+                {
+                    new frmAddUpdateHoliday(ref holiday).ShowDialog(this);
+                    if (holiday != null)
+                    {
+                        _holidayList.Add(holiday);
+                        _holidayList.Sort(delegate(Holiday hday1, Holiday hday2)
+                        {
+                            if (hday1.Date.Month != hday2.Date.Month)
+                                return hday1.Date.Month - hday2.Date.Month;
+                            else
+                                return hday1.Date.Day - hday2.Date.Day;
+                        });
+
+                        BindHoliday();
+                    }
                 }
             }
         }

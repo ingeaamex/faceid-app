@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("FaceIdApp")]
+[assembly: AssemblyTitle("FaceIDAppVBEta")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("FaceIdApp")]
-[assembly: AssemblyCopyright("Copyright ©  2010")]
+[assembly: AssemblyCompany("Swinburne")]
+[assembly: AssemblyProduct("FaceIDAppVBEta")]
+[assembly: AssemblyCopyright("Copyright © Swinburne 2010")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("940ce588-fceb-42d3-9d47-59a9975db7c8")]
+[assembly: Guid("aa7123f5-cc09-441b-a484-f69416eb12bd")]
 
 // Version information for an assembly consists of the following four values:
 //
