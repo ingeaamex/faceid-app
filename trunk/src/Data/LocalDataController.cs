@@ -2429,7 +2429,7 @@ namespace FaceIDAppVBEta.Data
                 ,faceIDUser.EmployeeManagementAccess
                 ,faceIDUser.AttendanceManagementAccess
                 },
-                "ID=@ID", new object[] { "@ID", faceIDUser.EmployeeNumber }
+                "EmployeeNumber=@ID", new object[] { "@ID", faceIDUser.EmployeeNumber }
             );
 
             return odCom1.ExecuteNonQuery() > 0 ? true : false;

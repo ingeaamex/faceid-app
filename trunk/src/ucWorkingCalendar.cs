@@ -44,7 +44,6 @@ namespace FaceIDAppVBEta
 
             dgvWorkingCalendar.AutoGenerateColumns = true;
             dgvWorkingCalendar.Columns.Clear();
-            //dgvWorkingCalendar.Rows.Clear();
 
             dgvWorkingCalendar.DataSource = dt;
             dgvWorkingCalendar.Columns[0].Visible = false;

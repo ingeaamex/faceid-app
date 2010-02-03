@@ -462,6 +462,7 @@ namespace FaceIDAppVBEta
                 employee.Birthday = data[108] != "" ? Convert.ToDateTime(data[108], new CultureInfo("en-US")) : Config.MinDate;
                 employee.DepartmentID = 1; //default department
                 employee.EmployeeNumber = Convert.ToInt32(data[2]);
+                employee.FirstName = data[1];
                 employee.HiredDate = data[110] != "" ? Convert.ToDateTime(data[110], new CultureInfo("en-US")) : Config.MinDate;
                 employee.LastName = data[0];
                 employee.PhoneNumber = data[12];

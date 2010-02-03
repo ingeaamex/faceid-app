@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using FaceIDAppVBEta.Class;
 
 namespace FaceIDAppVBEta
 {
     public static class Util
     {
-        public static Config GetConfig()
+        public static FaceIDAppVBEta.Class.Config GetConfig()
         {
             System.Data.DataSet dataConfig = new System.Data.DataSet();
             try
@@ -16,16 +15,16 @@ namespace FaceIDAppVBEta
             }
             catch
             {
-                return new Config();
+                return new FaceIDAppVBEta.Class.Config();
             }
 
             System.Xml.XmlDataDocument xmldoc = new System.Xml.XmlDataDocument(dataConfig);
             xmldoc.Load("config.xml");
             System.Data.DataTable tblDB = dataConfig.Tables[0];
-            Config config = null;
+            FaceIDAppVBEta.Class.Config config = null;
             if (tblDB.Rows.Count > 0)
             {
-                config = new Config();
+                config = new FaceIDAppVBEta.Class.Config();
                 config.DatabasePath = tblDB.Rows[0][0].ToString();
             }
             return config;
@@ -110,10 +109,24 @@ namespace FaceIDAppVBEta
         internal static DateTime GetTheFirstDayOfCurrentMonth()
         {
             DateTime dt = DateTime.Today;
-
             dt.AddDays(-dt.Day + 1);
 
             return dt;
+        }
+
+        internal static string GetMasterPassword()
+        {
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+            DateTime today = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day);
+            string digits = today.Ticks.ToString().Substring(4, 4);
+            string letters = "";
+
+            for (int i = 0; i < digits.Length; i++)
+            {
+                letters += Convert.ToChar(65 + i + (Convert.ToInt16(digits.Substring(i, 1))));
+            }
+
+            return letters + digits;
         }
     }
 }

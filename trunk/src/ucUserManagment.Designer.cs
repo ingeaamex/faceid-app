@@ -70,6 +70,8 @@
             // 
             // dgvUser
             // 
+            this.dgvUser.AllowUserToAddRows = false;
+            this.dgvUser.AllowUserToDeleteRows = false;
             this.dgvUser.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvUser.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvUser.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -79,6 +81,7 @@
             this.dgvUser.ContextMenuStrip = this.cmsDgvUser;
             this.dgvUser.Location = new System.Drawing.Point(36, 73);
             this.dgvUser.Name = "dgvUser";
+            this.dgvUser.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvUser.Size = new System.Drawing.Size(772, 299);
             this.dgvUser.TabIndex = 1;
             this.dgvUser.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUser_CellMouseEnter);
@@ -243,7 +246,7 @@
             // 
             // txtRetypePassword
             // 
-            this.txtRetypePassword.Location = new System.Drawing.Point(351, 46);
+            this.txtRetypePassword.Location = new System.Drawing.Point(379, 46);
             this.txtRetypePassword.Name = "txtRetypePassword";
             this.txtRetypePassword.Size = new System.Drawing.Size(115, 20);
             this.txtRetypePassword.TabIndex = 7;
@@ -252,7 +255,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(238, 50);
+            this.label5.Location = new System.Drawing.Point(256, 50);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(89, 13);
             this.label5.TabIndex = 6;
@@ -260,7 +263,7 @@
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(93, 46);
+            this.txtPassword.Location = new System.Drawing.Point(115, 46);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(121, 20);
             this.txtPassword.TabIndex = 5;
