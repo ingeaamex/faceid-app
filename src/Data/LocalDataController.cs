@@ -6,13 +6,15 @@ using System.Data;
 using FaceIDAppVBEta.Class;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 
 namespace FaceIDAppVBEta.Data
 {
     public class LocalDataController : MarshalByRefObject, IDataController
     {
-        private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";
+        private static readonly string _dbPath = @"F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";
 
+        private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";
         //private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\vnanh\project\FaceID\db\FaceIDdb.mdb";
 
         //private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=FaceIDdb.mdb";
@@ -2451,7 +2453,7 @@ namespace FaceIDAppVBEta.Data
         }
         #endregion
 
-        #region utils
+        #region Utils
 
         private void WriteLog(string msg)
         {
@@ -2578,7 +2580,7 @@ namespace FaceIDAppVBEta.Data
 
             return command;
         }
-        #endregion utils
+        #endregion Utils
 
         #region AttendanceReport
         public bool AddAttendanceReport(AttendanceReport attendanceReport)
@@ -3587,6 +3589,32 @@ namespace FaceIDAppVBEta.Data
             return department;
         }
 
+        #endregion
+
+        #region Backup
+        public void BackupDatabase(string backupPath)
+        {
+            //disconnect from db
+            DisconnectFromDatabase();
+
+            //copy db to a new file
+            File.Copy(_dbPath, backupPath, true);
+
+            //connect to db again
+            ConnectToDatabase();
+        }
+
+        public void RestoreDatabase(string restoreFile)
+        {
+            //disconnect from db
+            DisconnectFromDatabase();
+
+            //copy db to a new file
+            File.Copy(restoreFile, _dbPath, true);
+
+            //connect to db again
+            ConnectToDatabase();
+        }
         #endregion
     }
 }

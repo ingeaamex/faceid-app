@@ -39,9 +39,9 @@
             this.configToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sctMain = new System.Windows.Forms.SplitContainer();
-            this.btnAttTest = new System.Windows.Forms.Button();
             this.btnConfiguration = new System.Windows.Forms.Button();
             this.btnReprocess = new System.Windows.Forms.Button();
+            this.btnAttTest = new System.Windows.Forms.Button();
             this.btnUser = new System.Windows.Forms.Button();
             this.btnAttendance = new System.Windows.Forms.Button();
             this.btnWorkingCalendar = new System.Windows.Forms.Button();
@@ -154,18 +154,6 @@
             this.sctMain.SplitterDistance = 167;
             this.sctMain.TabIndex = 1;
             // 
-            // btnAttTest
-            // 
-            this.btnAttTest.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAttTest.ForeColor = System.Drawing.Color.Red;
-            this.btnAttTest.Location = new System.Drawing.Point(2, 609);
-            this.btnAttTest.Name = "btnAttTest";
-            this.btnAttTest.Size = new System.Drawing.Size(163, 50);
-            this.btnAttTest.TabIndex = 7;
-            this.btnAttTest.Text = "ATT TEST";
-            this.btnAttTest.UseVisualStyleBackColor = true;
-            this.btnAttTest.Click += new System.EventHandler(this.btnAttTest_Click);
-            // 
             // btnConfiguration
             // 
             this.btnConfiguration.Image = global::FaceIDAppVBEta.Properties.Resources.Configure;
@@ -176,6 +164,7 @@
             this.btnConfiguration.TabIndex = 9;
             this.btnConfiguration.Text = "Configuration";
             this.btnConfiguration.UseVisualStyleBackColor = true;
+            this.btnConfiguration.Click += new System.EventHandler(this.btnConfiguration_Click);
             // 
             // btnReprocess
             // 
@@ -188,6 +177,18 @@
             this.btnReprocess.Text = "Reprocess";
             this.btnReprocess.UseVisualStyleBackColor = true;
             this.btnReprocess.Click += new System.EventHandler(this.btnReprocess_Click);
+            // 
+            // btnAttTest
+            // 
+            this.btnAttTest.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAttTest.ForeColor = System.Drawing.Color.Red;
+            this.btnAttTest.Location = new System.Drawing.Point(2, 609);
+            this.btnAttTest.Name = "btnAttTest";
+            this.btnAttTest.Size = new System.Drawing.Size(163, 50);
+            this.btnAttTest.TabIndex = 7;
+            this.btnAttTest.Text = "ATT TEST";
+            this.btnAttTest.UseVisualStyleBackColor = true;
+            this.btnAttTest.Click += new System.EventHandler(this.btnAttTest_Click);
             // 
             // btnUser
             // 

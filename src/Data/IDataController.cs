@@ -10,13 +10,13 @@ namespace FaceIDAppVBEta.Data
     interface IDataController
     {
         #region Connection
-
         void BeginTransaction();
 
         void CommitTransaction();
 
         void RollbackTransaction();
 
+        void RefreshConnection();
         #endregion Connection
 
         #region Company
@@ -269,6 +269,10 @@ namespace FaceIDAppVBEta.Data
 
         List<PayrollExport> GetPayrollExportList(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate);
 
-        void RefreshConnection();
+        #region Backup
+        void BackupDatabase(string backupPath);
+
+        void RestoreDatabase(string restoreFile);
+        #endregion
     }
 }
