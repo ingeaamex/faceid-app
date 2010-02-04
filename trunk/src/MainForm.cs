@@ -145,8 +145,8 @@ namespace FaceIDAppVBEta
 
         private void updateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FaceIDAppVBEta.Data.LocalDataController dtCtrl = FaceIDAppVBEta.Data.LocalDataController.Instance;
-            dtCtrl.CalculateAttendanceRecord();
+            //FaceIDAppVBEta.Data.LocalDataController dtCtrl = FaceIDAppVBEta.Data.LocalDataController.Instance;
+            //dtCtrl.CalculateAttendanceRecord();
         }
 
         private void btnAttTest_Click(object sender, EventArgs e)
