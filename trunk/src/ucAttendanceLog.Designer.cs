@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label2 = new System.Windows.Forms.Label();
             this.dtpAttendanceFrom = new System.Windows.Forms.DateTimePicker();
             this.dtpAttedanceTo = new System.Windows.Forms.DateTimePicker();
@@ -103,19 +103,19 @@
             this.editToolStripMenuItem,
             this.deleteToolStripMenuItem});
             this.cmsAction.Name = "cmsAction";
-            this.cmsAction.Size = new System.Drawing.Size(106, 48);
+            this.cmsAction.Size = new System.Drawing.Size(108, 48);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.editToolStripMenuItem.Text = "Edit";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
@@ -221,8 +221,11 @@
             this.dgvAttendanceLog.Size = new System.Drawing.Size(825, 448);
             this.dgvAttendanceLog.TabIndex = 16;
             this.dgvAttendanceLog.Scroll += new System.Windows.Forms.ScrollEventHandler(this.dgvAttendanceLog_Scroll);
+            this.dgvAttendanceLog.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvAttendanceLog_ColumnHeaderMouseClick);
+            this.dgvAttendanceLog.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvAttendanceLog_CellFormatting);
             this.dgvAttendanceLog.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAttendanceLog_CellMouseEnter);
             this.dgvAttendanceLog.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvAttendanceLog_CellPainting);
+            this.dgvAttendanceLog.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvAttendanceLog_CellMouseDoubleClick);
             // 
             // EmployeeNumber
             // 
@@ -241,8 +244,8 @@
             // Date1
             // 
             this.Date1.DataPropertyName = "DateLog";
-            dataGridViewCellStyle3.Format = "d MMM yyyy";
-            this.Date1.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Format = "d MMM yyyy";
+            this.Date1.DefaultCellStyle = dataGridViewCellStyle1;
             this.Date1.HeaderText = "Date";
             this.Date1.Name = "Date1";
             this.Date1.ReadOnly = true;
@@ -286,8 +289,8 @@
             // 
             // dataGridViewTextBoxColumn3
             // 
-            dataGridViewCellStyle4.Format = "d MMM yyyy";
-            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Format = "d MMM yyyy";
+            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewTextBoxColumn3.HeaderText = "Date";
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
