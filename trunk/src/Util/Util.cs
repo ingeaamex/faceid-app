@@ -102,6 +102,23 @@ namespace FaceIDAppVBEta
             return;
         }
 
+        public static int CompareTime(DateTime dt1, DateTime dt2)
+        {
+            dt2 = new DateTime(dt1.Year, dt1.Month, dt1.Day, dt2.Hour, dt2.Minute, dt2.Second);
+
+            return TimeSpan.FromTicks(dt1.Ticks - dt2.Ticks).Seconds;
+        }
+
+        public static int CompareDate(DateTime dt1, DateTime dt2)
+        {
+            int dateDiff = TimeSpan.FromTicks(dt1.Ticks - dt2.Ticks).Days;
+
+            if (dateDiff < 0)
+                dateDiff *= -1;
+
+            return dateDiff;
+        }
+
         internal static void SetComboboxSelectedByValue(System.Windows.Forms.ComboBox cbx, object value)
         {
             cbx.SelectedIndex = cbx.FindString(value.ToString());

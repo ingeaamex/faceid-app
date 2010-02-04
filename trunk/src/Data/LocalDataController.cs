@@ -12,13 +12,14 @@ namespace FaceIDAppVBEta.Data
 {
     public class LocalDataController : MarshalByRefObject, IDataController
     {
-        private static readonly string _dbPath = @"F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";
+        //private static readonly string _dbPath = @"F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";
+        private static readonly string _dbPath = @"FaceIDdb.mdb";
         
         //private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\vnanh\project\FaceID\db\FaceIDdb.mdb";
 
-        private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";
+        //private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";
         
-        //private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=FaceIDdb.mdb";
+        private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=FaceIDdb.mdb";
 
         private OleDbTransaction transaction;
         private static OleDbConnection dbConnection;
@@ -488,7 +489,7 @@ namespace FaceIDAppVBEta.Data
         public bool IsNewEmployee(Employee employee)
         {
             bool result = false;
-            OleDbCommand odCom = BuildSelectCmd("Employee", "PayrollNumber", "Active=TRUE AND EmployeeNumber=@EmployeeNumber", "@EmployeeNumber", employee.EmployeeNumber);
+            OleDbCommand odCom = BuildSelectCmd("Employee", "PayrollNumber", "Active=TRUE AND EmployeeNumber=@EmployeeNumber", new object[]{"@EmployeeNumber", employee.EmployeeNumber});
             OleDbDataReader odRdr = odCom.ExecuteReader();
 
             result = (odRdr.Read() == false);
@@ -605,7 +606,7 @@ namespace FaceIDAppVBEta.Data
 
         public bool IsExistEmployeeNumber(int employeeNumber)
         {
-            OleDbCommand odCom = BuildSelectCmd("Employee", "EmployeeNumber", "EmployeeNumber=@EmployeeNumber", "@EmployeeNumber", employeeNumber);
+            OleDbCommand odCom = BuildSelectCmd("Employee", "EmployeeNumber", "EmployeeNumber=@EmployeeNumber", new object[]{"@EmployeeNumber", employeeNumber});
             OleDbDataReader odRdr = odCom.ExecuteReader();
 
             if (odRdr.Read())
@@ -1221,7 +1222,6 @@ namespace FaceIDAppVBEta.Data
 
         public WorkingCalendar GetWorkingCalendar(int workingCalendarID)
         {
-
             OleDbCommand odCom = BuildSelectCmd("WorkingCalendar", "*", "ID=@ID", new object[] { "@ID", workingCalendarID });
             OleDbDataReader odRdr = odCom.ExecuteReader();
 
@@ -3525,7 +3525,7 @@ namespace FaceIDAppVBEta.Data
 
         public Department GetDepartment(string name)
         {
-            OleDbCommand odCom = BuildSelectCmd("Department", "TOP 1 *", "Name=@Name", "@Name", name);
+            OleDbCommand odCom = BuildSelectCmd("Department", "TOP 1 *", "Name=@Name", new object[]{"@Name", name});
             OleDbDataReader odRdr = odCom.ExecuteReader();
 
             Department department = null;
@@ -3587,10 +3587,12 @@ namespace FaceIDAppVBEta.Data
                 config.ScheduledBackup = Convert.ToBoolean(odRdr["ScheduledBackup"]);
                 config.BackupPeriod = (int)odRdr["BackupPeriod"];
                 config.BackupDay = (int)odRdr["BackupDay"];
-                config.BackupTime = odRdr["BackupTime"].GetType() != typeof(DBNull) ? Convert.ToDateTime(odRdr["BackupTime"]) : DateTime.Today;
+                config.BackupTime = odRdr["BackupTime"].GetType() != typeof(DBNull) ? Convert.ToDateTime(odRdr["BackupTime"]) : Config.MinDate;
                 config.BackupFolder = odRdr["BackupFolder"].ToString();
                 config.BackupRemind = Convert.ToBoolean(odRdr["BackupRemind"]);
                 config.BackupRemindPeriod = (int)odRdr["BackupRemindPeriod"];
+                config.LastestBackup = odRdr["LastestBackup"].GetType() != typeof(DBNull) ? Convert.ToDateTime(odRdr["LastestBackup"]) : Config.MinDate;
+                config.LastestBackupFile = odRdr["LastestBackupFile"].ToString();
                 config.RestoreFromLatest = Convert.ToBoolean(odRdr["RestoreFromLatest"]);
                 config.RestoreFromFile = odRdr["RestoreFromFile"].ToString();
             }
@@ -3599,6 +3601,7 @@ namespace FaceIDAppVBEta.Data
                 config = new Config();
                 config.BackupFolder = "";
                 config.RestoreFromFile = "";
+                config.LastestBackupFile = "";
 
                 config.BackupPeriod = 1;
                 config.BackupRemindPeriod = 1;
@@ -3621,6 +3624,8 @@ namespace FaceIDAppVBEta.Data
                 ,"BackupFolder"
                 ,"BackupRemind"
                 ,"BackupRemindPeriod"
+                ,"LastestBackup"
+                ,"LastestBackupFile"
                 ,"RestoreFromLatest"
                 ,"RestoreFromFile"
                 },
@@ -3631,6 +3636,8 @@ namespace FaceIDAppVBEta.Data
                 ,config.BackupFolder
                 ,config.BackupRemind
                 ,config.BackupRemindPeriod
+                ,config.LastestBackup
+                ,config.LastestBackupFile
                 ,config.RestoreFromLatest
                 ,config.RestoreFromFile
                 },

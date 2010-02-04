@@ -90,7 +90,7 @@ namespace FaceIDAppVBEta.UnitTest
         {
             SetUp();
 
-            Assert.AreEqual(true, _terCtrl.RemoveEmployee(ter, emp));
+            Assert.AreEqual(true, _terCtrl.RemoveEmployee(ter, emp.EmployeeNumber));
             Assert.AreEqual(null, _terCtrl.GetEmployee(ter, emp.EmployeeNumber));
 
             CleanUp();

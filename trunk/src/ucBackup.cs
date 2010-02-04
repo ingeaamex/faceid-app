@@ -116,6 +116,11 @@ namespace FaceIDAppVBEta
             try
             {
                 _dtCtrl.BackupDatabase(backupPath);
+
+                Config config = _dtCtrl.GetConfig();
+                config.LastestBackup = DateTime.Now;
+                _dtCtrl.UpdateConfig(config);
+
                 MessageBox.Show("Backup Complete.");
             }
             catch(Exception ex)
@@ -126,6 +131,8 @@ namespace FaceIDAppVBEta
 
         private void btnRestore_Click(object sender, EventArgs e)
         {
+            try
+            {
             //confirm
             if (Util.Confirm("Current database will be overwritten. This can not be undone. Are you sure?") == false)
             {
@@ -133,16 +140,31 @@ namespace FaceIDAppVBEta
             }
 
             //get restore file
-            string restoreFile = txtRestoreFile.Text;
-            if (File.Exists(restoreFile) == false)
+            string restoreFile = "";
+
+            if (rbtRestoreFromFile.Checked)
             {
-                MessageBox.Show("File " + restoreFile + " not found.");
-                return;
+                restoreFile = txtRestoreFile.Text;
+                if (File.Exists(restoreFile) == false)
+                {
+                    MessageBox.Show("File " + restoreFile + " not found.");
+                    return;
+                }
+            }
+            else
+            {
+                Config config = _dtCtrl.GetConfig();
+                restoreFile = config.LastestBackupFile;
+
+                if (File.Exists(restoreFile) == false)
+                {
+                    MessageBox.Show("Lastest backup could not be found.");
+                    return;
+                }
             }
 
             //restore db
-            try
-            {
+            
                 _dtCtrl.RestoreDatabase(restoreFile);
                 MessageBox.Show("Restore Complete");
             }
@@ -173,7 +195,7 @@ namespace FaceIDAppVBEta
 
             txtBackupFolder.Text = config.BackupFolder;
 
-            cbxScheduledBackup.Checked = config.BackupRemind;
+            cbxRemindBackup.Checked = config.BackupRemind;
             nudBackupPeriod.Value = config.BackupRemindPeriod;
 
             rbtRestoreLastest.Checked = config.RestoreFromLatest;
@@ -191,7 +213,8 @@ namespace FaceIDAppVBEta
             //get settings
             Config config = _dtCtrl.GetConfig();
 
-            config.ScheduledBackup = cbxScheduledBackup.Checked;
+            config.ScheduledBackup = cbxScheduledBackup.Checked;            
+
             if (rbtBackupDaily.Checked)
             {
                 config.BackupPeriod = 1;
@@ -205,8 +228,13 @@ namespace FaceIDAppVBEta
             }
 
             config.BackupFolder = txtBackupFolder.Text;
+            if (config.ScheduledBackup && Directory.Exists(config.BackupFolder) == false)
+            {
+                MessageBox.Show("Backup Folder " + config.BackupFolder + " not found.");
+                return;
+            }
 
-            config.BackupRemind = cbxScheduledBackup.Checked;
+            config.BackupRemind = cbxRemindBackup.Checked;
             config.BackupRemindPeriod = (int)nudBackupPeriod.Value;
 
             config.RestoreFromLatest = rbtRestoreLastest.Checked;

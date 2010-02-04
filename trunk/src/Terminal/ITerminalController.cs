@@ -11,7 +11,7 @@ namespace FaceIDAppVBEta
         bool DeleteAttendanceRecord(Terminal terminal);
 
         bool UpdateEmployee(Terminal terminal, Employee employee);
-        bool RemoveEmployee(Terminal terminal, Employee employee);
+        bool RemoveEmployee(Terminal terminal, int employeeNumber);
         Employee GetEmployee(Terminal terminal, int employeeNumber);
         List<Employee> GetAllEmployee(Terminal terminal);
 

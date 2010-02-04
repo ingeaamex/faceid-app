@@ -6,12 +6,11 @@ namespace FaceIDAppVBEta.Class
 {
     public class AttendanceRecord : MarshalByRefObject
     {
-        private string _note = "";
         public int ID { get; set; }
         public int EmployeeNumber { get; set; }
         public DateTime Time { get; set; }
         public bool CheckIn { get; set; }
         public string PhotoData { get; set; }
-        public string Note { get { return _note; } set { _note = value; } }
+        public string Note { get; set; }
     }
 }
