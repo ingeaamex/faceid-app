@@ -43,7 +43,7 @@
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CompanyID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CompanyName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CompName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NoOfDepartments = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NoOfEmployees = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCompany)).BeginInit();
@@ -59,7 +59,7 @@
             this.dgvCompany.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCompany.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.CompanyID,
-            this.CompanyName,
+            this.CompName,
             this.NoOfDepartments,
             this.NoOfEmployees});
             this.dgvCompany.ContextMenuStrip = this.cmsDgvCompany;
@@ -173,10 +173,10 @@
             // 
             // CompanyName
             // 
-            this.CompanyName.DataPropertyName = "CompanyName";
-            this.CompanyName.HeaderText = "Company Name";
-            this.CompanyName.Name = "CompanyName";
-            this.CompanyName.ReadOnly = true;
+            this.CompName.DataPropertyName = "CompanyName";
+            this.CompName.HeaderText = "Company Name";
+            this.CompName.Name = "CompanyName";
+            this.CompName.ReadOnly = true;
             // 
             // NoOfDepartments
             // 
@@ -227,7 +227,7 @@
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn CompanyID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CompanyName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CompName;
         private System.Windows.Forms.DataGridViewTextBoxColumn NoOfDepartments;
         private System.Windows.Forms.DataGridViewTextBoxColumn NoOfEmployees;
     }

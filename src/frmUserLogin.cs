@@ -79,6 +79,7 @@ namespace FaceIDAppVBEta
                 catch (OleDbException)
                 {
                     MessageBox.Show("Cannot connect to Database.");
+                    Application.Exit();
                 }
                 catch(Exception ex)
                 {

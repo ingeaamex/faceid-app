@@ -346,10 +346,10 @@ namespace FaceIDAppVBEta
             }
         }
 
-        public bool RemoveEmployee(Terminal terminal, Employee employee)
+        public bool RemoveEmployee(Terminal terminal, int employeeNumber)
         {
             string devInfo = GetDeviceInfoStr(terminal);
-            string command = "DeleteEmployee(id=\"" + employee.EmployeeNumber + "\")";
+            string command = "DeleteEmployee(id=\"" + employeeNumber + "\")";
             IntPtr result = IntPtr.Zero;
 
             HwDev_Execute(devInfo, command, ref result);

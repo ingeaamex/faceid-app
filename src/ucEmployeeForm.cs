@@ -147,7 +147,7 @@ namespace FaceIDAppVBEta
                 {
                     throw new Exception("Do not do this yet. It is painful to add an employee using the terminal you know.");
 
-                    if (_terCtrl.RemoveEmployee(terminal, employee) == false)
+                    if (_terCtrl.RemoveEmployee(terminal, employee.EmployeeNumber) == false)
                         throw new Exception("Cannot remove employee " + employee.EmployeeNumber);
                 }
 

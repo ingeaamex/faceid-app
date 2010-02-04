@@ -6,11 +6,9 @@ namespace FaceIDAppVBEta.Task
 {
     public interface ITaskDoer
     {
-        bool RemoveEmployeeFromTerminal();
+        void RemoveEmployeeFromTerminal();
 
-        bool CalculateAttendanceRecord();
-
-        bool BackupDatabase();
+        void BackupDatabase();
 
         void RemindBackupDatabase();
     }
