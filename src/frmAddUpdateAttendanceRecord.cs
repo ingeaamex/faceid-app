@@ -127,7 +127,8 @@ namespace FaceIDAppVBEta
                 //TODO
             }
 
-            cbxEmployeeNumber.SelectedIndex = cbxEmployeeNumber.FindString(employee.ToString());
+            //cbxEmployeeNumber.SelectedIndex = cbxEmployeeNumber.FindString(employee.ToString());
+            cbxEmployeeNumber.SelectedValue = employee.EmployeeNumber;
             txtEmployeeName.Text = employee.FirstName + " " + employee.LastName.ToUpper() + _seperator + employee.EmployeeNumber;
 
             txtNote.Text = attendanceRecord.Note;
