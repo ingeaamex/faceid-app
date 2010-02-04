@@ -11,6 +11,8 @@ namespace FaceIDAppVBEta.Class
         public int ID { get; set; }
         public bool ScheduledBackup { get; set; }
         public int BackupPeriod { get; set; }
+        public int BackupDay { get; set; }
+        public DateTime BackupTime { get; set; }
         public string BackupFolder { get; set; }
         public bool BackupRemind { get; set; }
         public int BackupRemindPeriod { get; set; }

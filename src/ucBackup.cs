@@ -21,17 +21,39 @@ namespace FaceIDAppVBEta
 
             InitializeComponent();
 
+            BindWeekdays();
             RestoreOldSettings();
-            EnableControls();
+            EnableControls();            
+        }
+
+        private void BindWeekdays()
+        {
+            cbxBackupWeeklyDay.DisplayMember = "Name";
+            cbxBackupWeeklyDay.ValueMember = "Value";
+            cbxBackupWeeklyDay.Items.Clear();
+
+            cbxBackupWeeklyDay.Items.Add(new ListItem(0, "Monday"));
+            cbxBackupWeeklyDay.Items.Add(new ListItem(1, "Tuesday"));
+            cbxBackupWeeklyDay.Items.Add(new ListItem(2, "Wednesday"));
+            cbxBackupWeeklyDay.Items.Add(new ListItem(3, "Thursday"));
+            cbxBackupWeeklyDay.Items.Add(new ListItem(4, "Friday"));
+            cbxBackupWeeklyDay.Items.Add(new ListItem(5, "Saturday"));
+            cbxBackupWeeklyDay.Items.Add(new ListItem(6, "Sunday"));
         }
 
         private void EnableControls()
         {
+            //backup
             rbtBackupDaily.Enabled = cbxScheduledBackup.Checked;
             rbtBackupWeekly.Enabled = cbxScheduledBackup.Checked;
 
+            dtpBackUpDailyTime.Enabled = (rbtBackupDaily.Enabled && rbtBackupDaily.Checked);
+            cbxBackupWeeklyDay.Enabled = (rbtBackupWeekly.Enabled && rbtBackupWeekly.Checked);
+            dtpBackupWeeklyTime.Enabled = (rbtBackupWeekly.Enabled && rbtBackupWeekly.Checked);
+
             nudBackupPeriod.Enabled = cbxRemindBackup.Checked;
 
+            //restore
             txtRestoreFile.Enabled = rbtRestoreFromFile.Checked;
             btnSelectRestoreFile.Enabled = rbtRestoreFromFile.Checked;
         }
@@ -145,6 +167,10 @@ namespace FaceIDAppVBEta
             rbtBackupDaily.Checked = (config.BackupPeriod == 1);
             rbtBackupWeekly.Checked = (config.BackupPeriod == 7);
 
+            dtpBackUpDailyTime.Value = config.BackupTime;
+            cbxBackupWeeklyDay.SelectedIndex = config.BackupDay;
+            dtpBackupWeeklyTime.Value = config.BackupTime;
+
             txtBackupFolder.Text = config.BackupFolder;
 
             cbxScheduledBackup.Checked = config.BackupRemind;
@@ -166,10 +192,17 @@ namespace FaceIDAppVBEta
             Config config = _dtCtrl.GetConfig();
 
             config.ScheduledBackup = cbxScheduledBackup.Checked;
-            if(rbtBackupDaily.Checked)
+            if (rbtBackupDaily.Checked)
+            {
                 config.BackupPeriod = 1;
-            else if(rbtBackupWeekly.Checked)
+                config.BackupTime = dtpBackUpDailyTime.Value;
+            }
+            else if (rbtBackupWeekly.Checked)
+            {
                 config.BackupPeriod = 7;
+                config.BackupDay = cbxBackupWeeklyDay.SelectedIndex;
+                config.BackupTime = dtpBackupWeeklyTime.Value;
+            }
 
             config.BackupFolder = txtBackupFolder.Text;
 
@@ -191,6 +224,21 @@ namespace FaceIDAppVBEta
             {
                 MessageBox.Show("There has been an error. Please try again later. Error detail: " + ex.Message);
             }
+        }
+
+        private void rbtBackupDaily_CheckedChanged(object sender, EventArgs e)
+        {
+            EnableControls();
+        }
+
+        private void rbtBackupWeekly_CheckedChanged(object sender, EventArgs e)
+        {
+            EnableControls();
+        }
+
+        private void rbtRestoreLastest_CheckedChanged(object sender, EventArgs e)
+        {
+            EnableControls();
         }
     }
 }
