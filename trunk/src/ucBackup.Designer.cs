@@ -48,12 +48,25 @@
             this.btnSelectRestoreFile = new System.Windows.Forms.Button();
             this.rbtRestoreFromFile = new System.Windows.Forms.RadioButton();
             this.rbtRestoreLastest = new System.Windows.Forms.RadioButton();
-            this.gbxApperance = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.gbxNoname1 = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.label8 = new System.Windows.Forms.Label();
+            this.dtpBackUpDailyTime = new System.Windows.Forms.DateTimePicker();
+            this.dtpBackupWeeklyTime = new System.Windows.Forms.DateTimePicker();
+            this.label9 = new System.Windows.Forms.Label();
+            this.cbxBackupWeeklyDay = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudBackupPeriod)).BeginInit();
             this.gbxBackup.SuspendLayout();
             this.gbxRestore.SuspendLayout();
+            this.gbxNoname1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.SuspendLayout();
             // 
             // cbxScheduledBackup
@@ -78,6 +91,7 @@
             this.rbtBackupDaily.TabStop = true;
             this.rbtBackupDaily.Text = "Daily";
             this.rbtBackupDaily.UseVisualStyleBackColor = true;
+            this.rbtBackupDaily.CheckedChanged += new System.EventHandler(this.rbtBackupDaily_CheckedChanged);
             // 
             // rbtBackupWeekly
             // 
@@ -88,6 +102,7 @@
             this.rbtBackupWeekly.TabIndex = 2;
             this.rbtBackupWeekly.Text = "Weekly";
             this.rbtBackupWeekly.UseVisualStyleBackColor = true;
+            this.rbtBackupWeekly.CheckedChanged += new System.EventHandler(this.rbtBackupWeekly_CheckedChanged);
             // 
             // btnBackup
             // 
@@ -194,6 +209,11 @@
             // 
             // gbxBackup
             // 
+            this.gbxBackup.Controls.Add(this.cbxBackupWeeklyDay);
+            this.gbxBackup.Controls.Add(this.dtpBackupWeeklyTime);
+            this.gbxBackup.Controls.Add(this.label9);
+            this.gbxBackup.Controls.Add(this.dtpBackUpDailyTime);
+            this.gbxBackup.Controls.Add(this.label8);
             this.gbxBackup.Controls.Add(this.cbxScheduledBackup);
             this.gbxBackup.Controls.Add(this.rbtBackupDaily);
             this.gbxBackup.Controls.Add(this.rbtBackupWeekly);
@@ -275,41 +295,161 @@
             this.rbtRestoreLastest.TabStop = true;
             this.rbtRestoreLastest.Text = "Restore from the lastest backup";
             this.rbtRestoreLastest.UseVisualStyleBackColor = true;
+            this.rbtRestoreLastest.CheckedChanged += new System.EventHandler(this.rbtRestoreLastest_CheckedChanged);
             // 
-            // gbxApperance
+            // gbxNoname1
             // 
-            this.gbxApperance.Location = new System.Drawing.Point(423, 23);
-            this.gbxApperance.Name = "gbxApperance";
-            this.gbxApperance.Size = new System.Drawing.Size(381, 93);
-            this.gbxApperance.TabIndex = 17;
-            this.gbxApperance.TabStop = false;
-            this.gbxApperance.Text = "Payroll Export";
+            this.gbxNoname1.Controls.Add(this.numericUpDown2);
+            this.gbxNoname1.Controls.Add(this.numericUpDown1);
+            this.gbxNoname1.Controls.Add(this.label7);
+            this.gbxNoname1.Controls.Add(this.label6);
+            this.gbxNoname1.Controls.Add(this.label5);
+            this.gbxNoname1.Controls.Add(this.label4);
+            this.gbxNoname1.Controls.Add(this.checkBox1);
+            this.gbxNoname1.Location = new System.Drawing.Point(423, 23);
+            this.gbxNoname1.Name = "gbxNoname1";
+            this.gbxNoname1.Size = new System.Drawing.Size(391, 116);
+            this.gbxNoname1.TabIndex = 17;
+            this.gbxNoname1.TabStop = false;
+            this.gbxNoname1.Text = "Noname1";
             // 
-            // groupBox2
+            // checkBox1
             // 
-            this.groupBox2.Location = new System.Drawing.Point(423, 124);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(381, 123);
-            this.groupBox2.TabIndex = 18;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "groupBox2";
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(6, 19);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(81, 17);
+            this.checkBox1.TabIndex = 0;
+            this.checkBox1.Text = "Show Chart";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
-            // groupBox3
+            // label4
             // 
-            this.groupBox3.Location = new System.Drawing.Point(423, 253);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(381, 112);
-            this.groupBox3.TabIndex = 19;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "groupBox3";
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 46);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(67, 13);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "TimeBound1";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 73);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(67, 13);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "TimeBound2";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(147, 46);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(49, 13);
+            this.label6.TabIndex = 3;
+            this.label6.Text = "minute(s)";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(147, 73);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(53, 13);
+            this.label7.TabIndex = 4;
+            this.label7.Text = "second(s)";
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(79, 44);
+            this.numericUpDown1.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(62, 20);
+            this.numericUpDown1.TabIndex = 12;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.Location = new System.Drawing.Point(79, 70);
+            this.numericUpDown2.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(62, 20);
+            this.numericUpDown2.TabIndex = 13;
+            this.numericUpDown2.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(104, 44);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(16, 13);
+            this.label8.TabIndex = 13;
+            this.label8.Text = "at";
+            // 
+            // dtpBackUpDailyTime
+            // 
+            this.dtpBackUpDailyTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpBackUpDailyTime.Location = new System.Drawing.Point(126, 40);
+            this.dtpBackUpDailyTime.Name = "dtpBackUpDailyTime";
+            this.dtpBackUpDailyTime.ShowUpDown = true;
+            this.dtpBackUpDailyTime.Size = new System.Drawing.Size(94, 20);
+            this.dtpBackUpDailyTime.TabIndex = 14;
+            // 
+            // dtpBackupWeeklyTime
+            // 
+            this.dtpBackupWeeklyTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpBackupWeeklyTime.Location = new System.Drawing.Point(253, 63);
+            this.dtpBackupWeeklyTime.Name = "dtpBackupWeeklyTime";
+            this.dtpBackupWeeklyTime.ShowUpDown = true;
+            this.dtpBackupWeeklyTime.Size = new System.Drawing.Size(94, 20);
+            this.dtpBackupWeeklyTime.TabIndex = 16;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(104, 67);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(19, 13);
+            this.label9.TabIndex = 15;
+            this.label9.Text = "on";
+            // 
+            // cbxBackupWeeklyDay
+            // 
+            this.cbxBackupWeeklyDay.FormattingEnabled = true;
+            this.cbxBackupWeeklyDay.Items.AddRange(new object[] {
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"});
+            this.cbxBackupWeeklyDay.Location = new System.Drawing.Point(126, 63);
+            this.cbxBackupWeeklyDay.Name = "cbxBackupWeeklyDay";
+            this.cbxBackupWeeklyDay.Size = new System.Drawing.Size(121, 21);
+            this.cbxBackupWeeklyDay.TabIndex = 17;
             // 
             // ucBackup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.gbxApperance);
+            this.Controls.Add(this.gbxNoname1);
             this.Controls.Add(this.gbxRestore);
             this.Controls.Add(this.gbxBackup);
             this.Controls.Add(this.btnCancel);
@@ -321,6 +461,10 @@
             this.gbxBackup.PerformLayout();
             this.gbxRestore.ResumeLayout(false);
             this.gbxRestore.PerformLayout();
+            this.gbxNoname1.ResumeLayout(false);
+            this.gbxNoname1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -347,8 +491,18 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtRestoreFile;
         private System.Windows.Forms.Button btnSelectRestoreFile;
-        private System.Windows.Forms.GroupBox gbxApperance;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox gbxNoname1;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.DateTimePicker dtpBackUpDailyTime;
+        private System.Windows.Forms.ComboBox cbxBackupWeeklyDay;
+        private System.Windows.Forms.DateTimePicker dtpBackupWeeklyTime;
+        private System.Windows.Forms.Label label9;
     }
 }

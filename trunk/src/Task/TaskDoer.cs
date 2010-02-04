@@ -1,11 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using FaceIDAppVBEta.Data;
 
 namespace FaceIDAppVBEta.Task
 {
     public class TaskDoer : ITaskDoer
     {
+        private IDataController _dtCtrl;
+
+        public TaskDoer()
+        {
+            _dtCtrl = LocalDataController.Instance;
+        }
+
         #region ITaskDoer Members
 
         public bool RemoveEmployeeFromTerminal()

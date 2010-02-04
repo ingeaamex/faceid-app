@@ -3583,6 +3583,8 @@ namespace FaceIDAppVBEta.Data
                 config.ID = (int)odRdr["ID"];
                 config.ScheduledBackup = Convert.ToBoolean(odRdr["ScheduledBackup"]);
                 config.BackupPeriod = (int)odRdr["BackupPeriod"];
+                config.BackupDay = (int)odRdr["BackupDay"];
+                config.BackupTime = odRdr["BackupTime"].GetType() != typeof(DBNull) ? Convert.ToDateTime(odRdr["BackupTime"]) : DateTime.Today;
                 config.BackupFolder = odRdr["BackupFolder"].ToString();
                 config.BackupRemind = Convert.ToBoolean(odRdr["BackupRemind"]);
                 config.BackupRemindPeriod = (int)odRdr["BackupRemindPeriod"];
@@ -3611,6 +3613,8 @@ namespace FaceIDAppVBEta.Data
             System.Data.OleDb.OleDbCommand odCom1 = BuildUpdateCmd("Config",
                 new string[] { "ScheduledBackup"
                 ,"BackupPeriod"
+                ,"BackupDay"
+                ,"BackupTime"
                 ,"BackupFolder"
                 ,"BackupRemind"
                 ,"BackupRemindPeriod"
@@ -3619,6 +3623,8 @@ namespace FaceIDAppVBEta.Data
                 },
                 new object[] { config.ScheduledBackup
                 ,config.BackupPeriod
+                ,config.BackupDay
+                ,config.BackupTime
                 ,config.BackupFolder
                 ,config.BackupRemind
                 ,config.BackupRemindPeriod
@@ -3636,6 +3642,8 @@ namespace FaceIDAppVBEta.Data
             System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("Config",
                 new string[] { "ScheduledBackup"
                 ,"BackupPeriod"
+                ,"BackupDay"
+                ,"BackupTime"
                 ,"BackupFolder"
                 ,"BackupRemind"
                 ,"BackupRemindPeriod"
@@ -3644,6 +3652,8 @@ namespace FaceIDAppVBEta.Data
                 },
                 new object[] { config.ScheduledBackup
                 ,config.BackupPeriod
+                ,config.BackupDay
+                ,config.BackupTime
                 ,config.BackupFolder
                 ,config.BackupRemind
                 ,config.BackupRemindPeriod
@@ -3657,7 +3667,6 @@ namespace FaceIDAppVBEta.Data
                 odCom1.CommandText = "SELECT @@IDENTITY";
                 return (int)odCom1.ExecuteScalar();
             }
-
             return -1;
         }
         #endregion
