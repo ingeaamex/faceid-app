@@ -281,7 +281,9 @@ namespace FaceIDAppVBEta
 
         private void btnSendEmployeeToTerminal_Click(object sender, EventArgs e)
         {
-            SendEmployeeToTerminal();
+            MessageBox.Show("This function has not been implemented yet.");
+            return;
+            //SendEmployeeToTerminal();
         }
 
         private void SendEmployeeToTerminal()
@@ -304,7 +306,7 @@ namespace FaceIDAppVBEta
                     }
                     else
                     {
-                        throw new Exception("Cannot connect to terminal " + terminal.Name);
+                        MessageBox.Show("Cannot connect to terminal " + terminal.Name);
                     }
                 }
             }
@@ -384,7 +386,11 @@ namespace FaceIDAppVBEta
                 }
                 finally
                 {
-                    sWrite.Close();
+                    try
+                    {
+                        sWrite.Close();
+                    }
+                    catch { }
                 }
             }
         }
