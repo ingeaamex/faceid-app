@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using FaceIDAppVBEta.Data;
 using System.IO;
+using FaceIDAppVBEta.Class;
 
 namespace FaceIDAppVBEta
 {
@@ -132,13 +133,26 @@ namespace FaceIDAppVBEta
         private void btnCancel_Click(object sender, EventArgs e)
         {
             RestoreOldSettings();
-
-
         }
 
         private void RestoreOldSettings()
         {
-            throw new NotImplementedException();
+            //read settings
+            Config config = _dtCtrl.GetConfig();
+
+            //set settings
+            cbxScheduledBackup.Checked = config.ScheduledBackup;
+            rbtBackupDaily.Checked = (config.BackupPeriod == 1);
+            rbtBackupWeekly.Checked = (config.BackupPeriod == 7);
+
+            txtBackupFolder.Text = config.BackupFolder;
+
+            cbxScheduledBackup.Checked = config.BackupRemind;
+            nudBackupPeriod.Value = config.BackupRemindPeriod;
+
+            rbtRestoreLastest.Checked = config.RestoreFromLatest;
+            rbtRestoreFromFile.Checked = !rbtRestoreLastest.Checked;
+            txtRestoreFile.Text = config.RestoreFromFile;
         }
 
         private void btnSaveSettings_Click(object sender, EventArgs e)
@@ -148,7 +162,35 @@ namespace FaceIDAppVBEta
 
         private void SaveNewSettings()
         {
-            throw new NotImplementedException();
+            //get settings
+            Config config = _dtCtrl.GetConfig();
+
+            config.ScheduledBackup = cbxScheduledBackup.Checked;
+            if(rbtBackupDaily.Checked)
+                config.BackupPeriod = 1;
+            else if(rbtBackupWeekly.Checked)
+                config.BackupPeriod = 7;
+
+            config.BackupFolder = txtBackupFolder.Text;
+
+            config.BackupRemind = cbxScheduledBackup.Checked;
+            config.BackupRemindPeriod = (int)nudBackupPeriod.Value;
+
+            config.RestoreFromLatest = rbtRestoreLastest.Checked;
+            config.RestoreFromFile = txtRestoreFile.Text;
+
+            //save settings
+            try
+            {
+                if (_dtCtrl.UpdateConfig(config) == false)
+                    throw new Exception("Settings not saved.");
+
+                MessageBox.Show("Settings saved.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("There has been an error. Please try again later. Error detail: " + ex.Message);
+            }
         }
     }
 }

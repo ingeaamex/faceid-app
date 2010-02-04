@@ -8,26 +8,27 @@ namespace FaceIDAppVBEta
     {
         public static FaceIDAppVBEta.Class.Config GetConfig()
         {
-            System.Data.DataSet dataConfig = new System.Data.DataSet();
-            try
-            {
-                dataConfig.ReadXmlSchema("config.xml");
-            }
-            catch
-            {
-                return new FaceIDAppVBEta.Class.Config();
-            }
+            throw new NotImplementedException();
+            //System.Data.DataSet dataConfig = new System.Data.DataSet();
+            //try
+            //{
+            //    dataConfig.ReadXmlSchema("config.xml");
+            //}
+            //catch
+            //{
+            //    return new FaceIDAppVBEta.Class.Config();
+            //}
 
-            System.Xml.XmlDataDocument xmldoc = new System.Xml.XmlDataDocument(dataConfig);
-            xmldoc.Load("config.xml");
-            System.Data.DataTable tblDB = dataConfig.Tables[0];
-            FaceIDAppVBEta.Class.Config config = null;
-            if (tblDB.Rows.Count > 0)
-            {
-                config = new FaceIDAppVBEta.Class.Config();
-                config.DatabasePath = tblDB.Rows[0][0].ToString();
-            }
-            return config;
+            //System.Xml.XmlDataDocument xmldoc = new System.Xml.XmlDataDocument(dataConfig);
+            //xmldoc.Load("config.xml");
+            //System.Data.DataTable tblDB = dataConfig.Tables[0];
+            //FaceIDAppVBEta.Class.Config config = null;
+            //if (tblDB.Rows.Count > 0)
+            //{
+            //    config = new FaceIDAppVBEta.Class.Config();
+            //    config.DatabasePath = tblDB.Rows[0][0].ToString();
+            //}
+            //return config;
         }
 
         public static bool Confirm(string message)

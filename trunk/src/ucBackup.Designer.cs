@@ -48,6 +48,9 @@
             this.btnSelectRestoreFile = new System.Windows.Forms.Button();
             this.rbtRestoreFromFile = new System.Windows.Forms.RadioButton();
             this.rbtRestoreLastest = new System.Windows.Forms.RadioButton();
+            this.gbxApperance = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudBackupPeriod)).BeginInit();
             this.gbxBackup.SuspendLayout();
             this.gbxRestore.SuspendLayout();
@@ -56,7 +59,6 @@
             // cbxScheduledBackup
             // 
             this.cbxScheduledBackup.AutoSize = true;
-            this.cbxScheduledBackup.Enabled = false;
             this.cbxScheduledBackup.Location = new System.Drawing.Point(16, 19);
             this.cbxScheduledBackup.Name = "cbxScheduledBackup";
             this.cbxScheduledBackup.Size = new System.Drawing.Size(117, 17);
@@ -136,7 +138,6 @@
             // cbxRemindBackup
             // 
             this.cbxRemindBackup.AutoSize = true;
-            this.cbxRemindBackup.Enabled = false;
             this.cbxRemindBackup.Location = new System.Drawing.Point(16, 132);
             this.cbxRemindBackup.Name = "cbxRemindBackup";
             this.cbxRemindBackup.Size = new System.Drawing.Size(253, 17);
@@ -267,7 +268,6 @@
             // 
             this.rbtRestoreLastest.AutoSize = true;
             this.rbtRestoreLastest.Checked = true;
-            this.rbtRestoreLastest.Enabled = false;
             this.rbtRestoreLastest.Location = new System.Drawing.Point(22, 25);
             this.rbtRestoreLastest.Name = "rbtRestoreLastest";
             this.rbtRestoreLastest.Size = new System.Drawing.Size(175, 17);
@@ -276,10 +276,40 @@
             this.rbtRestoreLastest.Text = "Restore from the lastest backup";
             this.rbtRestoreLastest.UseVisualStyleBackColor = true;
             // 
+            // gbxApperance
+            // 
+            this.gbxApperance.Location = new System.Drawing.Point(423, 23);
+            this.gbxApperance.Name = "gbxApperance";
+            this.gbxApperance.Size = new System.Drawing.Size(381, 93);
+            this.gbxApperance.TabIndex = 17;
+            this.gbxApperance.TabStop = false;
+            this.gbxApperance.Text = "Payroll Export";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Location = new System.Drawing.Point(423, 124);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(381, 123);
+            this.groupBox2.TabIndex = 18;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "groupBox2";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Location = new System.Drawing.Point(423, 253);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(381, 112);
+            this.groupBox3.TabIndex = 19;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "groupBox3";
+            // 
             // ucBackup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.gbxApperance);
             this.Controls.Add(this.gbxRestore);
             this.Controls.Add(this.gbxBackup);
             this.Controls.Add(this.btnCancel);
@@ -317,5 +347,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtRestoreFile;
         private System.Windows.Forms.Button btnSelectRestoreFile;
+        private System.Windows.Forms.GroupBox gbxApperance;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBox3;
     }
 }

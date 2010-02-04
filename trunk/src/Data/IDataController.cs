@@ -274,5 +274,11 @@ namespace FaceIDAppVBEta.Data
 
         void RestoreDatabase(string restoreFile);
         #endregion
+
+        #region Config
+        Config GetConfig();
+
+        bool UpdateConfig(Config config);
+        #endregion
     }
 }
