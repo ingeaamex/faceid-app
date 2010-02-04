@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label5 = new System.Windows.Forms.Label();
             this.cbxDepartment = new System.Windows.Forms.ComboBox();
             this.cbxCompany = new System.Windows.Forms.ComboBox();
@@ -42,10 +43,12 @@
             this.btnSelectAll = new System.Windows.Forms.Button();
             this.btnUnselectAll = new System.Windows.Forms.Button();
             this.dgvEmployee = new System.Windows.Forms.DataGridView();
+            this.btnReprocess = new System.Windows.Forms.Button();
+            this.errProviders = new System.Windows.Forms.ErrorProvider(this.components);
             this.EmployeeNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EmployeeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnReprocess = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployee)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errProviders)).BeginInit();
             this.SuspendLayout();
             // 
             // label5
@@ -69,6 +72,7 @@
             this.cbxDepartment.Size = new System.Drawing.Size(121, 21);
             this.cbxDepartment.TabIndex = 34;
             this.cbxDepartment.ValueMember = "ID";
+            this.cbxDepartment.SelectionChangeCommitted += new System.EventHandler(this.cbxDepartment_SelectionChangeCommitted);
             // 
             // cbxCompany
             // 
@@ -82,6 +86,7 @@
             this.cbxCompany.Size = new System.Drawing.Size(121, 21);
             this.cbxCompany.TabIndex = 33;
             this.cbxCompany.ValueMember = "ID";
+            this.cbxCompany.SelectedIndexChanged += new System.EventHandler(this.cbxCompany_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -189,18 +194,7 @@
             this.dgvEmployee.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvEmployee.Size = new System.Drawing.Size(538, 150);
             this.dgvEmployee.TabIndex = 41;
-            // 
-            // EmployeeNumber
-            // 
-            this.EmployeeNumber.FillWeight = 87.09677F;
-            this.EmployeeNumber.HeaderText = "Employee Number";
-            this.EmployeeNumber.Name = "EmployeeNumber";
-            // 
-            // EmployeeName
-            // 
-            this.EmployeeName.FillWeight = 112.9032F;
-            this.EmployeeName.HeaderText = "Employee Name";
-            this.EmployeeName.Name = "EmployeeName";
+            this.dgvEmployee.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvEmployee_CellFormatting);
             // 
             // btnReprocess
             // 
@@ -211,6 +205,23 @@
             this.btnReprocess.Text = "ReProcess";
             this.btnReprocess.UseVisualStyleBackColor = true;
             this.btnReprocess.Click += new System.EventHandler(this.btnReprocess_Click);
+            // 
+            // errProviders
+            // 
+            this.errProviders.ContainerControl = this;
+            // 
+            // EmployeeNumber
+            // 
+            this.EmployeeNumber.DataPropertyName = "EmployeeNumber";
+            this.EmployeeNumber.FillWeight = 87.09677F;
+            this.EmployeeNumber.HeaderText = "Employee Number";
+            this.EmployeeNumber.Name = "EmployeeNumber";
+            // 
+            // EmployeeName
+            // 
+            this.EmployeeName.FillWeight = 112.9032F;
+            this.EmployeeName.HeaderText = "Employee Name";
+            this.EmployeeName.Name = "EmployeeName";
             // 
             // ucReprocess
             // 
@@ -234,6 +245,7 @@
             this.Name = "ucReprocess";
             this.Size = new System.Drawing.Size(845, 662);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployee)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errProviders)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -255,8 +267,9 @@
         private System.Windows.Forms.Button btnSelectAll;
         private System.Windows.Forms.Button btnUnselectAll;
         private System.Windows.Forms.DataGridView dgvEmployee;
+        private System.Windows.Forms.Button btnReprocess;
+        private System.Windows.Forms.ErrorProvider errProviders;
         private System.Windows.Forms.DataGridViewTextBoxColumn EmployeeNumber;
         private System.Windows.Forms.DataGridViewTextBoxColumn EmployeeName;
-        private System.Windows.Forms.Button btnReprocess;
     }
 }

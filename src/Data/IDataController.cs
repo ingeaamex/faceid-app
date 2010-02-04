@@ -185,7 +185,7 @@ namespace FaceIDAppVBEta.Data
         #endregion
 
         #region AttendanceRecord
-        List<AttendanceLogRecord> GetAttendanceLogRecordList(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate);
+        List<AttendanceLogRecord> GetAttendanceLogRecordList(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate, int columnIndex, bool isOrderByAcs);
 
         List<AttendanceRecord> GetAttendanceRecordList();
 
@@ -235,25 +235,7 @@ namespace FaceIDAppVBEta.Data
         bool IsFaceIDUser(int employeeNumber);
         #endregion
 
-        #region UncalculatedAttendanceRecord
-        void CalculateAttendanceRecord();
-
-        List<UncalculatedAttendanceRecord> GetUncalculatedAttendanceRecordList();
-
-        UncalculatedAttendanceRecord GetUncalculatedAttendanceRecord(int id);
-
-        int AddUncalculatedAttendanceRecord(UncalculatedAttendanceRecord uncalculatedAttendanceRecord);
-
-        bool AddUncalculatedAttendanceRecord(int id);
-
-        bool DeleteUncalculatedAttendanceRecord(string attRcList);
-
-        bool DeleteUncalculatedAttendanceRecord(int id);
-
-        bool UpdateUncalculatedAttendanceRecord(UncalculatedAttendanceRecord uncalculatedAttendanceRecord);
-
-        bool DeleteAllUncalculatedAttendanceRecord();
-        #endregion
+        
 
         #region UndeletedEmployeeNumber
         List<UndeletedEmployeeNumber> GetUndeletedEmployeeNumberList();
@@ -280,5 +262,6 @@ namespace FaceIDAppVBEta.Data
 
         bool UpdateConfig(Config config);
         #endregion
+
     }
 }

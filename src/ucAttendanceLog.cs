@@ -17,7 +17,8 @@ namespace FaceIDAppVBEta
         private IDataController _dtCtrl;
         private List<AttendanceLogRecord> attendanceLogRecordList;
         private int editRecordId = 0;
-
+        private bool isOrderByAcs = true;
+        private int columnIndex = 0;
         public ucAttendanceLog()
         {
             InitializeComponent();
@@ -28,7 +29,7 @@ namespace FaceIDAppVBEta
         {
             BindData();
         }
-        
+           
         private void BindData()
         {
             BindCompany();
@@ -45,9 +46,9 @@ namespace FaceIDAppVBEta
             if (cbxDepartment.Enabled)
                 departmentID = (int)cbxDepartment.SelectedValue;
 
-            attendanceLogRecordList = _dtCtrl.GetAttendanceLogRecordList(companyID, departmentID, beginDate, endDate);
+            attendanceLogRecordList = _dtCtrl.GetAttendanceLogRecordList(companyID, departmentID, beginDate, endDate, columnIndex, isOrderByAcs);
 
-            if (attendanceLogRecordList.Count == 0)
+            if (attendanceLogRecordList != null && attendanceLogRecordList.Count == 0)
             {
                 MessageBox.Show("There's no records within the selected range.");
             }
@@ -225,5 +226,36 @@ namespace FaceIDAppVBEta
 
         }
 
+        private void dgvAttendanceLog_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex == 3)
+            {
+                if (e.Value.ToString() == "OutMistakes")
+                {
+                    e.FormattingApplied = true;
+                    e.CellStyle.BackColor = Color.Red;
+                    e.Value = "Out:";
+                }
+            }
+        }
+
+        private void dgvAttendanceLog_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.ColumnIndex == 3 && e.RowIndex >= 0)
+            {
+                editRecordId = attendanceLogRecordList[e.RowIndex].ID;
+                cmsAction.Show(dgvAttendanceLog, e.Location);
+            }
+        }
+
+        private void dgvAttendanceLog_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (dgvAttendanceLog.DataSource!=null && (e.ColumnIndex == 0 || e.ColumnIndex == 2))
+            {
+                columnIndex = e.ColumnIndex;
+                isOrderByAcs = !isOrderByAcs;
+                LoadAttdanceLog();
+            }
+        }
     }
 }
