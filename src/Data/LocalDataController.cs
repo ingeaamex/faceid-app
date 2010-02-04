@@ -3616,5 +3616,98 @@ namespace FaceIDAppVBEta.Data
             ConnectToDatabase();
         }
         #endregion
+
+        #region Config
+        public Config GetConfig()
+        {
+            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Config", "TOP 1 *", "1=1");
+            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+
+            Config config = null;
+            if (odRdr.Read())
+            {
+                config = new Config();
+
+                config.ID = (int)odRdr["ID"];
+                config.ScheduledBackup = Convert.ToBoolean(odRdr["ScheduledBackup"]);
+                config.BackupPeriod = (int)odRdr["BackupPeriod"];
+                config.BackupFolder = odRdr["BackupFolder"].ToString();
+                config.BackupRemind = Convert.ToBoolean(odRdr["BackupRemind"]);
+                config.BackupRemindPeriod = (int)odRdr["BackupRemindPeriod"];
+                config.RestoreFromLatest = Convert.ToBoolean(odRdr["RestoreFromLatest"]);
+                config.RestoreFromFile = odRdr["RestoreFromFile"].ToString();
+            }
+            else
+            {
+                config = new Config();
+                config.BackupFolder = "";
+                config.RestoreFromFile = "";
+
+                config.BackupPeriod = 1;
+                config.BackupRemindPeriod = 1;
+
+                AddConfig(config);
+                return GetConfig();
+            }
+
+            odRdr.Close();
+            return config;
+        }
+
+        public bool UpdateConfig(Config config)
+        {
+            System.Data.OleDb.OleDbCommand odCom1 = BuildUpdateCmd("Config",
+                new string[] { "ScheduledBackup"
+                ,"BackupPeriod"
+                ,"BackupFolder"
+                ,"BackupRemind"
+                ,"BackupRemindPeriod"
+                ,"RestoreFromLatest"
+                ,"RestoreFromFile"
+                },
+                new object[] { config.ScheduledBackup
+                ,config.BackupPeriod
+                ,config.BackupFolder
+                ,config.BackupRemind
+                ,config.BackupRemindPeriod
+                ,config.RestoreFromLatest
+                ,config.RestoreFromFile
+                },
+                "ID=@ID", new object[] { "@ID", config.ID }
+            );
+
+            return odCom1.ExecuteNonQuery() > 0 ? true : false;
+        }
+
+        private int AddConfig(Config config)
+        {
+            System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("Config",
+                new string[] { "ScheduledBackup"
+                ,"BackupPeriod"
+                ,"BackupFolder"
+                ,"BackupRemind"
+                ,"BackupRemindPeriod"
+                ,"RestoreFromLatest"
+                ,"RestoreFromFile"
+                },
+                new object[] { config.ScheduledBackup
+                ,config.BackupPeriod
+                ,config.BackupFolder
+                ,config.BackupRemind
+                ,config.BackupRemindPeriod
+                ,config.RestoreFromLatest
+                ,config.RestoreFromFile
+                }
+            );
+
+            if (odCom1.ExecuteNonQuery() == 1)
+            {
+                odCom1.CommandText = "SELECT @@IDENTITY";
+                return (int)odCom1.ExecuteScalar();
+            }
+
+            return -1;
+        }
+        #endregion
     }
 }

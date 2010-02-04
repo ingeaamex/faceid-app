@@ -55,7 +55,7 @@ namespace FaceIDAppVBEta
             Config config = Util.GetConfig();
             if (config != null)
             {
-                tbFilePath.Text = config.DatabasePath;
+                //tbFilePath.Text = config.DatabasePath;
             }
         }
 

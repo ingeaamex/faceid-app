@@ -6,35 +6,6 @@ namespace FaceIDAppVBEta.Class
 {
     public class Employee : MarshalByRefObject
     {
-        public Employee()
-        {
-            FirstName = "";
-            LastName = "";
-            JobDescription = "";
-            PhoneNumber = "";
-            Address = "";
-
-            FaceData1 = "";
-            FaceData2 = "";
-            FaceData3 = "";
-            FaceData4 = "";
-            FaceData5 = "";
-            FaceData6 = "";
-            FaceData7 = "";
-            FaceData8 = "";
-            FaceData9 = "";
-            FaceData10 = "";
-            FaceData11 = "";
-            FaceData12 = "";
-            FaceData13 = "";
-            FaceData14 = "";
-            FaceData15 = "";
-            FaceData16 = "";
-            FaceData17 = "";
-            FaceData18 = "";
-
-        }
-
         public int PayrollNumber { get; set; }
         public int EmployeeNumber { get; set; }
         public int DepartmentID { get; set; }
