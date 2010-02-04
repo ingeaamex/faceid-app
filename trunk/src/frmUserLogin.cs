@@ -57,13 +57,13 @@ namespace FaceIDAppVBEta
 
                     if (_user == null)
                     {
-                        MessageBox.Show("User not found. Please try again.");
+                        MessageBox.Show("User not found.");
                     }
                     else
                     {
                         if (_user.Password != password)
                         {
-                            MessageBox.Show("Incorrect password. Please try again.");
+                            MessageBox.Show("Incorrect password.");
                         }
                         else
                         {
@@ -74,11 +74,11 @@ namespace FaceIDAppVBEta
                 }
                 catch (FormatException)
                 {
-                    MessageBox.Show("Invalid Employee Number. Please try again.");
+                    MessageBox.Show("Invalid Employee Number.");
                 }
                 catch (OleDbException)
                 {
-                    MessageBox.Show("Cannot connect to Database. Please try again.");
+                    MessageBox.Show("Cannot connect to Database.");
                 }
                 catch(Exception ex)
                 {

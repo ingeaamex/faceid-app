@@ -8,61 +8,98 @@ using System.Windows.Forms;
 
 using FaceIDAppVBEta.Data;
 using FaceIDAppVBEta.Class;
+using System.Collections;
 
 namespace FaceIDAppVBEta
 {
     public partial class ucCompanyForm : UserControl
     {
-        private IDataController dtCtrl;
+        private IDataController _dtCtrl;
+        private int _rowIndex = -1;
+
         public ucCompanyForm()
         {
             InitializeComponent();
-            dtCtrl = LocalDataController.Instance;
+            _dtCtrl = LocalDataController.Instance;
             LoadData();
         }
 
         private void LoadData()
         {
-            List<Company> companyList = dtCtrl.GetCompanyList();
+            List<Company> companyList = _dtCtrl.GetCompanyList();
+            List<Department> departmentList = _dtCtrl.GetDepartmentList();
+            List<Employee> employeeList = _dtCtrl.GetEmployeeList();
+
+            DataTable dt = new DataTable();
+            dt.Columns.Add("CompanyID");
+            dt.Columns.Add("CompanyName");
+            dt.Columns.Add("NoOfDepartments");
+            dt.Columns.Add("NoOfEmployees");
+
+            foreach (Company company in companyList)
+            {
+                DataRow dr = dt.NewRow();
+                dr["CompanyID"] = company.ID;
+                dr["CompanyName"] = company.Name;
+
+                int noOfDeparments = 0, noOfEmployees = 0;
+                GetCompanyDetails(company.ID, ref departmentList, ref employeeList, ref noOfDeparments, ref noOfEmployees);
+
+                dr["NoOfDepartments"] = noOfDeparments;
+                dr["NoOfEmployees"] = noOfEmployees;
+
+                dt.Rows.Add(dr);
+            }
+
             dgvCompany.AutoGenerateColumns = false;
-            dgvCompany.DataSource = companyList;
+            dgvCompany.DataSource = dt;
         }
 
-        private void dgvCompany_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void GetCompanyDetails(int companyID, ref List<Department> departmentList, ref List<Employee> employeeList, ref int noOfDeparments, ref int noOfEmployees)
         {
-            if (e.RowIndex < 0 || (e.ColumnIndex != dgvCompany.Columns["btEdit"].Index && e.ColumnIndex != dgvCompany.Columns["btDelete"].Index)) return;
+            Hashtable countedDepartmentList = new Hashtable();
 
-            string cName = dgvCompany[0, e.RowIndex].Value.ToString();
-
-            Company company = dtCtrl.GetCompany(cName);
-
-            if (e.ColumnIndex == dgvCompany.Columns["btEdit"].Index)
+            foreach(Department department in departmentList)
             {
-                LoadForm(company.Name, company.ID);
-            }
-            else
-            {
-                DialogResult dlogRs = MessageBox.Show(Form.ActiveForm, "Are you sure?", "Confirm", MessageBoxButtons.YesNo);
-                if (dlogRs.ToString().Equals("Yes"))
+                if(countedDepartmentList.ContainsKey(department.ID))
+                    continue;
+
+                if (department.CompanyID == companyID)
                 {
-                    List<Department> departments = dtCtrl.GetDepartmentByCompany(company.ID);
-                    //check employee!!!
-                    if (departments != null && departments.Count > 0)
-                    {
-                        MessageBox.Show("Company is in use");
-                    }
-                    else
-                    {
-                        if (company.ID == 1)
-                        {
-                            MessageBox.Show("Can not delete default value!");
-                            return;
-                        }
-                        bool rs = dtCtrl.DeleteCompany(company.ID);
-                        MessageBox.Show(rs ? "successful" : "error");
-                        if (rs)
-                            LoadData();
-                    }
+                    noOfDeparments++;
+                    countedDepartmentList.Add(department.ID, null);
+                    GetNoOfEmployees(department.ID, ref employeeList, ref noOfEmployees);
+                    CountSubDepartment(department.ID, departmentList, ref employeeList, ref noOfDeparments, ref noOfEmployees, ref countedDepartmentList);
+                }
+            }
+        }
+
+        private void CountSubDepartment(int supDepartmentID, List<Department> departmentList, ref List<Employee> employeeList, ref int noOfDeparments, ref int noOfEmployees, ref Hashtable countedDepartmentList)
+        {
+            foreach (Department department in departmentList)
+            {
+                if (countedDepartmentList.ContainsKey(department.ID))
+                    continue;
+
+                if (department.SupDepartmentID == supDepartmentID)
+                {
+                    noOfDeparments++;
+                    countedDepartmentList.Add(department.ID, null);
+                    GetNoOfEmployees(department.ID, ref employeeList, ref noOfEmployees);
+                    CountSubDepartment(department.ID, departmentList, ref employeeList, ref noOfDeparments, ref noOfEmployees, ref countedDepartmentList);
+                }
+            }
+        }
+
+        private void GetNoOfEmployees(int deparmentID, ref List<Employee> employeeList, ref int noOfEmployees)
+        {
+            for (int i = employeeList.Count - 1; i >= 0; i--)
+            {
+                Employee employee = employeeList[i];
+                if (employee.DepartmentID == deparmentID)
+                {
+                    employeeList.RemoveAt(i);
+                    noOfEmployees++;
                 }
             }
         }
@@ -76,7 +113,7 @@ namespace FaceIDAppVBEta
         {
             errProviders.Clear();
 
-            tbCompanyName.Text = name;
+            txtCompanyName.Text = name;
             if (id > 0)
             {
                 gBoxCompanyACtion.Text = "Update a Company";
@@ -93,10 +130,11 @@ namespace FaceIDAppVBEta
 
         private Company GetCompanyUserInput()
         {
-            string cName = tbCompanyName.Text;
+            string cName = txtCompanyName.Text;
+
             if (string.IsNullOrEmpty(cName))
             {
-                errProviders.SetError(tbCompanyName, "Enter Company Name");
+                errProviders.SetError(txtCompanyName, "Please enter company name");
                 return null;
             }
 
@@ -109,33 +147,114 @@ namespace FaceIDAppVBEta
         private void btSubmit_Click(object sender, EventArgs e)
         {
             Company company = GetCompanyUserInput();
+            
             if (company == null)
                 return;
 
             bool acctionSucess = false;
+            
             if (btSubmit.Tag == null)
             {
-                int id = dtCtrl.AddCompany(company);
-                if (id > 0)
-                    acctionSucess = true;
+                int id = _dtCtrl.AddCompany(company);
+                acctionSucess = id > 0;
 
-                MessageBox.Show(id > 0 ? "successful" : "error");
+                if (acctionSucess)
+                {
+                    MessageBox.Show("Company added.");
+                }
+                else
+                {
+                    MessageBox.Show("There has been an error. Please try again.");
+                }
             }
             else
             {
                 int id = (int)btSubmit.Tag;
                 company.ID = id;
-                bool rs = dtCtrl.UpdateCompany(company);
-                if (rs)
-                    acctionSucess = true;
+                acctionSucess = _dtCtrl.UpdateCompany(company);
 
-                MessageBox.Show(rs ? "successful" : "error");
+                if (acctionSucess)
+                {
+                    MessageBox.Show("Company updated.");
+                }
+                else
+                {
+                    MessageBox.Show("There has been an error. Please try again.");
+                }
             }
             if (acctionSucess)
             {
                 LoadData();
                 LoadForm("", 0);
             }
+        }
+
+        private void dgvCompany_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            _rowIndex = e.RowIndex;
+        }
+
+        private void editToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (_rowIndex >= 0)
+            {
+                int companyID = Convert.ToInt16(dgvCompany.Rows[_rowIndex].Cells[dgvCompany.Columns["CompanyID"].Index].Value);
+                Company company = _dtCtrl.GetCompany(companyID);
+
+                if (company == null)
+                {
+                    MessageBox.Show("Company not found or has been deleted.");
+                }
+                else
+                {
+                    LoadForm(company.Name, company.ID);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a company to edit.");
+            }
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (_rowIndex < 0)
+            {
+                MessageBox.Show("Please select a company to delete.");
+                return;
+            }
+
+            if (Util.Confirm("Are you sure you want to delete this company. This can not be undone.") == false)
+            {
+                return;
+            }
+
+            int companyID = Convert.ToInt16(dgvCompany.Rows[_rowIndex].Cells[dgvCompany.Columns["CompanyID"].Index].Value);
+
+            //check is company is default company
+            if (companyID == 1)
+            {
+                MessageBox.Show("Default company must not be deleted.");
+                return;
+            }
+
+            //check if company is empty
+            if (_dtCtrl.GetDepartmentByCompany(companyID).Count > 0)
+            {
+                MessageBox.Show("Company is in use and can not be deleted.");
+                return;
+            }
+
+            if (_dtCtrl.DeleteCompany(companyID) == false)
+            {
+                MessageBox.Show("Company not found or has already been deleted.");
+            }
+            else
+            {
+                MessageBox.Show("Company deleted successfully.");
+            }
+
+            LoadData();
         }
     }
 }

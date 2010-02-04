@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
-            this.dgvEmpl = new System.Windows.Forms.DataGridView();
+            this.dgvEmployee = new System.Windows.Forms.DataGridView();
             this.EmployeeNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cMnSaction = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmnDgvEmployee = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.EmployeeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -46,16 +46,16 @@
             this.btnPrint = new System.Windows.Forms.Button();
             this.btnAddNewEmployee = new System.Windows.Forms.Button();
             this.btnViewEmployee = new System.Windows.Forms.Button();
-            this.cbCompany = new System.Windows.Forms.ComboBox();
-            this.cbDepartment = new System.Windows.Forms.ComboBox();
+            this.cbxCompany = new System.Windows.Forms.ComboBox();
+            this.cbxDepartment = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.btnGetEmployeeFromTerminal = new System.Windows.Forms.Button();
             this.btnSendEmployeeToTerminal = new System.Windows.Forms.Button();
             this.btnExportToFile = new System.Windows.Forms.Button();
             this.btnImportFromFile = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvEmpl)).BeginInit();
-            this.cMnSaction.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEmployee)).BeginInit();
+            this.cmnDgvEmployee.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -67,14 +67,14 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Employee Management";
             // 
-            // dgvEmpl
+            // dgvEmployee
             // 
-            this.dgvEmpl.AllowUserToAddRows = false;
-            this.dgvEmpl.AllowUserToDeleteRows = false;
-            this.dgvEmpl.AllowUserToOrderColumns = true;
-            this.dgvEmpl.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvEmpl.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvEmpl.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvEmployee.AllowUserToAddRows = false;
+            this.dgvEmployee.AllowUserToDeleteRows = false;
+            this.dgvEmployee.AllowUserToOrderColumns = true;
+            this.dgvEmployee.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvEmployee.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvEmployee.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.EmployeeNumber,
             this.EmployeeName,
             this.JobDesc,
@@ -82,33 +82,33 @@
             this.WorkingCalendarID,
             this.WorkingCalendar,
             this.Terminal});
-            this.dgvEmpl.Location = new System.Drawing.Point(36, 139);
-            this.dgvEmpl.Name = "dgvEmpl";
-            this.dgvEmpl.ReadOnly = true;
-            this.dgvEmpl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvEmpl.Size = new System.Drawing.Size(772, 487);
-            this.dgvEmpl.TabIndex = 1;
-            this.dgvEmpl.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvEmpl_CellFormatting);
-            this.dgvEmpl.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmpl_CellMouseEnter);
-            this.dgvEmpl.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmpl_CellContentClick);
+            this.dgvEmployee.Location = new System.Drawing.Point(36, 139);
+            this.dgvEmployee.Name = "dgvEmployee";
+            this.dgvEmployee.ReadOnly = true;
+            this.dgvEmployee.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvEmployee.Size = new System.Drawing.Size(772, 487);
+            this.dgvEmployee.TabIndex = 1;
+            this.dgvEmployee.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvEmpl_CellFormatting);
+            this.dgvEmployee.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmpl_CellMouseEnter);
+            this.dgvEmployee.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmpl_CellContentClick);
             // 
             // EmployeeNumber
             // 
-            this.EmployeeNumber.ContextMenuStrip = this.cMnSaction;
+            this.EmployeeNumber.ContextMenuStrip = this.cmnDgvEmployee;
             this.EmployeeNumber.DataPropertyName = "EmployeeNumber";
-            dataGridViewCellStyle2.NullValue = null;
-            this.EmployeeNumber.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.NullValue = null;
+            this.EmployeeNumber.DefaultCellStyle = dataGridViewCellStyle1;
             this.EmployeeNumber.HeaderText = "EmployeeNumber";
             this.EmployeeNumber.Name = "EmployeeNumber";
             this.EmployeeNumber.ReadOnly = true;
             // 
-            // cMnSaction
+            // cmnDgvEmployee
             // 
-            this.cMnSaction.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmnDgvEmployee.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.updateToolStripMenuItem,
             this.deleteToolStripMenuItem});
-            this.cMnSaction.Name = "cMnSaction";
-            this.cMnSaction.Size = new System.Drawing.Size(110, 48);
+            this.cmnDgvEmployee.Name = "cMnSaction";
+            this.cmnDgvEmployee.Size = new System.Drawing.Size(110, 48);
             // 
             // updateToolStripMenuItem
             // 
@@ -126,17 +126,17 @@
             // 
             // EmployeeName
             // 
-            this.EmployeeName.ContextMenuStrip = this.cMnSaction;
-            dataGridViewCellStyle3.Format = "{0} {1}";
-            dataGridViewCellStyle3.NullValue = null;
-            this.EmployeeName.DefaultCellStyle = dataGridViewCellStyle3;
+            this.EmployeeName.ContextMenuStrip = this.cmnDgvEmployee;
+            dataGridViewCellStyle2.Format = "{0} {1}";
+            dataGridViewCellStyle2.NullValue = null;
+            this.EmployeeName.DefaultCellStyle = dataGridViewCellStyle2;
             this.EmployeeName.HeaderText = "Name";
             this.EmployeeName.Name = "EmployeeName";
             this.EmployeeName.ReadOnly = true;
             // 
             // JobDesc
             // 
-            this.JobDesc.ContextMenuStrip = this.cMnSaction;
+            this.JobDesc.ContextMenuStrip = this.cmnDgvEmployee;
             this.JobDesc.DataPropertyName = "JobDescription";
             this.JobDesc.HeaderText = "Job Description";
             this.JobDesc.Name = "JobDesc";
@@ -144,7 +144,7 @@
             // 
             // PayrollNumber
             // 
-            this.PayrollNumber.ContextMenuStrip = this.cMnSaction;
+            this.PayrollNumber.ContextMenuStrip = this.cmnDgvEmployee;
             this.PayrollNumber.DataPropertyName = "PayrollNumber";
             this.PayrollNumber.HeaderText = "Payroll Number";
             this.PayrollNumber.Name = "PayrollNumber";
@@ -166,7 +166,7 @@
             // 
             // Terminal
             // 
-            this.Terminal.ContextMenuStrip = this.cMnSaction;
+            this.Terminal.ContextMenuStrip = this.cmnDgvEmployee;
             this.Terminal.DataPropertyName = "EmployeeNumber";
             this.Terminal.HeaderText = "Terminal Registered";
             this.Terminal.Name = "Terminal";
@@ -202,28 +202,28 @@
             this.btnViewEmployee.UseVisualStyleBackColor = true;
             this.btnViewEmployee.Click += new System.EventHandler(this.btView_Click);
             // 
-            // cbCompany
+            // cbxCompany
             // 
-            this.cbCompany.DisplayMember = "Name";
-            this.cbCompany.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbCompany.FormattingEnabled = true;
-            this.cbCompany.Location = new System.Drawing.Point(95, 45);
-            this.cbCompany.Name = "cbCompany";
-            this.cbCompany.Size = new System.Drawing.Size(121, 21);
-            this.cbCompany.TabIndex = 5;
-            this.cbCompany.ValueMember = "ID";
-            this.cbCompany.SelectedIndexChanged += new System.EventHandler(this.cboxCompany_SelectedIndexChanged);
+            this.cbxCompany.DisplayMember = "Name";
+            this.cbxCompany.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxCompany.FormattingEnabled = true;
+            this.cbxCompany.Location = new System.Drawing.Point(95, 45);
+            this.cbxCompany.Name = "cbxCompany";
+            this.cbxCompany.Size = new System.Drawing.Size(121, 21);
+            this.cbxCompany.TabIndex = 5;
+            this.cbxCompany.ValueMember = "ID";
+            this.cbxCompany.SelectedIndexChanged += new System.EventHandler(this.cboxCompany_SelectedIndexChanged);
             // 
-            // cbDepartment
+            // cbxDepartment
             // 
-            this.cbDepartment.DisplayMember = "Name";
-            this.cbDepartment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbDepartment.FormattingEnabled = true;
-            this.cbDepartment.Location = new System.Drawing.Point(294, 45);
-            this.cbDepartment.Name = "cbDepartment";
-            this.cbDepartment.Size = new System.Drawing.Size(121, 21);
-            this.cbDepartment.TabIndex = 6;
-            this.cbDepartment.ValueMember = "ID";
+            this.cbxDepartment.DisplayMember = "Name";
+            this.cbxDepartment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxDepartment.FormattingEnabled = true;
+            this.cbxDepartment.Location = new System.Drawing.Point(294, 45);
+            this.cbxDepartment.Name = "cbxDepartment";
+            this.cbxDepartment.Size = new System.Drawing.Size(121, 21);
+            this.cbxDepartment.TabIndex = 6;
+            this.cbxDepartment.ValueMember = "ID";
             // 
             // label2
             // 
@@ -291,20 +291,20 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnImportFromFile);
-            this.Controls.Add(this.cbDepartment);
+            this.Controls.Add(this.cbxDepartment);
             this.Controls.Add(this.btnExportToFile);
             this.Controls.Add(this.btnSendEmployeeToTerminal);
-            this.Controls.Add(this.cbCompany);
+            this.Controls.Add(this.cbxCompany);
             this.Controls.Add(this.btnGetEmployeeFromTerminal);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnViewEmployee);
             this.Controls.Add(this.btnPrint);
-            this.Controls.Add(this.dgvEmpl);
+            this.Controls.Add(this.dgvEmployee);
             this.Controls.Add(this.btnAddNewEmployee);
             this.Name = "ucEmployeeForm";
             this.Size = new System.Drawing.Size(845, 662);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvEmpl)).EndInit();
-            this.cMnSaction.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEmployee)).EndInit();
+            this.cmnDgvEmployee.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -313,15 +313,15 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dgvEmpl;
+        private System.Windows.Forms.DataGridView dgvEmployee;
         private System.Windows.Forms.Button btnPrint;
         private System.Windows.Forms.Button btnAddNewEmployee;
         private System.Windows.Forms.Button btnViewEmployee;
-        private System.Windows.Forms.ComboBox cbCompany;
-        private System.Windows.Forms.ComboBox cbDepartment;
+        private System.Windows.Forms.ComboBox cbxCompany;
+        private System.Windows.Forms.ComboBox cbxDepartment;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ContextMenuStrip cMnSaction;
+        private System.Windows.Forms.ContextMenuStrip cmnDgvEmployee;
         private System.Windows.Forms.ToolStripMenuItem updateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.Button btnGetEmployeeFromTerminal;

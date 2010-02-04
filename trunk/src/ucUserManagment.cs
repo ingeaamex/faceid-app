@@ -157,7 +157,7 @@ namespace FaceIDAppVBEta
 
             if (fUser == null)
             {
-                MessageBox.Show("User does not exist or has been deleted. Please try again.");
+                MessageBox.Show("User does not exist or has been deleted.");
                 SetState(-1);
             }
             else
@@ -278,7 +278,7 @@ namespace FaceIDAppVBEta
             }
             if(password != retypePassword)
             {
-                MessageBox.Show("Your re-typed password does not match. Please try again.");
+                MessageBox.Show("Your re-typed password does not match.");
                 return false;
             }
 
