@@ -399,7 +399,7 @@ namespace FaceIDAppVBEta
 
                 if (dtBreakFrom1 < dtFrom || dtBreakTo1 > dtTo)
                 {
-                    MessageBox.Show("Break time must be during working hours(" + dtpRegularWorkFrom.Value.ToShortTimeString() + " - " + dtpRegularWorkTo.Value.ToShortTimeString() + ". Please try again");
+                    MessageBox.Show("Break time must be during working hours(" + dtpRegularWorkFrom.Value.ToShortTimeString() + " - " + dtpRegularWorkTo.Value.ToShortTimeString() + ". Please try again.");
                     return false;
                 }
             }
@@ -425,7 +425,7 @@ namespace FaceIDAppVBEta
 
                 if (dtBreakFrom2 < dtFrom || dtBreakTo2 > dtTo)
                 {
-                    MessageBox.Show("Break time must be during working hours(" + dtpRegularWorkFrom.Value.ToShortTimeString() + " - " + dtpRegularWorkTo.Value.ToShortTimeString() + ". Please try again");
+                    MessageBox.Show("Break time must be during working hours(" + dtpRegularWorkFrom.Value.ToShortTimeString() + " - " + dtpRegularWorkTo.Value.ToShortTimeString() + ". Please try again.");
                     return false;
                 }
             }
@@ -451,7 +451,7 @@ namespace FaceIDAppVBEta
 
                 if (dtBreakFrom3 < dtFrom || dtBreakTo3 > dtTo)
                 {
-                    MessageBox.Show("Break time must be during working hours(" + dtpRegularWorkFrom.Value.ToShortTimeString() + " - " + dtpRegularWorkTo.Value.ToShortTimeString() + ". Please try again");
+                    MessageBox.Show("Break time must be during working hours(" + dtpRegularWorkFrom.Value.ToShortTimeString() + " - " + dtpRegularWorkTo.Value.ToShortTimeString() + ". Please try again.");
                     return false;
                 }
             }

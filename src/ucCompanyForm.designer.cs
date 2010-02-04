@@ -33,19 +33,23 @@
             this.gBoxCompanyACtion = new System.Windows.Forms.GroupBox();
             this.btCancel = new System.Windows.Forms.Button();
             this.btSubmit = new System.Windows.Forms.Button();
-            this.tbCompanyName = new System.Windows.Forms.TextBox();
+            this.txtCompanyName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.errProviders = new System.Windows.Forms.ErrorProvider(this.components);
-            this.tbCompany = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ActionEdit = new System.Windows.Forms.DataGridViewButtonColumn();
             this.ActionDelete = new System.Windows.Forms.DataGridViewButtonColumn();
             this.label2 = new System.Windows.Forms.Label();
-            this.tbCompany = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btEdit = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.btDelete = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.cmsDgvCompany = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CompanyID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CompanyName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NoOfDepartments = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NoOfEmployees = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCompany)).BeginInit();
             this.gBoxCompanyACtion.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errProviders)).BeginInit();
+            this.cmsDgvCompany.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvCompany
@@ -54,22 +58,24 @@
             this.dgvCompany.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvCompany.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCompany.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.tbCompany,
-            this.btEdit,
-            this.btDelete});
+            this.CompanyID,
+            this.CompanyName,
+            this.NoOfDepartments,
+            this.NoOfEmployees});
+            this.dgvCompany.ContextMenuStrip = this.cmsDgvCompany;
             this.dgvCompany.Location = new System.Drawing.Point(36, 71);
             this.dgvCompany.Name = "dgvCompany";
             this.dgvCompany.ReadOnly = true;
             this.dgvCompany.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCompany.Size = new System.Drawing.Size(772, 418);
             this.dgvCompany.TabIndex = 0;
-            this.dgvCompany.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCompany_CellClick);
+            this.dgvCompany.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCompany_CellMouseEnter);
             // 
             // gBoxCompanyACtion
             // 
             this.gBoxCompanyACtion.Controls.Add(this.btCancel);
             this.gBoxCompanyACtion.Controls.Add(this.btSubmit);
-            this.gBoxCompanyACtion.Controls.Add(this.tbCompanyName);
+            this.gBoxCompanyACtion.Controls.Add(this.txtCompanyName);
             this.gBoxCompanyACtion.Controls.Add(this.label1);
             this.gBoxCompanyACtion.Location = new System.Drawing.Point(36, 518);
             this.gBoxCompanyACtion.Name = "gBoxCompanyACtion";
@@ -98,12 +104,12 @@
             this.btSubmit.UseVisualStyleBackColor = true;
             this.btSubmit.Click += new System.EventHandler(this.btSubmit_Click);
             // 
-            // tbCompanyName
+            // txtCompanyName
             // 
-            this.tbCompanyName.Location = new System.Drawing.Point(107, 32);
-            this.tbCompanyName.Name = "tbCompanyName";
-            this.tbCompanyName.Size = new System.Drawing.Size(208, 20);
-            this.tbCompanyName.TabIndex = 1;
+            this.txtCompanyName.Location = new System.Drawing.Point(107, 32);
+            this.txtCompanyName.Name = "txtCompanyName";
+            this.txtCompanyName.Size = new System.Drawing.Size(208, 20);
+            this.txtCompanyName.TabIndex = 1;
             // 
             // label1
             // 
@@ -117,11 +123,6 @@
             // errProviders
             // 
             this.errProviders.ContainerControl = this;
-            // 
-            // tbCompany
-            // 
-            this.tbCompany.HeaderText = "Company Name";
-            this.tbCompany.Name = "Name";
             // 
             // ActionEdit
             // 
@@ -140,32 +141,56 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Company Management";
             // 
-            // tbCompany
+            // cmsDgvCompany
             // 
-            this.tbCompany.DataPropertyName = "Name";
-            this.tbCompany.HeaderText = "Company Name";
-            this.tbCompany.Name = "tbCompany";
-            this.tbCompany.ReadOnly = true;
+            this.cmsDgvCompany.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editToolStripMenuItem,
+            this.deleteToolStripMenuItem});
+            this.cmsDgvCompany.Name = "cmsDgvCompany";
+            this.cmsDgvCompany.Size = new System.Drawing.Size(106, 48);
             // 
-            // btEdit
+            // editToolStripMenuItem
             // 
-            this.btEdit.DataPropertyName = "CompanyID";
-            this.btEdit.HeaderText = "Edit";
-            this.btEdit.Name = "btEdit";
-            this.btEdit.ReadOnly = true;
-            this.btEdit.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.btEdit.Text = "Edit";
-            this.btEdit.UseColumnTextForButtonValue = true;
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.editToolStripMenuItem.Text = "Edit";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
-            // btDelete
+            // deleteToolStripMenuItem
             // 
-            this.btDelete.DataPropertyName = "CompanyID";
-            this.btDelete.HeaderText = "Delete";
-            this.btDelete.Name = "btDelete";
-            this.btDelete.ReadOnly = true;
-            this.btDelete.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.btDelete.Text = "Delete";
-            this.btDelete.UseColumnTextForButtonValue = true;
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+            // 
+            // CompanyID
+            // 
+            this.CompanyID.DataPropertyName = "CompanyID";
+            this.CompanyID.HeaderText = "Company ID";
+            this.CompanyID.Name = "CompanyID";
+            this.CompanyID.ReadOnly = true;
+            this.CompanyID.Visible = false;
+            // 
+            // CompanyName
+            // 
+            this.CompanyName.DataPropertyName = "CompanyName";
+            this.CompanyName.HeaderText = "Company Name";
+            this.CompanyName.Name = "CompanyName";
+            this.CompanyName.ReadOnly = true;
+            // 
+            // NoOfDepartments
+            // 
+            this.NoOfDepartments.DataPropertyName = "NoOfDepartments";
+            this.NoOfDepartments.HeaderText = "Number of Departments";
+            this.NoOfDepartments.Name = "NoOfDepartments";
+            this.NoOfDepartments.ReadOnly = true;
+            // 
+            // NoOfEmployees
+            // 
+            this.NoOfEmployees.DataPropertyName = "NoOfEmployees";
+            this.NoOfEmployees.HeaderText = "Number of Employees";
+            this.NoOfEmployees.Name = "NoOfEmployees";
+            this.NoOfEmployees.ReadOnly = true;
             // 
             // ucCompanyForm
             // 
@@ -180,6 +205,7 @@
             this.gBoxCompanyACtion.ResumeLayout(false);
             this.gBoxCompanyACtion.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errProviders)).EndInit();
+            this.cmsDgvCompany.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -189,7 +215,7 @@
 
         private System.Windows.Forms.GroupBox gBoxCompanyACtion;
         private System.Windows.Forms.Button btSubmit;
-        private System.Windows.Forms.TextBox tbCompanyName;
+        private System.Windows.Forms.TextBox txtCompanyName;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btCancel;
         private System.Windows.Forms.DataGridView dgvCompany;
@@ -197,8 +223,12 @@
         private System.Windows.Forms.DataGridViewButtonColumn ActionEdit;
         private System.Windows.Forms.DataGridViewButtonColumn ActionDelete;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tbCompany;
-        private System.Windows.Forms.DataGridViewButtonColumn btEdit;
-        private System.Windows.Forms.DataGridViewButtonColumn btDelete;
+        private System.Windows.Forms.ContextMenuStrip cmsDgvCompany;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CompanyID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CompanyName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NoOfDepartments;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NoOfEmployees;
     }
 }

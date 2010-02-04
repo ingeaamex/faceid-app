@@ -33,10 +33,10 @@
             this.tvDepartment = new System.Windows.Forms.TreeView();
             this.groupBoxDepartment = new System.Windows.Forms.GroupBox();
             this.btCancel = new System.Windows.Forms.Button();
-            this.btSubmit = new System.Windows.Forms.Button();
-            this.tbDepartmentName = new System.Windows.Forms.TextBox();
-            this.cbDepartment = new System.Windows.Forms.ComboBox();
-            this.cbCompany = new System.Windows.Forms.ComboBox();
+            this.btnSubmit = new System.Windows.Forms.Button();
+            this.txtDepartmentName = new System.Windows.Forms.TextBox();
+            this.cbxSupDepartment = new System.Windows.Forms.ComboBox();
+            this.cbxCompany = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -57,17 +57,16 @@
             this.tvDepartment.Name = "tvDepartment";
             this.tvDepartment.Size = new System.Drawing.Size(772, 362);
             this.tvDepartment.TabIndex = 0;
-            this.tvDepartment.AfterCollapse += new System.Windows.Forms.TreeViewEventHandler(this.tvDepartment_AfterCollapse);
             this.tvDepartment.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tvDepartment_MouseClick);
             this.tvDepartment.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.tvDepartment_AfterExpand);
             // 
             // groupBoxDepartment
             // 
             this.groupBoxDepartment.Controls.Add(this.btCancel);
-            this.groupBoxDepartment.Controls.Add(this.btSubmit);
-            this.groupBoxDepartment.Controls.Add(this.tbDepartmentName);
-            this.groupBoxDepartment.Controls.Add(this.cbDepartment);
-            this.groupBoxDepartment.Controls.Add(this.cbCompany);
+            this.groupBoxDepartment.Controls.Add(this.btnSubmit);
+            this.groupBoxDepartment.Controls.Add(this.txtDepartmentName);
+            this.groupBoxDepartment.Controls.Add(this.cbxSupDepartment);
+            this.groupBoxDepartment.Controls.Add(this.cbxCompany);
             this.groupBoxDepartment.Controls.Add(this.label3);
             this.groupBoxDepartment.Controls.Add(this.label2);
             this.groupBoxDepartment.Controls.Add(this.label1);
@@ -90,44 +89,44 @@
             // 
             // btSubmit
             // 
-            this.btSubmit.Location = new System.Drawing.Point(40, 103);
-            this.btSubmit.Name = "btSubmit";
-            this.btSubmit.Size = new System.Drawing.Size(75, 23);
-            this.btSubmit.TabIndex = 6;
-            this.btSubmit.Text = "Add";
-            this.btSubmit.UseVisualStyleBackColor = true;
-            this.btSubmit.Click += new System.EventHandler(this.btSubmit_Click);
+            this.btnSubmit.Location = new System.Drawing.Point(40, 103);
+            this.btnSubmit.Name = "btSubmit";
+            this.btnSubmit.Size = new System.Drawing.Size(75, 23);
+            this.btnSubmit.TabIndex = 6;
+            this.btnSubmit.Text = "Add";
+            this.btnSubmit.UseVisualStyleBackColor = true;
+            this.btnSubmit.Click += new System.EventHandler(this.btSubmit_Click);
             // 
-            // tbDepartmentName
+            // txtDepartmentName
             // 
-            this.tbDepartmentName.Location = new System.Drawing.Point(120, 77);
-            this.tbDepartmentName.Name = "tbDepartmentName";
-            this.tbDepartmentName.Size = new System.Drawing.Size(121, 20);
-            this.tbDepartmentName.TabIndex = 5;
+            this.txtDepartmentName.Location = new System.Drawing.Point(120, 77);
+            this.txtDepartmentName.Name = "txtDepartmentName";
+            this.txtDepartmentName.Size = new System.Drawing.Size(121, 20);
+            this.txtDepartmentName.TabIndex = 5;
             // 
-            // cbDepartment
+            // cbxSupDepartment
             // 
-            this.cbDepartment.DisplayMember = "Name";
-            this.cbDepartment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbDepartment.FormattingEnabled = true;
-            this.cbDepartment.Location = new System.Drawing.Point(120, 50);
-            this.cbDepartment.Name = "cbDepartment";
-            this.cbDepartment.Size = new System.Drawing.Size(121, 21);
-            this.cbDepartment.TabIndex = 4;
-            this.cbDepartment.ValueMember = "ID";
+            this.cbxSupDepartment.DisplayMember = "Name";
+            this.cbxSupDepartment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxSupDepartment.FormattingEnabled = true;
+            this.cbxSupDepartment.Location = new System.Drawing.Point(120, 50);
+            this.cbxSupDepartment.Name = "cbxSupDepartment";
+            this.cbxSupDepartment.Size = new System.Drawing.Size(121, 21);
+            this.cbxSupDepartment.TabIndex = 4;
+            this.cbxSupDepartment.ValueMember = "ID";
             // 
-            // cbCompany
+            // cbxCompany
             // 
-            this.cbCompany.DisplayMember = "Name";
-            this.cbCompany.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbCompany.FormattingEnabled = true;
-            this.cbCompany.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.cbCompany.Location = new System.Drawing.Point(120, 23);
-            this.cbCompany.Name = "cbCompany";
-            this.cbCompany.Size = new System.Drawing.Size(121, 21);
-            this.cbCompany.TabIndex = 3;
-            this.cbCompany.ValueMember = "ID";
-            this.cbCompany.SelectedIndexChanged += new System.EventHandler(this.cbCompany_SelectedIndexChanged);
+            this.cbxCompany.DisplayMember = "Name";
+            this.cbxCompany.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxCompany.FormattingEnabled = true;
+            this.cbxCompany.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.cbxCompany.Location = new System.Drawing.Point(120, 23);
+            this.cbxCompany.Name = "cbxCompany";
+            this.cbxCompany.Size = new System.Drawing.Size(121, 21);
+            this.cbxCompany.TabIndex = 3;
+            this.cbxCompany.ValueMember = "ID";
+            this.cbxCompany.SelectedIndexChanged += new System.EventHandler(this.cbCompany_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -221,10 +220,10 @@
         private System.Windows.Forms.TreeView tvDepartment;
         private System.Windows.Forms.GroupBox groupBoxDepartment;
         private System.Windows.Forms.Button btCancel;
-        private System.Windows.Forms.Button btSubmit;
-        private System.Windows.Forms.TextBox tbDepartmentName;
-        private System.Windows.Forms.ComboBox cbDepartment;
-        private System.Windows.Forms.ComboBox cbCompany;
+        private System.Windows.Forms.Button btnSubmit;
+        private System.Windows.Forms.TextBox txtDepartmentName;
+        private System.Windows.Forms.ComboBox cbxSupDepartment;
+        private System.Windows.Forms.ComboBox cbxCompany;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;

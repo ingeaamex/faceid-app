@@ -35,10 +35,10 @@ namespace FaceIDAppVBEta
 
         private void btPrint_Click(object sender, EventArgs e)
         {
-            int iCompany = (int)cbCompany.SelectedValue;
+            int iCompany = (int)cbxCompany.SelectedValue;
             int iDepartment = -1;
-            if (cbDepartment.Enabled)
-                iDepartment = (int)cbDepartment.SelectedValue;
+            if (cbxDepartment.Enabled)
+                iDepartment = (int)cbxDepartment.SelectedValue;
             frmEmployeeReport frmEmpl = new frmEmployeeReport(iCompany, iDepartment);
             frmEmpl.ShowDialog(this);
         }
@@ -56,14 +56,14 @@ namespace FaceIDAppVBEta
 
         private void BindEmployee()
         {
-            int iCompany = (int)cbCompany.SelectedValue;
+            int iCompany = (int)cbxCompany.SelectedValue;
             int iDepartment = -1;
-            if (cbDepartment.Enabled)
-                iDepartment = (int)cbDepartment.SelectedValue;
+            if (cbxDepartment.Enabled)
+                iDepartment = (int)cbxDepartment.SelectedValue;
 
             List<Employee> employees = _dtCtrl.GetEmployeeList(iCompany, iDepartment);
-            dgvEmpl.AutoGenerateColumns = false;
-            dgvEmpl.DataSource = employees;
+            dgvEmployee.AutoGenerateColumns = false;
+            dgvEmployee.DataSource = employees;
         }
 
         private void BindCompany()
@@ -73,39 +73,39 @@ namespace FaceIDAppVBEta
             company.ID = -1;
             company.Name = "All companies";
             companyList.Insert(0, company);
-            cbCompany.DataSource = companyList;
+            cbxCompany.DataSource = companyList;
         }
 
         private void BindDepartment()
         {
-            if (cbCompany.SelectedValue != null)
+            if (cbxCompany.SelectedValue != null)
             {
-                int CompanyID = (int)cbCompany.SelectedValue;
+                int CompanyID = (int)cbxCompany.SelectedValue;
                 if (CompanyID == -1)
                 {
-                    cbDepartment.Enabled = false;
+                    cbxDepartment.Enabled = false;
                     return;
                 }
-                cbDepartment.Enabled = true;
+                cbxDepartment.Enabled = true;
                 List<Department> departmentList = _dtCtrl.GetDepartmentByCompany(CompanyID);
                 Department department = new Department();
                 department.ID = -1;
                 department.Name = "All departments";
                 departmentList.Insert(0, department);
-                cbDepartment.DataSource = departmentList;
+                cbxDepartment.DataSource = departmentList;
             }
         }
 
         private void updateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int id = (int)dgvEmpl.Rows[_cellContext.X].Cells[dgvEmpl.Columns["PayrollNumber"].Index].Value;
+            int id = (int)dgvEmployee.Rows[_cellContext.X].Cells[dgvEmployee.Columns["PayrollNumber"].Index].Value;
             frmAddUpdateEmployee objForm = new frmAddUpdateEmployee(id);
             objForm.ShowDialog(this);
         }
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            object employeeID = dgvEmpl.Rows[_cellContext.X].Cells[dgvEmpl.Columns["PayrollNumber"].Index].Value;
+            object employeeID = dgvEmployee.Rows[_cellContext.X].Cells[dgvEmployee.Columns["PayrollNumber"].Index].Value;
 
             if (Util.Confirm("Are you sure?"))
             {
@@ -130,7 +130,7 @@ namespace FaceIDAppVBEta
                 catch (Exception ex)
                 {
                     _dtCtrl.RollbackTransaction();
-                    MessageBox.Show("There has been an error: " + ex.Message + ". Please try again");
+                    MessageBox.Show("There has been an error: " + ex.Message + ". Please try again.");
                 }
             }
         }
@@ -170,17 +170,17 @@ namespace FaceIDAppVBEta
 
         private void dgvEmpl_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex == dgvEmpl.Columns["EmployeeName"].Index)
+            if (e.ColumnIndex == dgvEmployee.Columns["EmployeeName"].Index)
             {
-                List<Employee> employees = (List<Employee>)dgvEmpl.DataSource;
+                List<Employee> employees = (List<Employee>)dgvEmployee.DataSource;
                 Employee employee = employees[e.RowIndex];
 
                 e.FormattingApplied = true;
                 e.Value = string.Format("{0}, {1}", employee.LastName, employee.FirstName);
             }
-            else if (e.ColumnIndex == dgvEmpl.Columns["Terminal"].Index)
+            else if (e.ColumnIndex == dgvEmployee.Columns["Terminal"].Index)
             {
-                List<Employee> employees = (List<Employee>)dgvEmpl.DataSource;
+                List<Employee> employees = (List<Employee>)dgvEmployee.DataSource;
                 Employee employee = employees[e.RowIndex];
 
                 List<Terminal> terminals = _dtCtrl.GetTerminalListByEmployee(Convert.ToInt32(e.Value));
@@ -197,9 +197,9 @@ namespace FaceIDAppVBEta
                 e.FormattingApplied = true;
                 e.Value = terminalNames;
             }
-            else if (e.ColumnIndex == dgvEmpl.Columns["WorkingCalendar"].Index)
+            else if (e.ColumnIndex == dgvEmployee.Columns["WorkingCalendar"].Index)
             {
-                int workingCalendarID = Convert.ToInt32(dgvEmpl[dgvEmpl.Columns["WorkingCalendarID"].Index, e.RowIndex].Value);
+                int workingCalendarID = Convert.ToInt32(dgvEmployee[dgvEmployee.Columns["WorkingCalendarID"].Index, e.RowIndex].Value);
                 e.Value = GetWorkingCalendarName(workingCalendarID);
             }
         }
@@ -336,17 +336,17 @@ namespace FaceIDAppVBEta
 
                 try
                 {
-                    if (dgvEmpl.DataSource == null)
+                    if (dgvEmployee.DataSource == null)
                     {
                         MessageBox.Show("Please select company/department and click View for a list of employee first");
                         return;
                     }
 
-                    List<Employee> employeeList = (List<Employee>)dgvEmpl.DataSource;
+                    List<Employee> employeeList = (List<Employee>)dgvEmployee.DataSource;
 
                     if (employeeList.Count == 0)
                     {
-                        MessageBox.Show("There is no employee to export. Please try again");
+                        MessageBox.Show("There is no employee to export. Please try again.");
                         return;
                     }
 
@@ -380,7 +380,7 @@ namespace FaceIDAppVBEta
                 }
                 catch (Exception ex)
                 {
-                    Util.ShowErrorMessage("There has been an error: " + ex.Message + ". Please try again");
+                    Util.ShowErrorMessage("There has been an error: " + ex.Message + ". Please try again.");
                 }
                 finally
                 {
@@ -391,9 +391,9 @@ namespace FaceIDAppVBEta
 
         private void dgvEmpl_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == dgvEmpl.Columns["WorkingCalendar"].Index && e.RowIndex >= 0)
+            if (e.ColumnIndex == dgvEmployee.Columns["WorkingCalendar"].Index && e.RowIndex >= 0)
             {
-                List<Employee> employeeList = (List<Employee>)dgvEmpl.DataSource;
+                List<Employee> employeeList = (List<Employee>)dgvEmployee.DataSource;
                 Employee employee = employeeList[e.RowIndex];
 
                 if (employee != null)
@@ -444,7 +444,7 @@ namespace FaceIDAppVBEta
             }
             catch (Exception ex)
             {
-                Util.ShowErrorMessage("There has been an error: " + ex.Message + ". Please try again");
+                Util.ShowErrorMessage("There has been an error: " + ex.Message + ". Please try again.");
             }
             finally
             {

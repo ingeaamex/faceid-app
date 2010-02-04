@@ -316,7 +316,7 @@ namespace FaceIDAppVBEta.Data
             return department;
         }
 
-        private bool CheckExistDepartmentName(string name, int companyId, int id)
+        private bool CheckExistDepartmentName(string name, int companyID, int id)
         {
             if (string.IsNullOrEmpty(name))
                 return true;
@@ -326,11 +326,11 @@ namespace FaceIDAppVBEta.Data
             if (id > 0)
             {
                 condition += " AND ID<>@ID";
-                parames = new object[] { "@Name", name, "@CompanyID", companyId, "@ID", id };
+                parames = new object[] { "@Name", name, "@CompanyID", companyID, "@ID", id };
             }
             else
             {
-                parames = new object[] { "@Name", name, "@CompanyID", companyId };
+                parames = new object[] { "@Name", name, "@CompanyID", companyID };
             }
             OleDbCommand odCom = BuildSelectCmd("Department", "ID", condition, parames);
             OleDbDataReader odRdr = odCom.ExecuteReader();
@@ -451,15 +451,15 @@ namespace FaceIDAppVBEta.Data
 
         #region Employee
 
-        public List<EmployeeReport> GetEmployeeReportList(int compantId, int departmentId)
+        public List<EmployeeReport> GetEmployeeReportList(int compantID, int departmentID)
         {
             OleDbCommand odCom;
-            if (departmentId == 1 || compantId == 1)
+            if (departmentID == 1 || compantID == 1)
                 odCom = BuildSelectCmd("Department INNER JOIN Employee ON Department.ID = Employee.DepartmentID", "Employee.*,Department.Name as DepartmentName", "DepartmentID=1");
-            else if (departmentId > 0)
-                odCom = BuildSelectCmd("Department INNER JOIN Employee ON Department.ID = Employee.DepartmentID", "Employee.*,Department.Name as DepartmentName", "DepartmentID=@ID AND Active=TRUE", "@ID", departmentId);
-            else if (compantId > 0)
-                odCom = BuildSelectCmd("Department INNER JOIN Employee ON Department.ID = Employee.DepartmentID", "Employee.*,Department.Name as DepartmentName", "DepartmentID in (SELECT ID FROM Department WHERE CompanyID=@ID) AND Active=true", new object[] { "@ID", compantId });
+            else if (departmentID > 0)
+                odCom = BuildSelectCmd("Department INNER JOIN Employee ON Department.ID = Employee.DepartmentID", "Employee.*,Department.Name as DepartmentName", "DepartmentID=@ID AND Active=TRUE", "@ID", departmentID);
+            else if (compantID > 0)
+                odCom = BuildSelectCmd("Department INNER JOIN Employee ON Department.ID = Employee.DepartmentID", "Employee.*,Department.Name as DepartmentName", "DepartmentID in (SELECT ID FROM Department WHERE CompanyID=@ID) AND Active=true", new object[] { "@ID", compantID });
             else
                 odCom = BuildSelectCmd("Department INNER JOIN Employee ON Department.ID = Employee.DepartmentID", "Employee.*,Department.Name as DepartmentName", "Active=true");
 
@@ -493,9 +493,9 @@ namespace FaceIDAppVBEta.Data
             return result;
         }
 
-        public Employee GetEmployee(int employeeId)
+        public Employee GetEmployee(int employeeID)
         {
-            OleDbCommand odCom = BuildSelectCmd("Employee", "*", "PayrollNumber=@ID", "@ID", employeeId);
+            OleDbCommand odCom = BuildSelectCmd("Employee", "*", "PayrollNumber=@ID", "@ID", employeeID);
             OleDbDataReader odRdr = odCom.ExecuteReader();
 
             Employee employee = null;
@@ -541,15 +541,15 @@ namespace FaceIDAppVBEta.Data
             return employee;
         }
 
-        public List<Employee> GetEmployeeList(int compantId, int departmentId)
+        public List<Employee> GetEmployeeList(int compantID, int departmentID)
         {
             OleDbCommand odCom;
-            if (departmentId == 1 || compantId == 1) //default company and default department
+            if (departmentID == 1 && compantID == 1) //default company and default department
                 odCom = BuildSelectCmd("Employee", "*", "DepartmentID=1 AND Active=TRUE");
-            else if (departmentId > 0)
-                odCom = BuildSelectCmd("Employee", "*", "DepartmentID=@ID AND Active=TRUE", "@ID", departmentId);
-            else if (compantId > 0)
-                odCom = BuildSelectCmd("Employee", "*", "DepartmentID in (SELECT ID FROM Department WHERE CompanyID=@ID) AND Active=TRUE", new object[] { "@ID", compantId });
+            else if (departmentID > 0)
+                odCom = BuildSelectCmd("Employee", "*", "DepartmentID=@ID AND Active=TRUE", "@ID", departmentID);
+            else if (compantID > 0) //WRONG
+                odCom = BuildSelectCmd("Employee", "*", "DepartmentID in (SELECT ID FROM Department WHERE CompanyID=@ID) AND Active=TRUE", new object[] { "@ID", compantID });
             else // all companies and all department
                 odCom = BuildSelectCmd("Employee", "*", "Active=TRUE");
 
@@ -739,11 +739,11 @@ namespace FaceIDAppVBEta.Data
             return -1;
         }
 
-        public bool DeleteEmployee(int employeeId)
+        public bool DeleteEmployee(int employeeID)
         {
             OleDbCommand odCom1 = BuildUpdateCmd("Employee",
                 new string[] { "Active", "ActiveTo" }, new object[] { false, DateTime.Now }, "PayrollNumber=@ID",
-                new object[] { "@ID", employeeId }
+                new object[] { "@ID", employeeID }
             );
             return ExecuteNonQuery(odCom1) > 0 ? true : false;
         }
@@ -3117,7 +3117,7 @@ namespace FaceIDAppVBEta.Data
 
         public void CalculateAttendanceRecord()
         {
-            OleDbCommand odCom = BuildSelectCmd("AttendanceRecord", "*", "Id in(select AttendanceRecordID from UncalculatedAttendanceRecord)");
+            OleDbCommand odCom = BuildSelectCmd("AttendanceRecord", "*", "ID IN (SELECT AttendanceRecordID FROM UncalculatedAttendanceRecord)");
             OleDbDataReader odRdr = odCom.ExecuteReader();
             List<AttendanceRecord> uncalAttRc = new List<AttendanceRecord>();
             AttendanceRecord attRc = null;
@@ -3264,12 +3264,12 @@ namespace FaceIDAppVBEta.Data
             return -1;
         }
 
-        public bool AddUncalculatedAttendanceRecord(int Id)
+        public bool AddUncalculatedAttendanceRecord(int id)
         {
             OleDbCommand odCom1 = BuildInsertCmd("UncalculatedAttendanceRecord",
                 new string[] { "AttendanceRecordID"
                 },
-                new object[] { Id
+                new object[] { id
                 }
             );
 
@@ -3521,7 +3521,7 @@ namespace FaceIDAppVBEta.Data
 
         public Employee GetEmployeeByEmployeeNumber(int employeeNumber)
         {
-            OleDbCommand odCom = BuildSelectCmd("Employee", "*", "EmployeeNumber=@EmployeeNumber AND Active=TRUE", "@ID", employeeNumber);
+            OleDbCommand odCom = BuildSelectCmd("Employee", "TOP 1 *", "EmployeeNumber=@EmployeeNumber AND Active=TRUE", "@ID", employeeNumber);
             OleDbDataReader odRdr = odCom.ExecuteReader();
 
             Employee employee = null;
@@ -3565,6 +3565,26 @@ namespace FaceIDAppVBEta.Data
             }
             odRdr.Close();
             return employee;
+        }
+
+        public Department GetDepartment(string name)
+        {
+            OleDbCommand odCom = BuildSelectCmd("Department", "TOP 1 *", "Name=@Name", "@Name", name);
+            OleDbDataReader odRdr = odCom.ExecuteReader();
+
+            Department department = null;
+            if (odRdr.Read())
+            {
+                department = new Department();
+
+                department.ID = (int)odRdr["ID"];
+                department.Name = odRdr["Name"].ToString();
+                department.CompanyID = (int)odRdr["CompanyID"];
+                department.SupDepartmentID = (int)odRdr["SupDepartmentID"];
+            }
+
+            odRdr.Close();
+            return department;
         }
 
         #endregion

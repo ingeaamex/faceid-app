@@ -13,15 +13,15 @@ namespace FaceIDAppVBEta
 {
     public partial class ucDepartmentForm : UserControl
     {
-        private IDataController dtCtrl;
-        private List<Department> departmentList;
-        private string curExpandNodeName = null;
+        private IDataController _dtCtrl;
+        private List<Department> _departmentList;
+        private string _curExpandNodeName = null;
 
         public ucDepartmentForm()
         {
             InitializeComponent();
 
-            dtCtrl = LocalDataController.Instance;
+            _dtCtrl = LocalDataController.Instance;
             BindCompany();
             BindDepartment();
             BindTree();
@@ -30,8 +30,8 @@ namespace FaceIDAppVBEta
         private void BindTree()
         {
             tvDepartment.Nodes.Clear();
-            List<Company> companyList = dtCtrl.GetCompanyList();
-            departmentList = dtCtrl.GetDepartmentList();
+            List<Company> companyList = _dtCtrl.GetCompanyList();
+            _departmentList = _dtCtrl.GetDepartmentList();
 
             foreach (Company company in companyList)
             {
@@ -44,9 +44,9 @@ namespace FaceIDAppVBEta
                 tvDepartment.Nodes.Add(tnode);
             }
 
-            if (!string.IsNullOrEmpty(curExpandNodeName))
+            if (!string.IsNullOrEmpty(_curExpandNodeName))
             {
-                TreeNode[] nodes = tvDepartment.Nodes.Find(curExpandNodeName, true);
+                TreeNode[] nodes = tvDepartment.Nodes.Find(_curExpandNodeName, true);
                 if (nodes.Length > 0)
                 {
                     TreeNode node = nodes[0];
@@ -64,27 +64,27 @@ namespace FaceIDAppVBEta
         {
             List<Department> departmentGroup = null;
 
-            if(isFirst)
-            departmentGroup = departmentList.FindAll(
-                delegate(Department department)
-                {
-                    return department.CompanyID == parentValue && department.SupDepartmentID == 0;
-                }
-                );
+            if (isFirst)
+                departmentGroup = _departmentList.FindAll(
+                    delegate(Department department)
+                    {
+                        return department.CompanyID == parentValue && department.SupDepartmentID == 0;
+                    }
+                    );
             else
-                departmentGroup = departmentList.FindAll(
+                departmentGroup = _departmentList.FindAll(
                     delegate(Department department)
                     {
                         return department.SupDepartmentID == parentValue;
                     }
                     );
-            foreach(Department department in departmentGroup)
+            foreach (Department department in departmentGroup)
             {
                 string text = department.Name;
                 int value = department.ID;
                 TreeNode tnode = new TreeNode(text);
                 tnode.Tag = value;
-                tnode.Name = "d"+value.ToString();
+                tnode.Name = "d" + value.ToString();
                 BindNodes(value, tnode, false);
                 parentNode.Nodes.Add(tnode);
             }
@@ -98,7 +98,7 @@ namespace FaceIDAppVBEta
                 if (node != null && node.Parent != null)
                 {
                     node.TreeView.SelectedNode = node;
-                    curExpandNodeName = node.Parent.Name;
+                    _curExpandNodeName = node.Parent.Name;
                     cmsTreeAction.Show(tvDepartment, e.Location);
                 }
             }
@@ -107,64 +107,107 @@ namespace FaceIDAppVBEta
         private void updateToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int DepartmentID = (int)tvDepartment.SelectedNode.Tag;
-            Department department = dtCtrl.GetDepartment(DepartmentID);
+            Department department = _dtCtrl.GetDepartment(DepartmentID);
+
             if (department != null)
             {
-                int CompanyID = department.CompanyID;
-                int SupDepartmentID = department.SupDepartmentID;
-                string DepartmentName = department.Name;
-                LoadForm(DepartmentID, CompanyID, SupDepartmentID, DepartmentName);
+                int companyID = department.CompanyID;
+                int supDepartmentID = department.SupDepartmentID;
+                string departmentName = department.Name;
+                LoadForm(DepartmentID, companyID, supDepartmentID, departmentName);
+            }
+            else
+            {
+                MessageBox.Show("Department not found or has been deleted.");
+                BindTree();
             }
         }
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DialogResult dlogRs = MessageBox.Show(Form.ActiveForm, "Are you sure?", "Confirm", MessageBoxButtons.YesNo);
-            if (dlogRs.ToString().Equals("Yes"))
+            if (Util.Confirm("Are you sure you want to delete this department? This can not be undone.") == false)
             {
-                int DepartmentID = (int)tvDepartment.SelectedNode.Tag;
-                if (DepartmentID == 1)
-                {
-                    MessageBox.Show("Can not delete default value!");
-                    return;
-                }
-                bool rs = dtCtrl.DeleteDepartment(DepartmentID);
-                if (rs)
-                {
-                    BindTree();
-                    BindDepartment();
-                }
+                return;
+            }
+
+            int departmentID = (int)tvDepartment.SelectedNode.Tag;
+            Department department = _dtCtrl.GetDepartment(departmentID);
+            if (department == null)
+            {
+                MessageBox.Show("Department not found.");
+                BindTree();
+                return;
+            }
+
+            //check if department is default
+            if (departmentID == 1)
+            {
+                MessageBox.Show("Default department must not be deleted");
+                return;
+            }
+
+            //check if department is empty
+            if (_dtCtrl.GetEmployeeList(department.CompanyID, department.ID).Count > 0)
+            {
+                MessageBox.Show("Department is in use and can not be deleted.");
+                return;
+            }
+
+            if (_dtCtrl.DeleteDepartment(departmentID) == false)
+            {
+                MessageBox.Show("Department not found or has already been deleted.");
+                return;
+            }
+            else
+            {
+                MessageBox.Show("Department deleted.");
+                BindTree();
+                BindDepartment();
             }
         }
 
         private void btSubmit_Click(object sender, EventArgs e)
         {
             Department department = GetDepartmentUserInput();
+
             if (department == null)
                 return;
 
             bool acctionSucess = false;
-            if (btSubmit.Tag == null)
-            {
-                int id = dtCtrl.AddDepartment(department);
-                if (id > 0)
-                    acctionSucess = true;
 
-                MessageBox.Show(id > 1 ? "successful" : "error");
-            }
-            else
+            if (btnSubmit.Tag == null) //add
             {
-                int departmentID = (int)btSubmit.Tag;
+                int id = _dtCtrl.AddDepartment(department);
+                acctionSucess = id > 0;
+
+                if (acctionSucess)
+                {
+                    MessageBox.Show("Department added.");
+                }
+                else
+                {
+                    MessageBox.Show("There has been an error. Please try again.");
+                }
+            }
+            else //update
+            {
+                int departmentID = (int)btnSubmit.Tag;
                 department.ID = departmentID;
-                bool rs = dtCtrl.UpdateDepartment(department);
-                if (rs)
-                    acctionSucess = true;
+                acctionSucess = _dtCtrl.UpdateDepartment(department);
 
-                MessageBox.Show(rs ? "successful" : "error");
+                if (acctionSucess)
+                {
+                    MessageBox.Show("Department updated.");
+                }
+                else
+                {
+                    MessageBox.Show("There has been an error. Please try again.");
+                }
             }
+
             if (acctionSucess)
             {
-                LoadForm(0, (int)cbCompany.SelectedValue, 0, "");
+                LoadForm(0, (int)cbxCompany.SelectedValue, 0, "");
                 BindTree();
                 BindDepartment();
             }
@@ -172,30 +215,50 @@ namespace FaceIDAppVBEta
 
         private Department GetDepartmentUserInput()
         {
-            object oCompany = cbCompany.SelectedValue;
-            object oDepartment = cbDepartment.SelectedValue;
-            string departmentName = tbDepartmentName.Text;
-            bool isValid = true;
+            object oCompanyID = cbxCompany.SelectedValue;
+            object oSupDepartmentID = cbxSupDepartment.SelectedValue;
+            string departmentName = txtDepartmentName.Text;
 
-            if (oCompany == null && oDepartment == null)
+            if (oCompanyID == null && oSupDepartmentID == null)
             {
-                MessageBox.Show("Invalid user input");
-                isValid = false;
-            }
-
-            if (string.IsNullOrEmpty(departmentName))
-            {
-                errProviders.SetError(tbDepartmentName, "Enter Department Name");
-                isValid = false;
-            }
-
-            if (!isValid)
+                MessageBox.Show("Please select company and sup department.");
                 return null;
+            }
+            else //check sup deparment
+            {
+                if (btnSubmit.Tag != null)
+                {
+                    if ((int)oSupDepartmentID == (int)btnSubmit.Tag)
+                    {
+                        MessageBox.Show("Department can not be a sup of itself.");
+                        return null;
+                    }
+                }
+            }
+
+            if (string.IsNullOrEmpty(departmentName)) //check empty name
+            {
+                errProviders.SetError(txtDepartmentName, "Please enter department name.");
+                return null;
+            }
+            else //check duplicated name
+            {
+                Department depWithSameName = _dtCtrl.GetDepartment(departmentName);
+                
+                if (depWithSameName != null && btnSubmit.Tag != null)
+                {
+                    if (depWithSameName.ID != (int)btnSubmit.Tag)
+                    {
+                        MessageBox.Show("This name has been used by another Department. Please choose a different name.");
+                        return null;
+                    }
+                }
+            }
 
             Department department = new Department();
 
-            department.CompanyID = (int)oCompany;
-            department.SupDepartmentID = (int)oDepartment;
+            department.CompanyID = (int)oCompanyID;
+            department.SupDepartmentID = (int)oSupDepartmentID;
             department.Name = departmentName;
 
             return department;
@@ -203,48 +266,49 @@ namespace FaceIDAppVBEta
 
         private void btCancel_Click(object sender, EventArgs e)
         {
-            LoadForm(0, (int)cbCompany.SelectedValue, 0, "");
+            LoadForm(0, (int)cbxCompany.SelectedValue, 0, "");
         }
 
         private void BindCompany()
         {
-            List<Company> companyList = dtCtrl.GetCompanyList();
-            cbCompany.DataSource = companyList;
+            List<Company> companyList = _dtCtrl.GetCompanyList();
+            cbxCompany.DataSource = companyList;
         }
 
         private void BindDepartment()
         {
-            if (cbCompany.SelectedValue != null)
+            if (cbxCompany.SelectedValue != null)
             {
-                int CompanyID = (int)cbCompany.SelectedValue;
-                List<Department> departmentList = dtCtrl.GetDepartmentByCompany(CompanyID);
+                int CompanyID = (int)cbxCompany.SelectedValue;
+                List<Department> departmentList = _dtCtrl.GetDepartmentByCompany(CompanyID);
                 Department department = new Department();
                 department.ID = 0;
                 department.Name = "Root";
                 departmentList.Insert(0, department);
-                cbDepartment.DataSource = departmentList;
+                cbxSupDepartment.DataSource = departmentList;
             }
         }
 
-        private void LoadForm(int DepartmentID, int CompanyID, int SupDepartmentID, string DepartmentName)
+        private void LoadForm(int departmentID, int companyID, int supDepartmentID, string departmentName)
         {
             errProviders.Clear();
 
-            tbDepartmentName.Text = DepartmentName;
-            if (DepartmentID > 0)
+            if (departmentID > 0) //update
             {
-                cbCompany.SelectedValue = CompanyID;
-                cbDepartment.SelectedValue = SupDepartmentID;
+                cbxCompany.SelectedValue = companyID;
+                cbxSupDepartment.SelectedValue = supDepartmentID;
 
                 groupBoxDepartment.Text = "Update a Department";
-                btSubmit.Text = "Update";
-                btSubmit.Tag = DepartmentID;
+                btnSubmit.Text = "Update";
+                btnSubmit.Tag = departmentID;
+                txtDepartmentName.Text = departmentName;
             }
-            else
+            else //add
             {
                 groupBoxDepartment.Text = "Add a Department";
-                btSubmit.Text = "Add";
-                btSubmit.Tag = null;
+                btnSubmit.Text = "Add";
+                btnSubmit.Tag = -1;
+                txtDepartmentName.Text = "";
             }
         }
 
@@ -253,14 +317,9 @@ namespace FaceIDAppVBEta
             BindDepartment();
         }
 
-        private void tvDepartment_AfterCollapse(object sender, TreeViewEventArgs e)
-        {
-            
-        }
-
         private void tvDepartment_AfterExpand(object sender, TreeViewEventArgs e)
         {
-            curExpandNodeName = e.Node.Name;
+            _curExpandNodeName = e.Node.Name;
         }
     }
 }

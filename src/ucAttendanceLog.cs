@@ -49,7 +49,7 @@ namespace FaceIDAppVBEta
 
             if (attendanceLogRecordList.Count == 0)
             {
-                MessageBox.Show("There's no records within the selected range. Please try again");
+                MessageBox.Show("There's no records within the selected range.");
             }
 
             dgvAttendanceLog.AutoGenerateColumns = false;

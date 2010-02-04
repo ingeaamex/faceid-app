@@ -40,6 +40,8 @@ namespace FaceIDAppVBEta.Data
 
         Department GetDepartment(int id);
 
+        Department GetDepartment(string name);
+
         int AddDepartment(Department department);
 
         bool UpdateDepartment(Department department);
