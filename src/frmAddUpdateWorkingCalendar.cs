@@ -149,12 +149,7 @@ namespace FaceIDAppVBEta
         private void BindWorkingCalendarData(int workingCalendarID)
         {
             WorkingCalendar workingCalendar = _dtCtrl.GetWorkingCalendar(workingCalendarID);
-
-            if (workingCalendar == null)
-            {
-                throw new NullReferenceException();
-            }
-            else
+            try
             {
                 txtName.Text = workingCalendar.Name;
 
@@ -279,6 +274,10 @@ namespace FaceIDAppVBEta
 
                 dtpPayPeriodStartFrom.Value = payPeriod.StartFrom;
                 #endregion
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("Faulty Working Calendar. Please delete it and add a new one.");
             }
         }
 
