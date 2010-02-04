@@ -263,7 +263,7 @@ namespace FaceIDApp
 
                 Invoke(new SetTextCallBack(AddText), new object[] { txtProgress, "Calculating" });
 
-                _dtCtrl.CalculateAttendanceRecord();
+                //_dtCtrl.CalculateAttendanceRecord();
                 _dtCtrl.RefreshConnection();
 
                 Invoke(new SetTextCallBack(AddText), new object[] { txtProgress, "DONE" });

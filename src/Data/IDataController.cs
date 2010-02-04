@@ -235,7 +235,9 @@ namespace FaceIDAppVBEta.Data
         bool IsFaceIDUser(int employeeNumber);
         #endregion
 
-        
+        #region UncalculatedAttendanceRecord
+        bool DeleteAllUncalculatedAttendanceRecord();
+        #endregion
 
         #region UndeletedEmployeeNumber
         List<UndeletedEmployeeNumber> GetUndeletedEmployeeNumberList();
