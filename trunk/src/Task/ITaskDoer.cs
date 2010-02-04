@@ -9,5 +9,9 @@ namespace FaceIDAppVBEta.Task
         bool RemoveEmployeeFromTerminal();
 
         bool CalculateAttendanceRecord();
+
+        bool BackupDatabase();
+
+        void RemindBackupDatabase();
     }
 }

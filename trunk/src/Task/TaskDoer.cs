@@ -18,6 +18,16 @@ namespace FaceIDAppVBEta.Task
             throw new NotImplementedException();
         }
 
+        public bool BackupDatabase()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemindBackupDatabase()
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
     }
 }
