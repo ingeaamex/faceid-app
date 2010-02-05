@@ -162,7 +162,7 @@
             this.btnConfiguration.Name = "btnConfiguration";
             this.btnConfiguration.Size = new System.Drawing.Size(163, 50);
             this.btnConfiguration.TabIndex = 9;
-            this.btnConfiguration.Text = "Configuration";
+            this.btnConfiguration.Text = "Setting";
             this.btnConfiguration.UseVisualStyleBackColor = true;
             this.btnConfiguration.Click += new System.EventHandler(this.btnConfiguration_Click);
             // 
@@ -218,7 +218,7 @@
             // 
             this.btnWorkingCalendar.Image = global::FaceIDAppVBEta.Properties.Resources.Calendar;
             this.btnWorkingCalendar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnWorkingCalendar.Location = new System.Drawing.Point(2, 227);
+            this.btnWorkingCalendar.Location = new System.Drawing.Point(2, 115);
             this.btnWorkingCalendar.Name = "btnWorkingCalendar";
             this.btnWorkingCalendar.Size = new System.Drawing.Size(163, 50);
             this.btnWorkingCalendar.TabIndex = 4;
@@ -242,7 +242,7 @@
             // 
             this.btnEmployee.Image = global::FaceIDAppVBEta.Properties.Resources.UserCard;
             this.btnEmployee.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEmployee.Location = new System.Drawing.Point(2, 115);
+            this.btnEmployee.Location = new System.Drawing.Point(2, 227);
             this.btnEmployee.Name = "btnEmployee";
             this.btnEmployee.Size = new System.Drawing.Size(163, 50);
             this.btnEmployee.TabIndex = 2;

@@ -179,7 +179,7 @@ namespace FaceIDAppVBEta
             }
             catch (Exception ex)
             {
-                Util.ShowErrorMessage("There has been an error: " + ex.Message + ". Please try again.");
+                Util.ShowErrorMessage(ex);
             }
         }
     }

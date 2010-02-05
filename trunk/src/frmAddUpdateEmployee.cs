@@ -33,7 +33,6 @@ namespace FaceIDAppVBEta
         private void BindData()
         {
             BindCompany();
-            //BindDepartment();
             BindWorkingCalendar();
         }
 
@@ -87,7 +86,7 @@ namespace FaceIDAppVBEta
                 btnAddEmployee.Visible = true;
                 btnUpdateEmployee.Visible = false;
 
-                dtpBirthday.Value = DateTime.Today;
+                dtpBirthday.Value = DateTime.Today.AddYears(-16);
                 dtpJoinedDate.Value = DateTime.Today;
                 dtpLeftDate.Value = DateTime.Today.AddYears(50);
             }
@@ -188,13 +187,13 @@ namespace FaceIDAppVBEta
 
                 if (_dtCtrl.AddEmployee(employee, terminals) > 0)
                 {
-                    MessageBox.Show("Employee has been addded successfully.");
+                    MessageBox.Show("Employee added.");
                     this.Close();
                 }
             }
             catch(Exception ex)
             {
-                Util.ShowErrorMessage("There has been an error: " + ex.Message + ". Please try again.");
+                Util.ShowErrorMessage(ex);
             }
         }
 

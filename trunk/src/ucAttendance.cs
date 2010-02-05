@@ -83,7 +83,7 @@ namespace FaceIDAppVBEta
             }
             catch (Exception ex)
             {
-                MessageBox.Show("There has been an error: " + ex.Message + ". Please try again.");
+                Util.ShowErrorMessage(ex);
                 return;
             }
 

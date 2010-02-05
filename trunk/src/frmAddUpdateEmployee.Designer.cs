@@ -339,7 +339,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(535, 128);
+            this.label15.Location = new System.Drawing.Point(535, 96);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(47, 13);
             this.label15.TabIndex = 32;
@@ -347,7 +347,7 @@
             // 
             // btnRegisterOnTerminal
             // 
-            this.btnRegisterOnTerminal.Location = new System.Drawing.Point(498, 144);
+            this.btnRegisterOnTerminal.Location = new System.Drawing.Point(498, 112);
             this.btnRegisterOnTerminal.Name = "btnRegisterOnTerminal";
             this.btnRegisterOnTerminal.Size = new System.Drawing.Size(84, 23);
             this.btnRegisterOnTerminal.TabIndex = 35;
@@ -359,7 +359,7 @@
             // 
             this.lbxTerminal.DisplayMember = "Name";
             this.lbxTerminal.FormattingEnabled = true;
-            this.lbxTerminal.Location = new System.Drawing.Point(588, 94);
+            this.lbxTerminal.Location = new System.Drawing.Point(588, 92);
             this.lbxTerminal.Name = "lbxTerminal";
             this.lbxTerminal.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.lbxTerminal.Size = new System.Drawing.Size(120, 95);
