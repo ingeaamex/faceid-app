@@ -183,7 +183,7 @@ namespace FaceIDAppVBEta
         private void btnConfiguration_Click(object sender, EventArgs e)
         {
             sctMain.Panel2.Controls.Clear();
-            sctMain.Panel2.Controls.Add(new ucBackup());
+            sctMain.Panel2.Controls.Add(new ucSetting());
         }
     }
 }

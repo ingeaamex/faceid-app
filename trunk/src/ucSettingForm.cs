@@ -11,11 +11,11 @@ using FaceIDAppVBEta.Class;
 
 namespace FaceIDAppVBEta
 {
-    public partial class ucBackup : UserControl
+    public partial class ucSetting : UserControl
     {
         private IDataController _dtCtrl;
 
-        public ucBackup()
+        public ucSetting()
         {
             _dtCtrl = LocalDataController.Instance;
 
@@ -212,6 +212,7 @@ namespace FaceIDAppVBEta
             //get settings
             Config config = _dtCtrl.GetConfig();
 
+            //backup setting
             config.ScheduledBackup = cbxScheduledBackup.Checked;
 
             if (rbtBackupDaily.Checked)
@@ -236,8 +237,12 @@ namespace FaceIDAppVBEta
             config.BackupRemind = cbxRemindBackup.Checked;
             config.BackupRemindPeriod = (int)nudBackupPeriod.Value;
 
+            //restore setting
             config.RestoreFromLatest = rbtRestoreLastest.Checked;
             config.RestoreFromFile = txtRestoreFile.Text;
+
+            //attendance setting
+            //config.ShowAttendanceSummaryChart
 
             //save settings
             try

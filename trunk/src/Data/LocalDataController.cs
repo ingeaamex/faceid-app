@@ -12,8 +12,8 @@ namespace FaceIDAppVBEta.Data
 {
     public class LocalDataController : MarshalByRefObject, IDataController
     {
-        //private static readonly string _dbPath = @"F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";
-        private static readonly string _dbPath = @"F:\vnanh\project\FaceID\db\FaceIDdb.mdb";
+        private static readonly string _dbPath = @"F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";
+        //private static readonly string _dbPath = @"F:\vnanh\project\FaceID\db\FaceIDdb.mdb";
         //private static readonly string _dbPath = @"FaceIDdb.mdb";
 
         private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=" + _dbPath;
@@ -24,10 +24,8 @@ namespace FaceIDAppVBEta.Data
         private static LocalDataController instance;
         private static readonly Object mutex = new Object();
 
-
-        private int timeBound1 = 60;
+        //private int timeBound1 = 60;
         private int timeBound2 = 0;
-
 
         public LocalDataController()
         {
@@ -2249,8 +2247,11 @@ namespace FaceIDAppVBEta.Data
             WorkingCalendar wCal = GetWorkingCalendarByEmployee(attRecord.EmployeeNumber);
 
             DateTime dRegularWorkingFrom = wCal.RegularWorkingFrom;
-            DateTime wFrom = new DateTime(attRecord.Time.Year, attRecord.Time.Month, attRecord.Time.Day, dRegularWorkingFrom.Hour, 
-                dRegularWorkingFrom.Minute, dRegularWorkingFrom.Second).AddMinutes(-timeBound1);
+            //DateTime wFrom = new DateTime(attRecord.Time.Year, attRecord.Time.Month, attRecord.Time.Day, dRegularWorkingFrom.Hour, 
+            //    dRegularWorkingFrom.Minute, dRegularWorkingFrom.Second).AddMinutes(-timeBound1);
+
+            DateTime wFrom = new DateTime(attRecord.Time.Year, attRecord.Time.Month, attRecord.Time.Day, dRegularWorkingFrom.Hour,
+               dRegularWorkingFrom.Minute, dRegularWorkingFrom.Second).AddMinutes(-1 * wCal.EarliestBeforeEntry);
 
             if (attRecord.Time.CompareTo(wFrom) == 1)
             {
@@ -2270,7 +2271,7 @@ namespace FaceIDAppVBEta.Data
 
         private bool Is1stday(AttendanceRecord attRecord)
         {
-            OleDbCommand odCom = BuildSelectCmd("AttendanceRecord", "Count(*) as NumRc", "EmployeeNumber=@Empl",
+            OleDbCommand odCom = BuildSelectCmd("AttendanceRecord", "COUNT(*) AS NumRc", "EmployeeNumber=@Empl",
                 new object[] { "@Empl", attRecord.EmployeeNumber });
             OleDbDataReader odRdr = odCom.ExecuteReader();
 
@@ -2440,7 +2441,6 @@ namespace FaceIDAppVBEta.Data
             }
             else
                 return -1;
-
 
             WorkingCalendar workingCalendar = GetWorkingCalendarByEmployee(employeeNumber);
 
