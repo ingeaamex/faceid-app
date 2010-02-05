@@ -232,7 +232,7 @@ namespace FaceIDAppVBEta
             }
 
             //confim deleting company
-            if (Util.Confirm("Are you sure you want to delete this company. This can not be undone.") == false)
+            if (Util.Confirm("Are you sure you want to delete this company. This cannot be undone.") == false)
             {
                 return;
             }

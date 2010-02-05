@@ -32,18 +32,18 @@ namespace FaceIDAppVBEta
             {
                 this.Text = "Add New Terminal";
                 gBoxAction.Text = "Add New Terminal";
-                btAdd.Visible = true;
-                btUpdate.Visible = false;
-                btCancel.Visible = false;
+                btnSubmit.Text = "Add";
+
+                txtTerminalName.Text = "";
+                mtbIPAddess.Text = "";
                 
             }
             else//update
             {
                 this.Text = "Update Terminal";
                 gBoxAction.Text = "Update Terminal";
-                btAdd.Visible = false;
-                btUpdate.Visible = true;
-                btCancel.Visible = true;
+
+                btnSubmit.Text = "Update";
 
                 BindTerminalData(terminalID);
             }
@@ -53,16 +53,22 @@ namespace FaceIDAppVBEta
         {
             if (terminalID <= 0)
             {
-                tbTerminalName.Text = "";
+                txtTerminalName.Text = "";
                 mtbIPAddess.Text = "";
             }
             else
             {
                 Terminal terminal = _dtCtrl.GetTerminal(terminalID);
                 if (terminal == null)
+                {
+                    MessageBox.Show("Terminal not found or has been deleted.");
+                    SetState(0); //add
                     return;
+                }
+
                 this._terminalID = terminalID;
-                tbTerminalName.Text = terminal.Name;
+                txtTerminalName.Text = terminal.Name;
+
                 string[] ip = terminal.IPAddress.Split('.');
                 for (int i = 0; i < ip.Length;i++ )
                 {
@@ -103,80 +109,99 @@ namespace FaceIDAppVBEta
 
         private Terminal GetTerminalUserInput()
         {
-            string sTerminalName = tbTerminalName.Text;
-            string sIpAddess = mtbIPAddess.Text;
+            string terminalName = txtTerminalName.Text;
+            string ipAddress = mtbIPAddess.Text.Replace(" ", "");
 
             bool isValid = true;
-            if (string.IsNullOrEmpty(sTerminalName))
-            {
-                errProviders.SetError(tbTerminalName, "Enter Terminal Name");
-                isValid = false;
-            }
 
-            if (string.IsNullOrEmpty(sIpAddess))
+            if (string.IsNullOrEmpty(terminalName))
             {
-                errProviders.SetError(mtbIPAddess, "Enter IP Addess");
-                isValid = false;
-            }
-
-            if (!isValid)
+                MessageBox.Show("Terminal Name must not be empty.");
                 return null;
+            }
 
-            sIpAddess = sIpAddess.Replace(" ", "");
+            if (Util.IsValidIP(ipAddress) == false)
+            {
+                MessageBox.Show("Invalid IP Addess.");
+                return null;
+            }
+
             Terminal terminal = new Terminal();
-            terminal.Name = sTerminalName;
-            terminal.IPAddress = sIpAddess;
+            terminal.Name = terminalName;
+            terminal.IPAddress = ipAddress;
 
             return terminal;
         }
 
-        private void btAdd_Click(object sender, EventArgs e)
+        private void btnSubmit_Click(object sender, EventArgs e)
         {
-            Terminal terminal = GetTerminalUserInput();
-
-            if (terminal == null)
-                return;
-
-            int terminalID = _dtCtrl.AddTerminal(terminal);
-
-            MessageBox.Show(terminalID > 0 ? "successful" : "error");
-
-            if (terminalID > 0)
+            try
             {
-                SetState(0);
-                LoadData();
+                Terminal terminal = GetTerminalUserInput();
+
+                if (terminal == null) //invalid input
+                    return;
+
+                if (_terminalID == -1) //add
+                {
+                    //check for duplicated teminal
+                    if (_dtCtrl.IsDuplicateTerminal(terminal, false))
+                    {
+                        MessageBox.Show("This name or IP Address has been used by another Terminal.");
+                        return;
+                    }
+
+                    if (_dtCtrl.AddTerminal(terminal) > 0)
+                    {
+                        MessageBox.Show("Terminal added.");
+                        SetState(0);
+                        LoadData();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Terminal could not be added. Please try again");
+                    }
+                }
+                else //update
+                {
+                    terminal.ID = _terminalID;
+
+                    //check for duplicated teminal
+                    if (_dtCtrl.IsDuplicateTerminal(terminal, true))
+                    {
+                        MessageBox.Show("This name or IP Address has been used by another Terminal.");
+                        return;
+                    }
+
+                    if (_dtCtrl.UpdateTerminal(terminal))
+                    {
+                        MessageBox.Show("Terminal updated.");
+                        SetState(0);
+                        LoadData();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Terminal could not be updated. Please try again");
+                    }
+                }
             }
-        }
-
-        private void btUpdate_Click(object sender, EventArgs e)
-        {
-            Terminal terminal = GetTerminalUserInput();
-
-            if (terminal == null)
-                return;
-
-            terminal.ID = _terminalID;
-
-            bool rs = _dtCtrl.UpdateTerminal(terminal);
-            MessageBox.Show(rs ? "successful" : "error");
-            if (rs)
+            catch (Exception ex)
             {
-                SetState(0);
-                LoadData();
+                Util.ShowErrorMessage(ex);
             }
         }
 
         private void btCancel_Click(object sender, EventArgs e)
         {
-            SetState(0);
-            BindTerminalData(0);
+            if (Util.Confirm("Any unsaved data will be lost. Are you sure you want to cancel?"))
+            {
+                SetState(0);
+            }
         }
 
         private void updateToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int terminalID = GetSelectedTerminalID();
-
-            BindTerminalData(terminalID);
             SetState(terminalID);
         }
 
@@ -192,22 +217,31 @@ namespace FaceIDAppVBEta
         {
             int terminalID = GetSelectedTerminalID();
 
-            if (Util.Confirm("Are you sure?"))
+            if (Util.Confirm("Are you sure you want to delete this Terminal? This cannot be undone."))
             {
                 _dtCtrl.BeginTransaction();
 
-                bool brs1 = _dtCtrl.DeleteTerminal(terminalID);
-                bool brs2 = _dtCtrl.DeleteEmployeeTerminal(terminalID);
-                if (brs1 && brs2)
+                try
                 {
-                    _dtCtrl.CommitTransaction();
-                    LoadData();
-                    MessageBox.Show("Terminal deleted.");
+
+                    bool brs1 = _dtCtrl.DeleteTerminal(terminalID);
+                    bool brs2 = _dtCtrl.DeleteEmployeeTerminal(terminalID);
+
+                    if (brs1 && brs2)
+                    {
+                        _dtCtrl.CommitTransaction();
+                        LoadData();
+                        MessageBox.Show("Terminal deleted.");
+                    }
+                    else
+                    {
+                        throw new Exception("Terminal could not be deleted.");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
                     _dtCtrl.RollbackTransaction();
-                    MessageBox.Show("error");
+                    Util.ShowErrorMessage(ex);
                 }
             }
         }

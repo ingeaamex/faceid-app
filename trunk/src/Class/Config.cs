@@ -21,5 +21,6 @@ namespace FaceIDAppVBEta.Class
         public string LastestBackupFile { get; set; }
         public bool RestoreFromLatest { get; set; }
         public string RestoreFromFile { get; set; }
+        public int AttendanceRecordInterval { get; set; }
     }
 }

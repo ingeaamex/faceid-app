@@ -86,6 +86,8 @@ namespace FaceIDAppVBEta.Data
         bool UpdateTerminal(Terminal _terminal);
 
         List<Terminal> GetTerminalListByEmployee(int employeeNumber);
+
+        bool IsDuplicateTerminal(Terminal terminal, bool existTerminal);
         #endregion Terminal
 
         #region EmployeeTerminal

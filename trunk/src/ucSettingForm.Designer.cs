@@ -55,21 +55,18 @@
             this.rbtRestoreLastest = new System.Windows.Forms.RadioButton();
             this.gbxNoname1 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
+            this.nudAttendanceRecordInterval = new System.Windows.Forms.NumericUpDown();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.mtbServerIPAddess = new System.Windows.Forms.MaskedTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudBackupPeriod)).BeginInit();
             this.gbxBackup.SuspendLayout();
             this.gbxRestore.SuspendLayout();
             this.gbxNoname1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudAttendanceRecordInterval)).BeginInit();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // cbxScheduledBackup
@@ -355,7 +352,7 @@
             // gbxNoname1
             // 
             this.gbxNoname1.Controls.Add(this.label4);
-            this.gbxNoname1.Controls.Add(this.numericUpDown3);
+            this.gbxNoname1.Controls.Add(this.nudAttendanceRecordInterval);
             this.gbxNoname1.Controls.Add(this.label11);
             this.gbxNoname1.Controls.Add(this.label10);
             this.gbxNoname1.Location = new System.Drawing.Point(423, 23);
@@ -375,18 +372,18 @@
             this.label4.Text = "[Records of the same employee within this interval will be counted as one record]" +
                 "";
             // 
-            // numericUpDown3
+            // nudAttendanceRecordInterval
             // 
-            this.numericUpDown3.Location = new System.Drawing.Point(149, 26);
-            this.numericUpDown3.Minimum = new decimal(new int[] {
+            this.nudAttendanceRecordInterval.Location = new System.Drawing.Point(149, 26);
+            this.nudAttendanceRecordInterval.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.Size = new System.Drawing.Size(62, 20);
-            this.numericUpDown3.TabIndex = 16;
-            this.numericUpDown3.Value = new decimal(new int[] {
+            this.nudAttendanceRecordInterval.Name = "nudAttendanceRecordInterval";
+            this.nudAttendanceRecordInterval.Size = new System.Drawing.Size(62, 20);
+            this.nudAttendanceRecordInterval.TabIndex = 16;
+            this.nudAttendanceRecordInterval.Value = new decimal(new int[] {
             1,
             0,
             0,
@@ -406,69 +403,40 @@
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(6, 30);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(137, 13);
+            this.label10.Size = new System.Drawing.Size(140, 13);
             this.label10.TabIndex = 14;
-            this.label10.Text = "Attendance Record interval";
+            this.label10.Text = "Attendance Record interval:";
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.numericUpDown1);
-            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.mtbServerIPAddess);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Location = new System.Drawing.Point(423, 130);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(391, 101);
+            this.groupBox1.Size = new System.Drawing.Size(391, 71);
             this.groupBox1.TabIndex = 18;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Server Setting [Clien Only]";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(2, 61);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(387, 13);
-            this.label5.TabIndex = 17;
-            this.label5.Text = "[Records of the same employee within this interval will be counted as one record]" +
-                "";
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.Location = new System.Drawing.Point(149, 26);
-            this.numericUpDown1.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(62, 20);
-            this.numericUpDown1.TabIndex = 16;
-            this.numericUpDown1.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(217, 30);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(53, 13);
-            this.label6.TabIndex = 15;
-            this.label6.Text = "second(s)";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(6, 30);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(137, 13);
+            this.label7.Size = new System.Drawing.Size(58, 13);
             this.label7.TabIndex = 14;
-            this.label7.Text = "Attendance Record interval";
+            this.label7.Text = "IP Address";
             // 
-            // ucBackup
+            // mtbServerIPAddess
+            // 
+            this.mtbServerIPAddess.Location = new System.Drawing.Point(77, 26);
+            this.mtbServerIPAddess.Mask = "000.000.000.000";
+            this.mtbServerIPAddess.Name = "mtbServerIPAddess";
+            this.mtbServerIPAddess.Size = new System.Drawing.Size(100, 20);
+            this.mtbServerIPAddess.TabIndex = 15;
+            this.mtbServerIPAddess.ValidatingType = typeof(System.DateTime);
+            // 
+            // ucSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -478,7 +446,7 @@
             this.Controls.Add(this.gbxBackup);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSaveSettings);
-            this.Name = "ucBackup";
+            this.Name = "ucSetting";
             this.Size = new System.Drawing.Size(845, 662);
             ((System.ComponentModel.ISupportInitialize)(this.nudBackupPeriod)).EndInit();
             this.gbxBackup.ResumeLayout(false);
@@ -487,10 +455,9 @@
             this.gbxRestore.PerformLayout();
             this.gbxNoname1.ResumeLayout(false);
             this.gbxNoname1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudAttendanceRecordInterval)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -524,13 +491,11 @@
         private System.Windows.Forms.DateTimePicker dtpBackupWeeklyTime;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.NumericUpDown numericUpDown3;
+        private System.Windows.Forms.NumericUpDown nudAttendanceRecordInterval;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.MaskedTextBox mtbServerIPAddess;
     }
 }
