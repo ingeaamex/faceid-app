@@ -129,7 +129,7 @@ namespace FaceIDAppVBEta
                 catch (Exception ex)
                 {
                     _dtCtrl.RollbackTransaction();
-                    MessageBox.Show("There has been an error: " + ex.Message + ". Please try again.");
+                    Util.ShowErrorMessage(ex);
                 }
             }
         }
@@ -275,7 +275,7 @@ namespace FaceIDAppVBEta
             }
             catch (Exception ex)
             {
-                MessageBox.Show("There has been an error: " + ex.Message + ". Please try again.");
+                Util.ShowErrorMessage(ex);
                 return;
             }
 
@@ -316,7 +316,7 @@ namespace FaceIDAppVBEta
             }
             catch (Exception ex)
             {
-                MessageBox.Show("There has been an error: " + ex.Message + ". Please try again.");
+                Util.ShowErrorMessage(ex);
                 return;
             }
 
@@ -386,7 +386,7 @@ namespace FaceIDAppVBEta
                 }
                 catch (Exception ex)
                 {
-                    Util.ShowErrorMessage("There has been an error: " + ex.Message + ". Please try again.");
+                    Util.ShowErrorMessage(ex);
                 }
                 finally
                 {
@@ -454,7 +454,7 @@ namespace FaceIDAppVBEta
             }
             catch (Exception ex)
             {
-                Util.ShowErrorMessage("There has been an error: " + ex.Message + ". Please try again.");
+                Util.ShowErrorMessage(ex);
             }
             finally
             {

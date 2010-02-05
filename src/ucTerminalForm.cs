@@ -36,14 +36,16 @@ namespace FaceIDAppVBEta
 
                 txtTerminalName.Text = "";
                 mtbIPAddess.Text = "";
-                
+
+                _terminalID = -1;
             }
             else//update
             {
                 this.Text = "Update Terminal";
                 gBoxAction.Text = "Update Terminal";
-
                 btnSubmit.Text = "Update";
+
+                _terminalID = terminalID;
 
                 BindTerminalData(terminalID);
             }
