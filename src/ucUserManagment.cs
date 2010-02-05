@@ -248,7 +248,7 @@ namespace FaceIDAppVBEta
         {
             try
             {
-                if (Util.Confirm("Are you sure you want to delete this user? This can not be undone."))
+                if (Util.Confirm("Are you sure you want to delete this user? This cannot be undone."))
                 {
                     if (_dtCtrl.DeleteFaceIDUser(employeeNumber))
                     {

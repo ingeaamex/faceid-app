@@ -36,7 +36,7 @@ namespace FaceIDAppVBEta
             return (System.Windows.Forms.MessageBox.Show(message, "Confirm!", System.Windows.Forms.MessageBoxButtons.YesNo, System.Windows.Forms.MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes);
         }
 
-        public static bool isNull(object obj)
+        public static bool IsNull(object obj)
         {
             if (obj == DBNull.Value) return true;
             if (obj == null) return true;
@@ -67,7 +67,7 @@ namespace FaceIDAppVBEta
         {
             cbx.Items.Clear();
 
-            if(addItemAll)
+            if (addItemAll)
                 cbx.Items.Add("All");
 
             for (int i = minValue; i <= maxValue; i++)
@@ -95,6 +95,11 @@ namespace FaceIDAppVBEta
         public static void ShowErrorMessage(string errorMessage)
         {
             System.Windows.Forms.MessageBox.Show(errorMessage, "Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+        }
+
+        public static void ShowErrorMessage(Exception ex)
+        {
+            System.Windows.Forms.MessageBox.Show("There has been an error. Please try again later. Error detail: " + ex.Message);
         }
 
         public static void WriteLogs(string log)
@@ -145,6 +150,35 @@ namespace FaceIDAppVBEta
             }
 
             return letters + digits;
+        }
+
+        //copied from http://www.dreamincode.net/code/snippet1378.htm
+        internal static bool IsValidIP(string addr)
+        {
+            //create our match pattern
+            string pattern = @"^([1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(\.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3}$";
+
+            //create our Regular Expression object
+            System.Text.RegularExpressions.Regex check = new System.Text.RegularExpressions.Regex(pattern);
+
+            //boolean variable to hold the status
+            bool valid = false;
+
+            //check to make sure an ip address was provided
+            if (addr == "")
+            {
+                //no address provided so return false
+                valid = false;
+            }
+            else
+            {
+                //address provided so use the IsMatch Method
+                //of the Regular Expression object
+                valid = check.IsMatch(addr, 0);
+            }
+
+            //return the results
+            return valid;
         }
     }
 }

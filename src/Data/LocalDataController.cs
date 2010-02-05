@@ -885,10 +885,10 @@ namespace FaceIDAppVBEta.Data
             return terminal;
         }
 
-        private bool CheckExistTerminal(Terminal terminal, bool forUpdate)
+        public bool IsDuplicateTerminal(Terminal terminal, bool existTerminal)
         {
             OleDbCommand odCom;
-            if (forUpdate)
+            if (existTerminal)
                 odCom = BuildSelectCmd("Terminal", "ID", "ID<>@ID AND ([Name]=@Name OR IPAddress=@IPAddress)",
                     new object[] { "@ID", terminal.ID, "@Name", terminal.Name, "@IPAddress", terminal.IPAddress });
             else
@@ -907,7 +907,7 @@ namespace FaceIDAppVBEta.Data
 
         public int AddTerminal(Terminal terminal)
         {
-            if (CheckExistTerminal(terminal, false))
+            if (IsDuplicateTerminal(terminal, false))
                 return -1;
 
             OleDbCommand odCom1 = BuildInsertCmd("Terminal",
@@ -929,7 +929,7 @@ namespace FaceIDAppVBEta.Data
 
         public bool UpdateTerminal(Terminal terminal)
         {
-            if (CheckExistTerminal(terminal, true))
+            if (IsDuplicateTerminal(terminal, true))
                 return false;
 
             OleDbCommand odCom1 = BuildUpdateCmd("Terminal",
@@ -3758,6 +3758,9 @@ namespace FaceIDAppVBEta.Data
 
                 config.BackupPeriod = 1;
                 config.BackupRemindPeriod = 1;
+                config.AttendanceRecordInterval = 5;
+
+                config.LastestBackup = DateTime.Now;
 
                 AddConfig(config);
                 return GetConfig();

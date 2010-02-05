@@ -136,5 +136,16 @@ namespace FaceIDAppVBEta.UnitTest
 
             DeleteTerminal();
         }
+
+        [Test]
+        public void TestIsDuplicateTerminal()
+        {
+            AddTerminal();
+
+            Assert.AreEqual(true, _dtCtrl.IsDuplicateTerminal(ter1, false));
+            Assert.AreEqual(false, _dtCtrl.IsDuplicateTerminal(ter1, true));
+
+            DeleteTerminal();
+        }
     }
 }

@@ -119,6 +119,7 @@ namespace FaceIDAppVBEta
 
                 Config config = _dtCtrl.GetConfig();
                 config.LastestBackup = DateTime.Now;
+                config.LastestBackupFile = backupPath;
                 _dtCtrl.UpdateConfig(config);
 
                 MessageBox.Show("Backup Complete.");
@@ -134,7 +135,7 @@ namespace FaceIDAppVBEta
             try
             {
                 //confirm
-                if (Util.Confirm("Current database will be overwritten. This can not be undone. Are you sure?") == false)
+                if (Util.Confirm("Current database will be overwritten. This cannot be undone. Are you sure?") == false)
                 {
                     return;
                 }
@@ -242,7 +243,7 @@ namespace FaceIDAppVBEta
             config.RestoreFromFile = txtRestoreFile.Text;
 
             //attendance setting
-            //config.ShowAttendanceSummaryChart
+            config.AttendanceRecordInterval = (int)nudAttendanceRecordInterval.Value;
 
             //save settings
             try

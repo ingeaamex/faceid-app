@@ -30,9 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
-            this.btAdd = new System.Windows.Forms.Button();
-            this.btUpdate = new System.Windows.Forms.Button();
-            this.btCancel = new System.Windows.Forms.Button();
+            this.btnSubmit = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.dgvTerminal = new System.Windows.Forms.DataGridView();
             this.TerminalID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmnDgvTerminal = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -44,13 +43,11 @@
             this.gBoxAction = new System.Windows.Forms.GroupBox();
             this.mtbIPAddess = new System.Windows.Forms.MaskedTextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.tbTerminalName = new System.Windows.Forms.TextBox();
+            this.txtTerminalName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.errProviders = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTerminal)).BeginInit();
             this.cmnDgvTerminal.SuspendLayout();
             this.gBoxAction.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errProviders)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -62,35 +59,25 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Terminal Management";
             // 
-            // btAdd
+            // btnSubmit
             // 
-            this.btAdd.Location = new System.Drawing.Point(35, 91);
-            this.btAdd.Name = "btAdd";
-            this.btAdd.Size = new System.Drawing.Size(75, 23);
-            this.btAdd.TabIndex = 1;
-            this.btAdd.Text = "Add";
-            this.btAdd.UseVisualStyleBackColor = true;
-            this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
+            this.btnSubmit.Location = new System.Drawing.Point(35, 91);
+            this.btnSubmit.Name = "btnSubmit";
+            this.btnSubmit.Size = new System.Drawing.Size(75, 23);
+            this.btnSubmit.TabIndex = 2;
+            this.btnSubmit.Text = "Add/Update";
+            this.btnSubmit.UseVisualStyleBackColor = true;
+            this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
             // 
-            // btUpdate
+            // btnCancel
             // 
-            this.btUpdate.Location = new System.Drawing.Point(35, 91);
-            this.btUpdate.Name = "btUpdate";
-            this.btUpdate.Size = new System.Drawing.Size(75, 23);
-            this.btUpdate.TabIndex = 2;
-            this.btUpdate.Text = "Update";
-            this.btUpdate.UseVisualStyleBackColor = true;
-            this.btUpdate.Click += new System.EventHandler(this.btUpdate_Click);
-            // 
-            // btCancel
-            // 
-            this.btCancel.Location = new System.Drawing.Point(116, 91);
-            this.btCancel.Name = "btCancel";
-            this.btCancel.Size = new System.Drawing.Size(75, 23);
-            this.btCancel.TabIndex = 3;
-            this.btCancel.Text = "Cancel";
-            this.btCancel.UseVisualStyleBackColor = true;
-            this.btCancel.Click += new System.EventHandler(this.btCancel_Click);
+            this.btnCancel.Location = new System.Drawing.Point(116, 91);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 3;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btCancel_Click);
             // 
             // dgvTerminal
             // 
@@ -170,11 +157,10 @@
             // 
             this.gBoxAction.Controls.Add(this.mtbIPAddess);
             this.gBoxAction.Controls.Add(this.label3);
-            this.gBoxAction.Controls.Add(this.tbTerminalName);
+            this.gBoxAction.Controls.Add(this.txtTerminalName);
             this.gBoxAction.Controls.Add(this.label2);
-            this.gBoxAction.Controls.Add(this.btAdd);
-            this.gBoxAction.Controls.Add(this.btUpdate);
-            this.gBoxAction.Controls.Add(this.btCancel);
+            this.gBoxAction.Controls.Add(this.btnSubmit);
+            this.gBoxAction.Controls.Add(this.btnCancel);
             this.gBoxAction.Location = new System.Drawing.Point(36, 493);
             this.gBoxAction.Name = "gBoxAction";
             this.gBoxAction.Size = new System.Drawing.Size(772, 135);
@@ -200,12 +186,12 @@
             this.label3.TabIndex = 6;
             this.label3.Text = "IP Address";
             // 
-            // tbTerminalName
+            // txtTerminalName
             // 
-            this.tbTerminalName.Location = new System.Drawing.Point(105, 27);
-            this.tbTerminalName.Name = "tbTerminalName";
-            this.tbTerminalName.Size = new System.Drawing.Size(100, 20);
-            this.tbTerminalName.TabIndex = 5;
+            this.txtTerminalName.Location = new System.Drawing.Point(105, 27);
+            this.txtTerminalName.Name = "txtTerminalName";
+            this.txtTerminalName.Size = new System.Drawing.Size(100, 20);
+            this.txtTerminalName.TabIndex = 5;
             // 
             // label2
             // 
@@ -215,10 +201,6 @@
             this.label2.Size = new System.Drawing.Size(78, 13);
             this.label2.TabIndex = 4;
             this.label2.Text = "Terminal Name";
-            // 
-            // errProviders
-            // 
-            this.errProviders.ContainerControl = this;
             // 
             // ucTerminalForm
             // 
@@ -233,7 +215,6 @@
             this.cmnDgvTerminal.ResumeLayout(false);
             this.gBoxAction.ResumeLayout(false);
             this.gBoxAction.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errProviders)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -242,16 +223,14 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btAdd;
-        private System.Windows.Forms.Button btUpdate;
-        private System.Windows.Forms.Button btCancel;
+        private System.Windows.Forms.Button btnSubmit;
+        private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.DataGridView dgvTerminal;
         private System.Windows.Forms.GroupBox gBoxAction;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox tbTerminalName;
+        private System.Windows.Forms.TextBox txtTerminalName;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.MaskedTextBox mtbIPAddess;
-        private System.Windows.Forms.ErrorProvider errProviders;
         private System.Windows.Forms.ContextMenuStrip cmnDgvTerminal;
         private System.Windows.Forms.ToolStripMenuItem updateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;

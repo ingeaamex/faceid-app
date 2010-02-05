@@ -113,7 +113,7 @@ namespace FaceIDAppVBEta
                     return;
                 }
 
-                if (Util.Confirm("Are you sure you want to delete this working calendar? This can not be undone.") == false)
+                if (Util.Confirm("Are you sure you want to delete this working calendar? This cannot be undone.") == false)
                     return;
 
                 //check if worknig calendar is in use
