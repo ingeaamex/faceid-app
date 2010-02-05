@@ -87,12 +87,13 @@
             this.btCancel.UseVisualStyleBackColor = true;
             this.btCancel.Click += new System.EventHandler(this.btCancel_Click);
             // 
-            // btSubmit
+            // btnSubmit
             // 
             this.btnSubmit.Location = new System.Drawing.Point(40, 103);
-            this.btnSubmit.Name = "btSubmit";
+            this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(75, 23);
             this.btnSubmit.TabIndex = 6;
+            this.btnSubmit.Tag = "-1";
             this.btnSubmit.Text = "Add";
             this.btnSubmit.UseVisualStyleBackColor = true;
             this.btnSubmit.Click += new System.EventHandler(this.btSubmit_Click);

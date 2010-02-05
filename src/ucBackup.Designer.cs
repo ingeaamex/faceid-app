@@ -54,22 +54,15 @@
             this.rbtRestoreFromFile = new System.Windows.Forms.RadioButton();
             this.rbtRestoreLastest = new System.Windows.Forms.RadioButton();
             this.gbxNoname1 = new System.Windows.Forms.GroupBox();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
             this.label11 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudBackupPeriod)).BeginInit();
             this.gbxBackup.SuspendLayout();
             this.gbxRestore.SuspendLayout();
             this.gbxNoname1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
             this.SuspendLayout();
             // 
@@ -193,7 +186,7 @@
             // 
             // btnSaveSettings
             // 
-            this.btnSaveSettings.Location = new System.Drawing.Point(132, 371);
+            this.btnSaveSettings.Location = new System.Drawing.Point(330, 371);
             this.btnSaveSettings.Name = "btnSaveSettings";
             this.btnSaveSettings.Size = new System.Drawing.Size(90, 23);
             this.btnSaveSettings.TabIndex = 13;
@@ -203,7 +196,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(227, 371);
+            this.btnCancel.Location = new System.Drawing.Point(425, 371);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(90, 23);
             this.btnCancel.TabIndex = 14;
@@ -355,106 +348,21 @@
             // 
             // gbxNoname1
             // 
-            this.gbxNoname1.Controls.Add(this.label7);
+            this.gbxNoname1.Controls.Add(this.label4);
             this.gbxNoname1.Controls.Add(this.numericUpDown3);
             this.gbxNoname1.Controls.Add(this.label11);
             this.gbxNoname1.Controls.Add(this.label10);
-            this.gbxNoname1.Controls.Add(this.numericUpDown2);
-            this.gbxNoname1.Controls.Add(this.numericUpDown1);
-            this.gbxNoname1.Controls.Add(this.label6);
-            this.gbxNoname1.Controls.Add(this.label5);
-            this.gbxNoname1.Controls.Add(this.label4);
             this.gbxNoname1.Controls.Add(this.checkBox1);
             this.gbxNoname1.Location = new System.Drawing.Point(423, 23);
             this.gbxNoname1.Name = "gbxNoname1";
-            this.gbxNoname1.Size = new System.Drawing.Size(391, 197);
+            this.gbxNoname1.Size = new System.Drawing.Size(391, 118);
             this.gbxNoname1.TabIndex = 17;
             this.gbxNoname1.TabStop = false;
             this.gbxNoname1.Text = "Attendance";
             // 
-            // numericUpDown2
-            // 
-            this.numericUpDown2.Location = new System.Drawing.Point(258, 69);
-            this.numericUpDown2.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(62, 20);
-            this.numericUpDown2.TabIndex = 13;
-            this.numericUpDown2.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.Location = new System.Drawing.Point(258, 46);
-            this.numericUpDown1.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(62, 20);
-            this.numericUpDown1.TabIndex = 12;
-            this.numericUpDown1.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(326, 48);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(49, 13);
-            this.label6.TabIndex = 3;
-            this.label6.Text = "minute(s)";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 71);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(94, 13);
-            this.label5.TabIndex = 2;
-            this.label5.Text = "Grace back to exit";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 46);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(112, 13);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "Grace forward to entry";
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(6, 19);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(196, 17);
-            this.checkBox1.TabIndex = 0;
-            this.checkBox1.Text = "Show Chart in Attendance Summary";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 96);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(137, 13);
-            this.label10.TabIndex = 14;
-            this.label10.Text = "Attendance Record interval";
-            // 
             // numericUpDown3
             // 
-            this.numericUpDown3.Location = new System.Drawing.Point(258, 92);
+            this.numericUpDown3.Location = new System.Drawing.Point(149, 53);
             this.numericUpDown3.Minimum = new decimal(new int[] {
             1,
             0,
@@ -472,20 +380,40 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(326, 96);
+            this.label11.Location = new System.Drawing.Point(217, 57);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(53, 13);
             this.label11.TabIndex = 15;
             this.label11.Text = "second(s)";
             // 
-            // label7
+            // label10
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(326, 72);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(49, 13);
-            this.label7.TabIndex = 17;
-            this.label7.Text = "minute(s)";
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(6, 57);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(137, 13);
+            this.label10.TabIndex = 14;
+            this.label10.Text = "Attendance Record interval";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(6, 29);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(196, 17);
+            this.checkBox1.TabIndex = 0;
+            this.checkBox1.Text = "Show Chart in Attendance Summary";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(2, 76);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(387, 13);
+            this.label4.TabIndex = 17;
+            this.label4.Text = "[Records of the same employee within this interval will be counted as one record]" +
+                "";
             // 
             // ucBackup
             // 
@@ -505,8 +433,6 @@
             this.gbxRestore.PerformLayout();
             this.gbxNoname1.ResumeLayout(false);
             this.gbxNoname1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
             this.ResumeLayout(false);
 
@@ -536,19 +462,14 @@
         private System.Windows.Forms.Button btnSelectRestoreFile;
         private System.Windows.Forms.GroupBox gbxNoname1;
         private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.DateTimePicker dtpBackUpDailyTime;
         private System.Windows.Forms.ComboBox cbxBackupWeeklyDay;
         private System.Windows.Forms.DateTimePicker dtpBackupWeeklyTime;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.NumericUpDown numericUpDown3;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label4;
     }
 }

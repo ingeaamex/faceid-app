@@ -170,7 +170,7 @@
             // 
             this.btnReprocess.Image = global::FaceIDAppVBEta.Properties.Resources.Refresh;
             this.btnReprocess.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnReprocess.Location = new System.Drawing.Point(2, 395);
+            this.btnReprocess.Location = new System.Drawing.Point(2, 339);
             this.btnReprocess.Name = "btnReprocess";
             this.btnReprocess.Size = new System.Drawing.Size(163, 50);
             this.btnReprocess.TabIndex = 8;
@@ -194,7 +194,7 @@
             // 
             this.btnUser.Image = global::FaceIDAppVBEta.Properties.Resources.People;
             this.btnUser.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUser.Location = new System.Drawing.Point(2, 339);
+            this.btnUser.Location = new System.Drawing.Point(2, 395);
             this.btnUser.Name = "btnUser";
             this.btnUser.Size = new System.Drawing.Size(163, 50);
             this.btnUser.TabIndex = 6;

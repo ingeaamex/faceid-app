@@ -59,9 +59,9 @@ namespace FaceIDAppVBEta
         {
             Hashtable countedDepartmentList = new Hashtable();
 
-            foreach(Department department in departmentList)
+            foreach (Department department in departmentList)
             {
-                if(countedDepartmentList.ContainsKey(department.ID))
+                if (countedDepartmentList.ContainsKey(department.ID))
                     continue;
 
                 if (department.CompanyID == companyID)
@@ -147,12 +147,12 @@ namespace FaceIDAppVBEta
         private void btSubmit_Click(object sender, EventArgs e)
         {
             Company company = GetCompanyUserInput();
-            
+
             if (company == null)
                 return;
 
             bool acctionSucess = false;
-            
+
             if (btSubmit.Tag == null)
             {
                 int id = _dtCtrl.AddCompany(company);
@@ -192,44 +192,50 @@ namespace FaceIDAppVBEta
         private void dgvCompany_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
             _rowIndex = e.RowIndex;
+
+            if (_rowIndex >= 0 && _rowIndex < dgvCompany.Rows.Count)
+            {
+                dgvCompany.Rows[_rowIndex].Selected = true;
+            }
         }
 
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (_rowIndex >= 0)
-            {
-                int companyID = Convert.ToInt16(dgvCompany.Rows[_rowIndex].Cells[dgvCompany.Columns["CompanyID"].Index].Value);
-                Company company = _dtCtrl.GetCompany(companyID);
+            int companyID = GetSelectedCompanyID();
 
-                if (company == null)
-                {
-                    MessageBox.Show("Company not found or has been deleted.");
-                }
-                else
-                {
-                    LoadForm(company.Name, company.ID);
-                }
-            }
-            else
+            if (companyID < 0)
             {
                 MessageBox.Show("Please select a company to edit.");
             }
+
+            Company company = _dtCtrl.GetCompany(companyID);
+
+            if (company == null)
+            {
+                MessageBox.Show("Company not found or has been deleted.");
+            }
+            else
+            {
+                LoadForm(company.Name, company.ID);
+            }
+
         }
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (_rowIndex < 0)
+            int companyID = GetSelectedCompanyID();
+            
+            if (companyID < 0)
             {
                 MessageBox.Show("Please select a company to delete.");
                 return;
             }
 
+            //confim deleting company
             if (Util.Confirm("Are you sure you want to delete this company. This can not be undone.") == false)
             {
                 return;
             }
-
-            int companyID = Convert.ToInt16(dgvCompany.Rows[_rowIndex].Cells[dgvCompany.Columns["CompanyID"].Index].Value);
 
             //check is company is default company
             if (companyID == 1)
@@ -251,10 +257,22 @@ namespace FaceIDAppVBEta
             }
             else
             {
-                MessageBox.Show("Company deleted successfully.");
+                MessageBox.Show("Company deleted.");
             }
 
             LoadData();
+        }
+
+        private int GetSelectedCompanyID()
+        {
+            if (_rowIndex >= 0 && _rowIndex < dgvCompany.Rows.Count)
+            {
+                return Convert.ToInt16(dgvCompany[dgvCompany.Columns["CompanyID"].Index, _rowIndex].Value);
+            }
+            else
+            {
+                return -1;
+            }
         }
     }
 }

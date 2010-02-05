@@ -13,7 +13,7 @@ namespace FaceIDAppVBEta
 {
     public partial class ucTerminalForm : UserControl
     {
-        private Point _cellContext;
+        private int _rowIndex;
         private IDataController _dtCtrl = LocalDataController.Instance;
         private int _terminalID;
 
@@ -54,7 +54,7 @@ namespace FaceIDAppVBEta
             if (terminalID <= 0)
             {
                 tbTerminalName.Text = "";
-                mtbIpAddess.Text = "";
+                mtbIPAddess.Text = "";
             }
             else
             {
@@ -73,7 +73,7 @@ namespace FaceIDAppVBEta
                 foreach (string s in ip)
                     ips += s + ".";
                 ips = ips.Trim('.');
-                mtbIpAddess.Text = ips;
+                mtbIPAddess.Text = ips;
             }
         }
 
@@ -104,7 +104,7 @@ namespace FaceIDAppVBEta
         private Terminal GetTerminalUserInput()
         {
             string sTerminalName = tbTerminalName.Text;
-            string sIpAddess = mtbIpAddess.Text;
+            string sIpAddess = mtbIPAddess.Text;
 
             bool isValid = true;
             if (string.IsNullOrEmpty(sTerminalName))
@@ -115,7 +115,7 @@ namespace FaceIDAppVBEta
 
             if (string.IsNullOrEmpty(sIpAddess))
             {
-                errProviders.SetError(mtbIpAddess, "Enter Ip Addess");
+                errProviders.SetError(mtbIPAddess, "Enter IP Addess");
                 isValid = false;
             }
 
@@ -137,11 +137,11 @@ namespace FaceIDAppVBEta
             if (terminal == null)
                 return;
 
-            int id = _dtCtrl.AddTerminal(terminal);
+            int terminalID = _dtCtrl.AddTerminal(terminal);
 
-            MessageBox.Show(id > 0 ? "successful" : "error");
+            MessageBox.Show(terminalID > 0 ? "successful" : "error");
 
-            if (id > 0)
+            if (terminalID > 0)
             {
                 SetState(0);
                 LoadData();
@@ -174,14 +174,23 @@ namespace FaceIDAppVBEta
 
         private void updateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int id = Convert.ToInt16(dgvTerminal.Rows[_cellContext.X].Cells[dgvTerminal.Columns["TerminalID"].Index].Value);
-            BindTerminalData(id);
-            SetState(id);
+            int terminalID = GetSelectedTerminalID();
+
+            BindTerminalData(terminalID);
+            SetState(terminalID);
+        }
+
+        private int GetSelectedTerminalID()
+        {
+            if (_rowIndex >= 0 && _rowIndex < dgvTerminal.Rows.Count)
+                return Convert.ToInt16(dgvTerminal.Rows[_rowIndex].Cells[dgvTerminal.Columns["TerminalID"].Index].Value);
+            else
+                return -1;
         }
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int terminalID = Convert.ToInt16(dgvTerminal.Rows[_cellContext.X].Cells[dgvTerminal.Columns["TerminalID"].Index].Value);
+            int terminalID = GetSelectedTerminalID();
 
             if (Util.Confirm("Are you sure?"))
             {
@@ -193,7 +202,7 @@ namespace FaceIDAppVBEta
                 {
                     _dtCtrl.CommitTransaction();
                     LoadData();
-                    MessageBox.Show("successful");
+                    MessageBox.Show("Terminal deleted.");
                 }
                 else
                 {
@@ -205,7 +214,7 @@ namespace FaceIDAppVBEta
 
         private void dgvTerminal_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
-            _cellContext = new Point(e.RowIndex, e.ColumnIndex);
+            _rowIndex = e.RowIndex;
         }
     }
 }
