@@ -29,25 +29,25 @@ namespace FaceIDAppVBEta
             DataTable dt = new DataTable();
             dt.Columns.Add("ID");
             dt.Columns.Add("Name");
-            dt.Columns.Add("Work on");
-            dt.Columns.Add("Working hour");
+            dt.Columns.Add("Work On");
+            dt.Columns.Add("Working Hour");
 
             foreach (WorkingCalendar workingCalendar in workingCalendarList)
             {
                 DataRow dr = dt.NewRow();
                 dr["ID"] = workingCalendar.ID;
                 dr["Name"] = workingCalendar.Name;
-                dr["Work on"] = GetWorkOnStr(workingCalendar);
-                dr["Working hour"] = workingCalendar.RegularWorkingFrom.ToShortTimeString() + " - " + workingCalendar.RegularWorkingTo.ToShortTimeString();
+                dr["Work On"] = GetWorkOnStr(workingCalendar);
+                dr["Working Hour"] = workingCalendar.RegularWorkingFrom.ToShortTimeString() + " - " + workingCalendar.RegularWorkingTo.ToShortTimeString();
 
                 dt.Rows.Add(dr);
             }
 
-            dgvWorkingCalendar.AutoGenerateColumns = true;
-            dgvWorkingCalendar.Columns.Clear();
+            //dgvWorkingCalendar.AutoGenerateColumns = true;
+            //dgvWorkingCalendar.Columns.Clear();
+            //dgvWorkingCalendar.Columns[0].Visible = false;
 
             dgvWorkingCalendar.DataSource = dt;
-            dgvWorkingCalendar.Columns[0].Visible = false;
         }
 
         private String GetWorkOnStr(WorkingCalendar workingCalendar)

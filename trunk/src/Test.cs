@@ -18,10 +18,12 @@ namespace FaceIDApp
         private TextBox txtProgress;
         private Label label2;
         private ProgressBar pgbProgress;
-        private Button btnClearAll;
+        private Button btnClearAttData;
         private Label label3;
         private NumericUpDown nudAdd;
         private Button btnStop;
+        private Button btnAddTestData;
+        private Button btnClearDB;
         private Button btnAddRecord;
 
         private void InitializeComponent()
@@ -33,10 +35,12 @@ namespace FaceIDApp
             this.txtProgress = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.pgbProgress = new System.Windows.Forms.ProgressBar();
-            this.btnClearAll = new System.Windows.Forms.Button();
+            this.btnClearAttData = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.nudAdd = new System.Windows.Forms.NumericUpDown();
             this.btnStop = new System.Windows.Forms.Button();
+            this.btnAddTestData = new System.Windows.Forms.Button();
+            this.btnClearDB = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudAdd)).BeginInit();
             this.SuspendLayout();
             // 
@@ -100,15 +104,15 @@ namespace FaceIDApp
             this.pgbProgress.Size = new System.Drawing.Size(608, 15);
             this.pgbProgress.TabIndex = 8;
             // 
-            // btnClearAll
+            // btnClearAttData
             // 
-            this.btnClearAll.Location = new System.Drawing.Point(284, 12);
-            this.btnClearAll.Name = "btnClearAll";
-            this.btnClearAll.Size = new System.Drawing.Size(130, 23);
-            this.btnClearAll.TabIndex = 9;
-            this.btnClearAll.Text = "Clear All";
-            this.btnClearAll.UseVisualStyleBackColor = true;
-            this.btnClearAll.Click += new System.EventHandler(this.btnClearAll_Click);
+            this.btnClearAttData.Location = new System.Drawing.Point(284, 12);
+            this.btnClearAttData.Name = "btnClearAttData";
+            this.btnClearAttData.Size = new System.Drawing.Size(130, 23);
+            this.btnClearAttData.TabIndex = 9;
+            this.btnClearAttData.Text = "Clear Att Data";
+            this.btnClearAttData.UseVisualStyleBackColor = true;
+            this.btnClearAttData.Click += new System.EventHandler(this.btnClearAll_Click);
             // 
             // label3
             // 
@@ -136,6 +140,11 @@ namespace FaceIDApp
             this.nudAdd.Size = new System.Drawing.Size(176, 20);
             this.nudAdd.TabIndex = 11;
             this.nudAdd.ThousandsSeparator = true;
+            this.nudAdd.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
             // 
             // btnStop
             // 
@@ -148,13 +157,35 @@ namespace FaceIDApp
             this.btnStop.UseVisualStyleBackColor = true;
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
+            // btnAddTestData
+            // 
+            this.btnAddTestData.Location = new System.Drawing.Point(284, 44);
+            this.btnAddTestData.Name = "btnAddTestData";
+            this.btnAddTestData.Size = new System.Drawing.Size(130, 23);
+            this.btnAddTestData.TabIndex = 13;
+            this.btnAddTestData.Text = "Generate Test Data";
+            this.btnAddTestData.UseVisualStyleBackColor = true;
+            this.btnAddTestData.Click += new System.EventHandler(this.btnAddTestData_Click);
+            // 
+            // btnClearDB
+            // 
+            this.btnClearDB.Location = new System.Drawing.Point(421, 44);
+            this.btnClearDB.Name = "btnClearDB";
+            this.btnClearDB.Size = new System.Drawing.Size(75, 23);
+            this.btnClearDB.TabIndex = 14;
+            this.btnClearDB.Text = "Clear DB";
+            this.btnClearDB.UseVisualStyleBackColor = true;
+            this.btnClearDB.Click += new System.EventHandler(this.btnClearDB_Click);
+            // 
             // Test
             // 
             this.ClientSize = new System.Drawing.Size(632, 265);
+            this.Controls.Add(this.btnClearDB);
+            this.Controls.Add(this.btnAddTestData);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.nudAdd);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.btnClearAll);
+            this.Controls.Add(this.btnClearAttData);
             this.Controls.Add(this.pgbProgress);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtProgress);
@@ -184,14 +215,17 @@ namespace FaceIDApp
         
         private IDataController _dtCtrl = LocalDataController.Instance;
 
-        private Thread _thrAdd;
-        private Thread _thrDel;
-        private Thread _thrClear;
+        private Thread _thrAddAttRecords;
+        private Thread _thrDelAttRecords;
+        private Thread _thrClearAttData;
+
+        private Thread _thrAddTestData;
+        private Thread _thrClearDB;
 
         private void btnAddRecord_Click(object sender, EventArgs e)
         {
-            _thrAdd = new Thread(new ThreadStart(AddRecord));
-            _thrAdd.Start();
+            _thrAddAttRecords = new Thread(new ThreadStart(AddRecord));
+            _thrAddAttRecords.Start();
         }
 
         private delegate void InitProgressCallBack(int maxValue);
@@ -201,7 +235,6 @@ namespace FaceIDApp
         private delegate void AddTextCallBack(TextBox txtBox, string text);
 
         private delegate void EnableButtonCallBack(Button btn, bool enable);
-
 
         private void InitProgress(int maxValue)
         {
@@ -284,6 +317,9 @@ namespace FaceIDApp
             if (_empList.Count == 0)
                 _empList = _dtCtrl.GetEmployeeList();
 
+            if (_empList.Count == 0)
+                throw new Exception("There's no employee");
+
             return _empList[_rand.Next(_empList.Count)].EmployeeNumber;
         }
 
@@ -299,8 +335,8 @@ namespace FaceIDApp
 
         private void btnDelRecord_Click(object sender, EventArgs e)
         {
-            _thrDel = new Thread(new ThreadStart(DelRecord));
-            _thrDel.Start();
+            _thrDelAttRecords = new Thread(new ThreadStart(DelRecord));
+            _thrDelAttRecords.Start();
         }
 
         private void DelRecord()
@@ -349,8 +385,8 @@ namespace FaceIDApp
 
         private void btnClearAll_Click(object sender, EventArgs e)
         {
-            _thrClear = new Thread(new ThreadStart(ClearAll));
-            _thrClear.Start();
+            _thrClearAttData = new Thread(new ThreadStart(ClearAll));
+            _thrClearAttData.Start();
         }
 
         private void ClearAll()
@@ -400,7 +436,6 @@ namespace FaceIDApp
                 Invoke(new SetTextCallBack(SetText), new object[] { txtProgress, textProgress });
                 Invoke(new SetTextCallBack(SetText), new object[] { txtDuration, GetDuration() });
 
-
                 MessageBox.Show(cleared + " table(s) have been cleared");
             }
             catch (Exception ex)
@@ -438,17 +473,17 @@ namespace FaceIDApp
         {
             try
             {
-                _thrAdd.Abort();
+                _thrAddAttRecords.Abort();
             }
             catch { }
             try
             {
-                _thrDel.Abort();
+                _thrDelAttRecords.Abort();
             }
             catch { }
             try
             {
-                _thrClear.Abort();
+                _thrClearAttData.Abort();
             }
             catch { }
 
@@ -460,55 +495,208 @@ namespace FaceIDApp
             Invoke(new EnableButtonCallBack(EnableButton), new object[]{ btnStop, (state > 0) });
             Invoke(new EnableButtonCallBack(EnableButton), new object[] { btnAddRecord, (state == 0) });
             Invoke(new EnableButtonCallBack(EnableButton), new object[] { btnDelRecord, (state == 0) });
-            Invoke(new EnableButtonCallBack(EnableButton), new object[] { btnClearAll, (state == 0) });
+            Invoke(new EnableButtonCallBack(EnableButton), new object[] { btnClearAttData, (state == 0) });
+            Invoke(new EnableButtonCallBack(EnableButton), new object[] { btnAddTestData, (state == 0) });
+            Invoke(new EnableButtonCallBack(EnableButton), new object[] { btnClearDB, (state == 0) });
         }
+
 
         private void EnableButton(Button btn, bool enable)
         {
             btn.Enabled = enable;
         }
 
-        //public delegate int Functotaldonetp(int total, int nDone);
-        //int FunctotaldonetpMethod(int total, int nDone)
-        //{
-        //    return 1;
-        //}
-        //[DllImport("HwDevComm.dll")]
-        //public static extern int HwDev_Execute(string pDevInfoBuf, int nDevInfoLen, string pSendBuf, int nSendLen, ref string pRecvBuf, ref int pRecvLen, Functotaldonetp pFuncTotalDone);
-        ////int total = int.MinValue;
-        ////int nDone = int.MinValue;
+        private void btnAddTestData_Click(object sender, EventArgs e)
+        {
+            _thrAddTestData = new Thread(new ThreadStart(AddTestData));
+            _thrAddTestData.Start();
+        }
 
-        //public Test()
-        //{
-        //    //Functotaldonetp functotaldonetp = new Functotaldonetp(FunctotaldonetpMethod);
+        private void AddTestData()
+        {
+            _dtCtrl.BeginTransaction();
 
-        //    //string pDevInfoBuf = "DeviceInfo( dev_id = \"1\" comm_type = \"ip\" ip_adress = \"10.0.0.101\" )";
-        //    //int nDevInfoLen = pDevInfoBuf.Length;
-        //    //string pSendBuf = "InitDevice()";
-        //    //int nSendLen = pSendBuf.Length;
-        //    //string pRecvBuf = null;
-        //    //int pRecvLen = 0;
+            try
+            {
+                Invoke(new SetTextCallBack(SetText), new object[] { txtProgress, "Adding ..." });
 
-        //    //int result = HwDev_Execute(pDevInfoBuf, nDevInfoLen, pSendBuf, nSendLen, ref  pRecvBuf, ref pRecvLen, functotaldonetp);
+                //add test company
+                Company com = new Company();
+                com.Name = DateTime.Now.Ticks.ToString();
+                com.ID = _dtCtrl.AddCompany(com);
 
-        //    string ip_addr = "10.0.0.101";
+                //add test department
+                Department dep = new Department();
+                dep.CompanyID = com.ID;
+                dep.Name = DateTime.Now.Ticks.ToString();
+                dep.SupDepartmentID = 0; //root
+                dep.ID = _dtCtrl.AddDepartment(dep);
 
-        //    string devInfo = "DeviceInfo( dev_id = \"1\" dev_type = \"HW_HDCP\" comm_type = \"ip\" ip_address = ";
-        //    devInfo = devInfo + '"' + ip_addr + '"' + ")";
+                //add test working calendar
+                WorkingCalendar wCal = new WorkingCalendar();
 
-        //    //string cmdStr = "GetRecord(start_time=";
-        //    //cmdStr = cmdStr + startData + " ";
-        //    //cmdStr = cmdStr + startTime;
-        //    //cmdStr = cmdStr + "end_Time=";
-        //    //cmdStr = cmdStr + endData + " ";
-        //    //cmdStr = cmdStr + endTime + ")";
-        //    string cmdStr = "GetDeviceInfo()";
+                wCal.Name = DateTime.Now.Ticks.ToString();
+                wCal.RegularWorkingFrom = new DateTime(2000, 2, 2, 9, 0, 0);
+                wCal.RegularWorkingTo = new DateTime(2000, 2, 2, 18, 0, 0);
 
-        //    string ret = null;
-        //    int retlen = 0;
+                wCal.WorkOnMonday = true;
+                wCal.WorkOnTuesday = true;
+                wCal.WorkOnWednesday = true;
+                wCal.WorkOnThursday = true;
+                wCal.WorkOnFriday = true;
 
-        //    int i = HwDev_Execute(devInfo, devInfo.Length, cmdStr, cmdStr.Length, ref ret, ref retlen, null);
-        //    MessageBox.Show(ret);
-        //}
+                wCal.GraceForwardToEntry = 30;
+                wCal.GraceForwardToEntry = 30;
+                wCal.EarliestBeforeEntry = 60;
+                wCal.LastestAfterExit = 180;
+
+                List<Break> breakList = new List<Break>();
+                List<Holiday> holidayList = new List<Holiday>();
+
+                PaymentRate workingDayPaymentRate = new PaymentRate();
+                workingDayPaymentRate.NumberOfRegularHours = 8;
+                workingDayPaymentRate.RegularRate = 100;
+                workingDayPaymentRate.NumberOfOvertime1 = 8;
+                workingDayPaymentRate.OvertimeRate1 = 200;
+
+                PaymentRate nonWorkingDayPaymentRate = new PaymentRate();
+                PaymentRate holidayPaymentRate = new PaymentRate();
+
+                PayPeriod payPeriod = new PayPeriod();
+                payPeriod.CustomPeriod = 5;
+                payPeriod.PayPeriodTypeID = 5; //custom
+                payPeriod.StartFrom = DateTime.Today;
+
+                wCal.ID = _dtCtrl.AddWorkingCalendar(wCal, breakList, holidayList, workingDayPaymentRate, nonWorkingDayPaymentRate, holidayPaymentRate, payPeriod);
+
+                //add test employee
+                Employee emp = new Employee();
+                emp.Active = true;
+                emp.ActiveFrom = DateTime.Today;
+                emp.ActiveTo = DateTime.Today.AddDays(1);
+                emp.Address = DateTime.Now.Ticks.ToString();
+                emp.Birthday = DateTime.Today.AddYears(-20);
+                emp.DepartmentID = dep.ID;
+                emp.EmployeeNumber = 0;
+                emp.FirstName = DateTime.Now.Ticks.ToString();
+                emp.JobDescription = DateTime.Now.Ticks.ToString();
+                emp.HiredDate = DateTime.Today;
+                emp.LeftDate = DateTime.Today.AddYears(1);
+                emp.LastName = DateTime.Now.Ticks.ToString();
+                emp.PhoneNumber = DateTime.Now.Ticks.ToString();
+                emp.WorkingCalendarID = wCal.ID;
+
+                emp.PayrollNumber = _dtCtrl.AddEmployee(emp, new List<Terminal>());
+
+                //add test att records
+                AttendanceRecord att11 = new AttendanceRecord();
+                att11.EmployeeNumber = emp.EmployeeNumber;
+                att11.Time = new DateTime(2010, 1, 1, 9, 0, 0);
+                att11.ID = _dtCtrl.AddAttendanceRecord(att11);
+
+                AttendanceRecord att12 = new AttendanceRecord();
+                att12.EmployeeNumber = emp.EmployeeNumber;
+                att12.Time = new DateTime(2010, 1, 1, 18, 0, 0);
+                att12.ID = _dtCtrl.AddAttendanceRecord(att12);
+
+                AttendanceRecord att21 = new AttendanceRecord();
+                att21.EmployeeNumber = emp.EmployeeNumber;
+                att21.Time = new DateTime(2010, 1, 2, 8, 45, 0);
+                att21.ID = _dtCtrl.AddAttendanceRecord(att21);
+
+                AttendanceRecord att22 = new AttendanceRecord();
+                att22.EmployeeNumber = emp.EmployeeNumber;
+                att22.Time = new DateTime(2010, 1, 2, 18, 15, 0);
+                att22.ID = _dtCtrl.AddAttendanceRecord(att22);
+
+                AttendanceRecord att31 = new AttendanceRecord();
+                att31.EmployeeNumber = emp.EmployeeNumber;
+                att31.Time = new DateTime(2010, 1, 3, 8, 15, 0);
+                att31.ID = _dtCtrl.AddAttendanceRecord(att31);
+
+                AttendanceRecord att32 = new AttendanceRecord();
+                att32.EmployeeNumber = emp.EmployeeNumber;
+                att32.Time = new DateTime(2010, 1, 3, 18, 0, 0);
+                att32.ID = _dtCtrl.AddAttendanceRecord(att32);
+
+                _dtCtrl.CommitTransaction();
+
+                Invoke(new SetTextCallBack(SetText), new object[] { txtProgress, "Adding Complete." });
+            }
+            catch (Exception ex)
+            {
+                _dtCtrl.RollbackTransaction();
+                Invoke(new AddTextCallBack(SetText), new object[] { txtProgress, "Error: " + ex.Message });
+            }
+
+        }
+
+        private void btnClearDB_Click(object sender, EventArgs e)
+        {
+            _thrClearDB = new Thread(new ThreadStart(ClearDB));
+            _thrClearDB.Start();
+        }
+
+        private void ClearDB()
+        {
+            _dtCtrl.BeginTransaction();
+            try
+            {
+                Invoke(new SetTextCallBack(SetText), new object[] { txtProgress, "Clearing..." });
+
+                //clear undel employee
+                foreach(UndeletedEmployeeNumber undelEmp in _dtCtrl.GetUndeletedEmployeeNumberList())
+                    _dtCtrl.DeleteUndeletedEmployeeNumber(undelEmp);
+
+                //clear uncal att records
+                _dtCtrl.DeleteAllUncalculatedAttendanceRecord();
+
+                //clear att reports
+                _dtCtrl.DeleteAllAttendanceReport();
+
+                //clear att records
+                _dtCtrl.DeleteAllAttendanceRecord();
+
+                //clear employee
+                foreach(Employee emp in _dtCtrl.GetEmployeeList())
+                {
+                    //clear employee terminal
+                    _dtCtrl.DeleteEmployeeTerminalByEmployee(emp.EmployeeNumber);
+                    
+                    _dtCtrl.DeleteEmployee(emp.PayrollNumber);
+                }
+
+                //clear employee number
+
+                //clear department
+                foreach (Department dep in _dtCtrl.GetDepartmentList())
+                {
+                    if(dep.ID != 1)
+                    _dtCtrl.DeleteDepartment(dep.ID);
+                }
+
+                //clear company
+                foreach (Company com in _dtCtrl.GetCompanyList())
+                {
+                    if(com.ID != 1)
+                    _dtCtrl.DeleteCompany(com.ID);
+                }
+                                
+                //clear working calendar
+                foreach(WorkingCalendar wCal in _dtCtrl.GetWorkingCalendarList())
+                    _dtCtrl.DeleteWorkingCalendar(wCal.ID);
+
+                //clear pay period
+
+                _dtCtrl.CommitTransaction();
+
+                Invoke(new SetTextCallBack(SetText), new object[] { txtProgress, "Clearing Complete." });
+            }
+            catch (Exception ex)
+            {
+                _dtCtrl.RollbackTransaction();
+                Invoke(new AddTextCallBack(SetText), new object[] { txtProgress, "Error: " + ex.Message });
+            }
+        }
     }
 }
