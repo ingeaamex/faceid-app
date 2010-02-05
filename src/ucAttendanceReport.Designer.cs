@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label5 = new System.Windows.Forms.Label();
             this.cbxDepartment = new System.Windows.Forms.ComboBox();
             this.cbxCompany = new System.Windows.Forms.ComboBox();
@@ -56,6 +56,7 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cbxShowChart = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAttendanceReport)).BeginInit();
             this.SuspendLayout();
             // 
@@ -114,7 +115,7 @@
             // 
             this.btnPayrollExport.Location = new System.Drawing.Point(211, 91);
             this.btnPayrollExport.Name = "btnPayrollExport";
-            this.btnPayrollExport.Size = new System.Drawing.Size(168, 23);
+            this.btnPayrollExport.Size = new System.Drawing.Size(103, 23);
             this.btnPayrollExport.TabIndex = 22;
             this.btnPayrollExport.Text = "View Payroll";
             this.btnPayrollExport.UseVisualStyleBackColor = true;
@@ -190,8 +191,8 @@
             // 
             this.EmployeeNumber.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.EmployeeNumber.DataPropertyName = "EmployeeNumber";
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Transparent;
-            this.EmployeeNumber.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Transparent;
+            this.EmployeeNumber.DefaultCellStyle = dataGridViewCellStyle5;
             this.EmployeeNumber.FillWeight = 120F;
             this.EmployeeNumber.HeaderText = "Employee Number";
             this.EmployeeNumber.MinimumWidth = 10;
@@ -218,8 +219,8 @@
             // 
             this.Date.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.Date.DataPropertyName = "DateLog";
-            dataGridViewCellStyle2.Format = "d MMM yyyy";
-            this.Date.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Format = "d MMM yyyy";
+            this.Date.DefaultCellStyle = dataGridViewCellStyle6;
             this.Date.FillWeight = 96F;
             this.Date.HeaderText = "Date";
             this.Date.Name = "Date";
@@ -266,8 +267,8 @@
             // 
             this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.dataGridViewTextBoxColumn1.DataPropertyName = "EmployeeNumber";
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Transparent;
-            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Transparent;
+            this.dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridViewTextBoxColumn1.FillWeight = 120F;
             this.dataGridViewTextBoxColumn1.HeaderText = "Employee Number";
             this.dataGridViewTextBoxColumn1.MinimumWidth = 10;
@@ -294,8 +295,8 @@
             // 
             this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.dataGridViewTextBoxColumn3.DataPropertyName = "WorkFrom";
-            dataGridViewCellStyle4.Format = "d MMM yyyy";
-            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle8.Format = "d MMM yyyy";
+            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridViewTextBoxColumn3.FillWeight = 96F;
             this.dataGridViewTextBoxColumn3.HeaderText = "Date";
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
@@ -339,10 +340,21 @@
             this.dataGridViewTextBoxColumn6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.dataGridViewTextBoxColumn6.Width = 161;
             // 
+            // cbxShowChart
+            // 
+            this.cbxShowChart.AutoSize = true;
+            this.cbxShowChart.Location = new System.Drawing.Point(413, 11);
+            this.cbxShowChart.Name = "cbxShowChart";
+            this.cbxShowChart.Size = new System.Drawing.Size(81, 17);
+            this.cbxShowChart.TabIndex = 29;
+            this.cbxShowChart.Text = "Show Chart";
+            this.cbxShowChart.UseVisualStyleBackColor = true;
+            // 
             // ucAttendanceReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.cbxShowChart);
             this.Controls.Add(this.dgvAttendanceReport);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.cbxDepartment);
@@ -389,5 +401,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn AttendanceDetail;
         private System.Windows.Forms.DataGridViewTextBoxColumn TotalHours;
         private System.Windows.Forms.DataGridViewTextBoxColumn Chart;
+        private System.Windows.Forms.CheckBox cbxShowChart;
     }
 }

@@ -619,6 +619,16 @@ namespace FaceIDApp
                 att32.Time = new DateTime(2010, 1, 3, 18, 0, 0);
                 att32.ID = _dtCtrl.AddAttendanceRecord(att32);
 
+                AttendanceRecord att41 = new AttendanceRecord();
+                att41.EmployeeNumber = emp.EmployeeNumber;
+                att41.Time = new DateTime(2010, 1, 4, 7, 00, 0);
+                att41.ID = _dtCtrl.AddAttendanceRecord(att31);
+
+                AttendanceRecord att42 = new AttendanceRecord();
+                att42.EmployeeNumber = emp.EmployeeNumber;
+                att42.Time = new DateTime(2010, 1, 4, 18, 0, 0);
+                att42.ID = _dtCtrl.AddAttendanceRecord(att32);
+
                 _dtCtrl.CommitTransaction();
 
                 Invoke(new SetTextCallBack(SetText), new object[] { txtProgress, "Adding Complete." });
