@@ -28,13 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.dgvWorkingCalendar = new System.Windows.Forms.DataGridView();
             this.btnAddWorkingCalendar = new System.Windows.Forms.Button();
             this.btnUpdateWorkingCalendar = new System.Windows.Forms.Button();
             this.btnDeleteWorkingCalendar = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.btnPreviewWorkingCalendar = new System.Windows.Forms.Button();
+            this.cmnDgvWorkingCalendar = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvWorkingCalendar)).BeginInit();
+            this.cmnDgvWorkingCalendar.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvWorkingCalendar
@@ -100,6 +105,28 @@
             this.btnPreviewWorkingCalendar.UseVisualStyleBackColor = true;
             this.btnPreviewWorkingCalendar.Click += new System.EventHandler(this.btnPreviewWorkingCalendar_Click);
             // 
+            // cmnDgvWorkingCalendar
+            // 
+            this.cmnDgvWorkingCalendar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editToolStripMenuItem,
+            this.deleteToolStripMenuItem});
+            this.cmnDgvWorkingCalendar.Name = "cmnDgvWorkingCalendar";
+            this.cmnDgvWorkingCalendar.Size = new System.Drawing.Size(153, 70);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.editToolStripMenuItem.Text = "Edit";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+            // 
             // ucWorkingCalendar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -113,6 +140,7 @@
             this.Name = "ucWorkingCalendar";
             this.Size = new System.Drawing.Size(845, 662);
             ((System.ComponentModel.ISupportInitialize)(this.dgvWorkingCalendar)).EndInit();
+            this.cmnDgvWorkingCalendar.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -126,5 +154,8 @@
         private System.Windows.Forms.Button btnDeleteWorkingCalendar;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnPreviewWorkingCalendar;
+        private System.Windows.Forms.ContextMenuStrip cmnDgvWorkingCalendar;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
     }
 }

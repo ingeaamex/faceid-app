@@ -18,5 +18,9 @@ namespace FaceIDAppVBEta.Class
         public DateTime RegularWorkingFrom { get; set; }
         public DateTime RegularWorkingTo { get; set; }
         public int PayPeriodID { get; set; }
+        public int GraceForwardToEntry { get; set; }
+        public int GraceBackwardToExit { get; set; }
+        public int EarliestBeforeEntry { get; set; }
+        public int LastestAfterExit { get; set; }
     }
 }

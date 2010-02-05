@@ -649,6 +649,11 @@ namespace FaceIDAppVBEta
             workingCalendar.RegularWorkingFrom = dtpRegularWorkFrom.Value;
             workingCalendar.RegularWorkingTo = dtpRegularWorkTo.Value;
 
+            workingCalendar.GraceForwardToEntry = (int)nudGraceForwardToEntry.Value;
+            workingCalendar.GraceBackwardToExit = (int)nudGraceBackwardToExit.Value;
+            workingCalendar.EarliestBeforeEntry = (int)nudEarliestBeforeEntry.Value;
+            workingCalendar.LastestAfterExit = (int)nudLastestAfterExitTime.Value;
+
             #endregion
 
             #region Get Break Times
@@ -926,26 +931,6 @@ namespace FaceIDAppVBEta
             BindHoliday();
         }
 
-        private void nudRegularWorkFromHour_ValueChanged(object sender, EventArgs e)
-        {
-            CheckWorkingHour();
-        }
-
-        private void nudRegularWorkFromMin_ValueChanged(object sender, EventArgs e)
-        {
-            CheckWorkingHour();
-        }
-
-        private void nudRegularWorkToHour_ValueChanged(object sender, EventArgs e)
-        {
-            CheckWorkingHour();
-        }
-
-        private void nudRegularWorkToMin_ValueChanged(object sender, EventArgs e)
-        {
-            CheckWorkingHour();
-        }
-
         private void CheckWorkingHour()
         {
             DateTime dtFrom = dtpRegularWorkFrom.Value;
@@ -1074,6 +1059,16 @@ namespace FaceIDAppVBEta
                     frmCRate.ShowDialog(this);
                 }
             }
+        }
+
+        private void dtpRegularWorkTo_ValueChanged(object sender, EventArgs e)
+        {
+            CheckWorkingHour();
+        }
+
+        private void dtpRegularWorkFrom_ValueChanged(object sender, EventArgs e)
+        {
+            CheckWorkingHour();
         }
     }
 }
