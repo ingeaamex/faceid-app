@@ -30,10 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dgvCompany = new System.Windows.Forms.DataGridView();
-            this.CompanyID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CompanyName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NoOfDepartments = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NoOfEmployees = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmsDgvCompany = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,6 +42,10 @@
             this.ActionEdit = new System.Windows.Forms.DataGridViewButtonColumn();
             this.ActionDelete = new System.Windows.Forms.DataGridViewButtonColumn();
             this.label2 = new System.Windows.Forms.Label();
+            this.CompanyID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CompanyName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NoOfDepartments = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NoOfEmployees = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCompany)).BeginInit();
             this.cmsDgvCompany.SuspendLayout();
             this.gBoxCompanyACtion.SuspendLayout();
@@ -62,7 +62,6 @@
             this.CompanyName,
             this.NoOfDepartments,
             this.NoOfEmployees});
-            this.dgvCompany.ContextMenuStrip = this.cmsDgvCompany;
             this.dgvCompany.Location = new System.Drawing.Point(36, 71);
             this.dgvCompany.MultiSelect = false;
             this.dgvCompany.Name = "dgvCompany";
@@ -71,35 +70,6 @@
             this.dgvCompany.Size = new System.Drawing.Size(772, 418);
             this.dgvCompany.TabIndex = 0;
             this.dgvCompany.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCompany_CellMouseEnter);
-            // 
-            // CompanyID
-            // 
-            this.CompanyID.DataPropertyName = "CompanyID";
-            this.CompanyID.HeaderText = "Company ID";
-            this.CompanyID.Name = "CompanyID";
-            this.CompanyID.ReadOnly = true;
-            this.CompanyID.Visible = false;
-            // 
-            // CompanyName
-            // 
-            this.CompanyName.DataPropertyName = "CompanyName";
-            this.CompanyName.HeaderText = "Company Name";
-            this.CompanyName.Name = "CompanyName";
-            this.CompanyName.ReadOnly = true;
-            // 
-            // NoOfDepartments
-            // 
-            this.NoOfDepartments.DataPropertyName = "NoOfDepartments";
-            this.NoOfDepartments.HeaderText = "Number of Departments";
-            this.NoOfDepartments.Name = "NoOfDepartments";
-            this.NoOfDepartments.ReadOnly = true;
-            // 
-            // NoOfEmployees
-            // 
-            this.NoOfEmployees.DataPropertyName = "NoOfEmployees";
-            this.NoOfEmployees.HeaderText = "Number of Employees";
-            this.NoOfEmployees.Name = "NoOfEmployees";
-            this.NoOfEmployees.ReadOnly = true;
             // 
             // cmsDgvCompany
             // 
@@ -193,6 +163,39 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Company Management";
             // 
+            // CompanyID
+            // 
+            this.CompanyID.ContextMenuStrip = this.cmsDgvCompany;
+            this.CompanyID.DataPropertyName = "CompanyID";
+            this.CompanyID.HeaderText = "Company ID";
+            this.CompanyID.Name = "CompanyID";
+            this.CompanyID.ReadOnly = true;
+            this.CompanyID.Visible = false;
+            // 
+            // CompanyName
+            // 
+            this.CompanyName.ContextMenuStrip = this.cmsDgvCompany;
+            this.CompanyName.DataPropertyName = "CompanyName";
+            this.CompanyName.HeaderText = "Company Name";
+            this.CompanyName.Name = "CompanyName";
+            this.CompanyName.ReadOnly = true;
+            // 
+            // NoOfDepartments
+            // 
+            this.NoOfDepartments.ContextMenuStrip = this.cmsDgvCompany;
+            this.NoOfDepartments.DataPropertyName = "NoOfDepartments";
+            this.NoOfDepartments.HeaderText = "Number of Departments";
+            this.NoOfDepartments.Name = "NoOfDepartments";
+            this.NoOfDepartments.ReadOnly = true;
+            // 
+            // NoOfEmployees
+            // 
+            this.NoOfEmployees.ContextMenuStrip = this.cmsDgvCompany;
+            this.NoOfEmployees.DataPropertyName = "NoOfEmployees";
+            this.NoOfEmployees.HeaderText = "Number of Employees";
+            this.NoOfEmployees.Name = "NoOfEmployees";
+            this.NoOfEmployees.ReadOnly = true;
+            // 
             // ucCompanyForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -227,10 +230,10 @@
         private System.Windows.Forms.ContextMenuStrip cmsDgvCompany;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CompanyID;
         private System.Windows.Forms.DataGridViewTextBoxColumn CompName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CompanyID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CompanyName;
         private System.Windows.Forms.DataGridViewTextBoxColumn NoOfDepartments;
         private System.Windows.Forms.DataGridViewTextBoxColumn NoOfEmployees;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CompanyName;
     }
 }

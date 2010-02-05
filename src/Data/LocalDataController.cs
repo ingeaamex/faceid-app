@@ -23,7 +23,6 @@ namespace FaceIDAppVBEta.Data
         private static LocalDataController instance;
         private static readonly Object mutex = new Object();
 
-        //private int timeBound = 0;
         private int timeBound = 0;
 
         public LocalDataController()
@@ -100,21 +99,37 @@ namespace FaceIDAppVBEta.Data
             }
         }
 
+        private int _token = 0;
         public void BeginTransaction()
         {
-            transaction = dbConnection.BeginTransaction();
+            if (_token == 0)
+            {
+                transaction = dbConnection.BeginTransaction();
+            }
+
+            _token++;
         }
 
         public void CommitTransaction()
         {
-            transaction.Commit();
-            transaction.Dispose();
+            _token--;
+
+            if (_token == 0)
+            {
+                transaction.Commit();
+                transaction.Dispose();
+            }
         }
 
         public void RollbackTransaction()
         {
-            transaction.Rollback();
-            transaction.Dispose();
+            _token--;
+
+            if (_token == 0)
+            {
+                transaction.Rollback();
+                transaction.Dispose();
+            }
         }
 
         #endregion Connection

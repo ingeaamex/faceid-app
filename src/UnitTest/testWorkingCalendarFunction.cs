@@ -28,9 +28,20 @@ namespace FaceIDAppVBEta.UnitTest
 
         private void AddWCal()
         {
-            wCal.Name = DateTime.Now.Ticks.ToString(); ;
+            wCal.Name = DateTime.Now.Ticks.ToString();
             wCal.RegularWorkingFrom = DateTime.Today;
             wCal.RegularWorkingTo = DateTime.Today;
+            
+            wCal.WorkOnMonday = true;
+            wCal.WorkOnTuesday = true;
+            wCal.WorkOnWednesday = true;
+            wCal.WorkOnThursday = true;
+            wCal.WorkOnFriday = true;
+
+            wCal.GraceForwardToEntry = 30;
+            wCal.GraceForwardToEntry = 30;
+            wCal.EarliestBeforeEntry = 60;
+            wCal.LastestAfterExit = 180;
             
             payPeriod.CustomPeriod = 5;
             payPeriod.PayPeriodTypeID = 5; //custom
@@ -162,8 +173,15 @@ namespace FaceIDAppVBEta.UnitTest
         {
             AddWCal();
 
-            //_dtCtrl.DeleteEmployee(emp.PayrollNumber);
-            //Assert.AreEqual(true, _dtCtrl.DeleteWorkingCalendar(wCal.ID));
+            DelWCal();
+        }
+
+        [Test]
+        public void TestIsWorkingCalendarInUse()
+        {
+            AddWCal();
+
+            Assert.AreEqual(true, _dtCtrl.IsWorkingCalendarInUse(wCal.ID));
 
             DelWCal();
         }
