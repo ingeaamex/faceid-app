@@ -25,6 +25,8 @@ namespace FaceIDAppVBEta
             BindCompany();
             BindDepartment();
             BindTree();
+
+            LoadForm(0, (int)cbxCompany.SelectedValue, 0, "");
         }
 
         private void BindTree()
@@ -175,7 +177,7 @@ namespace FaceIDAppVBEta
 
             bool acctionSucess = false;
 
-            if (btnSubmit.Tag == null) //add
+            if ((int)btnSubmit.Tag <= 0) //add
             {
                 int id = _dtCtrl.AddDepartment(department);
                 acctionSucess = id > 0;

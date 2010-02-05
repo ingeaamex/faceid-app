@@ -264,7 +264,7 @@ namespace FaceIDAppVBEta
                 isValid = false;
             }
 
-            if (dJoinedDate.Date.CompareTo(dBirthday.Date) != 1 && dJoinedDate != Config.MinDate && dBirthday != Config.MinDate)
+            if (dJoinedDate.Date.CompareTo(dBirthday.Date) < 0 && dJoinedDate != Config.MinDate && dBirthday != Config.MinDate)
             {
                 MessageBox.Show("Joined date < birthday");
                 isValid = false;

@@ -83,6 +83,7 @@
             this.WorkingCalendar,
             this.Terminal});
             this.dgvEmployee.Location = new System.Drawing.Point(36, 139);
+            this.dgvEmployee.MultiSelect = false;
             this.dgvEmployee.Name = "dgvEmployee";
             this.dgvEmployee.ReadOnly = true;
             this.dgvEmployee.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;

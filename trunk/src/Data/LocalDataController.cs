@@ -1453,7 +1453,7 @@ namespace FaceIDAppVBEta.Data
 
         private int AddWorkingCalendar(WorkingCalendar workingCalendar)
         {
-            System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("WorkingCalendar",
+            OleDbCommand odCom1 = BuildInsertCmd("WorkingCalendar",
                 new string[] { "Name"
                 ,"WorkOnMonday"
                 ,"WorkOnTuesday"
@@ -1599,7 +1599,7 @@ namespace FaceIDAppVBEta.Data
 
         public bool UpdateWorkingCalendar(WorkingCalendar workingCalendar)
         {
-            System.Data.OleDb.OleDbCommand odCom1 = BuildUpdateCmd("WorkingCalendar",
+            OleDbCommand odCom1 = BuildUpdateCmd("WorkingCalendar",
                 new string[] { "Name"
                 ,"WorkOnMonday"
                 ,"WorkOnTuesday"
@@ -3598,8 +3598,8 @@ namespace FaceIDAppVBEta.Data
         #region Config
         public Config GetConfig()
         {
-            System.Data.OleDb.OleDbCommand odCom = BuildSelectCmd("Config", "TOP 1 *", "1=1");
-            System.Data.OleDb.OleDbDataReader odRdr = odCom.ExecuteReader();
+            OleDbCommand odCom = BuildSelectCmd("Config", "TOP 1 *", "1=1");
+            OleDbDataReader odRdr = odCom.ExecuteReader();
 
             Config config = null;
             if (odRdr.Read())
@@ -3639,7 +3639,7 @@ namespace FaceIDAppVBEta.Data
 
         public bool UpdateConfig(Config config)
         {
-            System.Data.OleDb.OleDbCommand odCom1 = BuildUpdateCmd("Config",
+            OleDbCommand odCom1 = BuildUpdateCmd("Config",
                 new string[] { "ScheduledBackup"
                 ,"BackupPeriod"
                 ,"BackupDay"
@@ -3672,7 +3672,7 @@ namespace FaceIDAppVBEta.Data
 
         private int AddConfig(Config config)
         {
-            System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("Config",
+            OleDbCommand odCom1 = BuildInsertCmd("Config",
                 new string[] { "ScheduledBackup"
                 ,"BackupPeriod"
                 ,"BackupDay"
@@ -3702,7 +3702,20 @@ namespace FaceIDAppVBEta.Data
             }
             return -1;
         }
-        #endregion
 
+        public bool IsWorkingCalendarInUse(int workingCalendarID)
+        {
+            bool result = false;
+
+            OleDbCommand odCom = BuildSelectCmd("Employee", "TOP 1 *", "WorkingCalendarID=@WorkingCalendarID", new object[]{"@WorkingCalendarID", workingCalendarID});
+            OleDbDataReader odRdr = odCom.ExecuteReader();
+
+            result = odRdr.Read();
+            odRdr.Close();
+
+            return result;
+        }
+
+        #endregion
     }
 }

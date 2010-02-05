@@ -164,6 +164,11 @@ namespace FaceIDAppVBEta
 
                 dtpRegularWorkFrom.Value = workingCalendar.RegularWorkingFrom;
                 dtpRegularWorkTo.Value = workingCalendar.RegularWorkingTo;
+
+                nudGraceForwardToEntry.Value = workingCalendar.GraceForwardToEntry;
+                nudGraceBackwardToExit.Value = workingCalendar.GraceBackwardToExit;
+                nudEarliestBeforeEntry.Value = workingCalendar.EarliestBeforeEntry;
+                nudLastestAfterExit.Value = workingCalendar.LastestAfterExit;
                 #endregion
 
                 #region Set Break Times
@@ -358,6 +363,36 @@ namespace FaceIDAppVBEta
 
         private bool ValidateWorkingHour()
         {
+            DateTime workFrom = dtpRegularWorkFrom.Value;
+            DateTime workTo = dtpRegularWorkTo.Value;            
+
+            int graceForwardEntry = (int)nudGraceForwardToEntry.Value;
+            int graceBackwardExit = (int)nudGraceBackwardToExit.Value;
+
+            int earliestBeforeEntry = (int)nudEarliestBeforeEntry.Value;
+            int lastestAfterExit = (int)nudLastestAfterExit.Value;
+
+            if (workTo < workFrom) //work over 24:00:00
+                workTo = workTo.AddDays(1);
+
+            if (graceForwardEntry > earliestBeforeEntry)
+            {
+                MessageBox.Show("'Grace Forward to Entry' value must be smaller than or equal to 'Earliest Before Entry allowed' value.");
+                return false;
+            }
+
+            if (graceBackwardExit > lastestAfterExit)
+            {
+                MessageBox.Show("'Grace Backward to Exit' value must be smaller than or equal to 'Lastest After Exit allowed' value.");
+                return false;
+            }
+
+            if (workTo.AddMinutes(lastestAfterExit) > workFrom.AddMinutes(-1 * earliestBeforeEntry).AddDays(1))
+            {
+                MessageBox.Show("A working day must not exceed 24 hours.");
+                return false;
+            }
+            
             return true;
         }
 
@@ -652,7 +687,7 @@ namespace FaceIDAppVBEta
             workingCalendar.GraceForwardToEntry = (int)nudGraceForwardToEntry.Value;
             workingCalendar.GraceBackwardToExit = (int)nudGraceBackwardToExit.Value;
             workingCalendar.EarliestBeforeEntry = (int)nudEarliestBeforeEntry.Value;
-            workingCalendar.LastestAfterExit = (int)nudLastestAfterExitTime.Value;
+            workingCalendar.LastestAfterExit = (int)nudLastestAfterExit.Value;
 
             #endregion
 

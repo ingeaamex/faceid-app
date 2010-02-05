@@ -43,6 +43,18 @@
             this.chbMonday = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label75 = new System.Windows.Forms.Label();
+            this.label76 = new System.Windows.Forms.Label();
+            this.nudLastestAfterExit = new System.Windows.Forms.NumericUpDown();
+            this.nudEarliestBeforeEntry = new System.Windows.Forms.NumericUpDown();
+            this.label77 = new System.Windows.Forms.Label();
+            this.label78 = new System.Windows.Forms.Label();
+            this.label74 = new System.Windows.Forms.Label();
+            this.label73 = new System.Windows.Forms.Label();
+            this.nudGraceBackwardToExit = new System.Windows.Forms.NumericUpDown();
+            this.nudGraceForwardToEntry = new System.Windows.Forms.NumericUpDown();
+            this.label72 = new System.Windows.Forms.Label();
+            this.label71 = new System.Windows.Forms.Label();
             this.dtpRegularWorkTo = new System.Windows.Forms.DateTimePicker();
             this.dtpRegularWorkFrom = new System.Windows.Forms.DateTimePicker();
             this.lblNextDay = new System.Windows.Forms.Label();
@@ -200,21 +212,13 @@
             this.btnCancel8 = new System.Windows.Forms.Button();
             this.btnFinish = new System.Windows.Forms.Button();
             this.label81 = new System.Windows.Forms.Label();
-            this.label71 = new System.Windows.Forms.Label();
-            this.label72 = new System.Windows.Forms.Label();
-            this.nudGraceForwardToEntry = new System.Windows.Forms.NumericUpDown();
-            this.nudGraceBackwardToExit = new System.Windows.Forms.NumericUpDown();
-            this.label73 = new System.Windows.Forms.Label();
-            this.label74 = new System.Windows.Forms.Label();
-            this.label75 = new System.Windows.Forms.Label();
-            this.label76 = new System.Windows.Forms.Label();
-            this.nudLastestAfterExitTime = new System.Windows.Forms.NumericUpDown();
-            this.nudEarliestBeforeEntry = new System.Windows.Forms.NumericUpDown();
-            this.label77 = new System.Windows.Forms.Label();
-            this.label78 = new System.Windows.Forms.Label();
             this.tabAddUpdateWorkingCalendar.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudLastestAfterExit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudEarliestBeforeEntry)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudGraceBackwardToExit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudGraceForwardToEntry)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudWorkDayOvertimeHour4)).BeginInit();
@@ -238,10 +242,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudHolidayRegularHour)).BeginInit();
             this.tabPage8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCustomPayPeriod)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudGraceForwardToEntry)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudGraceBackwardToExit)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudLastestAfterExitTime)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudEarliestBeforeEntry)).BeginInit();
             this.SuspendLayout();
             // 
             // tabAddUpdateWorkingCalendar
@@ -300,7 +300,7 @@
             // 
             // btnCancel1
             // 
-            this.btnCancel1.Location = new System.Drawing.Point(117, 274);
+            this.btnCancel1.Location = new System.Drawing.Point(117, 444);
             this.btnCancel1.Name = "btnCancel1";
             this.btnCancel1.Size = new System.Drawing.Size(75, 23);
             this.btnCancel1.TabIndex = 33;
@@ -310,7 +310,7 @@
             // 
             // btnNext1
             // 
-            this.btnNext1.Location = new System.Drawing.Point(35, 274);
+            this.btnNext1.Location = new System.Drawing.Point(35, 444);
             this.btnNext1.Name = "btnNext1";
             this.btnNext1.Size = new System.Drawing.Size(75, 23);
             this.btnNext1.TabIndex = 32;
@@ -401,7 +401,7 @@
             // 
             this.tabPage2.Controls.Add(this.label75);
             this.tabPage2.Controls.Add(this.label76);
-            this.tabPage2.Controls.Add(this.nudLastestAfterExitTime);
+            this.tabPage2.Controls.Add(this.nudLastestAfterExit);
             this.tabPage2.Controls.Add(this.nudEarliestBeforeEntry);
             this.tabPage2.Controls.Add(this.label77);
             this.tabPage2.Controls.Add(this.label78);
@@ -427,6 +427,146 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Step 2";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // label75
+            // 
+            this.label75.AutoSize = true;
+            this.label75.Location = new System.Drawing.Point(220, 186);
+            this.label75.Name = "label75";
+            this.label75.Size = new System.Drawing.Size(115, 13);
+            this.label75.TabIndex = 31;
+            this.label75.Text = "minute(s) after Exit time";
+            // 
+            // label76
+            // 
+            this.label76.AutoSize = true;
+            this.label76.Location = new System.Drawing.Point(220, 150);
+            this.label76.Name = "label76";
+            this.label76.Size = new System.Drawing.Size(131, 13);
+            this.label76.TabIndex = 30;
+            this.label76.Text = "minute(s) before Entry time";
+            // 
+            // nudLastestAfterExit
+            // 
+            this.nudLastestAfterExit.Location = new System.Drawing.Point(148, 182);
+            this.nudLastestAfterExit.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.nudLastestAfterExit.Name = "nudLastestAfterExit";
+            this.nudLastestAfterExit.Size = new System.Drawing.Size(64, 20);
+            this.nudLastestAfterExit.TabIndex = 29;
+            this.nudLastestAfterExit.Value = new decimal(new int[] {
+            180,
+            0,
+            0,
+            0});
+            // 
+            // nudEarliestBeforeEntry
+            // 
+            this.nudEarliestBeforeEntry.Location = new System.Drawing.Point(148, 146);
+            this.nudEarliestBeforeEntry.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.nudEarliestBeforeEntry.Name = "nudEarliestBeforeEntry";
+            this.nudEarliestBeforeEntry.Size = new System.Drawing.Size(64, 20);
+            this.nudEarliestBeforeEntry.TabIndex = 28;
+            this.nudEarliestBeforeEntry.Value = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            // 
+            // label77
+            // 
+            this.label77.AutoSize = true;
+            this.label77.Location = new System.Drawing.Point(32, 186);
+            this.label77.Name = "label77";
+            this.label77.Size = new System.Drawing.Size(103, 13);
+            this.label77.TabIndex = 27;
+            this.label77.Text = "Lastest Exit allowed:";
+            // 
+            // label78
+            // 
+            this.label78.AutoSize = true;
+            this.label78.Location = new System.Drawing.Point(32, 150);
+            this.label78.Name = "label78";
+            this.label78.Size = new System.Drawing.Size(110, 13);
+            this.label78.TabIndex = 26;
+            this.label78.Text = "Earliest Entry allowed:";
+            // 
+            // label74
+            // 
+            this.label74.AutoSize = true;
+            this.label74.Location = new System.Drawing.Point(496, 104);
+            this.label74.Name = "label74";
+            this.label74.Size = new System.Drawing.Size(49, 13);
+            this.label74.TabIndex = 25;
+            this.label74.Text = "minute(s)";
+            // 
+            // label73
+            // 
+            this.label73.AutoSize = true;
+            this.label73.Location = new System.Drawing.Point(496, 68);
+            this.label73.Name = "label73";
+            this.label73.Size = new System.Drawing.Size(49, 13);
+            this.label73.TabIndex = 24;
+            this.label73.Text = "minute(s)";
+            // 
+            // nudGraceBackwardToExit
+            // 
+            this.nudGraceBackwardToExit.Location = new System.Drawing.Point(426, 100);
+            this.nudGraceBackwardToExit.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.nudGraceBackwardToExit.Name = "nudGraceBackwardToExit";
+            this.nudGraceBackwardToExit.Size = new System.Drawing.Size(64, 20);
+            this.nudGraceBackwardToExit.TabIndex = 23;
+            this.nudGraceBackwardToExit.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            // 
+            // nudGraceForwardToEntry
+            // 
+            this.nudGraceForwardToEntry.Location = new System.Drawing.Point(426, 64);
+            this.nudGraceForwardToEntry.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.nudGraceForwardToEntry.Name = "nudGraceForwardToEntry";
+            this.nudGraceForwardToEntry.Size = new System.Drawing.Size(64, 20);
+            this.nudGraceForwardToEntry.TabIndex = 22;
+            this.nudGraceForwardToEntry.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            // 
+            // label72
+            // 
+            this.label72.AutoSize = true;
+            this.label72.Location = new System.Drawing.Point(297, 104);
+            this.label72.Name = "label72";
+            this.label72.Size = new System.Drawing.Size(122, 13);
+            this.label72.TabIndex = 21;
+            this.label72.Text = "Grace Backward to Exit:";
+            // 
+            // label71
+            // 
+            this.label71.AutoSize = true;
+            this.label71.Location = new System.Drawing.Point(297, 68);
+            this.label71.Name = "label71";
+            this.label71.Size = new System.Drawing.Size(119, 13);
+            this.label71.TabIndex = 20;
+            this.label71.Text = "Grace Forward to Entry:";
             // 
             // dtpRegularWorkTo
             // 
@@ -462,7 +602,7 @@
             // 
             // btnBack2
             // 
-            this.btnBack2.Location = new System.Drawing.Point(116, 231);
+            this.btnBack2.Location = new System.Drawing.Point(116, 444);
             this.btnBack2.Name = "btnBack2";
             this.btnBack2.Size = new System.Drawing.Size(75, 23);
             this.btnBack2.TabIndex = 12;
@@ -472,7 +612,7 @@
             // 
             // btnCancel2
             // 
-            this.btnCancel2.Location = new System.Drawing.Point(197, 231);
+            this.btnCancel2.Location = new System.Drawing.Point(197, 444);
             this.btnCancel2.Name = "btnCancel2";
             this.btnCancel2.Size = new System.Drawing.Size(75, 23);
             this.btnCancel2.TabIndex = 11;
@@ -482,7 +622,7 @@
             // 
             // btnNext2
             // 
-            this.btnNext2.Location = new System.Drawing.Point(35, 231);
+            this.btnNext2.Location = new System.Drawing.Point(35, 444);
             this.btnNext2.Name = "btnNext2";
             this.btnNext2.Size = new System.Drawing.Size(75, 23);
             this.btnNext2.TabIndex = 10;
@@ -689,7 +829,7 @@
             // 
             // btnBack3
             // 
-            this.btnBack3.Location = new System.Drawing.Point(116, 444);
+            this.btnBack3.Location = new System.Drawing.Point(117, 444);
             this.btnBack3.Name = "btnBack3";
             this.btnBack3.Size = new System.Drawing.Size(75, 23);
             this.btnBack3.TabIndex = 106;
@@ -699,7 +839,7 @@
             // 
             // btnCancel3
             // 
-            this.btnCancel3.Location = new System.Drawing.Point(200, 444);
+            this.btnCancel3.Location = new System.Drawing.Point(199, 444);
             this.btnCancel3.Name = "btnCancel3";
             this.btnCancel3.Size = new System.Drawing.Size(75, 23);
             this.btnCancel3.TabIndex = 105;
@@ -1109,7 +1249,7 @@
             // 
             // btnBack4
             // 
-            this.btnBack4.Location = new System.Drawing.Point(116, 289);
+            this.btnBack4.Location = new System.Drawing.Point(116, 444);
             this.btnBack4.Name = "btnBack4";
             this.btnBack4.Size = new System.Drawing.Size(75, 23);
             this.btnBack4.TabIndex = 122;
@@ -1119,7 +1259,7 @@
             // 
             // btnCancel4
             // 
-            this.btnCancel4.Location = new System.Drawing.Point(197, 289);
+            this.btnCancel4.Location = new System.Drawing.Point(197, 444);
             this.btnCancel4.Name = "btnCancel4";
             this.btnCancel4.Size = new System.Drawing.Size(75, 23);
             this.btnCancel4.TabIndex = 121;
@@ -1129,7 +1269,7 @@
             // 
             // btnNext4
             // 
-            this.btnNext4.Location = new System.Drawing.Point(35, 289);
+            this.btnNext4.Location = new System.Drawing.Point(35, 444);
             this.btnNext4.Name = "btnNext4";
             this.btnNext4.Size = new System.Drawing.Size(75, 23);
             this.btnNext4.TabIndex = 120;
@@ -1401,7 +1541,7 @@
             // 
             // btnBack5
             // 
-            this.btnBack5.Location = new System.Drawing.Point(116, 289);
+            this.btnBack5.Location = new System.Drawing.Point(116, 444);
             this.btnBack5.Name = "btnBack5";
             this.btnBack5.Size = new System.Drawing.Size(75, 23);
             this.btnBack5.TabIndex = 151;
@@ -1411,7 +1551,7 @@
             // 
             // btnCancel5
             // 
-            this.btnCancel5.Location = new System.Drawing.Point(197, 289);
+            this.btnCancel5.Location = new System.Drawing.Point(197, 444);
             this.btnCancel5.Name = "btnCancel5";
             this.btnCancel5.Size = new System.Drawing.Size(75, 23);
             this.btnCancel5.TabIndex = 150;
@@ -1421,7 +1561,7 @@
             // 
             // btnNext5
             // 
-            this.btnNext5.Location = new System.Drawing.Point(35, 289);
+            this.btnNext5.Location = new System.Drawing.Point(35, 444);
             this.btnNext5.Name = "btnNext5";
             this.btnNext5.Size = new System.Drawing.Size(75, 23);
             this.btnNext5.TabIndex = 149;
@@ -1465,7 +1605,7 @@
             this.mcdHoliday.Header.TextColor = System.Drawing.Color.White;
             this.mcdHoliday.Header.YearSelectors = true;
             this.mcdHoliday.ImageList = null;
-            this.mcdHoliday.Location = new System.Drawing.Point(407, 52);
+            this.mcdHoliday.Location = new System.Drawing.Point(406, 52);
             this.mcdHoliday.MaxDate = new System.DateTime(2020, 2, 3, 23, 39, 41, 696);
             this.mcdHoliday.MinDate = new System.DateTime(2000, 2, 3, 23, 39, 41, 696);
             this.mcdHoliday.Month.BackgroundImage = null;
@@ -1490,7 +1630,7 @@
             // 
             // btnBack6
             // 
-            this.btnBack6.Location = new System.Drawing.Point(113, 246);
+            this.btnBack6.Location = new System.Drawing.Point(114, 444);
             this.btnBack6.Name = "btnBack6";
             this.btnBack6.Size = new System.Drawing.Size(75, 23);
             this.btnBack6.TabIndex = 105;
@@ -1500,7 +1640,7 @@
             // 
             // btnCancel6
             // 
-            this.btnCancel6.Location = new System.Drawing.Point(194, 246);
+            this.btnCancel6.Location = new System.Drawing.Point(193, 444);
             this.btnCancel6.Name = "btnCancel6";
             this.btnCancel6.Size = new System.Drawing.Size(75, 23);
             this.btnCancel6.TabIndex = 104;
@@ -1510,7 +1650,7 @@
             // 
             // btnNext6
             // 
-            this.btnNext6.Location = new System.Drawing.Point(32, 246);
+            this.btnNext6.Location = new System.Drawing.Point(35, 444);
             this.btnNext6.Name = "btnNext6";
             this.btnNext6.Size = new System.Drawing.Size(75, 23);
             this.btnNext6.TabIndex = 103;
@@ -1520,7 +1660,7 @@
             // 
             // btnRemoveHoliday
             // 
-            this.btnRemoveHoliday.Location = new System.Drawing.Point(326, 129);
+            this.btnRemoveHoliday.Location = new System.Drawing.Point(327, 129);
             this.btnRemoveHoliday.Name = "btnRemoveHoliday";
             this.btnRemoveHoliday.Size = new System.Drawing.Size(75, 23);
             this.btnRemoveHoliday.TabIndex = 101;
@@ -1530,7 +1670,7 @@
             // 
             // btnAddHoliday
             // 
-            this.btnAddHoliday.Location = new System.Drawing.Point(326, 100);
+            this.btnAddHoliday.Location = new System.Drawing.Point(327, 100);
             this.btnAddHoliday.Name = "btnAddHoliday";
             this.btnAddHoliday.Size = new System.Drawing.Size(75, 23);
             this.btnAddHoliday.TabIndex = 100;
@@ -1547,7 +1687,7 @@
             this.dgvHoliday.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.HolidayDate,
             this.Description});
-            this.dgvHoliday.Location = new System.Drawing.Point(32, 72);
+            this.dgvHoliday.Location = new System.Drawing.Point(35, 72);
             this.dgvHoliday.MultiSelect = false;
             this.dgvHoliday.Name = "dgvHoliday";
             this.dgvHoliday.ReadOnly = true;
@@ -1824,7 +1964,7 @@
             // 
             // btnBack7
             // 
-            this.btnBack7.Location = new System.Drawing.Point(116, 289);
+            this.btnBack7.Location = new System.Drawing.Point(116, 444);
             this.btnBack7.Name = "btnBack7";
             this.btnBack7.Size = new System.Drawing.Size(75, 23);
             this.btnBack7.TabIndex = 180;
@@ -1834,7 +1974,7 @@
             // 
             // btnCancel7
             // 
-            this.btnCancel7.Location = new System.Drawing.Point(197, 289);
+            this.btnCancel7.Location = new System.Drawing.Point(197, 444);
             this.btnCancel7.Name = "btnCancel7";
             this.btnCancel7.Size = new System.Drawing.Size(75, 23);
             this.btnCancel7.TabIndex = 179;
@@ -1844,7 +1984,7 @@
             // 
             // btnNext7
             // 
-            this.btnNext7.Location = new System.Drawing.Point(35, 289);
+            this.btnNext7.Location = new System.Drawing.Point(35, 444);
             this.btnNext7.Name = "btnNext7";
             this.btnNext7.Size = new System.Drawing.Size(75, 23);
             this.btnNext7.TabIndex = 178;
@@ -1886,9 +2026,10 @@
             // 
             // dtpPayPeriodStartFrom
             // 
+            this.dtpPayPeriodStartFrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpPayPeriodStartFrom.Location = new System.Drawing.Point(111, 218);
             this.dtpPayPeriodStartFrom.Name = "dtpPayPeriodStartFrom";
-            this.dtpPayPeriodStartFrom.Size = new System.Drawing.Size(200, 20);
+            this.dtpPayPeriodStartFrom.Size = new System.Drawing.Size(111, 20);
             this.dtpPayPeriodStartFrom.TabIndex = 184;
             // 
             // label69
@@ -1904,13 +2045,13 @@
             // 
             this.nudCustomPayPeriod.Location = new System.Drawing.Point(158, 174);
             this.nudCustomPayPeriod.Name = "nudCustomPayPeriod";
-            this.nudCustomPayPeriod.Size = new System.Drawing.Size(120, 20);
+            this.nudCustomPayPeriod.Size = new System.Drawing.Size(64, 20);
             this.nudCustomPayPeriod.TabIndex = 182;
             // 
             // label67
             // 
             this.label67.AutoSize = true;
-            this.label67.Location = new System.Drawing.Point(294, 178);
+            this.label67.Location = new System.Drawing.Point(233, 178);
             this.label67.Name = "label67";
             this.label67.Size = new System.Drawing.Size(35, 13);
             this.label67.TabIndex = 181;
@@ -1979,7 +2120,7 @@
             // 
             // btnBack8
             // 
-            this.btnBack8.Location = new System.Drawing.Point(113, 269);
+            this.btnBack8.Location = new System.Drawing.Point(114, 444);
             this.btnBack8.Name = "btnBack8";
             this.btnBack8.Size = new System.Drawing.Size(75, 23);
             this.btnBack8.TabIndex = 174;
@@ -1989,7 +2130,7 @@
             // 
             // btnCancel8
             // 
-            this.btnCancel8.Location = new System.Drawing.Point(194, 269);
+            this.btnCancel8.Location = new System.Drawing.Point(193, 444);
             this.btnCancel8.Name = "btnCancel8";
             this.btnCancel8.Size = new System.Drawing.Size(75, 23);
             this.btnCancel8.TabIndex = 173;
@@ -1999,7 +2140,7 @@
             // 
             // btnFinish
             // 
-            this.btnFinish.Location = new System.Drawing.Point(32, 269);
+            this.btnFinish.Location = new System.Drawing.Point(35, 444);
             this.btnFinish.Name = "btnFinish";
             this.btnFinish.Size = new System.Drawing.Size(75, 23);
             this.btnFinish.TabIndex = 172;
@@ -2016,146 +2157,6 @@
             this.label81.TabIndex = 171;
             this.label81.Text = "Set Pay Period";
             // 
-            // label71
-            // 
-            this.label71.AutoSize = true;
-            this.label71.Location = new System.Drawing.Point(297, 68);
-            this.label71.Name = "label71";
-            this.label71.Size = new System.Drawing.Size(112, 13);
-            this.label71.TabIndex = 20;
-            this.label71.Text = "Grace forward to entry";
-            // 
-            // label72
-            // 
-            this.label72.AutoSize = true;
-            this.label72.Location = new System.Drawing.Point(297, 104);
-            this.label72.Name = "label72";
-            this.label72.Size = new System.Drawing.Size(117, 13);
-            this.label72.TabIndex = 21;
-            this.label72.Text = "Grace backward to exit";
-            // 
-            // nudGraceForwardToEntry
-            // 
-            this.nudGraceForwardToEntry.Location = new System.Drawing.Point(426, 64);
-            this.nudGraceForwardToEntry.Maximum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            0});
-            this.nudGraceForwardToEntry.Name = "nudGraceForwardToEntry";
-            this.nudGraceForwardToEntry.Size = new System.Drawing.Size(64, 20);
-            this.nudGraceForwardToEntry.TabIndex = 22;
-            this.nudGraceForwardToEntry.Value = new decimal(new int[] {
-            30,
-            0,
-            0,
-            0});
-            // 
-            // nudGraceBackwardToExit
-            // 
-            this.nudGraceBackwardToExit.Location = new System.Drawing.Point(426, 100);
-            this.nudGraceBackwardToExit.Maximum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            0});
-            this.nudGraceBackwardToExit.Name = "nudGraceBackwardToExit";
-            this.nudGraceBackwardToExit.Size = new System.Drawing.Size(64, 20);
-            this.nudGraceBackwardToExit.TabIndex = 23;
-            this.nudGraceBackwardToExit.Value = new decimal(new int[] {
-            30,
-            0,
-            0,
-            0});
-            // 
-            // label73
-            // 
-            this.label73.AutoSize = true;
-            this.label73.Location = new System.Drawing.Point(496, 68);
-            this.label73.Name = "label73";
-            this.label73.Size = new System.Drawing.Size(49, 13);
-            this.label73.TabIndex = 24;
-            this.label73.Text = "minute(s)";
-            // 
-            // label74
-            // 
-            this.label74.AutoSize = true;
-            this.label74.Location = new System.Drawing.Point(496, 104);
-            this.label74.Name = "label74";
-            this.label74.Size = new System.Drawing.Size(49, 13);
-            this.label74.TabIndex = 25;
-            this.label74.Text = "minute(s)";
-            // 
-            // label75
-            // 
-            this.label75.AutoSize = true;
-            this.label75.Location = new System.Drawing.Point(220, 186);
-            this.label75.Name = "label75";
-            this.label75.Size = new System.Drawing.Size(114, 13);
-            this.label75.TabIndex = 31;
-            this.label75.Text = "minute(s) after exit time";
-            // 
-            // label76
-            // 
-            this.label76.AutoSize = true;
-            this.label76.Location = new System.Drawing.Point(220, 150);
-            this.label76.Name = "label76";
-            this.label76.Size = new System.Drawing.Size(130, 13);
-            this.label76.TabIndex = 30;
-            this.label76.Text = "minute(s) before entry time";
-            // 
-            // nudLastestAfterExitTime
-            // 
-            this.nudLastestAfterExitTime.Location = new System.Drawing.Point(148, 182);
-            this.nudLastestAfterExitTime.Maximum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            0});
-            this.nudLastestAfterExitTime.Name = "nudLastestAfterExitTime";
-            this.nudLastestAfterExitTime.Size = new System.Drawing.Size(64, 20);
-            this.nudLastestAfterExitTime.TabIndex = 29;
-            this.nudLastestAfterExitTime.Value = new decimal(new int[] {
-            180,
-            0,
-            0,
-            0});
-            // 
-            // nudEarliestBeforeEntry
-            // 
-            this.nudEarliestBeforeEntry.Location = new System.Drawing.Point(148, 146);
-            this.nudEarliestBeforeEntry.Maximum = new decimal(new int[] {
-            360,
-            0,
-            0,
-            0});
-            this.nudEarliestBeforeEntry.Name = "nudEarliestBeforeEntry";
-            this.nudEarliestBeforeEntry.Size = new System.Drawing.Size(64, 20);
-            this.nudEarliestBeforeEntry.TabIndex = 28;
-            this.nudEarliestBeforeEntry.Value = new decimal(new int[] {
-            60,
-            0,
-            0,
-            0});
-            // 
-            // label77
-            // 
-            this.label77.AutoSize = true;
-            this.label77.Location = new System.Drawing.Point(32, 186);
-            this.label77.Name = "label77";
-            this.label77.Size = new System.Drawing.Size(102, 13);
-            this.label77.TabIndex = 27;
-            this.label77.Text = "Lastest exit allowed:";
-            // 
-            // label78
-            // 
-            this.label78.AutoSize = true;
-            this.label78.Location = new System.Drawing.Point(32, 150);
-            this.label78.Name = "label78";
-            this.label78.Size = new System.Drawing.Size(109, 13);
-            this.label78.TabIndex = 26;
-            this.label78.Text = "Earliest entry allowed:";
-            // 
             // frmAddUpdateWorkingCalendar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2170,6 +2171,10 @@
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudLastestAfterExit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudEarliestBeforeEntry)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudGraceBackwardToExit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudGraceForwardToEntry)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.tabPage4.ResumeLayout(false);
@@ -2199,10 +2204,6 @@
             this.tabPage8.ResumeLayout(false);
             this.tabPage8.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCustomPayPeriod)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudGraceForwardToEntry)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudGraceBackwardToExit)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudLastestAfterExitTime)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudEarliestBeforeEntry)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2388,7 +2389,7 @@
         private System.Windows.Forms.Label label73;
         private System.Windows.Forms.Label label75;
         private System.Windows.Forms.Label label76;
-        private System.Windows.Forms.NumericUpDown nudLastestAfterExitTime;
+        private System.Windows.Forms.NumericUpDown nudLastestAfterExit;
         private System.Windows.Forms.NumericUpDown nudEarliestBeforeEntry;
         private System.Windows.Forms.Label label77;
         private System.Windows.Forms.Label label78;

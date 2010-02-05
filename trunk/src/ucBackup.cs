@@ -23,7 +23,7 @@ namespace FaceIDAppVBEta
 
             BindWeekdays();
             RestoreOldSettings();
-            EnableControls();            
+            EnableControls();
         }
 
         private void BindWeekdays()
@@ -107,8 +107,8 @@ namespace FaceIDAppVBEta
                 return;
             }
 
-            if(backupFolder.EndsWith(@"\") == false)
-                backupFolder+= @"\";
+            if (backupFolder.EndsWith(@"\") == false)
+                backupFolder += @"\";
 
             string backupPath = backupFolder + fileName;
 
@@ -123,7 +123,7 @@ namespace FaceIDAppVBEta
 
                 MessageBox.Show("Backup Complete.");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("There has been an error. Please try again later. Error detail: " + ex.Message);
             }
@@ -133,38 +133,37 @@ namespace FaceIDAppVBEta
         {
             try
             {
-            //confirm
-            if (Util.Confirm("Current database will be overwritten. This can not be undone. Are you sure?") == false)
-            {
-                return;
-            }
-
-            //get restore file
-            string restoreFile = "";
-
-            if (rbtRestoreFromFile.Checked)
-            {
-                restoreFile = txtRestoreFile.Text;
-                if (File.Exists(restoreFile) == false)
+                //confirm
+                if (Util.Confirm("Current database will be overwritten. This can not be undone. Are you sure?") == false)
                 {
-                    MessageBox.Show("File " + restoreFile + " not found.");
                     return;
                 }
-            }
-            else
-            {
-                Config config = _dtCtrl.GetConfig();
-                restoreFile = config.LastestBackupFile;
 
-                if (File.Exists(restoreFile) == false)
+                //get restore file
+                string restoreFile = "";
+
+                if (rbtRestoreFromFile.Checked)
                 {
-                    MessageBox.Show("Lastest backup could not be found.");
-                    return;
+                    restoreFile = txtRestoreFile.Text;
+                    if (File.Exists(restoreFile) == false)
+                    {
+                        MessageBox.Show("File " + restoreFile + " not found.");
+                        return;
+                    }
                 }
-            }
+                else
+                {
+                    Config config = _dtCtrl.GetConfig();
+                    restoreFile = config.LastestBackupFile;
 
-            //restore db
-            
+                    if (File.Exists(restoreFile) == false)
+                    {
+                        MessageBox.Show("Lastest backup could not be found.");
+                        return;
+                    }
+                }
+
+                //restore db
                 _dtCtrl.RestoreDatabase(restoreFile);
                 MessageBox.Show("Restore Complete");
             }
@@ -213,7 +212,7 @@ namespace FaceIDAppVBEta
             //get settings
             Config config = _dtCtrl.GetConfig();
 
-            config.ScheduledBackup = cbxScheduledBackup.Checked;            
+            config.ScheduledBackup = cbxScheduledBackup.Checked;
 
             if (rbtBackupDaily.Checked)
             {

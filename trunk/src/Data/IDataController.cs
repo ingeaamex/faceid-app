@@ -128,6 +128,7 @@ namespace FaceIDAppVBEta.Data
 
         bool DeleteWorkingCalendar(int workingCalendarID);
 
+        bool IsWorkingCalendarInUse(int workingCalendarID);
         #endregion
 
         #region PayPeriod

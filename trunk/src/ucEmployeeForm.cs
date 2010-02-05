@@ -16,7 +16,7 @@ namespace FaceIDAppVBEta
 {
     public partial class ucEmployeeForm : UserControl
     {
-        private Point _cellContext;
+        private int _rowIndex = -1;
         private ITerminalController _terCtrl = new TerminalController();
         private IDataController _dtCtrl = LocalDataController.Instance;
 
@@ -24,7 +24,6 @@ namespace FaceIDAppVBEta
         {
             InitializeComponent();
             BindCompany();
-
         }
 
         private void btView_Click(object sender, EventArgs e)
@@ -98,14 +97,14 @@ namespace FaceIDAppVBEta
 
         private void updateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int id = (int)dgvEmployee.Rows[_cellContext.X].Cells[dgvEmployee.Columns["PayrollNumber"].Index].Value;
+            int id = (int)dgvEmployee.Rows[_rowIndex].Cells[dgvEmployee.Columns["PayrollNumber"].Index].Value;
             frmAddUpdateEmployee objForm = new frmAddUpdateEmployee(id);
             objForm.ShowDialog(this);
         }
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            object employeeID = dgvEmployee.Rows[_cellContext.X].Cells[dgvEmployee.Columns["PayrollNumber"].Index].Value;
+            object employeeID = dgvEmployee.Rows[_rowIndex].Cells[dgvEmployee.Columns["PayrollNumber"].Index].Value;
 
             if (Util.Confirm("Are you sure?"))
             {
@@ -165,7 +164,12 @@ namespace FaceIDAppVBEta
 
         private void dgvEmpl_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
-            _cellContext = new Point(e.RowIndex, e.ColumnIndex);
+            _rowIndex = e.RowIndex;
+
+            if (_rowIndex >= 0 && _rowIndex < dgvEmployee.Rows.Count)
+            {
+                dgvEmployee.Rows[_rowIndex].Selected = true;
+            }
         }
 
         private void dgvEmpl_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)

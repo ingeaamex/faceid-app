@@ -34,21 +34,21 @@
             this.btUpdate = new System.Windows.Forms.Button();
             this.btCancel = new System.Windows.Forms.Button();
             this.dgvTerminal = new System.Windows.Forms.DataGridView();
-            this.cMnSaction = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.TerminalID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cmnDgvTerminal = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TerminalName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IPAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TerminalStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gBoxAction = new System.Windows.Forms.GroupBox();
-            this.mtbIpAddess = new System.Windows.Forms.MaskedTextBox();
+            this.mtbIPAddess = new System.Windows.Forms.MaskedTextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.tbTerminalName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.errProviders = new System.Windows.Forms.ErrorProvider(this.components);
-            this.TerminaleID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TerminalName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IPAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TerminalStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTerminal)).BeginInit();
-            this.cMnSaction.SuspendLayout();
+            this.cmnDgvTerminal.SuspendLayout();
             this.gBoxAction.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errProviders)).BeginInit();
             this.SuspendLayout();
@@ -100,7 +100,7 @@
             this.dgvTerminal.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvTerminal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTerminal.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.TerminaleID,
+            this.TerminalID,
             this.TerminalName,
             this.IPAddress,
             this.TerminalStatus});
@@ -110,13 +110,22 @@
             this.dgvTerminal.TabIndex = 4;
             this.dgvTerminal.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTerminal_CellMouseEnter);
             // 
-            // cMnSaction
+            // TerminalID
             // 
-            this.cMnSaction.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TerminalID.ContextMenuStrip = this.cmnDgvTerminal;
+            this.TerminalID.DataPropertyName = "ID";
+            this.TerminalID.HeaderText = "ID";
+            this.TerminalID.Name = "TerminalID";
+            this.TerminalID.ReadOnly = true;
+            this.TerminalID.Visible = false;
+            // 
+            // cmnDgvTerminal
+            // 
+            this.cmnDgvTerminal.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.updateToolStripMenuItem,
             this.deleteToolStripMenuItem});
-            this.cMnSaction.Name = "cMnSaction";
-            this.cMnSaction.Size = new System.Drawing.Size(110, 48);
+            this.cmnDgvTerminal.Name = "cMnSaction";
+            this.cmnDgvTerminal.Size = new System.Drawing.Size(110, 48);
             // 
             // updateToolStripMenuItem
             // 
@@ -132,9 +141,34 @@
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
+            // TerminalName
+            // 
+            this.TerminalName.ContextMenuStrip = this.cmnDgvTerminal;
+            this.TerminalName.DataPropertyName = "Name";
+            this.TerminalName.HeaderText = "Terminal Name";
+            this.TerminalName.Name = "TerminalName";
+            this.TerminalName.ReadOnly = true;
+            // 
+            // IPAddress
+            // 
+            this.IPAddress.ContextMenuStrip = this.cmnDgvTerminal;
+            this.IPAddress.DataPropertyName = "IPAddress";
+            this.IPAddress.HeaderText = "IP Address";
+            this.IPAddress.Name = "IPAddress";
+            this.IPAddress.ReadOnly = true;
+            // 
+            // TerminalStatus
+            // 
+            this.TerminalStatus.ContextMenuStrip = this.cmnDgvTerminal;
+            this.TerminalStatus.DataPropertyName = "Status";
+            this.TerminalStatus.HeaderText = "Status";
+            this.TerminalStatus.Name = "TerminalStatus";
+            this.TerminalStatus.ReadOnly = true;
+            this.TerminalStatus.Visible = false;
+            // 
             // gBoxAction
             // 
-            this.gBoxAction.Controls.Add(this.mtbIpAddess);
+            this.gBoxAction.Controls.Add(this.mtbIPAddess);
             this.gBoxAction.Controls.Add(this.label3);
             this.gBoxAction.Controls.Add(this.tbTerminalName);
             this.gBoxAction.Controls.Add(this.label2);
@@ -148,14 +182,14 @@
             this.gBoxAction.TabStop = false;
             this.gBoxAction.Text = "Add New Terminal / Update Terminal";
             // 
-            // mtbIpAddess
+            // mtbIPAddess
             // 
-            this.mtbIpAddess.Location = new System.Drawing.Point(105, 53);
-            this.mtbIpAddess.Mask = "000.000.000.000";
-            this.mtbIpAddess.Name = "mtbIpAddess";
-            this.mtbIpAddess.Size = new System.Drawing.Size(100, 20);
-            this.mtbIpAddess.TabIndex = 8;
-            this.mtbIpAddess.ValidatingType = typeof(System.DateTime);
+            this.mtbIPAddess.Location = new System.Drawing.Point(105, 53);
+            this.mtbIPAddess.Mask = "000.000.000.000";
+            this.mtbIPAddess.Name = "mtbIPAddess";
+            this.mtbIPAddess.Size = new System.Drawing.Size(100, 20);
+            this.mtbIPAddess.TabIndex = 8;
+            this.mtbIPAddess.ValidatingType = typeof(System.DateTime);
             // 
             // label3
             // 
@@ -186,40 +220,6 @@
             // 
             this.errProviders.ContainerControl = this;
             // 
-            // TerminaleID
-            // 
-            this.TerminaleID.ContextMenuStrip = this.cMnSaction;
-            this.TerminaleID.DataPropertyName = "ID";
-            this.TerminaleID.HeaderText = "ID";
-            this.TerminaleID.Name = "TerminalID";
-            this.TerminaleID.ReadOnly = true;
-            this.TerminaleID.Visible = false;
-            // 
-            // TerminalName
-            // 
-            this.TerminalName.ContextMenuStrip = this.cMnSaction;
-            this.TerminalName.DataPropertyName = "Name";
-            this.TerminalName.HeaderText = "Terminal Name";
-            this.TerminalName.Name = "TerminalName";
-            this.TerminalName.ReadOnly = true;
-            // 
-            // IPAddress
-            // 
-            this.IPAddress.ContextMenuStrip = this.cMnSaction;
-            this.IPAddress.DataPropertyName = "IPAddress";
-            this.IPAddress.HeaderText = "IP Address";
-            this.IPAddress.Name = "IPAddress";
-            this.IPAddress.ReadOnly = true;
-            // 
-            // TerminalStatus
-            // 
-            this.TerminalStatus.ContextMenuStrip = this.cMnSaction;
-            this.TerminalStatus.DataPropertyName = "Status";
-            this.TerminalStatus.HeaderText = "Status";
-            this.TerminalStatus.Name = "TerminalStatus";
-            this.TerminalStatus.ReadOnly = true;
-            this.TerminalStatus.Visible = false;
-            // 
             // ucTerminalForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -230,7 +230,7 @@
             this.Name = "ucTerminalForm";
             this.Size = new System.Drawing.Size(845, 662);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTerminal)).EndInit();
-            this.cMnSaction.ResumeLayout(false);
+            this.cmnDgvTerminal.ResumeLayout(false);
             this.gBoxAction.ResumeLayout(false);
             this.gBoxAction.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errProviders)).EndInit();
@@ -250,14 +250,15 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox tbTerminalName;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.MaskedTextBox mtbIpAddess;
+        private System.Windows.Forms.MaskedTextBox mtbIPAddess;
         private System.Windows.Forms.ErrorProvider errProviders;
-        private System.Windows.Forms.ContextMenuStrip cMnSaction;
+        private System.Windows.Forms.ContextMenuStrip cmnDgvTerminal;
         private System.Windows.Forms.ToolStripMenuItem updateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn TerminaleID;
         private System.Windows.Forms.DataGridViewTextBoxColumn TerminalName;
         private System.Windows.Forms.DataGridViewTextBoxColumn IPAddress;
         private System.Windows.Forms.DataGridViewTextBoxColumn TerminalStatus;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TerminalID;
     }
 }

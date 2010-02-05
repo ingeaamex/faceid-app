@@ -30,12 +30,13 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dgvWorkingCalendar = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnAddWorkingCalendar = new System.Windows.Forms.Button();
-            this.btnUpdateWorkingCalendar = new System.Windows.Forms.Button();
-            this.btnDeleteWorkingCalendar = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.btnPreviewWorkingCalendar = new System.Windows.Forms.Button();
             this.cmnDgvWorkingCalendar = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.previewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvWorkingCalendar)).BeginInit();
@@ -48,6 +49,11 @@
             this.dgvWorkingCalendar.AllowUserToDeleteRows = false;
             this.dgvWorkingCalendar.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvWorkingCalendar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvWorkingCalendar.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1,
+            this.Column2,
+            this.Column3});
+            this.dgvWorkingCalendar.ContextMenuStrip = this.cmnDgvWorkingCalendar;
             this.dgvWorkingCalendar.Location = new System.Drawing.Point(36, 107);
             this.dgvWorkingCalendar.MultiSelect = false;
             this.dgvWorkingCalendar.Name = "dgvWorkingCalendar";
@@ -55,6 +61,25 @@
             this.dgvWorkingCalendar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvWorkingCalendar.Size = new System.Drawing.Size(772, 522);
             this.dgvWorkingCalendar.TabIndex = 0;
+            this.dgvWorkingCalendar.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvWorkingCalendar_CellMouseEnter);
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Name";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Work On";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "Working Hours";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
             // 
             // btnAddWorkingCalendar
             // 
@@ -66,26 +91,6 @@
             this.btnAddWorkingCalendar.UseVisualStyleBackColor = true;
             this.btnAddWorkingCalendar.Click += new System.EventHandler(this.btnAddWorkingCalendar_Click);
             // 
-            // btnUpdateWorkingCalendar
-            // 
-            this.btnUpdateWorkingCalendar.Location = new System.Drawing.Point(390, 78);
-            this.btnUpdateWorkingCalendar.Name = "btnUpdateWorkingCalendar";
-            this.btnUpdateWorkingCalendar.Size = new System.Drawing.Size(166, 23);
-            this.btnUpdateWorkingCalendar.TabIndex = 2;
-            this.btnUpdateWorkingCalendar.Text = "Edit Selected Working Calendar";
-            this.btnUpdateWorkingCalendar.UseVisualStyleBackColor = true;
-            this.btnUpdateWorkingCalendar.Click += new System.EventHandler(this.btnUpdateWorkingCalendar_Click);
-            // 
-            // btnDeleteWorkingCalendar
-            // 
-            this.btnDeleteWorkingCalendar.Location = new System.Drawing.Point(562, 78);
-            this.btnDeleteWorkingCalendar.Name = "btnDeleteWorkingCalendar";
-            this.btnDeleteWorkingCalendar.Size = new System.Drawing.Size(179, 23);
-            this.btnDeleteWorkingCalendar.TabIndex = 3;
-            this.btnDeleteWorkingCalendar.Text = "Delete Selected Working Calendar";
-            this.btnDeleteWorkingCalendar.UseVisualStyleBackColor = true;
-            this.btnDeleteWorkingCalendar.Click += new System.EventHandler(this.btnDeleteWorkingCalendar_Click);
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -95,35 +100,33 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "Working Calendar Management";
             // 
-            // btnPreviewWorkingCalendar
-            // 
-            this.btnPreviewWorkingCalendar.Location = new System.Drawing.Point(188, 78);
-            this.btnPreviewWorkingCalendar.Name = "btnPreviewWorkingCalendar";
-            this.btnPreviewWorkingCalendar.Size = new System.Drawing.Size(196, 23);
-            this.btnPreviewWorkingCalendar.TabIndex = 5;
-            this.btnPreviewWorkingCalendar.Text = "Preview Selected Working Calendar";
-            this.btnPreviewWorkingCalendar.UseVisualStyleBackColor = true;
-            this.btnPreviewWorkingCalendar.Click += new System.EventHandler(this.btnPreviewWorkingCalendar_Click);
-            // 
             // cmnDgvWorkingCalendar
             // 
             this.cmnDgvWorkingCalendar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.previewToolStripMenuItem,
             this.editToolStripMenuItem,
             this.deleteToolStripMenuItem});
             this.cmnDgvWorkingCalendar.Name = "cmnDgvWorkingCalendar";
-            this.cmnDgvWorkingCalendar.Size = new System.Drawing.Size(153, 70);
+            this.cmnDgvWorkingCalendar.Size = new System.Drawing.Size(113, 70);
+            // 
+            // previewToolStripMenuItem
+            // 
+            this.previewToolStripMenuItem.Name = "previewToolStripMenuItem";
+            this.previewToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.previewToolStripMenuItem.Text = "Preview";
+            this.previewToolStripMenuItem.Click += new System.EventHandler(this.previewToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
             this.editToolStripMenuItem.Text = "Edit";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
@@ -131,10 +134,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.btnPreviewWorkingCalendar);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.btnDeleteWorkingCalendar);
-            this.Controls.Add(this.btnUpdateWorkingCalendar);
             this.Controls.Add(this.btnAddWorkingCalendar);
             this.Controls.Add(this.dgvWorkingCalendar);
             this.Name = "ucWorkingCalendar";
@@ -150,12 +150,13 @@
 
         private System.Windows.Forms.DataGridView dgvWorkingCalendar;
         private System.Windows.Forms.Button btnAddWorkingCalendar;
-        private System.Windows.Forms.Button btnUpdateWorkingCalendar;
-        private System.Windows.Forms.Button btnDeleteWorkingCalendar;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button btnPreviewWorkingCalendar;
         private System.Windows.Forms.ContextMenuStrip cmnDgvWorkingCalendar;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.ToolStripMenuItem previewToolStripMenuItem;
     }
 }
