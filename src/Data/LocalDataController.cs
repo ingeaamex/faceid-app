@@ -12,14 +12,11 @@ namespace FaceIDAppVBEta.Data
 {
     public class LocalDataController : MarshalByRefObject, IDataController
     {
-        //private static readonly string _dbPath = @"F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";
-        private static readonly string _dbPath = @"FaceIDdb.mdb";
-        
-        //private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\vnanh\project\FaceID\db\FaceIDdb.mdb";
+        private static readonly string _dbPath = @"F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";
+        //private static readonly string _dbPath = @"F:\vnanh\project\FaceID\db\FaceIDdb.mdb";
+        //private static readonly string _dbPath = @"FaceIDdb.mdb";
 
-        //private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";
-        
-        private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=FaceIDdb.mdb";
+        private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=" + _dbPath;
 
         private OleDbTransaction transaction;
         private static OleDbConnection dbConnection;
@@ -1168,7 +1165,7 @@ namespace FaceIDAppVBEta.Data
             {
                 workingCalendar = new WorkingCalendar();
 
-                workingCalendar.ID = Convert.ToInt16(odRdr["ID"]);
+                workingCalendar.ID = (int)odRdr["ID"];
                 workingCalendar.Name = odRdr["Name"].ToString();
                 workingCalendar.WorkOnMonday = Convert.ToBoolean(odRdr["WorkOnMonday"]);
                 workingCalendar.WorkOnTuesday = Convert.ToBoolean(odRdr["WorkOnTuesday"]);
@@ -1177,9 +1174,13 @@ namespace FaceIDAppVBEta.Data
                 workingCalendar.WorkOnFriday = Convert.ToBoolean(odRdr["WorkOnFriday"]);
                 workingCalendar.WorkOnSaturday = Convert.ToBoolean(odRdr["WorkOnSaturday"]);
                 workingCalendar.WorkOnSunday = Convert.ToBoolean(odRdr["WorkOnSunday"]);
-                workingCalendar.RegularWorkingFrom = Convert.ToDateTime(odRdr["RegularWorkingFrom"]);
-                workingCalendar.RegularWorkingTo = Convert.ToDateTime(odRdr["RegularWorkingTo"]);
-                workingCalendar.PayPeriodID = Convert.ToInt16(odRdr["PayPeriodID"]);
+                workingCalendar.RegularWorkingFrom = odRdr["RegularWorkingFrom"].GetType() != typeof(DBNull) ? Convert.ToDateTime(odRdr["RegularWorkingFrom"]) : Config.MinDate;
+                workingCalendar.RegularWorkingTo = odRdr["RegularWorkingTo"].GetType() != typeof(DBNull) ? Convert.ToDateTime(odRdr["RegularWorkingTo"]) : Config.MinDate;
+                workingCalendar.PayPeriodID = (int)odRdr["PayPeriodID"];
+                workingCalendar.GraceForwardToEntry = (int)odRdr["GraceForwardToEntry"];
+                workingCalendar.GraceBackwardToExit = (int)odRdr["GraceBackwardToExit"];
+                workingCalendar.EarliestBeforeEntry = (int)odRdr["EarliestBeforeEntry"];
+                workingCalendar.LastestAfterExit = (int)odRdr["LastestAfterExit"];
 
                 workingCalendarList.Add(workingCalendar);
             }
@@ -1202,18 +1203,20 @@ namespace FaceIDAppVBEta.Data
 
                 workingCalendar.ID = (int)odRdr["ID"];
                 workingCalendar.Name = odRdr["Name"].ToString();
+                workingCalendar.WorkOnMonday = Convert.ToBoolean(odRdr["WorkOnMonday"]);
+                workingCalendar.WorkOnTuesday = Convert.ToBoolean(odRdr["WorkOnTuesday"]);
+                workingCalendar.WorkOnWednesday = Convert.ToBoolean(odRdr["WorkOnWednesday"]);
+                workingCalendar.WorkOnThursday = Convert.ToBoolean(odRdr["WorkOnThursday"]);
+                workingCalendar.WorkOnFriday = Convert.ToBoolean(odRdr["WorkOnFriday"]);
+                workingCalendar.WorkOnSaturday = Convert.ToBoolean(odRdr["WorkOnSaturday"]);
+                workingCalendar.WorkOnSunday = Convert.ToBoolean(odRdr["WorkOnSunday"]);
+                workingCalendar.RegularWorkingFrom = odRdr["RegularWorkingFrom"].GetType() != typeof(DBNull) ? Convert.ToDateTime(odRdr["RegularWorkingFrom"]) : Config.MinDate;
+                workingCalendar.RegularWorkingTo = odRdr["RegularWorkingTo"].GetType() != typeof(DBNull) ? Convert.ToDateTime(odRdr["RegularWorkingTo"]) : Config.MinDate;
                 workingCalendar.PayPeriodID = (int)odRdr["PayPeriodID"];
-                if (typeof(DBNull) != odRdr["RegularWorkingFrom"].GetType())
-                    workingCalendar.RegularWorkingFrom = (DateTime)odRdr["RegularWorkingFrom"];
-                if (typeof(DBNull) != odRdr["RegularWorkingTo"].GetType())
-                    workingCalendar.RegularWorkingTo = (DateTime)odRdr["RegularWorkingTo"];
-                workingCalendar.WorkOnFriday = (bool)odRdr["WorkOnFriday"];
-                workingCalendar.WorkOnMonday = (bool)odRdr["WorkOnMonday"];
-                workingCalendar.WorkOnSaturday = (bool)odRdr["WorkOnSaturday"];
-                workingCalendar.WorkOnSunday = (bool)odRdr["WorkOnSunday"];
-                workingCalendar.WorkOnThursday = (bool)odRdr["WorkOnThursday"];
-                workingCalendar.WorkOnTuesday = (bool)odRdr["WorkOnTuesday"];
-                workingCalendar.WorkOnWednesday = (bool)odRdr["WorkOnWednesday"];
+                workingCalendar.GraceForwardToEntry = (int)odRdr["GraceForwardToEntry"];
+                workingCalendar.GraceBackwardToExit = (int)odRdr["GraceBackwardToExit"];
+                workingCalendar.EarliestBeforeEntry = (int)odRdr["EarliestBeforeEntry"];
+                workingCalendar.LastestAfterExit = (int)odRdr["LastestAfterExit"];
             }
 
             odRdr.Close();
@@ -1230,18 +1233,22 @@ namespace FaceIDAppVBEta.Data
             {
                 workingCalendar = new WorkingCalendar();
 
-                workingCalendar.ID = Convert.ToInt16(odRdr["ID"]);
+                workingCalendar.ID = (int)odRdr["ID"];
                 workingCalendar.Name = odRdr["Name"].ToString();
-                workingCalendar.WorkOnMonday = (bool)(odRdr["WorkOnMonday"]);
+                workingCalendar.WorkOnMonday = Convert.ToBoolean(odRdr["WorkOnMonday"]);
                 workingCalendar.WorkOnTuesday = Convert.ToBoolean(odRdr["WorkOnTuesday"]);
                 workingCalendar.WorkOnWednesday = Convert.ToBoolean(odRdr["WorkOnWednesday"]);
                 workingCalendar.WorkOnThursday = Convert.ToBoolean(odRdr["WorkOnThursday"]);
                 workingCalendar.WorkOnFriday = Convert.ToBoolean(odRdr["WorkOnFriday"]);
                 workingCalendar.WorkOnSaturday = Convert.ToBoolean(odRdr["WorkOnSaturday"]);
                 workingCalendar.WorkOnSunday = Convert.ToBoolean(odRdr["WorkOnSunday"]);
-                workingCalendar.RegularWorkingFrom = Convert.ToDateTime(odRdr["RegularWorkingFrom"]);
-                workingCalendar.RegularWorkingTo = Convert.ToDateTime(odRdr["RegularWorkingTo"]);
-                workingCalendar.PayPeriodID = Convert.ToInt16(odRdr["PayPeriodID"]);
+                workingCalendar.RegularWorkingFrom = odRdr["RegularWorkingFrom"].GetType() != typeof(DBNull) ? Convert.ToDateTime(odRdr["RegularWorkingFrom"]) : Config.MinDate;
+                workingCalendar.RegularWorkingTo = odRdr["RegularWorkingTo"].GetType() != typeof(DBNull) ? Convert.ToDateTime(odRdr["RegularWorkingTo"]) : Config.MinDate;
+                workingCalendar.PayPeriodID = (int)odRdr["PayPeriodID"];
+                workingCalendar.GraceForwardToEntry = (int)odRdr["GraceForwardToEntry"];
+                workingCalendar.GraceBackwardToExit = (int)odRdr["GraceBackwardToExit"];
+                workingCalendar.EarliestBeforeEntry = (int)odRdr["EarliestBeforeEntry"];
+                workingCalendar.LastestAfterExit = (int)odRdr["LastestAfterExit"];
             }
 
             odRdr.Close();
@@ -1446,7 +1453,7 @@ namespace FaceIDAppVBEta.Data
 
         private int AddWorkingCalendar(WorkingCalendar workingCalendar)
         {
-            OleDbCommand odCom1 = BuildInsertCmd("WorkingCalendar",
+            System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("WorkingCalendar",
                 new string[] { "Name"
                 ,"WorkOnMonday"
                 ,"WorkOnTuesday"
@@ -1458,6 +1465,10 @@ namespace FaceIDAppVBEta.Data
                 ,"RegularWorkingFrom"
                 ,"RegularWorkingTo"
                 ,"PayPeriodID"
+                ,"GraceForwardToEntry"
+                ,"GraceBackwardToExit"
+                ,"EarliestBeforeEntry"
+                ,"LastestAfterExit"
                 },
                 new object[] { workingCalendar.Name
                 ,workingCalendar.WorkOnMonday
@@ -1470,6 +1481,10 @@ namespace FaceIDAppVBEta.Data
                 ,workingCalendar.RegularWorkingFrom
                 ,workingCalendar.RegularWorkingTo
                 ,workingCalendar.PayPeriodID
+                ,workingCalendar.GraceForwardToEntry
+                ,workingCalendar.GraceBackwardToExit
+                ,workingCalendar.EarliestBeforeEntry
+                ,workingCalendar.LastestAfterExit
                 }
             );
 
@@ -1584,7 +1599,7 @@ namespace FaceIDAppVBEta.Data
 
         public bool UpdateWorkingCalendar(WorkingCalendar workingCalendar)
         {
-            OleDbCommand odCom1 = BuildUpdateCmd("WorkingCalendar",
+            System.Data.OleDb.OleDbCommand odCom1 = BuildUpdateCmd("WorkingCalendar",
                 new string[] { "Name"
                 ,"WorkOnMonday"
                 ,"WorkOnTuesday"
@@ -1596,6 +1611,10 @@ namespace FaceIDAppVBEta.Data
                 ,"RegularWorkingFrom"
                 ,"RegularWorkingTo"
                 ,"PayPeriodID"
+                ,"GraceForwardToEntry"
+                ,"GraceBackwardToExit"
+                ,"EarliestBeforeEntry"
+                ,"LastestAfterExit"
                 },
                 new object[] { workingCalendar.Name
                 ,workingCalendar.WorkOnMonday
@@ -1608,6 +1627,10 @@ namespace FaceIDAppVBEta.Data
                 ,workingCalendar.RegularWorkingFrom
                 ,workingCalendar.RegularWorkingTo
                 ,workingCalendar.PayPeriodID
+                ,workingCalendar.GraceForwardToEntry
+                ,workingCalendar.GraceBackwardToExit
+                ,workingCalendar.EarliestBeforeEntry
+                ,workingCalendar.LastestAfterExit
                 },
                 "ID=@ID", new object[] { "@ID", workingCalendar.ID }
             );

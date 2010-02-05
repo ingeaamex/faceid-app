@@ -13,6 +13,7 @@ namespace FaceIDAppVBEta
     public partial class ucWorkingCalendar : UserControl
     {
         private IDataController _dtCtrl = LocalDataController.Instance;
+        private int _rowIndex = -1;
 
         public ucWorkingCalendar()
         {
@@ -137,6 +138,16 @@ namespace FaceIDAppVBEta
             {
                 Util.ShowErrorMessage("There has been an error: " + ex.Message + ". Please try again.");
             }
+        }
+
+        private void editToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -145,6 +145,7 @@
             this.btnNext5 = new System.Windows.Forms.Button();
             this.label49 = new System.Windows.Forms.Label();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.mcdHoliday = new Pabo.Calendar.MonthCalendar();
             this.label70 = new System.Windows.Forms.Label();
             this.btnBack6 = new System.Windows.Forms.Button();
             this.btnCancel6 = new System.Windows.Forms.Button();
@@ -199,7 +200,18 @@
             this.btnCancel8 = new System.Windows.Forms.Button();
             this.btnFinish = new System.Windows.Forms.Button();
             this.label81 = new System.Windows.Forms.Label();
-            this.mcdHoliday = new Pabo.Calendar.MonthCalendar();
+            this.label71 = new System.Windows.Forms.Label();
+            this.label72 = new System.Windows.Forms.Label();
+            this.nudGraceForwardToEntry = new System.Windows.Forms.NumericUpDown();
+            this.nudGraceBackwardToExit = new System.Windows.Forms.NumericUpDown();
+            this.label73 = new System.Windows.Forms.Label();
+            this.label74 = new System.Windows.Forms.Label();
+            this.label75 = new System.Windows.Forms.Label();
+            this.label76 = new System.Windows.Forms.Label();
+            this.nudLastestAfterExitTime = new System.Windows.Forms.NumericUpDown();
+            this.nudEarliestBeforeEntry = new System.Windows.Forms.NumericUpDown();
+            this.label77 = new System.Windows.Forms.Label();
+            this.label78 = new System.Windows.Forms.Label();
             this.tabAddUpdateWorkingCalendar.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -226,6 +238,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudHolidayRegularHour)).BeginInit();
             this.tabPage8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCustomPayPeriod)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudGraceForwardToEntry)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudGraceBackwardToExit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudLastestAfterExitTime)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudEarliestBeforeEntry)).BeginInit();
             this.SuspendLayout();
             // 
             // tabAddUpdateWorkingCalendar
@@ -383,6 +399,18 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label75);
+            this.tabPage2.Controls.Add(this.label76);
+            this.tabPage2.Controls.Add(this.nudLastestAfterExitTime);
+            this.tabPage2.Controls.Add(this.nudEarliestBeforeEntry);
+            this.tabPage2.Controls.Add(this.label77);
+            this.tabPage2.Controls.Add(this.label78);
+            this.tabPage2.Controls.Add(this.label74);
+            this.tabPage2.Controls.Add(this.label73);
+            this.tabPage2.Controls.Add(this.nudGraceBackwardToExit);
+            this.tabPage2.Controls.Add(this.nudGraceForwardToEntry);
+            this.tabPage2.Controls.Add(this.label72);
+            this.tabPage2.Controls.Add(this.label71);
             this.tabPage2.Controls.Add(this.dtpRegularWorkTo);
             this.tabPage2.Controls.Add(this.dtpRegularWorkFrom);
             this.tabPage2.Controls.Add(this.lblNextDay);
@@ -409,6 +437,7 @@
             this.dtpRegularWorkTo.Size = new System.Drawing.Size(120, 20);
             this.dtpRegularWorkTo.TabIndex = 19;
             this.dtpRegularWorkTo.Value = new System.DateTime(2002, 2, 2, 0, 0, 0, 0);
+            this.dtpRegularWorkTo.ValueChanged += new System.EventHandler(this.dtpRegularWorkTo_ValueChanged);
             // 
             // dtpRegularWorkFrom
             // 
@@ -419,6 +448,7 @@
             this.dtpRegularWorkFrom.Size = new System.Drawing.Size(120, 20);
             this.dtpRegularWorkFrom.TabIndex = 18;
             this.dtpRegularWorkFrom.Value = new System.DateTime(2002, 2, 2, 0, 0, 0, 0);
+            this.dtpRegularWorkFrom.ValueChanged += new System.EventHandler(this.dtpRegularWorkFrom_ValueChanged);
             // 
             // lblNextDay
             // 
@@ -432,7 +462,7 @@
             // 
             // btnBack2
             // 
-            this.btnBack2.Location = new System.Drawing.Point(116, 157);
+            this.btnBack2.Location = new System.Drawing.Point(116, 231);
             this.btnBack2.Name = "btnBack2";
             this.btnBack2.Size = new System.Drawing.Size(75, 23);
             this.btnBack2.TabIndex = 12;
@@ -442,7 +472,7 @@
             // 
             // btnCancel2
             // 
-            this.btnCancel2.Location = new System.Drawing.Point(197, 157);
+            this.btnCancel2.Location = new System.Drawing.Point(197, 231);
             this.btnCancel2.Name = "btnCancel2";
             this.btnCancel2.Size = new System.Drawing.Size(75, 23);
             this.btnCancel2.TabIndex = 11;
@@ -452,7 +482,7 @@
             // 
             // btnNext2
             // 
-            this.btnNext2.Location = new System.Drawing.Point(35, 157);
+            this.btnNext2.Location = new System.Drawing.Point(35, 231);
             this.btnNext2.Name = "btnNext2";
             this.btnNext2.Size = new System.Drawing.Size(75, 23);
             this.btnNext2.TabIndex = 10;
@@ -465,18 +495,18 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(32, 104);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(20, 13);
+            this.label4.Size = new System.Drawing.Size(24, 13);
             this.label4.TabIndex = 3;
-            this.label4.Text = "To";
+            this.label4.Text = "Exit";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(32, 68);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(30, 13);
+            this.label3.Size = new System.Drawing.Size(31, 13);
             this.label3.TabIndex = 2;
-            this.label3.Text = "From";
+            this.label3.Text = "Entry";
             // 
             // label2
             // 
@@ -1425,6 +1455,30 @@
             this.tabPage6.Text = "Step 6";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
+            // mcdHoliday
+            // 
+            this.mcdHoliday.ActiveMonth.Month = 2;
+            this.mcdHoliday.ActiveMonth.Year = 2010;
+            this.mcdHoliday.Culture = new System.Globalization.CultureInfo("en-AU");
+            this.mcdHoliday.Footer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.mcdHoliday.Header.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.mcdHoliday.Header.TextColor = System.Drawing.Color.White;
+            this.mcdHoliday.Header.YearSelectors = true;
+            this.mcdHoliday.ImageList = null;
+            this.mcdHoliday.Location = new System.Drawing.Point(407, 52);
+            this.mcdHoliday.MaxDate = new System.DateTime(2020, 2, 3, 23, 39, 41, 696);
+            this.mcdHoliday.MinDate = new System.DateTime(2000, 2, 3, 23, 39, 41, 696);
+            this.mcdHoliday.Month.BackgroundImage = null;
+            this.mcdHoliday.Month.DateFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.mcdHoliday.Month.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.mcdHoliday.Name = "mcdHoliday";
+            this.mcdHoliday.SelectionMode = Pabo.Calendar.mcSelectionMode.One;
+            this.mcdHoliday.SelectTrailingDates = false;
+            this.mcdHoliday.Size = new System.Drawing.Size(215, 215);
+            this.mcdHoliday.TabIndex = 150;
+            this.mcdHoliday.Weekdays.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.mcdHoliday.Weeknumbers.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            // 
             // label70
             // 
             this.label70.AutoSize = true;
@@ -1962,29 +2016,145 @@
             this.label81.TabIndex = 171;
             this.label81.Text = "Set Pay Period";
             // 
-            // mcdHoliday
+            // label71
             // 
-            this.mcdHoliday.ActiveMonth.Month = 2;
-            this.mcdHoliday.ActiveMonth.Year = 2010;
-            this.mcdHoliday.Culture = new System.Globalization.CultureInfo("en-AU");
-            this.mcdHoliday.Footer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.mcdHoliday.Header.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.mcdHoliday.Header.TextColor = System.Drawing.Color.White;
-            this.mcdHoliday.Header.YearSelectors = true;
-            this.mcdHoliday.ImageList = null;
-            this.mcdHoliday.Location = new System.Drawing.Point(407, 52);
-            this.mcdHoliday.MaxDate = new System.DateTime(2020, 2, 3, 23, 39, 41, 696);
-            this.mcdHoliday.MinDate = new System.DateTime(2000, 2, 3, 23, 39, 41, 696);
-            this.mcdHoliday.Month.BackgroundImage = null;
-            this.mcdHoliday.Month.DateFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.mcdHoliday.Month.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.mcdHoliday.Name = "mcdHoliday";
-            this.mcdHoliday.SelectionMode = Pabo.Calendar.mcSelectionMode.One;
-            this.mcdHoliday.SelectTrailingDates = false;
-            this.mcdHoliday.Size = new System.Drawing.Size(215, 215);
-            this.mcdHoliday.TabIndex = 150;
-            this.mcdHoliday.Weekdays.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.mcdHoliday.Weeknumbers.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.label71.AutoSize = true;
+            this.label71.Location = new System.Drawing.Point(297, 68);
+            this.label71.Name = "label71";
+            this.label71.Size = new System.Drawing.Size(112, 13);
+            this.label71.TabIndex = 20;
+            this.label71.Text = "Grace forward to entry";
+            // 
+            // label72
+            // 
+            this.label72.AutoSize = true;
+            this.label72.Location = new System.Drawing.Point(297, 104);
+            this.label72.Name = "label72";
+            this.label72.Size = new System.Drawing.Size(117, 13);
+            this.label72.TabIndex = 21;
+            this.label72.Text = "Grace backward to exit";
+            // 
+            // nudGraceForwardToEntry
+            // 
+            this.nudGraceForwardToEntry.Location = new System.Drawing.Point(426, 64);
+            this.nudGraceForwardToEntry.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.nudGraceForwardToEntry.Name = "nudGraceForwardToEntry";
+            this.nudGraceForwardToEntry.Size = new System.Drawing.Size(64, 20);
+            this.nudGraceForwardToEntry.TabIndex = 22;
+            this.nudGraceForwardToEntry.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            // 
+            // nudGraceBackwardToExit
+            // 
+            this.nudGraceBackwardToExit.Location = new System.Drawing.Point(426, 100);
+            this.nudGraceBackwardToExit.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.nudGraceBackwardToExit.Name = "nudGraceBackwardToExit";
+            this.nudGraceBackwardToExit.Size = new System.Drawing.Size(64, 20);
+            this.nudGraceBackwardToExit.TabIndex = 23;
+            this.nudGraceBackwardToExit.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            // 
+            // label73
+            // 
+            this.label73.AutoSize = true;
+            this.label73.Location = new System.Drawing.Point(496, 68);
+            this.label73.Name = "label73";
+            this.label73.Size = new System.Drawing.Size(49, 13);
+            this.label73.TabIndex = 24;
+            this.label73.Text = "minute(s)";
+            // 
+            // label74
+            // 
+            this.label74.AutoSize = true;
+            this.label74.Location = new System.Drawing.Point(496, 104);
+            this.label74.Name = "label74";
+            this.label74.Size = new System.Drawing.Size(49, 13);
+            this.label74.TabIndex = 25;
+            this.label74.Text = "minute(s)";
+            // 
+            // label75
+            // 
+            this.label75.AutoSize = true;
+            this.label75.Location = new System.Drawing.Point(220, 186);
+            this.label75.Name = "label75";
+            this.label75.Size = new System.Drawing.Size(114, 13);
+            this.label75.TabIndex = 31;
+            this.label75.Text = "minute(s) after exit time";
+            // 
+            // label76
+            // 
+            this.label76.AutoSize = true;
+            this.label76.Location = new System.Drawing.Point(220, 150);
+            this.label76.Name = "label76";
+            this.label76.Size = new System.Drawing.Size(130, 13);
+            this.label76.TabIndex = 30;
+            this.label76.Text = "minute(s) before entry time";
+            // 
+            // nudLastestAfterExitTime
+            // 
+            this.nudLastestAfterExitTime.Location = new System.Drawing.Point(148, 182);
+            this.nudLastestAfterExitTime.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.nudLastestAfterExitTime.Name = "nudLastestAfterExitTime";
+            this.nudLastestAfterExitTime.Size = new System.Drawing.Size(64, 20);
+            this.nudLastestAfterExitTime.TabIndex = 29;
+            this.nudLastestAfterExitTime.Value = new decimal(new int[] {
+            180,
+            0,
+            0,
+            0});
+            // 
+            // nudEarliestBeforeEntry
+            // 
+            this.nudEarliestBeforeEntry.Location = new System.Drawing.Point(148, 146);
+            this.nudEarliestBeforeEntry.Maximum = new decimal(new int[] {
+            360,
+            0,
+            0,
+            0});
+            this.nudEarliestBeforeEntry.Name = "nudEarliestBeforeEntry";
+            this.nudEarliestBeforeEntry.Size = new System.Drawing.Size(64, 20);
+            this.nudEarliestBeforeEntry.TabIndex = 28;
+            this.nudEarliestBeforeEntry.Value = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            // 
+            // label77
+            // 
+            this.label77.AutoSize = true;
+            this.label77.Location = new System.Drawing.Point(32, 186);
+            this.label77.Name = "label77";
+            this.label77.Size = new System.Drawing.Size(102, 13);
+            this.label77.TabIndex = 27;
+            this.label77.Text = "Lastest exit allowed:";
+            // 
+            // label78
+            // 
+            this.label78.AutoSize = true;
+            this.label78.Location = new System.Drawing.Point(32, 150);
+            this.label78.Name = "label78";
+            this.label78.Size = new System.Drawing.Size(109, 13);
+            this.label78.TabIndex = 26;
+            this.label78.Text = "Earliest entry allowed:";
             // 
             // frmAddUpdateWorkingCalendar
             // 
@@ -2029,6 +2199,10 @@
             this.tabPage8.ResumeLayout(false);
             this.tabPage8.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCustomPayPeriod)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudGraceForwardToEntry)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudGraceBackwardToExit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudLastestAfterExitTime)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudEarliestBeforeEntry)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2207,5 +2381,17 @@
         private System.Windows.Forms.DateTimePicker dtpBreakTo2;
         private System.Windows.Forms.Label label70;
         private Pabo.Calendar.MonthCalendar mcdHoliday;
+        private System.Windows.Forms.Label label71;
+        private System.Windows.Forms.Label label72;
+        private System.Windows.Forms.NumericUpDown nudGraceBackwardToExit;
+        private System.Windows.Forms.NumericUpDown nudGraceForwardToEntry;
+        private System.Windows.Forms.Label label73;
+        private System.Windows.Forms.Label label75;
+        private System.Windows.Forms.Label label76;
+        private System.Windows.Forms.NumericUpDown nudLastestAfterExitTime;
+        private System.Windows.Forms.NumericUpDown nudEarliestBeforeEntry;
+        private System.Windows.Forms.Label label77;
+        private System.Windows.Forms.Label label78;
+        private System.Windows.Forms.Label label74;
     }
 }
