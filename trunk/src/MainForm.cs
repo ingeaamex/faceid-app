@@ -22,6 +22,9 @@ namespace FaceIDAppVBEta
         {
             InitializeComponent();
 
+            //client only
+            //new frmServerConnect().ShowDialog(this);
+
             VerifyUser();
 
             RegisterChannel();
