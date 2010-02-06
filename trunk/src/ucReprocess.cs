@@ -79,7 +79,6 @@ namespace FaceIDAppVBEta
             BindDepartment();
         }
 
-
         private void btnReprocess_Click(object sender, EventArgs e)
         {
             bool oErr = false;
@@ -88,7 +87,7 @@ namespace FaceIDAppVBEta
                 errProviders.SetError(cbxCompany, "Select Company");
                 oErr = true;
             }
-            if ((int)cbxDepartment.SelectedValue == 0)
+            if (cbxDepartment.Enabled && (int)cbxDepartment.SelectedValue == 0)
             {
                 errProviders.SetError(cbxDepartment, "Select Department");
                 oErr = true;
@@ -101,9 +100,23 @@ namespace FaceIDAppVBEta
             if (oErr)
                 return;
 
-            new frmReprocessStatus().ShowDialog(this);
-        }
+            string employeeNumberList = "";
+            DataGridViewSelectedRowCollection dtgRowCollection = dgvEmployee.SelectedRows;
+            foreach (DataGridViewRow dtgRow in dtgRowCollection)
+            {
+                employeeNumberList += dtgRow.Cells[0].Value + ",";
+            }
+            employeeNumberList = employeeNumberList.Trim(',');
+            if (employeeNumberList == "")
+            {
+                MessageBox.Show(this, "Select employee to continue");
+                return;
+            }
+            DateTime dReprocessFrom = dtpReprocessFrom.Value;
+            DateTime dReprocessTo = dtpReprocessTo.Value;
 
+            new frmReprocessStatus(employeeNumberList, dReprocessFrom, dReprocessTo).ShowDialog(this);
+        }
 
         private void LoadData()
         {
@@ -114,8 +127,6 @@ namespace FaceIDAppVBEta
             int departmentID = -1;
             if (cbxDepartment.Enabled)
                 departmentID = (int)cbxDepartment.SelectedValue;
-
-            //int workingCalendarID = (int)cbxWorkingCalendar.SelectedValue;
 
             List<Employee> employees = _dtCtrl.GetEmployeeList(companyID, departmentID);
             dgvEmployee.AutoGenerateColumns = false;
@@ -137,6 +148,22 @@ namespace FaceIDAppVBEta
                 e.FormattingApplied = true;
                 e.Value = string.Format("{0}, {1}", employee.LastName, employee.FirstName);
             }
+        }
+
+        private void btnSelectAll_Click(object sender, EventArgs e)
+        {
+            dgvEmployee.SelectAll();
+        }
+
+        private void btnUnselectAll_Click(object sender, EventArgs e)
+        {
+            dgvEmployee.ClearSelection();
+        }
+
+        private void cbxDepartment_EnabledChanged(object sender, EventArgs e)
+        {
+            if (!cbxDepartment.Enabled)
+                LoadData();
         }
     }
 }

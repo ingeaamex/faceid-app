@@ -43,10 +43,10 @@
             this.btnSelectAll = new System.Windows.Forms.Button();
             this.btnUnselectAll = new System.Windows.Forms.Button();
             this.dgvEmployee = new System.Windows.Forms.DataGridView();
-            this.btnReprocess = new System.Windows.Forms.Button();
-            this.errProviders = new System.Windows.Forms.ErrorProvider(this.components);
             this.EmployeeNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EmployeeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnReprocess = new System.Windows.Forms.Button();
+            this.errProviders = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployee)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errProviders)).BeginInit();
             this.SuspendLayout();
@@ -72,6 +72,7 @@
             this.cbxDepartment.Size = new System.Drawing.Size(121, 21);
             this.cbxDepartment.TabIndex = 34;
             this.cbxDepartment.ValueMember = "ID";
+            this.cbxDepartment.EnabledChanged += new System.EventHandler(this.cbxDepartment_EnabledChanged);
             this.cbxDepartment.SelectionChangeCommitted += new System.EventHandler(this.cbxDepartment_SelectionChangeCommitted);
             // 
             // cbxCompany
@@ -170,6 +171,7 @@
             this.btnSelectAll.TabIndex = 39;
             this.btnSelectAll.Text = "Select All";
             this.btnSelectAll.UseVisualStyleBackColor = true;
+            this.btnSelectAll.Click += new System.EventHandler(this.btnSelectAll_Click);
             // 
             // btnUnselectAll
             // 
@@ -179,6 +181,7 @@
             this.btnUnselectAll.TabIndex = 40;
             this.btnUnselectAll.Text = "Unselect All";
             this.btnUnselectAll.UseVisualStyleBackColor = true;
+            this.btnUnselectAll.Click += new System.EventHandler(this.btnUnselectAll_Click);
             // 
             // dgvEmployee
             // 
@@ -191,10 +194,26 @@
             this.EmployeeName});
             this.dgvEmployee.Location = new System.Drawing.Point(94, 96);
             this.dgvEmployee.Name = "dgvEmployee";
+            this.dgvEmployee.ReadOnly = true;
             this.dgvEmployee.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvEmployee.Size = new System.Drawing.Size(538, 150);
             this.dgvEmployee.TabIndex = 41;
             this.dgvEmployee.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvEmployee_CellFormatting);
+            // 
+            // EmployeeNumber
+            // 
+            this.EmployeeNumber.DataPropertyName = "EmployeeNumber";
+            this.EmployeeNumber.FillWeight = 87.09677F;
+            this.EmployeeNumber.HeaderText = "Employee Number";
+            this.EmployeeNumber.Name = "EmployeeNumber";
+            this.EmployeeNumber.ReadOnly = true;
+            // 
+            // EmployeeName
+            // 
+            this.EmployeeName.FillWeight = 112.9032F;
+            this.EmployeeName.HeaderText = "Employee Name";
+            this.EmployeeName.Name = "EmployeeName";
+            this.EmployeeName.ReadOnly = true;
             // 
             // btnReprocess
             // 
@@ -209,19 +228,6 @@
             // errProviders
             // 
             this.errProviders.ContainerControl = this;
-            // 
-            // EmployeeNumber
-            // 
-            this.EmployeeNumber.DataPropertyName = "EmployeeNumber";
-            this.EmployeeNumber.FillWeight = 87.09677F;
-            this.EmployeeNumber.HeaderText = "Employee Number";
-            this.EmployeeNumber.Name = "EmployeeNumber";
-            // 
-            // EmployeeName
-            // 
-            this.EmployeeName.FillWeight = 112.9032F;
-            this.EmployeeName.HeaderText = "Employee Name";
-            this.EmployeeName.Name = "EmployeeName";
             // 
             // ucReprocess
             // 
