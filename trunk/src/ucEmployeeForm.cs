@@ -140,24 +140,21 @@ namespace FaceIDAppVBEta
 
             foreach (Terminal terminal in terminalList)
             {
-                bool employeeRemoved = false;
-
                 if (_terCtrl.IsTerminalConnected(terminal))
                 {
-                    throw new Exception("Do not do this yet. It is painful to add an employee using the terminal you know.");
+                    throw new Exception("Do not do this yet. It is painful to add an employee from the terminal you know.");
 
                     if (_terCtrl.RemoveEmployee(terminal, employee.EmployeeNumber) == false)
-                        throw new Exception("Cannot remove employee " + employee.EmployeeNumber);
+                        throw new Exception("Cannot remove employee " + employee.EmployeeNumber + " from terminal " + terminal.Name + ".");
                 }
-
-                if (employeeRemoved == false)
+                else
                 {
                     UndeletedEmployeeNumber undeletedEmployeeNumber = new UndeletedEmployeeNumber();
                     undeletedEmployeeNumber.EmployeeNumber = employee.EmployeeNumber;
                     undeletedEmployeeNumber.TerminalID = terminal.ID;
 
-                    if (_dtCtrl.AddUndeletedEmployeeNumber(undeletedEmployeeNumber))
-                        throw new Exception("User could not be deleted");
+                    if (_dtCtrl.AddUndeletedEmployeeNumber(undeletedEmployeeNumber) == false)
+                        throw new Exception("Employee " + employee.EmployeeNumber + " could not be deleted.");
                 }
             }
         }

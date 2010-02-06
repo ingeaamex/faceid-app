@@ -114,8 +114,6 @@ namespace FaceIDAppVBEta
             string terminalName = txtTerminalName.Text;
             string ipAddress = mtbIPAddess.Text.Replace(" ", "");
 
-            bool isValid = true;
-
             if (string.IsNullOrEmpty(terminalName))
             {
                 MessageBox.Show("Terminal Name must not be empty.");
