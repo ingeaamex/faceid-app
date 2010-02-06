@@ -234,7 +234,6 @@
         private System.Windows.Forms.ContextMenuStrip cmnDgvTerminal;
         private System.Windows.Forms.ToolStripMenuItem updateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TerminaleID;
         private System.Windows.Forms.DataGridViewTextBoxColumn TerminalName;
         private System.Windows.Forms.DataGridViewTextBoxColumn IPAddress;
         private System.Windows.Forms.DataGridViewTextBoxColumn TerminalStatus;
