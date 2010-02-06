@@ -210,8 +210,8 @@ namespace FaceIDAppVBEta.Data
         List<AttendanceLogReport> GetAttendanceLogReportList(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate);
       
         List<AttendanceReport> GetAttendanceReportList();
-        
-        DataTable GetAttendanceReport(int companyID, int departmentID, DateTime dtFrom, DateTime dtTo);
+
+        List<AttendanceReport> GetAttendanceReport(int companyID, int departmentID, DateTime dtFrom, DateTime dtTo, int columnIndex, bool isOrderByAcs);
 
         AttendanceReport GetAttendanceReportByAttendanceRecord(int attendanceRecordID);
 

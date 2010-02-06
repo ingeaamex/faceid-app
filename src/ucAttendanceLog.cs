@@ -243,8 +243,9 @@ namespace FaceIDAppVBEta
         {
             if (e.ColumnIndex == 3 && e.RowIndex >= 0)
             {
+                Point mousePosition = dgvAttendanceLog.PointToClient(Control.MousePosition);
                 editRecordId = attendanceLogRecordList[e.RowIndex].ID;
-                cmsAction.Show(dgvAttendanceLog, e.Location);
+                cmsAction.Show(dgvAttendanceLog, mousePosition);
             }
         }
 
@@ -256,6 +257,12 @@ namespace FaceIDAppVBEta
                 isOrderByAcs = !isOrderByAcs;
                 LoadAttdanceLog();
             }
+        }
+
+        private void addToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmAddUpdateAttendanceRecord attForm = new frmAddUpdateAttendanceRecord(0);
+            attForm.ShowDialog(this);
         }
     }
 }

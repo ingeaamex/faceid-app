@@ -234,7 +234,7 @@ namespace FaceIDAppVBEta
                                     rec.Top + 5, StringFormat.GenericDefault);
                             }
                         }
-                        else if (e.ColumnIndex == 5)
+                        else if (cbxShowChart.Checked && e.ColumnIndex == 5)
                         {
                             if (e.Value != null)
                             {
