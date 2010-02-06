@@ -268,5 +268,8 @@ namespace FaceIDAppVBEta.Data
         bool UpdateConfig(Config config);
         #endregion
 
+        #region Test
+        void TestDataController(MarshalByRefObject obj);
+        #endregion
     }
 }

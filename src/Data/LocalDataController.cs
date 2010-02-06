@@ -3248,8 +3248,6 @@ namespace FaceIDAppVBEta.Data
 
         public int AddHoliday(Holiday holiday)
         {
-            ConnectToDatabase();
-
             OleDbCommand odCom1 = BuildInsertCmd("Holiday",
                 new string[] { "Date"
                 ,"Description"
@@ -3848,6 +3846,10 @@ namespace FaceIDAppVBEta.Data
             return result;
         }
 
+        public void TestDataController(MarshalByRefObject obj)
+        {
+            //do nothing
+        }
         #endregion
     }
 }

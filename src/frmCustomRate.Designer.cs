@@ -92,7 +92,7 @@
             this.Controls.Add(this.label1);
             this.Name = "frmCustomRate";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "frmCustomRate";
+            this.Text = "Add Custom Rate";
             this.ResumeLayout(false);
             this.PerformLayout();
 
