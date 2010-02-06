@@ -56,9 +56,8 @@
             this.label13 = new System.Windows.Forms.Label();
             this.dtpLeftDate = new System.Windows.Forms.DateTimePicker();
             this.label14 = new System.Windows.Forms.Label();
-            this.btnAddEmployee = new System.Windows.Forms.Button();
+            this.btnSubmit = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.btnUpdateEmployee = new System.Windows.Forms.Button();
             this.label15 = new System.Windows.Forms.Label();
             this.btnRegisterOnTerminal = new System.Windows.Forms.Button();
             this.lbxTerminal = new System.Windows.Forms.ListBox();
@@ -306,15 +305,15 @@
             this.label14.TabIndex = 27;
             this.label14.Text = "Left Date";
             // 
-            // btnAddEmployee
+            // btnSubmit
             // 
-            this.btnAddEmployee.Location = new System.Drawing.Point(35, 280);
-            this.btnAddEmployee.Name = "btnAddEmployee";
-            this.btnAddEmployee.Size = new System.Drawing.Size(75, 23);
-            this.btnAddEmployee.TabIndex = 29;
-            this.btnAddEmployee.Text = "Add";
-            this.btnAddEmployee.UseVisualStyleBackColor = true;
-            this.btnAddEmployee.Click += new System.EventHandler(this.btnAddEmployee_Click);
+            this.btnSubmit.Location = new System.Drawing.Point(35, 280);
+            this.btnSubmit.Name = "btnSubmit";
+            this.btnSubmit.Size = new System.Drawing.Size(75, 23);
+            this.btnSubmit.TabIndex = 29;
+            this.btnSubmit.Text = "Add/Update";
+            this.btnSubmit.UseVisualStyleBackColor = true;
+            this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
             // 
             // btnCancel
             // 
@@ -325,16 +324,6 @@
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
-            // btnUpdateEmployee
-            // 
-            this.btnUpdateEmployee.Location = new System.Drawing.Point(35, 280);
-            this.btnUpdateEmployee.Name = "btnUpdateEmployee";
-            this.btnUpdateEmployee.Size = new System.Drawing.Size(75, 23);
-            this.btnUpdateEmployee.TabIndex = 31;
-            this.btnUpdateEmployee.Text = "Update";
-            this.btnUpdateEmployee.UseVisualStyleBackColor = true;
-            this.btnUpdateEmployee.Click += new System.EventHandler(this.btnUpdateEmployee_Click);
             // 
             // label15
             // 
@@ -378,9 +367,8 @@
             this.Controls.Add(this.lbxTerminal);
             this.Controls.Add(this.btnRegisterOnTerminal);
             this.Controls.Add(this.label15);
-            this.Controls.Add(this.btnUpdateEmployee);
             this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnAddEmployee);
+            this.Controls.Add(this.btnSubmit);
             this.Controls.Add(this.dtpLeftDate);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.dtpJoinedDate);
@@ -411,7 +399,6 @@
             this.Name = "frmAddUpdateEmployee";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "frmAddUpdateEmployee";
-            this.Load += new System.EventHandler(this.frmAddUpdateEmployee_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmAddUpdateEmployee_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.errProviders)).EndInit();
             this.ResumeLayout(false);
@@ -448,9 +435,8 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.DateTimePicker dtpLeftDate;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Button btnAddEmployee;
+        private System.Windows.Forms.Button btnSubmit;
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Button btnUpdateEmployee;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Button btnRegisterOnTerminal;
         private System.Windows.Forms.ListBox lbxTerminal;

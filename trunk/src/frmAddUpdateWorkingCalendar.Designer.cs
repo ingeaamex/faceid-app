@@ -1066,6 +1066,11 @@
             this.nudWorkDayRegularHour.Name = "nudWorkDayRegularHour";
             this.nudWorkDayRegularHour.Size = new System.Drawing.Size(120, 20);
             this.nudWorkDayRegularHour.TabIndex = 143;
+            this.nudWorkDayRegularHour.Value = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
             // 
             // label31
             // 
@@ -1358,6 +1363,11 @@
             this.nudNonWorkDayRegularHour.Name = "nudNonWorkDayRegularHour";
             this.nudNonWorkDayRegularHour.Size = new System.Drawing.Size(120, 20);
             this.nudNonWorkDayRegularHour.TabIndex = 172;
+            this.nudNonWorkDayRegularHour.Value = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
             // 
             // label34
             // 
@@ -1781,6 +1791,11 @@
             this.nudHolidayRegularHour.Name = "nudHolidayRegularHour";
             this.nudHolidayRegularHour.Size = new System.Drawing.Size(120, 20);
             this.nudHolidayRegularHour.TabIndex = 201;
+            this.nudHolidayRegularHour.Value = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
             // 
             // label50
             // 

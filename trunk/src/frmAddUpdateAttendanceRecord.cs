@@ -127,7 +127,6 @@ namespace FaceIDAppVBEta
                 //TODO
             }
 
-            //cbxEmployeeNumber.SelectedIndex = cbxEmployeeNumber.FindString(employee.ToString());
             cbxEmployeeNumber.SelectedValue = employee.EmployeeNumber;
             txtEmployeeName.Text = employee.FirstName + " " + employee.LastName.ToUpper() + _seperator + employee.EmployeeNumber;
 
@@ -230,7 +229,7 @@ namespace FaceIDAppVBEta
                 catch { }
             }
 
-            cbxEmployeeNumber.SelectedIndex = cbxEmployeeNumber.FindString(employeeNumber.ToString());
+            cbxEmployeeNumber.SelectedValue = employeeNumber;
         }
     }
 }

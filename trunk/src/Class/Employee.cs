@@ -8,11 +8,17 @@ namespace FaceIDAppVBEta.Class
     {
         public Employee()
         {
+            DepartmentID = 1; //default department
+
+            Active = true;
+            ActiveFrom = DateTime.Now;
+
             FirstName = "";
             LastName = "";
             JobDescription = "";
             PhoneNumber = "";
             Address = "";
+
             FaceData1 = "";
             FaceData2 = "";
             FaceData3 = "";

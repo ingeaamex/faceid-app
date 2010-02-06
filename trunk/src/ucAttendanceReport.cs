@@ -85,7 +85,7 @@ namespace FaceIDAppVBEta
 
                         sWriter.Close();
 
-                        MessageBox.Show("Export successfully");
+                        MessageBox.Show("Data exported.");
                     }
                 }
 

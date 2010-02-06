@@ -123,7 +123,7 @@ namespace FaceIDAppVBEta
 
                     _dtCtrl.CommitTransaction();
 
-                    MessageBox.Show("Employee deleted successfully.");
+                    MessageBox.Show("Employee deleted.");
                     BindEmployee();
                 }
                 catch (Exception ex)
@@ -255,13 +255,6 @@ namespace FaceIDAppVBEta
                         {
                             if (_dtCtrl.IsNewEmployee(employee))
                             {
-                                employee.Active = true;
-                                employee.Address = "";
-                                employee.DepartmentID = 1;
-                                employee.JobDescription = "";
-                                employee.LastName = "";
-                                employee.PhoneNumber = "";
-
                                 if (_dtCtrl.AddEmployee(employee, new List<Terminal>() { terminal }) < 0)
                                     throw new Exception("Cannot update employee " + employee.EmployeeNumber);
                             }
@@ -279,7 +272,7 @@ namespace FaceIDAppVBEta
                 return;
             }
 
-            MessageBox.Show("Employee data from terminals have been copied successfully");
+            MessageBox.Show("Employee data copied.");
             BindEmployee();
         }
 
@@ -320,7 +313,7 @@ namespace FaceIDAppVBEta
                 return;
             }
 
-            MessageBox.Show("Employee data from terminals have been copied successfully");
+            MessageBox.Show("Employee data sent.");
             BindEmployee();
         }
 
@@ -382,7 +375,7 @@ namespace FaceIDAppVBEta
                         sWrite.WriteLine(")");
                     }
 
-                    MessageBox.Show("Export successfully.");
+                    MessageBox.Show("File exported.");
                 }
                 catch (Exception ex)
                 {
@@ -449,7 +442,7 @@ namespace FaceIDAppVBEta
                     }
 
                     
-                    MessageBox.Show("Import successfully");
+                    MessageBox.Show("Employee imported.");
                 }
             }
             catch (Exception ex)

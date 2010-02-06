@@ -162,7 +162,7 @@ namespace FaceIDAppVBEta
             }
             else
             {
-                cbxEmployeeNumber.SelectedIndex = cbxEmployeeNumber.FindString(employeeNumber.ToString());
+                cbxEmployeeNumber.SelectedIndex = employeeNumber;
 
                 txtPassword.Text = fUser.Password;
                 txtRetypePassword.Text = fUser.Password;
@@ -178,7 +178,7 @@ namespace FaceIDAppVBEta
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            if (Util.Confirm("Any unsaved data will be lost. Are you sure you want to cancel?"))
+            if (Util.ConfirmCancel())
                 SetState(-1);
         }
 
@@ -222,7 +222,7 @@ namespace FaceIDAppVBEta
 
                     if (_dtCtrl.AddFaceIDUser(fUser) > 0)
                     {
-                        MessageBox.Show("User added successfully.");
+                        MessageBox.Show("User added.");
                         SetState(-1);
                     }
                 }
@@ -230,7 +230,7 @@ namespace FaceIDAppVBEta
                 {
                     if (_dtCtrl.UpdateFaceIDUser(fUser))
                     {
-                        MessageBox.Show("User updated successfully.");
+                        MessageBox.Show("User updated.");
                         SetState(-1);
                     }
                 }

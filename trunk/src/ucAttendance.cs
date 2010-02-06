@@ -56,10 +56,6 @@ namespace FaceIDAppVBEta
                             {
                                 foreach (AttendanceRecord attRecord in attRecordList)
                                 {
-                                    attRecord.CheckIn = true;
-                                    attRecord.Note = "";
-                                    attRecord.PhotoData = "";
-
                                     if (_dtCtrl.AddAttendanceRecord(attRecord) <= 0)
                                     {
                                         throw new Exception("Cannot save attendance records to database");
@@ -87,7 +83,7 @@ namespace FaceIDAppVBEta
                 return;
             }
 
-            MessageBox.Show("Attendance records from terminals have been copied successfully");
+            MessageBox.Show("Attendance records copied.");
         }
     }
 }
