@@ -2278,6 +2278,11 @@ namespace FaceIDAppVBEta.Data
             return false;
         }
 
+        public bool ReProcessAttendanceReport(AttendanceReport _attReport)
+        {
+            return AddUpdateAttendaceReport(null, _attReport);
+        }
+
         private bool AddUpdateAttendaceReport(AttendanceRecord _attRecord, AttendanceReport _attReport)
         {
             int employeeNumber = _attReport == null ? _attRecord.EmployeeNumber : _attReport.EmployeeNumber;
@@ -2329,7 +2334,6 @@ namespace FaceIDAppVBEta.Data
                 reportId = _attReport.ID;
                 attIdList = _attReport.AttendanceRecordIDList;
             }
-
 
             if (reportId > 0)
             {
@@ -3133,7 +3137,47 @@ namespace FaceIDAppVBEta.Data
             return attendanceReports;
         }
 
+        public List<AttendanceReport> GetReprocessAttendanceReport(string _employeeNumberList, DateTime _dReprocessFrom, DateTime _dReprocessTo)
+        {
+            OleDbCommand odCom = BuildSelectCmd("AttendanceReport", "*", "WorkFrom >=@Date_1 AND WorkFrom <= @Date_2 AND EmployeeNumber in(" + _employeeNumberList + ")",
+                new object[] { "@Date_1", _dReprocessFrom, "@Date_2", _dReprocessTo });
+
+            List<AttendanceReport> attendanceReports = new List<AttendanceReport>();
+            AttendanceReport attendanceReport = null;
+
+            OleDbDataReader odRdr = odCom.ExecuteReader();
+            while (odRdr.Read())
+            {
+                attendanceReport = new AttendanceReport();
+
+                attendanceReport.DayTypeID = (int)odRdr["DayTypeID"];
+                attendanceReport.EmployeeNumber = (int)odRdr["EmployeeNumber"];
+                attendanceReport.OvertimeHour1 = (double)odRdr["OvertimeHour1"];
+                attendanceReport.OvertimeHour2 = (double)odRdr["OvertimeHour2"];
+                attendanceReport.OvertimeHour3 = (double)odRdr["OvertimeHour3"];
+                attendanceReport.OvertimeHour4 = (double)odRdr["OvertimeHour4"];
+                attendanceReport.OvertimeRate1 = (double)odRdr["OvertimeRate1"];
+                attendanceReport.OvertimeRate2 = (double)odRdr["OvertimeRate2"];
+                attendanceReport.OvertimeRate3 = (double)odRdr["OvertimeRate3"];
+                attendanceReport.OvertimeRate4 = (double)odRdr["OvertimeRate4"];
+                attendanceReport.PayPeriodID = (int)odRdr["PayPeriodID"];
+                attendanceReport.RegularHour = (double)odRdr["RegularHour"];
+                attendanceReport.RegularRate = (double)odRdr["RegularRate"];
+                attendanceReport.WorkFrom = (DateTime)odRdr["WorkFrom"];
+                attendanceReport.WorkTo = (DateTime)odRdr["WorkTo"];
+                attendanceReport.ID = (int)odRdr["ID"];
+                attendanceReport.AttendanceRecordIDList = odRdr["AttendanceRecordIDList"].ToString();
+
+                attendanceReports.Add(attendanceReport);
+            }
+            odRdr.Close();
+
+            return attendanceReports;
+        }
+
+
         #endregion
+
 
         #region IDataController Members
 

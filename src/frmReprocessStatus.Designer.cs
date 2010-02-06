@@ -28,35 +28,47 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.lProcessStatus = new System.Windows.Forms.Label();
+            this.pgbProgress = new System.Windows.Forms.ProgressBar();
             this.btnStop = new System.Windows.Forms.Button();
+            this.btnClose = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // label1
+            // lProcessStatus
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(112, 21);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(168, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Processing: 999/1000000 records";
+            this.lProcessStatus.AutoSize = true;
+            this.lProcessStatus.Location = new System.Drawing.Point(112, 21);
+            this.lProcessStatus.Name = "lProcessStatus";
+            this.lProcessStatus.Size = new System.Drawing.Size(168, 13);
+            this.lProcessStatus.TabIndex = 0;
+            this.lProcessStatus.Text = "Processing: 999/1000000 records";
             // 
-            // progressBar1
+            // pgbProgress
             // 
-            this.progressBar1.Location = new System.Drawing.Point(12, 57);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(368, 23);
-            this.progressBar1.TabIndex = 1;
+            this.pgbProgress.Location = new System.Drawing.Point(12, 57);
+            this.pgbProgress.Name = "pgbProgress";
+            this.pgbProgress.Size = new System.Drawing.Size(368, 23);
+            this.pgbProgress.TabIndex = 1;
             // 
             // btnStop
             // 
-            this.btnStop.Location = new System.Drawing.Point(159, 103);
+            this.btnStop.Location = new System.Drawing.Point(159, 102);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(75, 23);
             this.btnStop.TabIndex = 2;
             this.btnStop.Text = "Stop";
             this.btnStop.UseVisualStyleBackColor = true;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            // 
+            // btnClose
+            // 
+            this.btnClose.Location = new System.Drawing.Point(159, 102);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(75, 23);
+            this.btnClose.TabIndex = 3;
+            this.btnClose.Text = "Close";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // frmReprocessStatus
             // 
@@ -64,11 +76,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(392, 146);
             this.Controls.Add(this.btnStop);
-            this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.pgbProgress);
+            this.Controls.Add(this.lProcessStatus);
+            this.Controls.Add(this.btnClose);
             this.Name = "frmReprocessStatus";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmReprocessStatus";
+            this.Load += new System.EventHandler(this.frmReprocessStatus_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -76,8 +90,9 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Label lProcessStatus;
+        private System.Windows.Forms.ProgressBar pgbProgress;
         private System.Windows.Forms.Button btnStop;
+        private System.Windows.Forms.Button btnClose;
     }
 }

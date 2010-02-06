@@ -222,6 +222,11 @@ namespace FaceIDAppVBEta.Data
         int AddAttendanceReport(AttendanceReport attendanceReport, bool returnID);
 
         bool UpdateAttendanceReport(AttendanceReport attendanceReport);
+
+        List<AttendanceReport> GetReprocessAttendanceReport(string _employeeNumberList, DateTime _dReprocessFrom, DateTime _dReprocessTo);
+
+        bool ReProcessAttendanceReport(AttendanceReport _attReport);
+
         #endregion
 
         #region FaceIDUser
