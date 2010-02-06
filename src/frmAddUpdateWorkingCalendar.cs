@@ -43,53 +43,7 @@ namespace FaceIDAppVBEta
 
         private void BindData()
         {
-            nudCustomPayPeriod.Minimum = 1;
             nudCustomPayPeriod.Maximum = 30;
-
-            nudHolidayOvertimeHour1.Minimum = 0;
-            nudHolidayOvertimeHour1.Maximum = 8;
-
-            nudHolidayOvertimeHour2.Minimum = 0;
-            nudHolidayOvertimeHour2.Maximum = 8;
-
-            nudHolidayOvertimeHour3.Minimum = 0;
-            nudHolidayOvertimeHour3.Maximum = 8;
-
-            nudHolidayOvertimeHour4.Minimum = 0;
-            nudHolidayOvertimeHour4.Maximum = 8;
-
-            nudHolidayRegularHour.Minimum = 1;
-            nudHolidayRegularHour.Maximum = 8;
-
-            nudNonWorkDayOvertimeHour1.Minimum = 0;
-            nudNonWorkDayOvertimeHour1.Maximum = 8;
-
-            nudNonWorkDayOvertimeHour2.Minimum = 0;
-            nudNonWorkDayOvertimeHour2.Maximum = 8;
-
-            nudNonWorkDayOvertimeHour3.Minimum = 0;
-            nudNonWorkDayOvertimeHour3.Maximum = 8;
-
-            nudNonWorkDayOvertimeHour4.Minimum = 0;
-            nudNonWorkDayOvertimeHour4.Maximum = 8;
-
-            nudNonWorkDayRegularHour.Minimum = 1;
-            nudNonWorkDayRegularHour.Maximum = 8;
-
-            nudWorkDayOvertimeHour1.Minimum = 0;
-            nudWorkDayOvertimeHour1.Maximum = 8;
-
-            nudWorkDayOvertimeHour2.Minimum = 0;
-            nudWorkDayOvertimeHour2.Maximum = 8;
-
-            nudWorkDayOvertimeHour3.Minimum = 0;
-            nudWorkDayOvertimeHour3.Maximum = 8;
-
-            nudWorkDayOvertimeHour4.Minimum = 0;
-            nudWorkDayOvertimeHour4.Maximum = 8;
-
-            nudWorkDayRegularHour.Minimum = 1;
-            nudWorkDayRegularHour.Maximum = 8;
 
             AddBreakPaid(cbxBreakPaid1);
             AddBreakPaid(cbxBreakPaid2);
@@ -629,7 +583,7 @@ namespace FaceIDAppVBEta
                     throw new Exception();
                 }
 
-                MessageBox.Show("Working Calendar has been added successfully.");
+                MessageBox.Show("Working Calendar added.");
                 this.Close();
             }
             else //update
@@ -641,7 +595,7 @@ namespace FaceIDAppVBEta
                     throw new Exception();
                 }
 
-                MessageBox.Show("Working Calendar has been updated successfully.");
+                MessageBox.Show("Working Calendar updated.");
                 this.Close();
             }
             #endregion
@@ -843,7 +797,7 @@ namespace FaceIDAppVBEta
 
         private void CancelAddingUpdating()
         {
-            if (Util.Confirm("Any unsaved data will be lost. Are you sure you want to close this form?"))
+            if(Util.ConfirmCloseForm())
                 this.Close();
         }
 

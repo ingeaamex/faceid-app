@@ -637,7 +637,7 @@ namespace FaceIDAppVBEta.Data
 
             try
             {
-                //if Employee is added from terminal then he already has employee Number
+                //if Employee is added from terminal then Employee No has been assigned already
                 if (employee.EmployeeNumber <= 0)
                     employee.EmployeeNumber = GetAvailEmployeeNumber();
                 else
@@ -1039,8 +1039,8 @@ namespace FaceIDAppVBEta.Data
         {
             BeginTransaction();
             OleDbCommand odCom1 = BuildDelCmd("EmployeeTerminal", "EmployeeNumber=@ID", new object[] { "@ID", employeeNumber });
-            int t1 = ExecuteNonQuery(odCom1);
-            if (t1 < 0)
+
+            if (ExecuteNonQuery(odCom1) < 0)
             {
                 RollbackTransaction();
                 return false;
@@ -1051,9 +1051,8 @@ namespace FaceIDAppVBEta.Data
                     new string[] { "EmployeeNumber", "TerminalID" },
                     new object[] { employeeNumber, terminal.ID }
                     );
-                t1 = ExecuteNonQuery(odCom1);
 
-                if (t1 < 1)
+                if (ExecuteNonQuery(odCom1) < 1)
                 {
                     RollbackTransaction();
                     return false;
@@ -3562,7 +3561,7 @@ namespace FaceIDAppVBEta.Data
                 attendanceRecord.ID = Convert.ToInt32(odRdr["ID"]);
                 attendanceRecord.EmployeeNumber = Convert.ToInt32(odRdr["EmployeeNumber"]);
                 attendanceRecord.Time = Convert.ToDateTime(odRdr["Time"]);
-                attendanceRecord.CheckIn = Convert.ToBoolean(odRdr["CheckIn"]);
+                //attendanceRecord.CheckIn = Convert.ToBoolean(odRdr["CheckIn"]);
                 attendanceRecord.PhotoData = odRdr["PhotoData"].ToString();
                 attendanceRecord.Note = odRdr["Note"].ToString();
 

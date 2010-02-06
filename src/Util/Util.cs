@@ -180,5 +180,16 @@ namespace FaceIDAppVBEta
             //return the results
             return valid;
         }
+
+        internal static bool ConfirmCancel()
+        {
+            return Confirm("Any unsaved data will be lost. Are you sure you want to cancel?");
+        }
+
+        internal static bool ConfirmCloseForm()
+        {
+            return Confirm("Any unsaved data will be lost. Are you sure you want to close the form?");
+        }
+
     }
 }

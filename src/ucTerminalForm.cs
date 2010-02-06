@@ -195,7 +195,7 @@ namespace FaceIDAppVBEta
 
         private void btCancel_Click(object sender, EventArgs e)
         {
-            if (Util.Confirm("Any unsaved data will be lost. Are you sure you want to cancel?"))
+            if (Util.ConfirmCancel())
             {
                 SetState(0);
             }
