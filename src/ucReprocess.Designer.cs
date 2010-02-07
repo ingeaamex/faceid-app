@@ -54,7 +54,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(193, 12);
+            this.label5.Location = new System.Drawing.Point(211, 12);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(62, 13);
             this.label5.TabIndex = 35;
@@ -67,7 +67,7 @@
             this.cbxDepartment.FormattingEnabled = true;
             this.cbxDepartment.Items.AddRange(new object[] {
             "Select Department"});
-            this.cbxDepartment.Location = new System.Drawing.Point(264, 8);
+            this.cbxDepartment.Location = new System.Drawing.Point(276, 8);
             this.cbxDepartment.Name = "cbxDepartment";
             this.cbxDepartment.Size = new System.Drawing.Size(121, 21);
             this.cbxDepartment.TabIndex = 34;
@@ -109,7 +109,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(193, 52);
+            this.label3.Location = new System.Drawing.Point(211, 54);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(20, 13);
             this.label3.TabIndex = 30;
@@ -135,7 +135,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(413, 12);
+            this.label1.Location = new System.Drawing.Point(422, 12);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(92, 13);
             this.label1.TabIndex = 37;
@@ -148,7 +148,7 @@
             this.cbxWorkingCalendar.FormattingEnabled = true;
             this.cbxWorkingCalendar.Items.AddRange(new object[] {
             "Select Working Calendar"});
-            this.cbxWorkingCalendar.Location = new System.Drawing.Point(511, 8);
+            this.cbxWorkingCalendar.Location = new System.Drawing.Point(520, 8);
             this.cbxWorkingCalendar.Name = "cbxWorkingCalendar";
             this.cbxWorkingCalendar.Size = new System.Drawing.Size(121, 21);
             this.cbxWorkingCalendar.TabIndex = 36;
@@ -196,7 +196,7 @@
             this.dgvEmployee.Name = "dgvEmployee";
             this.dgvEmployee.ReadOnly = true;
             this.dgvEmployee.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvEmployee.Size = new System.Drawing.Size(538, 150);
+            this.dgvEmployee.Size = new System.Drawing.Size(547, 150);
             this.dgvEmployee.TabIndex = 41;
             this.dgvEmployee.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvEmployee_CellFormatting);
             // 
