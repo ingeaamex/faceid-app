@@ -550,6 +550,14 @@ namespace FaceIDApp
                 wCal.LastestAfterExit = 180;
 
                 List<Break> breakList = new List<Break>();
+                Break break1 = new Break();
+                break1.From = new DateTime(2000, 2, 2, 12, 0, 0);
+                break1.To = new DateTime(2000, 2, 2, 13, 0, 0);
+                break1.Name = "break1";
+                break1.Paid = false;
+
+                breakList.Add(break1);
+
                 List<Holiday> holidayList = new List<Holiday>();
 
                 PaymentRate workingDayPaymentRate = new PaymentRate();
@@ -621,12 +629,12 @@ namespace FaceIDApp
                 AttendanceRecord att41 = new AttendanceRecord();
                 att41.EmployeeNumber = emp.EmployeeNumber;
                 att41.Time = new DateTime(2010, 1, 4, 7, 00, 0);
-                att41.ID = _dtCtrl.AddAttendanceRecord(att31);
+                att41.ID = _dtCtrl.AddAttendanceRecord(att41);
 
                 AttendanceRecord att42 = new AttendanceRecord();
                 att42.EmployeeNumber = emp.EmployeeNumber;
                 att42.Time = new DateTime(2010, 1, 4, 18, 0, 0);
-                att42.ID = _dtCtrl.AddAttendanceRecord(att32);
+                att42.ID = _dtCtrl.AddAttendanceRecord(att42);
 
                 _dtCtrl.CommitTransaction();
 
