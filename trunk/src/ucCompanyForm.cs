@@ -26,7 +26,7 @@ namespace FaceIDAppVBEta
 
         private void LoadData()
         {
-            List<Company> companyList = _dtCtrl.GetCompanyList();
+            List<Company> companyList = _dtCtrl.GetCompanyList(true);
             List<Department> departmentList = _dtCtrl.GetDepartmentList();
             List<Employee> employeeList = _dtCtrl.GetEmployeeList();
 
@@ -245,7 +245,7 @@ namespace FaceIDAppVBEta
             }
 
             //check if company is empty
-            if (_dtCtrl.GetDepartmentByCompany(companyID).Count > 0)
+            if (_dtCtrl.GetDepartmentByCompany(companyID,false).Count > 0)
             {
                 MessageBox.Show("Company is in use and can not be deleted.");
                 return;

@@ -137,9 +137,13 @@ namespace FaceIDAppVBEta.Data
         #endregion Connection
 
         #region Company
-        public List<Company> GetCompanyList()
+        public List<Company> GetCompanyList(bool viewDefault)
         {
-            OleDbCommand odCom = BuildSelectCmd("Company", "*", null);
+            OleDbCommand odCom = null;
+            if (viewDefault)
+                odCom = BuildSelectCmd("Company", "*", null);
+            else
+                odCom = BuildSelectCmd("Company", "*", "ID<>1");
             OleDbDataReader odRdr = odCom.ExecuteReader();
             List<Company> companyList = new List<Company>();
             Company company = null;
@@ -210,9 +214,9 @@ namespace FaceIDAppVBEta.Data
             return false;
         }
 
-        public List<Department> GetDepartmentByCompany(int id)
+        public List<Department> GetDepartmentByCompany(int id, bool viewDefault)
         {
-            OleDbCommand odCom = BuildSelectCmd("Department", "*", "CompanyID=@ID", new object[] { "@ID", id });
+            OleDbCommand odCom = BuildSelectCmd("Department", "*", "CompanyID=@ID" + (viewDefault ? "" : " AND ID<>1"), new object[] { "@ID", id });
             OleDbDataReader odRdr = odCom.ExecuteReader();
             List<Department> departmentList = new List<Department>();
             Department department = null;

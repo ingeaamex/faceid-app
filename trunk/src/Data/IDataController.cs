@@ -20,7 +20,7 @@ namespace FaceIDAppVBEta.Data
         #endregion Connection
 
         #region Company
-        List<Company> GetCompanyList();
+        List<Company> GetCompanyList(bool viewDefault);
 
         Company GetCompany(int id);
 
@@ -36,7 +36,7 @@ namespace FaceIDAppVBEta.Data
         #region Department
         List<Department> GetDepartmentList();
 
-        List<Department> GetDepartmentByCompany(int id);
+        List<Department> GetDepartmentByCompany(int id, bool viewDefault);
 
         Department GetDepartment(int id);
 

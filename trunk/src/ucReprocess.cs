@@ -38,7 +38,7 @@ namespace FaceIDAppVBEta
         
         private void BindCompany()
         {
-            List<Company> companyList = _dtCtrl.GetCompanyList();
+            List<Company> companyList = _dtCtrl.GetCompanyList(false);
             Company company = new Company();
             company.ID = -1;
             company.Name = "All companies";
@@ -61,7 +61,7 @@ namespace FaceIDAppVBEta
                     return;
                 }
                 cbxDepartment.Enabled = true;
-                List<Department> departmentList = _dtCtrl.GetDepartmentByCompany(CompanyID);
+                List<Department> departmentList = _dtCtrl.GetDepartmentByCompany(CompanyID, false);
                 Department department = new Department();
                 department.ID = -1;
                 department.Name = "All departments";
@@ -95,6 +95,11 @@ namespace FaceIDAppVBEta
             if ((int)cbxWorkingCalendar.SelectedValue == 0)
             {
                 errProviders.SetError(cbxWorkingCalendar, "Select Working Calendar");
+                oErr = true;
+            }
+            if (dtpReprocessFrom.Value.CompareTo(dtpReprocessTo.Value)==1)
+            {
+                errProviders.SetError(dtpReprocessFrom, "Not valid. reprocess time from > to");
                 oErr = true;
             }
             if (oErr)
