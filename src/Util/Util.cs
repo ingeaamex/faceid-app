@@ -47,7 +47,7 @@ namespace FaceIDAppVBEta
         {
             try
             {
-                return DateTime.Parse(str, new System.Globalization.CultureInfo("vi-VN", true));
+                return DateTime.Parse(str, new System.Globalization.CultureInfo("en-US", true));
             }
             catch
             {
@@ -191,5 +191,69 @@ namespace FaceIDAppVBEta
             return Confirm("Any unsaved data will be lost. Are you sure you want to close the form?");
         }
 
+        private static System.Collections.Hashtable hshCutOffValue = null;
+
+        internal static DateTime RoundDateTime(DateTime dt, int roundValue)
+        {
+            if (hshCutOffValue == null)
+            {
+                hshCutOffValue = new System.Collections.Hashtable();
+                hshCutOffValue.Add(1, 0.5);
+                hshCutOffValue.Add(5, 2);
+                hshCutOffValue.Add(6, 3);
+                hshCutOffValue.Add(10, 5);
+                hshCutOffValue.Add(15, 7);
+                hshCutOffValue.Add(30, 15);
+            }
+
+            if(hshCutOffValue.ContainsKey(roundValue))
+            {
+                return RoundDateTime(dt, roundValue, Convert.ToDouble(hshCutOffValue[roundValue]));
+            }
+
+            return dt;
+        }
+
+        internal static DateTime RoundDateTime(DateTime dt, int roundValue, double cutOffValue)
+        {
+            if (60 % roundValue != 0 || roundValue <= 0 || cutOffValue < 0 || cutOffValue >= roundValue)
+                return dt;
+
+            if (roundValue == 1) //round to 1 minute
+            {
+                roundValue *= 60;
+                cutOffValue *= 60;
+
+                int secDiff = dt.Second % roundValue;
+                if (secDiff != 0)
+                {
+                    if (secDiff > cutOffValue)
+                    {
+                        dt = dt.AddSeconds(roundValue - secDiff);
+                    }
+                    else
+                    {
+                        dt = dt.AddSeconds(-1 * secDiff);
+                    }
+                }
+            }
+            else
+            {
+                double minDiff = (dt.Minute % roundValue) + ((double)dt.Second / 60);
+                if (minDiff != 0)
+                {
+                    if (minDiff > cutOffValue)
+                    {
+                        dt = dt.AddMinutes(roundValue - minDiff);
+                    }
+                    else
+                    {
+                        dt = dt.AddMinutes(-1 * minDiff);
+                    }
+                }
+            }
+
+            return dt;
+        }
     }
 }

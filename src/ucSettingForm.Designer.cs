@@ -59,8 +59,13 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.mtbServerIPAddess = new System.Windows.Forms.MaskedTextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.cbxRoundValue = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudBackupPeriod)).BeginInit();
             this.gbxBackup.SuspendLayout();
             this.gbxRestore.SuspendLayout();
@@ -209,6 +214,7 @@
             // 
             // gbxBackup
             // 
+            this.gbxBackup.Controls.Add(this.label5);
             this.gbxBackup.Controls.Add(this.cbxBackupWeeklyDay);
             this.gbxBackup.Controls.Add(this.dtpBackupWeeklyTime);
             this.gbxBackup.Controls.Add(this.label9);
@@ -249,8 +255,9 @@
             // 
             // dtpBackupWeeklyTime
             // 
+            this.dtpBackupWeeklyTime.CustomFormat = "HH:mm:ss";
             this.dtpBackupWeeklyTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dtpBackupWeeklyTime.Location = new System.Drawing.Point(253, 63);
+            this.dtpBackupWeeklyTime.Location = new System.Drawing.Point(275, 62);
             this.dtpBackupWeeklyTime.Name = "dtpBackupWeeklyTime";
             this.dtpBackupWeeklyTime.ShowUpDown = true;
             this.dtpBackupWeeklyTime.Size = new System.Drawing.Size(94, 20);
@@ -351,13 +358,17 @@
             // 
             // gbxNoname1
             // 
+            this.gbxNoname1.Controls.Add(this.label13);
+            this.gbxNoname1.Controls.Add(this.cbxRoundValue);
+            this.gbxNoname1.Controls.Add(this.label6);
+            this.gbxNoname1.Controls.Add(this.label12);
             this.gbxNoname1.Controls.Add(this.label4);
             this.gbxNoname1.Controls.Add(this.nudAttendanceRecordInterval);
             this.gbxNoname1.Controls.Add(this.label11);
             this.gbxNoname1.Controls.Add(this.label10);
             this.gbxNoname1.Location = new System.Drawing.Point(423, 23);
             this.gbxNoname1.Name = "gbxNoname1";
-            this.gbxNoname1.Size = new System.Drawing.Size(391, 101);
+            this.gbxNoname1.Size = new System.Drawing.Size(391, 265);
             this.gbxNoname1.TabIndex = 17;
             this.gbxNoname1.TabStop = false;
             this.gbxNoname1.Text = "Attendance";
@@ -375,8 +386,8 @@
             // nudAttendanceRecordInterval
             // 
             this.nudAttendanceRecordInterval.Location = new System.Drawing.Point(149, 26);
-            this.nudAttendanceRecordInterval.Minimum = new decimal(new int[] {
-            1,
+            this.nudAttendanceRecordInterval.Maximum = new decimal(new int[] {
+            60,
             0,
             0,
             0});
@@ -384,7 +395,7 @@
             this.nudAttendanceRecordInterval.Size = new System.Drawing.Size(62, 20);
             this.nudAttendanceRecordInterval.TabIndex = 16;
             this.nudAttendanceRecordInterval.Value = new decimal(new int[] {
-            1,
+            5,
             0,
             0,
             0});
@@ -394,9 +405,9 @@
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(217, 30);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(53, 13);
+            this.label11.Size = new System.Drawing.Size(54, 13);
             this.label11.TabIndex = 15;
-            this.label11.Text = "second(s)";
+            this.label11.Text = "minutes(s)";
             // 
             // label10
             // 
@@ -411,12 +422,21 @@
             // 
             this.groupBox1.Controls.Add(this.mtbServerIPAddess);
             this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Location = new System.Drawing.Point(423, 130);
+            this.groupBox1.Location = new System.Drawing.Point(423, 294);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(391, 71);
             this.groupBox1.TabIndex = 18;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Server Setting [Clien Only]";
+            // 
+            // mtbServerIPAddess
+            // 
+            this.mtbServerIPAddess.Location = new System.Drawing.Point(77, 26);
+            this.mtbServerIPAddess.Mask = "000.000.000.000";
+            this.mtbServerIPAddess.Name = "mtbServerIPAddess";
+            this.mtbServerIPAddess.Size = new System.Drawing.Size(100, 20);
+            this.mtbServerIPAddess.TabIndex = 15;
+            this.mtbServerIPAddess.ValidatingType = typeof(System.DateTime);
             // 
             // label7
             // 
@@ -427,14 +447,57 @@
             this.label7.TabIndex = 14;
             this.label7.Text = "IP Address";
             // 
-            // mtbServerIPAddess
+            // label5
             // 
-            this.mtbServerIPAddess.Location = new System.Drawing.Point(77, 26);
-            this.mtbServerIPAddess.Mask = "000.000.000.000";
-            this.mtbServerIPAddess.Name = "mtbServerIPAddess";
-            this.mtbServerIPAddess.Size = new System.Drawing.Size(100, 20);
-            this.mtbServerIPAddess.TabIndex = 15;
-            this.mtbServerIPAddess.ValidatingType = typeof(System.DateTime);
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(253, 67);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(16, 13);
+            this.label5.TabIndex = 18;
+            this.label5.Text = "at";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(6, 97);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(147, 13);
+            this.label12.TabIndex = 18;
+            this.label12.Text = "Round Attendance Record to";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(223, 97);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(54, 13);
+            this.label6.TabIndex = 24;
+            this.label6.Text = "minutes(s)";
+            // 
+            // cbxRoundValue
+            // 
+            this.cbxRoundValue.FormattingEnabled = true;
+            this.cbxRoundValue.Items.AddRange(new object[] {
+            "1",
+            "3",
+            "5",
+            "6",
+            "10",
+            "15",
+            "30"});
+            this.cbxRoundValue.Location = new System.Drawing.Point(157, 93);
+            this.cbxRoundValue.Name = "cbxRoundValue";
+            this.cbxRoundValue.Size = new System.Drawing.Size(62, 21);
+            this.cbxRoundValue.TabIndex = 25;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(2, 126);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(174, 13);
+            this.label13.TabIndex = 26;
+            this.label13.Text = "[Ex: 07:02 will be rounded to 07:05]";
             // 
             // ucSetting
             // 
@@ -497,5 +560,10 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.MaskedTextBox mtbServerIPAddess;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.ComboBox cbxRoundValue;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label13;
     }
 }
