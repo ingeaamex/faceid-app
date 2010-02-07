@@ -117,14 +117,16 @@ namespace FaceIDAppVBEta
 
             if (attendanceRecord == null)
             {
-                //TODO
+                MessageBox.Show("Record not found or has been deleted.");
+                this.Close();
             }
 
             Employee employee = _dtCtrl.GetEmployeeByEmployeeNumber(attendanceRecord.EmployeeNumber);
 
             if (employee == null)
             {
-                //TODO
+                MessageBox.Show("Employee not found or has been deleted.");
+                this.Close();
             }
 
             cbxEmployeeNumber.SelectedValue = employee.EmployeeNumber;
@@ -153,12 +155,7 @@ namespace FaceIDAppVBEta
 
         private void RefeshOwner()
         {
-            Control[] ctr = this.Owner.Controls.Find("btnView", true);
-            if (ctr != null && ctr.Length > 0)
-            {
-                Button btn = (Button)ctr[0];
-                btn.PerformClick();
-            }
+            //call back to parent form
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -181,25 +178,27 @@ namespace FaceIDAppVBEta
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.Close();
+            if (Util.ConfirmCloseForm())
+                this.Close();
         }
 
         private void cbxEmployeeNumber_SelectedIndexChanged(object sender, EventArgs e)
         {
-            try{
+            try
+            {
                 int employeeNumber = Convert.ToInt32(cbxEmployeeNumber.SelectedValue);
-            Employee employee = _dtCtrl.GetEmployeeByEmployeeNumber(employeeNumber);
+                Employee employee = _dtCtrl.GetEmployeeByEmployeeNumber(employeeNumber);
 
-            if (employee != null)
-            {
-                txtEmployeeName.Text = employee.FirstName + " " + employee.LastName;
+                if (employee != null)
+                {
+                    txtEmployeeName.Text = employee.FirstName + " " + employee.LastName;
+                }
+                else
+                {
+                    //TODO
+                }
             }
-            else
-            {
-                //TODO
-            }
-            }
-            catch{}
+            catch { }
         }
 
         private void txtEmployeeName_Leave(object sender, EventArgs e)
@@ -214,7 +213,7 @@ namespace FaceIDAppVBEta
                 employeeNumber = Convert.ToInt32(txtEmployeeName.Text.Substring(iFrom, iTo - iFrom));
             }
             catch { }
-            
+
             if (employeeNumber == 0)
             {
                 iFrom = txtEmployeeName.Text.IndexOf(_seperator);

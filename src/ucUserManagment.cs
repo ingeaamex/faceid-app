@@ -112,7 +112,7 @@ namespace FaceIDAppVBEta
                     cbxEmployeeNumber.Items.Add(listItem);
                 }
 
-                cbxEmployeeNumber.SelectedIndex = 1;
+                cbxEmployeeNumber.SelectedIndex = 0;
             }
         }
 
@@ -217,7 +217,7 @@ namespace FaceIDAppVBEta
                 {
                     if (_dtCtrl.IsFaceIDUser(fUser.EmployeeNumber))
                     {
-                        throw new Exception("This employee has already been added as an user");
+                        throw new Exception("This employee has already been added as an user.");
                     }
 
                     if (_dtCtrl.AddFaceIDUser(fUser) > 0)
@@ -237,7 +237,7 @@ namespace FaceIDAppVBEta
             }
             catch (Exception ex)
             {
-                Util.ShowErrorMessage("There's been an error: " + ex.Message + ". Please try again.");
+                Util.ShowErrorMessage(ex);
                 return;
             }
 
@@ -258,7 +258,7 @@ namespace FaceIDAppVBEta
             }
             catch (Exception ex)
             {
-                Util.ShowErrorMessage("There's been an error: " + ex.Message + ". Please try again.");
+                Util.ShowErrorMessage(ex);
                 return;
             }
 
