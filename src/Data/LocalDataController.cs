@@ -139,7 +139,7 @@ namespace FaceIDAppVBEta.Data
         #region Company
         public List<Company> GetCompanyList()
         {
-            return GetCompanyList();
+            return GetCompanyList(true);
         }
 
         public List<Company> GetCompanyList(bool viewDefault)
