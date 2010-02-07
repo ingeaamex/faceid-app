@@ -25,6 +25,11 @@ namespace FaceIDAppVBEta
 
         private void BindData()
         {
+            if (!cbxShowChart.Checked)
+            {
+                TotalHours.Width = 188 + 98;
+                Chart.Visible = false;
+            }
             BindCompany();
             dtpAttendanceFrom.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1, 0, 0, 0);
         }
@@ -99,6 +104,15 @@ namespace FaceIDAppVBEta
         private void btnViewReport_Click(object sender, EventArgs e)
         {
             btnExportToMYOB.Enabled = true;
+            if (!cbxShowChart.Checked)
+            {
+                TotalHours.Width = 188 + 98;
+            }
+            else
+            {
+                TotalHours.Width = 98;
+            }
+            Chart.Visible = cbxShowChart.Checked;
             ShowReport();
         }
 
