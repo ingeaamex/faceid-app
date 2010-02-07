@@ -67,7 +67,6 @@
             this.ucAttendanceLog1.Name = "ucAttendanceLog1";
             this.ucAttendanceLog1.Size = new System.Drawing.Size(831, 580);
             this.ucAttendanceLog1.TabIndex = 0;
-            this.ucAttendanceLog1.Load += new System.EventHandler(this.ucAttendanceLog1_Load);
             // 
             // tabPage2
             // 
@@ -77,7 +76,7 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(831, 580);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Attendance Summary / Report";
+            this.tabPage2.Text = "Attendance Report";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // ucAttendanceReport1

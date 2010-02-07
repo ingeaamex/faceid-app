@@ -606,6 +606,16 @@ namespace FaceIDApp
                 att12.Time = new DateTime(2010, 1, 1, 18, 0, 0);
                 att12.ID = _dtCtrl.AddAttendanceRecord(att12);
 
+                AttendanceRecord att13 = new AttendanceRecord();
+                att13.EmployeeNumber = emp.EmployeeNumber;
+                att13.Time = new DateTime(2010, 1, 1, 12, 0, 0);
+                att13.ID = _dtCtrl.AddAttendanceRecord(att13);
+
+                AttendanceRecord att14 = new AttendanceRecord();
+                att14.EmployeeNumber = emp.EmployeeNumber;
+                att14.Time = new DateTime(2010, 1, 1, 13, 0, 0);
+                att14.ID = _dtCtrl.AddAttendanceRecord(att14);
+
                 AttendanceRecord att21 = new AttendanceRecord();
                 att21.EmployeeNumber = emp.EmployeeNumber;
                 att21.Time = new DateTime(2010, 1, 2, 8, 45, 0);

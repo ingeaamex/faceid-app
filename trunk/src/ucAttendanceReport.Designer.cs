@@ -105,15 +105,15 @@
             // 
             this.btnViewReport.Location = new System.Drawing.Point(6, 91);
             this.btnViewReport.Name = "btnViewReport";
-            this.btnViewReport.Size = new System.Drawing.Size(75, 23);
+            this.btnViewReport.Size = new System.Drawing.Size(90, 23);
             this.btnViewReport.TabIndex = 23;
-            this.btnViewReport.Text = "View";
+            this.btnViewReport.Text = "View Reports";
             this.btnViewReport.UseVisualStyleBackColor = false;
             this.btnViewReport.Click += new System.EventHandler(this.btnViewReport_Click);
             // 
             // btnPayrollExport
             // 
-            this.btnPayrollExport.Location = new System.Drawing.Point(211, 91);
+            this.btnPayrollExport.Location = new System.Drawing.Point(218, 91);
             this.btnPayrollExport.Name = "btnPayrollExport";
             this.btnPayrollExport.Size = new System.Drawing.Size(103, 23);
             this.btnPayrollExport.TabIndex = 22;
@@ -124,7 +124,7 @@
             // btnExportToMYOB
             // 
             this.btnExportToMYOB.Enabled = false;
-            this.btnExportToMYOB.Location = new System.Drawing.Point(89, 91);
+            this.btnExportToMYOB.Location = new System.Drawing.Point(100, 91);
             this.btnExportToMYOB.Name = "btnExportToMYOB";
             this.btnExportToMYOB.Size = new System.Drawing.Size(114, 23);
             this.btnExportToMYOB.TabIndex = 20;
@@ -245,7 +245,7 @@
             this.TotalHours.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.TotalHours.DataPropertyName = "TotalHour";
             this.TotalHours.FillWeight = 98F;
-            this.TotalHours.HeaderText = "Total of Hours";
+            this.TotalHours.HeaderText = "Total Hours";
             this.TotalHours.Name = "TotalHours";
             this.TotalHours.ReadOnly = true;
             this.TotalHours.Resizable = System.Windows.Forms.DataGridViewTriState.True;
@@ -321,7 +321,7 @@
             this.dataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.dataGridViewTextBoxColumn5.DataPropertyName = "TotalHour";
             this.dataGridViewTextBoxColumn5.FillWeight = 98F;
-            this.dataGridViewTextBoxColumn5.HeaderText = "Total of Hours";
+            this.dataGridViewTextBoxColumn5.HeaderText = "Total Hours";
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.ReadOnly = true;
             this.dataGridViewTextBoxColumn5.Resizable = System.Windows.Forms.DataGridViewTriState.True;
