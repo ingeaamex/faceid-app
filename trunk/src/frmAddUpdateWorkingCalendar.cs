@@ -29,9 +29,9 @@ namespace FaceIDAppVBEta
             InitializeComponent();
             _workingCalendarID = workingCalendarID;
 
-            _listBreak1 = new Control[] { txtBreakName1, dtpBreakFrom1, dtpBreakTo1, cbxBreakPaid1 };
-            _listBreak2 = new Control[] { txtBreakName2, dtpBreakFrom2, dtpBreakTo2, cbxBreakPaid2 };
-            _listBreak3 = new Control[] { txtBreakName3, dtpBreakFrom3, dtpBreakTo3, cbxBreakPaid3 };
+            _listBreak1 = new Control[] { txtBreakName1, dtpBreakFrom1, dtpBreakTo1, chbBreakPaid1 };
+            _listBreak2 = new Control[] { txtBreakName2, dtpBreakFrom2, dtpBreakTo2, chbBreakPaid2 };
+            _listBreak3 = new Control[] { txtBreakName3, dtpBreakFrom3, dtpBreakTo3, chbBreakPaid3 };
 
             _listCbxRate = new ComboBox[]{cbxWorkDayRegularRate, cbxWorkDayOvertimeRate1, cbxWorkDayOvertimeRate2, cbxWorkDayOvertimeRate3, cbxWorkDayOvertimeRate4, 
                 cbxNonWorkDayRegularRate, cbxNonWorkDayOvertimeRate1, cbxNonWorkDayOvertimeRate2, cbxNonWorkDayOvertimeRate3, cbxNonWorkDayOvertimeRate4, 
@@ -44,10 +44,6 @@ namespace FaceIDAppVBEta
         private void BindData()
         {
             nudCustomPayPeriod.Maximum = 30;
-
-            AddBreakPaid(cbxBreakPaid1);
-            AddBreakPaid(cbxBreakPaid2);
-            AddBreakPaid(cbxBreakPaid3);
 
             foreach (ComboBox cbx in _listCbxRate)
             {
@@ -74,14 +70,6 @@ namespace FaceIDAppVBEta
             cbx.Items.Add(new Rate(300, "300%"));
 
             cbx.Items.Add(new Rate(-1, "Custom Rate"));
-
-            cbx.SelectedIndex = 0;
-        }
-
-        private void AddBreakPaid(ComboBox cbx)
-        {
-            cbx.Items.Add("Yes");
-            cbx.Items.Add("No");
 
             cbx.SelectedIndex = 0;
         }
@@ -132,33 +120,36 @@ namespace FaceIDAppVBEta
                 {
                     Break break1 = breaks[0];
                     EnableBreakControls1(true);
+                    chbBreak1.Checked = true;
 
                     txtBreakName1.Text = break1.Name;
                     dtpBreakFrom1.Value = break1.From;
                     dtpBreakTo1.Value = break1.To;
-                    chbBreak1.Checked = break1.Paid;
+                    chbBreakPaid1.Checked = break1.Paid;
                 }
 
                 if (breaks.Count >= 2)
                 {
                     Break break2 = breaks[1];
                     EnableBreakControls2(true);
+                    chbBreak2.Checked = true;
 
                     txtBreakName2.Text = break2.Name;
                     dtpBreakFrom2.Value = break2.From;
                     dtpBreakTo2.Value = break2.To;
-                    chbBreak2.Checked = break2.Paid;
+                    chbBreakPaid2.Checked = break2.Paid;
                 }
 
                 if (breaks.Count >= 3)
                 {
                     Break break3 = breaks[2];
                     EnableBreakControls3(true);
+                    chbBreak3.Checked = true;
 
                     txtBreakName3.Text = break3.Name;
                     dtpBreakFrom3.Value = break3.From;
                     dtpBreakTo3.Value = break3.To;
-                    chbBreak3.Checked = break3.Paid;
+                    chbBreakPaid3.Checked = break3.Paid;
                 }
                 #endregion
 
@@ -580,7 +571,7 @@ namespace FaceIDAppVBEta
 
                 if (workingCalendarID < 0)
                 {
-                    throw new Exception();
+                    throw new Exception("Working Calendar could not be added.");
                 }
 
                 MessageBox.Show("Working Calendar added.");
@@ -653,7 +644,7 @@ namespace FaceIDAppVBEta
                 break1.Name = txtBreakName1.Text;
                 break1.From = dtpBreakFrom1.Value;
                 break1.To = dtpBreakTo1.Value;
-                break1.Paid = chbBreak1.Checked;
+                break1.Paid = chbBreakPaid1.Checked;
 
                 breakList.Add(break1);
             }
@@ -665,7 +656,7 @@ namespace FaceIDAppVBEta
                 break2.Name = txtBreakName2.Text;
                 break2.From = dtpBreakFrom2.Value;
                 break2.To = dtpBreakTo2.Value;
-                break2.Paid = chbBreak2.Checked;
+                break2.Paid = chbBreakPaid2.Checked;
 
                 breakList.Add(break2);
             }
@@ -677,7 +668,7 @@ namespace FaceIDAppVBEta
                 break3.Name = txtBreakName3.Text;
                 break3.From = dtpBreakFrom3.Value;
                 break3.To = dtpBreakTo3.Value;
-                break3.Paid = chbBreak3.Checked;
+                break3.Paid = chbBreakPaid3.Checked;
 
                 breakList.Add(break3);
             }

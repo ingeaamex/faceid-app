@@ -545,7 +545,7 @@ namespace FaceIDApp
                 wCal.WorkOnFriday = true;
 
                 wCal.GraceForwardToEntry = 30;
-                wCal.GraceForwardToEntry = 30;
+                wCal.GraceBackwardToExit = 30;
                 wCal.EarliestBeforeEntry = 60;
                 wCal.LastestAfterExit = 180;
 

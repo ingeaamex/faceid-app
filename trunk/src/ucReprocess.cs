@@ -54,14 +54,14 @@ namespace FaceIDAppVBEta
         {
             if (cbxCompany.SelectedValue != null)
             {
-                int companyID = (int)cbxCompany.SelectedValue;
-                if (companyID == -1)
+                int CompanyID = (int)cbxCompany.SelectedValue;
+                if (CompanyID == -1)
                 {
                     cbxDepartment.Enabled = false;
                     return;
                 }
                 cbxDepartment.Enabled = true;
-                List<Department> departmentList = _dtCtrl.GetDepartmentByCompany(companyID);
+                List<Department> departmentList = _dtCtrl.GetDepartmentByCompany(CompanyID, false);
                 Department department = new Department();
                 department.ID = -1;
                 department.Name = "All departments";
@@ -117,8 +117,11 @@ namespace FaceIDAppVBEta
                 MessageBox.Show(this, "Select employee to continue");
                 return;
             }
-            DateTime dReprocessFrom = dtpReprocessFrom.Value;
-            DateTime dReprocessTo = dtpReprocessTo.Value;
+            DateTime dReprocessFrom = dtpReprocessFrom.Value.Date;
+            DateTime dReprocessTo = dtpReprocessTo.Value.Date;
+
+            //go forward to 23:59:59
+            dReprocessTo = dReprocessTo.AddDays(1).AddSeconds(-1);
 
             new frmReprocessStatus(employeeNumberList, dReprocessFrom, dReprocessTo).ShowDialog(this);
         }

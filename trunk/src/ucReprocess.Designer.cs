@@ -105,6 +105,7 @@
             this.dtpReprocessTo.Name = "dtpReprocessTo";
             this.dtpReprocessTo.Size = new System.Drawing.Size(121, 20);
             this.dtpReprocessTo.TabIndex = 31;
+            this.dtpReprocessTo.Value = new System.DateTime(2010, 2, 7, 0, 0, 0, 0);
             // 
             // label3
             // 
@@ -122,6 +123,7 @@
             this.dtpReprocessFrom.Name = "dtpReprocessFrom";
             this.dtpReprocessFrom.Size = new System.Drawing.Size(121, 20);
             this.dtpReprocessFrom.TabIndex = 29;
+            this.dtpReprocessFrom.Value = new System.DateTime(2010, 2, 7, 0, 0, 0, 0);
             // 
             // label2
             // 

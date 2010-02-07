@@ -3189,7 +3189,6 @@ namespace FaceIDAppVBEta.Data
             return attendanceReports;
         }
 
-
         #endregion
 
 

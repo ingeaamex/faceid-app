@@ -64,7 +64,6 @@ namespace FaceIDAppVBEta
 
         private void UpdateReport()
         {
-
             try
             {
                 SetState(1);
@@ -87,7 +86,7 @@ namespace FaceIDAppVBEta
                     Invoke(new AddProgressCallBack(AddProgress), new object[] { 1 });
                     Invoke(new SetTextCallBack(SetText), new object[] { lProcessStatus, textProgress });
                 }
-                MessageBox.Show(this, updated + " attendance report(s) have been updated");
+                MessageBox.Show(updated + " attendance report(s) have been updated");
             }
             catch (Exception ex)
             {
