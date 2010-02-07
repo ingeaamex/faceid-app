@@ -201,6 +201,7 @@ namespace FaceIDApp
 
         }
 
+
         public Test()
         {
             InitializeComponent();
@@ -306,7 +307,7 @@ namespace FaceIDApp
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("[" + ex.Message + "]" + ex.StackTrace);
             }
 
             SetState(0);
@@ -407,8 +408,6 @@ namespace FaceIDApp
                 int cleared = 0;
 
                 clearing++;
-                if (_dtCtrl.DeleteAllUncalculatedAttendanceRecord())
-                    cleared++;
 
                 string textProgress = "Clearing: " + clearing + "/" + toBeCleared + " (Cleared: " + cleared + ")";
 
@@ -686,7 +685,7 @@ namespace FaceIDApp
                 }
 
                 //clear company
-                foreach (Company com in _dtCtrl.GetCompanyList())
+                foreach (Company com in _dtCtrl.GetCompanyList(true))
                 {
                     if(com.ID != 1)
                     _dtCtrl.DeleteCompany(com.ID);
