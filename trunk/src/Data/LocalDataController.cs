@@ -18,7 +18,6 @@ namespace FaceIDAppVBEta.Data
 
         private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=" + _dbPath;
 
-
         private OleDbTransaction transaction;
         private static OleDbConnection dbConnection;
         private static LocalDataController instance;
