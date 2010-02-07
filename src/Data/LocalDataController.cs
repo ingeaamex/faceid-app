@@ -221,7 +221,7 @@ namespace FaceIDAppVBEta.Data
 
         public List<Department> GetDepartmentByCompany(int companyID)
         {
-            return GetDepartmentByCompany(companyID);
+            return GetDepartmentByCompany(companyID, true);
         }
 
         public List<Department> GetDepartmentByCompany(int companyID, bool viewDefault)
