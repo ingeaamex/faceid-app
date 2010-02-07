@@ -32,7 +32,7 @@ namespace FaceIDAppVBEta
         private void BindTree()
         {
             tvDepartment.Nodes.Clear();
-            List<Company> companyList = _dtCtrl.GetCompanyList(true);
+            List<Company> companyList = _dtCtrl.GetCompanyList();
             _departmentList = _dtCtrl.GetDepartmentList();
 
             foreach (Company company in companyList)
@@ -273,7 +273,7 @@ namespace FaceIDAppVBEta
 
         private void BindCompany()
         {
-            List<Company> companyList = _dtCtrl.GetCompanyList(true);
+            List<Company> companyList = _dtCtrl.GetCompanyList();
             cbxCompany.DataSource = companyList;
         }
 
@@ -282,7 +282,7 @@ namespace FaceIDAppVBEta
             if (cbxCompany.SelectedValue != null)
             {
                 int CompanyID = (int)cbxCompany.SelectedValue;
-                List<Department> departmentList = _dtCtrl.GetDepartmentByCompany(CompanyID, true);
+                List<Department> departmentList = _dtCtrl.GetDepartmentByCompany(CompanyID);
                 Department department = new Department();
                 department.ID = 0;
                 department.Name = "Root";

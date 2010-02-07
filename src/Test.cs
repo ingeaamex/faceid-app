@@ -685,7 +685,7 @@ namespace FaceIDApp
                 }
 
                 //clear company
-                foreach (Company com in _dtCtrl.GetCompanyList(true))
+                foreach (Company com in _dtCtrl.GetCompanyList())
                 {
                     if(com.ID != 1)
                     _dtCtrl.DeleteCompany(com.ID);

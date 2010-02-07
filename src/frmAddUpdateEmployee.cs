@@ -33,7 +33,7 @@ namespace FaceIDAppVBEta
 
         private void BindCompany()
         {
-            List<Company> companyList = _dtCtrl.GetCompanyList(false);
+            List<Company> companyList = _dtCtrl.GetCompanyList();
             if (companyList.Count < 1)
             {
                 MessageBox.Show("At least one Company must be added before adding employees.");
@@ -48,8 +48,8 @@ namespace FaceIDAppVBEta
         {
             if (cbxCompany.SelectedValue != null)
             {
-                int CompanyID = (int)cbxCompany.SelectedValue;
-                List<Department> departmentList = _dtCtrl.GetDepartmentByCompany(CompanyID, false);
+                int companyID = (int)cbxCompany.SelectedValue;
+                List<Department> departmentList = _dtCtrl.GetDepartmentByCompany(companyID);
                 if (departmentList.Count < 1)
                 {
                     MessageBox.Show("At least one Department must be added before adding employees.");
