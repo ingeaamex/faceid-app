@@ -38,7 +38,7 @@ namespace FaceIDAppVBEta
         
         private void BindCompany()
         {
-            List<Company> companyList = _dtCtrl.GetCompanyList(false);
+            List<Company> companyList = _dtCtrl.GetCompanyList();
             Company company = new Company();
             company.ID = -1;
             company.Name = "All companies";
@@ -54,14 +54,14 @@ namespace FaceIDAppVBEta
         {
             if (cbxCompany.SelectedValue != null)
             {
-                int CompanyID = (int)cbxCompany.SelectedValue;
-                if (CompanyID == -1)
+                int companyID = (int)cbxCompany.SelectedValue;
+                if (companyID == -1)
                 {
                     cbxDepartment.Enabled = false;
                     return;
                 }
                 cbxDepartment.Enabled = true;
-                List<Department> departmentList = _dtCtrl.GetDepartmentByCompany(CompanyID, false);
+                List<Department> departmentList = _dtCtrl.GetDepartmentByCompany(companyID);
                 Department department = new Department();
                 department.ID = -1;
                 department.Name = "All departments";
