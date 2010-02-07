@@ -120,7 +120,7 @@ namespace FaceIDAppVBEta
 
         private void BindCompany()
         {
-            List<Company> companyList = dtCtrl.GetCompanyList();
+            List<Company> companyList = dtCtrl.GetCompanyList(false);
             Company company = new Company();
             company.ID = -1;
             company.Name = "All companies";
@@ -139,7 +139,7 @@ namespace FaceIDAppVBEta
                     return;
                 }
                 cbxDepartment.Enabled = true;
-                List<Department> departmentList = dtCtrl.GetDepartmentByCompany(CompanyID);
+                List<Department> departmentList = dtCtrl.GetDepartmentByCompany(CompanyID, false);
                 Department department = new Department();
                 department.ID = -1;
                 department.Name = "All departments";
