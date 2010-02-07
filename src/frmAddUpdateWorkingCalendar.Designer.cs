@@ -71,7 +71,6 @@
             this.dtpBreakFrom2 = new System.Windows.Forms.DateTimePicker();
             this.dtpBreakTo1 = new System.Windows.Forms.DateTimePicker();
             this.dtpBreakFrom1 = new System.Windows.Forms.DateTimePicker();
-            this.cbxBreakPaid3 = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txtBreakName3 = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -81,14 +80,12 @@
             this.btnBack3 = new System.Windows.Forms.Button();
             this.btnCancel3 = new System.Windows.Forms.Button();
             this.btnNext3 = new System.Windows.Forms.Button();
-            this.cbxBreakPaid2 = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
             this.txtBreakName2 = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.chbBreak2 = new System.Windows.Forms.CheckBox();
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
-            this.cbxBreakPaid1 = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.txtBreakName1 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -212,6 +209,9 @@
             this.btnCancel8 = new System.Windows.Forms.Button();
             this.btnFinish = new System.Windows.Forms.Button();
             this.label81 = new System.Windows.Forms.Label();
+            this.chbBreakPaid1 = new System.Windows.Forms.CheckBox();
+            this.chbBreakPaid2 = new System.Windows.Forms.CheckBox();
+            this.chbBreakPaid3 = new System.Windows.Forms.CheckBox();
             this.tabAddUpdateWorkingCalendar.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -570,7 +570,8 @@
             // 
             // dtpRegularWorkTo
             // 
-            this.dtpRegularWorkTo.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpRegularWorkTo.CustomFormat = "HH:mm:ss";
+            this.dtpRegularWorkTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpRegularWorkTo.Location = new System.Drawing.Point(68, 100);
             this.dtpRegularWorkTo.Name = "dtpRegularWorkTo";
             this.dtpRegularWorkTo.ShowUpDown = true;
@@ -581,7 +582,8 @@
             // 
             // dtpRegularWorkFrom
             // 
-            this.dtpRegularWorkFrom.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpRegularWorkFrom.CustomFormat = "HH:mm:ss";
+            this.dtpRegularWorkFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpRegularWorkFrom.Location = new System.Drawing.Point(68, 64);
             this.dtpRegularWorkFrom.Name = "dtpRegularWorkFrom";
             this.dtpRegularWorkFrom.ShowUpDown = true;
@@ -659,13 +661,15 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.chbBreakPaid3);
+            this.tabPage3.Controls.Add(this.chbBreakPaid2);
+            this.tabPage3.Controls.Add(this.chbBreakPaid1);
             this.tabPage3.Controls.Add(this.dtpBreakTo3);
             this.tabPage3.Controls.Add(this.dtpBreakFrom3);
             this.tabPage3.Controls.Add(this.dtpBreakTo2);
             this.tabPage3.Controls.Add(this.dtpBreakFrom2);
             this.tabPage3.Controls.Add(this.dtpBreakTo1);
             this.tabPage3.Controls.Add(this.dtpBreakFrom1);
-            this.tabPage3.Controls.Add(this.cbxBreakPaid3);
             this.tabPage3.Controls.Add(this.label10);
             this.tabPage3.Controls.Add(this.txtBreakName3);
             this.tabPage3.Controls.Add(this.label11);
@@ -675,14 +679,12 @@
             this.tabPage3.Controls.Add(this.btnBack3);
             this.tabPage3.Controls.Add(this.btnCancel3);
             this.tabPage3.Controls.Add(this.btnNext3);
-            this.tabPage3.Controls.Add(this.cbxBreakPaid2);
             this.tabPage3.Controls.Add(this.label14);
             this.tabPage3.Controls.Add(this.txtBreakName2);
             this.tabPage3.Controls.Add(this.label15);
             this.tabPage3.Controls.Add(this.chbBreak2);
             this.tabPage3.Controls.Add(this.label16);
             this.tabPage3.Controls.Add(this.label17);
-            this.tabPage3.Controls.Add(this.cbxBreakPaid1);
             this.tabPage3.Controls.Add(this.label9);
             this.tabPage3.Controls.Add(this.txtBreakName1);
             this.tabPage3.Controls.Add(this.label8);
@@ -699,9 +701,10 @@
             // 
             // dtpBreakTo3
             // 
+            this.dtpBreakTo3.CustomFormat = "HH:mm:ss";
             this.dtpBreakTo3.Enabled = false;
-            this.dtpBreakTo3.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dtpBreakTo3.Location = new System.Drawing.Point(89, 351);
+            this.dtpBreakTo3.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpBreakTo3.Location = new System.Drawing.Point(89, 311);
             this.dtpBreakTo3.Name = "dtpBreakTo3";
             this.dtpBreakTo3.ShowUpDown = true;
             this.dtpBreakTo3.Size = new System.Drawing.Size(100, 20);
@@ -710,9 +713,10 @@
             // 
             // dtpBreakFrom3
             // 
+            this.dtpBreakFrom3.CustomFormat = "HH:mm:ss";
             this.dtpBreakFrom3.Enabled = false;
-            this.dtpBreakFrom3.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dtpBreakFrom3.Location = new System.Drawing.Point(89, 313);
+            this.dtpBreakFrom3.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpBreakFrom3.Location = new System.Drawing.Point(89, 280);
             this.dtpBreakFrom3.Name = "dtpBreakFrom3";
             this.dtpBreakFrom3.ShowUpDown = true;
             this.dtpBreakFrom3.Size = new System.Drawing.Size(100, 20);
@@ -721,9 +725,10 @@
             // 
             // dtpBreakTo2
             // 
+            this.dtpBreakTo2.CustomFormat = "HH:mm:ss";
             this.dtpBreakTo2.Enabled = false;
-            this.dtpBreakTo2.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dtpBreakTo2.Location = new System.Drawing.Point(344, 163);
+            this.dtpBreakTo2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpBreakTo2.Location = new System.Drawing.Point(344, 148);
             this.dtpBreakTo2.Name = "dtpBreakTo2";
             this.dtpBreakTo2.ShowUpDown = true;
             this.dtpBreakTo2.Size = new System.Drawing.Size(100, 20);
@@ -732,9 +737,10 @@
             // 
             // dtpBreakFrom2
             // 
+            this.dtpBreakFrom2.CustomFormat = "HH:mm:ss";
             this.dtpBreakFrom2.Enabled = false;
-            this.dtpBreakFrom2.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dtpBreakFrom2.Location = new System.Drawing.Point(344, 125);
+            this.dtpBreakFrom2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpBreakFrom2.Location = new System.Drawing.Point(344, 117);
             this.dtpBreakFrom2.Name = "dtpBreakFrom2";
             this.dtpBreakFrom2.ShowUpDown = true;
             this.dtpBreakFrom2.Size = new System.Drawing.Size(100, 20);
@@ -743,9 +749,10 @@
             // 
             // dtpBreakTo1
             // 
+            this.dtpBreakTo1.CustomFormat = "HH:mm:ss";
             this.dtpBreakTo1.Enabled = false;
-            this.dtpBreakTo1.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dtpBreakTo1.Location = new System.Drawing.Point(89, 163);
+            this.dtpBreakTo1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpBreakTo1.Location = new System.Drawing.Point(89, 148);
             this.dtpBreakTo1.Name = "dtpBreakTo1";
             this.dtpBreakTo1.ShowUpDown = true;
             this.dtpBreakTo1.Size = new System.Drawing.Size(100, 20);
@@ -754,28 +761,20 @@
             // 
             // dtpBreakFrom1
             // 
+            this.dtpBreakFrom1.CustomFormat = "HH:mm:ss";
             this.dtpBreakFrom1.Enabled = false;
-            this.dtpBreakFrom1.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dtpBreakFrom1.Location = new System.Drawing.Point(89, 125);
+            this.dtpBreakFrom1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpBreakFrom1.Location = new System.Drawing.Point(89, 117);
             this.dtpBreakFrom1.Name = "dtpBreakFrom1";
             this.dtpBreakFrom1.ShowUpDown = true;
             this.dtpBreakFrom1.Size = new System.Drawing.Size(100, 20);
             this.dtpBreakFrom1.TabIndex = 118;
             this.dtpBreakFrom1.Value = new System.DateTime(2002, 2, 2, 0, 0, 0, 0);
             // 
-            // cbxBreakPaid3
-            // 
-            this.cbxBreakPaid3.Enabled = false;
-            this.cbxBreakPaid3.FormattingEnabled = true;
-            this.cbxBreakPaid3.Location = new System.Drawing.Point(89, 390);
-            this.cbxBreakPaid3.Name = "cbxBreakPaid3";
-            this.cbxBreakPaid3.Size = new System.Drawing.Size(100, 21);
-            this.cbxBreakPaid3.TabIndex = 113;
-            // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(38, 394);
+            this.label10.Location = new System.Drawing.Point(38, 346);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(28, 13);
             this.label10.TabIndex = 112;
@@ -784,7 +783,7 @@
             // txtBreakName3
             // 
             this.txtBreakName3.Enabled = false;
-            this.txtBreakName3.Location = new System.Drawing.Point(89, 274);
+            this.txtBreakName3.Location = new System.Drawing.Point(89, 249);
             this.txtBreakName3.Name = "txtBreakName3";
             this.txtBreakName3.Size = new System.Drawing.Size(100, 20);
             this.txtBreakName3.TabIndex = 111;
@@ -792,7 +791,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(38, 278);
+            this.label11.Location = new System.Drawing.Point(38, 253);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(35, 13);
             this.label11.TabIndex = 110;
@@ -801,7 +800,7 @@
             // chbBreak3
             // 
             this.chbBreak3.AutoSize = true;
-            this.chbBreak3.Location = new System.Drawing.Point(38, 251);
+            this.chbBreak3.Location = new System.Drawing.Point(38, 226);
             this.chbBreak3.Name = "chbBreak3";
             this.chbBreak3.Size = new System.Drawing.Size(63, 17);
             this.chbBreak3.TabIndex = 109;
@@ -812,7 +811,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(38, 355);
+            this.label12.Location = new System.Drawing.Point(38, 315);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(20, 13);
             this.label12.TabIndex = 108;
@@ -821,7 +820,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(38, 317);
+            this.label13.Location = new System.Drawing.Point(38, 284);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(30, 13);
             this.label13.TabIndex = 107;
@@ -857,19 +856,10 @@
             this.btnNext3.UseVisualStyleBackColor = true;
             this.btnNext3.Click += new System.EventHandler(this.btnNext3_Click);
             // 
-            // cbxBreakPaid2
-            // 
-            this.cbxBreakPaid2.Enabled = false;
-            this.cbxBreakPaid2.FormattingEnabled = true;
-            this.cbxBreakPaid2.Location = new System.Drawing.Point(344, 202);
-            this.cbxBreakPaid2.Name = "cbxBreakPaid2";
-            this.cbxBreakPaid2.Size = new System.Drawing.Size(100, 21);
-            this.cbxBreakPaid2.TabIndex = 95;
-            // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(290, 206);
+            this.label14.Location = new System.Drawing.Point(290, 183);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(28, 13);
             this.label14.TabIndex = 94;
@@ -906,7 +896,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(290, 167);
+            this.label16.Location = new System.Drawing.Point(290, 152);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(20, 13);
             this.label16.TabIndex = 90;
@@ -915,25 +905,16 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(290, 129);
+            this.label17.Location = new System.Drawing.Point(290, 121);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(30, 13);
             this.label17.TabIndex = 89;
             this.label17.Text = "From";
             // 
-            // cbxBreakPaid1
-            // 
-            this.cbxBreakPaid1.Enabled = false;
-            this.cbxBreakPaid1.FormattingEnabled = true;
-            this.cbxBreakPaid1.Location = new System.Drawing.Point(89, 202);
-            this.cbxBreakPaid1.Name = "cbxBreakPaid1";
-            this.cbxBreakPaid1.Size = new System.Drawing.Size(100, 21);
-            this.cbxBreakPaid1.TabIndex = 88;
-            // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(35, 206);
+            this.label9.Location = new System.Drawing.Point(35, 183);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(28, 13);
             this.label9.TabIndex = 87;
@@ -970,7 +951,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(35, 167);
+            this.label5.Location = new System.Drawing.Point(35, 152);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(20, 13);
             this.label5.TabIndex = 83;
@@ -979,7 +960,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(35, 129);
+            this.label6.Location = new System.Drawing.Point(35, 121);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(30, 13);
             this.label6.TabIndex = 82;
@@ -2172,6 +2153,33 @@
             this.label81.TabIndex = 171;
             this.label81.Text = "Set Pay Period";
             // 
+            // chbBreakPaid1
+            // 
+            this.chbBreakPaid1.AutoSize = true;
+            this.chbBreakPaid1.Location = new System.Drawing.Point(89, 182);
+            this.chbBreakPaid1.Name = "chbBreakPaid1";
+            this.chbBreakPaid1.Size = new System.Drawing.Size(15, 14);
+            this.chbBreakPaid1.TabIndex = 124;
+            this.chbBreakPaid1.UseVisualStyleBackColor = true;
+            // 
+            // chbBreakPaid2
+            // 
+            this.chbBreakPaid2.AutoSize = true;
+            this.chbBreakPaid2.Location = new System.Drawing.Point(344, 182);
+            this.chbBreakPaid2.Name = "chbBreakPaid2";
+            this.chbBreakPaid2.Size = new System.Drawing.Size(15, 14);
+            this.chbBreakPaid2.TabIndex = 125;
+            this.chbBreakPaid2.UseVisualStyleBackColor = true;
+            // 
+            // chbBreakPaid3
+            // 
+            this.chbBreakPaid3.AutoSize = true;
+            this.chbBreakPaid3.Location = new System.Drawing.Point(89, 345);
+            this.chbBreakPaid3.Name = "chbBreakPaid3";
+            this.chbBreakPaid3.Size = new System.Drawing.Size(15, 14);
+            this.chbBreakPaid3.TabIndex = 126;
+            this.chbBreakPaid3.UseVisualStyleBackColor = true;
+            // 
             // frmAddUpdateWorkingCalendar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2252,14 +2260,12 @@
         private System.Windows.Forms.CheckBox chbTuesday;
         private System.Windows.Forms.CheckBox chbMonday;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox cbxBreakPaid2;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox txtBreakName2;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.CheckBox chbBreak2;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.ComboBox cbxBreakPaid1;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txtBreakName1;
         private System.Windows.Forms.Label label8;
@@ -2267,7 +2273,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ComboBox cbxBreakPaid3;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txtBreakName3;
         private System.Windows.Forms.Label label11;
@@ -2409,5 +2414,8 @@
         private System.Windows.Forms.Label label77;
         private System.Windows.Forms.Label label78;
         private System.Windows.Forms.Label label74;
+        private System.Windows.Forms.CheckBox chbBreakPaid1;
+        private System.Windows.Forms.CheckBox chbBreakPaid3;
+        private System.Windows.Forms.CheckBox chbBreakPaid2;
     }
 }
