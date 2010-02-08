@@ -123,7 +123,7 @@ namespace FaceIDAppVBEta
                 _update = false;
                 cbxEmployeeNumber.Enabled = true;
                 if (cbxEmployeeNumber.Items.Count > 0)
-                    cbxEmployeeNumber.SelectedIndex = 1;
+                    cbxEmployeeNumber.SelectedIndex = 0;
                 else
                     cbxEmployeeNumber.SelectedIndex = -1;
 
@@ -252,7 +252,7 @@ namespace FaceIDAppVBEta
                 {
                     if (_dtCtrl.DeleteFaceIDUser(employeeNumber))
                     {
-                        MessageBox.Show("User has been deleted.");
+                        MessageBox.Show("User deleted.");
                     }
                 }
             }
