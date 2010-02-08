@@ -22,8 +22,26 @@ namespace FaceIDAppVBEta
             InitializeComponent();
 
             BindWeekdays();
-            RestoreOldSettings();
+            BindRoundValue();
             EnableControls();
+
+            RestoreOldSettings();
+        }
+
+        private void BindRoundValue()
+        {
+            cbxRoundValue.DisplayMember = "Name";
+            cbxRoundValue.ValueMember = "Value";
+            cbxRoundValue.Items.Clear();
+
+            cbxRoundValue.Items.Add(new ListItem(1));
+            cbxRoundValue.Items.Add(new ListItem(5));
+            cbxRoundValue.Items.Add(new ListItem(6));
+            cbxRoundValue.Items.Add(new ListItem(10));
+            cbxRoundValue.Items.Add(new ListItem(15));
+            cbxRoundValue.Items.Add(new ListItem(30));
+
+            cbxRoundValue.SelectedIndex = 0;
         }
 
         private void BindWeekdays()
@@ -185,6 +203,7 @@ namespace FaceIDAppVBEta
             Config config = _dtCtrl.GetConfig();
 
             //set settings
+            //back up settings
             cbxScheduledBackup.Checked = config.ScheduledBackup;
             rbtBackupDaily.Checked = (config.BackupPeriod == 1);
             rbtBackupWeekly.Checked = (config.BackupPeriod == 7);
@@ -192,15 +211,19 @@ namespace FaceIDAppVBEta
             dtpBackUpDailyTime.Value = config.BackupTime;
             cbxBackupWeeklyDay.SelectedIndex = config.BackupDay;
             dtpBackupWeeklyTime.Value = config.BackupTime;
-
+                        
             txtBackupFolder.Text = config.BackupFolder;
 
             cbxRemindBackup.Checked = config.BackupRemind;
             nudBackupPeriod.Value = config.BackupRemindPeriod;
-
+            
+            //restore settings
             rbtRestoreLastest.Checked = config.RestoreFromLatest;
             rbtRestoreFromFile.Checked = !rbtRestoreLastest.Checked;
             txtRestoreFile.Text = config.RestoreFromFile;
+
+            //attendance settings
+            cbxRoundValue.SelectedIndex = cbxRoundValue.FindString(config.RecordRoundingValue.ToString());
         }
 
         private void btnSaveSettings_Click(object sender, EventArgs e)
@@ -244,6 +267,10 @@ namespace FaceIDAppVBEta
 
             //attendance setting
             config.AttendanceRecordInterval = (int)nudAttendanceRecordInterval.Value;
+            config.RecordRoundingValue = Convert.ToInt16(((ListItem)cbxRoundValue.SelectedItem).Value);
+
+            //CLIENT ONLY - server IP address
+            //TODO
 
             //save settings
             try

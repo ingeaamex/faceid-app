@@ -387,13 +387,12 @@
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(2, 126);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(174, 13);
+            this.label13.Size = new System.Drawing.Size(317, 13);
             this.label13.TabIndex = 26;
-            this.label13.Text = "[Ex: 07:02 will be rounded to 07:05]";
+            this.label13.Text = "[Ex: 07:02 will be rounded to 07:00, 07:03 will be rounded to 7:05]";
             // 
             // cbxRoundValue
             // 
-            this.cbxRoundValue.Enabled = false;
             this.cbxRoundValue.FormattingEnabled = true;
             this.cbxRoundValue.Items.AddRange(new object[] {
             "1",
@@ -438,7 +437,6 @@
             // 
             // nudAttendanceRecordInterval
             // 
-            this.nudAttendanceRecordInterval.Enabled = false;
             this.nudAttendanceRecordInterval.Location = new System.Drawing.Point(149, 26);
             this.nudAttendanceRecordInterval.Maximum = new decimal(new int[] {
             60,

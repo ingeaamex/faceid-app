@@ -572,7 +572,7 @@ namespace FaceIDApp
                 PayPeriod payPeriod = new PayPeriod();
                 payPeriod.CustomPeriod = 5;
                 payPeriod.PayPeriodTypeID = 5; //custom
-                payPeriod.StartFrom = DateTime.Today.AddDays(-5);
+                payPeriod.StartFrom = new DateTime(2010, 1, 1);
 
                 wCal.ID = _dtCtrl.AddWorkingCalendar(wCal, breakList, holidayList, workingDayPaymentRate, nonWorkingDayPaymentRate, holidayPaymentRate, payPeriod);
 
