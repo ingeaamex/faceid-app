@@ -12,8 +12,8 @@ namespace FaceIDAppVBEta.Data
 {
     public class LocalDataController : MarshalByRefObject, IDataController
     {
-        //private static readonly string _dbPath = @"F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";
-        private static readonly string _dbPath = @"F:\vnanh\project\FaceID\db\FaceIDdb.mdb";
+        private static readonly string _dbPath = @"F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";
+        //private static readonly string _dbPath = @"F:\vnanh\project\FaceID\db\FaceIDdb.mdb";
         //private static readonly string _dbPath = @"FaceIDdb.mdb";
 
         private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=" + _dbPath;
