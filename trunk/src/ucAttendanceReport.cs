@@ -36,8 +36,8 @@ namespace FaceIDAppVBEta
 
         private void btnPayrollExport_Click(object sender, EventArgs e)
         {
-            DateTime beginDate = dtpAttendanceFrom.Value;
-            DateTime endDate = dtpAttedanceTo.Value.Date.AddHours(23).AddMinutes(59);
+            DateTime beginDate = dtpAttendanceFrom.Value.Date;
+            DateTime endDate = dtpAttedanceTo.Value.Date;
 
             int iCompany = (int)cbxCompany.SelectedValue;
             int iDepartment = -1;

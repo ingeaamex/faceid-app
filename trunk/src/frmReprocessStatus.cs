@@ -99,7 +99,7 @@ namespace FaceIDAppVBEta
         private void frmReprocessStatus_Load(object sender, EventArgs e)
         {
             attendanceRecordList = _dtCtrl.GetReprocessAttendanceReport(employeeNumberList, dReprocessFrom, dReprocessTo);
-            if (attendanceRecordList.Count == 0)
+            if (attendanceRecordList == null || attendanceRecordList.Count == 0)
             {
                 MessageBox.Show(this, "no attendance report in process");
                 this.Close();
