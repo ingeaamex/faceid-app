@@ -1793,6 +1793,28 @@ namespace FaceIDAppVBEta.Data
 
         #region Attendance Record
 
+        private List<int> GetEmployeeNumberList_1(int iCompany, int iDepartment)
+        {
+            OleDbCommand odCom = null;
+            if (iDepartment > 0)
+                odCom = BuildSelectCmd("Employee", "Distinct EmployeeNumber", "DepartmentID=@ID", new object[] { "@ID", iDepartment });
+            else if (iCompany > 0)
+                odCom = BuildSelectCmd("Employee", "Distinct EmployeeNumber", " DepartmentID in (SELECT ID FROM Department WHERE CompanyID=@ID)", new object[] { "@ID", iCompany });
+            else
+                odCom = BuildSelectCmd("Employee", "Distinct EmployeeNumber", null);
+
+            OleDbDataReader odRdr = odCom.ExecuteReader();
+
+            List<int> empls = new List<int>();
+            while (odRdr.Read())
+            {
+                empls.Add((int)odRdr["EmployeeNumber"]);
+            }
+            odRdr.Close();
+
+            return empls;
+        }
+
         private List<string> GetEmployeeNumberList(int iCompany, int iDepartment)
         {
             OleDbCommand odCom = null;
@@ -1869,6 +1891,65 @@ namespace FaceIDAppVBEta.Data
             return attSummarys;
         }
 
+        private List<AttendanceLogReport> GetAttendanceLogReportList(int employeeNumber, DateTime beginDate, DateTime endDate)
+        {
+            List<AttendanceReport> attendanceReports = GetAttendanceReport(employeeNumber, beginDate, endDate);
+            if (attendanceReports.Count == 0)
+                return null;
+
+            OleDbCommand odCom = BuildSelectCmd("Department INNER JOIN Employee ON Department.ID = Employee.DepartmentID",
+                "Employee.EmployeeNumber,Employee.FirstName,Employee.LastName,Employee.PayrollNumber,Employee.JobDescription,Department.Name as DepartmentName",
+                "EmployeeNumber =@Empl", new object[] { "@Empl", employeeNumber });
+
+            OleDbDataReader odRdr = odCom.ExecuteReader();
+
+            string employeeName="", jobDescription="", departmentName="";
+            int payrollNumber=0;
+            if (odRdr.Read())
+            {
+                employeeName = odRdr["LastName"]+", "+odRdr["FirstName"];
+                jobDescription = odRdr["PayrollNumber"].ToString();
+                departmentName = odRdr["PayrollNumber"].ToString();
+                payrollNumber = (int)odRdr["PayrollNumber"];
+            }
+            odRdr.Close();
+
+            List<AttendanceLogReport> attLogs = new List<AttendanceLogReport>();
+            AttendanceLogReport _attLog = null;
+
+            foreach (AttendanceReport attRp in attendanceReports)
+            {
+                _attLog = new AttendanceLogReport();
+
+                _attLog.FullName = employeeName;
+                _attLog.PayrollNumber = payrollNumber;
+                _attLog.JobDescription = jobDescription;
+                _attLog.Department = departmentName;
+
+                _attLog.AttendanceRecordIDList = attRp.AttendanceRecordIDList;
+                _attLog.DayTypeID = attRp.DayTypeID;
+                _attLog.EmployeeNumber = attRp.EmployeeNumber;
+                _attLog.OvertimeHour1 = attRp.OvertimeHour1;
+                _attLog.OvertimeHour2 = attRp.OvertimeHour2;
+                _attLog.OvertimeHour3 = attRp.OvertimeHour3;
+                _attLog.OvertimeHour4 = attRp.OvertimeHour4;
+                _attLog.OvertimeRate1 = attRp.OvertimeRate1;
+                _attLog.OvertimeRate1 = attRp.OvertimeRate1;
+                _attLog.OvertimeRate1 = attRp.OvertimeRate1;
+                _attLog.OvertimeRate1 = attRp.OvertimeRate1;
+                _attLog.PayPeriodID = attRp.PayPeriodID;
+                _attLog.RegularHour = 8;
+                _attLog.RegularRate = attRp.RegularRate;
+                _attLog.TotalHour = attRp.RegularHour + attRp.OvertimeHour1 + attRp.OvertimeHour2 + attRp.OvertimeHour3 + attRp.OvertimeHour4;
+                _attLog.WorkingHour = attRp.RegularHour;
+                _attLog.WorkFrom = attRp.WorkFrom;
+                _attLog.WorkTo = attRp.WorkTo;
+
+                attLogs.Add(_attLog);
+            }
+            return attLogs;
+        }
+
         public List<AttendanceLogReport> GetAttendanceLogReportList(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate)
         {
             List<AttendanceReport> attendanceReports = GetAttendanceReport(iCompany, iDepartment, beginDate, endDate, 0, true);
@@ -1880,7 +1961,9 @@ namespace FaceIDAppVBEta.Data
                 return null;
             string sEmplNumbers = string.Join(",", lEmplNumbers.ToArray());
 
-            OleDbCommand odCom = BuildSelectCmd("Employee", "EmployeeNumber,FirstName,LastName,PayrollNumber,JobDescription", "EmployeeNumber in(" + sEmplNumbers + ")");
+            OleDbCommand odCom = BuildSelectCmd("Department INNER JOIN Employee ON Department.ID = Employee.DepartmentID",
+                "Employee.EmployeeNumber,Employee.FirstName,Employee.LastName,Employee.PayrollNumber,Employee.JobDescription,Department.Name as DepartmentName", 
+                "EmployeeNumber in(" + sEmplNumbers + ")");
 
             OleDbDataAdapter odApt = new OleDbDataAdapter(odCom);
             DataTable dtEmpl = new DataTable();
@@ -1899,6 +1982,7 @@ namespace FaceIDAppVBEta.Data
                     _attLog.FullName = rdEmpl[0]["LastName"] + ", " + rdEmpl[0]["FirstName"];
                     _attLog.PayrollNumber = (int)rdEmpl[0]["PayrollNumber"];
                     _attLog.JobDescription = rdEmpl[0]["JobDescription"].ToString();
+                    _attLog.Department = rdEmpl[0]["DepartmentName"].ToString();
                 }
 
                 _attLog.AttendanceRecordIDList = attRp.AttendanceRecordIDList;
@@ -2408,19 +2492,11 @@ namespace FaceIDAppVBEta.Data
 
                         Break _break = breaks.Find(delegate(Break e)
                         {
-                            //a,b,x,y//
-                            //a,x,y,b
-                            //a,x,b,y
-                            //x,a,b,y
-                            //x,a,y,b
-                            //x,y,a,b//
-
                             DateTime breakFrom = dWorkingFrom.Date.AddHours(e.From.Hour).AddMinutes(e.From.Minute);
                             DateTime breakTo = dWorkingFrom.Date.AddHours(e.To.Hour).AddMinutes(e.To.Minute);
                             if (breakFrom.CompareTo(breakTo) == 1)
                                 breakTo = breakTo.AddDays(1);
-                            return e.Paid == false
-                                && ((time1.CompareTo(breakFrom) == -1 && time2.CompareTo(breakFrom) == 1)
+                            return ((time1.CompareTo(breakFrom) == -1 && time2.CompareTo(breakFrom) == 1)
                                 || (time1.CompareTo(breakTo) == -1 && time2.CompareTo(breakTo) == 1)
                                 || (time1.CompareTo(breakFrom) != -1 && time2.CompareTo(breakTo) != 1));
                         });
@@ -2432,17 +2508,42 @@ namespace FaceIDAppVBEta.Data
                             if (breakFrom.CompareTo(breakTo) == 1)
                                 breakTo = breakTo.AddDays(1);
 
-                            if (time1.CompareTo(breakFrom) == -1)
+                            if (_break.Paid == false)
                             {
-                                totalTicks += breakFrom.Ticks - time1.Ticks;
-                                if (time2.CompareTo(breakTo) == 1)
+                                if (time1.CompareTo(breakFrom) == -1)
+                                {
+                                    totalTicks += breakFrom.Ticks - time1.Ticks;
+                                    if (time2.CompareTo(breakTo) == 1)
+                                    {
+                                        totalTicks += time2.Ticks - breakTo.Ticks;
+                                    }
+                                }
+                                else
                                 {
                                     totalTicks += time2.Ticks - breakTo.Ticks;
                                 }
                             }
                             else
                             {
-                                totalTicks += time2.Ticks - breakTo.Ticks;
+                                if (time2.CompareTo(breakTo) == 1)
+                                    totalTicks += time2.Ticks - breakFrom.Ticks;
+                                else
+                                    totalTicks += breakTo.Ticks - breakFrom.Ticks;
+
+                                //if (time1.CompareTo(breakFrom) == -1)
+                                //{
+                                //    if (time2.CompareTo(breakTo) == 1)
+                                //        totalTicks += time2.Ticks - breakFrom.Ticks;
+                                //    else
+                                //        totalTicks += breakTo.Ticks - breakFrom.Ticks;
+                                //}
+                                //else
+                                //{
+                                //    if (time2.CompareTo(breakTo) == 1)
+                                //        totalTicks += time2.Ticks - time1.Ticks;
+                                //    else
+                                //        totalTicks += breakTo.Ticks - time1.Ticks;
+                                //}
                             }
                         }
                         else
@@ -2451,6 +2552,7 @@ namespace FaceIDAppVBEta.Data
                         }
                     }
                 }
+
 
                 double totalMinute = totalTicks / 600000000;
                 double totalHour = totalMinute / 60;
@@ -3117,6 +3219,46 @@ namespace FaceIDAppVBEta.Data
             return ExecuteNonQuery(odCom1) > 0;
         }
 
+        private List<AttendanceReport> GetAttendanceReport(int employeeNumber, DateTime dtFrom, DateTime dtTo)
+        {
+            string orderBy = "WorkFrom";
+
+            OleDbCommand odCom = BuildSelectCmd("AttendanceReport", "*", "WorkFrom >=@Date_1 AND WorkFrom <= @Date_2 AND EmployeeNumber=@Empl", orderBy,
+                new object[] { "@Empl", employeeNumber, "@Date_1", dtFrom, "@Date_2", dtTo });
+
+            List<AttendanceReport> attendanceReports = new List<AttendanceReport>();
+            AttendanceReport attendanceReport = null;
+
+            OleDbDataReader odRdr = odCom.ExecuteReader();
+            while (odRdr.Read())
+            {
+                attendanceReport = new AttendanceReport();
+
+                attendanceReport.DayTypeID = (int)odRdr["DayTypeID"];
+                attendanceReport.EmployeeNumber = (int)odRdr["EmployeeNumber"];
+                attendanceReport.OvertimeHour1 = (double)odRdr["OvertimeHour1"];
+                attendanceReport.OvertimeHour2 = (double)odRdr["OvertimeHour2"];
+                attendanceReport.OvertimeHour3 = (double)odRdr["OvertimeHour3"];
+                attendanceReport.OvertimeHour4 = (double)odRdr["OvertimeHour4"];
+                attendanceReport.OvertimeRate1 = (double)odRdr["OvertimeRate1"];
+                attendanceReport.OvertimeRate2 = (double)odRdr["OvertimeRate2"];
+                attendanceReport.OvertimeRate3 = (double)odRdr["OvertimeRate3"];
+                attendanceReport.OvertimeRate4 = (double)odRdr["OvertimeRate4"];
+                attendanceReport.PayPeriodID = (int)odRdr["PayPeriodID"];
+                attendanceReport.RegularHour = (double)odRdr["RegularHour"];
+                attendanceReport.RegularRate = (double)odRdr["RegularRate"];
+                attendanceReport.WorkFrom = (DateTime)odRdr["WorkFrom"];
+                attendanceReport.WorkTo = (DateTime)odRdr["WorkTo"];
+                attendanceReport.ID = (int)odRdr["ID"];
+                attendanceReport.AttendanceRecordIDList = odRdr["AttendanceRecordIDList"].ToString();
+
+                attendanceReports.Add(attendanceReport);
+            }
+            odRdr.Close();
+
+            return attendanceReports;
+        }
+
         public List<AttendanceReport> GetAttendanceReport(int companyID, int departmentID, DateTime dtFrom, DateTime dtTo, int columnIndex, bool isOrderByAcs)
         {
             List<string> lEmplNumbers = GetEmployeeNumberList(companyID, departmentID);
@@ -3596,37 +3738,38 @@ namespace FaceIDAppVBEta.Data
 
         public List<PayrollExport> GetPayrollExportList(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate)
         {
-            List<AttendanceLogReport> attendanceLogReportList = GetAttendanceLogReportList(iCompany, iDepartment, beginDate, endDate);
-            if (attendanceLogReportList == null || attendanceLogReportList.Count == 0)
+            return null;
+
+            List<int> employeeNumberList = GetEmployeeNumberList_1(iCompany, iDepartment);
+            if (employeeNumberList == null || employeeNumberList.Count == 0)
                 return null;
 
-            List<int> employeeNumberListTemp = attendanceLogReportList.ConvertAll(delegate(AttendanceLogReport attRp)
-            {
-                return attRp.EmployeeNumber;
-            });
+            //List<AttendanceLogReport> attendanceLogReportList = GetAttendanceLogReportList(iCompany, iDepartment, beginDate, endDate);
+            //if (attendanceLogReportList == null || attendanceLogReportList.Count == 0)
+            //    return null;
 
-            List<int> employeeNumberList = new List<int>();
+            //List<int> employeeNumberListTemp = attendanceLogReportList.ConvertAll(delegate(AttendanceLogReport attRp)
+            //{
+            //    return attRp.EmployeeNumber;
+            //});
 
-            foreach (int emplNumber in employeeNumberListTemp)
-            {
-                if (employeeNumberList.Contains(emplNumber))
-                    continue;
-                employeeNumberList.Add(emplNumber);
-            }
+            //List<int> employeeNumberList = new List<int>();
+
+            //foreach (int emplNumber in employeeNumberListTemp)
+            //{
+            //    if (employeeNumberList.Contains(emplNumber))
+            //        continue;
+            //    employeeNumberList.Add(emplNumber);
+            //}
 
             List<PayrollExport> payrollExportList = new List<PayrollExport>();
             PayrollExport payrollExport = null;
 
             foreach (int emplNumber in employeeNumberList)
             {
-                List<AttendanceLogReport> attendanceLogReportListByEmpl = attendanceLogReportList.FindAll(delegate(AttendanceLogReport e)
-                {
-                    return e.EmployeeNumber == emplNumber;
-                });
+                WorkingCalendar workingCalendarList = GetWorkingCalendarByEmployee(emplNumber);
 
-                attendanceLogReportListByEmpl.Sort(delegate(AttendanceLogReport e1, AttendanceLogReport e2) { return e1.WorkFrom.CompareTo(e2.WorkFrom); });
-
-                PayPeriod payPeriod = GetPayPeriod(attendanceLogReportListByEmpl[0].PayPeriodID);
+                PayPeriod payPeriod = GetPayPeriod(workingCalendarList.PayPeriodID);
                 DateTime dStartFrom = payPeriod.StartFrom;
                 int customPeriod = payPeriod.CustomPeriod;
                 PayPeriodType payPeriodType = GetPayPeriodType(payPeriod.PayPeriodTypeID);
@@ -3634,6 +3777,18 @@ namespace FaceIDAppVBEta.Data
 
                 DateTime dEndTo = dStartFrom;
                 SetBeginEndPeriodTime(ref dStartFrom, ref dEndTo, periodTypeName, customPeriod);
+
+                if (dEndTo.CompareTo(DateTime.Now) == 1)
+                    break;
+
+                List<AttendanceLogReport> attendanceLogReportListByEmpl = GetAttendanceLogReportList(emplNumber, dStartFrom, dEndTo);
+
+                if (attendanceLogReportListByEmpl == null || attendanceLogReportListByEmpl.Count == 0)
+                {
+                    break;
+                }
+
+                attendanceLogReportListByEmpl.Sort(delegate(AttendanceLogReport e1, AttendanceLogReport e2) { return e1.WorkFrom.CompareTo(e2.WorkFrom); });
 
                 double regularHours = 0;
                 string overtimeHourAndRate = "";
@@ -3646,23 +3801,8 @@ namespace FaceIDAppVBEta.Data
                 Hashtable hOvertimeHour3 = new Hashtable();
                 Hashtable hOvertimeHour4 = new Hashtable();
 
-                while (true)
+                if (true)
                 {
-                    if (attendanceLogReportListByEmpl.Count == 0 || dEndTo.CompareTo(DateTime.Now) == 1)
-                    {
-                        break;
-                    }
-
-                    List<AttendanceLogReport> attendanceLogReportListByPeriod = attendanceLogReportListByEmpl.FindAll(delegate(AttendanceLogReport e)
-                    {
-                        return e.WorkFrom.CompareTo(dStartFrom) != -1 && e.WorkFrom.CompareTo(dEndTo) == -1;
-                    });
-
-                    if (attendanceLogReportListByPeriod == null || attendanceLogReportListByPeriod.Count == 0)
-                    {
-                        SetBeginEndPeriodTime(ref dStartFrom, ref dEndTo, periodTypeName, customPeriod);
-                        continue;
-                    }
 
                     regularHours = 0;
                     overtimeHourAndRate = "";
@@ -3670,7 +3810,7 @@ namespace FaceIDAppVBEta.Data
                     totalHoursWithRate = 0;
                     totalOvertimeHours = 0;
 
-                    foreach (AttendanceLogReport attRp in attendanceLogReportListByPeriod)
+                    foreach (AttendanceLogReport attRp in attendanceLogReportListByEmpl)
                     {
                         regularHours += attRp.WorkingHour;
 
@@ -3748,16 +3888,17 @@ namespace FaceIDAppVBEta.Data
 
                     overtimeHourAndRate = strOvertime.ToString();
 
-                    AttendanceLogReport attendanceLogReport = attendanceLogReportListByPeriod[0];
+                    AttendanceLogReport attendanceLogReport = attendanceLogReportListByEmpl[0];
 
                     payrollExport = new PayrollExport();
 
-                    payrollExport.DateFrom = attendanceLogReportListByPeriod[0].WorkFrom;
-                    payrollExport.DateTo = attendanceLogReportListByPeriod[attendanceLogReportListByPeriod.Count - 1].WorkFrom;
+                    payrollExport.DateFrom = attendanceLogReportListByEmpl[0].WorkFrom;
+                    payrollExport.DateTo = attendanceLogReportListByEmpl[attendanceLogReportListByEmpl.Count - 1].WorkFrom;
 
                     payrollExport.EmployeeNumber = emplNumber;
                     payrollExport.FullName = attendanceLogReport.FullName;
                     payrollExport.JobDescription = attendanceLogReport.JobDescription;
+                    payrollExport.Department = attendanceLogReport.Department;
                     payrollExport.PayrollNumber = attendanceLogReport.PayrollNumber;
                     payrollExport.RegularHour = Math.Round(regularHours, 2);
                     payrollExport.OvertimeHour = overtimeHourAndRate;
@@ -3766,12 +3907,7 @@ namespace FaceIDAppVBEta.Data
                     payrollExport.TotalOvertimeHours = Math.Round(totalOvertimeHours, 2);
                     payrollExportList.Add(payrollExport);
 
-                    attendanceLogReportListByEmpl.RemoveAll(delegate(AttendanceLogReport e)
-                    {
-                        return e.WorkFrom.CompareTo(dStartFrom) != -1 && e.WorkFrom.CompareTo(dEndTo) == -1;
-                    });
-
-                    SetBeginEndPeriodTime(ref dStartFrom, ref dEndTo, periodTypeName, customPeriod);
+                    //SetBeginEndPeriodTime(ref dStartFrom, ref dEndTo, periodTypeName, customPeriod);
 
                     hOvertimeHour1.Clear();
                     hOvertimeHour2.Clear();
