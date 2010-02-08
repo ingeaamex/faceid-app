@@ -10,6 +10,8 @@ namespace FaceIDAppVBEta.Class
         public int EmployeeNumber { get; set; }
         public string FullName { get; set; }
         public string JobDescription { get; set; }
+        public DateTime DateFrom { get; set; }
+        public DateTime DateTo { get; set; }
         public double RegularHour { get; set; }
         public string OvertimeHour { get; set; }
         public double TotalHours { get; set; }

@@ -61,7 +61,7 @@ namespace FaceIDAppVBEta
                     return;
                 }
                 cbxDepartment.Enabled = true;
-                List<Department> departmentList = _dtCtrl.GetDepartmentByCompany(CompanyID, false);
+                List<Department> departmentList = _dtCtrl.GetDepartmentByCompany(CompanyID);
                 Department department = new Department();
                 department.ID = -1;
                 department.Name = "All departments";

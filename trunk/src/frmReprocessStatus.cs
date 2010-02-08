@@ -20,7 +20,7 @@ namespace FaceIDAppVBEta
         private DateTime dReprocessFrom;
         private DateTime dReprocessTo;
         private IDataController _dtCtrl = LocalDataController.Instance;
-        List<AttendanceReport> attendanceReportList = null;
+        List<AttendanceRecord> attendanceRecordList = null;
         public frmReprocessStatus(string _employeeNumberList, DateTime _dReprocessFrom, DateTime _dReprocessTo)
         {
             InitializeComponent();
@@ -68,17 +68,17 @@ namespace FaceIDAppVBEta
             {
                 SetState(1);
 
-                int toBeUpdate = attendanceReportList.Count;
+                int toBeUpdate = attendanceRecordList.Count;
 
                 Invoke(new InitProgressCallBack(InitProgress), new object[] { toBeUpdate });
 
                 int updating = 0;
                 int updated = 0;
 
-                foreach (AttendanceReport attRp in attendanceReportList)
+                foreach (AttendanceRecord attRc in attendanceRecordList)
                 {
                     updating++;
-                    if (_dtCtrl.ReProcessAttendanceReport(attRp))
+                    if (_dtCtrl.ReProcessAttendanceReport(attRc))
                         updated++;
 
                     string textProgress = "Processing: " + updating + "/" + toBeUpdate + " records (Processed: " + updated + ")";
@@ -86,7 +86,7 @@ namespace FaceIDAppVBEta
                     Invoke(new AddProgressCallBack(AddProgress), new object[] { 1 });
                     Invoke(new SetTextCallBack(SetText), new object[] { lProcessStatus, textProgress });
                 }
-                MessageBox.Show(updated + " attendance report(s) have been updated");
+                MessageBox.Show(updated + " attendance records have been updated");
             }
             catch (Exception ex)
             {
@@ -98,8 +98,8 @@ namespace FaceIDAppVBEta
 
         private void frmReprocessStatus_Load(object sender, EventArgs e)
         {
-            attendanceReportList = _dtCtrl.GetReprocessAttendanceReport(employeeNumberList, dReprocessFrom, dReprocessTo);
-            if (attendanceReportList.Count == 0)
+            attendanceRecordList = _dtCtrl.GetReprocessAttendanceReport(employeeNumberList, dReprocessFrom, dReprocessTo);
+            if (attendanceRecordList.Count == 0)
             {
                 MessageBox.Show(this, "no attendance report in process");
                 this.Close();

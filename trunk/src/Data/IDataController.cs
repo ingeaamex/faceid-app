@@ -20,6 +20,7 @@ namespace FaceIDAppVBEta.Data
         #endregion Connection
 
         #region Company
+
         List<Company> GetCompanyList();
 
         List<Company> GetCompanyList(bool viewDefault);
@@ -227,9 +228,9 @@ namespace FaceIDAppVBEta.Data
 
         bool UpdateAttendanceReport(AttendanceReport attendanceReport);
 
-        List<AttendanceReport> GetReprocessAttendanceReport(string _employeeNumberList, DateTime _dReprocessFrom, DateTime _dReprocessTo);
+        List<AttendanceRecord> GetReprocessAttendanceReport(string _employeeNumberList, DateTime _dReprocessFrom, DateTime _dReprocessTo);
 
-        bool ReProcessAttendanceReport(AttendanceReport _attReport);
+        bool ReProcessAttendanceReport(AttendanceRecord _attRecord);
 
         #endregion
 
