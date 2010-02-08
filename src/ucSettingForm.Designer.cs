@@ -42,6 +42,7 @@
             this.btnSaveSettings = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.gbxBackup = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.cbxBackupWeeklyDay = new System.Windows.Forms.ComboBox();
             this.dtpBackupWeeklyTime = new System.Windows.Forms.DateTimePicker();
             this.label9 = new System.Windows.Forms.Label();
@@ -54,6 +55,10 @@
             this.rbtRestoreFromFile = new System.Windows.Forms.RadioButton();
             this.rbtRestoreLastest = new System.Windows.Forms.RadioButton();
             this.gbxNoname1 = new System.Windows.Forms.GroupBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.cbxRoundValue = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.nudAttendanceRecordInterval = new System.Windows.Forms.NumericUpDown();
             this.label11 = new System.Windows.Forms.Label();
@@ -61,11 +66,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.mtbServerIPAddess = new System.Windows.Forms.MaskedTextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.cbxRoundValue = new System.Windows.Forms.ComboBox();
-            this.label13 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudBackupPeriod)).BeginInit();
             this.gbxBackup.SuspendLayout();
             this.gbxRestore.SuspendLayout();
@@ -237,6 +237,15 @@
             this.gbxBackup.TabStop = false;
             this.gbxBackup.Text = "Backup";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(253, 67);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(16, 13);
+            this.label5.TabIndex = 18;
+            this.label5.Text = "at";
+            // 
             // cbxBackupWeeklyDay
             // 
             this.cbxBackupWeeklyDay.FormattingEnabled = true;
@@ -373,6 +382,50 @@
             this.gbxNoname1.TabStop = false;
             this.gbxNoname1.Text = "Attendance";
             // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(2, 126);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(174, 13);
+            this.label13.TabIndex = 26;
+            this.label13.Text = "[Ex: 07:02 will be rounded to 07:05]";
+            // 
+            // cbxRoundValue
+            // 
+            this.cbxRoundValue.Enabled = false;
+            this.cbxRoundValue.FormattingEnabled = true;
+            this.cbxRoundValue.Items.AddRange(new object[] {
+            "1",
+            "3",
+            "5",
+            "6",
+            "10",
+            "15",
+            "30"});
+            this.cbxRoundValue.Location = new System.Drawing.Point(157, 93);
+            this.cbxRoundValue.Name = "cbxRoundValue";
+            this.cbxRoundValue.Size = new System.Drawing.Size(62, 21);
+            this.cbxRoundValue.TabIndex = 25;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(223, 97);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(54, 13);
+            this.label6.TabIndex = 24;
+            this.label6.Text = "minutes(s)";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(6, 97);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(147, 13);
+            this.label12.TabIndex = 18;
+            this.label12.Text = "Round Attendance Record to";
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -385,6 +438,7 @@
             // 
             // nudAttendanceRecordInterval
             // 
+            this.nudAttendanceRecordInterval.Enabled = false;
             this.nudAttendanceRecordInterval.Location = new System.Drawing.Point(149, 26);
             this.nudAttendanceRecordInterval.Maximum = new decimal(new int[] {
             60,
@@ -446,58 +500,6 @@
             this.label7.Size = new System.Drawing.Size(58, 13);
             this.label7.TabIndex = 14;
             this.label7.Text = "IP Address";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(253, 67);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(16, 13);
-            this.label5.TabIndex = 18;
-            this.label5.Text = "at";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(6, 97);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(147, 13);
-            this.label12.TabIndex = 18;
-            this.label12.Text = "Round Attendance Record to";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(223, 97);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(54, 13);
-            this.label6.TabIndex = 24;
-            this.label6.Text = "minutes(s)";
-            // 
-            // cbxRoundValue
-            // 
-            this.cbxRoundValue.FormattingEnabled = true;
-            this.cbxRoundValue.Items.AddRange(new object[] {
-            "1",
-            "3",
-            "5",
-            "6",
-            "10",
-            "15",
-            "30"});
-            this.cbxRoundValue.Location = new System.Drawing.Point(157, 93);
-            this.cbxRoundValue.Name = "cbxRoundValue";
-            this.cbxRoundValue.Size = new System.Drawing.Size(62, 21);
-            this.cbxRoundValue.TabIndex = 25;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(2, 126);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(174, 13);
-            this.label13.TabIndex = 26;
-            this.label13.Text = "[Ex: 07:02 will be rounded to 07:05]";
             // 
             // ucSetting
             // 
