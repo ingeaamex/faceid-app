@@ -24,7 +24,7 @@ namespace FaceIDAppVBEta.Data
         private static readonly Object mutex = new Object();
 
         //private int timeBound1 = 60;
-        private int timeBound2 = 0;
+        //private int timeBound2 = 0;
 
         public LocalDataController()
         {
@@ -2029,15 +2029,17 @@ namespace FaceIDAppVBEta.Data
 
         private bool IsNotValidAttendanceRecord(AttendanceRecord attRecord, bool forUpdate)
         {
+            int attRecInterval = GetAttendanceRecordInterval();
+
             OleDbCommand odCom;
             if (forUpdate)
                 odCom = BuildSelectCmd("AttendanceRecord", "ID", "ID<>@ID AND EmployeeNumber=@EmployeeNumber AND Time>@Time_1 AND Time<@Time_2",
                     new object[] { "@ID", attRecord.ID, "@EmployeeNumber", attRecord.EmployeeNumber, 
-                        "@Time_1", attRecord.Time.AddMinutes(-timeBound2), "@Time_2", attRecord.Time.AddMinutes(timeBound2) });
+                        "@Time_1", attRecord.Time.AddMinutes(-attRecInterval), "@Time_2", attRecord.Time.AddMinutes(attRecInterval) });
             else
                 odCom = BuildSelectCmd("AttendanceRecord", "ID", "EmployeeNumber=@EmployeeNumber AND Time>@Time_1 AND Time<@Time_2",
                     new object[] { "@EmployeeNumber", attRecord.EmployeeNumber,
-                         "@Time_1", attRecord.Time.AddMinutes(-timeBound2), "@Time_2", attRecord.Time.AddMinutes(timeBound2) });
+                         "@Time_1", attRecord.Time.AddMinutes(-attRecInterval), "@Time_2", attRecord.Time.AddMinutes(attRecInterval) });
 
             OleDbDataReader odRdr = odCom.ExecuteReader();
 
@@ -2047,6 +2049,12 @@ namespace FaceIDAppVBEta.Data
                 return true;
             }
             return false;
+        }
+
+        private int GetAttendanceRecordInterval()
+        {
+            Config config = GetConfig();
+            return config.AttendanceRecordInterval;
         }
 
         private PaymentRate GetPaymentRateByEmployeeAndWorkDay(int employeeNumber,DateTime dWorkDay)
@@ -3997,6 +4005,8 @@ namespace FaceIDAppVBEta.Data
                 config.LastestBackupFile = odRdr["LastestBackupFile"].ToString();
                 config.RestoreFromLatest = Convert.ToBoolean(odRdr["RestoreFromLatest"]);
                 config.RestoreFromFile = odRdr["RestoreFromFile"].ToString();
+                config.AttendanceRecordInterval = (int)odRdr["AttendanceRecordInterval"];
+                config.RecordRoundingValue = (int)odRdr["RecordRoundingValue"];
             }
             else
             {
@@ -4007,7 +4017,9 @@ namespace FaceIDAppVBEta.Data
 
                 config.BackupPeriod = 1;
                 config.BackupRemindPeriod = 1;
+                
                 config.AttendanceRecordInterval = 5;
+                config.RecordRoundingValue = 10;
 
                 config.LastestBackup = DateTime.Now;
 
@@ -4021,7 +4033,7 @@ namespace FaceIDAppVBEta.Data
 
         public bool UpdateConfig(Config config)
         {
-            OleDbCommand odCom1 = BuildUpdateCmd("Config",
+            System.Data.OleDb.OleDbCommand odCom1 = BuildUpdateCmd("Config",
                 new string[] { "ScheduledBackup"
                 ,"BackupPeriod"
                 ,"BackupDay"
@@ -4033,6 +4045,8 @@ namespace FaceIDAppVBEta.Data
                 ,"LastestBackupFile"
                 ,"RestoreFromLatest"
                 ,"RestoreFromFile"
+                ,"AttendanceRecordInterval"
+                ,"RecordRoundingValue"
                 },
                 new object[] { config.ScheduledBackup
                 ,config.BackupPeriod
@@ -4045,6 +4059,8 @@ namespace FaceIDAppVBEta.Data
                 ,config.LastestBackupFile
                 ,config.RestoreFromLatest
                 ,config.RestoreFromFile
+                ,config.AttendanceRecordInterval
+                ,config.RecordRoundingValue
                 },
                 "ID=@ID", new object[] { "@ID", config.ID }
             );
@@ -4054,7 +4070,7 @@ namespace FaceIDAppVBEta.Data
 
         private int AddConfig(Config config)
         {
-            OleDbCommand odCom1 = BuildInsertCmd("Config",
+            System.Data.OleDb.OleDbCommand odCom1 = BuildInsertCmd("Config",
                 new string[] { "ScheduledBackup"
                 ,"BackupPeriod"
                 ,"BackupDay"
@@ -4062,8 +4078,12 @@ namespace FaceIDAppVBEta.Data
                 ,"BackupFolder"
                 ,"BackupRemind"
                 ,"BackupRemindPeriod"
+                ,"LastestBackup"
+                ,"LastestBackupFile"
                 ,"RestoreFromLatest"
                 ,"RestoreFromFile"
+                ,"AttendanceRecordInterval"
+                ,"RecordRoundingValue"
                 },
                 new object[] { config.ScheduledBackup
                 ,config.BackupPeriod
@@ -4072,8 +4092,12 @@ namespace FaceIDAppVBEta.Data
                 ,config.BackupFolder
                 ,config.BackupRemind
                 ,config.BackupRemindPeriod
+                ,config.LastestBackup
+                ,config.LastestBackupFile
                 ,config.RestoreFromLatest
                 ,config.RestoreFromFile
+                ,config.AttendanceRecordInterval
+                ,config.RecordRoundingValue
                 }
             );
 

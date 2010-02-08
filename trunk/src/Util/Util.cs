@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FaceIDAppVBEta
 {
-    public static class Util
+    public class Util
     {
         public static FaceIDAppVBEta.Class.Config GetConfig()
         {
@@ -124,12 +124,12 @@ namespace FaceIDAppVBEta
             return dateDiff;
         }
 
-        internal static void SetComboboxSelectedByValue(System.Windows.Forms.ComboBox cbx, object value)
+        public static void SetComboboxSelectedByValue(System.Windows.Forms.ComboBox cbx, object value)
         {
             cbx.SelectedIndex = cbx.FindString(value.ToString());
         }
 
-        internal static DateTime GetTheFirstDayOfCurrentMonth()
+        public static DateTime GetTheFirstDayOfCurrentMonth()
         {
             DateTime dt = DateTime.Today;
             dt.AddDays(-dt.Day + 1);
@@ -137,7 +137,7 @@ namespace FaceIDAppVBEta
             return dt;
         }
 
-        internal static string GetMasterPassword()
+        public static string GetMasterPassword()
         {
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
             DateTime today = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day);
@@ -153,7 +153,7 @@ namespace FaceIDAppVBEta
         }
 
         //copied from http://www.dreamincode.net/code/snippet1378.htm
-        internal static bool IsValidIP(string addr)
+        public static bool IsValidIP(string addr)
         {
             //create our match pattern
             string pattern = @"^([1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(\.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3}$";
@@ -181,40 +181,43 @@ namespace FaceIDAppVBEta
             return valid;
         }
 
-        internal static bool ConfirmCancel()
+        public static bool ConfirmCancel()
         {
             return Confirm("Any unsaved data will be lost. Are you sure you want to cancel?");
         }
 
-        internal static bool ConfirmCloseForm()
+        public static bool ConfirmCloseForm()
         {
             return Confirm("Any unsaved data will be lost. Are you sure you want to close the form?");
         }
 
-        private static System.Collections.Hashtable hshCutOffValue = null;
-
-        internal static DateTime RoundDateTime(DateTime dt, int roundValue)
+        public static System.Collections.Hashtable CutOffValue
         {
-            if (hshCutOffValue == null)
+            get
             {
-                hshCutOffValue = new System.Collections.Hashtable();
+                System.Collections.Hashtable hshCutOffValue = new System.Collections.Hashtable();
                 hshCutOffValue.Add(1, 0.5);
-                hshCutOffValue.Add(5, 2);
+                hshCutOffValue.Add(5, 3);
                 hshCutOffValue.Add(6, 3);
                 hshCutOffValue.Add(10, 5);
                 hshCutOffValue.Add(15, 7);
                 hshCutOffValue.Add(30, 15);
-            }
 
-            if(hshCutOffValue.ContainsKey(roundValue))
+                return hshCutOffValue;
+            }
+        }
+
+        public static DateTime RoundDateTime(DateTime dt, int roundValue)
+        {
+            if(CutOffValue.ContainsKey(roundValue))
             {
-                return RoundDateTime(dt, roundValue, Convert.ToDouble(hshCutOffValue[roundValue]));
+                return RoundDateTime(dt, roundValue, Convert.ToDouble(CutOffValue[roundValue]));
             }
 
             return dt;
         }
 
-        internal static DateTime RoundDateTime(DateTime dt, int roundValue, double cutOffValue)
+        public static DateTime RoundDateTime(DateTime dt, int roundValue, double cutOffValue)
         {
             if (60 % roundValue != 0 || roundValue <= 0 || cutOffValue < 0 || cutOffValue >= roundValue)
                 return dt;
@@ -227,7 +230,7 @@ namespace FaceIDAppVBEta
                 int secDiff = dt.Second % roundValue;
                 if (secDiff != 0)
                 {
-                    if (secDiff > cutOffValue)
+                    if (secDiff >= cutOffValue)
                     {
                         dt = dt.AddSeconds(roundValue - secDiff);
                     }
@@ -242,7 +245,7 @@ namespace FaceIDAppVBEta
                 double minDiff = (dt.Minute % roundValue) + ((double)dt.Second / 60);
                 if (minDiff != 0)
                 {
-                    if (minDiff > cutOffValue)
+                    if (minDiff >= cutOffValue)
                     {
                         dt = dt.AddMinutes(roundValue - minDiff);
                     }
