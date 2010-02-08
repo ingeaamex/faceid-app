@@ -50,6 +50,7 @@ namespace FaceIDAppVBEta
             {
                 int companyID = (int)cbxCompany.SelectedValue;
                 List<Department> departmentList = _dtCtrl.GetDepartmentByCompany(companyID);
+
                 if (departmentList.Count < 1)
                 {
                     MessageBox.Show("At least one Department must be added before adding employees.");

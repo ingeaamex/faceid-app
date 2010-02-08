@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using Microsoft.Reporting.WinForms;
 
 using FaceIDAppVBEta.Data;
 using FaceIDAppVBEta.Class;
@@ -32,10 +33,10 @@ namespace FaceIDAppVBEta
 
             this.BindingSource.DataSource = dtCtrl.GetPayrollExportList(companyId, deparmentId, dPayrollFrom, dPayrollTo);
 
-            List<Microsoft.Reporting.WinForms.ReportParameter> paramList = new List<Microsoft.Reporting.WinForms.ReportParameter>();
+            List<ReportParameter> paramList = new List<ReportParameter>();
 
-            paramList.Add(new Microsoft.Reporting.WinForms.ReportParameter("PayrollFrom", dPayrollFrom.ToString("d MMM yyyy"), false));
-            paramList.Add(new Microsoft.Reporting.WinForms.ReportParameter("PayrollTo", dPayrollTo.ToString("d MMM yyyy"), false));
+            paramList.Add(new ReportParameter("PayrollFrom", dPayrollFrom.ToString("d MMM yyyy"), false));
+            paramList.Add(new ReportParameter("PayrollTo", dPayrollTo.ToString("d MMM yyyy"), false));
 
             reportViewer1.LocalReport.SetParameters(paramList);
 
