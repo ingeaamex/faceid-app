@@ -45,7 +45,7 @@
             reportDataSource1.Name = "PayrollExport";
             reportDataSource1.Value = this.BindingSource;
             this.reportViewer1.LocalReport.DataSources.Add(reportDataSource1);
-            this.reportViewer1.LocalReport.ReportEmbeddedResource = "FaceIDAppVBEta.Report1.rdlc";
+            this.reportViewer1.LocalReport.ReportEmbeddedResource = "FaceIDAppVBEta.PayrollExport.rdlc";
             this.reportViewer1.Location = new System.Drawing.Point(0, 0);
             this.reportViewer1.Name = "reportViewer1";
             this.reportViewer1.Size = new System.Drawing.Size(984, 567);
