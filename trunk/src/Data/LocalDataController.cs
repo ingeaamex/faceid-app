@@ -2021,73 +2021,81 @@ namespace FaceIDAppVBEta.Data
                 return null;
             string sEmplNumbers = string.Join(",", lEmplNumbers.ToArray());
 
-            OleDbCommand odCom = BuildSelectCmd("Employee", "EmployeeNumber,FirstName,LastName,PayrollNumber,JobDescription", "EmployeeNumber in(" + sEmplNumbers + ")");
+            OleDbCommand odCom = BuildSelectCmd("Employee", "EmployeeNumber, FirstName, LastName, PayrollNumber, JobDescription", "EmployeeNumber IN(" + sEmplNumbers + ") AND Active=TRUE");
 
             OleDbDataAdapter odApt = new OleDbDataAdapter(odCom);
+            
+            //TODO why don't use a List<Employee> here?
             DataTable dtEmpl = new DataTable();
             odApt.Fill(dtEmpl);
 
-            List<AttendanceLogRecord> attLogs = new List<AttendanceLogRecord>();
-            AttendanceLogRecord _attLog = null;
-            List<AttendanceRecord> attRecords = new List<AttendanceRecord>();
+            List<AttendanceLogRecord> attLogList = new List<AttendanceLogRecord>();
+            AttendanceLogRecord attLog = null;
+
+            List<AttendanceRecord> attRecordList = new List<AttendanceRecord>();
             AttendanceRecord attRecord = null;
 
-            foreach (AttendanceReport attRp in attendanceReports)
+            foreach (AttendanceReport attReport in attendanceReports)
             {
-                string sAttendanceRecordIDs = attRp.AttendanceRecordIDList;
+                string sAttendanceRecordIDs = attReport.AttendanceRecordIDList;
                 sAttendanceRecordIDs = sAttendanceRecordIDs.Replace("{", "").Replace("}", ",").Trim(',');
 
-                odCom = BuildSelectCmd("AttendanceRecord", "*", "ID in(" + sAttendanceRecordIDs + ")");
+                //TODO List<AttendanceRecord> GetAttendanceRecordByAttendanceReport(int attendanceReportID, bool orderByTime)
+                odCom = BuildSelectCmd("AttendanceRecord", "*", "ID IN(" + sAttendanceRecordIDs + ")");
                 OleDbDataReader odRdr = odCom.ExecuteReader();
 
-                attRecords.Clear();
+                attRecordList.Clear();
                 while (odRdr.Read())
                 {
                     attRecord = new AttendanceRecord();
                     attRecord.ID = (int)odRdr["ID"];
                     attRecord.EmployeeNumber = (int)odRdr["EmployeeNumber"];
                     attRecord.Note = odRdr["Note"].ToString();
-                    attRecord.PhotoData = odRdr["PhotoData"].ToString();
+                    //attRecord.PhotoData = odRdr["PhotoData"].ToString();
                     attRecord.Time = (DateTime)odRdr["Time"];
-                    attRecords.Add(attRecord);
+                    attRecordList.Add(attRecord);
                 }
                 odRdr.Close();
 
-                attRecords.Sort(delegate(AttendanceRecord e1, AttendanceRecord e2) { return e1.Time.CompareTo(e2.Time); });
+                attRecordList.Sort(delegate(AttendanceRecord e1, AttendanceRecord e2) { return e1.Time.CompareTo(e2.Time); });
 
                 bool isCheckIn = true;
                 bool isFirst = true;
 
-                DateTime dDateLog = attRecords[0].Time.Date;
-                foreach (AttendanceRecord att in attRecords)
+                DateTime dDateLog = attRecordList[0].Time.Date;
+                foreach (AttendanceRecord att in attRecordList)
                 {
-                    _attLog = new AttendanceLogRecord();
+                    attLog = new AttendanceLogRecord();
                     if (isFirst)
                     {
-                        _attLog.EmployeeNumber = attRp.EmployeeNumber;
-                        _attLog.DateLog = attRp.WorkFrom.Date;
-                        _attLog.TotalHours = attRp.RegularHour + attRp.OvertimeHour1 + attRp.OvertimeHour2 + attRp.OvertimeHour3 + attRp.OvertimeHour4;
-                        DataRow[] rdEmpl = dtEmpl.Select("EmployeeNumber=" + attRp.EmployeeNumber);
+                        attLog.EmployeeNumber = attReport.EmployeeNumber;
+                        attLog.DateLog = attReport.WorkFrom.Date;
+                        
+                        //TODO wrong number, total hours here is based on the in/out, not report
+                        attLog.TotalHours = attReport.RegularHour + attReport.OvertimeHour1 + attReport.OvertimeHour2 + attReport.OvertimeHour3 + attReport.OvertimeHour4;
+
+                        DataRow[] rdEmpl = dtEmpl.Select("EmployeeNumber=" + attReport.EmployeeNumber);
                         if (rdEmpl.Length > 0)
-                            _attLog.EmployeeName = rdEmpl[0]["LastName"] + ", " + rdEmpl[0]["FirstName"];
+                            attLog.EmployeeName = rdEmpl[0]["LastName"] + ", " + rdEmpl[0]["FirstName"];
                         isFirst = false;
                     }
-                    _attLog.ID = att.ID;
-                    _attLog.TimeLog = (isCheckIn ? "In " : "Out ") + (att.Time.Hour > 9 ? "" : "0") + att.Time.Hour + ":" + (att.Time.Minute > 9 ? "" : "0") + att.Time.Minute + ":" + (att.Time.Second > 9 ? "" : "0") + att.Time.Second;
-                    _attLog.Note = att.Note;
 
-                    attLogs.Add(_attLog);
+                    attLog.ID = att.ID;
+                    attLog.TimeLog = (isCheckIn ? "In " : "Out ") + (att.Time.Hour > 9 ? "" : "0") + att.Time.Hour + ":" + (att.Time.Minute > 9 ? "" : "0") + att.Time.Minute + ":" + (att.Time.Second > 9 ? "" : "0") + att.Time.Second;
+                    attLog.Note = att.Note;
+
+                    attLogList.Add(attLog);
 
                     isCheckIn = !isCheckIn;
                 }
                 if (isCheckIn == false && dDateLog.Equals(DateTime.Now.Date) == false)
                 {
-                    _attLog = new AttendanceLogRecord();
-                    _attLog.TimeLog = "OutMistakes";
-                    attLogs.Add(_attLog);
+                    attLog = new AttendanceLogRecord();
+                    attLog.TimeLog = "OutMistakes";
+                    attLogList.Add(attLog);
                 }
             }
-            return attLogs;
+            return attLogList;
         }
 
         public AttendanceRecord GetAttendanceRecord(int id)
@@ -2102,7 +2110,7 @@ namespace FaceIDAppVBEta.Data
                 attRecord.ID = (int)odRdr["ID"];
                 attRecord.EmployeeNumber = (int)odRdr["EmployeeNumber"];
                 attRecord.Note = odRdr["Note"].ToString();
-                attRecord.PhotoData = odRdr["PhotoData"].ToString();
+                //attRecord.PhotoData = odRdr["PhotoData"].ToString();
                 attRecord.Time = (DateTime)odRdr["Time"];
 
                 odRdr.Close();
@@ -2350,9 +2358,9 @@ namespace FaceIDAppVBEta.Data
             DateTime wFrom = new DateTime(attRecord.Time.Year, attRecord.Time.Month, attRecord.Time.Day, dRegularWorkingFrom.Hour,
                dRegularWorkingFrom.Minute, dRegularWorkingFrom.Second).AddMinutes(-1 * wCal.EarliestBeforeEntry);
 
-            if (attRecord.Time.CompareTo(wFrom) == 1)
+            if (attRecord.Time.CompareTo(wFrom) == 1) //after earliest allowed entry
             {
-                if (attRecord.Time.CompareTo(wFrom.AddDays(1)) != -1)
+                if (attRecord.Time.CompareTo(wFrom.AddDays(1)) != -1) //TODO how could this happen?
                     return wFrom.AddDays(1);
                 else
                     return wFrom;
@@ -2374,7 +2382,7 @@ namespace FaceIDAppVBEta.Data
 
             if (odRdr.Read())
             {
-                object o = odRdr["NumRc"];
+                object o = odRdr["NumRc"]; //TODO get 1 when there's no att records.
                 odRdr.Close();
                 if (o == null || (int)o == 0)
                     return true;
@@ -2397,15 +2405,16 @@ namespace FaceIDAppVBEta.Data
             return false;
         }
 
-        private bool AddUpdateAttendaceReport(AttendanceRecord _attRecord, AttendanceReport _attReport)
+        private bool AddUpdateAttendaceReport(AttendanceRecord attRecord, AttendanceReport attReport)
         {
-            int employeeNumber = _attReport == null ? _attRecord.EmployeeNumber : _attReport.EmployeeNumber;
+            int employeeNumber = (attReport == null) ? attRecord.EmployeeNumber : attReport.EmployeeNumber; //TODO what's the different b/w attRecord.EmployeeNumber and attReport.EmployeeNumber?
 
             WorkingCalendar workingCalendar = GetWorkingCalendarByEmployee(employeeNumber);
 
             int payPeriodID = workingCalendar.PayPeriodID;
             DateTime dRegularWorkingFrom = workingCalendar.RegularWorkingFrom;
             DateTime dRegularWorkingTo = workingCalendar.RegularWorkingTo;
+
             int earliestBeforeEntry = workingCalendar.EarliestBeforeEntry;
             int lastestAfterExit = workingCalendar.LastestAfterExit;
             int graceForwardToEntry = workingCalendar.GraceForwardToEntry;
@@ -2416,15 +2425,15 @@ namespace FaceIDAppVBEta.Data
             string attIdList = "";
             int reportId = 0;
             
-            if (_attReport == null)
+            if (attReport == null)
             {
-                dWorkingFrom = GetWorkingDayByAttendanceRecord(_attRecord);
+                dWorkingFrom = GetWorkingDayByAttendanceRecord(attRecord); //TODO could pass the workingCalendar here
                 dWorkingTo = dWorkingFrom.Date.AddHours(dRegularWorkingTo.Hour).AddMinutes(dRegularWorkingTo.Minute + lastestAfterExit);
 
                 if (dWorkingFrom.CompareTo(dWorkingTo) == 1)
                     dWorkingTo.AddDays(1);
 
-                if (_attRecord.Time.CompareTo(dWorkingFrom) == -1 || _attRecord.Time.CompareTo(dWorkingTo) == 1)
+                if (attRecord.Time.CompareTo(dWorkingFrom) == -1 || attRecord.Time.CompareTo(dWorkingTo) == 1)
                 {
                     return false;
                 }
@@ -2437,23 +2446,23 @@ namespace FaceIDAppVBEta.Data
                 {
                     reportId = (int)odRdr["ID"];
                     attIdList = odRdr["AttendanceRecordIDList"].ToString();
-                    attIdList += "{" + _attRecord.ID + "}";
+                    attIdList += "{" + attRecord.ID + "}";
                     odRdr.Close();
                 }
             }
             else
             {
-                dWorkingFrom = _attReport.WorkFrom;
-                dWorkingTo = _attReport.WorkTo;
-                reportId = _attReport.ID;
-                attIdList = _attReport.AttendanceRecordIDList;
+                dWorkingFrom = attReport.WorkFrom;
+                dWorkingTo = attReport.WorkTo;
+                reportId = attReport.ID;
+                attIdList = attReport.AttendanceRecordIDList;
             }
 
             if (reportId > 0)
             {
                 string listId = attIdList.Replace("{", "").Replace("}", ",").TrimEnd(',');
 
-                OleDbCommand odCom = BuildSelectCmd("AttendanceRecord", "*", "ID in (" + listId + ")");
+                OleDbCommand odCom = BuildSelectCmd("AttendanceRecord", "*", "ID IN (" + listId + ")");
                 OleDbDataReader odRdr = odCom.ExecuteReader();
 
                 List<DateTime> timeLogs = new List<DateTime>();
@@ -2470,7 +2479,7 @@ namespace FaceIDAppVBEta.Data
                 long totalTicks = 0;
                 for (int i = 0; i < timeLogs.Count - 1; i++)
                 {
-                    if (i % 2 == 0)
+                    if (i % 2 == 0) //TODO then why don't use i+=2?
                     {
                         DateTime time1 = timeLogs[i];
                         DateTime time2 = timeLogs[i + 1];
@@ -2480,21 +2489,21 @@ namespace FaceIDAppVBEta.Data
                         if (timeFrom.CompareTo(timeTo) == 1)
                             timeTo = timeTo.AddDays(1);
 
-                        double distanceMinute1 = (timeFrom.Ticks - time1.Ticks) / 600000000;
+                        double distanceMinute1 = (timeFrom.Ticks - time1.Ticks) / 600000000; //TODO use TimeSpan
                         if (distanceMinute1 > 0 && graceForwardToEntry >= distanceMinute1)
                         {
                             time1 = timeFrom;
                         }
-                        double distanceMinute2 = (time2.Ticks - timeTo.Ticks) / 600000000;
+                        double distanceMinute2 = (time2.Ticks - timeTo.Ticks) / 600000000; //TODO use TimeSpan
                         if (distanceMinute2 > 0 && graceBackwardToExit >= distanceMinute2)
                         {
                             time2 = timeTo;
                         }
 
-                        Break _break = breaks.Find(delegate(Break e)
+                        Break _break = breaks.Find(delegate(Break b)
                         {
-                            DateTime breakFrom = dWorkingFrom.Date.AddHours(e.From.Hour).AddMinutes(e.From.Minute);
-                            DateTime breakTo = dWorkingFrom.Date.AddHours(e.To.Hour).AddMinutes(e.To.Minute);
+                            DateTime breakFrom = dWorkingFrom.Date.AddHours(b.From.Hour).AddMinutes(b.From.Minute);
+                            DateTime breakTo = dWorkingFrom.Date.AddHours(b.To.Hour).AddMinutes(b.To.Minute);
                             if (breakFrom.CompareTo(breakTo) == 1)
                                 breakTo = breakTo.AddDays(1);
                             return ((time1.CompareTo(breakFrom) == -1 && time2.CompareTo(breakFrom) == 1)
@@ -2524,7 +2533,7 @@ namespace FaceIDAppVBEta.Data
                                     totalTicks += time2.Ticks - breakTo.Ticks;
                                 }
                             }
-                            else
+                            else //TODO must be some problems here
                             {
                                 if (time2.CompareTo(breakTo) == 1)
                                     totalTicks += time2.Ticks - breakFrom.Ticks;
@@ -2540,8 +2549,8 @@ namespace FaceIDAppVBEta.Data
                 }
 
 
-                double totalMinute = totalTicks / 600000000;
-                double totalHour = totalMinute / 60;
+                double totalMinute = totalTicks / 600000000; //TODO use TimeSpan
+                double totalHour = totalMinute / 60; //TODO use TimeSpan
 
                 PaymentRate paymentRate = GetPaymentRateByEmployeeAndWorkDay(employeeNumber, dWorkingFrom);
                 AttendanceReport attendanceReport = new AttendanceReport();
@@ -2575,7 +2584,7 @@ namespace FaceIDAppVBEta.Data
             {
                 workingCalendar.RegularWorkingFrom = dWorkingFrom;
                 workingCalendar.RegularWorkingTo = dWorkingTo;
-                return AddAttendanceReport(_attRecord, workingCalendar);
+                return AddAttendanceReport(attRecord, workingCalendar);
             }
         }
 
@@ -2585,7 +2594,7 @@ namespace FaceIDAppVBEta.Data
                 return -1;
 
             if (IsNotValidAttendanceRecord(attRecord, false))
-                return 1;
+                return 1; //TODO why not return -1 here?
 
             int employeeNumber = attRecord.EmployeeNumber;
             int attRecordID = 0;
@@ -2606,6 +2615,7 @@ namespace FaceIDAppVBEta.Data
                 return -1;
 
             attRecord.ID = attRecordID;
+            //TODO transaction here
             AddUpdateAttendaceReport(attRecord, null);
 
             return attRecordID;
@@ -3124,14 +3134,14 @@ namespace FaceIDAppVBEta.Data
             return attReport;
         }
 
-        private void GetRegularOvertime(ref AttendanceReport _attReport, double ptotalHour)
+        private void GetRegularOvertime(ref AttendanceReport attReport, double totalHour)
         {
-            double _totalHour = ptotalHour;
-            double _regularHour = _attReport.RegularHour;
-            double _overtimeHour1 = _attReport.OvertimeHour1;
-            double _overtimeHour2 = _attReport.OvertimeHour2;
-            double _overtimeHour3 = _attReport.OvertimeHour3;
-            double _overtimeHour4 = _attReport.OvertimeHour4;
+            double _totalHour = totalHour;
+            double _regularHour = attReport.RegularHour;
+            double _overtimeHour1 = attReport.OvertimeHour1;
+            double _overtimeHour2 = attReport.OvertimeHour2;
+            double _overtimeHour3 = attReport.OvertimeHour3;
+            double _overtimeHour4 = attReport.OvertimeHour4;
 
             double regularHour = 0;
             double overtimeHour1 = 0;
@@ -3187,11 +3197,11 @@ namespace FaceIDAppVBEta.Data
                 regularHour = _totalHour > _regularHour ? _regularHour : _totalHour;
             }
 
-            _attReport.RegularHour = Math.Round(regularHour, 2);
-            _attReport.OvertimeHour1 = Math.Round(overtimeHour1, 2);
-            _attReport.OvertimeHour2 = Math.Round(overtimeHour2, 2);
-            _attReport.OvertimeHour3 = Math.Round(overtimeHour3, 2);
-            _attReport.OvertimeHour4 = Math.Round(overtimeHour4, 2);
+            attReport.RegularHour = Math.Round(regularHour, 2);
+            attReport.OvertimeHour1 = Math.Round(overtimeHour1, 2);
+            attReport.OvertimeHour2 = Math.Round(overtimeHour2, 2);
+            attReport.OvertimeHour3 = Math.Round(overtimeHour3, 2);
+            attReport.OvertimeHour4 = Math.Round(overtimeHour4, 2);
         }
 
         public bool UpdateAttendanceReport(AttendanceReport attendanceReport)
@@ -3344,11 +3354,11 @@ namespace FaceIDAppVBEta.Data
                 attRecord.ID = (int)odRdr["ID"];
                 attRecord.EmployeeNumber = (int)odRdr["EmployeeNumber"];
                 attRecord.Note = odRdr["Note"].ToString();
-                attRecord.PhotoData = odRdr["PhotoData"].ToString();
+                //attRecord.PhotoData = odRdr["PhotoData"].ToString();
                 attRecord.Time = (DateTime)odRdr["Time"];
                 attendanceRecords.Add(attRecord);
 
-                strw.WriteLine(attRecord.ID + "," + attRecord.EmployeeNumber + "," + attRecord.Time + "," + attRecord.Note + "," + attRecord.PhotoData);
+                strw.WriteLine(attRecord.ID + "," + attRecord.EmployeeNumber + "," + attRecord.Time + "," + attRecord.Note);// + "," + attRecord.PhotoData);
             }
             odRdr.Close();
             strw.Flush();
@@ -4018,7 +4028,7 @@ namespace FaceIDAppVBEta.Data
                 attendanceRecord.EmployeeNumber = Convert.ToInt32(odRdr["EmployeeNumber"]);
                 attendanceRecord.Time = Convert.ToDateTime(odRdr["Time"]);
                 //attendanceRecord.CheckIn = Convert.ToBoolean(odRdr["CheckIn"]);
-                attendanceRecord.PhotoData = odRdr["PhotoData"].ToString();
+                //attendanceRecord.PhotoData = odRdr["PhotoData"].ToString();
                 attendanceRecord.Note = odRdr["Note"].ToString();
 
                 attendanceRecordList.Add(attendanceRecord);

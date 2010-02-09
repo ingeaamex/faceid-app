@@ -554,7 +554,7 @@ namespace FaceIDApp
                 break1.From = new DateTime(2000, 2, 2, 12, 0, 0);
                 break1.To = new DateTime(2000, 2, 2, 13, 0, 0);
                 break1.Name = "break1";
-                break1.Paid = false;
+                break1.Paid = true;
 
                 breakList.Add(break1);
 
@@ -598,7 +598,7 @@ namespace FaceIDApp
                 //add test att records
                 AttendanceRecord att11 = new AttendanceRecord();
                 att11.EmployeeNumber = emp.EmployeeNumber;
-                att11.Time = new DateTime(2010, 1, 1, 9, 0, 0);
+                att11.Time = new DateTime(2010, 1, 1, 8, 0, 0);
                 att11.ID = _dtCtrl.AddAttendanceRecord(att11);
 
                 AttendanceRecord att12 = new AttendanceRecord();
@@ -655,7 +655,6 @@ namespace FaceIDApp
                 _dtCtrl.RollbackTransaction();
                 Invoke(new AddTextCallBack(SetText), new object[] { txtProgress, "Error: " + ex.Message });
             }
-
         }
 
         private void btnClearDB_Click(object sender, EventArgs e)
