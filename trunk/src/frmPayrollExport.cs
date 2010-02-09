@@ -19,14 +19,16 @@ namespace FaceIDAppVBEta
         private DateTime dPayrollFrom;
         private DateTime dPayrollTo;
         bool viewMinPayPeriod = false;
-        public frmPayrollExport(int companyId, int deparmentId, DateTime dPayrollFrom, DateTime dPayrollTo, bool viewMinPayPeriod)
+        int wcalID = 0;
+        public frmPayrollExport(int companyId, int deparmentId, DateTime dPayrollFrom, DateTime dPayrollTo, int wcalID)
         {
             InitializeComponent();
             this.companyId = companyId;
             this.deparmentId = deparmentId;
             this.dPayrollFrom = dPayrollFrom;
             this.dPayrollTo = dPayrollTo;
-            this.viewMinPayPeriod = viewMinPayPeriod;
+            this.wcalID = wcalID;
+            //this.viewMinPayPeriod = viewMinPayPeriod;
         }
 
         private void frmPayrollExport_Load(object sender, EventArgs e)
@@ -34,7 +36,7 @@ namespace FaceIDAppVBEta
             LocalDataController dtCtrl = LocalDataController.Instance;
 
             string errorNumber = "";
-            List<PayrollExport> payrollExports = dtCtrl.GetPayrollExportList(companyId, deparmentId, dPayrollFrom, dPayrollTo, viewMinPayPeriod, ref errorNumber);
+            List<PayrollExport> payrollExports = dtCtrl.GetPayrollExportList(companyId, deparmentId, dPayrollFrom, dPayrollTo, wcalID, ref errorNumber);
 
             this.BindingSource.DataSource = payrollExports;
 

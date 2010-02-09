@@ -50,39 +50,40 @@ namespace FaceIDAppVBEta
             if (cbxDepartment.Enabled)
                 iDepartment = (int)cbxDepartment.SelectedValue;
 
-            bool viewMinPayPeriod = true;
             string errorNumber = "";
-            bool payrollExports = dtCtrl.ExistPayrollExportList(iCompany, iDepartment, dPayrollFrom, dPayrollTo, ref errorNumber);
-            if (payrollExports == false)
-            {
-                string msgAlert = "";
-                switch (errorNumber)
-                {
-                    case "AM00":
-                        msgAlert = "No employees";
-                        MessageBox.Show(this, msgAlert);
-                        return;
-                    case "AM01":
-                        msgAlert = "Multi start date in pay period";
-                        msgAlert += "\r\nDo you want seek to min start date to export.";
-                        msgAlert += "\r\n1. Press Yes to Seek to min start date end then display export in min start.";
-                        msgAlert += "\r\n2. Press No to Seek to min start date end then display export in lasticst.";
-                        msgAlert += "\r\n3. Press Cancel to choose date again.";
-                        DialogResult digRs = MessageBox.Show(msgAlert, "confirm", MessageBoxButtons.YesNoCancel);
-                        if (digRs == DialogResult.Yes)
-                            viewMinPayPeriod = true;
-                        else if (digRs == DialogResult.No)
-                            viewMinPayPeriod = false;
-                        else
-                            return;
-                        break;
-                    default:
-                        return;
-                }
-            }
+            int wcalID = 0;
+            List<PayrollExport> payrollExports = dtCtrl.GetPayrollExportList(iCompany, iDepartment, dPayrollFrom, dPayrollTo, wcalID, ref errorNumber);
+            //List<WorkingCalendar> workingCalendars = new List<WorkingCalendar>();
+            //bool payrollExports = dtCtrl.ExistPayrollExportList(iCompany, iDepartment, dPayrollFrom, dPayrollTo, ref errorNumber, ref workingCalendars);
+            //if (payrollExports == false)
+            //{
+            //    string msgAlert = "";
+            //    switch (errorNumber)
+            //    {
+            //        case "AM01":
+            //            if (workingCalendars.Count > 1)
+            //            {
+            //                frmChooseWorkingCalendar _frmChooseWorkingCalendar = new frmChooseWorkingCalendar(workingCalendars, dPayrollFrom, dPayrollTo, iCompany, iDepartment);
+            //                DialogResult diag = _frmChooseWorkingCalendar.ShowDialog(this);
+            //            }
+            //            return;
+            //        case "AM00":
+            //        default:
+            //            msgAlert = "Not match";
+            //            MessageBox.Show(this, msgAlert);
+            //            return;
+            //    }
+            //}
 
-            frmPayrollExport formExport = new frmPayrollExport(iCompany, iDepartment, dPayrollFrom, dPayrollTo, viewMinPayPeriod);
-            formExport.ShowDialog(this);
+            if (payrollExports.Count > 0)
+            {
+                frmPayrollExport formExport = new frmPayrollExport(iCompany, iDepartment, dPayrollFrom, dPayrollTo, 0);
+                formExport.ShowDialog(this);
+            }
+            else
+            {
+                MessageBox.Show(this, "Not match");
+            }
         }
 
         private void btnExportToMYOB_Click(object sender, EventArgs e)
