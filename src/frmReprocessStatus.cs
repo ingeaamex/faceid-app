@@ -14,25 +14,26 @@ namespace FaceIDAppVBEta
 {
     public partial class frmReprocessStatus : Form
     {
-        Thread _thrUpdateReport;
+        Thread _thrReprocess;
 
-        private string employeeNumberList;
-        private DateTime dReprocessFrom;
-        private DateTime dReprocessTo;
+        private string _employeeNumberList;
+        private DateTime _dReprocessFrom;
+        private DateTime _dReprocessTo;
         private IDataController _dtCtrl = LocalDataController.Instance;
         List<AttendanceRecord> attendanceRecordList = null;
-        public frmReprocessStatus(string _employeeNumberList, DateTime _dReprocessFrom, DateTime _dReprocessTo)
+
+        public frmReprocessStatus(string employeeNumberList, DateTime dReprocessFrom, DateTime dReprocessTo)
         {
             InitializeComponent();
 
-            employeeNumberList = _employeeNumberList;
-            dReprocessFrom = _dReprocessFrom;
-            dReprocessTo = _dReprocessTo;
+            _employeeNumberList = employeeNumberList;
+            _dReprocessFrom = dReprocessFrom;
+            _dReprocessTo = dReprocessTo;
         }
 
         private delegate void InitProgressCallBack(int maxValue);
         private delegate void AddProgressCallBack(int value);
-        private delegate void SetTextCallBack(Label lbel, string text);
+        private delegate void SetTextCallBack(Label lbl, string text);
         private delegate void EnableButtonCallBack(Button btn, bool enable);
 
         private void InitProgress(int maxValue)
@@ -46,9 +47,9 @@ namespace FaceIDAppVBEta
             pgbProgress.Value += addValue;
         }
 
-        private void SetText(Label lbel, string text)
+        private void SetText(Label lbl, string text)
         {
-            lbel.Text = text;
+            lbl.Text = text;
         }
 
         private void SetState(int state)
@@ -62,7 +63,7 @@ namespace FaceIDAppVBEta
             btn.Visible = visible;
         }
 
-        private void UpdateReport()
+        private void Reprocess()
         {
             try
             {
@@ -86,11 +87,11 @@ namespace FaceIDAppVBEta
                     Invoke(new AddProgressCallBack(AddProgress), new object[] { 1 });
                     Invoke(new SetTextCallBack(SetText), new object[] { lProcessStatus, textProgress });
                 }
-                MessageBox.Show(updated + " attendance records have been updated");
+                MessageBox.Show(updated + " attendance records reprocessed.");
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                Util.ShowErrorMessage(ex);
             }
 
             SetState(0);
@@ -98,16 +99,16 @@ namespace FaceIDAppVBEta
 
         private void frmReprocessStatus_Load(object sender, EventArgs e)
         {
-            attendanceRecordList = _dtCtrl.GetReprocessAttendanceReport(employeeNumberList, dReprocessFrom, dReprocessTo);
+            attendanceRecordList = _dtCtrl.GetReprocessAttendanceReport(_employeeNumberList, _dReprocessFrom, _dReprocessTo);
             if (attendanceRecordList == null || attendanceRecordList.Count == 0)
             {
-                MessageBox.Show(this, "no attendance report in process");
+                MessageBox.Show("There's no records of selected employees within the seleted range.");
                 this.Close();
             }
             else
             {
-                _thrUpdateReport = new Thread(new ThreadStart(UpdateReport));
-                _thrUpdateReport.Start();
+                _thrReprocess = new Thread(new ThreadStart(Reprocess));
+                _thrReprocess.Start();
             }
         }
 
@@ -115,7 +116,7 @@ namespace FaceIDAppVBEta
         {
             try
             {
-                _thrUpdateReport.Abort();
+                _thrReprocess.Abort();
             }
             catch { }
 

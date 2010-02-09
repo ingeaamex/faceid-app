@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvEmployee = new System.Windows.Forms.DataGridView();
             this.EmployeeNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -83,14 +83,14 @@
             this.WorkingCalendarID,
             this.WorkingCalendar,
             this.Terminal});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvEmployee.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvEmployee.DefaultCellStyle = dataGridViewCellStyle1;
             this.dgvEmployee.Location = new System.Drawing.Point(36, 139);
             this.dgvEmployee.MultiSelect = false;
             this.dgvEmployee.Name = "dgvEmployee";
@@ -106,8 +106,8 @@
             // 
             this.EmployeeNumber.ContextMenuStrip = this.cmnDgvEmployee;
             this.EmployeeNumber.DataPropertyName = "EmployeeNumber";
-            dataGridViewCellStyle1.NullValue = null;
-            this.EmployeeNumber.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.NullValue = null;
+            this.EmployeeNumber.DefaultCellStyle = dataGridViewCellStyle5;
             this.EmployeeNumber.HeaderText = "EmployeeNumber";
             this.EmployeeNumber.Name = "EmployeeNumber";
             this.EmployeeNumber.ReadOnly = true;
@@ -137,9 +137,9 @@
             // EmployeeName
             // 
             this.EmployeeName.ContextMenuStrip = this.cmnDgvEmployee;
-            dataGridViewCellStyle2.Format = "{0} {1}";
-            dataGridViewCellStyle2.NullValue = null;
-            this.EmployeeName.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Format = "{0} {1}";
+            dataGridViewCellStyle4.NullValue = null;
+            this.EmployeeName.DefaultCellStyle = dataGridViewCellStyle4;
             this.EmployeeName.HeaderText = "Name";
             this.EmployeeName.Name = "EmployeeName";
             this.EmployeeName.ReadOnly = true;
@@ -278,7 +278,7 @@
             this.btnExportToFile.Enabled = false;
             this.btnExportToFile.Location = new System.Drawing.Point(369, 103);
             this.btnExportToFile.Name = "btnExportToFile";
-            this.btnExportToFile.Size = new System.Drawing.Size(105, 23);
+            this.btnExportToFile.Size = new System.Drawing.Size(123, 23);
             this.btnExportToFile.TabIndex = 11;
             this.btnExportToFile.Text = "Export to file";
             this.btnExportToFile.UseVisualStyleBackColor = true;
@@ -288,9 +288,9 @@
             // 
             this.btnImportFromFile.Location = new System.Drawing.Point(369, 74);
             this.btnImportFromFile.Name = "btnImportFromFile";
-            this.btnImportFromFile.Size = new System.Drawing.Size(105, 23);
+            this.btnImportFromFile.Size = new System.Drawing.Size(123, 23);
             this.btnImportFromFile.TabIndex = 12;
-            this.btnImportFromFile.Text = "Import from file";
+            this.btnImportFromFile.Text = "Import from MYOB file";
             this.btnImportFromFile.UseVisualStyleBackColor = true;
             this.btnImportFromFile.Click += new System.EventHandler(this.btnImportFromFile_Click);
             // 

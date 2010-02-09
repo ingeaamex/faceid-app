@@ -80,6 +80,7 @@
             this.dtpAttendanceFrom.Name = "dtpAttendanceFrom";
             this.dtpAttendanceFrom.Size = new System.Drawing.Size(121, 20);
             this.dtpAttendanceFrom.TabIndex = 3;
+            this.dtpAttendanceFrom.Value = new System.DateTime(2010, 1, 1, 0, 0, 0, 0);
             // 
             // dtpAttedanceTo
             // 

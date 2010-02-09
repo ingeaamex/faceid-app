@@ -566,8 +566,8 @@ namespace FaceIDApp
                 workingDayPaymentRate.NumberOfOvertime1 = 8;
                 workingDayPaymentRate.OvertimeRate1 = 200;
 
-                PaymentRate nonWorkingDayPaymentRate = new PaymentRate();
-                PaymentRate holidayPaymentRate = new PaymentRate();
+                PaymentRate nonWorkingDayPaymentRate = workingDayPaymentRate;
+                PaymentRate holidayPaymentRate = workingDayPaymentRate;
 
                 PayPeriod payPeriod = new PayPeriod();
                 payPeriod.CustomPeriod = 5;

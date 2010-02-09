@@ -6,10 +6,10 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("FaceIDAppVBEta")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("FaceID App")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Alltime")]
-[assembly: AssemblyProduct("FaceIDAppVBEta")]
+[assembly: AssemblyProduct("FaceID App")]
 [assembly: AssemblyCopyright("Copyright © Alltime 2010")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

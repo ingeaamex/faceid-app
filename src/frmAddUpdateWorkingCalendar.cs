@@ -834,7 +834,7 @@ namespace FaceIDAppVBEta
 
         private void AddHoliday()
         {
-            if (mcdHoliday.SelectedDates.Count == 0)
+            if (mclHoliday.SelectedDates.Count == 0)
             {
                 MessageBox.Show("Please select a day.");
                 return;
@@ -842,7 +842,7 @@ namespace FaceIDAppVBEta
             else
             {
                 Holiday holiday = new Holiday();
-                holiday.Date = mcdHoliday.SelectedDates[0];
+                holiday.Date = mclHoliday.SelectedDates[0];
                 holiday.Description = "";
 
                 if (_holidayList.Find(delegate(Holiday hday)

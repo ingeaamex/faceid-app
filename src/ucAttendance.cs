@@ -15,13 +15,20 @@ namespace FaceIDAppVBEta
         private IDataController _dtCtrl = LocalDataController.Instance;
         private ITerminalController _terCtrl = new TerminalController();
 
-        public ucAttendance()
+        public ucAttendance(int tabNo)
         {
             InitializeComponent();
+
+            if(tabNo == 1)
+                tabControl1.SelectedTab = tabPage2;
         }
 
         private void btnCollectAttendanceData_Click(object sender, EventArgs e)
         {
+            //TODO remove this later
+            MessageBox.Show("Demo version does not have this function.");
+            return;
+
             CollectAttendanceData();
         }
 

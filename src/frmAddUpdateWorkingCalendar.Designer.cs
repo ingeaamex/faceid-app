@@ -65,6 +65,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.chbBreakPaid3 = new System.Windows.Forms.CheckBox();
+            this.chbBreakPaid2 = new System.Windows.Forms.CheckBox();
+            this.chbBreakPaid1 = new System.Windows.Forms.CheckBox();
             this.dtpBreakTo3 = new System.Windows.Forms.DateTimePicker();
             this.dtpBreakFrom3 = new System.Windows.Forms.DateTimePicker();
             this.dtpBreakTo2 = new System.Windows.Forms.DateTimePicker();
@@ -154,7 +157,7 @@
             this.btnNext5 = new System.Windows.Forms.Button();
             this.label49 = new System.Windows.Forms.Label();
             this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.mcdHoliday = new Pabo.Calendar.MonthCalendar();
+            this.mclHoliday = new Pabo.Calendar.MonthCalendar();
             this.label70 = new System.Windows.Forms.Label();
             this.btnBack6 = new System.Windows.Forms.Button();
             this.btnCancel6 = new System.Windows.Forms.Button();
@@ -209,9 +212,6 @@
             this.btnCancel8 = new System.Windows.Forms.Button();
             this.btnFinish = new System.Windows.Forms.Button();
             this.label81 = new System.Windows.Forms.Label();
-            this.chbBreakPaid1 = new System.Windows.Forms.CheckBox();
-            this.chbBreakPaid2 = new System.Windows.Forms.CheckBox();
-            this.chbBreakPaid3 = new System.Windows.Forms.CheckBox();
             this.tabAddUpdateWorkingCalendar.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -698,6 +698,33 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Step 3";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // chbBreakPaid3
+            // 
+            this.chbBreakPaid3.AutoSize = true;
+            this.chbBreakPaid3.Location = new System.Drawing.Point(89, 345);
+            this.chbBreakPaid3.Name = "chbBreakPaid3";
+            this.chbBreakPaid3.Size = new System.Drawing.Size(15, 14);
+            this.chbBreakPaid3.TabIndex = 126;
+            this.chbBreakPaid3.UseVisualStyleBackColor = true;
+            // 
+            // chbBreakPaid2
+            // 
+            this.chbBreakPaid2.AutoSize = true;
+            this.chbBreakPaid2.Location = new System.Drawing.Point(344, 182);
+            this.chbBreakPaid2.Name = "chbBreakPaid2";
+            this.chbBreakPaid2.Size = new System.Drawing.Size(15, 14);
+            this.chbBreakPaid2.TabIndex = 125;
+            this.chbBreakPaid2.UseVisualStyleBackColor = true;
+            // 
+            // chbBreakPaid1
+            // 
+            this.chbBreakPaid1.AutoSize = true;
+            this.chbBreakPaid1.Location = new System.Drawing.Point(89, 182);
+            this.chbBreakPaid1.Name = "chbBreakPaid1";
+            this.chbBreakPaid1.Size = new System.Drawing.Size(15, 14);
+            this.chbBreakPaid1.TabIndex = 124;
+            this.chbBreakPaid1.UseVisualStyleBackColor = true;
             // 
             // dtpBreakTo3
             // 
@@ -1571,7 +1598,7 @@
             // 
             // tabPage6
             // 
-            this.tabPage6.Controls.Add(this.mcdHoliday);
+            this.tabPage6.Controls.Add(this.mclHoliday);
             this.tabPage6.Controls.Add(this.label70);
             this.tabPage6.Controls.Add(this.btnBack6);
             this.tabPage6.Controls.Add(this.btnCancel6);
@@ -1586,29 +1613,31 @@
             this.tabPage6.Text = "Step 6";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
-            // mcdHoliday
+            // mclHoliday
             // 
-            this.mcdHoliday.ActiveMonth.Month = 2;
-            this.mcdHoliday.ActiveMonth.Year = 2010;
-            this.mcdHoliday.Culture = new System.Globalization.CultureInfo("en-AU");
-            this.mcdHoliday.Footer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.mcdHoliday.Header.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.mcdHoliday.Header.TextColor = System.Drawing.Color.White;
-            this.mcdHoliday.Header.YearSelectors = true;
-            this.mcdHoliday.ImageList = null;
-            this.mcdHoliday.Location = new System.Drawing.Point(406, 52);
-            this.mcdHoliday.MaxDate = new System.DateTime(2020, 2, 3, 23, 39, 41, 696);
-            this.mcdHoliday.MinDate = new System.DateTime(2000, 2, 3, 23, 39, 41, 696);
-            this.mcdHoliday.Month.BackgroundImage = null;
-            this.mcdHoliday.Month.DateFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.mcdHoliday.Month.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.mcdHoliday.Name = "mcdHoliday";
-            this.mcdHoliday.SelectionMode = Pabo.Calendar.mcSelectionMode.One;
-            this.mcdHoliday.SelectTrailingDates = false;
-            this.mcdHoliday.Size = new System.Drawing.Size(215, 215);
-            this.mcdHoliday.TabIndex = 150;
-            this.mcdHoliday.Weekdays.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.mcdHoliday.Weeknumbers.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.mclHoliday.ActiveMonth.Month = 2;
+            this.mclHoliday.ActiveMonth.Year = 2010;
+            this.mclHoliday.Culture = new System.Globalization.CultureInfo("en-AU");
+            this.mclHoliday.Footer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.mclHoliday.Header.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.mclHoliday.Header.TextColor = System.Drawing.Color.White;
+            this.mclHoliday.Header.YearSelectors = true;
+            this.mclHoliday.ImageList = null;
+            this.mclHoliday.Location = new System.Drawing.Point(406, 52);
+            this.mclHoliday.MaxDate = new System.DateTime(2020, 2, 3, 23, 39, 41, 696);
+            this.mclHoliday.MinDate = new System.DateTime(2000, 2, 3, 23, 39, 41, 696);
+            this.mclHoliday.Month.BackgroundImage = null;
+            this.mclHoliday.Month.DateFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.mclHoliday.Month.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.mclHoliday.Name = "mclHoliday";
+            this.mclHoliday.SelectionMode = Pabo.Calendar.mcSelectionMode.One;
+            this.mclHoliday.SelectTrailingDates = false;
+            this.mclHoliday.ShowFooter = false;
+            this.mclHoliday.ShowToday = false;
+            this.mclHoliday.Size = new System.Drawing.Size(215, 215);
+            this.mclHoliday.TabIndex = 150;
+            this.mclHoliday.Weekdays.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.mclHoliday.Weeknumbers.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             // 
             // label70
             // 
@@ -2153,33 +2182,6 @@
             this.label81.TabIndex = 171;
             this.label81.Text = "Set Pay Period";
             // 
-            // chbBreakPaid1
-            // 
-            this.chbBreakPaid1.AutoSize = true;
-            this.chbBreakPaid1.Location = new System.Drawing.Point(89, 182);
-            this.chbBreakPaid1.Name = "chbBreakPaid1";
-            this.chbBreakPaid1.Size = new System.Drawing.Size(15, 14);
-            this.chbBreakPaid1.TabIndex = 124;
-            this.chbBreakPaid1.UseVisualStyleBackColor = true;
-            // 
-            // chbBreakPaid2
-            // 
-            this.chbBreakPaid2.AutoSize = true;
-            this.chbBreakPaid2.Location = new System.Drawing.Point(344, 182);
-            this.chbBreakPaid2.Name = "chbBreakPaid2";
-            this.chbBreakPaid2.Size = new System.Drawing.Size(15, 14);
-            this.chbBreakPaid2.TabIndex = 125;
-            this.chbBreakPaid2.UseVisualStyleBackColor = true;
-            // 
-            // chbBreakPaid3
-            // 
-            this.chbBreakPaid3.AutoSize = true;
-            this.chbBreakPaid3.Location = new System.Drawing.Point(89, 345);
-            this.chbBreakPaid3.Name = "chbBreakPaid3";
-            this.chbBreakPaid3.Size = new System.Drawing.Size(15, 14);
-            this.chbBreakPaid3.TabIndex = 126;
-            this.chbBreakPaid3.UseVisualStyleBackColor = true;
-            // 
             // frmAddUpdateWorkingCalendar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2401,7 +2403,7 @@
         private System.Windows.Forms.DateTimePicker dtpBreakFrom3;
         private System.Windows.Forms.DateTimePicker dtpBreakTo2;
         private System.Windows.Forms.Label label70;
-        private Pabo.Calendar.MonthCalendar mcdHoliday;
+        private Pabo.Calendar.MonthCalendar mclHoliday;
         private System.Windows.Forms.Label label71;
         private System.Windows.Forms.Label label72;
         private System.Windows.Forms.NumericUpDown nudGraceBackwardToExit;

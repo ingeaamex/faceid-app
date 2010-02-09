@@ -60,13 +60,6 @@ namespace FaceIDAppVBEta.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap Calculator {
-            get {
-                object obj = ResourceManager.GetObject("Calculator", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         internal static System.Drawing.Bitmap Calendar {
             get {
                 object obj = ResourceManager.GetObject("Calendar", resourceCulture);
@@ -102,6 +95,13 @@ namespace FaceIDAppVBEta.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Download {
+            get {
+                object obj = ResourceManager.GetObject("Download", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Folder {
             get {
                 object obj = ResourceManager.GetObject("Folder", resourceCulture);
@@ -119,6 +119,13 @@ namespace FaceIDAppVBEta.Properties {
         internal static System.Drawing.Bitmap Refresh {
             get {
                 object obj = ResourceManager.GetObject("Refresh", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Terminal {
+            get {
+                object obj = ResourceManager.GetObject("Terminal", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.label5 = new System.Windows.Forms.Label();
             this.cbxDepartment = new System.Windows.Forms.ComboBox();
             this.cbxCompany = new System.Windows.Forms.ComboBox();
@@ -39,16 +38,15 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cbxWorkingCalendar = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.btnSelectAll = new System.Windows.Forms.Button();
             this.btnUnselectAll = new System.Windows.Forms.Button();
             this.dgvEmployee = new System.Windows.Forms.DataGridView();
             this.EmployeeNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EmployeeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WorkingCalendar = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnReprocess = new System.Windows.Forms.Button();
-            this.errProviders = new System.Windows.Forms.ErrorProvider(this.components);
+            this.btnViewEmployees = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployee)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errProviders)).BeginInit();
             this.SuspendLayout();
             // 
             // label5
@@ -70,10 +68,8 @@
             this.cbxDepartment.Location = new System.Drawing.Point(276, 8);
             this.cbxDepartment.Name = "cbxDepartment";
             this.cbxDepartment.Size = new System.Drawing.Size(121, 21);
-            this.cbxDepartment.TabIndex = 34;
+            this.cbxDepartment.TabIndex = 2;
             this.cbxDepartment.ValueMember = "ID";
-            this.cbxDepartment.EnabledChanged += new System.EventHandler(this.cbxDepartment_EnabledChanged);
-            this.cbxDepartment.SelectionChangeCommitted += new System.EventHandler(this.cbxDepartment_SelectionChangeCommitted);
             // 
             // cbxCompany
             // 
@@ -85,7 +81,7 @@
             this.cbxCompany.Location = new System.Drawing.Point(63, 8);
             this.cbxCompany.Name = "cbxCompany";
             this.cbxCompany.Size = new System.Drawing.Size(121, 21);
-            this.cbxCompany.TabIndex = 33;
+            this.cbxCompany.TabIndex = 1;
             this.cbxCompany.ValueMember = "ID";
             this.cbxCompany.SelectedIndexChanged += new System.EventHandler(this.cbxCompany_SelectedIndexChanged);
             // 
@@ -101,16 +97,16 @@
             // dtpReprocessTo
             // 
             this.dtpReprocessTo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpReprocessTo.Location = new System.Drawing.Point(264, 48);
+            this.dtpReprocessTo.Location = new System.Drawing.Point(276, 41);
             this.dtpReprocessTo.Name = "dtpReprocessTo";
             this.dtpReprocessTo.Size = new System.Drawing.Size(121, 20);
-            this.dtpReprocessTo.TabIndex = 31;
+            this.dtpReprocessTo.TabIndex = 8;
             this.dtpReprocessTo.Value = new System.DateTime(2010, 2, 7, 0, 0, 0, 0);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(211, 54);
+            this.label3.Location = new System.Drawing.Point(253, 45);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(20, 13);
             this.label3.TabIndex = 30;
@@ -119,16 +115,16 @@
             // dtpReprocessFrom
             // 
             this.dtpReprocessFrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpReprocessFrom.Location = new System.Drawing.Point(63, 48);
+            this.dtpReprocessFrom.Location = new System.Drawing.Point(60, 41);
             this.dtpReprocessFrom.Name = "dtpReprocessFrom";
             this.dtpReprocessFrom.Size = new System.Drawing.Size(121, 20);
-            this.dtpReprocessFrom.TabIndex = 29;
+            this.dtpReprocessFrom.TabIndex = 7;
             this.dtpReprocessFrom.Value = new System.DateTime(2010, 2, 7, 0, 0, 0, 0);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 52);
+            this.label2.Location = new System.Drawing.Point(24, 45);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(30, 13);
             this.label2.TabIndex = 28;
@@ -153,34 +149,25 @@
             this.cbxWorkingCalendar.Location = new System.Drawing.Point(520, 8);
             this.cbxWorkingCalendar.Name = "cbxWorkingCalendar";
             this.cbxWorkingCalendar.Size = new System.Drawing.Size(121, 21);
-            this.cbxWorkingCalendar.TabIndex = 36;
+            this.cbxWorkingCalendar.TabIndex = 3;
             this.cbxWorkingCalendar.ValueMember = "ID";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 96);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(53, 13);
-            this.label6.TabIndex = 38;
-            this.label6.Text = "Employee";
             // 
             // btnSelectAll
             // 
-            this.btnSelectAll.Location = new System.Drawing.Point(6, 123);
+            this.btnSelectAll.Location = new System.Drawing.Point(36, 77);
             this.btnSelectAll.Name = "btnSelectAll";
             this.btnSelectAll.Size = new System.Drawing.Size(75, 23);
-            this.btnSelectAll.TabIndex = 39;
+            this.btnSelectAll.TabIndex = 5;
             this.btnSelectAll.Text = "Select All";
             this.btnSelectAll.UseVisualStyleBackColor = true;
             this.btnSelectAll.Click += new System.EventHandler(this.btnSelectAll_Click);
             // 
             // btnUnselectAll
             // 
-            this.btnUnselectAll.Location = new System.Drawing.Point(6, 152);
+            this.btnUnselectAll.Location = new System.Drawing.Point(117, 77);
             this.btnUnselectAll.Name = "btnUnselectAll";
             this.btnUnselectAll.Size = new System.Drawing.Size(75, 23);
-            this.btnUnselectAll.TabIndex = 40;
+            this.btnUnselectAll.TabIndex = 6;
             this.btnUnselectAll.Text = "Unselect All";
             this.btnUnselectAll.UseVisualStyleBackColor = true;
             this.btnUnselectAll.Click += new System.EventHandler(this.btnUnselectAll_Click);
@@ -189,18 +176,18 @@
             // 
             this.dgvEmployee.AllowUserToAddRows = false;
             this.dgvEmployee.AllowUserToDeleteRows = false;
-            this.dgvEmployee.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvEmployee.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvEmployee.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvEmployee.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.EmployeeNumber,
-            this.EmployeeName});
-            this.dgvEmployee.Location = new System.Drawing.Point(94, 96);
+            this.EmployeeName,
+            this.WorkingCalendar});
+            this.dgvEmployee.Location = new System.Drawing.Point(36, 106);
             this.dgvEmployee.Name = "dgvEmployee";
             this.dgvEmployee.ReadOnly = true;
             this.dgvEmployee.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvEmployee.Size = new System.Drawing.Size(547, 150);
+            this.dgvEmployee.Size = new System.Drawing.Size(772, 521);
             this.dgvEmployee.TabIndex = 41;
-            this.dgvEmployee.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvEmployee_CellFormatting);
             // 
             // EmployeeNumber
             // 
@@ -209,37 +196,53 @@
             this.EmployeeNumber.HeaderText = "Employee Number";
             this.EmployeeNumber.Name = "EmployeeNumber";
             this.EmployeeNumber.ReadOnly = true;
+            this.EmployeeNumber.Width = 108;
             // 
             // EmployeeName
             // 
+            this.EmployeeName.DataPropertyName = "EmployeeName";
             this.EmployeeName.FillWeight = 112.9032F;
             this.EmployeeName.HeaderText = "Employee Name";
             this.EmployeeName.Name = "EmployeeName";
             this.EmployeeName.ReadOnly = true;
             // 
+            // WorkingCalendar
+            // 
+            this.WorkingCalendar.DataPropertyName = "WorkingCalendar";
+            this.WorkingCalendar.HeaderText = "Working Calendar";
+            this.WorkingCalendar.Name = "WorkingCalendar";
+            this.WorkingCalendar.ReadOnly = true;
+            this.WorkingCalendar.Width = 107;
+            // 
             // btnReprocess
             // 
-            this.btnReprocess.Location = new System.Drawing.Point(180, 272);
+            this.btnReprocess.Location = new System.Drawing.Point(403, 40);
             this.btnReprocess.Name = "btnReprocess";
             this.btnReprocess.Size = new System.Drawing.Size(75, 23);
-            this.btnReprocess.TabIndex = 42;
+            this.btnReprocess.TabIndex = 9;
             this.btnReprocess.Text = "ReProcess";
             this.btnReprocess.UseVisualStyleBackColor = true;
             this.btnReprocess.Click += new System.EventHandler(this.btnReprocess_Click);
             // 
-            // errProviders
+            // btnViewEmployees
             // 
-            this.errProviders.ContainerControl = this;
+            this.btnViewEmployees.Location = new System.Drawing.Point(647, 6);
+            this.btnViewEmployees.Name = "btnViewEmployees";
+            this.btnViewEmployees.Size = new System.Drawing.Size(104, 23);
+            this.btnViewEmployees.TabIndex = 4;
+            this.btnViewEmployees.Text = "View Employees";
+            this.btnViewEmployees.UseVisualStyleBackColor = true;
+            this.btnViewEmployees.Click += new System.EventHandler(this.btnViewEmployees_Click);
             // 
             // ucReprocess
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnViewEmployees);
             this.Controls.Add(this.btnReprocess);
             this.Controls.Add(this.dgvEmployee);
             this.Controls.Add(this.btnUnselectAll);
             this.Controls.Add(this.btnSelectAll);
-            this.Controls.Add(this.label6);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cbxWorkingCalendar);
             this.Controls.Add(this.label5);
@@ -253,7 +256,6 @@
             this.Name = "ucReprocess";
             this.Size = new System.Drawing.Size(845, 662);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployee)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errProviders)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -271,13 +273,13 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cbxWorkingCalendar;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnSelectAll;
         private System.Windows.Forms.Button btnUnselectAll;
         private System.Windows.Forms.DataGridView dgvEmployee;
         private System.Windows.Forms.Button btnReprocess;
-        private System.Windows.Forms.ErrorProvider errProviders;
         private System.Windows.Forms.DataGridViewTextBoxColumn EmployeeNumber;
         private System.Windows.Forms.DataGridViewTextBoxColumn EmployeeName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WorkingCalendar;
+        private System.Windows.Forms.Button btnViewEmployees;
     }
 }

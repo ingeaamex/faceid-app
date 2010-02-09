@@ -480,6 +480,7 @@
             this.groupBox1.TabIndex = 18;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Server Setting [Clien Only]";
+            this.groupBox1.Visible = false;
             // 
             // mtbServerIPAddess
             // 
