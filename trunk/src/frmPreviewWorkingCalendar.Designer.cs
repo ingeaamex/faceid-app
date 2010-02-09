@@ -265,10 +265,13 @@
             // 
             // mclWorkingCalendar
             // 
-            this.mclWorkingCalendar.ActiveMonth.Month = 1;
-            this.mclWorkingCalendar.ActiveMonth.Year = 2010;
+            this.mclWorkingCalendar.ActiveMonth.Month = System.DateTime.Today.Month;
+            this.mclWorkingCalendar.ActiveMonth.Year = System.DateTime.Today.Year;
+            this.mclWorkingCalendar.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(166)))), ((int)(((byte)(228)))));
             this.mclWorkingCalendar.Culture = new System.Globalization.CultureInfo("en-AU");
             this.mclWorkingCalendar.Footer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.mclWorkingCalendar.Footer.ShowToday = false;
+            this.mclWorkingCalendar.Header.BackColor1 = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(135)))), ((int)(((byte)(220)))));
             this.mclWorkingCalendar.Header.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.mclWorkingCalendar.Header.TextColor = System.Drawing.Color.White;
             this.mclWorkingCalendar.Header.YearSelectors = true;
@@ -277,15 +280,24 @@
             this.mclWorkingCalendar.MaxDate = new System.DateTime(2900, 12, 31, 0, 0, 0, 0);
             this.mclWorkingCalendar.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
             this.mclWorkingCalendar.Month.BackgroundImage = null;
+            this.mclWorkingCalendar.Month.Colors.Focus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(189)))), ((int)(((byte)(235)))));
+            this.mclWorkingCalendar.Month.Colors.Focus.Border = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(166)))), ((int)(((byte)(228)))));
+            this.mclWorkingCalendar.Month.Colors.Selected.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(139)))), ((int)(((byte)(166)))), ((int)(((byte)(228)))));
+            this.mclWorkingCalendar.Month.Colors.Selected.Border = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(82)))), ((int)(((byte)(177)))));
             this.mclWorkingCalendar.Month.DateFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.mclWorkingCalendar.Month.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.mclWorkingCalendar.Name = "mclWorkingCalendar";
             this.mclWorkingCalendar.SelectionMode = Pabo.Calendar.mcSelectionMode.None;
+            this.mclWorkingCalendar.SelectTrailingDates = false;
             this.mclWorkingCalendar.ShowFooter = false;
+            this.mclWorkingCalendar.ShowToday = false;
             this.mclWorkingCalendar.Size = new System.Drawing.Size(300, 300);
             this.mclWorkingCalendar.TabIndex = 3;
+            this.mclWorkingCalendar.Theme = true;
             this.mclWorkingCalendar.Weekdays.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.mclWorkingCalendar.Weekdays.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(135)))), ((int)(((byte)(220)))));
             this.mclWorkingCalendar.Weeknumbers.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.mclWorkingCalendar.Weeknumbers.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(135)))), ((int)(((byte)(220)))));
             this.mclWorkingCalendar.MonthChanged += new Pabo.Calendar.MonthChangedEventHandler(this.mclWorkingCalendar_MonthChanged);
             // 
             // btnEdit
@@ -341,7 +353,7 @@
             // label88
             // 
             this.label88.AutoSize = true;
-            this.label88.Location = new System.Drawing.Point(80, 355);
+            this.label88.Location = new System.Drawing.Point(59, 355);
             this.label88.Name = "label88";
             this.label88.Size = new System.Drawing.Size(69, 13);
             this.label88.TabIndex = 9;
@@ -350,7 +362,7 @@
             // label89
             // 
             this.label89.AutoSize = true;
-            this.label89.Location = new System.Drawing.Point(80, 402);
+            this.label89.Location = new System.Drawing.Point(59, 402);
             this.label89.Name = "label89";
             this.label89.Size = new System.Drawing.Size(92, 13);
             this.label89.TabIndex = 10;
@@ -359,7 +371,7 @@
             // label90
             // 
             this.label90.AutoSize = true;
-            this.label90.Location = new System.Drawing.Point(80, 449);
+            this.label90.Location = new System.Drawing.Point(59, 449);
             this.label90.Name = "label90";
             this.label90.Size = new System.Drawing.Size(42, 13);
             this.label90.TabIndex = 11;

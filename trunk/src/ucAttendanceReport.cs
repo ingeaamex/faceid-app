@@ -122,7 +122,7 @@ namespace FaceIDAppVBEta
                         sWriter.WriteLine("Emp. Co./Last Name,Emp. First Name,Payroll Category,Job,Cust. Co./Last Name,Cust. First Name,Notes,Date,Units");
                         foreach (AttendanceSummaryReport attendanceSummaryReport in attendanceSummaryReportList)
                         {
-
+                            if (attendanceSummaryReport.TotalHour < 0) continue;
                             sWriter.WriteLine(string.Format("{0},Base Hourly,,,,,{1},{2}", attendanceSummaryReport.FullName, attendanceSummaryReport.DateLog.ToString("MM/dd/yyyy"), attendanceSummaryReport.TotalHour));
                         }
 

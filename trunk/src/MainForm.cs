@@ -18,15 +18,18 @@ namespace FaceIDAppVBEta
 {
     public partial class MainForm : Form, IUserLoginCaller
     {
+        private Color _originForeColor;
+
         public MainForm()
         {
             InitializeComponent();
-
+            _originForeColor = btnCompany.ForeColor;
             //client only
             //new frmServerConnect().ShowDialog(this);
 
             VerifyUser();
 
+            //server only
             RegisterChannel();
             RegisterService();
         }
@@ -103,48 +106,72 @@ namespace FaceIDAppVBEta
         {
             sctMain.Panel2.Controls.Clear();
             sctMain.Panel2.Controls.Add(new ucCompanyForm());
+
+            UnHighlightAllButtons();
+            HighlightButton(btnCompany);
         }
 
         private void btnDepartment_Click(object sender, EventArgs e)
         {
             sctMain.Panel2.Controls.Clear();
             sctMain.Panel2.Controls.Add(new ucDepartmentForm());
+
+            UnHighlightAllButtons();
+            HighlightButton(btnDepartment);
         }
 
         private void btnEmployee_Click(object sender, EventArgs e)
         {
             sctMain.Panel2.Controls.Clear();
             sctMain.Panel2.Controls.Add(new ucEmployeeForm());
+
+            UnHighlightAllButtons();
+            HighlightButton(btnEmployee);
         }
 
         private void btnTerminal_Click(object sender, EventArgs e)
         {
             sctMain.Panel2.Controls.Clear();
             sctMain.Panel2.Controls.Add(new ucTerminalForm());
+
+            UnHighlightAllButtons();
+            HighlightButton(btnTerminal);
         }
 
         private void btnWorkingCalendar_Click(object sender, EventArgs e)
         {
             sctMain.Panel2.Controls.Clear();
             sctMain.Panel2.Controls.Add(new ucWorkingCalendar());
+
+            UnHighlightAllButtons();
+            HighlightButton(btnWorkingCalendar);
         }
 
         private void btnAttendance_Click(object sender, EventArgs e)
         {
             sctMain.Panel2.Controls.Clear();
-            sctMain.Panel2.Controls.Add(new ucAttendance());
+            sctMain.Panel2.Controls.Add(new ucAttendance(0));
+
+            UnHighlightAllButtons();
+            HighlightButton(btnAttendance);
         }
 
         private void btnUser_Click(object sender, EventArgs e)
         {
             sctMain.Panel2.Controls.Clear();
             sctMain.Panel2.Controls.Add(new ucUserManagment());
+
+            UnHighlightAllButtons();
+            HighlightButton(btnUser);
         }
 
         private void configToolStripMenuItem_Click(object sender, EventArgs e)
         {
             sctMain.Panel2.Controls.Clear();
             sctMain.Panel2.Controls.Add(new ucConfigForm());
+
+            UnHighlightAllButtons();
+            HighlightButton(btnExport);
         }
 
         private void updateToolStripMenuItem_Click(object sender, EventArgs e)
@@ -162,6 +189,9 @@ namespace FaceIDAppVBEta
         {
             sctMain.Panel2.Controls.Clear();
             sctMain.Panel2.Controls.Add(new ucReprocess());
+
+            UnHighlightAllButtons();
+            HighlightButton(btnReprocess);
         }
 
         #region IUserLoginCaller Members
@@ -187,6 +217,37 @@ namespace FaceIDAppVBEta
         {
             sctMain.Panel2.Controls.Clear();
             sctMain.Panel2.Controls.Add(new ucSetting());
+
+            UnHighlightAllButtons();
+            HighlightButton(btnSetting);
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            sctMain.Panel2.Controls.Clear();
+            sctMain.Panel2.Controls.Add(new ucAttendance(1));
+
+            UnHighlightAllButtons();
+            HighlightButton(btnExport);
+        }
+
+        private void HighlightButton(Button btn)
+        {
+            btn.ForeColor = Color.Red;
+        }
+
+        private void UnHighlightAllButtons()
+        {
+            btnCompany.ForeColor = _originForeColor;
+            btnDepartment.ForeColor = _originForeColor;
+            btnWorkingCalendar.ForeColor = _originForeColor;
+            btnTerminal.ForeColor = _originForeColor;
+            btnEmployee.ForeColor = _originForeColor;
+            btnAttendance.ForeColor = _originForeColor;
+            btnExport.ForeColor = _originForeColor;
+            btnReprocess.ForeColor = _originForeColor;
+            btnUser.ForeColor = _originForeColor;
+            btnSetting.ForeColor = _originForeColor;
         }
     }
 }

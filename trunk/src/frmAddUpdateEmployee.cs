@@ -88,6 +88,12 @@ namespace FaceIDAppVBEta
                 tbEmployeeNumber.Text = "Auto";
                 tbPayrollNumber.Text = "Auto";
 
+                tbFirstName.Text = "";
+                tbLastName.Text = "";
+                tbJobDesc.Text = "";
+                tbAddress.Text = "";
+                tbPhoneNumber.Text = "";
+
                 dtpBirthday.Value = DateTime.Today.AddYears(-16);
                 dtpJoinedDate.Value = DateTime.Today;
                 dtpLeftDate.Value = DateTime.Today.AddYears(50);
@@ -131,34 +137,34 @@ namespace FaceIDAppVBEta
             if (employee.Birthday != Config.MinDate)
             {
                 dtpBirthday.Value = employee.Birthday;
-                dtpBirthday.Checked = false;
+                dtpBirthday.Checked = true;
             }
             else
             {
                 dtpBirthday.Value = DateTime.Today;
-                dtpBirthday.Checked = true;
+                dtpBirthday.Checked = false;
             }
 
             if (employee.HiredDate != Config.MinDate)
             {
                 dtpJoinedDate.Value = employee.HiredDate;
-                dtpJoinedDate.Checked = false;
+                dtpJoinedDate.Checked = true;
             }
             else
             {
                 dtpJoinedDate.Value = DateTime.Today;
-                dtpJoinedDate.Checked = true;
+                dtpJoinedDate.Checked = false;
             }
 
             if (employee.LeftDate != Config.MinDate)
             {
                 dtpLeftDate.Value = employee.LeftDate;
-                dtpLeftDate.Checked = false;
+                dtpLeftDate.Checked = true;
             }
             else
             {
                 dtpLeftDate.Value = DateTime.Today.AddYears(50);
-                dtpLeftDate.Checked = true;
+                dtpLeftDate.Checked = false;
             }
 
             List<Terminal> terminals = _dtCtrl.GetTerminalListByEmployee(employee.EmployeeNumber);

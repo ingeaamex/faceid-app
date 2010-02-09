@@ -30,6 +30,8 @@ namespace FaceIDAppVBEta
             SetColor();
 
             BindWorkingCalendar(workingCalendarID);
+
+            mclWorkingCalendar.ActiveMonth.Month = DateTime.Today.Month;
         }
 
         private void SetColor()
@@ -166,7 +168,15 @@ namespace FaceIDAppVBEta
                 {
                     DateTime date = new DateTime(year, month, i);
 
-                    
+                    if(Util.CompareDate(date, DateTime.Today) == 0) //is today
+                    {
+                        DateItem dateItem = new DateItem();
+                        dateItem.Date = date;
+                        dateItem.BoldedDate = true;
+                        dateItem.DateColor = Color.Red;
+
+                        mclWorkingCalendar.AddDateInfo(dateItem);
+                    }
 
                     if (IsHoliday(date))
                     {

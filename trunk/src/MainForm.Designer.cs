@@ -39,7 +39,8 @@
             this.configToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sctMain = new System.Windows.Forms.SplitContainer();
-            this.btnConfiguration = new System.Windows.Forms.Button();
+            this.btnExport = new System.Windows.Forms.Button();
+            this.btnSetting = new System.Windows.Forms.Button();
             this.btnReprocess = new System.Windows.Forms.Button();
             this.btnAttTest = new System.Windows.Forms.Button();
             this.btnUser = new System.Windows.Forms.Button();
@@ -49,8 +50,11 @@
             this.btnEmployee = new System.Windows.Forms.Button();
             this.btnDepartment = new System.Windows.Forms.Button();
             this.btnCompany = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.sctMain.Panel1.SuspendLayout();
+            this.sctMain.Panel2.SuspendLayout();
             this.sctMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -136,7 +140,8 @@
             // sctMain.Panel1
             // 
             this.sctMain.Panel1.AccessibleName = "pnlLeft";
-            this.sctMain.Panel1.Controls.Add(this.btnConfiguration);
+            this.sctMain.Panel1.Controls.Add(this.btnExport);
+            this.sctMain.Panel1.Controls.Add(this.btnSetting);
             this.sctMain.Panel1.Controls.Add(this.btnReprocess);
             this.sctMain.Panel1.Controls.Add(this.btnAttTest);
             this.sctMain.Panel1.Controls.Add(this.btnUser);
@@ -150,27 +155,41 @@
             // sctMain.Panel2
             // 
             this.sctMain.Panel2.AccessibleName = "pnlMain";
+            this.sctMain.Panel2.Controls.Add(this.label2);
+            this.sctMain.Panel2.Controls.Add(this.label1);
             this.sctMain.Size = new System.Drawing.Size(1016, 662);
             this.sctMain.SplitterDistance = 167;
             this.sctMain.TabIndex = 1;
             // 
-            // btnConfiguration
+            // btnExport
             // 
-            this.btnConfiguration.Image = global::FaceIDAppVBEta.Properties.Resources.Configure;
-            this.btnConfiguration.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnConfiguration.Location = new System.Drawing.Point(2, 451);
-            this.btnConfiguration.Name = "btnConfiguration";
-            this.btnConfiguration.Size = new System.Drawing.Size(163, 50);
-            this.btnConfiguration.TabIndex = 9;
-            this.btnConfiguration.Text = "Setting";
-            this.btnConfiguration.UseVisualStyleBackColor = true;
-            this.btnConfiguration.Click += new System.EventHandler(this.btnConfiguration_Click);
+            this.btnExport.Image = global::FaceIDAppVBEta.Properties.Resources.Download;
+            this.btnExport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnExport.Location = new System.Drawing.Point(2, 333);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(163, 50);
+            this.btnExport.TabIndex = 10;
+            this.btnExport.Text = "Export";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+            // 
+            // btnSetting
+            // 
+            this.btnSetting.Image = global::FaceIDAppVBEta.Properties.Resources.Configure;
+            this.btnSetting.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSetting.Location = new System.Drawing.Point(2, 498);
+            this.btnSetting.Name = "btnSetting";
+            this.btnSetting.Size = new System.Drawing.Size(163, 50);
+            this.btnSetting.TabIndex = 9;
+            this.btnSetting.Text = "Setting";
+            this.btnSetting.UseVisualStyleBackColor = true;
+            this.btnSetting.Click += new System.EventHandler(this.btnConfiguration_Click);
             // 
             // btnReprocess
             // 
             this.btnReprocess.Image = global::FaceIDAppVBEta.Properties.Resources.Refresh;
             this.btnReprocess.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnReprocess.Location = new System.Drawing.Point(2, 339);
+            this.btnReprocess.Location = new System.Drawing.Point(2, 388);
             this.btnReprocess.Name = "btnReprocess";
             this.btnReprocess.Size = new System.Drawing.Size(163, 50);
             this.btnReprocess.TabIndex = 8;
@@ -194,7 +213,7 @@
             // 
             this.btnUser.Image = global::FaceIDAppVBEta.Properties.Resources.People;
             this.btnUser.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUser.Location = new System.Drawing.Point(2, 395);
+            this.btnUser.Location = new System.Drawing.Point(2, 443);
             this.btnUser.Name = "btnUser";
             this.btnUser.Size = new System.Drawing.Size(163, 50);
             this.btnUser.TabIndex = 6;
@@ -204,9 +223,10 @@
             // 
             // btnAttendance
             // 
+            this.btnAttendance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)), true);
             this.btnAttendance.Image = global::FaceIDAppVBEta.Properties.Resources.Chart_02;
             this.btnAttendance.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAttendance.Location = new System.Drawing.Point(2, 283);
+            this.btnAttendance.Location = new System.Drawing.Point(2, 278);
             this.btnAttendance.Name = "btnAttendance";
             this.btnAttendance.Size = new System.Drawing.Size(163, 50);
             this.btnAttendance.TabIndex = 5;
@@ -218,7 +238,7 @@
             // 
             this.btnWorkingCalendar.Image = global::FaceIDAppVBEta.Properties.Resources.Calendar;
             this.btnWorkingCalendar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnWorkingCalendar.Location = new System.Drawing.Point(2, 115);
+            this.btnWorkingCalendar.Location = new System.Drawing.Point(2, 113);
             this.btnWorkingCalendar.Name = "btnWorkingCalendar";
             this.btnWorkingCalendar.Size = new System.Drawing.Size(163, 50);
             this.btnWorkingCalendar.TabIndex = 4;
@@ -228,9 +248,9 @@
             // 
             // btnTerminal
             // 
-            this.btnTerminal.Image = global::FaceIDAppVBEta.Properties.Resources.Calculator;
+            this.btnTerminal.Image = global::FaceIDAppVBEta.Properties.Resources.Terminal;
             this.btnTerminal.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnTerminal.Location = new System.Drawing.Point(2, 171);
+            this.btnTerminal.Location = new System.Drawing.Point(2, 168);
             this.btnTerminal.Name = "btnTerminal";
             this.btnTerminal.Size = new System.Drawing.Size(163, 50);
             this.btnTerminal.TabIndex = 3;
@@ -242,7 +262,7 @@
             // 
             this.btnEmployee.Image = global::FaceIDAppVBEta.Properties.Resources.UserCard;
             this.btnEmployee.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEmployee.Location = new System.Drawing.Point(2, 227);
+            this.btnEmployee.Location = new System.Drawing.Point(2, 223);
             this.btnEmployee.Name = "btnEmployee";
             this.btnEmployee.Size = new System.Drawing.Size(163, 50);
             this.btnEmployee.TabIndex = 2;
@@ -254,7 +274,7 @@
             // 
             this.btnDepartment.Image = global::FaceIDAppVBEta.Properties.Resources.Catalog;
             this.btnDepartment.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDepartment.Location = new System.Drawing.Point(2, 59);
+            this.btnDepartment.Location = new System.Drawing.Point(2, 58);
             this.btnDepartment.Name = "btnDepartment";
             this.btnDepartment.Size = new System.Drawing.Size(163, 50);
             this.btnDepartment.TabIndex = 1;
@@ -274,6 +294,28 @@
             this.btnCompany.UseVisualStyleBackColor = true;
             this.btnCompany.Click += new System.EventHandler(this.btnCompany_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Verdana", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Blue;
+            this.label2.Location = new System.Drawing.Point(229, 186);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(387, 38);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Copyright Alltime 2010";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Verdana", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Blue;
+            this.label1.Location = new System.Drawing.Point(281, 148);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(283, 38);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "FaceID App v1.0";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -290,6 +332,8 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.sctMain.Panel1.ResumeLayout(false);
+            this.sctMain.Panel2.ResumeLayout(false);
+            this.sctMain.Panel2.PerformLayout();
             this.sctMain.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -317,7 +361,10 @@
         private System.Windows.Forms.ToolStripMenuItem updateToolStripMenuItem;
         private System.Windows.Forms.Button btnAttTest;
         private System.Windows.Forms.Button btnReprocess;
-        private System.Windows.Forms.Button btnConfiguration;
+        private System.Windows.Forms.Button btnSetting;
+        private System.Windows.Forms.Button btnExport;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
 
     }
 }
