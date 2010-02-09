@@ -18,20 +18,25 @@ namespace FaceIDAppVBEta
         private int deparmentId;
         private DateTime dPayrollFrom;
         private DateTime dPayrollTo;
-        public frmPayrollExport(int companyId, int deparmentId, DateTime dPayrollFrom, DateTime dPayrollTo)
+        bool viewMinPayPeriod = false;
+        public frmPayrollExport(int companyId, int deparmentId, DateTime dPayrollFrom, DateTime dPayrollTo, bool viewMinPayPeriod)
         {
             InitializeComponent();
             this.companyId = companyId;
             this.deparmentId = deparmentId;
             this.dPayrollFrom = dPayrollFrom;
             this.dPayrollTo = dPayrollTo;
+            this.viewMinPayPeriod = viewMinPayPeriod;
         }
 
         private void frmPayrollExport_Load(object sender, EventArgs e)
         {
             LocalDataController dtCtrl = LocalDataController.Instance;
 
-            this.BindingSource.DataSource = dtCtrl.GetPayrollExportList(companyId, deparmentId, dPayrollFrom, dPayrollTo);
+            string errorNumber = "";
+            List<PayrollExport> payrollExports = dtCtrl.GetPayrollExportList(companyId, deparmentId, dPayrollFrom, dPayrollTo, viewMinPayPeriod, ref errorNumber);
+
+            this.BindingSource.DataSource = payrollExports;
 
             List<ReportParameter> paramList = new List<ReportParameter>();
 

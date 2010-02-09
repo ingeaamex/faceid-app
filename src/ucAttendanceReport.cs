@@ -36,15 +36,52 @@ namespace FaceIDAppVBEta
 
         private void btnPayrollExport_Click(object sender, EventArgs e)
         {
-            DateTime beginDate = dtpAttendanceFrom.Value.Date;
-            DateTime endDate = dtpAttedanceTo.Value.Date;
+            DateTime dPayrollFrom = dtpAttendanceFrom.Value.Date;
+            DateTime dPayrollTo = dtpAttedanceTo.Value.Date;
+
+            if (dPayrollFrom.CompareTo(dPayrollTo) == 1)
+            {
+                MessageBox.Show(this, "beginDate>endDate");
+                return;
+            }
 
             int iCompany = (int)cbxCompany.SelectedValue;
             int iDepartment = -1;
             if (cbxDepartment.Enabled)
                 iDepartment = (int)cbxDepartment.SelectedValue;
 
-            frmPayrollExport formExport = new frmPayrollExport(iCompany, iDepartment, beginDate, endDate);
+            bool viewMinPayPeriod = true;
+            string errorNumber = "";
+            bool payrollExports = dtCtrl.ExistPayrollExportList(iCompany, iDepartment, dPayrollFrom, dPayrollTo, ref errorNumber);
+            if (payrollExports == false)
+            {
+                string msgAlert = "";
+                switch (errorNumber)
+                {
+                    case "AM00":
+                        msgAlert = "No employees";
+                        MessageBox.Show(this, msgAlert);
+                        return;
+                    case "AM01":
+                        msgAlert = "Multi start date in pay period";
+                        msgAlert += "\r\nDo you want seek to min start date to export.";
+                        msgAlert += "\r\n1. Press Yes to Seek to min start date end then display export in min start.";
+                        msgAlert += "\r\n2. Press No to Seek to min start date end then display export in lasticst.";
+                        msgAlert += "\r\n3. Press Cancel to choose date again.";
+                        DialogResult digRs = MessageBox.Show(msgAlert, "confirm", MessageBoxButtons.YesNoCancel);
+                        if (digRs == DialogResult.Yes)
+                            viewMinPayPeriod = true;
+                        else if (digRs == DialogResult.No)
+                            viewMinPayPeriod = false;
+                        else
+                            return;
+                        break;
+                    default:
+                        return;
+                }
+            }
+
+            frmPayrollExport formExport = new frmPayrollExport(iCompany, iDepartment, dPayrollFrom, dPayrollTo, viewMinPayPeriod);
             formExport.ShowDialog(this);
         }
 
