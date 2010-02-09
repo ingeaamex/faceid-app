@@ -20,7 +20,7 @@ namespace FaceIDAppVBEta.UnitTest
             
             attRecord.EmployeeNumber = emp.EmployeeNumber;
             attRecord.Note = "";
-            attRecord.PhotoData = "";
+            //attRecord.PhotoData = "";
             attRecord.Time = DateTime.Now;
 
             attRecord.ID = _dtCtrl.AddAttendanceRecord(attRecord);
