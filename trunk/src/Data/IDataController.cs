@@ -264,7 +264,9 @@ namespace FaceIDAppVBEta.Data
         bool UpdateUndeletedEmployeeNumber(UndeletedEmployeeNumber undeletedEmployeeNumber);
         #endregion
 
-        List<PayrollExport> GetPayrollExportList(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate);
+        bool ExistPayrollExportList(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate, ref string errorNumber);
+
+        List<PayrollExport> GetPayrollExportList(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate, bool seekNext, ref string errorNumber);
 
         #region Backup
         void BackupDatabase(string backupPath);
