@@ -598,7 +598,7 @@ namespace FaceIDApp
                 //add test att records
                 AttendanceRecord att11 = new AttendanceRecord();
                 att11.EmployeeNumber = emp.EmployeeNumber;
-                att11.Time = new DateTime(2010, 1, 1, 8, 0, 0);
+                att11.Time = new DateTime(2010, 1, 1, 9, 0, 0);
                 att11.ID = _dtCtrl.AddAttendanceRecord(att11);
 
                 AttendanceRecord att12 = new AttendanceRecord();
