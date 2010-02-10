@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCustomRate));
             this.label1 = new System.Windows.Forms.Label();
             this.txtRate = new System.Windows.Forms.TextBox();
             this.btnAddRate = new System.Windows.Forms.Button();
@@ -90,6 +91,7 @@
             this.Controls.Add(this.btnAddRate);
             this.Controls.Add(this.txtRate);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmCustomRate";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add Custom Rate";

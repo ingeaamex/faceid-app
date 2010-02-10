@@ -78,30 +78,6 @@ namespace FaceIDAppVBEta
             dtCtrl.AddHoliday(new Holiday());
         }
 
-        private void companyToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            sctMain.Panel2.Controls.Clear();
-            sctMain.Panel2.Controls.Add(new ucCompanyForm());
-        }
-
-        private void departmentToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            sctMain.Panel2.Controls.Clear();
-            sctMain.Panel2.Controls.Add(new ucDepartmentForm());
-        }
-
-        private void employeeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            sctMain.Panel2.Controls.Clear();
-            sctMain.Panel2.Controls.Add(new ucEmployeeForm());
-        }
-
-        private void terminalToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            sctMain.Panel2.Controls.Clear();
-            sctMain.Panel2.Controls.Add(new ucTerminalForm());
-        }
-
         private void btnCompany_Click(object sender, EventArgs e)
         {
             sctMain.Panel2.Controls.Clear();
@@ -165,21 +141,6 @@ namespace FaceIDAppVBEta
             HighlightButton(btnUser);
         }
 
-        private void configToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            sctMain.Panel2.Controls.Clear();
-            sctMain.Panel2.Controls.Add(new ucConfigForm());
-
-            UnHighlightAllButtons();
-            HighlightButton(btnExport);
-        }
-
-        private void updateToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //FaceIDAppVBEta.Data.LocalDataController dtCtrl = FaceIDAppVBEta.Data.LocalDataController.Instance;
-            //dtCtrl.CalculateAttendanceRecord();
-        }
-
         private void btnAttTest_Click(object sender, EventArgs e)
         {
             new FaceIDApp.Test().Show();
@@ -213,7 +174,7 @@ namespace FaceIDAppVBEta
 
         #endregion
 
-        private void btnConfiguration_Click(object sender, EventArgs e)
+        private void btnSetting_Click(object sender, EventArgs e)
         {
             sctMain.Panel2.Controls.Clear();
             sctMain.Panel2.Controls.Add(new ucSetting());
@@ -248,6 +209,22 @@ namespace FaceIDAppVBEta
             btnReprocess.ForeColor = _originForeColor;
             btnUser.ForeColor = _originForeColor;
             btnSetting.ForeColor = _originForeColor;
+        }
+
+        private void tsmExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void tsmHelpContents_Click(object sender, EventArgs e)
+        {
+            //TODO open CHM file
+        }
+
+        private void tsmAbout_Click(object sender, EventArgs e)
+        {
+            //TODO show frmAbout
+            new frmAbout().ShowDialog(this);
         }
     }
 }

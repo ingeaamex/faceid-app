@@ -117,7 +117,7 @@
             this.btnPayrollExport.Name = "btnPayrollExport";
             this.btnPayrollExport.Size = new System.Drawing.Size(103, 23);
             this.btnPayrollExport.TabIndex = 22;
-            this.btnPayrollExport.Text = "View Payroll";
+            this.btnPayrollExport.Text = "View Timesheet";
             this.btnPayrollExport.UseVisualStyleBackColor = true;
             this.btnPayrollExport.Click += new System.EventHandler(this.btnPayrollExport_Click);
             // 

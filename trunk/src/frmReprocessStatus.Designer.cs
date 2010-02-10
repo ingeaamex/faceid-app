@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmReprocessStatus));
             this.lProcessStatus = new System.Windows.Forms.Label();
             this.pgbProgress = new System.Windows.Forms.ProgressBar();
             this.btnStop = new System.Windows.Forms.Button();
@@ -79,9 +80,10 @@
             this.Controls.Add(this.pgbProgress);
             this.Controls.Add(this.lProcessStatus);
             this.Controls.Add(this.btnClose);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmReprocessStatus";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "frmReprocessStatus";
+            this.Text = "Reprocess Status";
             this.Load += new System.EventHandler(this.frmReprocessStatus_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

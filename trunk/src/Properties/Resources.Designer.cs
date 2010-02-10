@@ -109,6 +109,20 @@ namespace FaceIDAppVBEta.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap icon_4848 {
+            get {
+                object obj = ResourceManager.GetObject("icon 4848", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap LOGO_ALLTIME_time___attendance_5aFinal {
+            get {
+                object obj = ResourceManager.GetObject("LOGO ALLTIME time & attendance 5aFinal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap People {
             get {
                 object obj = ResourceManager.GetObject("People", resourceCulture);

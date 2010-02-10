@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAddUpdateEmployee));
             this.lblAddUpdateEmployee = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cbxCompany = new System.Windows.Forms.ComboBox();
@@ -396,6 +397,7 @@
             this.Controls.Add(this.cbxCompany);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lblAddUpdateEmployee);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmAddUpdateEmployee";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "frmAddUpdateEmployee";
