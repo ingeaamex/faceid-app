@@ -46,7 +46,7 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
         <CanGrow>true</CanGrow>
-        <Value>Report Payrolls</Value>
+        <Value>Timesheet</Value>
       </Textbox>
     </ReportItems>
     <Height>0.485in</Height>

@@ -295,12 +295,12 @@ namespace FaceIDApp
                 }
                 
 
-                Invoke(new SetTextCallBack(AddText), new object[] { txtProgress, "Calculating" });
+                //Invoke(new SetTextCallBack(AddText), new object[] { txtProgress, "Calculating" });
 
                 //_dtCtrl.CalculateAttendanceRecord();
-                _dtCtrl.RefreshConnection();
+                //_dtCtrl.RefreshConnection();
 
-                Invoke(new SetTextCallBack(AddText), new object[] { txtProgress, "DONE" });
+                //Invoke(new SetTextCallBack(AddText), new object[] { txtProgress, "DONE" });
                 Invoke(new SetTextCallBack(SetText), new object[] { txtDuration, GetDuration() });
 
                 MessageBox.Show(added + " records have been added");
@@ -319,7 +319,7 @@ namespace FaceIDApp
                 _empList = _dtCtrl.GetEmployeeList();
 
             if (_empList.Count == 0)
-                throw new Exception("There's no employee");
+                throw new Exception("There's no employee.");
 
             return _empList[_rand.Next(_empList.Count)].EmployeeNumber;
         }
@@ -596,6 +596,7 @@ namespace FaceIDApp
                 emp.PayrollNumber = _dtCtrl.AddEmployee(emp, new List<Terminal>());
 
                 //add test att records
+                //att1 : expected totalHours: 9
                 AttendanceRecord att11 = new AttendanceRecord();
                 att11.EmployeeNumber = emp.EmployeeNumber;
                 att11.Time = new DateTime(2010, 1, 1, 9, 0, 0);
@@ -616,6 +617,7 @@ namespace FaceIDApp
                 att14.Time = new DateTime(2010, 1, 1, 13, 0, 0);
                 att14.ID = _dtCtrl.AddAttendanceRecord(att14);
 
+                //att2 : expected totalHours: 9
                 AttendanceRecord att21 = new AttendanceRecord();
                 att21.EmployeeNumber = emp.EmployeeNumber;
                 att21.Time = new DateTime(2010, 1, 2, 8, 45, 0);
@@ -626,6 +628,7 @@ namespace FaceIDApp
                 att22.Time = new DateTime(2010, 1, 2, 18, 15, 0);
                 att22.ID = _dtCtrl.AddAttendanceRecord(att22);
 
+                //att3 : expected totalHours: 9.75
                 AttendanceRecord att31 = new AttendanceRecord();
                 att31.EmployeeNumber = emp.EmployeeNumber;
                 att31.Time = new DateTime(2010, 1, 3, 8, 15, 0);
@@ -636,6 +639,7 @@ namespace FaceIDApp
                 att32.Time = new DateTime(2010, 1, 3, 18, 0, 0);
                 att32.ID = _dtCtrl.AddAttendanceRecord(att32);
 
+                //att4 : expected totalHours: 0 + out mistake alert
                 AttendanceRecord att41 = new AttendanceRecord();
                 att41.EmployeeNumber = emp.EmployeeNumber;
                 att41.Time = new DateTime(2010, 1, 4, 7, 00, 0);
@@ -645,6 +649,38 @@ namespace FaceIDApp
                 att42.EmployeeNumber = emp.EmployeeNumber;
                 att42.Time = new DateTime(2010, 1, 4, 18, 0, 0);
                 att42.ID = _dtCtrl.AddAttendanceRecord(att42);
+
+                //att5 : expected totalHours: 8.8x
+                AttendanceRecord att51 = new AttendanceRecord();
+                att51.EmployeeNumber = emp.EmployeeNumber;
+                att51.Time = new DateTime(2010, 1, 5, 9, 06, 0);
+                att51.ID = _dtCtrl.AddAttendanceRecord(att51);
+
+                AttendanceRecord att52 = new AttendanceRecord();
+                att52.EmployeeNumber = emp.EmployeeNumber;
+                att52.Time = new DateTime(2010, 1, 5, 18, 2, 0);
+                att52.ID = _dtCtrl.AddAttendanceRecord(att52);
+
+                //att6 : expected totalHours: 8.5
+                AttendanceRecord att61 = new AttendanceRecord();
+                att61.EmployeeNumber = emp.EmployeeNumber;
+                att61.Time = new DateTime(2010, 1, 6, 9, 0, 0);
+                att61.ID = _dtCtrl.AddAttendanceRecord(att61);
+
+                AttendanceRecord att62 = new AttendanceRecord();
+                att62.EmployeeNumber = emp.EmployeeNumber;
+                att62.Time = new DateTime(2010, 1, 6, 18, 0, 0);
+                att62.ID = _dtCtrl.AddAttendanceRecord(att62);
+
+                AttendanceRecord att63 = new AttendanceRecord();
+                att63.EmployeeNumber = emp.EmployeeNumber;
+                att63.Time = new DateTime(2010, 1, 6, 12, 30, 0);
+                att63.ID = _dtCtrl.AddAttendanceRecord(att63);
+
+                AttendanceRecord att64 = new AttendanceRecord();
+                att64.EmployeeNumber = emp.EmployeeNumber;
+                att64.Time = new DateTime(2010, 1, 6, 13, 30, 0);
+                att64.ID = _dtCtrl.AddAttendanceRecord(att64);
 
                 _dtCtrl.CommitTransaction();
 

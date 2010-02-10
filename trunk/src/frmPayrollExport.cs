@@ -14,20 +14,20 @@ namespace FaceIDAppVBEta
 {
     public partial class frmPayrollExport : Form
     {
-        private int companyId;
-        private int deparmentId;
-        private DateTime dPayrollFrom;
-        private DateTime dPayrollTo;
+        private int _companyID;
+        private int _deparmentID;
+        private DateTime _dPayrollFrom;
+        private DateTime _dPayrollTo;
         bool viewMinPayPeriod = false;
-        int wcalID = 0;
-        public frmPayrollExport(int companyId, int deparmentId, DateTime dPayrollFrom, DateTime dPayrollTo, int wcalID)
+        int _workingCalendarID = 0;
+        public frmPayrollExport(int companyID, int deparmentID, DateTime dPayrollFrom, DateTime dPayrollTo, int workingCalendarID)
         {
             InitializeComponent();
-            this.companyId = companyId;
-            this.deparmentId = deparmentId;
-            this.dPayrollFrom = dPayrollFrom;
-            this.dPayrollTo = dPayrollTo;
-            this.wcalID = wcalID;
+            this._companyID = companyID;
+            this._deparmentID = deparmentID;
+            this._dPayrollFrom = dPayrollFrom;
+            this._dPayrollTo = dPayrollTo;
+            this._workingCalendarID = workingCalendarID;
             //this.viewMinPayPeriod = viewMinPayPeriod;
         }
 
@@ -36,14 +36,14 @@ namespace FaceIDAppVBEta
             LocalDataController dtCtrl = LocalDataController.Instance;
 
             string errorNumber = "";
-            List<PayrollExport> payrollExports = dtCtrl.GetPayrollExportList(companyId, deparmentId, dPayrollFrom, dPayrollTo, wcalID, ref errorNumber);
+            List<PayrollExport> payrollExports = dtCtrl.GetPayrollExportList(_companyID, _deparmentID, _dPayrollFrom, _dPayrollTo, _workingCalendarID, ref errorNumber);
 
             this.BindingSource.DataSource = payrollExports;
 
             List<ReportParameter> paramList = new List<ReportParameter>();
 
-            paramList.Add(new ReportParameter("PayrollFrom", dPayrollFrom.ToString("d MMM yyyy"), false));
-            paramList.Add(new ReportParameter("PayrollTo", dPayrollTo.ToString("d MMM yyyy"), false));
+            paramList.Add(new ReportParameter("PayrollFrom", _dPayrollFrom.ToString("d MMM yyyy"), false));
+            paramList.Add(new ReportParameter("PayrollTo", _dPayrollTo.ToString("d MMM yyyy"), false));
 
             reportViewer1.LocalReport.SetParameters(paramList);
 

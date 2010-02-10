@@ -216,7 +216,7 @@
             // 
             this.dgvAttendanceLog.AllowUserToAddRows = false;
             this.dgvAttendanceLog.AllowUserToDeleteRows = false;
-            this.dgvAttendanceLog.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvAttendanceLog.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvAttendanceLog.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.EmployeeNumber,
             this.EmployeeName1,
@@ -243,6 +243,7 @@
             this.EmployeeNumber.HeaderText = "Employee Number";
             this.EmployeeNumber.Name = "EmployeeNumber";
             this.EmployeeNumber.ReadOnly = true;
+            this.EmployeeNumber.Width = 118;
             // 
             // EmployeeName1
             // 
@@ -250,6 +251,7 @@
             this.EmployeeName1.HeaderText = "Employee Name";
             this.EmployeeName1.Name = "EmployeeName1";
             this.EmployeeName1.ReadOnly = true;
+            this.EmployeeName1.Width = 109;
             // 
             // Date1
             // 
@@ -259,6 +261,7 @@
             this.Date1.HeaderText = "Date";
             this.Date1.Name = "Date1";
             this.Date1.ReadOnly = true;
+            this.Date1.Width = 55;
             // 
             // AttendanceDetail
             // 
@@ -267,6 +270,7 @@
             this.AttendanceDetail.HeaderText = "Attendance Detail";
             this.AttendanceDetail.Name = "AttendanceDetail";
             this.AttendanceDetail.ReadOnly = true;
+            this.AttendanceDetail.Width = 117;
             // 
             // TotalHours
             // 
@@ -274,6 +278,7 @@
             this.TotalHours.HeaderText = "TotalHours";
             this.TotalHours.Name = "TotalHours";
             this.TotalHours.ReadOnly = true;
+            this.TotalHours.Width = 84;
             // 
             // Note1
             // 
@@ -281,6 +286,7 @@
             this.Note1.HeaderText = "Note";
             this.Note1.Name = "Note1";
             this.Note1.ReadOnly = true;
+            this.Note1.Width = 55;
             // 
             // dataGridViewTextBoxColumn1
             // 
