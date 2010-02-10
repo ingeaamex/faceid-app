@@ -296,7 +296,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::FaceIDAppVBEta.Properties.Resources.LOGO_ALLTIME_time___attendance_5aFinal;
+            this.pictureBox1.Image = global::FaceIDAppVBEta.Properties.Resources.Alltime_logo;
             this.pictureBox1.Location = new System.Drawing.Point(395, 236);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(55, 55);

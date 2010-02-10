@@ -19,8 +19,10 @@ namespace FaceIDAppVBEta
 
         public ucCompanyForm()
         {
-            InitializeComponent();
             _dtCtrl = LocalDataController.Instance;
+            
+            InitializeComponent();
+            
             LoadData();
         }
 

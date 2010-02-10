@@ -20,6 +20,13 @@ namespace FaceIDAppVBEta
         public frmServerConnect()
         {
             InitializeComponent();
+
+            //try
+            //{
+            //    IsServerRunning(Properties.Settings.Default.ServerIP);
+            //    this.Close();
+            //}
+            //catch { }
         }
 
         private void btnConnect_Click(object sender, EventArgs e)
@@ -35,6 +42,7 @@ namespace FaceIDAppVBEta
                 if (IsServerRunning(ipAddress))
                 {
                     SaveServerIPAddress(ipAddress);
+                    this.Close();
                 }
                 else
                 {
@@ -47,7 +55,7 @@ namespace FaceIDAppVBEta
             }
         }
 
-        private bool IsServerRunning(string ipAddress)
+        public static bool IsServerRunning(string ipAddress)
         {
             bool isRunning = false;
 
@@ -66,15 +74,18 @@ namespace FaceIDAppVBEta
 
             // Creating the IDictionary to set the port on the channel instance.
             IDictionary props = new Hashtable();
-            props["port"] = 19999;
+            props["port"] = Properties.Settings.Default.TestPort;
             props["name"] = "Test" + DateTime.Now.Ticks.ToString();
 
             TcpChannel channel = new TcpChannel(props, null, provider);
 
             ChannelServices.RegisterChannel(channel, false);
 
+            int serverPort = Properties.Settings.Default.ServerPort;
+            string serviceName = Properties.Settings.Default.ServiceName;
+
             Type lookupType = typeof(IDataController);
-            IDataController serv = (IDataController)Activator.GetObject(lookupType, "tcp://" + ipAddress + ":9999/DataController");
+            IDataController serv = (IDataController)Activator.GetObject(lookupType, string.Format("tcp://{0}:{1}/{2}", ipAddress, serverPort, serviceName));
 
             try
             {
@@ -106,7 +117,10 @@ namespace FaceIDAppVBEta
 
         private void SaveServerIPAddress(string ipAddress)
         {
-            throw new NotImplementedException();
+            MessageBox.Show(Properties.Settings.Default.ServerIP);
+
+            Properties.Settings.Default.ServerIP = ipAddress;
+            Properties.Settings.Default.Save();
         }
     }
 }

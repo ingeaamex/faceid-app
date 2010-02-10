@@ -18,11 +18,14 @@ namespace FaceIDAppVBEta
     {
         private int _rowIndex = -1;
         private ITerminalController _terCtrl = new TerminalController();
-        private IDataController _dtCtrl = LocalDataController.Instance;
+        private IDataController _dtCtrl;
 
         public ucEmployeeForm()
         {
+            _dtCtrl = LocalDataController.Instance;
+            
             InitializeComponent();
+
             BindCompany();
         }
 

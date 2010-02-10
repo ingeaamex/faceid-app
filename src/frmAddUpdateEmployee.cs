@@ -12,12 +12,14 @@ namespace FaceIDAppVBEta
 {
     public partial class frmAddUpdateEmployee : Form
     {
-        private IDataController _dtCtrl = LocalDataController.Instance;
+        private IDataController _dtCtrl;
         private int _employeeID = -1;
         bool _isAlert = true;
 
         public frmAddUpdateEmployee(int employeeID)
         {
+            _dtCtrl = LocalDataController.Instance;
+
             InitializeComponent();
 
             BindData();

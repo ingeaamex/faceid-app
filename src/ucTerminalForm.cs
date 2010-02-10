@@ -14,15 +14,19 @@ namespace FaceIDAppVBEta
     public partial class ucTerminalForm : UserControl
     {
         private int _rowIndex;
-        private IDataController _dtCtrl = LocalDataController.Instance;
+        private IDataController _dtCtrl;
         private int _terminalID;
 
         private ITerminalController _terCtrl = new TerminalController();
 
         public ucTerminalForm()
         {
+            _dtCtrl = LocalDataController.Instance;
+            
             InitializeComponent();
+
             SetState(0);
+            
             LoadData();
         }
 
@@ -35,7 +39,7 @@ namespace FaceIDAppVBEta
                 btnSubmit.Text = "Add";
 
                 txtTerminalName.Text = "";
-                mtbIPAddess.Text = "";
+                ipcTerminalIP.Text = "....";
 
                 _terminalID = -1;
             }
@@ -56,7 +60,7 @@ namespace FaceIDAppVBEta
             if (terminalID <= 0)
             {
                 txtTerminalName.Text = "";
-                mtbIPAddess.Text = "";
+                ipcTerminalIP.Text = "....";
             }
             else
             {
@@ -81,7 +85,7 @@ namespace FaceIDAppVBEta
                 foreach (string s in ip)
                     ips += s + ".";
                 ips = ips.Trim('.');
-                mtbIPAddess.Text = ips;
+                ipcTerminalIP.Text = ips;
             }
         }
 
@@ -112,7 +116,7 @@ namespace FaceIDAppVBEta
         private Terminal GetTerminalUserInput()
         {
             string terminalName = txtTerminalName.Text;
-            string ipAddress = mtbIPAddess.Text.Replace(" ", "");
+            string ipAddress = ipcTerminalIP.Text.Replace(" ", "");
 
             if (string.IsNullOrEmpty(terminalName))
             {

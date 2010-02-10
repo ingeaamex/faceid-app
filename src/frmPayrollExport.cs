@@ -18,8 +18,9 @@ namespace FaceIDAppVBEta
         private int _deparmentID;
         private DateTime _dPayrollFrom;
         private DateTime _dPayrollTo;
-        bool viewMinPayPeriod = false;
+        //bool viewMinPayPeriod = false;
         int _workingCalendarID = 0;
+
         public frmPayrollExport(int companyID, int deparmentID, DateTime dPayrollFrom, DateTime dPayrollTo, int workingCalendarID)
         {
             InitializeComponent();

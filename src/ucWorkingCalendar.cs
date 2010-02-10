@@ -12,11 +12,13 @@ namespace FaceIDAppVBEta
 {
     public partial class ucWorkingCalendar : UserControl
     {
-        private IDataController _dtCtrl = LocalDataController.Instance;
+        private IDataController _dtCtrl;
         private int _rowIndex = -1;
 
         public ucWorkingCalendar()
         {
+            _dtCtrl = LocalDataController.Instance;
+
             InitializeComponent();
 
             BindWorkingCalendar();

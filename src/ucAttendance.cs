@@ -12,11 +12,13 @@ namespace FaceIDAppVBEta
 {
     public partial class ucAttendance : UserControl
     {
-        private IDataController _dtCtrl = LocalDataController.Instance;
+        private IDataController _dtCtrl;
         private ITerminalController _terCtrl = new TerminalController();
 
         public ucAttendance(int tabNo)
         {
+            _dtCtrl = LocalDataController.Instance;
+
             InitializeComponent();
 
             if(tabNo == 1)

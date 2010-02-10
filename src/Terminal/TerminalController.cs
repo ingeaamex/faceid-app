@@ -11,7 +11,12 @@ namespace FaceIDAppVBEta
 {
     public class TerminalController : Form, ITerminalController
     {
-        private IDataController _dtCtrl = LocalDataController.Instance;
+        private IDataController _dtCtrl;
+
+        public TerminalController()
+        {
+            _dtCtrl = LocalDataController.Instance;
+        }
 
         private delegate int CallBack(int total, int nDone);
 
