@@ -19,11 +19,13 @@ namespace FaceIDAppVBEta
         private string _employeeNumberList;
         private DateTime _dReprocessFrom;
         private DateTime _dReprocessTo;
-        private IDataController _dtCtrl = LocalDataController.Instance;
+        private IDataController _dtCtrl;
         List<AttendanceRecord> attendanceRecordList = null;
 
         public frmReprocessStatus(string employeeNumberList, DateTime dReprocessFrom, DateTime dReprocessTo)
         {
+            _dtCtrl = LocalDataController.Instance;
+
             InitializeComponent();
 
             _employeeNumberList = employeeNumberList;

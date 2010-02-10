@@ -26,6 +26,8 @@ namespace FaceIDAppVBEta
             EnableControls();
 
             RestoreOldSettings();
+
+            gbxServerSetting.Visible = Properties.Settings.Default.IsClient;            
         }
 
         private void BindRoundValue()
@@ -224,6 +226,12 @@ namespace FaceIDAppVBEta
 
             //attendance settings
             cbxRoundValue.SelectedIndex = cbxRoundValue.FindString(config.RecordRoundingValue.ToString());
+            nudAttendanceRecordInterval.Value = config.AttendanceRecordInterval;
+
+            if (Properties.Settings.Default.IsClient)
+            {
+                ipcServerIP.Text = Properties.Settings.Default.ServerIP;
+            }
         }
 
         private void btnSaveSettings_Click(object sender, EventArgs e)
@@ -269,8 +277,11 @@ namespace FaceIDAppVBEta
             config.AttendanceRecordInterval = (int)nudAttendanceRecordInterval.Value;
             config.RecordRoundingValue = Convert.ToInt16(((ListItem)cbxRoundValue.SelectedItem).Value);
 
-            //CLIENT ONLY - server IP address
-            //TODO
+            if(Properties.Settings.Default.IsClient)
+            {
+                Properties.Settings.Default.ServerIP = ipcServerIP.Text;
+                Properties.Settings.Default.Save();
+            }
 
             //save settings
             try
@@ -282,7 +293,7 @@ namespace FaceIDAppVBEta
             }
             catch (Exception ex)
             {
-                MessageBox.Show("There has been an error. Please try again later. Error detail: " + ex.Message);
+                Util.ShowErrorMessage(ex);
             }
         }
 

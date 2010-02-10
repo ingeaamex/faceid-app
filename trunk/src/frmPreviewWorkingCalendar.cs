@@ -13,7 +13,7 @@ namespace FaceIDAppVBEta
 {
     public partial class frmPreviewWorkingCalendar : Form
     {
-        private IDataController _dtCtrl = LocalDataController.Instance;
+        private IDataController _dtCtrl;
         private WorkingCalendar _workingCalendar;
         private List<Holiday> _holidayList;
 
@@ -25,6 +25,8 @@ namespace FaceIDAppVBEta
 
         public frmPreviewWorkingCalendar(int workingCalendarID)
         {
+            _dtCtrl = LocalDataController.Instance;
+
             InitializeComponent();
 
             SetColor();

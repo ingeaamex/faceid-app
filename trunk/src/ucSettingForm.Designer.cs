@@ -63,15 +63,15 @@
             this.nudAttendanceRecordInterval = new System.Windows.Forms.NumericUpDown();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.mtbServerIPAddess = new System.Windows.Forms.MaskedTextBox();
+            this.gbxServerSetting = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.ipcServerIP = new IPAddressControlLib.IPAddressControl();
             ((System.ComponentModel.ISupportInitialize)(this.nudBackupPeriod)).BeginInit();
             this.gbxBackup.SuspendLayout();
             this.gbxRestore.SuspendLayout();
             this.gbxNoname1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudAttendanceRecordInterval)).BeginInit();
-            this.groupBox1.SuspendLayout();
+            this.gbxServerSetting.SuspendLayout();
             this.SuspendLayout();
             // 
             // cbxScheduledBackup
@@ -470,26 +470,16 @@
             this.label10.TabIndex = 14;
             this.label10.Text = "Attendance Record interval:";
             // 
-            // groupBox1
+            // gbxServerSetting
             // 
-            this.groupBox1.Controls.Add(this.mtbServerIPAddess);
-            this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Location = new System.Drawing.Point(423, 294);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(391, 71);
-            this.groupBox1.TabIndex = 18;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Server Setting [Clien Only]";
-            this.groupBox1.Visible = false;
-            // 
-            // mtbServerIPAddess
-            // 
-            this.mtbServerIPAddess.Location = new System.Drawing.Point(77, 26);
-            this.mtbServerIPAddess.Mask = "000.000.000.000";
-            this.mtbServerIPAddess.Name = "mtbServerIPAddess";
-            this.mtbServerIPAddess.Size = new System.Drawing.Size(100, 20);
-            this.mtbServerIPAddess.TabIndex = 15;
-            this.mtbServerIPAddess.ValidatingType = typeof(System.DateTime);
+            this.gbxServerSetting.Controls.Add(this.ipcServerIP);
+            this.gbxServerSetting.Controls.Add(this.label7);
+            this.gbxServerSetting.Location = new System.Drawing.Point(423, 294);
+            this.gbxServerSetting.Name = "gbxServerSetting";
+            this.gbxServerSetting.Size = new System.Drawing.Size(391, 71);
+            this.gbxServerSetting.TabIndex = 18;
+            this.gbxServerSetting.TabStop = false;
+            this.gbxServerSetting.Text = "Server Setting [Clien Only]";
             // 
             // label7
             // 
@@ -500,11 +490,26 @@
             this.label7.TabIndex = 14;
             this.label7.Text = "IP Address";
             // 
+            // ipcServerIP
+            // 
+            this.ipcServerIP.AllowInternalTab = false;
+            this.ipcServerIP.AutoHeight = true;
+            this.ipcServerIP.BackColor = System.Drawing.SystemColors.Window;
+            this.ipcServerIP.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.ipcServerIP.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.ipcServerIP.Location = new System.Drawing.Point(70, 26);
+            this.ipcServerIP.MinimumSize = new System.Drawing.Size(87, 20);
+            this.ipcServerIP.Name = "ipcServerIP";
+            this.ipcServerIP.ReadOnly = false;
+            this.ipcServerIP.Size = new System.Drawing.Size(93, 20);
+            this.ipcServerIP.TabIndex = 16;
+            this.ipcServerIP.Text = "...";
+            // 
             // ucSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.gbxServerSetting);
             this.Controls.Add(this.gbxNoname1);
             this.Controls.Add(this.gbxRestore);
             this.Controls.Add(this.gbxBackup);
@@ -520,8 +525,8 @@
             this.gbxNoname1.ResumeLayout(false);
             this.gbxNoname1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudAttendanceRecordInterval)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.gbxServerSetting.ResumeLayout(false);
+            this.gbxServerSetting.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -558,13 +563,13 @@
         private System.Windows.Forms.NumericUpDown nudAttendanceRecordInterval;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox gbxServerSetting;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.MaskedTextBox mtbServerIPAddess;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.ComboBox cbxRoundValue;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label13;
+        private IPAddressControlLib.IPAddressControl ipcServerIP;
     }
 }

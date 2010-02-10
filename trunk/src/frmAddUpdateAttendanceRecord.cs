@@ -13,12 +13,14 @@ namespace FaceIDAppVBEta
 {
     public partial class frmAddUpdateAttendanceRecord : Form
     {
-        private IDataController _dtCtrl = LocalDataController.Instance;
+        private IDataController _dtCtrl;
         private int _attRecordID = 0;
         private string _seperator = " - ";
 
         public frmAddUpdateAttendanceRecord(int attRecord)
         {
+            _dtCtrl = LocalDataController.Instance;
+
             InitializeComponent();
 
             BindEmployeeNumber();

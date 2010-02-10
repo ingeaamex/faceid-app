@@ -13,13 +13,15 @@ namespace FaceIDAppVBEta
 {
     public partial class ucAttendanceReport : UserControl
     {
-        private IDataController dtCtrl;
+        private IDataController _dtCtrl;
         private List<AttendanceSummaryReport> attendanceLogs;
 
         public ucAttendanceReport()
         {
+            _dtCtrl = LocalDataController.Instance;
+
             InitializeComponent();
-            dtCtrl = LocalDataController.Instance;
+            
             BindData();
         }
 
@@ -36,53 +38,60 @@ namespace FaceIDAppVBEta
 
         private void btnPayrollExport_Click(object sender, EventArgs e)
         {
-            DateTime dPayrollFrom = dtpAttendanceFrom.Value.Date;
-            DateTime dPayrollTo = dtpAttedanceTo.Value.Date;
-
-            if (dPayrollFrom.CompareTo(dPayrollTo) == 1)
+            try
             {
-                MessageBox.Show(this, "beginDate>endDate");
-                return;
+                DateTime dPayrollFrom = dtpAttendanceFrom.Value.Date;
+                DateTime dPayrollTo = dtpAttedanceTo.Value.Date;
+
+                if (dPayrollFrom.CompareTo(dPayrollTo) == 1)
+                {
+                    MessageBox.Show(this, "beginDate>endDate");
+                    return;
+                }
+
+                int iCompany = (int)cbxCompany.SelectedValue;
+                int iDepartment = -1;
+                if (cbxDepartment.Enabled)
+                    iDepartment = (int)cbxDepartment.SelectedValue;
+
+                string errorNumber = "";
+                int wcalID = 0;
+                List<PayrollExport> payrollExports = _dtCtrl.GetPayrollExportList(iCompany, iDepartment, dPayrollFrom, dPayrollTo, wcalID, ref errorNumber);
+                //List<WorkingCalendar> workingCalendars = new List<WorkingCalendar>();
+                //bool payrollExports = dtCtrl.ExistPayrollExportList(iCompany, iDepartment, dPayrollFrom, dPayrollTo, ref errorNumber, ref workingCalendars);
+                //if (payrollExports == false)
+                //{
+                //    string msgAlert = "";
+                //    switch (errorNumber)
+                //    {
+                //        case "AM01":
+                //            if (workingCalendars.Count > 1)
+                //            {
+                //                frmChooseWorkingCalendar _frmChooseWorkingCalendar = new frmChooseWorkingCalendar(workingCalendars, dPayrollFrom, dPayrollTo, iCompany, iDepartment);
+                //                DialogResult diag = _frmChooseWorkingCalendar.ShowDialog(this);
+                //            }
+                //            return;
+                //        case "AM00":
+                //        default:
+                //            msgAlert = "Not match";
+                //            MessageBox.Show(this, msgAlert);
+                //            return;
+                //    }
+                //}
+
+                if (payrollExports.Count > 0)
+                {
+                    frmPayrollExport formExport = new frmPayrollExport(iCompany, iDepartment, dPayrollFrom, dPayrollTo, 0);
+                    formExport.ShowDialog(this);
+                }
+                else
+                {
+                    MessageBox.Show(this, "Not match");
+                }
             }
-
-            int iCompany = (int)cbxCompany.SelectedValue;
-            int iDepartment = -1;
-            if (cbxDepartment.Enabled)
-                iDepartment = (int)cbxDepartment.SelectedValue;
-
-            string errorNumber = "";
-            int wcalID = 0;
-            List<PayrollExport> payrollExports = dtCtrl.GetPayrollExportList(iCompany, iDepartment, dPayrollFrom, dPayrollTo, wcalID, ref errorNumber);
-            //List<WorkingCalendar> workingCalendars = new List<WorkingCalendar>();
-            //bool payrollExports = dtCtrl.ExistPayrollExportList(iCompany, iDepartment, dPayrollFrom, dPayrollTo, ref errorNumber, ref workingCalendars);
-            //if (payrollExports == false)
-            //{
-            //    string msgAlert = "";
-            //    switch (errorNumber)
-            //    {
-            //        case "AM01":
-            //            if (workingCalendars.Count > 1)
-            //            {
-            //                frmChooseWorkingCalendar _frmChooseWorkingCalendar = new frmChooseWorkingCalendar(workingCalendars, dPayrollFrom, dPayrollTo, iCompany, iDepartment);
-            //                DialogResult diag = _frmChooseWorkingCalendar.ShowDialog(this);
-            //            }
-            //            return;
-            //        case "AM00":
-            //        default:
-            //            msgAlert = "Not match";
-            //            MessageBox.Show(this, msgAlert);
-            //            return;
-            //    }
-            //}
-
-            if (payrollExports.Count > 0)
+            catch (Exception ex)
             {
-                frmPayrollExport formExport = new frmPayrollExport(iCompany, iDepartment, dPayrollFrom, dPayrollTo, 0);
-                formExport.ShowDialog(this);
-            }
-            else
-            {
-                MessageBox.Show(this, "Not match");
+                Util.ShowErrorMessage(ex);
             }
         }
 
@@ -164,7 +173,7 @@ namespace FaceIDAppVBEta
             if (cbxDepartment.Enabled)
                 iDepartment = (int)cbxDepartment.SelectedValue;
 
-            attendanceLogs = dtCtrl.GetAttendanceSummaryReport(iCompany, iDepartment, beginDate, endDate);
+            attendanceLogs = _dtCtrl.GetAttendanceSummaryReport(iCompany, iDepartment, beginDate, endDate);
 
             dgvAttendanceReport.AutoGenerateColumns = false;
             dgvAttendanceReport.DataSource = attendanceLogs;
@@ -172,7 +181,7 @@ namespace FaceIDAppVBEta
 
         private void BindCompany()
         {
-            List<Company> companyList = dtCtrl.GetCompanyList();
+            List<Company> companyList = _dtCtrl.GetCompanyList();
             Company company = new Company();
             company.ID = -1;
             company.Name = "All companies";
@@ -191,7 +200,7 @@ namespace FaceIDAppVBEta
                     return;
                 }
                 cbxDepartment.Enabled = true;
-                List<Department> departmentList = dtCtrl.GetDepartmentByCompany(CompanyID);
+                List<Department> departmentList = _dtCtrl.GetDepartmentByCompany(CompanyID);
                 Department department = new Department();
                 department.ID = -1;
                 department.Name = "All departments";

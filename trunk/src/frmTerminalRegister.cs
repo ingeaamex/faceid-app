@@ -13,23 +13,27 @@ namespace FaceIDAppVBEta
 {
     public partial class frmTerminalRegister : Form
     {
-        private IDataController dtCtrl;
-        private frmAddUpdateEmployee callbackForm;
-        private bool isAlert = true;
-        public frmTerminalRegister(Form callbackForm)
+        private IDataController _dtCtrl;
+        private frmAddUpdateEmployee _callbackForm;
+        private bool _isAlert = true;
+
+        public frmTerminalRegister(frmAddUpdateEmployee callbackForm)
         {
-            this.callbackForm = (frmAddUpdateEmployee)callbackForm;
+            _dtCtrl = LocalDataController.Instance;
+            
+            _callbackForm = callbackForm;
+            
             InitializeComponent();
-            dtCtrl = LocalDataController.Instance;
+            
             BindData();
         }
 
         private void BindData()
         {
-            List<Terminal> terminals = dtCtrl.GetTerminalList();
+            List<Terminal> terminals = _dtCtrl.GetTerminalList();
             lbxAvailTerminal.DataSource = terminals;
 
-            List<Terminal> regRerminals = callbackForm.GetTerminalsUserInput();
+            List<Terminal> regRerminals = _callbackForm.GetTerminalsUserInput();
             foreach (Terminal o in regRerminals)
             {
                 lbxRegTerminal.Items.Add(o);
@@ -46,15 +50,15 @@ namespace FaceIDAppVBEta
                 {
                     terminals.Add((Terminal)o);
                 }
-                callbackForm.SetTerminalValues(terminals);
+                _callbackForm.SetTerminalValues(terminals);
             }
-            isAlert = false;
+            _isAlert = false;
             this.Close();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            isAlert = false;
+            _isAlert = false;
             this.Close();
         }
 
@@ -91,7 +95,7 @@ namespace FaceIDAppVBEta
 
         private void frmTerminalRegister_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (isAlert)
+            if (_isAlert)
             {
                 DialogResult dlogRs = MessageBox.Show(Form.ActiveForm, "Make sure that your changes have been updated. Click \"Cancel\" to continue or \"OK\" to closed.", "Confirm", MessageBoxButtons.YesNo);
                 if (dlogRs.ToString().Equals("No"))

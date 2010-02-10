@@ -15,8 +15,10 @@ namespace FaceIDAppVBEta
         private IDataController _dtCtrl;
         public ucReprocess()
         {
-            InitializeComponent();
             _dtCtrl = LocalDataController.Instance;
+            
+            InitializeComponent();
+
             BindData();
         }
 

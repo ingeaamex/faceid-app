@@ -24,17 +24,32 @@ namespace FaceIDAppVBEta
         {
             InitializeComponent();
             _originForeColor = btnCompany.ForeColor;
-            //client only
-            //new frmServerConnect().ShowDialog(this);
-
-            VerifyUser();
 
             //server only
             RegisterChannel();
             RegisterService();
+
+            if (Properties.Settings.Default.IsClient)
+            {
+                //client only
+                string serverIP = Properties.Settings.Default.ServerIP;
+                if (frmServerConnect.IsServerRunning(serverIP) == false)
+                    new frmServerConnect().ShowDialog(this);
+            }
+            else
+            {
+                //server only
+                RegisterChannel();
+                RegisterService();
+            }
+
+            if (VerifyUser() == false)
+                Application.Exit();
+
+            //TODO do tasks
         }
 
-        private void VerifyUser()
+        private bool VerifyUser()
         {
             try
             {
@@ -43,11 +58,13 @@ namespace FaceIDAppVBEta
                 {
                     new frmUserLogin(this).ShowDialog(this);
                 }
+
+                return true;
             }
             catch (OleDbException)
             {
                 MessageBox.Show("Cannot connect to Database. Please check then try again.");
-                Application.Exit();
+                return false;
             }
         }
 
@@ -59,24 +76,25 @@ namespace FaceIDAppVBEta
 
             // Creating the IDictionary to set the port on the channel instance.
             IDictionary props = new Hashtable();
-            props["port"] = 9999;
+            props["port"] = Properties.Settings.Default.ServerPort;
 
             ChannelServices.RegisterChannel(new TcpChannel(props, null, provider), false);
         }
 
         private void RegisterService()
         {
+            string serviceName = Properties.Settings.Default.ServiceName;
             Type registeredType = typeof(LocalDataController);
-            RemotingConfiguration.RegisterWellKnownServiceType(registeredType, "DataController", WellKnownObjectMode.Singleton);
+            RemotingConfiguration.RegisterWellKnownServiceType(registeredType, serviceName, WellKnownObjectMode.Singleton);
         }
 
-        private void RequestService()
-        {
-            Type lookupType = typeof(IDataController);
-            IDataController dtCtrl = (IDataController)Activator.GetObject(lookupType, "tcp://localhost:9999/DataController");
+        //private void RequestService()
+        //{
+        //    Type lookupType = typeof(IDataController);
+        //    IDataController dtCtrl = (IDataController)Activator.GetObject(lookupType, "tcp://localhost:9999/DataController");
 
-            dtCtrl.AddHoliday(new Holiday());
-        }
+        //    dtCtrl.AddHoliday(new Holiday());
+        //}
 
         private void btnCompany_Click(object sender, EventArgs e)
         {

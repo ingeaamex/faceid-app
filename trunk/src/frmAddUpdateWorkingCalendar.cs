@@ -12,7 +12,7 @@ namespace FaceIDAppVBEta
 {
     public partial class frmAddUpdateWorkingCalendar : Form, ICustomRateCaller
     {
-        private IDataController _dtCtrl = LocalDataController.Instance;
+        private IDataController _dtCtrl;
 
         private static int _workingCalendarID = -1;
 
@@ -26,7 +26,10 @@ namespace FaceIDAppVBEta
 
         public frmAddUpdateWorkingCalendar(int workingCalendarID)
         {
+            _dtCtrl = LocalDataController.Instance;
+
             InitializeComponent();
+            
             _workingCalendarID = workingCalendarID;
 
             _listBreak1 = new Control[] { txtBreakName1, dtpBreakFrom1, dtpBreakTo1, chbBreakPaid1 };

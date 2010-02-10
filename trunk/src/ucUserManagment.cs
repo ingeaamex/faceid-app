@@ -12,13 +12,16 @@ namespace FaceIDAppVBEta
 {
     public partial class ucUserManagment : UserControl
     {
-        private IDataController _dtCtrl = LocalDataController.Instance;
+        private IDataController _dtCtrl;
         private int _rowIndex = 0;
         private bool _update = false;
 
         public ucUserManagment()
         {
+            _dtCtrl = LocalDataController.Instance;
+
             InitializeComponent();
+            
             BindUser();
             BindEmployeeNumber();
 

@@ -60,6 +60,13 @@ namespace FaceIDAppVBEta.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Alltime_logo {
+            get {
+                object obj = ResourceManager.GetObject("Alltime_logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Calendar {
             get {
                 object obj = ResourceManager.GetObject("Calendar", resourceCulture);
@@ -102,23 +109,16 @@ namespace FaceIDAppVBEta.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap FaceID_logo {
+            get {
+                object obj = ResourceManager.GetObject("FaceID_logo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Folder {
             get {
                 object obj = ResourceManager.GetObject("Folder", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap icon_4848 {
-            get {
-                object obj = ResourceManager.GetObject("icon 4848", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap LOGO_ALLTIME_time___attendance_5aFinal {
-            get {
-                object obj = ResourceManager.GetObject("LOGO ALLTIME time & attendance 5aFinal", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

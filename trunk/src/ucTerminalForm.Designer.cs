@@ -41,10 +41,10 @@
             this.IPAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TerminalStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gBoxAction = new System.Windows.Forms.GroupBox();
-            this.mtbIPAddess = new System.Windows.Forms.MaskedTextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtTerminalName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.ipcTerminalIP = new IPAddressControlLib.IPAddressControl();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTerminal)).BeginInit();
             this.cmnDgvTerminal.SuspendLayout();
             this.gBoxAction.SuspendLayout();
@@ -155,7 +155,7 @@
             // 
             // gBoxAction
             // 
-            this.gBoxAction.Controls.Add(this.mtbIPAddess);
+            this.gBoxAction.Controls.Add(this.ipcTerminalIP);
             this.gBoxAction.Controls.Add(this.label3);
             this.gBoxAction.Controls.Add(this.txtTerminalName);
             this.gBoxAction.Controls.Add(this.label2);
@@ -167,15 +167,6 @@
             this.gBoxAction.TabIndex = 5;
             this.gBoxAction.TabStop = false;
             this.gBoxAction.Text = "Add New Terminal / Update Terminal";
-            // 
-            // mtbIPAddess
-            // 
-            this.mtbIPAddess.Location = new System.Drawing.Point(105, 53);
-            this.mtbIPAddess.Mask = "000.000.000.000";
-            this.mtbIPAddess.Name = "mtbIPAddess";
-            this.mtbIPAddess.Size = new System.Drawing.Size(100, 20);
-            this.mtbIPAddess.TabIndex = 8;
-            this.mtbIPAddess.ValidatingType = typeof(System.DateTime);
             // 
             // label3
             // 
@@ -201,6 +192,21 @@
             this.label2.Size = new System.Drawing.Size(78, 13);
             this.label2.TabIndex = 4;
             this.label2.Text = "Terminal Name";
+            // 
+            // ipcTerminalIP
+            // 
+            this.ipcTerminalIP.AllowInternalTab = false;
+            this.ipcTerminalIP.AutoHeight = true;
+            this.ipcTerminalIP.BackColor = System.Drawing.SystemColors.Window;
+            this.ipcTerminalIP.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.ipcTerminalIP.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.ipcTerminalIP.Location = new System.Drawing.Point(105, 53);
+            this.ipcTerminalIP.MinimumSize = new System.Drawing.Size(87, 20);
+            this.ipcTerminalIP.Name = "ipcTerminalIP";
+            this.ipcTerminalIP.ReadOnly = false;
+            this.ipcTerminalIP.Size = new System.Drawing.Size(100, 20);
+            this.ipcTerminalIP.TabIndex = 17;
+            this.ipcTerminalIP.Text = "...";
             // 
             // ucTerminalForm
             // 
@@ -230,7 +236,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtTerminalName;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.MaskedTextBox mtbIPAddess;
         private System.Windows.Forms.ContextMenuStrip cmnDgvTerminal;
         private System.Windows.Forms.ToolStripMenuItem updateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
@@ -238,5 +243,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn IPAddress;
         private System.Windows.Forms.DataGridViewTextBoxColumn TerminalStatus;
         private System.Windows.Forms.DataGridViewTextBoxColumn TerminalID;
+        private IPAddressControlLib.IPAddressControl ipcTerminalIP;
     }
 }
