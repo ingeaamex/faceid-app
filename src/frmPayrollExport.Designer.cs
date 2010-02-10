@@ -30,14 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
-            this.BindingSource = new System.Windows.Forms.BindingSource(this.components);
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPayrollExport));
             this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
+            this.BindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.BindingSource)).BeginInit();
             this.SuspendLayout();
-            // 
-            // BindingSource
-            // 
-            this.BindingSource.DataSource = typeof(FaceIDAppVBEta.Class.EmployeeReport);
             // 
             // reportViewer1
             // 
@@ -51,15 +48,20 @@
             this.reportViewer1.Size = new System.Drawing.Size(984, 567);
             this.reportViewer1.TabIndex = 1;
             // 
+            // BindingSource
+            // 
+            this.BindingSource.DataSource = typeof(FaceIDAppVBEta.Class.EmployeeReport);
+            // 
             // frmPayrollExport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 567);
             this.Controls.Add(this.reportViewer1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmPayrollExport";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "frmPayrollExport";
+            this.Text = "Timesheet";
             this.Load += new System.EventHandler(this.frmPayrollExport_Load);
             ((System.ComponentModel.ISupportInitialize)(this.BindingSource)).EndInit();
             this.ResumeLayout(false);

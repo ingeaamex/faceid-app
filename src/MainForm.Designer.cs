@@ -30,19 +30,18 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.filesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.companyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.departmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.employeeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.terminalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.configToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmHelpContents = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.sctMain = new System.Windows.Forms.SplitContainer();
+            this.btnAttTest = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnSetting = new System.Windows.Forms.Button();
             this.btnReprocess = new System.Windows.Forms.Button();
-            this.btnAttTest = new System.Windows.Forms.Button();
             this.btnUser = new System.Windows.Forms.Button();
             this.btnAttendance = new System.Windows.Forms.Button();
             this.btnWorkingCalendar = new System.Windows.Forms.Button();
@@ -50,86 +49,63 @@
             this.btnEmployee = new System.Windows.Forms.Button();
             this.btnDepartment = new System.Windows.Forms.Button();
             this.btnCompany = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             this.sctMain.Panel1.SuspendLayout();
             this.sctMain.Panel2.SuspendLayout();
             this.sctMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.filesToolStripMenuItem,
-            this.fileToolStripMenuItem});
+            this.tsmFile,
+            this.tsmHelp});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1016, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // filesToolStripMenuItem
+            // tsmFile
             // 
-            this.filesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.companyToolStripMenuItem,
-            this.departmentToolStripMenuItem,
-            this.employeeToolStripMenuItem,
-            this.terminalToolStripMenuItem});
-            this.filesToolStripMenuItem.Name = "filesToolStripMenuItem";
-            this.filesToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
-            this.filesToolStripMenuItem.Text = "Forms";
+            this.tsmFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmExit});
+            this.tsmFile.Name = "tsmFile";
+            this.tsmFile.Size = new System.Drawing.Size(35, 20);
+            this.tsmFile.Text = "File";
             // 
-            // companyToolStripMenuItem
+            // tsmExit
             // 
-            this.companyToolStripMenuItem.Name = "companyToolStripMenuItem";
-            this.companyToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
-            this.companyToolStripMenuItem.Text = "Company";
-            this.companyToolStripMenuItem.Click += new System.EventHandler(this.companyToolStripMenuItem_Click);
+            this.tsmExit.Name = "tsmExit";
+            this.tsmExit.Size = new System.Drawing.Size(152, 22);
+            this.tsmExit.Text = "Exit";
+            this.tsmExit.Click += new System.EventHandler(this.tsmExit_Click);
             // 
-            // departmentToolStripMenuItem
+            // tsmHelp
             // 
-            this.departmentToolStripMenuItem.Name = "departmentToolStripMenuItem";
-            this.departmentToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
-            this.departmentToolStripMenuItem.Text = "Department";
-            this.departmentToolStripMenuItem.Click += new System.EventHandler(this.departmentToolStripMenuItem_Click);
+            this.tsmHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmHelpContents,
+            this.tsmAbout});
+            this.tsmHelp.Name = "tsmHelp";
+            this.tsmHelp.Size = new System.Drawing.Size(40, 20);
+            this.tsmHelp.Text = "Help";
             // 
-            // employeeToolStripMenuItem
+            // tsmHelpContents
             // 
-            this.employeeToolStripMenuItem.Name = "employeeToolStripMenuItem";
-            this.employeeToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
-            this.employeeToolStripMenuItem.Text = "Employee";
-            this.employeeToolStripMenuItem.Click += new System.EventHandler(this.employeeToolStripMenuItem_Click);
+            this.tsmHelpContents.Name = "tsmHelpContents";
+            this.tsmHelpContents.ShortcutKeys = System.Windows.Forms.Keys.F1;
+            this.tsmHelpContents.Size = new System.Drawing.Size(162, 22);
+            this.tsmHelpContents.Text = "Help Contents";
+            this.tsmHelpContents.Click += new System.EventHandler(this.tsmHelpContents_Click);
             // 
-            // terminalToolStripMenuItem
+            // tsmAbout
             // 
-            this.terminalToolStripMenuItem.Name = "terminalToolStripMenuItem";
-            this.terminalToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
-            this.terminalToolStripMenuItem.Text = "Terminal";
-            this.terminalToolStripMenuItem.Click += new System.EventHandler(this.terminalToolStripMenuItem_Click);
-            // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.configToolStripMenuItem,
-            this.updateToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
-            this.fileToolStripMenuItem.Text = "File";
-            // 
-            // configToolStripMenuItem
-            // 
-            this.configToolStripMenuItem.Name = "configToolStripMenuItem";
-            this.configToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
-            this.configToolStripMenuItem.Text = "Config";
-            this.configToolStripMenuItem.Click += new System.EventHandler(this.configToolStripMenuItem_Click);
-            // 
-            // updateToolStripMenuItem
-            // 
-            this.updateToolStripMenuItem.Name = "updateToolStripMenuItem";
-            this.updateToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
-            this.updateToolStripMenuItem.Text = "Calculated Attendance Record";
-            this.updateToolStripMenuItem.Click += new System.EventHandler(this.updateToolStripMenuItem_Click);
+            this.tsmAbout.Name = "tsmAbout";
+            this.tsmAbout.Size = new System.Drawing.Size(162, 22);
+            this.tsmAbout.Text = "About FaceID App";
+            this.tsmAbout.Click += new System.EventHandler(this.tsmAbout_Click);
             // 
             // sctMain
             // 
@@ -155,11 +131,47 @@
             // sctMain.Panel2
             // 
             this.sctMain.Panel2.AccessibleName = "pnlMain";
+            this.sctMain.Panel2.Controls.Add(this.pictureBox1);
             this.sctMain.Panel2.Controls.Add(this.label2);
             this.sctMain.Panel2.Controls.Add(this.label1);
             this.sctMain.Size = new System.Drawing.Size(1016, 662);
             this.sctMain.SplitterDistance = 167;
             this.sctMain.TabIndex = 1;
+            // 
+            // btnAttTest
+            // 
+            this.btnAttTest.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAttTest.ForeColor = System.Drawing.Color.Red;
+            this.btnAttTest.Location = new System.Drawing.Point(2, 609);
+            this.btnAttTest.Name = "btnAttTest";
+            this.btnAttTest.Size = new System.Drawing.Size(163, 50);
+            this.btnAttTest.TabIndex = 7;
+            this.btnAttTest.Text = "ATT TEST";
+            this.btnAttTest.UseVisualStyleBackColor = true;
+            this.btnAttTest.Visible = false;
+            this.btnAttTest.Click += new System.EventHandler(this.btnAttTest_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Verdana", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Blue;
+            this.label2.Location = new System.Drawing.Point(207, 186);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(430, 38);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Copyright © Alltime 2010";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Verdana", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Blue;
+            this.label1.Location = new System.Drawing.Point(281, 148);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(283, 38);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "FaceID App v1.0";
             // 
             // btnExport
             // 
@@ -183,7 +195,7 @@
             this.btnSetting.TabIndex = 9;
             this.btnSetting.Text = "Setting";
             this.btnSetting.UseVisualStyleBackColor = true;
-            this.btnSetting.Click += new System.EventHandler(this.btnConfiguration_Click);
+            this.btnSetting.Click += new System.EventHandler(this.btnSetting_Click);
             // 
             // btnReprocess
             // 
@@ -196,18 +208,6 @@
             this.btnReprocess.Text = "Reprocess";
             this.btnReprocess.UseVisualStyleBackColor = true;
             this.btnReprocess.Click += new System.EventHandler(this.btnReprocess_Click);
-            // 
-            // btnAttTest
-            // 
-            this.btnAttTest.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAttTest.ForeColor = System.Drawing.Color.Red;
-            this.btnAttTest.Location = new System.Drawing.Point(2, 609);
-            this.btnAttTest.Name = "btnAttTest";
-            this.btnAttTest.Size = new System.Drawing.Size(163, 50);
-            this.btnAttTest.TabIndex = 7;
-            this.btnAttTest.Text = "ATT TEST";
-            this.btnAttTest.UseVisualStyleBackColor = true;
-            this.btnAttTest.Click += new System.EventHandler(this.btnAttTest_Click);
             // 
             // btnUser
             // 
@@ -294,27 +294,14 @@
             this.btnCompany.UseVisualStyleBackColor = true;
             this.btnCompany.Click += new System.EventHandler(this.btnCompany_Click);
             // 
-            // label2
+            // pictureBox1
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Verdana", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Blue;
-            this.label2.Location = new System.Drawing.Point(229, 186);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(387, 38);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Copyright Alltime 2010";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Verdana", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Blue;
-            this.label1.Location = new System.Drawing.Point(281, 148);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(283, 38);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "FaceID App v1.0";
+            this.pictureBox1.Image = global::FaceIDAppVBEta.Properties.Resources.LOGO_ALLTIME_time___attendance_5aFinal;
+            this.pictureBox1.Location = new System.Drawing.Point(395, 236);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(55, 55);
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
             // 
             // MainForm
             // 
@@ -335,6 +322,7 @@
             this.sctMain.Panel2.ResumeLayout(false);
             this.sctMain.Panel2.PerformLayout();
             this.sctMain.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -343,11 +331,8 @@
         #endregion
 
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem filesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem companyToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem departmentToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem employeeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem terminalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmFile;
+        private System.Windows.Forms.ToolStripMenuItem tsmExit;
         private System.Windows.Forms.SplitContainer sctMain;
         private System.Windows.Forms.Button btnWorkingCalendar;
         private System.Windows.Forms.Button btnTerminal;
@@ -356,15 +341,16 @@
         private System.Windows.Forms.Button btnCompany;
         private System.Windows.Forms.Button btnUser;
         private System.Windows.Forms.Button btnAttendance;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem configToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem updateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmHelp;
+        private System.Windows.Forms.ToolStripMenuItem tsmHelpContents;
+        private System.Windows.Forms.ToolStripMenuItem tsmAbout;
         private System.Windows.Forms.Button btnAttTest;
         private System.Windows.Forms.Button btnReprocess;
         private System.Windows.Forms.Button btnSetting;
         private System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.PictureBox pictureBox1;
 
     }
 }

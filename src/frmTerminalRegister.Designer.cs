@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmTerminalRegister));
             this.lblRegTerminal = new System.Windows.Forms.Label();
             this.lblAvailTerminal = new System.Windows.Forms.Label();
             this.lbxRegTerminal = new System.Windows.Forms.ListBox();
@@ -131,9 +132,10 @@
             this.Controls.Add(this.lbxRegTerminal);
             this.Controls.Add(this.lblAvailTerminal);
             this.Controls.Add(this.lblRegTerminal);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmTerminalRegister";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "frmTerminalRegister";
+            this.Text = "Terminal Register";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmTerminalRegister_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
