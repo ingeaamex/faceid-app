@@ -1790,49 +1790,40 @@ namespace FaceIDAppVBEta.Data
         #endregion
 
         #region Attendance Record
-
-        private List<int> GetEmployeeNumberList_1(int iCompany, int iDepartment)
+        private List<int> GetEmployeeNumberList_1(int companyID, int departmentID)
         {
-            OleDbCommand odCom = null;
-            if (iDepartment > 0)
-                odCom = BuildSelectCmd("Employee", "Distinct EmployeeNumber", "DepartmentID=@ID", new object[] { "@ID", iDepartment });
-            else if (iCompany > 0)
-                odCom = BuildSelectCmd("Employee", "Distinct EmployeeNumber", " DepartmentID in (SELECT ID FROM Department WHERE CompanyID=@ID)", new object[] { "@ID", iCompany });
-            else
-                odCom = BuildSelectCmd("Employee", "Distinct EmployeeNumber", null);
+            List<string> employeeNumberList1 = GetEmployeeNumberList(companyID, departmentID);
+            List<int> employeeNumberList2 = new List<int>();
 
-            OleDbDataReader odRdr = odCom.ExecuteReader();
-
-            List<int> empls = new List<int>();
-            while (odRdr.Read())
+            foreach (string employeeNumber in employeeNumberList1)
             {
-                empls.Add((int)odRdr["EmployeeNumber"]);
+                employeeNumberList2.Add(Convert.ToInt32(employeeNumber));
             }
-            odRdr.Close();
 
-            return empls;
+            return employeeNumberList2;
         }
 
-        private List<string> GetEmployeeNumberList(int iCompany, int iDepartment)
+        private List<string> GetEmployeeNumberList(int companyID, int departmentID)
         {
             OleDbCommand odCom = null;
-            if (iDepartment > 0)
-                odCom = BuildSelectCmd("Employee", "Distinct EmployeeNumber", "DepartmentID=@ID", new object[] { "@ID", iDepartment });
-            else if (iCompany > 0)
-                odCom = BuildSelectCmd("Employee", "Distinct EmployeeNumber", " DepartmentID in (SELECT ID FROM Department WHERE CompanyID=@ID)", new object[] { "@ID", iCompany });
-            else
-                odCom = BuildSelectCmd("Employee", "Distinct EmployeeNumber", null);
+
+            if (departmentID > 0)
+                odCom = BuildSelectCmd("Employee", "Distinct EmployeeNumber", "DepartmentID=@ID AND Active=TRUE", new object[] { "@ID", departmentID });
+            else if (companyID > 0) //All departments of 1 company
+                odCom = BuildSelectCmd("Employee", "Distinct EmployeeNumber", " DepartmentID IN (SELECT ID FROM Department WHERE CompanyID=@ID) AND Active=TRUE", new object[] { "@ID", companyID });
+            else //All departments of All companies
+                odCom = BuildSelectCmd("Employee", "Distinct EmployeeNumber", "Active=TRUE");
 
             OleDbDataReader odRdr = odCom.ExecuteReader();
 
-            List<string> empls = new List<string>();
+            List<string> employeeNumberList = new List<string>();
             while (odRdr.Read())
             {
-                empls.Add(odRdr["EmployeeNumber"].ToString());
+                employeeNumberList.Add(odRdr["EmployeeNumber"].ToString());
             }
             odRdr.Close();
 
-            return empls;
+            return employeeNumberList;
         }
 
         public List<AttendanceSummaryReport> GetAttendanceSummaryReport(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate)
@@ -2056,6 +2047,11 @@ namespace FaceIDAppVBEta.Data
                 odRdr.Close();
 
                 attRecordList.Sort(delegate(AttendanceRecord e1, AttendanceRecord e2) { return e1.Time.CompareTo(e2.Time); });
+                int roundValue = GetConfig().RecordRoundingValue;
+                foreach (AttendanceRecord att in attRecordList)
+                {
+                    att.Time = Util.RoundDateTime(att.Time, roundValue);
+                }
 
                 bool isCheckIn = true;
                 bool isFirst = true;
@@ -2070,7 +2066,8 @@ namespace FaceIDAppVBEta.Data
                         attLog.DateLog = attReport.WorkFrom.Date;
                         
                         //TODO wrong number, total hours here is based on the in/out, not report
-                        attLog.TotalHours = attReport.RegularHour + attReport.OvertimeHour1 + attReport.OvertimeHour2 + attReport.OvertimeHour3 + attReport.OvertimeHour4;
+                        //attLog.TotalHours = attReport.RegularHour + attReport.OvertimeHour1 + attReport.OvertimeHour2 + attReport.OvertimeHour3 + attReport.OvertimeHour4;
+                        attLog.TotalHours = Math.Round(CalculateTotalHours(attRecordList), 2);
 
                         DataRow[] rdEmpl = dtEmpl.Select("EmployeeNumber=" + attReport.EmployeeNumber);
                         if (rdEmpl.Length > 0)
@@ -2079,7 +2076,9 @@ namespace FaceIDAppVBEta.Data
                     }
 
                     attLog.ID = att.ID;
-                    attLog.TimeLog = (isCheckIn ? "In " : "Out ") + (att.Time.Hour > 9 ? "" : "0") + att.Time.Hour + ":" + (att.Time.Minute > 9 ? "" : "0") + att.Time.Minute + ":" + (att.Time.Second > 9 ? "" : "0") + att.Time.Second;
+                    attLog.TimeLog = (isCheckIn ? "In " : "Out ") + att.Time.ToString("HH:mm");
+                    if (att.Time.Date.CompareTo(attReport.WorkFrom.Date) > 0)
+                        attLog.TimeLog += " [" + att.Time.Date.ToShortDateString() + "]";
                     attLog.Note = att.Note;
 
                     attLogList.Add(attLog);
@@ -2094,6 +2093,22 @@ namespace FaceIDAppVBEta.Data
                 }
             }
             return attLogList;
+        }
+
+        private double CalculateTotalHours(List<AttendanceRecord> attendanceRecordList)
+        {
+            long totalTicks = 0;
+
+            for (int i = 0; i < attendanceRecordList.Count; i++)
+            {
+                if ((i + 1) % 2 == 0)
+                {
+                    totalTicks -= attendanceRecordList[i - 1].Time.Ticks;
+                    totalTicks += attendanceRecordList[i].Time.Ticks;
+                }
+            }
+
+            return TimeSpan.FromTicks(totalTicks).TotalHours;
         }
 
         public AttendanceRecord GetAttendanceRecord(int id)
@@ -2118,7 +2133,7 @@ namespace FaceIDAppVBEta.Data
             return null;
         }
 
-        private bool IsNotValidAttendanceRecord(AttendanceRecord attRecord, bool forUpdate)
+        private bool IsInvalidAttendanceRecord(AttendanceRecord attRecord, bool forUpdate)
         {
             int attRecInterval = GetAttendanceRecordInterval();
 
@@ -2422,8 +2437,9 @@ namespace FaceIDAppVBEta.Data
 
             string attIdList = "";
             int reportId = 0;
+            bool attRecordDateChanged = false;
             
-            if (attReport == null)
+            if (attReport == null) //add a record
             {
                 dWorkingFrom = GetWorkingDayByAttendanceRecord(attRecord); //TODO could pass the workingCalendar here
                 dWorkingTo = dWorkingFrom.Date.AddHours(dRegularWorkingTo.Hour).AddMinutes(dRegularWorkingTo.Minute + lastestAfterExit);
@@ -2448,15 +2464,25 @@ namespace FaceIDAppVBEta.Data
                     odRdr.Close();
                 }
             }
-            else
+            else //update a report
             {
+                if (attRecord.Time.Date.CompareTo(attReport.WorkFrom.Date) != 0) //record's date changed
+                {
+                    attIdList = attReport.AttendanceRecordIDList.Replace("{" + attRecord.ID + "}", "");
+                    attRecordDateChanged = true;
+                }
+                else
+                {
+                    attIdList = attReport.AttendanceRecordIDList;
+                    attRecordDateChanged = false;
+                }
+
                 dWorkingFrom = attReport.WorkFrom;
                 dWorkingTo = attReport.WorkTo;
                 reportId = attReport.ID;
-                attIdList = attReport.AttendanceRecordIDList;
             }
 
-            if (reportId > 0)
+            if (reportId > 0) //calculate or re-calculate
             {
                 string listId = attIdList.Replace("{", "").Replace("}", ",").TrimEnd(',');
 
@@ -2466,6 +2492,7 @@ namespace FaceIDAppVBEta.Data
                 List<DateTime> timeLogs = new List<DateTime>();
                 while (odRdr.Read())
                 {
+                    //TODO round value
                     timeLogs.Add((DateTime)odRdr["Time"]);
                 }
                 odRdr.Close();
@@ -2653,7 +2680,14 @@ namespace FaceIDAppVBEta.Data
 
                 GetRegularOvertime(ref attendanceReport, totalHour);
 
-                return UpdateAttendanceReport(attendanceReport);
+                bool b1 = UpdateAttendanceReport(attendanceReport);
+                bool b2 = true;
+                if (attRecordDateChanged)
+                {
+                    b2 = AddUpdateAttendaceReport(attRecord, null);
+                }
+
+                return (b1 && b2);
             }
             else
             {
@@ -2668,7 +2702,7 @@ namespace FaceIDAppVBEta.Data
             if (attRecord == null)
                 return -1;
 
-            if (IsNotValidAttendanceRecord(attRecord, false))
+            if (IsInvalidAttendanceRecord(attRecord, false))
                 return 1; //TODO why not return -1 here?
 
             int employeeNumber = attRecord.EmployeeNumber;
@@ -2769,7 +2803,7 @@ namespace FaceIDAppVBEta.Data
 
         public bool UpdateAttendanceRecord(AttendanceRecord attRecord)
         {
-            if (attRecord == null || IsNotValidAttendanceRecord(attRecord, true))
+            if (attRecord == null || IsInvalidAttendanceRecord(attRecord, true))
                 return false;
 
             BeginTransaction();
@@ -2785,7 +2819,7 @@ namespace FaceIDAppVBEta.Data
             AttendanceReport attendanceReport = GetAttendanceReportByAttendanceRecord(attRecord.ID);
             if (attendanceReport != null)
             {
-                oRs2 = AddUpdateAttendaceReport(null, attendanceReport);
+                oRs2 = AddUpdateAttendaceReport(attRecord, attendanceReport);
             }
             if (oRs1 && oRs2)
             {
@@ -3346,18 +3380,19 @@ namespace FaceIDAppVBEta.Data
 
         public List<AttendanceReport> GetAttendanceReport(int companyID, int departmentID, DateTime dtFrom, DateTime dtTo, int columnIndex, bool isOrderByAcs)
         {
-            List<AttendanceReport> attendanceReports = new List<AttendanceReport>();
+            List<AttendanceReport> attendanceReportList = new List<AttendanceReport>();
 
             List<string> lEmplNumbers = GetEmployeeNumberList(companyID, departmentID);
             if (lEmplNumbers == null || lEmplNumbers.Count == 0)
-                return attendanceReports;
+                return attendanceReportList;
+
             string sEmplNumbers = string.Join(",", lEmplNumbers.ToArray());
 
             string orderBy = "EmployeeNumber, WorkFrom";
             if (columnIndex == 0 || columnIndex == 1)
-                orderBy = "EmployeeNumber" + (isOrderByAcs ? " ASC" : " DESC") + ",WorkFrom ASC";
+                orderBy = "EmployeeNumber" + (isOrderByAcs ? " ASC" : " DESC") + ", WorkFrom ASC";
             else if (columnIndex == 2)
-                orderBy = "WorkFrom" + (isOrderByAcs ? " ASC" : " DESC") + ",EmployeeNumber ASC";
+                orderBy = "WorkFrom" + (isOrderByAcs ? " ASC" : " DESC") + ", EmployeeNumber ASC";
 
             OleDbCommand odCom = BuildSelectCmd("AttendanceReport", "*", "WorkFrom >=@Date_1 AND WorkFrom <= @Date_2 AND EmployeeNumber in(" + sEmplNumbers + ")", orderBy,
                 new object[] { "@Date_1", dtFrom, "@Date_2", dtTo });
@@ -3387,11 +3422,11 @@ namespace FaceIDAppVBEta.Data
                 attendanceReport.ID = (int)odRdr["ID"];
                 attendanceReport.AttendanceRecordIDList = odRdr["AttendanceRecordIDList"].ToString();
 
-                attendanceReports.Add(attendanceReport);
+                attendanceReportList.Add(attendanceReport);
             }
             odRdr.Close();
 
-            return attendanceReports;
+            return attendanceReportList;
         }
 
         public List<AttendanceRecord> GetReprocessAttendanceReport(string _employeeNumberList, DateTime _dReprocessFrom, DateTime _dReprocessTo)
@@ -3884,9 +3919,9 @@ namespace FaceIDAppVBEta.Data
 
             foreach (int emplNumber in employeeNumberList)
             {
-                WorkingCalendar workingCalendarList = GetWorkingCalendarByEmployee(emplNumber);
+                WorkingCalendar workingCalendar = GetWorkingCalendarByEmployee(emplNumber);
 
-                PayPeriod payPeriod = GetPayPeriod(workingCalendarList.PayPeriodID);
+                PayPeriod payPeriod = GetPayPeriod(workingCalendar.PayPeriodID);
                 DateTime dStartFrom = payPeriod.StartFrom.Date;
                 int customPeriod = payPeriod.CustomPeriod;
                 PayPeriodType payPeriodType = GetPayPeriodType(payPeriod.PayPeriodTypeID);

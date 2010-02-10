@@ -18,7 +18,8 @@ namespace FaceIDAppVBEta
         private List<AttendanceLogRecord> attendanceLogRecordList;
         private int editRecordId = 0;
         private bool isOrderByAcs = true;
-        private int columnIndex = 0;
+        private int columnIndex = 0; //group by employee than by date
+
         public ucAttendanceLog()
         {
             InitializeComponent();
@@ -33,7 +34,7 @@ namespace FaceIDAppVBEta
         private void BindData()
         {
             BindCompany();
-            dtpAttendanceFrom.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1, 0, 0, 0);
+            dtpAttendanceFrom.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
         }
 
         private void LoadAttdanceLog()

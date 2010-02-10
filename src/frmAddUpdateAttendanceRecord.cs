@@ -92,7 +92,7 @@ namespace FaceIDAppVBEta
             }
             catch
             {
-                errProviders.SetError(cbxEmployeeNumber, "Employee number is invalid.");
+                errProviders.SetError(cbxEmployeeNumber, "Invalid Employee number.");
                 return null;
             }
 
