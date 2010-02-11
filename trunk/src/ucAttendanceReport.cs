@@ -86,7 +86,8 @@ namespace FaceIDAppVBEta
                 }
                 else
                 {
-                    MessageBox.Show(this, "Not match");
+                    //MessageBox.Show(this, "Not match");
+                    MessageBox.Show(this, "There's no record within the selected range.");
                 }
             }
             catch (Exception ex)

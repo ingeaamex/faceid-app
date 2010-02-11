@@ -126,7 +126,7 @@ namespace FaceIDAppVBEta
 
         public static void SetComboboxSelectedByValue(System.Windows.Forms.ComboBox cbx, object value)
         {
-            cbx.SelectedIndex = cbx.FindString(value.ToString());
+            cbx.SelectedValue = value;
         }
 
         public static DateTime GetTheFirstDayOfCurrentMonth()
@@ -257,6 +257,24 @@ namespace FaceIDAppVBEta
             }
 
             return dt;
+        }
+
+        public static void BindCombobox(System.Windows.Forms.ComboBox cbx, List<ListItem> listItemList)
+        {
+            BindCombobox(cbx, listItemList, false);
+        }
+
+        public static void BindCombobox(System.Windows.Forms.ComboBox cbx, List<ListItem> listItemList, bool selectFirstItem)
+        {
+            cbx.DisplayMember = "Name";
+            cbx.ValueMember = "Value";
+            cbx.Items.Clear();
+
+            cbx.DataSource = listItemList;
+
+            if (selectFirstItem && cbx.Items.Count > 0)
+                cbx.SelectedIndex = 0;
+
         }
     }
 }

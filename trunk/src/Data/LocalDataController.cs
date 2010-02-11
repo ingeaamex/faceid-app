@@ -2485,126 +2485,47 @@ namespace FaceIDAppVBEta.Data
             if (reportId > 0) //calculate or re-calculate
             {
                 string listId = attIdList.Replace("{", "").Replace("}", ",").TrimEnd(',');
+                bool b1 = true;
 
-                OleDbCommand odCom = BuildSelectCmd("AttendanceRecord", "*", "ID IN (" + listId + ")");
-                OleDbDataReader odRdr = odCom.ExecuteReader();
-
-                List<DateTime> timeLogs = new List<DateTime>();
-                while (odRdr.Read())
+                if (listId != "")
                 {
-                    //TODO round value
-                    timeLogs.Add((DateTime)odRdr["Time"]);
-                }
-                odRdr.Close();
+                    OleDbCommand odCom = BuildSelectCmd("AttendanceRecord", "*", "ID IN (" + listId + ")");
+                    OleDbDataReader odRdr = odCom.ExecuteReader();
 
-                timeLogs.Sort();
-
-                List<Break> breakList = GetBreakListByWorkingCalendar(workingCalendar.ID);
-
-                long totalTicks = 0;
-                for (int i = 0; i < timeLogs.Count - 1; i++)
-                {
-                    if (i % 2 == 0)
+                    List<DateTime> timeLogs = new List<DateTime>();
+                    while (odRdr.Read())
                     {
-                        DateTime timeIn = timeLogs[i];
-                        DateTime timeOut = timeLogs[i + 1];
-
-                        DateTime timeFrom = timeIn.Date.AddHours(dRegularWorkingFrom.Hour).AddMinutes(dRegularWorkingFrom.Minute);
-                        DateTime timeTo = timeOut.Date.AddHours(dRegularWorkingTo.Hour).AddMinutes(dRegularWorkingTo.Minute);
-                        if (timeFrom.CompareTo(timeTo) == 1)
-                            timeTo = timeTo.AddDays(1);
-
-                        double distanceMinute1 = TimeSpan.FromTicks(timeFrom.Ticks - timeIn.Ticks).TotalMinutes;
-                        if (distanceMinute1 > 0 && graceForwardToEntry >= distanceMinute1)
-                        {
-                            timeIn = timeFrom;
-                        }
-                        double distanceMinute2 = TimeSpan.FromTicks(timeOut.Ticks - timeTo.Ticks).TotalMinutes;
-                        if (distanceMinute2 > 0 && graceBackwardToExit >= distanceMinute2)
-                        {
-                            timeOut = timeTo;
-                        }
-
-                        Break _break = breakList.Find(delegate(Break b)
-                        {
-                            DateTime breakFrom = dWorkingFrom.Date.AddHours(b.From.Hour).AddMinutes(b.From.Minute);
-                            DateTime breakTo = dWorkingFrom.Date.AddHours(b.To.Hour).AddMinutes(b.To.Minute);
-                            if (breakFrom.CompareTo(breakTo) == 1)
-                                breakTo = breakTo.AddDays(1);
-
-                            //return if belong to 1 in 4 cases:
-                            //1.breakFrom, timeIn, breakTo, timeOut
-                            //2.timeIn, breakFrom, timeOut, breakTo
-                            //3.timeIn, breakFrom, breakTo, timeOut
-                            //4.breakFrom, timeIn, timeOut, breakTo
-
-                            return ((timeIn.CompareTo(breakFrom) < 0 && timeOut.CompareTo(breakFrom) > 0)
-                                || (timeIn.CompareTo(breakTo) < 0 && timeOut.CompareTo(breakTo) > 0)
-                                || (timeIn.CompareTo(breakFrom) >= 0 && timeOut.CompareTo(breakTo) <= 0));
-                        });
-
-                        if (_break != null)
-                        {
-                            DateTime breakFrom = dWorkingFrom.Date.AddHours(_break.From.Hour).AddMinutes(_break.From.Minute);
-                            DateTime breakTo = dWorkingFrom.Date.AddHours(_break.To.Hour).AddMinutes(_break.To.Minute);
-                            if (breakFrom.CompareTo(breakTo) == 1)
-                                breakTo = breakTo.AddDays(1);
-
-                            if (timeIn.CompareTo(breakFrom) >= 0 && timeIn.CompareTo(breakTo) <= 0 && timeOut.CompareTo(breakTo) >= 0)
-                            {//breakFrom, timeIn, breakTo, timeOut
-                                if (_break.Paid)
-                                    totalTicks += timeOut.Ticks - timeIn.Ticks;
-                                else
-                                    totalTicks += timeOut.Ticks - breakTo.Ticks;
-                            }
-                            else if (timeIn.CompareTo(breakFrom) <= 0 && timeOut.CompareTo(breakFrom) >= 0 && timeOut.CompareTo(breakTo) <= 0)
-                            {//timeIn, breakFrom, timeOut, breakTo
-                                if (_break.Paid)
-                                    totalTicks += timeOut.Ticks - timeIn.Ticks;
-                                else
-                                    totalTicks += breakFrom.Ticks - timeIn.Ticks;
-                            }
-                            else if (timeIn.CompareTo(breakFrom) <= 0 && timeOut.CompareTo(breakTo) >= 0)
-                            {//timeIn, breakFrom, breakTo, timeOut
-                                if (_break.Paid)
-                                    totalTicks += timeOut.Ticks - timeIn.Ticks;
-                                else
-                                    totalTicks += timeOut.Ticks - timeIn.Ticks - (breakTo.Ticks - breakFrom.Ticks);
-                            }
-                            else if (timeIn.CompareTo(breakFrom) >= 0 && timeOut.CompareTo(breakTo) <= 0)
-                            {//breakFrom, timeIn, timeOut, breakTo
-                                if (_break.Paid)
-                                    totalTicks = timeOut.Ticks - timeIn.Ticks;
-                                else
-                                    totalTicks += 0;
-                            }
-                        }
-                        else
-                        {
-                            totalTicks += timeOut.Ticks - timeIn.Ticks;
-                        }
+                        //TODO round value
+                        timeLogs.Add((DateTime)odRdr["Time"]);
                     }
-                    else
-                    {
-                        try
-                        {
-                            DateTime timeOut = timeLogs[i];
-                            DateTime timeIn = timeLogs[i + 1];
+                    odRdr.Close();
 
-                            DateTime timeFrom = timeOut.Date.AddHours(dRegularWorkingFrom.Hour).AddMinutes(dRegularWorkingFrom.Minute);
-                            DateTime timeTo = timeIn.Date.AddHours(dRegularWorkingTo.Hour).AddMinutes(dRegularWorkingTo.Minute);
+                    timeLogs.Sort();
+
+                    List<Break> breakList = GetBreakListByWorkingCalendar(workingCalendar.ID);
+
+                    long totalTicks = 0;
+                    for (int i = 0; i < timeLogs.Count - 1; i++)
+                    {
+                        if (i % 2 == 0)
+                        {
+                            DateTime timeIn = timeLogs[i];
+                            DateTime timeOut = timeLogs[i + 1];
+
+                            DateTime timeFrom = timeIn.Date.AddHours(dRegularWorkingFrom.Hour).AddMinutes(dRegularWorkingFrom.Minute);
+                            DateTime timeTo = timeOut.Date.AddHours(dRegularWorkingTo.Hour).AddMinutes(dRegularWorkingTo.Minute);
                             if (timeFrom.CompareTo(timeTo) == 1)
                                 timeTo = timeTo.AddDays(1);
 
-                            double distanceMinute1 = (timeFrom.Ticks - timeOut.Ticks) / 600000000; //TODO use TimeSpan
+                            double distanceMinute1 = TimeSpan.FromTicks(timeFrom.Ticks - timeIn.Ticks).TotalMinutes;
                             if (distanceMinute1 > 0 && graceForwardToEntry >= distanceMinute1)
                             {
-                                timeOut = timeFrom;
+                                timeIn = timeFrom;
                             }
-                            double distanceMinute2 = (timeIn.Ticks - timeTo.Ticks) / 600000000; //TODO use TimeSpan
+                            double distanceMinute2 = TimeSpan.FromTicks(timeOut.Ticks - timeTo.Ticks).TotalMinutes;
                             if (distanceMinute2 > 0 && graceBackwardToExit >= distanceMinute2)
                             {
-                                timeIn = timeTo;
+                                timeOut = timeTo;
                             }
 
                             Break _break = breakList.Find(delegate(Break b)
@@ -2614,73 +2535,163 @@ namespace FaceIDAppVBEta.Data
                                 if (breakFrom.CompareTo(breakTo) == 1)
                                     breakTo = breakTo.AddDays(1);
 
-                                return ((timeOut.CompareTo(breakFrom) < 0 && timeIn.CompareTo(breakFrom) > 0)
-                                    || (timeOut.CompareTo(breakTo) < 0 && timeIn.CompareTo(breakTo) > 0)
-                                    || (timeOut.CompareTo(breakFrom) >= 0 && timeIn.CompareTo(breakTo) <= 0));
+                                //return if belong to 1 in 4 cases:
+                                //1.breakFrom, timeIn, breakTo, timeOut
+                                //2.timeIn, breakFrom, timeOut, breakTo
+                                //3.timeIn, breakFrom, breakTo, timeOut
+                                //4.breakFrom, timeIn, timeOut, breakTo
+
+                                return ((timeIn.CompareTo(breakFrom) < 0 && timeOut.CompareTo(breakFrom) > 0)
+                                    || (timeIn.CompareTo(breakTo) < 0 && timeOut.CompareTo(breakTo) > 0)
+                                    || (timeIn.CompareTo(breakFrom) >= 0 && timeOut.CompareTo(breakTo) <= 0));
                             });
 
                             if (_break != null)
                             {
-                                if (_break.Paid)
+                                DateTime breakFrom = dWorkingFrom.Date.AddHours(_break.From.Hour).AddMinutes(_break.From.Minute);
+                                DateTime breakTo = dWorkingFrom.Date.AddHours(_break.To.Hour).AddMinutes(_break.To.Minute);
+                                if (breakFrom.CompareTo(breakTo) == 1)
+                                    breakTo = breakTo.AddDays(1);
+
+                                if (timeIn.CompareTo(breakFrom) >= 0 && timeIn.CompareTo(breakTo) <= 0 && timeOut.CompareTo(breakTo) >= 0)
+                                {//breakFrom, timeIn, breakTo, timeOut
+                                    if (_break.Paid)
+                                        totalTicks += timeOut.Ticks - timeIn.Ticks;
+                                    else
+                                        totalTicks += timeOut.Ticks - breakTo.Ticks;
+                                }
+                                else if (timeIn.CompareTo(breakFrom) <= 0 && timeOut.CompareTo(breakFrom) >= 0 && timeOut.CompareTo(breakTo) <= 0)
+                                {//timeIn, breakFrom, timeOut, breakTo
+                                    if (_break.Paid)
+                                        totalTicks += timeOut.Ticks - timeIn.Ticks;
+                                    else
+                                        totalTicks += breakFrom.Ticks - timeIn.Ticks;
+                                }
+                                else if (timeIn.CompareTo(breakFrom) <= 0 && timeOut.CompareTo(breakTo) >= 0)
+                                {//timeIn, breakFrom, breakTo, timeOut
+                                    if (_break.Paid)
+                                        totalTicks += timeOut.Ticks - timeIn.Ticks;
+                                    else
+                                        totalTicks += timeOut.Ticks - timeIn.Ticks - (breakTo.Ticks - breakFrom.Ticks);
+                                }
+                                else if (timeIn.CompareTo(breakFrom) >= 0 && timeOut.CompareTo(breakTo) <= 0)
+                                {//breakFrom, timeIn, timeOut, breakTo
+                                    if (_break.Paid)
+                                        totalTicks = timeOut.Ticks - timeIn.Ticks;
+                                    else
+                                        totalTicks += 0;
+                                }
+                            }
+                            else
+                            {
+                                totalTicks += timeOut.Ticks - timeIn.Ticks;
+                            }
+                        }
+                        else
+                        {
+                            try
+                            {
+                                DateTime timeOut = timeLogs[i];
+                                DateTime timeIn = timeLogs[i + 1];
+
+                                DateTime timeFrom = timeOut.Date.AddHours(dRegularWorkingFrom.Hour).AddMinutes(dRegularWorkingFrom.Minute);
+                                DateTime timeTo = timeIn.Date.AddHours(dRegularWorkingTo.Hour).AddMinutes(dRegularWorkingTo.Minute);
+                                if (timeFrom.CompareTo(timeTo) == 1)
+                                    timeTo = timeTo.AddDays(1);
+
+                                double distanceMinute1 = (timeFrom.Ticks - timeOut.Ticks) / 600000000; //TODO use TimeSpan
+                                if (distanceMinute1 > 0 && graceForwardToEntry >= distanceMinute1)
                                 {
-                                    DateTime breakFrom = dWorkingFrom.Date.AddHours(_break.From.Hour).AddMinutes(_break.From.Minute);
-                                    DateTime breakTo = dWorkingFrom.Date.AddHours(_break.To.Hour).AddMinutes(_break.To.Minute);
+                                    timeOut = timeFrom;
+                                }
+                                double distanceMinute2 = (timeIn.Ticks - timeTo.Ticks) / 600000000; //TODO use TimeSpan
+                                if (distanceMinute2 > 0 && graceBackwardToExit >= distanceMinute2)
+                                {
+                                    timeIn = timeTo;
+                                }
+
+                                Break _break = breakList.Find(delegate(Break b)
+                                {
+                                    DateTime breakFrom = dWorkingFrom.Date.AddHours(b.From.Hour).AddMinutes(b.From.Minute);
+                                    DateTime breakTo = dWorkingFrom.Date.AddHours(b.To.Hour).AddMinutes(b.To.Minute);
                                     if (breakFrom.CompareTo(breakTo) == 1)
                                         breakTo = breakTo.AddDays(1);
 
-                                    if (timeOut.CompareTo(breakFrom) >= 0 && timeOut.CompareTo(breakTo) <= 0 && timeIn.CompareTo(breakTo) >= 0)
-                                    {//breakFrom, timeOut, breakTo, timeIn
+                                    return ((timeOut.CompareTo(breakFrom) < 0 && timeIn.CompareTo(breakFrom) > 0)
+                                        || (timeOut.CompareTo(breakTo) < 0 && timeIn.CompareTo(breakTo) > 0)
+                                        || (timeOut.CompareTo(breakFrom) >= 0 && timeIn.CompareTo(breakTo) <= 0));
+                                });
 
-                                        totalTicks += breakTo.Ticks - timeOut.Ticks;
-                                    }
-                                    else if (timeOut.CompareTo(breakFrom) <= 0 && timeIn.CompareTo(breakFrom) >= 0 && timeIn.CompareTo(breakTo) <= 0)
-                                    {//timeOut, breakFrom, timeIn, breakTo
-                                        totalTicks += timeIn.Ticks - breakFrom.Ticks;
-                                    }
-                                    else if (timeOut.CompareTo(breakFrom) <= 0 && timeIn.CompareTo(breakTo) >= 0)
-                                    {//timeOut, breakFrom, breakTo, timeIn
-                                        totalTicks += breakTo.Ticks - breakFrom.Ticks;
-                                    }
-                                    else if (timeOut.CompareTo(breakFrom) >= 0 && timeIn.CompareTo(breakTo) <= 0)
-                                    {//breakFrom, timeOut, timeOut, breakTo
-                                        totalTicks += timeOut.Ticks - timeIn.Ticks;
+                                if (_break != null)
+                                {
+                                    if (_break.Paid)
+                                    {
+                                        DateTime breakFrom = dWorkingFrom.Date.AddHours(_break.From.Hour).AddMinutes(_break.From.Minute);
+                                        DateTime breakTo = dWorkingFrom.Date.AddHours(_break.To.Hour).AddMinutes(_break.To.Minute);
+                                        if (breakFrom.CompareTo(breakTo) == 1)
+                                            breakTo = breakTo.AddDays(1);
+
+                                        if (timeOut.CompareTo(breakFrom) >= 0 && timeOut.CompareTo(breakTo) <= 0 && timeIn.CompareTo(breakTo) >= 0)
+                                        {//breakFrom, timeOut, breakTo, timeIn
+
+                                            totalTicks += breakTo.Ticks - timeOut.Ticks;
+                                        }
+                                        else if (timeOut.CompareTo(breakFrom) <= 0 && timeIn.CompareTo(breakFrom) >= 0 && timeIn.CompareTo(breakTo) <= 0)
+                                        {//timeOut, breakFrom, timeIn, breakTo
+                                            totalTicks += timeIn.Ticks - breakFrom.Ticks;
+                                        }
+                                        else if (timeOut.CompareTo(breakFrom) <= 0 && timeIn.CompareTo(breakTo) >= 0)
+                                        {//timeOut, breakFrom, breakTo, timeIn
+                                            totalTicks += breakTo.Ticks - breakFrom.Ticks;
+                                        }
+                                        else if (timeOut.CompareTo(breakFrom) >= 0 && timeIn.CompareTo(breakTo) <= 0)
+                                        {//breakFrom, timeOut, timeOut, breakTo
+                                            totalTicks += timeOut.Ticks - timeIn.Ticks;
+                                        }
                                     }
                                 }
                             }
+                            catch (IndexOutOfRangeException) { }
                         }
-                        catch (IndexOutOfRangeException) { }
                     }
+
+                    double totalHour = TimeSpan.FromTicks(totalTicks).TotalHours;
+
+                    PaymentRate paymentRate = GetPaymentRateByEmployeeAndWorkDay(employeeNumber, dWorkingFrom);
+                    AttendanceReport attendanceReport = new AttendanceReport();
+
+                    attendanceReport.ID = reportId;
+                    attendanceReport.AttendanceRecordIDList = attIdList;
+                    attendanceReport.DayTypeID = paymentRate.DayTypeID;
+                    attendanceReport.EmployeeNumber = employeeNumber;
+
+                    attendanceReport.RegularHour = paymentRate.NumberOfRegularHours;
+                    attendanceReport.OvertimeHour1 = paymentRate.NumberOfOvertime1;
+                    attendanceReport.OvertimeHour2 = paymentRate.NumberOfOvertime2;
+                    attendanceReport.OvertimeHour3 = paymentRate.NumberOfOvertime3;
+                    attendanceReport.OvertimeHour4 = paymentRate.NumberOfOvertime4;
+
+                    attendanceReport.RegularRate = paymentRate.RegularRate;
+                    attendanceReport.OvertimeRate1 = paymentRate.OvertimeRate1;
+                    attendanceReport.OvertimeRate2 = paymentRate.OvertimeRate2;
+                    attendanceReport.OvertimeRate3 = paymentRate.OvertimeRate3;
+                    attendanceReport.OvertimeRate4 = paymentRate.OvertimeRate4;
+
+                    attendanceReport.PayPeriodID = workingCalendar.PayPeriodID;
+                    attendanceReport.WorkFrom = dWorkingFrom;
+                    attendanceReport.WorkTo = dWorkingTo;
+
+                    GetRegularOvertime(ref attendanceReport, totalHour);
+
+                    b1 = UpdateAttendanceReport(attendanceReport);
+                    
+                    
+                }
+                else
+                {
+                    b1 = DeleteAttendanceReport(attReport.ID);
                 }
 
-                double totalHour = TimeSpan.FromTicks(totalTicks).TotalHours;
-
-                PaymentRate paymentRate = GetPaymentRateByEmployeeAndWorkDay(employeeNumber, dWorkingFrom);
-                AttendanceReport attendanceReport = new AttendanceReport();
-
-                attendanceReport.ID = reportId;
-                attendanceReport.AttendanceRecordIDList = attIdList;
-                attendanceReport.DayTypeID = paymentRate.DayTypeID;
-                attendanceReport.EmployeeNumber = employeeNumber;
-
-                attendanceReport.RegularHour = paymentRate.NumberOfRegularHours;
-                attendanceReport.OvertimeHour1 = paymentRate.NumberOfOvertime1;
-                attendanceReport.OvertimeHour2 = paymentRate.NumberOfOvertime2;
-                attendanceReport.OvertimeHour3 = paymentRate.NumberOfOvertime3;
-                attendanceReport.OvertimeHour4 = paymentRate.NumberOfOvertime4;
-
-                attendanceReport.RegularRate = paymentRate.RegularRate;
-                attendanceReport.OvertimeRate1 = paymentRate.OvertimeRate1;
-                attendanceReport.OvertimeRate2 = paymentRate.OvertimeRate2;
-                attendanceReport.OvertimeRate3 = paymentRate.OvertimeRate3;
-                attendanceReport.OvertimeRate4 = paymentRate.OvertimeRate4;
-
-                attendanceReport.PayPeriodID = workingCalendar.PayPeriodID;
-                attendanceReport.WorkFrom = dWorkingFrom;
-                attendanceReport.WorkTo = dWorkingTo;
-
-                GetRegularOvertime(ref attendanceReport, totalHour);
-
-                bool b1 = UpdateAttendanceReport(attendanceReport);
                 bool b2 = true;
                 if (attRecordDateChanged)
                 {
@@ -3928,35 +3939,38 @@ namespace FaceIDAppVBEta.Data
                 PayPeriodType payPeriodType = GetPayPeriodType(payPeriod.PayPeriodTypeID);
                 string periodTypeName = payPeriodType.Name;
 
-                DateTime dtPayEnd = dtPayStart;
-                SetBeginEndPeriodTime(beginDate, endDate, ref dtPayStart, ref dtPayEnd, periodTypeName, customPeriod, false);
+                //DateTime dtPayEnd = dtPayStart;
+                //SetBeginEndPeriodTime(beginDate, endDate, ref dtPayStart, ref dtPayEnd, periodTypeName, customPeriod, false);
 
-                if (dtPayEnd.CompareTo(endDate) > 0 || dtPayEnd.CompareTo(DateTime.Now) > 0)
-                {
-                    continue;
-                }
+                //if (dtPayEnd.CompareTo(endDate) > 0 || dtPayEnd.CompareTo(DateTime.Now) > 0)
+                //{
+                //    continue;
+                //}
 
-                List<AttendanceLogReport> attendanceLogReportListByEmpl = GetAttendanceLogReportList(emplNumber, dtPayStart, dtPayEnd);
+                //List<AttendanceLogReport> attendanceLogReportListByEmpl = GetAttendanceLogReportList(emplNumber, dtPayStart, dtPayEnd);
 
-                if (attendanceLogReportListByEmpl.Count == 0)
-                {
-                    while (dtPayEnd.CompareTo(endDate) < 0 || attendanceLogReportListByEmpl.Count == 0)
-                    {
-                        dtPayStart = dtPayEnd;
-                        SetBeginEndPeriodTime(beginDate, endDate, ref dtPayStart, ref dtPayEnd, periodTypeName, customPeriod, false);
+                //if (attendanceLogReportListByEmpl.Count == 0)
+                //{
+                //    while (dtPayEnd.CompareTo(endDate) < 0 || attendanceLogReportListByEmpl.Count == 0)
+                //    {
+                //        dtPayStart = dtPayEnd;
+                //        SetBeginEndPeriodTime(beginDate, endDate, ref dtPayStart, ref dtPayEnd, periodTypeName, customPeriod, false);
 
-                        if (dtPayEnd.CompareTo(endDate) > 0 || dtPayEnd.CompareTo(DateTime.Now) > 0)
-                        {
-                            continue;
-                        }
-                        attendanceLogReportListByEmpl = GetAttendanceLogReportList(emplNumber, dtPayStart, dtPayEnd);
-                    }
-                    if (attendanceLogReportListByEmpl.Count == 0)
-                        continue;
-                }
+                //        if (dtPayEnd.CompareTo(endDate) > 0 || dtPayEnd.CompareTo(DateTime.Now) > 0)
+                //        {
+                //            continue;
+                //        }
+                //        attendanceLogReportListByEmpl = GetAttendanceLogReportList(emplNumber, dtPayStart, dtPayEnd);
+                //    }
+                //    if (attendanceLogReportListByEmpl.Count == 0)
+                //        continue;
+                //}
 
                 //beginDate = dStartFrom;
                 //endDate = dEndTo;
+                List<AttendanceLogReport> attendanceLogReportListByEmpl = GetAttendanceLogReportList(emplNumber, beginDate, endDate);
+                if (attendanceLogReportListByEmpl.Count == 0)
+                    continue;
 
                 attendanceLogReportListByEmpl.Sort(delegate(AttendanceLogReport e1, AttendanceLogReport e2) { return e1.WorkFrom.CompareTo(e2.WorkFrom); });
 
