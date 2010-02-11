@@ -25,7 +25,7 @@ namespace FaceIDAppVBEta
 
         private void frmEmployeeReport_Load(object sender, EventArgs e)
         {
-            LocalDataController dtCtrl = LocalDataController.Instance;
+            IDataController dtCtrl = Properties.Settings.Default.IsClient ? RemoteDataController.Instance : LocalDataController.Instance;
             this.BindingSource.DataSource = dtCtrl.GetEmployeeReportList(companyId, deparmentId);
             this.reportViewer1.RefreshReport();
         }

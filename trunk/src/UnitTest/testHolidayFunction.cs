@@ -10,7 +10,7 @@ namespace FaceIDAppVBEta.UnitTest
     [TestFixture]
     class testHolidayFunction
     {
-        private IDataController _dtCtrl = LocalDataController.Instance;
+        private IDataController _dtCtrl = Properties.Settings.Default.IsClient ? RemoteDataController.Instance : LocalDataController.Instance;
         private Holiday holiday = new Holiday();
 
         private void AddHoliday()

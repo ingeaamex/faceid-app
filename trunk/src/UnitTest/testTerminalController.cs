@@ -11,7 +11,7 @@ namespace FaceIDAppVBEta.UnitTest
     [TestFixture]
     class testTerminalController
     {
-        IDataController _dtCtrl = LocalDataController.Instance;
+        IDataController _dtCtrl = Properties.Settings.Default.IsClient ? RemoteDataController.Instance : LocalDataController.Instance;
         ITerminalController _terCtrl = new TerminalController();
         
         private Terminal ter = new Terminal();

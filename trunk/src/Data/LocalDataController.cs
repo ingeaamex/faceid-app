@@ -12,9 +12,9 @@ namespace FaceIDAppVBEta.Data
 {
     public class LocalDataController : MarshalByRefObject, IDataController
     {
-        //private static readonly string _dbPath = @"F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";
+        private static readonly string _dbPath = @"F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";
         //private static readonly string _dbPath = @"F:\vnanh\project\FaceID\db\FaceIDdb.mdb";
-        private static readonly string _dbPath = @"data\FaceIDdb.mdb";
+        //private static readonly string _dbPath = @"data\FaceIDdb.mdb";
         private static readonly string _password = @"alltime1";
 
         private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=" + _dbPath + ";Jet OLEDB:Database Password=" + _password + ";";
@@ -2468,7 +2468,7 @@ namespace FaceIDAppVBEta.Data
             }
             else //update a report
             {
-                if (attRecord.Time.Date.CompareTo(attReport.WorkFrom.Date) != 0) //record's date changed
+                if (attRecord != null && attRecord.Time.Date.CompareTo(attReport.WorkFrom.Date) != 0) //record's date changed
                 {
                     attIdList = attReport.AttendanceRecordIDList.Replace("{" + attRecord.ID + "}", "");
                     attRecordDateChanged = true;

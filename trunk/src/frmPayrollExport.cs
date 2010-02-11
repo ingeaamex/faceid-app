@@ -34,7 +34,7 @@ namespace FaceIDAppVBEta
 
         private void frmPayrollExport_Load(object sender, EventArgs e)
         {
-            LocalDataController dtCtrl = LocalDataController.Instance;
+            IDataController dtCtrl = Properties.Settings.Default.IsClient ? RemoteDataController.Instance : LocalDataController.Instance;
 
             string errorNumber = "";
             List<PayrollExport> payrollExports = dtCtrl.GetPayrollExportList(_companyID, _deparmentID, _dPayrollFrom, _dPayrollTo, _workingCalendarID, ref errorNumber);

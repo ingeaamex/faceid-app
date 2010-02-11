@@ -283,5 +283,8 @@ namespace FaceIDAppVBEta.Data
         #region Test
         void TestDataController(MarshalByRefObject obj);
         #endregion
+
+        List<EmployeeReport> GetEmployeeReportList(int companyId, int deparmentId);
+
     }
 }

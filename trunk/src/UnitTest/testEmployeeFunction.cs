@@ -10,7 +10,7 @@ namespace FaceIDAppVBEta.UnitTest
     [TestFixture]
     class testEmployeeFunction
     {
-        private IDataController _dtCtrl = LocalDataController.Instance;
+        private IDataController _dtCtrl = Properties.Settings.Default.IsClient ? RemoteDataController.Instance : LocalDataController.Instance;
 
         private Employee emp = new Employee();
 

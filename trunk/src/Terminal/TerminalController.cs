@@ -15,7 +15,7 @@ namespace FaceIDAppVBEta
 
         public TerminalController()
         {
-            _dtCtrl = LocalDataController.Instance;
+            _dtCtrl = Properties.Settings.Default.IsClient ? RemoteDataController.Instance : LocalDataController.Instance;
         }
 
         private delegate int CallBack(int total, int nDone);

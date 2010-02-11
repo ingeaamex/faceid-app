@@ -17,7 +17,7 @@ namespace FaceIDAppVBEta
 
         public ucWorkingCalendar()
         {
-            _dtCtrl = LocalDataController.Instance;
+            _dtCtrl = Properties.Settings.Default.IsClient ? RemoteDataController.Instance : LocalDataController.Instance;
 
             InitializeComponent();
 

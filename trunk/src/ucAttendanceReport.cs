@@ -18,7 +18,7 @@ namespace FaceIDAppVBEta
 
         public ucAttendanceReport()
         {
-            _dtCtrl = LocalDataController.Instance;
+            _dtCtrl = Properties.Settings.Default.IsClient ? RemoteDataController.Instance : LocalDataController.Instance;
 
             InitializeComponent();
             
@@ -58,7 +58,7 @@ namespace FaceIDAppVBEta
                 int wcalID = 0;
                 List<PayrollExport> payrollExports = _dtCtrl.GetPayrollExportList(iCompany, iDepartment, dPayrollFrom, dPayrollTo, wcalID, ref errorNumber);
                 //List<WorkingCalendar> workingCalendars = new List<WorkingCalendar>();
-                //bool payrollExports = dtCtrl.ExistPayrollExportList(iCompany, iDepartment, dPayrollFrom, dPayrollTo, ref errorNumber, ref workingCalendars);
+                //bool payrollExports = _dtCtrl.ExistPayrollExportList(iCompany, iDepartment, dPayrollFrom, dPayrollTo, ref errorNumber, ref workingCalendars);
                 //if (payrollExports == false)
                 //{
                 //    string msgAlert = "";

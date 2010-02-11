@@ -23,33 +23,41 @@ namespace FaceIDAppVBEta
 
         public MainForm()
         {
-            InitializeComponent();
-            _originForeColor = btnCompany.ForeColor;
-
-            if (Properties.Settings.Default.IsClient)
+            try
             {
-                //TODO remove later
-                RegisterChannel();
-                RegisterService();
+                InitializeComponent();
+                _originForeColor = btnCompany.ForeColor;
 
-                //client only
-                string serverIP = Properties.Settings.Default.ServerIP;
-                if (frmServerConnect.IsServerRunning(serverIP) == false)
-                    new frmServerConnect().ShowDialog(this);
+                if (Properties.Settings.Default.IsClient)
+                {
+                    //TODO remove later
+                    //RegisterChannel();
+                    //RegisterService();
+
+                    //client only
+                    string serverIP = Properties.Settings.Default.ServerIP;
+                    if (frmServerConnect.IsServerRunning(serverIP) == false)
+                        new frmServerConnect().ShowDialog(this);
+                }
+                else
+                {
+                    //server only
+                    //RegisterChannel();
+                    //RegisterService();
+                }
+
+                if (VerifyUser() == false)
+                    this.Close();
+                else
+                {
+                    //TODO do tasks
+                    //TaskDoer.Instance.DoTasks();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                //server only
-                RegisterChannel();
-                RegisterService();
-            }
-
-            if (VerifyUser() == false)
-                this.Close();
-            else
-            {
-                //TODO do tasks
-                TaskDoer.Instance.DoTasks();
+                Util.ShowErrorMessage(ex);
+                Environment.Exit(0);
             }
         }
 
@@ -57,7 +65,7 @@ namespace FaceIDAppVBEta
         {
             try
             {
-                IDataController dtCtrl = LocalDataController.Instance;
+                IDataController dtCtrl = Properties.Settings.Default.IsClient ? RemoteDataController.Instance : LocalDataController.Instance;
                 if (dtCtrl.GetFaceIDUserList().Count != 0)
                 {
                     new frmUserLogin(this).ShowDialog(this);
@@ -95,9 +103,9 @@ namespace FaceIDAppVBEta
         //private void RequestService()
         //{
         //    Type lookupType = typeof(IDataController);
-        //    IDataController dtCtrl = (IDataController)Activator.GetObject(lookupType, "tcp://localhost:9999/DataController");
+        //    IDataController _dtCtrl = (IDataController)Activator.GetObject(lookupType, "tcp://localhost:9999/DataController");
 
-        //    dtCtrl.AddHoliday(new Holiday());
+        //    _dtCtrl.AddHoliday(new Holiday());
         //}
 
         private void btnCompany_Click(object sender, EventArgs e)
@@ -235,7 +243,7 @@ namespace FaceIDAppVBEta
 
         private void tsmExit_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            Environment.Exit(0);
         }
 
         private void tsmHelpContents_Click(object sender, EventArgs e)
