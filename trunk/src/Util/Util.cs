@@ -126,7 +126,7 @@ namespace FaceIDAppVBEta
 
         public static void SetComboboxSelectedByValue(System.Windows.Forms.ComboBox cbx, object value)
         {
-            cbx.SelectedValue = value;
+            cbx.SelectedIndex = cbx.FindString(value.ToString());
         }
 
         public static DateTime GetTheFirstDayOfCurrentMonth()

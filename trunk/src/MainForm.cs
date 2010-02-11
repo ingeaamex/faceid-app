@@ -25,12 +25,12 @@ namespace FaceIDAppVBEta
             InitializeComponent();
             _originForeColor = btnCompany.ForeColor;
 
-            //server only
-            RegisterChannel();
-            RegisterService();
-
             if (Properties.Settings.Default.IsClient)
             {
+                //TODO remove later
+                RegisterChannel();
+                RegisterService();
+
                 //client only
                 string serverIP = Properties.Settings.Default.ServerIP;
                 if (frmServerConnect.IsServerRunning(serverIP) == false)

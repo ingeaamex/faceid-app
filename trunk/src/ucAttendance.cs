@@ -28,8 +28,8 @@ namespace FaceIDAppVBEta
         private void btnCollectAttendanceData_Click(object sender, EventArgs e)
         {
             //TODO remove this later
-            MessageBox.Show("Demo version does not have this function.");
-            return;
+            //MessageBox.Show("Demo version does not have this function.");
+            //return;
 
             CollectAttendanceData();
         }
