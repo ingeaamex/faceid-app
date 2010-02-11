@@ -13,6 +13,7 @@ using FaceIDAppVBEta.Data;
 using System.Runtime.Remoting;
 using FaceIDAppVBEta.Class;
 using System.Data.OleDb;
+using FaceIDAppVBEta.Task;
 
 namespace FaceIDAppVBEta
 {
@@ -44,9 +45,12 @@ namespace FaceIDAppVBEta
             }
 
             if (VerifyUser() == false)
-                Application.Exit();
-
-            //TODO do tasks
+                this.Close();
+            else
+            {
+                //TODO do tasks
+                TaskDoer.Instance.DoTasks();
+            }
         }
 
         private bool VerifyUser()
@@ -243,6 +247,12 @@ namespace FaceIDAppVBEta
         {
             //TODO show frmAbout
             new frmAbout().ShowDialog(this);
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            TaskDoer.Instance.KillTasks();
+            Environment.Exit(0);// Application.Exit();
         }
     }
 }

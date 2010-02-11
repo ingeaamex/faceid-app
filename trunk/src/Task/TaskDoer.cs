@@ -8,23 +8,39 @@ using System.Threading;
 
 namespace FaceIDAppVBEta.Task
 {
-    public class TaskDoer : Form, ITaskDoer
+    public class TaskDoer : Form
     {
         private IDataController _dtCtrl;
         private ITerminalController _terCtrl;
+
+        private static TaskDoer _instance;
+        private static readonly Object _mutex = new Object();
 
         private int _timeToSleep1 = Convert.ToInt32(TimeSpan.FromMinutes(1).TotalMilliseconds);
         private int _timeToSleep2 = Convert.ToInt32(TimeSpan.FromMinutes(15).TotalMilliseconds);
         private int _timetoSleep3 = Convert.ToInt32(TimeSpan.FromHours(23).TotalMilliseconds);
 
-        public TaskDoer()
+        private Thread _thrRemoveEmployee;
+        private Thread _thrBackupDatabase;
+        private Thread _thrRemindBackup;
+
+        private TaskDoer() { }
+
+        public static TaskDoer Instance
         {
-            
+            get
+            {
+                lock (_mutex)
+                {
+                    if (_instance == null)
+                        _instance = new TaskDoer();
+                }
+
+                return _instance;
+            }
         }
 
-        #region ITaskDoer Members
-
-        public void RemoveEmployeeFromTerminal()
+        private void RemoveEmployeeFromTerminal()
         {
             try
             {
@@ -32,14 +48,14 @@ namespace FaceIDAppVBEta.Task
                 List<UndeletedEmployeeNumber> undelEmployeeNumberList = null;
                 lock (_dtCtrl)
                 {
-                    _dtCtrl.GetUndeletedEmployeeNumberList();
+                    undelEmployeeNumberList = _dtCtrl.GetUndeletedEmployeeNumberList();
                 }
 
                 foreach (UndeletedEmployeeNumber undelEmployeeNumber in undelEmployeeNumberList)
                 {
                     Terminal terminal = null;
 
-                    lock(_dtCtrl)
+                    lock (_dtCtrl)
                     {
                         terminal = _dtCtrl.GetTerminal(undelEmployeeNumber.TerminalID);
                     }
@@ -48,19 +64,22 @@ namespace FaceIDAppVBEta.Task
                     if (_terCtrl.RemoveEmployee(terminal, undelEmployeeNumber.EmployeeNumber))
                     {
                         bool deleted = false;
-                        lock(_dtCtrl)
+                        lock (_dtCtrl)
                         {
                             deleted = _dtCtrl.DeleteUndeletedEmployeeNumber(undelEmployeeNumber);
                         }
 
-                        Thread.Sleep(_timeToSleep2);
-                        RemoveEmployeeFromTerminal();
+                        if (deleted == false)
+                            throw new Exception();
                     }
                     else
                     {
                         throw new Exception();
                     }
                 }
+
+                Thread.Sleep(_timeToSleep2);
+                RemoveEmployeeFromTerminal();
             }
             catch
             {
@@ -69,7 +88,7 @@ namespace FaceIDAppVBEta.Task
             }
         }
 
-        public void BackupDatabase()
+        private void BackupDatabase()
         {
             try
             {
@@ -83,13 +102,13 @@ namespace FaceIDAppVBEta.Task
 
                         if (timeDiff <= Config.TimeBound) //in allowed range
                         {
-                            string fileName = "FaceIDBK" + DateTime.Now.Ticks;
+                            string fileName = "FaceIDBK" + DateTime.Now.Ticks + ".mdb";
 
                             if (config.BackupFolder.EndsWith(@"\") == false)
                                 config.BackupFolder += @"\";
 
-                            string filePath = config.BackupDay + fileName;
-                            
+                            string filePath = config.BackupFolder + fileName;
+
                             _dtCtrl = LocalDataController.Instance;
                             lock (_dtCtrl)
                             {
@@ -115,13 +134,13 @@ namespace FaceIDAppVBEta.Task
             {
                 //TODO
                 //Exception: another process is accessing db at the time
-                
+
                 Thread.Sleep(_timeToSleep1);
                 BackupDatabase();
             }
         }
 
-        public void RemindBackupDatabase()
+        private void RemindBackupDatabase()
         {
             try
             {
@@ -146,6 +165,55 @@ namespace FaceIDAppVBEta.Task
             }
         }
 
-        #endregion
+        public void KillTasks()
+        {
+            _thrBackupDatabase.Abort();
+            _thrRemindBackup.Abort();
+            _thrRemoveEmployee.Abort();
+        }
+
+        public void DoTasks()
+        {
+            _dtCtrl = LocalDataController.Instance;
+
+            if (Properties.Settings.Default.IsClient == false) //server only
+            {
+                if (isRunningThread(_thrBackupDatabase) == false)
+                {
+                    try
+                    {
+                        _thrBackupDatabase = new Thread(new ThreadStart(BackupDatabase));
+                        _thrBackupDatabase.Start();
+                    }
+                    catch { }
+                }
+                if (isRunningThread(_thrRemindBackup) == false)
+                {
+                    try
+                    {
+                        _thrRemindBackup = new Thread(new ThreadStart(RemindBackupDatabase));
+                        _thrRemindBackup.Start();
+                    }
+                    catch { }
+                }
+
+                if (isRunningThread(_thrRemoveEmployee) == false)
+                {
+                    try
+                    {
+                        _thrRemoveEmployee = new Thread(new ThreadStart(RemoveEmployeeFromTerminal));
+                        _thrRemoveEmployee.Start();
+                    }
+                    catch { }
+                }
+            }
+        }
+
+        private bool isRunningThread(Thread thr)
+        {
+            if (thr == null) return false;
+            else
+                return thr.ThreadState == ThreadState.Running;
+        }
     }
 }
