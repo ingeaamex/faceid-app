@@ -57,6 +57,8 @@ namespace FaceIDAppVBEta
 
         public static bool IsServerRunning(string ipAddress)
         {
+            if (ipAddress.Trim() == "") return false;
+
             bool isRunning = false;
 
             //check ip address
