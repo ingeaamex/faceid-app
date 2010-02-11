@@ -97,14 +97,12 @@ namespace FaceIDAppVBEta
             }
             else
             {
-                cbxEmployeeNumber.DisplayMember = "Name";
-                cbxEmployeeNumber.ValueMember = "Value";
-
                 employeeList.Sort(delegate(Employee emp1, Employee emp2)
                 {
                     return emp1.EmployeeNumber - emp2.EmployeeNumber;
                 });
 
+                List<ListItem> listItemList = new List<ListItem>();
                 foreach (Employee employee in employeeList)
                 {
                     object value = employee.EmployeeNumber;
@@ -112,10 +110,10 @@ namespace FaceIDAppVBEta
 
                     ListItem listItem = new ListItem(value, name);
 
-                    cbxEmployeeNumber.Items.Add(listItem);
+                    listItemList.Add(listItem);
                 }
 
-                cbxEmployeeNumber.SelectedIndex = 0;
+                Util.BindCombobox(cbxEmployeeNumber, listItemList, true);
             }
         }
 
@@ -165,7 +163,7 @@ namespace FaceIDAppVBEta
             }
             else
             {
-                cbxEmployeeNumber.SelectedIndex = employeeNumber;
+                cbxEmployeeNumber.SelectedValue = employeeNumber;
 
                 txtPassword.Text = fUser.Password;
                 txtRetypePassword.Text = fUser.Password;
@@ -187,7 +185,7 @@ namespace FaceIDAppVBEta
 
         private void GetUserProperies(ref FaceIDUser fUser)
         {
-            fUser.EmployeeNumber = Convert.ToInt32(((ListItem)cbxEmployeeNumber.SelectedItem).Value);
+            fUser.EmployeeNumber = (int)cbxEmployeeNumber.SelectedValue;
 
             fUser.Password = txtPassword.Text;
 

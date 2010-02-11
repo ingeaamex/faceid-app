@@ -32,33 +32,31 @@ namespace FaceIDAppVBEta
 
         private void BindRoundValue()
         {
-            cbxRoundValue.DisplayMember = "Name";
-            cbxRoundValue.ValueMember = "Value";
-            cbxRoundValue.Items.Clear();
+            List<ListItem> listItemList = new List<ListItem>();
 
-            cbxRoundValue.Items.Add(new ListItem(1));
-            cbxRoundValue.Items.Add(new ListItem(5));
-            cbxRoundValue.Items.Add(new ListItem(6));
-            cbxRoundValue.Items.Add(new ListItem(10));
-            cbxRoundValue.Items.Add(new ListItem(15));
-            cbxRoundValue.Items.Add(new ListItem(30));
+            listItemList.Add(new ListItem(1));
+            listItemList.Add(new ListItem(5));
+            listItemList.Add(new ListItem(6));
+            listItemList.Add(new ListItem(10));
+            listItemList.Add(new ListItem(15));
+            listItemList.Add(new ListItem(30));
 
-            cbxRoundValue.SelectedIndex = 0;
+            Util.BindCombobox(cbxRoundValue, listItemList, true);
         }
 
         private void BindWeekdays()
         {
-            cbxBackupWeeklyDay.DisplayMember = "Name";
-            cbxBackupWeeklyDay.ValueMember = "Value";
-            cbxBackupWeeklyDay.Items.Clear();
+            List<ListItem> listItemList = new List<ListItem>();
 
-            cbxBackupWeeklyDay.Items.Add(new ListItem(0, "Monday"));
-            cbxBackupWeeklyDay.Items.Add(new ListItem(1, "Tuesday"));
-            cbxBackupWeeklyDay.Items.Add(new ListItem(2, "Wednesday"));
-            cbxBackupWeeklyDay.Items.Add(new ListItem(3, "Thursday"));
-            cbxBackupWeeklyDay.Items.Add(new ListItem(4, "Friday"));
-            cbxBackupWeeklyDay.Items.Add(new ListItem(5, "Saturday"));
-            cbxBackupWeeklyDay.Items.Add(new ListItem(6, "Sunday"));
+            listItemList.Add(new ListItem(0, "Monday"));
+            listItemList.Add(new ListItem(1, "Tuesday"));
+            listItemList.Add(new ListItem(2, "Wednesday"));
+            listItemList.Add(new ListItem(3, "Thursday"));
+            listItemList.Add(new ListItem(4, "Friday"));
+            listItemList.Add(new ListItem(5, "Saturday"));
+            listItemList.Add(new ListItem(6, "Sunday"));
+
+            Util.BindCombobox(cbxBackupWeeklyDay, listItemList, true);
         }
 
         private void EnableControls()
@@ -275,7 +273,7 @@ namespace FaceIDAppVBEta
 
             //attendance setting
             config.AttendanceRecordInterval = (int)nudAttendanceRecordInterval.Value;
-            config.RecordRoundingValue = Convert.ToInt16(((ListItem)cbxRoundValue.SelectedItem).Value);
+            config.RecordRoundingValue = (int)cbxRoundValue.SelectedValue;
 
             if(Properties.Settings.Default.IsClient)
             {
