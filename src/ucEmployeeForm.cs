@@ -119,10 +119,10 @@ namespace FaceIDAppVBEta
                 _dtCtrl.BeginTransaction();
                 try
                 {
+                    RemoveEmployeeFromTerminal(employee);
+
                     _dtCtrl.DeleteEmployee((int)employeeID);
                     _dtCtrl.DeleteEmployeeTerminalByEmployee(employee.EmployeeNumber);
-
-                    RemoveEmployeeFromTerminal(employee);
 
                     _dtCtrl.CommitTransaction();
 

@@ -64,8 +64,8 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.gbxServerSetting = new System.Windows.Forms.GroupBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.ipcServerIP = new IPAddressControlLib.IPAddressControl();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudBackupPeriod)).BeginInit();
             this.gbxBackup.SuspendLayout();
             this.gbxRestore.SuspendLayout();
@@ -312,7 +312,7 @@
             this.gbxRestore.Size = new System.Drawing.Size(392, 139);
             this.gbxRestore.TabIndex = 16;
             this.gbxRestore.TabStop = false;
-            this.gbxRestore.Text = "Restore";
+            this.gbxRestore.Text = "Restore  [Server Only]";
             // 
             // label2
             // 
@@ -481,15 +481,6 @@
             this.gbxServerSetting.TabStop = false;
             this.gbxServerSetting.Text = "Server Setting [Clien Only]";
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 30);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(58, 13);
-            this.label7.TabIndex = 14;
-            this.label7.Text = "IP Address";
-            // 
             // ipcServerIP
             // 
             this.ipcServerIP.AllowInternalTab = false;
@@ -504,6 +495,15 @@
             this.ipcServerIP.Size = new System.Drawing.Size(93, 20);
             this.ipcServerIP.TabIndex = 16;
             this.ipcServerIP.Text = "...";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 30);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(58, 13);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "IP Address";
             // 
             // ucSetting
             // 

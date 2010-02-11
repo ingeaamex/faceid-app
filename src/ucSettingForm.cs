@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using FaceIDAppVBEta.Data;
 using System.IO;
 using FaceIDAppVBEta.Class;
+using FaceIDAppVBEta.Task;
 
 namespace FaceIDAppVBEta
 {
@@ -27,7 +28,9 @@ namespace FaceIDAppVBEta
 
             RestoreOldSettings();
 
-            gbxServerSetting.Visible = Properties.Settings.Default.IsClient;            
+            gbxServerSetting.Enabled = Properties.Settings.Default.IsClient;
+            gbxBackup.Enabled = !Properties.Settings.Default.IsClient;
+            gbxRestore.Enabled = !Properties.Settings.Default.IsClient;
         }
 
         private void BindRoundValue()
@@ -288,6 +291,7 @@ namespace FaceIDAppVBEta
                     throw new Exception("Settings not saved.");
 
                 MessageBox.Show("Settings saved.");
+                TaskDoer.Instance.DoTasks();
             }
             catch (Exception ex)
             {

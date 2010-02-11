@@ -997,6 +997,8 @@ namespace FaceIDAppVBEta.Data
 
                 terminal.ID = (int)odRdr["ID"];
                 terminal.Name = odRdr["Name"].ToString();
+                terminal.IPAddress = odRdr["IPAddress"].ToString();
+
                 terminals.Add(terminal);
             }
 

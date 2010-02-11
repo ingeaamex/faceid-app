@@ -36,12 +36,10 @@
             this.tsmHelpContents = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.sctMain = new System.Windows.Forms.SplitContainer();
-            this.btnAttTest = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnSetting = new System.Windows.Forms.Button();
             this.btnReprocess = new System.Windows.Forms.Button();
+            this.btnAttTest = new System.Windows.Forms.Button();
             this.btnUser = new System.Windows.Forms.Button();
             this.btnAttendance = new System.Windows.Forms.Button();
             this.btnWorkingCalendar = new System.Windows.Forms.Button();
@@ -50,6 +48,8 @@
             this.btnDepartment = new System.Windows.Forms.Button();
             this.btnCompany = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.sctMain.Panel1.SuspendLayout();
             this.sctMain.Panel2.SuspendLayout();
@@ -79,7 +79,7 @@
             // tsmExit
             // 
             this.tsmExit.Name = "tsmExit";
-            this.tsmExit.Size = new System.Drawing.Size(152, 22);
+            this.tsmExit.Size = new System.Drawing.Size(92, 22);
             this.tsmExit.Text = "Exit";
             this.tsmExit.Click += new System.EventHandler(this.tsmExit_Click);
             // 
@@ -138,41 +138,6 @@
             this.sctMain.SplitterDistance = 167;
             this.sctMain.TabIndex = 1;
             // 
-            // btnAttTest
-            // 
-            this.btnAttTest.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAttTest.ForeColor = System.Drawing.Color.Red;
-            this.btnAttTest.Location = new System.Drawing.Point(2, 609);
-            this.btnAttTest.Name = "btnAttTest";
-            this.btnAttTest.Size = new System.Drawing.Size(163, 50);
-            this.btnAttTest.TabIndex = 7;
-            this.btnAttTest.Text = "ATT TEST";
-            this.btnAttTest.UseVisualStyleBackColor = true;
-            this.btnAttTest.Visible = false;
-            this.btnAttTest.Click += new System.EventHandler(this.btnAttTest_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Verdana", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Blue;
-            this.label2.Location = new System.Drawing.Point(207, 186);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(430, 38);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Copyright © Alltime 2010";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Verdana", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Blue;
-            this.label1.Location = new System.Drawing.Point(281, 148);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(283, 38);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "FaceID App v1.0";
-            // 
             // btnExport
             // 
             this.btnExport.Image = global::FaceIDAppVBEta.Properties.Resources.Download;
@@ -208,6 +173,19 @@
             this.btnReprocess.Text = "Reprocess";
             this.btnReprocess.UseVisualStyleBackColor = true;
             this.btnReprocess.Click += new System.EventHandler(this.btnReprocess_Click);
+            // 
+            // btnAttTest
+            // 
+            this.btnAttTest.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAttTest.ForeColor = System.Drawing.Color.Red;
+            this.btnAttTest.Location = new System.Drawing.Point(2, 609);
+            this.btnAttTest.Name = "btnAttTest";
+            this.btnAttTest.Size = new System.Drawing.Size(163, 50);
+            this.btnAttTest.TabIndex = 7;
+            this.btnAttTest.Text = "ATT TEST";
+            this.btnAttTest.UseVisualStyleBackColor = true;
+            this.btnAttTest.Visible = false;
+            this.btnAttTest.Click += new System.EventHandler(this.btnAttTest_Click);
             // 
             // btnUser
             // 
@@ -303,6 +281,28 @@
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Verdana", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Blue;
+            this.label2.Location = new System.Drawing.Point(207, 186);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(430, 38);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Copyright © Alltime 2010";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Verdana", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Blue;
+            this.label1.Location = new System.Drawing.Point(281, 148);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(283, 38);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "FaceID App v1.0";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -316,6 +316,7 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FaceID Application";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.sctMain.Panel1.ResumeLayout(false);
