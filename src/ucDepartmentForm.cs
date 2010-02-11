@@ -21,7 +21,7 @@ namespace FaceIDAppVBEta
         {
             InitializeComponent();
 
-            _dtCtrl = LocalDataController.Instance;
+            _dtCtrl = Properties.Settings.Default.IsClient ? RemoteDataController.Instance : LocalDataController.Instance;
             BindCompany();
             BindDepartment();
             BindTree();

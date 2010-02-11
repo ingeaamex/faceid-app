@@ -10,7 +10,7 @@ namespace FaceIDAppVBEta.UnitTest
     [TestFixture]
     public class testWorkingCalendarFunction
     {
-        private IDataController _dtCtrl = LocalDataController.Instance;
+        private IDataController _dtCtrl = Properties.Settings.Default.IsClient ? RemoteDataController.Instance : LocalDataController.Instance;
         private WorkingCalendar wCal = new WorkingCalendar();
 
         Company com = new Company();

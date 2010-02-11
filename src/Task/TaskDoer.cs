@@ -44,7 +44,7 @@ namespace FaceIDAppVBEta.Task
         {
             try
             {
-                _dtCtrl = LocalDataController.Instance;
+                _dtCtrl = Properties.Settings.Default.IsClient ? RemoteDataController.Instance : LocalDataController.Instance;
                 List<UndeletedEmployeeNumber> undelEmployeeNumberList = null;
                 lock (_dtCtrl)
                 {
@@ -109,7 +109,7 @@ namespace FaceIDAppVBEta.Task
 
                             string filePath = config.BackupFolder + fileName;
 
-                            _dtCtrl = LocalDataController.Instance;
+                            _dtCtrl = Properties.Settings.Default.IsClient ? RemoteDataController.Instance : LocalDataController.Instance;
                             lock (_dtCtrl)
                             {
                                 _dtCtrl.BackupDatabase(filePath);
@@ -167,14 +167,18 @@ namespace FaceIDAppVBEta.Task
 
         public void KillTasks()
         {
-            _thrBackupDatabase.Abort();
-            _thrRemindBackup.Abort();
-            _thrRemoveEmployee.Abort();
+            try
+            {
+                _thrBackupDatabase.Abort();
+                _thrRemindBackup.Abort();
+                _thrRemoveEmployee.Abort();
+            }
+            catch { }
         }
 
         public void DoTasks()
         {
-            _dtCtrl = LocalDataController.Instance;
+            _dtCtrl = Properties.Settings.Default.IsClient ? RemoteDataController.Instance : LocalDataController.Instance;
 
             if (Properties.Settings.Default.IsClient == false) //server only
             {

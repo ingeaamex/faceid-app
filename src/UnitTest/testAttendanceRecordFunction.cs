@@ -10,7 +10,7 @@ namespace FaceIDAppVBEta.UnitTest
     [TestFixture]
     class testAttendanceRecordFunction
     {
-        private IDataController _dtCtrl = LocalDataController.Instance;
+        private IDataController _dtCtrl = Properties.Settings.Default.IsClient ? RemoteDataController.Instance : LocalDataController.Instance;
         private AttendanceRecord attRecord = new AttendanceRecord();
         private Employee emp = new Employee();
 

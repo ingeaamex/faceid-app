@@ -29,7 +29,7 @@ namespace FaceIDAppVBEta
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            Environment.Exit(0);
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -50,7 +50,7 @@ namespace FaceIDAppVBEta
             {
                 try
                 {
-                    IDataController dtCtrl = LocalDataController.Instance;
+                    IDataController dtCtrl = Properties.Settings.Default.IsClient ? RemoteDataController.Instance : LocalDataController.Instance;
 
                     int employeeNumber = Convert.ToInt32(txtEmployeeNumber.Text);
                     _user = dtCtrl.GetFaceIDUser(employeeNumber);
@@ -79,7 +79,7 @@ namespace FaceIDAppVBEta
                 catch (OleDbException)
                 {
                     MessageBox.Show("Cannot connect to Database.");
-                    Application.Exit();
+                    Environment.Exit(0);
                 }
                 catch(Exception ex)
                 {
@@ -96,7 +96,7 @@ namespace FaceIDAppVBEta
         private void frmUserLogin_FormClosed(object sender, FormClosedEventArgs e)
         {
             if (_isMaster == false && _user == null)
-                Application.Exit();
+                Environment.Exit(0);
         }
     }
 }

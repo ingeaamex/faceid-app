@@ -10,7 +10,7 @@ namespace FaceIDAppVBEta.UnitTest
     [TestFixture]
     public class testPayPeriodFunction
     {
-        private IDataController _dtCtrl = LocalDataController.Instance;
+        private IDataController _dtCtrl = Properties.Settings.Default.IsClient ? RemoteDataController.Instance : LocalDataController.Instance;
         
         private PayPeriod payPeriod = new PayPeriod();
 

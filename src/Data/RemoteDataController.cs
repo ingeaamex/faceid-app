@@ -12,33 +12,38 @@ namespace FaceIDAppVBEta.Data
     class RemoteDataController
     {
         private static TcpChannel _channel = null;
+        private static IDataController _dtCtrl = null;
 
         public static IDataController Instance
         {
             get
             {
-                BinaryServerFormatterSinkProvider provider = new BinaryServerFormatterSinkProvider();
-                provider.TypeFilterLevel = TypeFilterLevel.Full;
+                if (_dtCtrl == null)
+                {
+                    BinaryServerFormatterSinkProvider provider = new BinaryServerFormatterSinkProvider();
+                    provider.TypeFilterLevel = TypeFilterLevel.Full;
 
-                // Creating the IDictionary to set the port on the channel instance.
-                IDictionary props = new Hashtable();
-                props["port"] = Properties.Settings.Default.ClientPort;
-                props["name"] = "Remote" + DateTime.Now.Ticks.ToString();
+                    // Creating the IDictionary to set the port on the channel instance.
+                    IDictionary props = new Hashtable();
+                    props["port"] = Properties.Settings.Default.ClientPort;
+                    props["name"] = "Remote" + DateTime.Now.Ticks.ToString();
 
-                _channel = new TcpChannel(props, null, provider);
+                    _channel = new TcpChannel(props, null, provider);
 
-                ChannelServices.RegisterChannel(_channel, false);
+                    ChannelServices.RegisterChannel(_channel, false);
 
-                string serverIP = Properties.Settings.Default.ServerIP;
-                int serverPort = Properties.Settings.Default.ServerPort;
-                string serviceName = Properties.Settings.Default.ServiceName;
+                    string serverIP = Properties.Settings.Default.ServerIP;
+                    int serverPort = Properties.Settings.Default.ServerPort;
+                    string serviceName = Properties.Settings.Default.ServiceName;
 
-                Type lookupType = typeof(IDataController);
-                IDataController dtCtrl = (IDataController)Activator.GetObject(lookupType, string.Format("tcp://{0}:{1}/{2}", serverIP, serverPort, serviceName)); //ex: tcp://10.0.0.5:9999/DataController
+                    Type lookupType = typeof(IDataController);
+                    _dtCtrl = (IDataController)Activator.GetObject(lookupType, string.Format("tcp://{0}:{1}/{2}", serverIP, serverPort, serviceName)); //ex: tcp://10.0.0.5:9999/DataController
 
-                dtCtrl.TestDataController(new Holiday());
+                    _dtCtrl.TestDataController(new Holiday());
+                }
 
-                return dtCtrl;
+                _dtCtrl.RefreshConnection();
+                return _dtCtrl;
             }
         }
 

@@ -22,7 +22,7 @@ namespace FaceIDAppVBEta
 
         public ucEmployeeForm()
         {
-            _dtCtrl = LocalDataController.Instance;
+            _dtCtrl = Properties.Settings.Default.IsClient ? RemoteDataController.Instance : LocalDataController.Instance;
             
             InitializeComponent();
 
@@ -145,7 +145,7 @@ namespace FaceIDAppVBEta
             {
                 if (_terCtrl.IsTerminalConnected(terminal))
                 {
-                    throw new Exception("Do not do this yet. It is painful to add an employee from the terminal you know.");
+                    //throw new Exception("Do not do this yet. It is painful to add an employee from the terminal you know.");
 
                     if (_terCtrl.RemoveEmployee(terminal, employee.EmployeeNumber) == false)
                         throw new Exception("Cannot remove employee " + employee.EmployeeNumber + " from terminal " + terminal.Name + ".");

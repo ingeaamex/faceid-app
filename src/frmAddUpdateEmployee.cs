@@ -18,7 +18,7 @@ namespace FaceIDAppVBEta
 
         public frmAddUpdateEmployee(int employeeID)
         {
-            _dtCtrl = LocalDataController.Instance;
+            _dtCtrl = Properties.Settings.Default.IsClient ? RemoteDataController.Instance : LocalDataController.Instance;
 
             InitializeComponent();
 

@@ -23,7 +23,7 @@ namespace FaceIDAppVBEta
         public ucAttendanceLog()
         {
             InitializeComponent();
-            _dtCtrl = LocalDataController.Instance;
+            _dtCtrl = Properties.Settings.Default.IsClient ? RemoteDataController.Instance : LocalDataController.Instance;
         }
 
         private void ucAttendanceLog_Load(object sender, EventArgs e)

@@ -204,6 +204,8 @@ namespace FaceIDApp
 
         public Test()
         {
+            _dtCtrl = FaceIDAppVBEta.Properties.Settings.Default.IsClient ? RemoteDataController.Instance : LocalDataController.Instance;
+
             InitializeComponent();
         }
 
@@ -213,8 +215,8 @@ namespace FaceIDApp
 
         private List<AttendanceRecord> _attRecordList = new List<AttendanceRecord>();
         private List<Employee> _empList = new List<Employee>();
-        
-        private IDataController _dtCtrl = LocalDataController.Instance;
+
+        private IDataController _dtCtrl;
 
         private Thread _thrAddAttRecords;
         private Thread _thrDelAttRecords;
