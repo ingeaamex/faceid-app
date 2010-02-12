@@ -12,17 +12,52 @@ namespace FaceIDAppVBEta.Data
 {
     public class LocalDataController : MarshalByRefObject, IDataController
     {
-        private static readonly string _dbPath = @"F:\FaceID\FaceIDApp\db\FaceIDdb.mdb";
-        //private static readonly string _dbPath = @"F:\vnanh\project\FaceID\db\FaceIDdb.mdb";
-        //private static readonly string _dbPath = @"data\FaceIDdb.mdb";
-        private static readonly string _password = @"alltime1";
-
-        private static string connStr = @"Provider=Microsoft.JET.OLEDB.4.0;data source=" + _dbPath + ";Jet OLEDB:Database Password=" + _password + ";";
-
         private OleDbTransaction transaction;
         private static OleDbConnection dbConnection;
         private static LocalDataController instance;
         private static readonly Object mutex = new Object();
+
+        private static string DatabasePassword
+        {
+            get
+            {
+                return @"alltime1";
+            }
+        }
+
+        private static string ConnStr
+        {
+            get
+            {
+                return @"Provider=Microsoft.JET.OLEDB.4.0;data source=" + DatabasePath + ";Jet OLEDB:Database Password=" + DatabasePassword + ";";
+            }
+        }
+
+        private static String DatabasePath
+        {
+            get
+            {
+                if (Properties.Settings.Default.IsFaceIDServer) //Only =TRUE for FaceID Server (not FaceID App Server)
+                {
+                    //retrieve database path from registry
+                    string strRegKey = @"Software\Alltime\FaceID App Server\CurrentVersion";
+                    string strRegKeyValueName = @"Installation Folder";
+
+                    Microsoft.Win32.RegistryKey regKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(strRegKey, true);
+
+                    if (regKey != null)
+                    {
+                        return regKey.GetValue(strRegKeyValueName).ToString();
+                    }
+
+                    return "";
+                }
+                else //The FaceID App Server (not FaceID Server)
+                {
+                    return "data/FaceIDdb.mdb";
+                }
+            }
+        }
 
         public LocalDataController()
         {
@@ -57,7 +92,7 @@ namespace FaceIDAppVBEta.Data
         {
             if (dbConnection == null)
             {
-                dbConnection = new OleDbConnection(connStr);
+                dbConnection = new OleDbConnection(ConnStr);
             }
             while (dbConnection.State != ConnectionState.Closed)
             {
@@ -75,7 +110,7 @@ namespace FaceIDAppVBEta.Data
         {
             if (dbConnection == null)
             {
-                dbConnection = new OleDbConnection(connStr);
+                dbConnection = new OleDbConnection(ConnStr);
             }
             if (dbConnection.State != ConnectionState.Open)
             {
@@ -2422,7 +2457,8 @@ namespace FaceIDAppVBEta.Data
 
         private bool AddUpdateAttendaceReport(AttendanceRecord attRecord, AttendanceReport attReport)
         {
-            int employeeNumber = (attReport == null) ? attRecord.EmployeeNumber : attReport.EmployeeNumber; //TODO what's the different b/w attRecord.EmployeeNumber and attReport.EmployeeNumber?
+            int employeeNumber = (attReport == null) ? attRecord.EmployeeNumber : attReport.EmployeeNumber;
+            Config config = GetConfig();
 
             WorkingCalendar workingCalendar = GetWorkingCalendarByEmployee(employeeNumber);
 
@@ -2498,7 +2534,8 @@ namespace FaceIDAppVBEta.Data
                     while (odRdr.Read())
                     {
                         //TODO round value
-                        timeLogs.Add((DateTime)odRdr["Time"]);
+                        timeLogs.Add(Util.RoundDateTime((DateTime)odRdr["Time"], config.RecordRoundingValue));
+                        //timeLogs.Add((DateTime)odRdr["Time"]);
                     }
                     odRdr.Close();
 
@@ -2977,17 +3014,6 @@ namespace FaceIDAppVBEta.Data
 
         #region Utils
 
-        private void WriteLog(string msg)
-        {
-            try
-            {
-                System.IO.StreamWriter swter = System.IO.File.AppendText(@"F:\vnanh\project\FaceID\log\log.txt");
-                swter.WriteLine(DateTime.Now.ToString() + ":" + msg);
-                swter.Close();
-            }
-            catch { }
-        }
-
         private int ExecuteNonQuery(OleDbCommand odCom)
         {
             try
@@ -2996,7 +3022,7 @@ namespace FaceIDAppVBEta.Data
             }
             catch (Exception ex)
             {
-                WriteLog(ex.Message);
+                Util.WriteLog(ex);
             }
             return -1;
         }
@@ -4342,7 +4368,7 @@ namespace FaceIDAppVBEta.Data
             DisconnectFromDatabase();
 
             //copy db to a new file
-            File.Copy(_dbPath, backupPath, true);
+            File.Copy(DatabasePath, backupPath, true);
 
             //connect to db again
             ConnectToDatabase();
@@ -4355,7 +4381,7 @@ namespace FaceIDAppVBEta.Data
             DisconnectFromDatabase();
 
             //copy db to a new file
-            File.Copy(restoreFile, _dbPath, true);
+            File.Copy(restoreFile, DatabasePath, true);
 
             //connect to db again
             ConnectToDatabase();

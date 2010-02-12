@@ -37,7 +37,7 @@ namespace FaceIDAppVBEta.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool IsClient {
             get {
                 return ((bool)(this["IsClient"]));
@@ -77,6 +77,15 @@ namespace FaceIDAppVBEta.Properties {
         public string ServiceName {
             get {
                 return ((string)(this["ServiceName"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IsFaceIDServer {
+            get {
+                return ((bool)(this["IsFaceIDServer"]));
             }
         }
     }

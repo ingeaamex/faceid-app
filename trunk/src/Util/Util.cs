@@ -83,7 +83,7 @@ namespace FaceIDAppVBEta
                 }
                 catch (InvalidCastException icEx)
                 {
-                    WriteLogs(icEx.Message);
+                    WriteLog(icEx);
                 }
             }
         }
@@ -99,12 +99,25 @@ namespace FaceIDAppVBEta
 
         public static void ShowErrorMessage(Exception ex)
         {
+            WriteLog(ex);
+
             System.Windows.Forms.MessageBox.Show("There has been an error. Please try again later. Error detail: " + ex.Message);
         }
 
-        public static void WriteLogs(string log)
+        public static void WriteLog(Exception ex)
         {
-            return;
+            WriteLog(ex.Message + " || " + ex.StackTrace);
+        }
+
+        public static void WriteLog(string log)
+        {
+            try
+            {
+                System.IO.StreamWriter swter = System.IO.File.AppendText(@"errorlog.txt");
+                swter.WriteLine(DateTime.Now.ToString() + ":" + log);
+                swter.Close();
+            }
+            catch { }
         }
 
         public static int CompareTime(DateTime dt1, DateTime dt2)

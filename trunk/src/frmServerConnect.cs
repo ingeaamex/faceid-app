@@ -46,7 +46,7 @@ namespace FaceIDAppVBEta
                 }
                 else
                 {
-                    throw new Exception("Server is not running or is blocked.");
+                    throw new Exception("Server is not running or being blocked.");
                 }
             }
             catch (Exception ex)

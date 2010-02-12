@@ -51,7 +51,7 @@ namespace FaceIDAppVBEta
                 else
                 {
                     //TODO do tasks
-                    //TaskDoer.Instance.DoTasks();
+                    TaskDoer.Instance.DoTasks();
                 }
             }
             catch (Exception ex)
@@ -108,67 +108,68 @@ namespace FaceIDAppVBEta
         //    _dtCtrl.AddHoliday(new Holiday());
         //}
 
+        private void ChangeFunction(UserControl uc, Button btn)
+        {
+            try
+            {
+                sctMain.Panel2.Controls.Clear();
+                sctMain.Panel2.Controls.Add(uc);
+
+                UnHighlightAllButtons();
+                HighlightButton(btn);
+            }
+            catch (OleDbException)
+            {
+                if (Properties.Settings.Default.IsClient)
+                {
+                    string message = "Cannot connect to database. Please check if the server machine is on and the network is working then try again.";
+                    
+                    MessageBox.Show(message);
+                    Environment.Exit(0);
+                }
+                else
+                {
+                    string message = "Cannot connect to database. Please check if the server machine is on and the network is working then try again.";
+
+                    MessageBox.Show(message);
+                    Environment.Exit(0);
+                }
+            }
+        }
+
         private void btnCompany_Click(object sender, EventArgs e)
         {
-            sctMain.Panel2.Controls.Clear();
-            sctMain.Panel2.Controls.Add(new ucCompanyForm());
-
-            UnHighlightAllButtons();
-            HighlightButton(btnCompany);
+            ChangeFunction(new ucCompanyForm(), btnCompany);
         }
 
         private void btnDepartment_Click(object sender, EventArgs e)
         {
-            sctMain.Panel2.Controls.Clear();
-            sctMain.Panel2.Controls.Add(new ucDepartmentForm());
-
-            UnHighlightAllButtons();
-            HighlightButton(btnDepartment);
+            ChangeFunction(new ucDepartmentForm(), btnDepartment);
         }
 
         private void btnEmployee_Click(object sender, EventArgs e)
         {
-            sctMain.Panel2.Controls.Clear();
-            sctMain.Panel2.Controls.Add(new ucEmployeeForm());
-
-            UnHighlightAllButtons();
-            HighlightButton(btnEmployee);
+            ChangeFunction(new ucEmployeeForm(), btnEmployee);
         }
 
         private void btnTerminal_Click(object sender, EventArgs e)
         {
-            sctMain.Panel2.Controls.Clear();
-            sctMain.Panel2.Controls.Add(new ucTerminalForm());
-
-            UnHighlightAllButtons();
-            HighlightButton(btnTerminal);
+            ChangeFunction(new ucTerminalForm(), btnTerminal);
         }
 
         private void btnWorkingCalendar_Click(object sender, EventArgs e)
         {
-            sctMain.Panel2.Controls.Clear();
-            sctMain.Panel2.Controls.Add(new ucWorkingCalendar());
-
-            UnHighlightAllButtons();
-            HighlightButton(btnWorkingCalendar);
+            ChangeFunction(new ucWorkingCalendar(), btnWorkingCalendar);
         }
 
         private void btnAttendance_Click(object sender, EventArgs e)
         {
-            sctMain.Panel2.Controls.Clear();
-            sctMain.Panel2.Controls.Add(new ucAttendance(0));
-
-            UnHighlightAllButtons();
-            HighlightButton(btnAttendance);
+            ChangeFunction(new ucAttendance(0), btnAttendance);
         }
 
         private void btnUser_Click(object sender, EventArgs e)
         {
-            sctMain.Panel2.Controls.Clear();
-            sctMain.Panel2.Controls.Add(new ucUserManagment());
-
-            UnHighlightAllButtons();
-            HighlightButton(btnUser);
+            ChangeFunction(new ucUserManagment(), btnUser);
         }
 
         private void btnAttTest_Click(object sender, EventArgs e)
@@ -178,11 +179,7 @@ namespace FaceIDAppVBEta
 
         private void btnReprocess_Click(object sender, EventArgs e)
         {
-            sctMain.Panel2.Controls.Clear();
-            sctMain.Panel2.Controls.Add(new ucReprocess());
-
-            UnHighlightAllButtons();
-            HighlightButton(btnReprocess);
+            ChangeFunction(new ucReprocess(), btnReprocess);
         }
 
         #region IUserLoginCaller Members
@@ -206,20 +203,12 @@ namespace FaceIDAppVBEta
 
         private void btnSetting_Click(object sender, EventArgs e)
         {
-            sctMain.Panel2.Controls.Clear();
-            sctMain.Panel2.Controls.Add(new ucSetting());
-
-            UnHighlightAllButtons();
-            HighlightButton(btnSetting);
+            ChangeFunction(new ucSetting(), btnSetting);
         }
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            sctMain.Panel2.Controls.Clear();
-            sctMain.Panel2.Controls.Add(new ucAttendance(1));
-
-            UnHighlightAllButtons();
-            HighlightButton(btnExport);
+            ChangeFunction(new ucAttendance(1), btnExport);
         }
 
         private void HighlightButton(Button btn)

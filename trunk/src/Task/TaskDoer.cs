@@ -170,7 +170,15 @@ namespace FaceIDAppVBEta.Task
             try
             {
                 _thrBackupDatabase.Abort();
+            }
+            catch { }
+            try
+            {
                 _thrRemindBackup.Abort();
+            }
+            catch { }
+            try
+            {
                 _thrRemoveEmployee.Abort();
             }
             catch { }
@@ -178,10 +186,10 @@ namespace FaceIDAppVBEta.Task
 
         public void DoTasks()
         {
-            _dtCtrl = Properties.Settings.Default.IsClient ? RemoteDataController.Instance : LocalDataController.Instance;
-
             if (Properties.Settings.Default.IsClient == false) //server only
             {
+                _dtCtrl = Properties.Settings.Default.IsClient ? RemoteDataController.Instance : LocalDataController.Instance;
+
                 if (isRunningThread(_thrBackupDatabase) == false)
                 {
                     try
