@@ -2683,6 +2683,7 @@ namespace FaceIDAppVBEta.Data
                     attendanceReport.WorkFrom = dWorkingFrom;
                     attendanceReport.WorkTo = dWorkingTo;
 
+                    //TODO should pass PaymentRate as it's more clear
                     GetRegularOvertime(ref attendanceReport, totalHour);
 
                     b1 = UpdateAttendanceReport(attendanceReport);
@@ -3258,12 +3259,11 @@ namespace FaceIDAppVBEta.Data
 
         private void GetRegularOvertime(ref AttendanceReport attReport, double totalHour)
         {
-            double _totalHour = totalHour;
-            double _regularHour = attReport.RegularHour;
-            double _overtimeHour1 = attReport.OvertimeHour1;
-            double _overtimeHour2 = attReport.OvertimeHour2;
-            double _overtimeHour3 = attReport.OvertimeHour3;
-            double _overtimeHour4 = attReport.OvertimeHour4;
+            double wCalRegularHour = attReport.RegularHour;
+            double wCalOvertimeHour1 = attReport.OvertimeHour1;
+            double wCalOvertimeHour2 = attReport.OvertimeHour2;
+            double wCalOvertimeHour3 = attReport.OvertimeHour3;
+            double wCalOvertimeHour4 = attReport.OvertimeHour4;
 
             double regularHour = 0;
             double overtimeHour1 = 0;
@@ -3271,52 +3271,95 @@ namespace FaceIDAppVBEta.Data
             double overtimeHour3 = 0;
             double overtimeHour4 = 0;
 
-            if (_totalHour > _regularHour && _regularHour > 0)
+            if (totalHour >= wCalRegularHour && wCalRegularHour >= 0)
             {
-                regularHour = _regularHour;
-                _totalHour -= _regularHour;
+                regularHour = wCalRegularHour;
+                totalHour -= wCalRegularHour;
 
-                if (_overtimeHour1 > 0)
+                //NEW
+                if (wCalOvertimeHour1 > 0)
                 {
-                    if (_totalHour > _overtimeHour1)
-                    {
-                        overtimeHour1 = _overtimeHour1;
-                        _totalHour -= _overtimeHour1;
-
-                        if (_overtimeHour2 > 0)
-                        {
-                            if (_totalHour > _overtimeHour2)
-                            {
-                                overtimeHour2 = _overtimeHour2;
-                                _totalHour -= _overtimeHour2;
-
-                                if (_overtimeHour3 > 0)
-                                {
-                                    if (_totalHour > _overtimeHour3)
-                                    {
-                                        overtimeHour3 = _overtimeHour3;
-                                        _totalHour -= _overtimeHour3;
-
-                                        if (_overtimeHour4 > 0)
-                                            overtimeHour4 = _totalHour > _overtimeHour4 ? _overtimeHour4 : _totalHour;
-                                    }
-                                    else
-                                        overtimeHour3 = _totalHour;
-                                }
-                            }
-                            else
-                                overtimeHour2 = _totalHour;
-                        }
-                    }
+                    if (totalHour > wCalOvertimeHour1)
+                        overtimeHour1 = wCalOvertimeHour1;
                     else
-                        overtimeHour1 = _totalHour;
+                        overtimeHour1 = totalHour;
+
+                    totalHour -= wCalOvertimeHour1;
                 }
-                else
-                    regularHour = _totalHour > _regularHour ? _regularHour : _totalHour;
+
+                if (wCalOvertimeHour2 > 0)
+                {
+                    if (totalHour > wCalOvertimeHour2)
+                        overtimeHour2 = wCalOvertimeHour2;
+                    else
+                        overtimeHour2 = totalHour;
+
+                    totalHour -= wCalOvertimeHour2;
+                }
+
+                if (wCalOvertimeHour3 > 0)
+                {
+                    if (totalHour > wCalOvertimeHour3)
+                        overtimeHour3 = wCalOvertimeHour3;
+                    else
+                        overtimeHour3 = totalHour;
+
+                    totalHour -= wCalOvertimeHour3;
+                }
+
+                if (wCalOvertimeHour4 > 0)
+                {
+                    if (totalHour > wCalOvertimeHour4)
+                        overtimeHour4 = wCalOvertimeHour4;
+                    else
+                        overtimeHour4 = totalHour;
+
+                    totalHour -= wCalOvertimeHour4;
+                }
+
+                //END NEW
+
+                //if (wCalOvertimeHour1 > 0)
+                //{
+                //    if (totalHour > wCalOvertimeHour1)
+                //    {
+                //        overtimeHour1 = wCalOvertimeHour1;
+                //        totalHour -= wCalOvertimeHour1;
+
+                //        if (wCalOvertimeHour2 > 0)
+                //        {
+                //            if (totalHour > wCalOvertimeHour2)
+                //            {
+                //                overtimeHour2 = wCalOvertimeHour2;
+                //                totalHour -= wCalOvertimeHour2;
+
+                //                if (wCalOvertimeHour3 > 0)
+                //                {
+                //                    if (totalHour > wCalOvertimeHour3)
+                //                    {
+                //                        overtimeHour3 = wCalOvertimeHour3;
+                //                        totalHour -= wCalOvertimeHour3;
+
+                //                        if (wCalOvertimeHour4 > 0)
+                //                            overtimeHour4 = totalHour > wCalOvertimeHour4 ? wCalOvertimeHour4 : totalHour;
+                //                    }
+                //                    else
+                //                        overtimeHour3 = totalHour;
+                //                }
+                //            }
+                //            else
+                //                overtimeHour2 = totalHour;
+                //        }
+                //    }
+                //    else
+                //        overtimeHour1 = totalHour;
+                //}
+                //else
+                //    regularHour = totalHour > wCalRegularHour ? wCalRegularHour : totalHour;
             }
             else
             {
-                regularHour = _totalHour > _regularHour ? _regularHour : _totalHour;
+                regularHour = totalHour;// > wCalRegularHour ? wCalRegularHour : totalHour;
             }
 
             attReport.RegularHour = Math.Round(regularHour, 2);
