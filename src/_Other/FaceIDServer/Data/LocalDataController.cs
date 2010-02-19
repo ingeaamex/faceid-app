@@ -37,7 +37,7 @@ namespace FaceIDAppVBEta.Data
         {
             get
             {
-                if (Properties.Settings.Default.IsFaceIDServer) //Only =TRUE for FaceID Server (not FaceID App Server)
+                if (FaceIDServer.Properties.Settings.Default.IsFaceIDServer) //Only =TRUE for FaceID Server (not FaceID App Server)
                 {
                     //retrieve database path from registry
                     string strRegKey = @"Software\Alltime\FaceID App Server\CurrentVersion";
@@ -1990,7 +1990,7 @@ namespace FaceIDAppVBEta.Data
 
             OleDbCommand odCom = BuildSelectCmd("Department INNER JOIN Employee ON Department.ID = Employee.DepartmentID",
                 "Employee.EmployeeNumber,Employee.FirstName,Employee.LastName,Employee.PayrollNumber,Employee.JobDescription,Department.Name as DepartmentName",
-                "EmployeeNumber in(" + sEmplNumbers + ") AND Active=TRUE");
+                "EmployeeNumber in(" + sEmplNumbers + ")");
 
             OleDbDataAdapter odApt = new OleDbDataAdapter(odCom);
             DataTable dtEmpl = new DataTable();

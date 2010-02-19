@@ -184,6 +184,7 @@
             this.btnAttTest.TabIndex = 7;
             this.btnAttTest.Text = "ATT TEST";
             this.btnAttTest.UseVisualStyleBackColor = true;
+            this.btnAttTest.Visible = false;
             this.btnAttTest.Click += new System.EventHandler(this.btnAttTest_Click);
             // 
             // btnUser

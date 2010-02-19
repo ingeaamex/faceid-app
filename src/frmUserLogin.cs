@@ -23,8 +23,8 @@ namespace FaceIDAppVBEta
             _userLoginCaller = userLoginCaller;
 
             //TODO remove this later
-            txtEmployeeNumber.Text = "Just press Enter to login";
-            txtPassword.Text = Util.GetMasterPassword();
+            //txtEmployeeNumber.Text = "Just press Enter to login";
+            //txtPassword.Text = Util.GetMasterPassword();
         }
 
         private void btnExit_Click(object sender, EventArgs e)
