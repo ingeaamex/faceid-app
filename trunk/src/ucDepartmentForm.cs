@@ -223,7 +223,7 @@ namespace FaceIDAppVBEta
 
             if (oCompanyID == null && oSupDepartmentID == null)
             {
-                MessageBox.Show("Please select company and sup department.");
+                MessageBox.Show("Please select company and department.");
                 return null;
             }
             else //check sup deparment
@@ -232,7 +232,7 @@ namespace FaceIDAppVBEta
                 {
                     if ((int)oSupDepartmentID == (int)btnSubmit.Tag)
                     {
-                        MessageBox.Show("Department can not be a sup of itself.");
+                        MessageBox.Show("Department can not be a subordinate of itself.");
                         return null;
                     }
                 }
@@ -307,7 +307,7 @@ namespace FaceIDAppVBEta
             }
             else //add
             {
-                groupBoxDepartment.Text = "Add a Department";
+                groupBoxDepartment.Text = "Add a Sub Department";
                 btnSubmit.Text = "Add";
                 btnSubmit.Tag = -1;
                 txtDepartmentName.Text = "";

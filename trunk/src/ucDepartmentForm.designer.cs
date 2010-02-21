@@ -75,7 +75,7 @@
             this.groupBoxDepartment.Size = new System.Drawing.Size(772, 148);
             this.groupBoxDepartment.TabIndex = 1;
             this.groupBoxDepartment.TabStop = false;
-            this.groupBoxDepartment.Text = "Add a Department";
+            this.groupBoxDepartment.Text = "Add a Sub Department";
             // 
             // btCancel
             // 
@@ -134,18 +134,18 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(22, 81);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(93, 13);
+            this.label3.Size = new System.Drawing.Size(84, 13);
             this.label3.TabIndex = 2;
-            this.label3.Text = "Department Name";
+            this.label3.Text = "Sub-Department";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(22, 54);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(90, 13);
+            this.label2.Size = new System.Drawing.Size(62, 13);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Sup - Department";
+            this.label2.Text = "Department";
             // 
             // label1
             // 
