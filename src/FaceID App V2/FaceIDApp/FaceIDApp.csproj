@@ -1,0 +1,473 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3B9339CF-202D-40F6-B2F4-338CF9A964EB}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FaceIDAppVBEta</RootNamespace>
+    <AssemblyName>FaceIDApp</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ApplicationIcon>Alltime logo.ico</ApplicationIcon>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <AutorunEnabled>true</AutorunEnabled>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <BootstrapperComponentsLocation>Relative</BootstrapperComponentsLocation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FlexFieldControlLib, Version=1.1.3039.26976, Culture=neutral, PublicKeyToken=341bf9e5fc74d5a0, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Resources &amp; Requirements\VS08-TestFlexFieldControl-Rev52\TestFlexFieldControl\FlexFieldControlLib.dll</HintPath>
+    </Reference>
+    <Reference Include="IPAddressControlLib, Version=1.1.3039.21560, Culture=neutral, PublicKeyToken=55e96405d8fd6d61, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Resources &amp; Requirements\VS08-TestIPAddressControl-Rev36\TestIPAddressControl\IPAddressControlLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\FaceIDApp Demo\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="MonthCalendar, Version=1.8.2.0, Culture=neutral, PublicKeyToken=9d22151b1b463438, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Resources &amp; Requirements\MonthCalendar_demo_vs2005\MonthCalendar.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.5.3.9345, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data\IDataController.cs" />
+    <Compile Include="Data\LocalDataController.cs" />
+    <Compile Include="Data\RemoteDataController.cs" />
+    <Compile Include="frmAbout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAbout.Designer.cs">
+      <DependentUpon>frmAbout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAddUpdateAttendanceRecord.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAddUpdateAttendanceRecord.Designer.cs">
+      <DependentUpon>frmAddUpdateAttendanceRecord.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAddUpdateEmployee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAddUpdateEmployee.Designer.cs">
+      <DependentUpon>frmAddUpdateEmployee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAddUpdateWorkingCalendar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAddUpdateWorkingCalendar.Designer.cs">
+      <DependentUpon>frmAddUpdateWorkingCalendar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmCustomRate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCustomRate.Designer.cs">
+      <DependentUpon>frmCustomRate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmEmployeeReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEmployeeReport.designer.cs">
+      <DependentUpon>frmEmployeeReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAddUpdateHoliday.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAddUpdateHoliday.Designer.cs">
+      <DependentUpon>frmAddUpdateHoliday.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmPayrollExport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPayrollExport.Designer.cs">
+      <DependentUpon>frmPayrollExport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmPreviewWorkingCalendar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPreviewWorkingCalendar.Designer.cs">
+      <DependentUpon>frmPreviewWorkingCalendar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmReprocessStatus.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmReprocessStatus.Designer.cs">
+      <DependentUpon>frmReprocessStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmServerConnect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmServerConnect.Designer.cs">
+      <DependentUpon>frmServerConnect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmTerminalRegister.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTerminalRegister.Designer.cs">
+      <DependentUpon>frmTerminalRegister.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmUserLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmUserLogin.Designer.cs">
+      <DependentUpon>frmUserLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ICustomRateCaller.cs" />
+    <Compile Include="IUserLoginCaller.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmAbout.resx">
+      <DependentUpon>frmAbout.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAddUpdateAttendanceRecord.resx">
+      <DependentUpon>frmAddUpdateAttendanceRecord.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAddUpdateEmployee.resx">
+      <DependentUpon>frmAddUpdateEmployee.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAddUpdateWorkingCalendar.resx">
+      <DependentUpon>frmAddUpdateWorkingCalendar.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCustomRate.resx">
+      <DependentUpon>frmCustomRate.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmEmployeeReport.resx">
+      <DependentUpon>frmEmployeeReport.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAddUpdateHoliday.resx">
+      <DependentUpon>frmAddUpdateHoliday.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPayrollExport.resx">
+      <DependentUpon>frmPayrollExport.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPreviewWorkingCalendar.resx">
+      <DependentUpon>frmPreviewWorkingCalendar.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmReprocessStatus.resx">
+      <DependentUpon>frmReprocessStatus.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmServerConnect.resx">
+      <DependentUpon>frmServerConnect.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTerminalRegister.resx">
+      <DependentUpon>frmTerminalRegister.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmUserLogin.resx">
+      <DependentUpon>frmUserLogin.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PayrollExport.rdlc" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Test.resx">
+      <DependentUpon>Test.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucAttendance.resx">
+      <DependentUpon>ucAttendance.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucAttendanceLog.resx">
+      <DependentUpon>ucAttendanceLog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucAttendanceReport.resx">
+      <DependentUpon>ucAttendanceReport.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucSettingForm.resx">
+      <DependentUpon>ucSettingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucCompanyForm.resx">
+      <DependentUpon>ucCompanyForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucDepartmentForm.resx">
+      <DependentUpon>ucDepartmentForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucEmployeeForm.resx">
+      <DependentUpon>ucEmployeeForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucPaymentRate.resx">
+      <DependentUpon>ucPaymentRate.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucReprocess.resx">
+      <DependentUpon>ucReprocess.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucTerminalForm.resx">
+      <DependentUpon>ucTerminalForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucUserManagment.resx">
+      <DependentUpon>ucUserManagment.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucWorkingCalendar.resx">
+      <DependentUpon>ucWorkingCalendar.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ẹmployee.rdlc" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Task\TaskDoer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Terminal\ITerminalController.cs" />
+    <Compile Include="Terminal\TerminalController.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Test.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestClient\testHolidayFunction.cs" />
+    <Compile Include="ucAttendance.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucAttendance.Designer.cs">
+      <DependentUpon>ucAttendance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ucAttendanceLog.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucAttendanceLog.Designer.cs">
+      <DependentUpon>ucAttendanceLog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ucAttendanceReport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucAttendanceReport.Designer.cs">
+      <DependentUpon>ucAttendanceReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ucSettingForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucSettingForm.Designer.cs">
+      <DependentUpon>ucSettingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ucCompanyForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucCompanyForm.designer.cs">
+      <DependentUpon>ucCompanyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ucDepartmentForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucDepartmentForm.designer.cs">
+      <DependentUpon>ucDepartmentForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ucEmployeeForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucEmployeeForm.Designer.cs">
+      <DependentUpon>ucEmployeeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ucPaymentRate.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucPaymentRate.Designer.cs">
+      <DependentUpon>ucPaymentRate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ucReprocess.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucReprocess.Designer.cs">
+      <DependentUpon>ucReprocess.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ucTerminalForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucTerminalForm.Designer.cs">
+      <DependentUpon>ucTerminalForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ucUserManagment.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucUserManagment.Designer.cs">
+      <DependentUpon>ucUserManagment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ucWorkingCalendar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucWorkingCalendar.Designer.cs">
+      <DependentUpon>ucWorkingCalendar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UnitTest\testAttendanceRecordFunction.cs" />
+    <Compile Include="UnitTest\testAttendanceReportFunction.cs" />
+    <Compile Include="UnitTest\testBreakFunction.cs" />
+    <Compile Include="UnitTest\testCompanyFunction.cs" />
+    <Compile Include="UnitTest\testDepartmentFunction.cs" />
+    <Compile Include="UnitTest\testEmployeeFunction.cs" />
+    <Compile Include="UnitTest\testHolidayFunction.cs" />
+    <Compile Include="UnitTest\testPayPeriodFunction.cs" />
+    <Compile Include="UnitTest\testTerminalController.cs">
+    </Compile>
+    <Compile Include="UnitTest\testTerminalFunction.cs" />
+    <Compile Include="UnitTest\testUtilFunction.cs" />
+    <Compile Include="UnitTest\testWorkingCalendarFunction.cs" />
+    <Compile Include="Util\ListItem.cs" />
+    <Compile Include="Util\Util.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Calendar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Department.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\employee.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Report.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\People.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Catalog.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Chart_02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\User Card.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Calculator.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FaceID logo.ico" />
+    <Content Include="Alltime logo.ico" />
+    <None Include="app.config" />
+    <None Include="Resources\LOGO ALLTIME time &amp; attendance 5aFinal.jpg" />
+    <None Include="Resources\icon 4848.png" />
+    <None Include="Resources\Folder.png" />
+    <None Include="Resources\Configure.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FaceIDClasses\FaceIDClasses\FaceIDClasses.csproj">
+      <Project>{87F6E610-F070-42FF-A87C-F4CE751EF48A}</Project>
+      <Name>FaceIDClasses</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
