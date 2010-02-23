@@ -16,7 +16,7 @@ namespace FaceIDAppVBEta
 
         private static int _workingCalendarID = -1;
 
-        private Control[] _listBreak1, _listBreak2, _listBreak3;
+        private Control[] _listCtrlBreak1, _listCtrlBreak2, _listCtrlBreak3;
         private ComboBox[] _listCbxRate;
         private List<Holiday> _holidayList = new List<Holiday>();
 
@@ -32,16 +32,33 @@ namespace FaceIDAppVBEta
             
             _workingCalendarID = workingCalendarID;
 
-            _listBreak1 = new Control[] { txtBreakName1, dtpBreakFrom1, dtpBreakTo1, chbBreakPaid1 };
-            _listBreak2 = new Control[] { txtBreakName2, dtpBreakFrom2, dtpBreakTo2, chbBreakPaid2 };
-            _listBreak3 = new Control[] { txtBreakName3, dtpBreakFrom3, dtpBreakTo3, chbBreakPaid3 };
+            _listCtrlBreak1 = new Control[] { txtBreakName1, dtpBreakFrom1, dtpBreakTo1, chbBreakPaid1 };
+            _listCtrlBreak2 = new Control[] { txtBreakName2, dtpBreakFrom2, dtpBreakTo2, chbBreakPaid2 };
+            _listCtrlBreak3 = new Control[] { txtBreakName3, dtpBreakFrom3, dtpBreakTo3, chbBreakPaid3 };
 
             _listCbxRate = new ComboBox[]{cbxWorkDayRegularRate, cbxWorkDayOvertimeRate1, cbxWorkDayOvertimeRate2, cbxWorkDayOvertimeRate3, cbxWorkDayOvertimeRate4, 
                 cbxNonWorkDayRegularRate, cbxNonWorkDayOvertimeRate1, cbxNonWorkDayOvertimeRate2, cbxNonWorkDayOvertimeRate3, cbxNonWorkDayOvertimeRate4, 
-                cbxHolidayRegularRate, cbxHolidayOvertimeRate1, cbxHolidayOvertimeRate2, cbxHolidayOvertimeRate3, cbxHolidayOvertimeRate4};
+                cbxHolidayRegularRate, cbxHolidayOvertimeRate1, cbxHolidayOvertimeRate2, cbxHolidayOvertimeRate3, cbxHolidayOvertimeRate4,
+                cbxFlexiHourWorkingDayRegularRate, cbxFlexiHourNonWorkingDayRegularRate, cbxFlexiHourHolidayRegularRate, cbxFlexiHourOvertimeRate1, cbxFlexiHourOvertimeRate2, cbxFlexiHourOvertimeRate3, cbxFlexiHourOvertimeRate4};
 
+            BindWeekdays();
             BindData();
             SetState(workingCalendarID);
+        }
+
+        private void BindWeekdays()
+        {
+            List<ListItem> listItemList = new List<ListItem>();
+
+            listItemList.Add(new ListItem(0, "Monday"));
+            listItemList.Add(new ListItem(1, "Tuesday"));
+            listItemList.Add(new ListItem(2, "Wednesday"));
+            listItemList.Add(new ListItem(3, "Thursday"));
+            listItemList.Add(new ListItem(4, "Friday"));
+            listItemList.Add(new ListItem(5, "Saturday"));
+            listItemList.Add(new ListItem(6, "Sunday"));
+
+            Util.BindCombobox(cbxWeekStartsOn, listItemList, true);
         }
 
         private void BindData()
@@ -97,6 +114,15 @@ namespace FaceIDAppVBEta
             try
             {
                 txtName.Text = workingCalendar.Name;
+                
+                #region Flexi Hours
+                chbApplyFlexiHours.Checked = workingCalendar.ApplyFlexiHours;
+                if (workingCalendar.ApplyFlexiHours)
+                {
+                    nudFlexiHours.Value = workingCalendar.FlexiHours;
+                    cbxWeekStartsOn.SelectedIndex = workingCalendar.WeekStartsOn;
+                }
+                #endregion
 
                 #region Set Working Days
                 chbMonday.Checked = workingCalendar.WorkOnMonday;
@@ -157,50 +183,79 @@ namespace FaceIDAppVBEta
                 #endregion
 
                 #region Set Payment Rates
-                PaymentRate workingDayPaymentRate = _dtCtrl.GetWorkingDayPaymentRateByWorkingCalendar(workingCalendarID);
-                ImplementCustomRates(workingDayPaymentRate);
+                if (workingCalendar.ApplyFlexiHours)
+                {
+                    PaymentRate workingDayPaymentRate = _dtCtrl.GetWorkingDayPaymentRateByWorkingCalendar(workingCalendarID);
+                    ImplementCustomRates(workingDayPaymentRate);
 
-                nudWorkDayRegularHour.Value = (int)workingDayPaymentRate.NumberOfRegularHours;
-                nudWorkDayOvertimeHour1.Value = (int)workingDayPaymentRate.NumberOfOvertime1;
-                nudWorkDayOvertimeHour2.Value = (int)workingDayPaymentRate.NumberOfOvertime2;
-                nudWorkDayOvertimeHour3.Value = (int)workingDayPaymentRate.NumberOfOvertime3;
-                nudWorkDayOvertimeHour4.Value = (int)workingDayPaymentRate.NumberOfOvertime4;
+                    nudFlexiHourRegularHour.Value = (int)workingDayPaymentRate.NumberOfRegularHours;
+                    nudFlexiHourOvertimeHour1.Value = (int)workingDayPaymentRate.NumberOfOvertime1;
+                    nudFlexiHourOvertimeHour2.Value = (int)workingDayPaymentRate.NumberOfOvertime2;
+                    nudFlexiHourOvertimeHour3.Value = (int)workingDayPaymentRate.NumberOfOvertime3;
+                    nudFlexiHourOvertimeHour4.Value = (int)workingDayPaymentRate.NumberOfOvertime4;
 
-                Util.SetComboboxSelectedByValue(cbxWorkDayRegularRate, workingDayPaymentRate.RegularRate);
-                Util.SetComboboxSelectedByValue(cbxWorkDayOvertimeRate1, workingDayPaymentRate.OvertimeRate1);
-                Util.SetComboboxSelectedByValue(cbxWorkDayOvertimeRate2, workingDayPaymentRate.OvertimeRate2);
-                Util.SetComboboxSelectedByValue(cbxWorkDayOvertimeRate3, workingDayPaymentRate.OvertimeRate3);
-                Util.SetComboboxSelectedByValue(cbxWorkDayOvertimeRate4, workingDayPaymentRate.OvertimeRate4);
+                    PaymentRate nonWorkingDayPaymentRate = _dtCtrl.GetNonWorkingDayPaymentRateByWorkingCalendar(workingCalendarID);
+                    ImplementCustomRates(nonWorkingDayPaymentRate);
 
-                PaymentRate nonWorkingDayPaymentRate = _dtCtrl.GetNonWorkingDayPaymentRateByWorkingCalendar(workingCalendarID);
-                ImplementCustomRates(nonWorkingDayPaymentRate);
+                    PaymentRate holidayPaymentRate = _dtCtrl.GetHolidayPaymentRateByWorkingCalendar(workingCalendarID);
+                    ImplementCustomRates(holidayPaymentRate);
 
-                nudNonWorkDayRegularHour.Value = (int)nonWorkingDayPaymentRate.NumberOfRegularHours;
-                nudNonWorkDayOvertimeHour1.Value = (int)nonWorkingDayPaymentRate.NumberOfOvertime1;
-                nudNonWorkDayOvertimeHour2.Value = (int)nonWorkingDayPaymentRate.NumberOfOvertime2;
-                nudNonWorkDayOvertimeHour3.Value = (int)nonWorkingDayPaymentRate.NumberOfOvertime3;
-                nudNonWorkDayOvertimeHour4.Value = (int)nonWorkingDayPaymentRate.NumberOfOvertime4;
+                    Util.SetComboboxSelectedByValue(cbxFlexiHourWorkingDayRegularRate, workingDayPaymentRate.RegularRate);
+                    Util.SetComboboxSelectedByValue(cbxFlexiHourNonWorkingDayRegularRate, nonWorkingDayPaymentRate.RegularRate);
+                    Util.SetComboboxSelectedByValue(cbxFlexiHourHolidayRegularRate, holidayPaymentRate.RegularRate);
+                    Util.SetComboboxSelectedByValue(cbxFlexiHourOvertimeRate1, workingDayPaymentRate.OvertimeRate3);
+                    Util.SetComboboxSelectedByValue(cbxFlexiHourOvertimeRate2, workingDayPaymentRate.OvertimeRate4);
+                    Util.SetComboboxSelectedByValue(cbxFlexiHourOvertimeRate3, workingDayPaymentRate.OvertimeRate4);
+                    Util.SetComboboxSelectedByValue(cbxFlexiHourOvertimeRate4, workingDayPaymentRate.OvertimeRate4);
 
-                Util.SetComboboxSelectedByValue(cbxNonWorkDayRegularRate, nonWorkingDayPaymentRate.RegularRate);
-                Util.SetComboboxSelectedByValue(cbxNonWorkDayOvertimeRate1, nonWorkingDayPaymentRate.OvertimeRate1);
-                Util.SetComboboxSelectedByValue(cbxNonWorkDayOvertimeRate2, nonWorkingDayPaymentRate.OvertimeRate2);
-                Util.SetComboboxSelectedByValue(cbxNonWorkDayOvertimeRate3, nonWorkingDayPaymentRate.OvertimeRate3);
-                Util.SetComboboxSelectedByValue(cbxNonWorkDayOvertimeRate4, nonWorkingDayPaymentRate.OvertimeRate4);
+                }
+                else
+                {
+                    PaymentRate workingDayPaymentRate = _dtCtrl.GetWorkingDayPaymentRateByWorkingCalendar(workingCalendarID);
+                    ImplementCustomRates(workingDayPaymentRate);
 
-                PaymentRate holidayPaymentRate = _dtCtrl.GetHolidayPaymentRateByWorkingCalendar(workingCalendarID);
-                ImplementCustomRates(holidayPaymentRate);
+                    nudWorkDayRegularHour.Value = (int)workingDayPaymentRate.NumberOfRegularHours;
+                    nudWorkDayOvertimeHour1.Value = (int)workingDayPaymentRate.NumberOfOvertime1;
+                    nudWorkDayOvertimeHour2.Value = (int)workingDayPaymentRate.NumberOfOvertime2;
+                    nudWorkDayOvertimeHour3.Value = (int)workingDayPaymentRate.NumberOfOvertime3;
+                    nudWorkDayOvertimeHour4.Value = (int)workingDayPaymentRate.NumberOfOvertime4;
 
-                nudHolidayRegularHour.Value = (int)holidayPaymentRate.NumberOfRegularHours;
-                nudHolidayOvertimeHour1.Value = (int)holidayPaymentRate.NumberOfOvertime1;
-                nudHolidayOvertimeHour2.Value = (int)holidayPaymentRate.NumberOfOvertime2;
-                nudHolidayOvertimeHour3.Value = (int)holidayPaymentRate.NumberOfOvertime3;
-                nudHolidayOvertimeHour4.Value = (int)holidayPaymentRate.NumberOfOvertime4;
+                    Util.SetComboboxSelectedByValue(cbxWorkDayRegularRate, workingDayPaymentRate.RegularRate);
+                    Util.SetComboboxSelectedByValue(cbxWorkDayOvertimeRate1, workingDayPaymentRate.OvertimeRate1);
+                    Util.SetComboboxSelectedByValue(cbxWorkDayOvertimeRate2, workingDayPaymentRate.OvertimeRate2);
+                    Util.SetComboboxSelectedByValue(cbxWorkDayOvertimeRate3, workingDayPaymentRate.OvertimeRate3);
+                    Util.SetComboboxSelectedByValue(cbxWorkDayOvertimeRate4, workingDayPaymentRate.OvertimeRate4);
 
-                Util.SetComboboxSelectedByValue(cbxHolidayRegularRate, holidayPaymentRate.RegularRate);
-                Util.SetComboboxSelectedByValue(cbxHolidayOvertimeRate1, holidayPaymentRate.OvertimeRate1);
-                Util.SetComboboxSelectedByValue(cbxHolidayOvertimeRate2, holidayPaymentRate.OvertimeRate2);
-                Util.SetComboboxSelectedByValue(cbxHolidayOvertimeRate3, holidayPaymentRate.OvertimeRate3);
-                Util.SetComboboxSelectedByValue(cbxHolidayOvertimeRate4, holidayPaymentRate.OvertimeRate4);
+                    PaymentRate nonWorkingDayPaymentRate = _dtCtrl.GetNonWorkingDayPaymentRateByWorkingCalendar(workingCalendarID);
+                    ImplementCustomRates(nonWorkingDayPaymentRate);
+
+                    nudNonWorkDayRegularHour.Value = (int)nonWorkingDayPaymentRate.NumberOfRegularHours;
+                    nudNonWorkDayOvertimeHour1.Value = (int)nonWorkingDayPaymentRate.NumberOfOvertime1;
+                    nudNonWorkDayOvertimeHour2.Value = (int)nonWorkingDayPaymentRate.NumberOfOvertime2;
+                    nudNonWorkDayOvertimeHour3.Value = (int)nonWorkingDayPaymentRate.NumberOfOvertime3;
+                    nudNonWorkDayOvertimeHour4.Value = (int)nonWorkingDayPaymentRate.NumberOfOvertime4;
+
+                    Util.SetComboboxSelectedByValue(cbxNonWorkDayRegularRate, nonWorkingDayPaymentRate.RegularRate);
+                    Util.SetComboboxSelectedByValue(cbxNonWorkDayOvertimeRate1, nonWorkingDayPaymentRate.OvertimeRate1);
+                    Util.SetComboboxSelectedByValue(cbxNonWorkDayOvertimeRate2, nonWorkingDayPaymentRate.OvertimeRate2);
+                    Util.SetComboboxSelectedByValue(cbxNonWorkDayOvertimeRate3, nonWorkingDayPaymentRate.OvertimeRate3);
+                    Util.SetComboboxSelectedByValue(cbxNonWorkDayOvertimeRate4, nonWorkingDayPaymentRate.OvertimeRate4);
+
+                    PaymentRate holidayPaymentRate = _dtCtrl.GetHolidayPaymentRateByWorkingCalendar(workingCalendarID);
+                    ImplementCustomRates(holidayPaymentRate);
+
+                    nudHolidayRegularHour.Value = (int)holidayPaymentRate.NumberOfRegularHours;
+                    nudHolidayOvertimeHour1.Value = (int)holidayPaymentRate.NumberOfOvertime1;
+                    nudHolidayOvertimeHour2.Value = (int)holidayPaymentRate.NumberOfOvertime2;
+                    nudHolidayOvertimeHour3.Value = (int)holidayPaymentRate.NumberOfOvertime3;
+                    nudHolidayOvertimeHour4.Value = (int)holidayPaymentRate.NumberOfOvertime4;
+
+                    Util.SetComboboxSelectedByValue(cbxHolidayRegularRate, holidayPaymentRate.RegularRate);
+                    Util.SetComboboxSelectedByValue(cbxHolidayOvertimeRate1, holidayPaymentRate.OvertimeRate1);
+                    Util.SetComboboxSelectedByValue(cbxHolidayOvertimeRate2, holidayPaymentRate.OvertimeRate2);
+                    Util.SetComboboxSelectedByValue(cbxHolidayOvertimeRate3, holidayPaymentRate.OvertimeRate3);
+                    Util.SetComboboxSelectedByValue(cbxHolidayOvertimeRate4, holidayPaymentRate.OvertimeRate4);
+                }
                 #endregion
 
                 #region Set Holidays
@@ -236,19 +291,19 @@ namespace FaceIDAppVBEta
 
         private void EnableBreakControls1(bool enabled)
         {
-            foreach (Control ctrl in _listBreak1)
+            foreach (Control ctrl in _listCtrlBreak1)
                 ctrl.Enabled = enabled;
         }
 
         private void EnableBreakControls2(bool enabled)
         {
-            foreach (Control ctrl in _listBreak2)
+            foreach (Control ctrl in _listCtrlBreak2)
                 ctrl.Enabled = enabled;
         }
 
         private void EnableBreakControls3(bool enabled)
         {
-            foreach (Control ctrl in _listBreak3)
+            foreach (Control ctrl in _listCtrlBreak3)
                 ctrl.Enabled = enabled;
         }
 
@@ -444,7 +499,9 @@ namespace FaceIDAppVBEta
         private void btnNext4_Click(object sender, EventArgs e)
         {
             if (ValidateWorkingDayRate())
-                tabAddUpdateWorkingCalendar.SelectedTab = tabPage5;
+                if (ValidateNonWorkingDayRate())
+                    if(ValidateHolidayRate())
+                        tabAddUpdateWorkingCalendar.SelectedTab = tabPage5;
         }
 
         private bool ValidateWorkingDayRate()
@@ -454,7 +511,7 @@ namespace FaceIDAppVBEta
 
         private void btnNext5_Click(object sender, EventArgs e)
         {
-            if (ValidateNonWorkingDayRate())
+            if (ValidateHoliday())
                 tabAddUpdateWorkingCalendar.SelectedTab = tabPage6;
         }
 
@@ -463,21 +520,9 @@ namespace FaceIDAppVBEta
             return true;
         }
 
-        private void btnNext6_Click(object sender, EventArgs e)
-        {
-            if (ValidateHoliday())
-                tabAddUpdateWorkingCalendar.SelectedTab = tabPage7;
-        }
-
         private bool ValidateHoliday()
         {
             return true;
-        }
-
-        private void btnNext7_Click(object sender, EventArgs e)
-        {
-            if (ValidateHolidayRate())
-                tabAddUpdateWorkingCalendar.SelectedTab = tabPage8;
         }
 
         private bool ValidateHolidayRate()
@@ -519,19 +564,19 @@ namespace FaceIDAppVBEta
 
             if (ValidateNonWorkingDayRate() == false)
             {
-                tabAddUpdateWorkingCalendar.SelectedTab = tabPage5;
-                return;
-            }
-
-            if (ValidateHoliday() == false)
-            {
-                tabAddUpdateWorkingCalendar.SelectedTab = tabPage6;
+                tabAddUpdateWorkingCalendar.SelectedTab = tabPage4;
                 return;
             }
 
             if (ValidateHolidayRate() == false)
             {
-                tabAddUpdateWorkingCalendar.SelectedTab = tabPage7;
+                tabAddUpdateWorkingCalendar.SelectedTab = tabPage4;
+                return;
+            }
+
+            if (ValidateHoliday() == false)
+            {
+                tabAddUpdateWorkingCalendar.SelectedTab = tabPage5;
                 return;
             }
 
@@ -620,6 +665,15 @@ namespace FaceIDAppVBEta
         {
             workingCalendar.Name = txtName.Text;
 
+            #region Flexi Hours
+            workingCalendar.ApplyFlexiHours = chbApplyFlexiHours.Checked;
+            if (workingCalendar.ApplyFlexiHours)
+            {
+                workingCalendar.FlexiHours = (int)nudFlexiHours.Value;
+                workingCalendar.WeekStartsOn = cbxWeekStartsOn.SelectedIndex;
+            }
+            #endregion
+
             #region Get Working Days
             workingCalendar.WorkOnMonday = chbMonday.Checked;
             workingCalendar.WorkOnTuesday = chbTuesday.Checked;
@@ -679,43 +733,61 @@ namespace FaceIDAppVBEta
             #endregion
 
             #region Get Payment Rates
+            if (workingCalendar.ApplyFlexiHours)
+            {
+                workDayPaymentRate.NumberOfRegularHours = (int)nudFlexiHourRegularHour.Value;
+                workDayPaymentRate.NumberOfOvertime1 = (int)nudFlexiHourOvertimeHour1.Value;
+                workDayPaymentRate.NumberOfOvertime2 = (int)nudFlexiHourOvertimeHour2.Value;
+                workDayPaymentRate.NumberOfOvertime3 = (int)nudFlexiHourOvertimeHour3.Value;
+                workDayPaymentRate.NumberOfOvertime4 = (int)nudFlexiHourOvertimeHour4.Value;
 
-            workDayPaymentRate.NumberOfRegularHours = (int)nudWorkDayRegularHour.Value;
-            workDayPaymentRate.NumberOfOvertime1 = (int)nudWorkDayOvertimeHour1.Value;
-            workDayPaymentRate.NumberOfOvertime2 = (int)nudWorkDayOvertimeHour2.Value;
-            workDayPaymentRate.NumberOfOvertime3 = (int)nudWorkDayOvertimeHour3.Value;
-            workDayPaymentRate.NumberOfOvertime4 = (int)nudWorkDayOvertimeHour4.Value;
+                workDayPaymentRate.RegularRate = ((Rate)cbxFlexiHourWorkingDayRegularRate.SelectedItem).Value;
+                workDayPaymentRate.OvertimeRate1 = ((Rate)cbxHolidayOvertimeRate1.SelectedItem).Value;
+                workDayPaymentRate.OvertimeRate2 = ((Rate)cbxHolidayOvertimeRate2.SelectedItem).Value;
+                workDayPaymentRate.OvertimeRate3 = ((Rate)cbxHolidayOvertimeRate3.SelectedItem).Value;
+                workDayPaymentRate.OvertimeRate4 = ((Rate)cbxHolidayOvertimeRate4.SelectedItem).Value;
 
-            workDayPaymentRate.RegularRate = ((Rate)cbxWorkDayRegularRate.SelectedItem).Value;
-            workDayPaymentRate.OvertimeRate1 = ((Rate)cbxWorkDayOvertimeRate1.SelectedItem).Value;
-            workDayPaymentRate.OvertimeRate2 = ((Rate)cbxWorkDayOvertimeRate2.SelectedItem).Value;
-            workDayPaymentRate.OvertimeRate3 = ((Rate)cbxWorkDayOvertimeRate3.SelectedItem).Value;
-            workDayPaymentRate.OvertimeRate4 = ((Rate)cbxWorkDayOvertimeRate4.SelectedItem).Value;
+                nonWorkDayPaymentRate.RegularRate = ((Rate)cbxFlexiHourNonWorkingDayRegularRate.SelectedItem).Value;
+                holidayPaymentRate.RegularRate = ((Rate)cbxFlexiHourHolidayRegularRate.SelectedItem).Value;
+            }
+            else
+            {
+                workDayPaymentRate.NumberOfRegularHours = (int)nudWorkDayRegularHour.Value;
+                workDayPaymentRate.NumberOfOvertime1 = (int)nudWorkDayOvertimeHour1.Value;
+                workDayPaymentRate.NumberOfOvertime2 = (int)nudWorkDayOvertimeHour2.Value;
+                workDayPaymentRate.NumberOfOvertime3 = (int)nudWorkDayOvertimeHour3.Value;
+                workDayPaymentRate.NumberOfOvertime4 = (int)nudWorkDayOvertimeHour4.Value;
 
-            nonWorkDayPaymentRate.NumberOfRegularHours = (int)nudNonWorkDayRegularHour.Value;
-            nonWorkDayPaymentRate.NumberOfOvertime1 = (int)nudNonWorkDayOvertimeHour1.Value;
-            nonWorkDayPaymentRate.NumberOfOvertime2 = (int)nudNonWorkDayOvertimeHour2.Value;
-            nonWorkDayPaymentRate.NumberOfOvertime3 = (int)nudNonWorkDayOvertimeHour3.Value;
-            nonWorkDayPaymentRate.NumberOfOvertime4 = (int)nudNonWorkDayOvertimeHour4.Value;
+                workDayPaymentRate.RegularRate = ((Rate)cbxWorkDayRegularRate.SelectedItem).Value;
+                workDayPaymentRate.OvertimeRate1 = ((Rate)cbxWorkDayOvertimeRate1.SelectedItem).Value;
+                workDayPaymentRate.OvertimeRate2 = ((Rate)cbxWorkDayOvertimeRate2.SelectedItem).Value;
+                workDayPaymentRate.OvertimeRate3 = ((Rate)cbxWorkDayOvertimeRate3.SelectedItem).Value;
+                workDayPaymentRate.OvertimeRate4 = ((Rate)cbxWorkDayOvertimeRate4.SelectedItem).Value;
 
-            nonWorkDayPaymentRate.RegularRate = ((Rate)cbxNonWorkDayRegularRate.SelectedItem).Value;
-            nonWorkDayPaymentRate.OvertimeRate1 = ((Rate)cbxNonWorkDayOvertimeRate1.SelectedItem).Value;
-            nonWorkDayPaymentRate.OvertimeRate2 = ((Rate)cbxNonWorkDayOvertimeRate2.SelectedItem).Value;
-            nonWorkDayPaymentRate.OvertimeRate3 = ((Rate)cbxNonWorkDayOvertimeRate3.SelectedItem).Value;
-            nonWorkDayPaymentRate.OvertimeRate4 = ((Rate)cbxNonWorkDayOvertimeRate4.SelectedItem).Value;
+                nonWorkDayPaymentRate.NumberOfRegularHours = (int)nudNonWorkDayRegularHour.Value;
+                nonWorkDayPaymentRate.NumberOfOvertime1 = (int)nudNonWorkDayOvertimeHour1.Value;
+                nonWorkDayPaymentRate.NumberOfOvertime2 = (int)nudNonWorkDayOvertimeHour2.Value;
+                nonWorkDayPaymentRate.NumberOfOvertime3 = (int)nudNonWorkDayOvertimeHour3.Value;
+                nonWorkDayPaymentRate.NumberOfOvertime4 = (int)nudNonWorkDayOvertimeHour4.Value;
 
-            holidayPaymentRate.NumberOfRegularHours = (int)nudHolidayRegularHour.Value;
-            holidayPaymentRate.NumberOfOvertime1 = (int)nudHolidayOvertimeHour1.Value;
-            holidayPaymentRate.NumberOfOvertime2 = (int)nudHolidayOvertimeHour2.Value;
-            holidayPaymentRate.NumberOfOvertime3 = (int)nudHolidayOvertimeHour3.Value;
-            holidayPaymentRate.NumberOfOvertime4 = (int)nudHolidayOvertimeHour4.Value;
+                nonWorkDayPaymentRate.RegularRate = ((Rate)cbxNonWorkDayRegularRate.SelectedItem).Value;
+                nonWorkDayPaymentRate.OvertimeRate1 = ((Rate)cbxNonWorkDayOvertimeRate1.SelectedItem).Value;
+                nonWorkDayPaymentRate.OvertimeRate2 = ((Rate)cbxNonWorkDayOvertimeRate2.SelectedItem).Value;
+                nonWorkDayPaymentRate.OvertimeRate3 = ((Rate)cbxNonWorkDayOvertimeRate3.SelectedItem).Value;
+                nonWorkDayPaymentRate.OvertimeRate4 = ((Rate)cbxNonWorkDayOvertimeRate4.SelectedItem).Value;
 
-            holidayPaymentRate.RegularRate = ((Rate)cbxHolidayRegularRate.SelectedItem).Value;
-            holidayPaymentRate.OvertimeRate1 = ((Rate)cbxHolidayOvertimeRate1.SelectedItem).Value;
-            holidayPaymentRate.OvertimeRate2 = ((Rate)cbxHolidayOvertimeRate2.SelectedItem).Value;
-            holidayPaymentRate.OvertimeRate3 = ((Rate)cbxHolidayOvertimeRate3.SelectedItem).Value;
-            holidayPaymentRate.OvertimeRate4 = ((Rate)cbxHolidayOvertimeRate4.SelectedItem).Value;
+                holidayPaymentRate.NumberOfRegularHours = (int)nudHolidayRegularHour.Value;
+                holidayPaymentRate.NumberOfOvertime1 = (int)nudHolidayOvertimeHour1.Value;
+                holidayPaymentRate.NumberOfOvertime2 = (int)nudHolidayOvertimeHour2.Value;
+                holidayPaymentRate.NumberOfOvertime3 = (int)nudHolidayOvertimeHour3.Value;
+                holidayPaymentRate.NumberOfOvertime4 = (int)nudHolidayOvertimeHour4.Value;
 
+                holidayPaymentRate.RegularRate = ((Rate)cbxHolidayRegularRate.SelectedItem).Value;
+                holidayPaymentRate.OvertimeRate1 = ((Rate)cbxHolidayOvertimeRate1.SelectedItem).Value;
+                holidayPaymentRate.OvertimeRate2 = ((Rate)cbxHolidayOvertimeRate2.SelectedItem).Value;
+                holidayPaymentRate.OvertimeRate3 = ((Rate)cbxHolidayOvertimeRate3.SelectedItem).Value;
+                holidayPaymentRate.OvertimeRate4 = ((Rate)cbxHolidayOvertimeRate4.SelectedItem).Value;
+            }
             #endregion
 
             #region Get Holidays
@@ -774,16 +846,6 @@ namespace FaceIDAppVBEta
             tabAddUpdateWorkingCalendar.SelectedTab = tabPage5;
         }
 
-        private void btnBack7_Click(object sender, EventArgs e)
-        {
-            tabAddUpdateWorkingCalendar.SelectedTab = tabPage6;
-        }
-
-        private void btnBack8_Click(object sender, EventArgs e)
-        {
-            tabAddUpdateWorkingCalendar.SelectedTab = tabPage7;
-        }
-
         private void btnCancel1_Click(object sender, EventArgs e)
         {
             CancelAddingUpdating();
@@ -816,16 +878,6 @@ namespace FaceIDAppVBEta
         }
 
         private void btnCancel6_Click(object sender, EventArgs e)
-        {
-            CancelAddingUpdating();
-        }
-
-        private void btnCancel7_Click(object sender, EventArgs e)
-        {
-            CancelAddingUpdating();
-        }
-
-        private void btnCancel8_Click(object sender, EventArgs e)
         {
             CancelAddingUpdating();
         }
@@ -1052,6 +1104,26 @@ namespace FaceIDAppVBEta
         private void dtpRegularWorkFrom_ValueChanged(object sender, EventArgs e)
         {
             CheckWorkingHour();
+        }
+
+        private void cbxFlexiHours_CheckedChanged(object sender, EventArgs e)
+        {
+            GiveMeAName();
+        }
+
+        private void GiveMeAName()
+        {
+            bool giveMeAName2 = chbApplyFlexiHours.Checked;
+
+            nudFlexiHours.Enabled = giveMeAName2;
+            cbxWeekStartsOn.Enabled = giveMeAName2;
+
+            ((Control)tpgFlexiHourRate).Enabled = giveMeAName2;
+
+            (tpgWorkingDayRate as Control).Enabled = !giveMeAName2;
+            ((Control)tpgNonWorkingDayRate).Enabled = !giveMeAName2;
+            ((Control)tpgHolidayRate).Enabled = !giveMeAName2;
+
         }
     }
 }
