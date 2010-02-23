@@ -1,5 +1,0 @@
-F:\FaceID\FaceIDClasses\FaceIDClasses\bin\Debug\FaceIDClasses.dll
-F:\FaceID\FaceIDClasses\FaceIDClasses\bin\Debug\FaceIDClasses.pdb
-F:\FaceID\FaceIDClasses\FaceIDClasses\obj\Debug\ResolveAssemblyReference.cache
-F:\FaceID\FaceIDClasses\FaceIDClasses\obj\Debug\FaceIDClasses.dll
-F:\FaceID\FaceIDClasses\FaceIDClasses\obj\Debug\FaceIDClasses.pdb
