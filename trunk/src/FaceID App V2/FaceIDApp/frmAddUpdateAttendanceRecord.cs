@@ -28,6 +28,18 @@ namespace FaceIDAppVBEta
             SetState(attRecord);
         }
 
+        public frmAddUpdateAttendanceRecord(DateTime attendanceDate, int employeeNumber)
+            : this(-1)
+        {
+            dtpAttDate.Value = attendanceDate;
+            dtpAttTime.Value = DateTime.Now;
+
+            cbxEmployeeNumber.SelectedValue = employeeNumber;
+
+            cbxEmployeeNumber.Enabled = false;
+            txtEmployeeName.Enabled = false;
+        }
+
         private void BindEmployeeNumber()
         {
             List<Employee> employeeList = _dtCtrl.GetEmployeeList();

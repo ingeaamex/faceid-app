@@ -17,8 +17,9 @@ namespace FaceIDApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new MainForm());
-            Application.Run(new frmAddUpdateWorkingCalendar());
+            Application.Run(new MainForm());
+            //Application.Run(new frmAddUpdateWorkingCalendar());
+            //Application.Run(new frmAddUpdateAttendanceRecord(DateTime.Now, 134));
 
             //Terminal terminal = new Terminal();
             //terminal.IPAddress = "10.0.0.101";

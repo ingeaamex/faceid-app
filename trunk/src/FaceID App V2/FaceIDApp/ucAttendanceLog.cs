@@ -15,10 +15,10 @@ namespace FaceIDAppVBEta
     public partial class ucAttendanceLog : UserControl
     {
         private IDataController _dtCtrl;
-        private List<AttendanceLogRecord> attendanceLogRecordList;
-        private int editRecordId = 0;
-        private bool isOrderByAcs = true;
-        private int columnIndex = 0; //group by employee than by date
+        private List<AttendanceLogRecord> _attendanceLogRecordList;
+        private AttendanceLogRecord _curAttendanceLogRecord = new AttendanceLogRecord();
+        private bool _isOrderByAcs = true;
+        private int _columnIndex = 0; //group by employee than by date
 
         public ucAttendanceLog()
         {
@@ -47,15 +47,15 @@ namespace FaceIDAppVBEta
             if (cbxDepartment.Enabled)
                 departmentID = (int)cbxDepartment.SelectedValue;
 
-            attendanceLogRecordList = _dtCtrl.GetAttendanceLogRecordList(companyID, departmentID, beginDate, endDate, columnIndex, isOrderByAcs);
+            _attendanceLogRecordList = _dtCtrl.GetAttendanceLogRecordList(companyID, departmentID, beginDate, endDate, _columnIndex, _isOrderByAcs);
 
-            if (attendanceLogRecordList != null && attendanceLogRecordList.Count == 0)
+            if (_attendanceLogRecordList != null && _attendanceLogRecordList.Count == 0)
             {
                 MessageBox.Show("There's no records within the selected range.");
             }
 
             dgvAttendanceLog.AutoGenerateColumns = false;
-            dgvAttendanceLog.DataSource = attendanceLogRecordList;
+            dgvAttendanceLog.DataSource = _attendanceLogRecordList;
         }
 
         private void btnAddNewAttendaceRecord_Click(object sender, EventArgs e)
@@ -106,25 +106,74 @@ namespace FaceIDAppVBEta
 
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmAddUpdateAttendanceRecord attForm = new frmAddUpdateAttendanceRecord(editRecordId);
+            frmAddUpdateAttendanceRecord attForm = null;
+
+            if (_curAttendanceLogRecord.ID > 0)
+            {
+                attForm = new frmAddUpdateAttendanceRecord(_curAttendanceLogRecord.ID);
+            }
+            else
+            {
+                attForm = new frmAddUpdateAttendanceRecord(_curAttendanceLogRecord.DateLog, _curAttendanceLogRecord.EmployeeNumber);
+            }
+
             attForm.ShowDialog(this);
         }
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Util.Confirm("Are you sure?"))
+            if (Util.Confirm("Are you sure you want to delete this record? This cannot be undone."))
             {
-                bool ors = _dtCtrl.DeleteAttendanceRecord(editRecordId);
-                MessageBox.Show(ors ? "successful" : "error");
-                if (ors)
+                if (_dtCtrl.DeleteAttendanceRecord(_curAttendanceLogRecord.ID))
+                {
+                    MessageBox.Show("Record deleted.");
                     LoadAttdanceLog();
+                }
+                else
+                {
+                    MessageBox.Show("Record could not be deleted. Please try again.");
+                }
             }
         }
 
         private void dgvAttendanceLog_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex != -1)
-                editRecordId = attendanceLogRecordList[e.RowIndex].ID;
+            {
+                _curAttendanceLogRecord.ID = _attendanceLogRecordList[e.RowIndex].ID;
+
+                if (_curAttendanceLogRecord.ID == 0) //Out Miss
+                {
+                    _curAttendanceLogRecord.DateLog = GetAttDate(e.RowIndex);
+                    _curAttendanceLogRecord.EmployeeNumber = GetEmployeeNumber(e.RowIndex);
+                }
+            }
+        }
+
+        private int GetEmployeeNumber(int index)
+        {
+            while (--index >= 0)
+            {
+                if (_attendanceLogRecordList[index].EmployeeNumber > 0)
+                {
+                    return _attendanceLogRecordList[index].EmployeeNumber;
+                }
+            }
+
+            return -1;
+        }
+
+        private DateTime GetAttDate(int index)
+        {
+            while (--index >= 0)
+            {
+                if (_attendanceLogRecordList[index].DateLog.Equals(DateTime.MinValue) == false && _attendanceLogRecordList[index].DateLog.Equals(Config.MinDate) == false)
+                {
+                    return _attendanceLogRecordList[index].DateLog;
+                }
+            }
+
+            return Config.MinDate;
         }
 
         private void dgvAttendanceLog_Scroll(object sender, ScrollEventArgs e)
@@ -155,7 +204,7 @@ namespace FaceIDAppVBEta
                             e.CellBounds.Top - 1, e.CellBounds.Right - 2,
                             e.CellBounds.Top - 1);
                         
-                        if (e.ColumnIndex == 0)
+                        if (e.ColumnIndex == 0) //Employee Number
                         {
                             if ((int)e.Value != 0)
                             {
@@ -169,7 +218,7 @@ namespace FaceIDAppVBEta
                                     rec.Top + 5, StringFormat.GenericDefault);
                             }
                         }
-                        else if (e.ColumnIndex == 1)
+                        else if (e.ColumnIndex == 1) //Employee Name
                         {
                             if (e.Value != null)
                             {
@@ -183,7 +232,7 @@ namespace FaceIDAppVBEta
                                     rec.Top + 5, StringFormat.GenericDefault);
                             }
                         }
-                        else if (e.ColumnIndex == 2)
+                        else if (e.ColumnIndex == 2) //Date
                         {
                             if (Convert.ToDateTime(e.Value).Equals(DateTime.MinValue) == false)
                             {
@@ -245,24 +294,33 @@ namespace FaceIDAppVBEta
             if (e.ColumnIndex == 3 && e.RowIndex >= 0)
             {
                 Point mousePosition = dgvAttendanceLog.PointToClient(Control.MousePosition);
-                editRecordId = attendanceLogRecordList[e.RowIndex].ID;
                 cmsAction.Show(dgvAttendanceLog, mousePosition);
             }
         }
 
         private void dgvAttendanceLog_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (dgvAttendanceLog.DataSource!=null && (e.ColumnIndex == 0 || e.ColumnIndex == 2))
+            if (dgvAttendanceLog.DataSource != null && (e.ColumnIndex == 0 || e.ColumnIndex == 2))
             {
-                columnIndex = e.ColumnIndex;
-                isOrderByAcs = !isOrderByAcs;
+                _columnIndex = e.ColumnIndex;
+                _isOrderByAcs = !_isOrderByAcs;
                 LoadAttdanceLog();
             }
         }
 
         private void addToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmAddUpdateAttendanceRecord attForm = new frmAddUpdateAttendanceRecord(0);
+            frmAddUpdateAttendanceRecord attForm = null;
+
+            if (_curAttendanceLogRecord.ID > 0)
+            {
+                attForm = new frmAddUpdateAttendanceRecord(0);
+            }
+            else
+            {
+                attForm = new frmAddUpdateAttendanceRecord(_curAttendanceLogRecord.DateLog, _curAttendanceLogRecord.EmployeeNumber);
+            }
+
             attForm.ShowDialog(this);
         }
     }

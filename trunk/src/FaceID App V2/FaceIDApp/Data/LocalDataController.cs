@@ -2143,9 +2143,12 @@ namespace FaceIDAppVBEta.Data
 
                     isCheckIn = !isCheckIn;
                 }
+
                 if (isCheckIn == false && dDateLog.Equals(DateTime.Now.Date) == false)
                 {
                     attLog = new AttendanceLogRecord();
+                    //attLog.DateLog = attReport.WorkFrom.Date;
+                    //attLog.EmployeeNumber = attReport.EmployeeNumber;
                     attLog.TimeLog = "OutMistakes";
                     attLogList.Add(attLog);
                 }
