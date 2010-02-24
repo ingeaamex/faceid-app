@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.mnsMain = new System.Windows.Forms.MenuStrip();
             this.tsmFile = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmExit = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmHelp = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,23 +50,23 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.menuStrip1.SuspendLayout();
+            this.mnsMain.SuspendLayout();
             this.sctMain.Panel1.SuspendLayout();
             this.sctMain.Panel2.SuspendLayout();
             this.sctMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // menuStrip1
+            // mnsMain
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnsMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmFile,
             this.tsmHelp});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1016, 24);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
+            this.mnsMain.Location = new System.Drawing.Point(0, 0);
+            this.mnsMain.Name = "mnsMain";
+            this.mnsMain.Size = new System.Drawing.Size(1016, 24);
+            this.mnsMain.TabIndex = 0;
+            this.mnsMain.Text = "menuStrip1";
             // 
             // tsmFile
             // 
@@ -300,7 +300,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(283, 38);
             this.label1.TabIndex = 0;
-            this.label1.Text = "FaceID App v1.0";
+            this.label1.Text = "FaceID App v2.0";
             // 
             // MainForm
             // 
@@ -309,15 +309,15 @@
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1016, 686);
             this.Controls.Add(this.sctMain);
-            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.mnsMain);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menuStrip1;
+            this.MainMenuStrip = this.mnsMain;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FaceID Application";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.mnsMain.ResumeLayout(false);
+            this.mnsMain.PerformLayout();
             this.sctMain.Panel1.ResumeLayout(false);
             this.sctMain.Panel2.ResumeLayout(false);
             this.sctMain.Panel2.PerformLayout();
@@ -330,7 +330,7 @@
 
         #endregion
 
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.MenuStrip mnsMain;
         private System.Windows.Forms.ToolStripMenuItem tsmFile;
         private System.Windows.Forms.ToolStripMenuItem tsmExit;
         private System.Windows.Forms.SplitContainer sctMain;

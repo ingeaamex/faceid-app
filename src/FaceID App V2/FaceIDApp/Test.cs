@@ -521,35 +521,37 @@ namespace FaceIDApp
             {
                 Invoke(new SetTextCallBack(SetText), new object[] { txtProgress, "Adding ..." });
 
-                //add test company
+                #region add test company
                 Company com = new Company();
                 com.Name = DateTime.Now.Ticks.ToString();
                 com.ID = _dtCtrl.AddCompany(com);
+                #endregion
 
-                //add test department
+                #region add test department
                 Department dep = new Department();
                 dep.CompanyID = com.ID;
                 dep.Name = DateTime.Now.Ticks.ToString();
                 dep.SupDepartmentID = 0; //root
                 dep.ID = _dtCtrl.AddDepartment(dep);
+                #endregion
 
-                //add test working calendar
-                WorkingCalendar wCal = new WorkingCalendar();
+                #region add test working calendar
+                WorkingCalendar wCal1 = new WorkingCalendar();
 
-                wCal.Name = DateTime.Now.Ticks.ToString();
-                wCal.RegularWorkingFrom = new DateTime(2000, 2, 2, 9, 0, 0);
-                wCal.RegularWorkingTo = new DateTime(2000, 2, 2, 18, 0, 0);
+                wCal1.Name = DateTime.Now.Ticks.ToString();
+                wCal1.RegularWorkingFrom = new DateTime(2000, 2, 2, 9, 0, 0);
+                wCal1.RegularWorkingTo = new DateTime(2000, 2, 2, 18, 0, 0);
 
-                wCal.WorkOnMonday = true;
-                wCal.WorkOnTuesday = true;
-                wCal.WorkOnWednesday = true;
-                wCal.WorkOnThursday = true;
-                wCal.WorkOnFriday = true;
+                wCal1.WorkOnMonday = true;
+                wCal1.WorkOnTuesday = true;
+                wCal1.WorkOnWednesday = true;
+                wCal1.WorkOnThursday = true;
+                wCal1.WorkOnFriday = true;
 
-                wCal.GraceForwardToEntry = 30;
-                wCal.GraceBackwardToExit = 30;
-                wCal.EarliestBeforeEntry = 60;
-                wCal.LastestAfterExit = 180;
+                wCal1.GraceForwardToEntry = 30;
+                wCal1.GraceBackwardToExit = 30;
+                wCal1.EarliestBeforeEntry = 60;
+                wCal1.LastestAfterExit = 180;
 
                 List<Break> breakList = new List<Break>();
                 Break break1 = new Break();
@@ -576,113 +578,230 @@ namespace FaceIDApp
                 payPeriod.PayPeriodTypeID = 5; //custom
                 payPeriod.StartFrom = new DateTime(2010, 1, 1);
 
-                wCal.ID = _dtCtrl.AddWorkingCalendar(wCal, breakList, holidayList, workingDayPaymentRate, nonWorkingDayPaymentRate, holidayPaymentRate, payPeriod);
+                wCal1.ID = _dtCtrl.AddWorkingCalendar(wCal1, breakList, holidayList, workingDayPaymentRate, nonWorkingDayPaymentRate, holidayPaymentRate, payPeriod);
 
-                //add test employee
-                Employee emp = new Employee();
-                emp.Active = true;
-                emp.ActiveFrom = DateTime.Today;
-                emp.ActiveTo = DateTime.Today.AddDays(1);
-                emp.Address = DateTime.Now.Ticks.ToString();
-                emp.Birthday = DateTime.Today.AddYears(-20);
-                emp.DepartmentID = dep.ID;
-                emp.EmployeeNumber = 0;
-                emp.FirstName = DateTime.Now.Ticks.ToString();
-                emp.JobDescription = DateTime.Now.Ticks.ToString();
-                emp.HiredDate = DateTime.Today;
-                emp.LeftDate = DateTime.Today.AddYears(1);
-                emp.LastName = DateTime.Now.Ticks.ToString();
-                emp.PhoneNumber = DateTime.Now.Ticks.ToString();
-                emp.WorkingCalendarID = wCal.ID;
+                WorkingCalendar wCal2 = new WorkingCalendar();
+                wCal2.Name = DateTime.Now.Ticks.ToString();
+                wCal2.ApplyFlexiHours = true;
+                wCal2.FlexiHours = 40;
+                wCal2.WeekStartsOn = 6; //Sunday
 
-                emp.PayrollNumber = _dtCtrl.AddEmployee(emp, new List<Terminal>());
+                wCal2.WorkOnMonday = true;
+                wCal2.WorkOnTuesday = true;
+                wCal2.WorkOnWednesday = true;
+                wCal2.WorkOnThursday = true;
+                wCal2.WorkOnFriday = true;
 
-                //add test att records
+                wCal2.GraceForwardToEntry = 30;
+                wCal2.GraceBackwardToExit = 30;
+                wCal2.EarliestBeforeEntry = 60;
+                wCal2.LastestAfterExit = 180;
+
+                wCal2.ID = _dtCtrl.AddWorkingCalendar(wCal2, new List<Break>(), holidayList, workingDayPaymentRate, nonWorkingDayPaymentRate, holidayPaymentRate, payPeriod);
+                #endregion
+
+                #region add test employee
+                Employee emp1 = new Employee();
+                emp1.Active = true;
+                emp1.ActiveFrom = DateTime.Today;
+                emp1.ActiveTo = DateTime.Today.AddDays(1);
+                emp1.Address = DateTime.Now.Ticks.ToString();
+                emp1.Birthday = DateTime.Today.AddYears(-20);
+                emp1.DepartmentID = dep.ID;
+                emp1.EmployeeNumber = 0;
+                emp1.FirstName = DateTime.Now.Ticks.ToString();
+                emp1.JobDescription = DateTime.Now.Ticks.ToString();
+                emp1.HiredDate = DateTime.Today;
+                emp1.LeftDate = DateTime.Today.AddYears(1);
+                emp1.LastName = DateTime.Now.Ticks.ToString();
+                emp1.PhoneNumber = DateTime.Now.Ticks.ToString();
+                emp1.WorkingCalendarID = wCal1.ID;
+                emp1.PayrollNumber = _dtCtrl.AddEmployee(emp1, new List<Terminal>());
+
+                Employee emp2 = new Employee();
+                emp2.Active = true;
+                emp2.ActiveFrom = DateTime.Today;
+                emp2.ActiveTo = DateTime.Today.AddDays(1);
+                emp2.Address = DateTime.Now.Ticks.ToString();
+                emp2.Birthday = DateTime.Today.AddYears(-20);
+                emp2.DepartmentID = dep.ID;
+                emp2.EmployeeNumber = 0;
+                emp2.FirstName = DateTime.Now.Ticks.ToString();
+                emp2.JobDescription = DateTime.Now.Ticks.ToString();
+                emp2.HiredDate = DateTime.Today;
+                emp2.LeftDate = DateTime.Today.AddYears(1);
+                emp2.LastName = DateTime.Now.Ticks.ToString();
+                emp2.PhoneNumber = DateTime.Now.Ticks.ToString();
+                emp2.WorkingCalendarID = wCal2.ID;
+                emp2.PayrollNumber = _dtCtrl.AddEmployee(emp2, new List<Terminal>());
+                #endregion
+
+                #region add test att records 1
                 //att1 : expected totalHours: 9
                 AttendanceRecord att11 = new AttendanceRecord();
-                att11.EmployeeNumber = emp.EmployeeNumber;
+                att11.EmployeeNumber = emp1.EmployeeNumber;
                 att11.Time = new DateTime(2010, 1, 1, 9, 0, 0);
                 att11.ID = _dtCtrl.AddAttendanceRecord(att11);
 
                 AttendanceRecord att12 = new AttendanceRecord();
-                att12.EmployeeNumber = emp.EmployeeNumber;
+                att12.EmployeeNumber = emp1.EmployeeNumber;
                 att12.Time = new DateTime(2010, 1, 1, 18, 0, 0);
                 att12.ID = _dtCtrl.AddAttendanceRecord(att12);
 
                 AttendanceRecord att13 = new AttendanceRecord();
-                att13.EmployeeNumber = emp.EmployeeNumber;
+                att13.EmployeeNumber = emp1.EmployeeNumber;
                 att13.Time = new DateTime(2010, 1, 1, 12, 0, 0);
                 att13.ID = _dtCtrl.AddAttendanceRecord(att13);
 
                 AttendanceRecord att14 = new AttendanceRecord();
-                att14.EmployeeNumber = emp.EmployeeNumber;
+                att14.EmployeeNumber = emp1.EmployeeNumber;
                 att14.Time = new DateTime(2010, 1, 1, 13, 0, 0);
                 att14.ID = _dtCtrl.AddAttendanceRecord(att14);
 
                 //att2 : expected totalHours: 9
                 AttendanceRecord att21 = new AttendanceRecord();
-                att21.EmployeeNumber = emp.EmployeeNumber;
+                att21.EmployeeNumber = emp1.EmployeeNumber;
                 att21.Time = new DateTime(2010, 1, 2, 8, 45, 0);
                 att21.ID = _dtCtrl.AddAttendanceRecord(att21);
 
                 AttendanceRecord att22 = new AttendanceRecord();
-                att22.EmployeeNumber = emp.EmployeeNumber;
+                att22.EmployeeNumber = emp1.EmployeeNumber;
                 att22.Time = new DateTime(2010, 1, 2, 18, 15, 0);
                 att22.ID = _dtCtrl.AddAttendanceRecord(att22);
 
                 //att3 : expected totalHours: 9.75
                 AttendanceRecord att31 = new AttendanceRecord();
-                att31.EmployeeNumber = emp.EmployeeNumber;
+                att31.EmployeeNumber = emp1.EmployeeNumber;
                 att31.Time = new DateTime(2010, 1, 3, 8, 15, 0);
                 att31.ID = _dtCtrl.AddAttendanceRecord(att31);
 
                 AttendanceRecord att32 = new AttendanceRecord();
-                att32.EmployeeNumber = emp.EmployeeNumber;
+                att32.EmployeeNumber = emp1.EmployeeNumber;
                 att32.Time = new DateTime(2010, 1, 3, 18, 0, 0);
                 att32.ID = _dtCtrl.AddAttendanceRecord(att32);
 
                 //att4 : expected totalHours: 0 + out mistake alert
                 AttendanceRecord att41 = new AttendanceRecord();
-                att41.EmployeeNumber = emp.EmployeeNumber;
+                att41.EmployeeNumber = emp1.EmployeeNumber;
                 att41.Time = new DateTime(2010, 1, 4, 7, 00, 0);
                 att41.ID = _dtCtrl.AddAttendanceRecord(att41);
 
                 AttendanceRecord att42 = new AttendanceRecord();
-                att42.EmployeeNumber = emp.EmployeeNumber;
+                att42.EmployeeNumber = emp1.EmployeeNumber;
                 att42.Time = new DateTime(2010, 1, 4, 18, 0, 0);
                 att42.ID = _dtCtrl.AddAttendanceRecord(att42);
 
                 //att5 : expected totalHours: 8.8x
                 AttendanceRecord att51 = new AttendanceRecord();
-                att51.EmployeeNumber = emp.EmployeeNumber;
+                att51.EmployeeNumber = emp1.EmployeeNumber;
                 att51.Time = new DateTime(2010, 1, 5, 9, 06, 0);
                 att51.ID = _dtCtrl.AddAttendanceRecord(att51);
 
                 AttendanceRecord att52 = new AttendanceRecord();
-                att52.EmployeeNumber = emp.EmployeeNumber;
+                att52.EmployeeNumber = emp1.EmployeeNumber;
                 att52.Time = new DateTime(2010, 1, 5, 18, 2, 0);
                 att52.ID = _dtCtrl.AddAttendanceRecord(att52);
 
                 //att6 : expected totalHours: 8.5
                 AttendanceRecord att61 = new AttendanceRecord();
-                att61.EmployeeNumber = emp.EmployeeNumber;
+                att61.EmployeeNumber = emp1.EmployeeNumber;
                 att61.Time = new DateTime(2010, 1, 6, 9, 0, 0);
                 att61.ID = _dtCtrl.AddAttendanceRecord(att61);
 
                 AttendanceRecord att62 = new AttendanceRecord();
-                att62.EmployeeNumber = emp.EmployeeNumber;
+                att62.EmployeeNumber = emp1.EmployeeNumber;
                 att62.Time = new DateTime(2010, 1, 6, 18, 0, 0);
                 att62.ID = _dtCtrl.AddAttendanceRecord(att62);
 
                 AttendanceRecord att63 = new AttendanceRecord();
-                att63.EmployeeNumber = emp.EmployeeNumber;
+                att63.EmployeeNumber = emp1.EmployeeNumber;
                 att63.Time = new DateTime(2010, 1, 6, 12, 30, 0);
                 att63.ID = _dtCtrl.AddAttendanceRecord(att63);
 
                 AttendanceRecord att64 = new AttendanceRecord();
-                att64.EmployeeNumber = emp.EmployeeNumber;
+                att64.EmployeeNumber = emp1.EmployeeNumber;
                 att64.Time = new DateTime(2010, 1, 6, 13, 30, 0);
                 att64.ID = _dtCtrl.AddAttendanceRecord(att64);
+                #endregion
+
+                #region add test att records 2
+                //att7 : expected regHour: 10
+                AttendanceRecord att71 = new AttendanceRecord();
+                att71.EmployeeNumber = emp2.EmployeeNumber;
+                att71.Time = new DateTime(2010, 1, 7, 9, 0, 0);
+                att71.ID = _dtCtrl.AddAttendanceRecord(att71);
+
+                AttendanceRecord att72 = new AttendanceRecord();
+                att72.EmployeeNumber = emp2.EmployeeNumber;
+                att72.Time = new DateTime(2010, 1, 7, 19, 0, 0);
+                att72.ID = _dtCtrl.AddAttendanceRecord(att72);
+
+                //att8 : expected regHour: 8
+                AttendanceRecord att81 = new AttendanceRecord();
+                att81.EmployeeNumber = emp2.EmployeeNumber;
+                att81.Time = new DateTime(2010, 1, 8, 9, 0, 0);
+                att81.ID = _dtCtrl.AddAttendanceRecord(att81);
+
+                AttendanceRecord att82 = new AttendanceRecord();
+                att82.EmployeeNumber = emp2.EmployeeNumber;
+                att82.Time = new DateTime(2010, 1, 8, 17, 0, 0);
+                att82.ID = _dtCtrl.AddAttendanceRecord(att82);
+
+                //att9 : expected regHour: 8
+                AttendanceRecord att91 = new AttendanceRecord();
+                att91.EmployeeNumber = emp2.EmployeeNumber;
+                att91.Time = new DateTime(2010, 1, 9, 9, 0, 0);
+                att91.ID = _dtCtrl.AddAttendanceRecord(att91);
+
+                AttendanceRecord att92 = new AttendanceRecord();
+                att92.EmployeeNumber = emp2.EmployeeNumber;
+                att92.Time = new DateTime(2010, 1, 9, 17, 0, 0);
+                att92.ID = _dtCtrl.AddAttendanceRecord(att92);
+
+                //att10 : expected regHour: 8
+                AttendanceRecord att101 = new AttendanceRecord();
+                att101.EmployeeNumber = emp2.EmployeeNumber;
+                att101.Time = new DateTime(2010, 1, 10, 9, 00, 0);
+                att101.ID = _dtCtrl.AddAttendanceRecord(att101);
+
+                AttendanceRecord att102 = new AttendanceRecord();
+                att102.EmployeeNumber = emp2.EmployeeNumber;
+                att102.Time = new DateTime(2010, 1, 10, 17, 0, 0);
+                att102.ID = _dtCtrl.AddAttendanceRecord(att102);
+
+                //att11 : expected regHour: 4
+                AttendanceRecord att111 = new AttendanceRecord();
+                att111.EmployeeNumber = emp2.EmployeeNumber;
+                att111.Time = new DateTime(2010, 1, 11, 9, 0, 0);
+                att111.ID = _dtCtrl.AddAttendanceRecord(att111);
+
+                AttendanceRecord att112 = new AttendanceRecord();
+                att112.EmployeeNumber = emp2.EmployeeNumber;
+                att112.Time = new DateTime(2010, 1, 11, 13, 0, 0);
+                att112.ID = _dtCtrl.AddAttendanceRecord(att112);
+
+                //att12 : expected regHour: 2 overHour: 2
+                AttendanceRecord att121 = new AttendanceRecord();
+                att121.EmployeeNumber = emp2.EmployeeNumber;
+                att121.Time = new DateTime(2010, 1, 12, 9, 0, 0);
+                att121.ID = _dtCtrl.AddAttendanceRecord(att121);
+
+                AttendanceRecord att122 = new AttendanceRecord();
+                att122.EmployeeNumber = emp2.EmployeeNumber;
+                att122.Time = new DateTime(2010, 1, 12, 13, 0, 0);
+                att122.ID = _dtCtrl.AddAttendanceRecord(att122);
+
+                //att13 : expected overHour: 2
+                AttendanceRecord att131 = new AttendanceRecord();
+                att131.EmployeeNumber = emp2.EmployeeNumber;
+                att131.Time = new DateTime(2010, 1, 13, 9, 0, 0);
+                att131.ID = _dtCtrl.AddAttendanceRecord(att131);
+
+                AttendanceRecord att132 = new AttendanceRecord();
+                att132.EmployeeNumber = emp2.EmployeeNumber;
+                att132.Time = new DateTime(2010, 1, 13, 11, 0, 0);
+                att132.ID = _dtCtrl.AddAttendanceRecord(att132);
+                #endregion
 
                 _dtCtrl.CommitTransaction();
 
