@@ -1893,10 +1893,12 @@ namespace FaceIDAppVBEta.Data
             if (attReports == null || attReports.Count == 0)
                 return null;
 
+            
             AttendanceSummaryReport attSummary = null;
 
             foreach (AttendanceLogReport attRp in attReports)
             {
+                //attRp.EmployeeNumber
                 attSummary = new AttendanceSummaryReport();
                 attSummary.EmployeeNumber = attRp.EmployeeNumber;
                 attSummary.FullName = attRp.FullName;
@@ -1909,24 +1911,32 @@ namespace FaceIDAppVBEta.Data
                 if (attRp.OvertimeHour1 > 0)
                 {
                     attSummary = new AttendanceSummaryReport();
+                    attSummary.EmployeeNumber = attRp.EmployeeNumber;
+                    attSummary.DateLog = attRp.WorkFrom;
                     attSummary.WorkingHour = "Overtime Hour 1 : " + attRp.OvertimeHour1;
                     attSummarys.Add(attSummary);
 
                     if (attRp.OvertimeHour2 > 0)
                     {
                         attSummary = new AttendanceSummaryReport();
+                        attSummary.EmployeeNumber = attRp.EmployeeNumber;
+                        attSummary.DateLog = attRp.WorkFrom;
                         attSummary.WorkingHour = "Overtime Hour 2 : " + attRp.OvertimeHour2;
                         attSummarys.Add(attSummary);
 
                         if (attRp.OvertimeHour3 > 0)
                         {
                             attSummary = new AttendanceSummaryReport();
+                            attSummary.EmployeeNumber = attRp.EmployeeNumber;
+                            attSummary.DateLog = attRp.WorkFrom;
                             attSummary.WorkingHour = "Overtime Hour 3 : " + attRp.OvertimeHour3;
                             attSummarys.Add(attSummary);
 
                             if (attRp.OvertimeHour4 > 0)
                             {
                                 attSummary = new AttendanceSummaryReport();
+                                attSummary.EmployeeNumber = attRp.EmployeeNumber;
+                                attSummary.DateLog = attRp.WorkFrom;
                                 attSummary.WorkingHour = "Overtime Hour 4 : " + attRp.OvertimeHour4;
                                 attSummarys.Add(attSummary);
                             }
@@ -1935,7 +1945,170 @@ namespace FaceIDAppVBEta.Data
                 }
             }
 
-            return attSummarys;
+            if (attSummarys.Count == 0)
+                return null;
+
+            int employeeNumber = 0, flexiHours = 0, wcalRegHour = 8;
+            bool applyFlexiHours = false, isFirst = true; 
+            WorkingCalendar wCal = null;
+            DayOfWeek weekStartsOn = DayOfWeek.Monday;
+            DateTime beginFlexiDate, endFlexiDate;
+            List<AttendanceSummaryReport> attSummarysRs = new List<AttendanceSummaryReport>();
+            DateTime duplicatedate = DateTime.MinValue;
+            while (attSummarys.Count > 0)
+            {
+                AttendanceSummaryReport attSumRp = attSummarys[0];
+                if (employeeNumber == attSumRp.EmployeeNumber)
+                {
+                    if (applyFlexiHours)
+                    {
+                        beginFlexiDate = attSumRp.DateLog;
+                        endFlexiDate = beginFlexiDate;
+                        //double numDay = Math.Ceiling(flexiHours / wcalRegHour);// 5
+                        if (weekStartsOn.Equals(attSumRp.DateLog.DayOfWeek))
+                        {
+                            endFlexiDate = beginFlexiDate.AddDays(6);//Week
+                        }
+                        else
+                        {
+                            while (true)
+                            {
+                                if (weekStartsOn.Equals(endFlexiDate.DayOfWeek))
+                                    break;
+                                endFlexiDate = endFlexiDate.AddDays(1);
+                            }
+                            endFlexiDate = endFlexiDate.AddDays(-1);
+                        }
+
+                        List<AttendanceSummaryReport> attSummarysSub = attSummarys.FindAll(delegate(AttendanceSummaryReport e) { return e.DateLog.CompareTo(beginFlexiDate) != -1 && e.DateLog.CompareTo(endFlexiDate) != 1; });
+                        if (attSummarysSub == null || attSummarysSub.Count == 0)
+                            continue;
+
+                        List<AttendanceSummaryReport> attSummarys_1 = new List<AttendanceSummaryReport>();
+
+                        foreach (AttendanceSummaryReport attRp in attSummarysSub)
+                        {
+                            if (attRp.DateLog.Equals(duplicatedate))
+                            {
+                                attSummarys_1[attSummarys_1.Count - 1].WorkingHour = "Regular Hour : " + attSummarys_1[attSummarys_1.Count - 1].TotalHour;
+                            }
+                            else
+                                attSummarys_1.Add(attRp);
+
+                            duplicatedate = attRp.DateLog;
+                        }
+
+                        isFirst = true;
+                        double dFlexiHours = Convert.ToDouble(flexiHours);
+                        
+                        foreach (AttendanceSummaryReport attRp in attSummarys_1)
+                        {
+                            if (isFirst)
+                            {
+                                dFlexiHours -= attRp.TotalHour;
+                                attSummarysRs.Add(attRp);
+                                isFirst = false;
+                            }
+                            else
+                            {
+                                AttendanceSummaryReport attRp_1 = new AttendanceSummaryReport();
+                                attRp_1.ChartData = attRp.ChartData;
+                                attRp_1.DateLog = attRp.DateLog;
+                                attRp_1.WorkingHour = attRp.WorkingHour;
+                                attRp_1.TotalHour = attRp.TotalHour;
+                                attRp_1.EmployeeNumber = 0;
+                                attRp_1.FullName = null;
+
+                                if (dFlexiHours > 0)
+                                {
+                                    if (dFlexiHours < attRp.TotalHour)
+                                    {
+                                        attRp_1.WorkingHour = "Regular Hour : " + dFlexiHours;
+                                        attSummarysRs.Add(attRp_1);
+                                        AttendanceSummaryReport attRp_2 = new AttendanceSummaryReport();
+                                        attRp_2.ChartData = null;
+                                        attRp_2.DateLog = DateTime.MinValue;
+                                        attRp_2.TotalHour = -1;
+                                        attRp_2.EmployeeNumber = 0;
+                                        attRp_2.FullName = null;
+                                        attRp_2.WorkingHour = "OverTime Hour : " + (attRp.TotalHour - dFlexiHours);
+                                        attSummarysRs.Add(attRp_2);
+                                    }
+                                    else
+                                        attSummarysRs.Add(attRp_1);
+
+                                    dFlexiHours -= attRp.TotalHour;
+                                }
+                                else
+                                {
+                                    attRp_1.WorkingHour = "OverTime Hour : " + attRp.TotalHour;
+                                    attSummarysRs.Add(attRp_1);
+                                }
+                            }
+                        }
+
+                        attSummarys.RemoveAll(delegate(AttendanceSummaryReport e) { return e.DateLog.CompareTo(beginFlexiDate) != -1 && e.DateLog.CompareTo(endFlexiDate) != 1; });
+
+                    }
+                    else
+                    {
+                        AttendanceSummaryReport attRp_1 = new AttendanceSummaryReport();
+                        attRp_1.ChartData = attSumRp.ChartData;
+                        attRp_1.WorkingHour = attSumRp.WorkingHour;
+
+                        if (duplicatedate.Equals(attSumRp.DateLog))
+                        {
+                            attRp_1.TotalHour = -1;
+                            attRp_1.EmployeeNumber = 0;
+                        }
+                        else
+                        {
+                            attRp_1.DateLog = attSumRp.DateLog;
+                            attRp_1.TotalHour = attSumRp.TotalHour;
+                            attRp_1.EmployeeNumber = attSumRp.EmployeeNumber;
+                            attRp_1.FullName = attSumRp.FullName;
+                        }
+                        
+                        duplicatedate = attSumRp.DateLog;
+
+                        attSummarysRs.Add(attRp_1);
+                        attSummarys.Remove(attSumRp);
+                        
+                    }
+                }
+                else
+                {
+                    employeeNumber = attSumRp.EmployeeNumber;
+                    wCal = GetWorkingCalendarByEmployee(employeeNumber);
+                    applyFlexiHours = wCal.ApplyFlexiHours;
+                    flexiHours = wCal.FlexiHours;
+                    weekStartsOn = GetDayOfWeek(wCal.WeekStartsOn);
+                }
+            }
+
+            return attSummarysRs;
+        }
+
+        private DayOfWeek GetDayOfWeek(int weekStartsOn)
+        {
+            switch (weekStartsOn)
+            { 
+                case 1:
+                    return DayOfWeek.Sunday;
+                case 2:
+                    return DayOfWeek.Monday;
+                case 3:
+                    return DayOfWeek.Tuesday;
+                case 4:
+                    return DayOfWeek.Wednesday;
+                case 5:
+                    return DayOfWeek.Thursday;
+                case 6:
+                    return DayOfWeek.Friday;
+                case 7:
+                    return DayOfWeek.Saturday;
+            }
+            return DayOfWeek.Monday;
         }
 
         private List<AttendanceLogReport> GetAttendanceLogReportList(int employeeNumber, DateTime beginDate, DateTime endDate)
@@ -2423,6 +2596,29 @@ namespace FaceIDAppVBEta.Data
             return attendanceReport;
         }
 
+        private DateTime GetWorkingDayByAttendanceRecord(AttendanceRecord attRecord, WorkingCalendar wCal)
+        {
+            DateTime dRegularWorkingFrom = wCal.RegularWorkingFrom;
+
+            DateTime wFrom = new DateTime(attRecord.Time.Year, attRecord.Time.Month, attRecord.Time.Day, dRegularWorkingFrom.Hour,
+               dRegularWorkingFrom.Minute, dRegularWorkingFrom.Second).AddMinutes(-1 * wCal.EarliestBeforeEntry);
+
+            if (attRecord.Time.CompareTo(wFrom) == 1) //after earliest allowed entry
+            {
+                if (attRecord.Time.CompareTo(wFrom.AddDays(1)) != -1) //TODO how could this happen?
+                    return wFrom.AddDays(1);
+                else
+                    return wFrom;
+            }
+            else
+            {
+                if (Is1stday(attRecord))
+                    return wFrom;
+                else
+                    return wFrom.AddDays(-1);
+            }
+        }
+      
         private DateTime GetWorkingDayByAttendanceRecord(AttendanceRecord attRecord)
         {
             WorkingCalendar wCal = GetWorkingCalendarByEmployee(attRecord.EmployeeNumber);
@@ -2503,7 +2699,7 @@ namespace FaceIDAppVBEta.Data
 
             if (attReport == null) //add a record
             {
-                dWorkingFrom = GetWorkingDayByAttendanceRecord(attRecord); //TODO could pass the workingCalendar here
+                dWorkingFrom = GetWorkingDayByAttendanceRecord(attRecord, workingCalendar);
                 dWorkingTo = dWorkingFrom.Date.AddHours(dRegularWorkingTo.Hour).AddMinutes(dRegularWorkingTo.Minute + lastestAfterExit);
 
                 if (dWorkingFrom.CompareTo(dWorkingTo) == 1)
@@ -2748,8 +2944,8 @@ namespace FaceIDAppVBEta.Data
                     GetRegularOvertime(ref attendanceReport, totalHour);
 
                     b1 = UpdateAttendanceReport(attendanceReport);
-                    
-                    
+
+
                 }
                 else
                 {
