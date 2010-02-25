@@ -1893,7 +1893,6 @@ namespace FaceIDAppVBEta.Data
             if (attReports == null || attReports.Count == 0)
                 return null;
 
-            
             AttendanceSummaryReport attSummary = null;
 
             foreach (AttendanceLogReport attRp in attReports)
@@ -1980,7 +1979,7 @@ namespace FaceIDAppVBEta.Data
                             endFlexiDate = endFlexiDate.AddDays(-1);
                         }
 
-                        List<AttendanceSummaryReport> attSummarysSub = attSummarys.FindAll(delegate(AttendanceSummaryReport e) { return e.DateLog.CompareTo(beginFlexiDate) != -1 && e.DateLog.CompareTo(endFlexiDate) != 1; });
+                        List<AttendanceSummaryReport> attSummarysSub = attSummarys.FindAll(delegate(AttendanceSummaryReport e) { return e.EmployeeNumber == employeeNumber && e.DateLog.CompareTo(beginFlexiDate) != -1 && e.DateLog.CompareTo(endFlexiDate) != 1; });
                         if (attSummarysSub == null || attSummarysSub.Count == 0)
                             continue;
 
@@ -2031,7 +2030,7 @@ namespace FaceIDAppVBEta.Data
                                         attRp_2.TotalHour = -1;
                                         attRp_2.EmployeeNumber = 0;
                                         attRp_2.FullName = null;
-                                        attRp_2.WorkingHour = "OverTime Hour : " + (attRp.TotalHour - dFlexiHours);
+                                        attRp_2.WorkingHour = "Overtime Hour : " + (attRp.TotalHour - dFlexiHours);
                                         attSummarysRs.Add(attRp_2);
                                     }
                                     else
@@ -2041,13 +2040,13 @@ namespace FaceIDAppVBEta.Data
                                 }
                                 else
                                 {
-                                    attRp_1.WorkingHour = "OverTime Hour : " + attRp.TotalHour;
+                                    attRp_1.WorkingHour = "Overtime Hour : " + attRp.TotalHour;
                                     attSummarysRs.Add(attRp_1);
                                 }
                             }
                         }
 
-                        attSummarys.RemoveAll(delegate(AttendanceSummaryReport e) { return e.DateLog.CompareTo(beginFlexiDate) != -1 && e.DateLog.CompareTo(endFlexiDate) != 1; });
+                        attSummarys.RemoveAll(delegate(AttendanceSummaryReport e) { return e.EmployeeNumber == employeeNumber && e.DateLog.CompareTo(beginFlexiDate) != -1 && e.DateLog.CompareTo(endFlexiDate) != 1; });
 
                     }
                     else
@@ -2131,8 +2130,8 @@ namespace FaceIDAppVBEta.Data
             if (odRdr.Read())
             {
                 employeeName = odRdr["LastName"] + ", " + odRdr["FirstName"];
-                jobDescription = odRdr["PayrollNumber"].ToString(); //TODO what's the hell here?
-                departmentName = odRdr["PayrollNumber"].ToString();
+                jobDescription = odRdr["JobDescription"].ToString();
+                departmentName = odRdr["DepartmentName"].ToString();
                 payrollNumber = (int)odRdr["PayrollNumber"];
             }
             odRdr.Close();
@@ -4230,7 +4229,9 @@ namespace FaceIDAppVBEta.Data
                 int customPeriod = payPeriod.CustomPeriod;
                 PayPeriodType payPeriodType = GetPayPeriodType(payPeriod.PayPeriodTypeID);
                 string periodTypeName = payPeriodType.Name;
-
+                bool applyFlexiHours = workingCalendar.ApplyFlexiHours;
+                double flexiHours = Convert.ToDouble(workingCalendar.FlexiHours);
+                DayOfWeek weekStartsOn = GetDayOfWeek(workingCalendar.WeekStartsOn);
                 //DateTime dtPayEnd = dtPayStart;
                 //SetBeginEndPeriodTime(beginDate, endDate, ref dtPayStart, ref dtPayEnd, periodTypeName, customPeriod, false);
 
@@ -4260,121 +4261,216 @@ namespace FaceIDAppVBEta.Data
 
                 //beginDate = dStartFrom;
                 //endDate = dEndTo;
+
                 List<AttendanceLogReport> attendanceLogReportListByEmpl = GetAttendanceLogReportList(emplNumber, beginDate, endDate);
                 if (attendanceLogReportListByEmpl.Count == 0)
                     continue;
 
                 attendanceLogReportListByEmpl.Sort(delegate(AttendanceLogReport e1, AttendanceLogReport e2) { return e1.WorkFrom.CompareTo(e2.WorkFrom); });
 
-                Hashtable hOvertimeHour1 = new Hashtable();
-                Hashtable hOvertimeHour2 = new Hashtable();
-                Hashtable hOvertimeHour3 = new Hashtable();
-                Hashtable hOvertimeHour4 = new Hashtable();
-
-                double regularHours = 0, totalHours = 0, totalHoursWithRate = 0, totalOvertimeHours = 0;
-                string overtimeHourAndRate = "";
-
-                foreach (AttendanceLogReport attRp in attendanceLogReportListByEmpl)
+                if (applyFlexiHours)
                 {
-                    regularHours += attRp.WorkingHour;
-
-                    totalHours += attRp.TotalHour;
-
-                    totalHoursWithRate += attRp.WorkingHour * attRp.RegularRate / 100
-                        + attRp.OvertimeHour1 * attRp.OvertimeRate1 / 100
-                        + attRp.OvertimeHour2 * attRp.OvertimeRate2 / 100
-                        + attRp.OvertimeHour3 * attRp.OvertimeRate3 / 100
-                        + attRp.OvertimeHour4 * attRp.OvertimeRate4 / 100;
-
-                    totalOvertimeHours += attRp.OvertimeHour1
-                    + attRp.OvertimeHour2
-                    + attRp.OvertimeHour3
-                    + attRp.OvertimeHour4;
-
-                    if (attRp.OvertimeHour1 > 0)
+                    AttendanceLogReport attendanceLogReport = attendanceLogReportListByEmpl[0];
+                    while (true)
                     {
-                        if (hOvertimeHour1.ContainsKey(attRp.OvertimeRate1))
-                        {
-                            double overtimeHour = (double)hOvertimeHour1[attRp.OvertimeRate1];
-                            hOvertimeHour1[attRp.OvertimeRate1] = overtimeHour + attRp.OvertimeHour1;
-                        }
-                        else
-                            hOvertimeHour1.Add(attRp.OvertimeRate1, attRp.OvertimeHour1);
+                        if (weekStartsOn.Equals(attendanceLogReport.WorkFrom.DayOfWeek))
+                            break;
+
+                        attendanceLogReportListByEmpl.RemoveAt(0);
+                        
+                        if (attendanceLogReportListByEmpl.Count == 0)
+                            break;
+
+                        attendanceLogReport = attendanceLogReportListByEmpl[0];
                     }
 
-                    if (attRp.OvertimeHour2 > 0)
+                    double regularHours = 0, totalHours = 0, totalHoursWithRate = 0, totalOvertimeHours = 0;
+                    string overtimeHourAndRate = "";
+
+                    DateTime beginFlexiDate = attendanceLogReport.WorkFrom;
+                    DateTime endFlexiDate = beginFlexiDate.AddDays(6);
+
+                    double regularHoursTmp = 0;
+                    int count = attendanceLogReportListByEmpl.Count;
+                    foreach (AttendanceLogReport attRp in attendanceLogReportListByEmpl)
                     {
-                        if (hOvertimeHour2.ContainsKey(attRp.OvertimeRate2))
+                        count--;
+                        totalHours += attRp.TotalHour;
+
+                        if (endFlexiDate.CompareTo(attRp.WorkFrom) != -1)
                         {
-                            double overtimeHour = (double)hOvertimeHour2[attRp.OvertimeRate2];
-                            hOvertimeHour2[attRp.OvertimeRate2] = overtimeHour + attRp.OvertimeHour2;
+                            regularHoursTmp += attRp.TotalHour;
+
+
                         }
                         else
-                            hOvertimeHour2.Add(attRp.OvertimeRate2, attRp.OvertimeHour2);
+                        {
+                            if (regularHoursTmp > flexiHours)
+                            {
+                                regularHours += flexiHours;
+                                totalOvertimeHours += regularHoursTmp - flexiHours;
+                            }
+                            else
+                            {
+                                regularHours += regularHoursTmp;
+                            }
+                            beginFlexiDate = attRp.WorkFrom;
+                            endFlexiDate = beginFlexiDate.AddDays(6);
+                            regularHoursTmp = attRp.TotalHour;
+                        }
+
+                        if (count == 0)
+                        {
+                            if (regularHoursTmp > flexiHours)
+                            {
+                                regularHours += flexiHours;
+                                totalOvertimeHours += regularHoursTmp - flexiHours;
+                            }
+                            else
+                            {
+                                regularHours += regularHoursTmp;
+                            }
+                        }
                     }
 
-                    if (attRp.OvertimeHour3 > 0)
-                    {
-                        if (hOvertimeHour3.ContainsKey(attRp.OvertimeRate3))
-                        {
-                            double overtimeHour = (double)hOvertimeHour3[attRp.OvertimeRate3];
-                            hOvertimeHour3[attRp.OvertimeRate3] = overtimeHour + attRp.OvertimeHour3;
-                        }
-                        else
-                            hOvertimeHour3.Add(attRp.OvertimeRate3, attRp.OvertimeHour3);
-                    }
+                    totalHoursWithRate = regularHours * attendanceLogReport.RegularRate / 100
+                            + totalOvertimeHours * attendanceLogReport.OvertimeRate1 / 100;
 
-                    if (attRp.OvertimeHour4 > 0)
-                    {
-                        if (hOvertimeHour4.ContainsKey(attRp.OvertimeRate4))
-                        {
-                            double overtimeHour = (double)hOvertimeHour4[attRp.OvertimeRate4];
-                            hOvertimeHour4[attRp.OvertimeRate4] = overtimeHour + attRp.OvertimeHour4;
-                        }
-                        else
-                            hOvertimeHour4.Add(attRp.OvertimeRate4, attRp.OvertimeHour4);
-                    }
+                    StringBuilder strOvertime = new StringBuilder();
+
+                    strOvertime.AppendFormat("{0} x {1}%\n", totalOvertimeHours, attendanceLogReport.OvertimeRate1);
+
+                    overtimeHourAndRate = strOvertime.ToString();
+
+                    payrollExport = new PayrollExport();
+
+                    payrollExport.DateFrom = attendanceLogReportListByEmpl[0].WorkFrom;
+                    payrollExport.DateTo = attendanceLogReportListByEmpl[attendanceLogReportListByEmpl.Count - 1].WorkFrom;
+
+                    payrollExport.EmployeeNumber = emplNumber;
+                    payrollExport.FullName = attendanceLogReport.FullName;
+                    payrollExport.JobDescription = attendanceLogReport.JobDescription;
+                    payrollExport.Department = attendanceLogReport.Department;
+                    payrollExport.PayrollNumber = attendanceLogReport.PayrollNumber;
+                    payrollExport.RegularHour = Math.Round(regularHours, 2);
+                    payrollExport.OvertimeHour = overtimeHourAndRate;
+                    payrollExport.TotalHours = Math.Round(totalHours, 2);
+                    payrollExport.TotalHoursWithRate = Math.Round(totalHoursWithRate, 2);
+                    payrollExport.TotalOvertimeHours = Math.Round(totalOvertimeHours, 2);
+                    payrollExportList.Add(payrollExport);
                 }
+                else
+                {
+                    Hashtable hOvertimeHour1 = new Hashtable();
+                    Hashtable hOvertimeHour2 = new Hashtable();
+                    Hashtable hOvertimeHour3 = new Hashtable();
+                    Hashtable hOvertimeHour4 = new Hashtable();
 
-                StringBuilder strOvertime = new StringBuilder();
+                    double regularHours = 0, totalHours = 0, totalHoursWithRate = 0, totalOvertimeHours = 0;
+                    string overtimeHourAndRate = "";
 
-                foreach (DictionaryEntry item in hOvertimeHour1)
-                    strOvertime.AppendFormat("{0} x {1}%\n", item.Value, item.Key);
+                    foreach (AttendanceLogReport attRp in attendanceLogReportListByEmpl)
+                    {
+                        regularHours += attRp.WorkingHour;
 
-                foreach (DictionaryEntry item in hOvertimeHour2)
-                    strOvertime.AppendFormat("{0} x {1}%\n", item.Value, item.Key);
+                        totalHours += attRp.TotalHour;
 
-                foreach (DictionaryEntry item in hOvertimeHour3)
-                    strOvertime.AppendFormat("{0} x {1}%\n", item.Value, item.Key);
+                        totalHoursWithRate += attRp.WorkingHour * attRp.RegularRate / 100
+                            + attRp.OvertimeHour1 * attRp.OvertimeRate1 / 100
+                            + attRp.OvertimeHour2 * attRp.OvertimeRate2 / 100
+                            + attRp.OvertimeHour3 * attRp.OvertimeRate3 / 100
+                            + attRp.OvertimeHour4 * attRp.OvertimeRate4 / 100;
 
-                foreach (DictionaryEntry item in hOvertimeHour4)
-                    strOvertime.AppendFormat("{0} x {1}%\n", item.Value, item.Key);
+                        totalOvertimeHours += attRp.OvertimeHour1
+                        + attRp.OvertimeHour2
+                        + attRp.OvertimeHour3
+                        + attRp.OvertimeHour4;
 
-                overtimeHourAndRate = strOvertime.ToString();
+                        if (attRp.OvertimeHour1 > 0)
+                        {
+                            if (hOvertimeHour1.ContainsKey(attRp.OvertimeRate1))
+                            {
+                                double overtimeHour = (double)hOvertimeHour1[attRp.OvertimeRate1];
+                                hOvertimeHour1[attRp.OvertimeRate1] = overtimeHour + attRp.OvertimeHour1;
+                            }
+                            else
+                                hOvertimeHour1.Add(attRp.OvertimeRate1, attRp.OvertimeHour1);
+                        }
 
-                AttendanceLogReport attendanceLogReport = attendanceLogReportListByEmpl[0];
+                        if (attRp.OvertimeHour2 > 0)
+                        {
+                            if (hOvertimeHour2.ContainsKey(attRp.OvertimeRate2))
+                            {
+                                double overtimeHour = (double)hOvertimeHour2[attRp.OvertimeRate2];
+                                hOvertimeHour2[attRp.OvertimeRate2] = overtimeHour + attRp.OvertimeHour2;
+                            }
+                            else
+                                hOvertimeHour2.Add(attRp.OvertimeRate2, attRp.OvertimeHour2);
+                        }
 
-                payrollExport = new PayrollExport();
+                        if (attRp.OvertimeHour3 > 0)
+                        {
+                            if (hOvertimeHour3.ContainsKey(attRp.OvertimeRate3))
+                            {
+                                double overtimeHour = (double)hOvertimeHour3[attRp.OvertimeRate3];
+                                hOvertimeHour3[attRp.OvertimeRate3] = overtimeHour + attRp.OvertimeHour3;
+                            }
+                            else
+                                hOvertimeHour3.Add(attRp.OvertimeRate3, attRp.OvertimeHour3);
+                        }
 
-                payrollExport.DateFrom = attendanceLogReportListByEmpl[0].WorkFrom;
-                payrollExport.DateTo = attendanceLogReportListByEmpl[attendanceLogReportListByEmpl.Count - 1].WorkFrom;
+                        if (attRp.OvertimeHour4 > 0)
+                        {
+                            if (hOvertimeHour4.ContainsKey(attRp.OvertimeRate4))
+                            {
+                                double overtimeHour = (double)hOvertimeHour4[attRp.OvertimeRate4];
+                                hOvertimeHour4[attRp.OvertimeRate4] = overtimeHour + attRp.OvertimeHour4;
+                            }
+                            else
+                                hOvertimeHour4.Add(attRp.OvertimeRate4, attRp.OvertimeHour4);
+                        }
+                    }
 
-                payrollExport.EmployeeNumber = emplNumber;
-                payrollExport.FullName = attendanceLogReport.FullName;
-                payrollExport.JobDescription = attendanceLogReport.JobDescription;
-                payrollExport.Department = attendanceLogReport.Department;
-                payrollExport.PayrollNumber = attendanceLogReport.PayrollNumber;
-                payrollExport.RegularHour = Math.Round(regularHours, 2);
-                payrollExport.OvertimeHour = overtimeHourAndRate;
-                payrollExport.TotalHours = Math.Round(totalHours, 2);
-                payrollExport.TotalHoursWithRate = Math.Round(totalHoursWithRate, 2);
-                payrollExport.TotalOvertimeHours = Math.Round(totalOvertimeHours, 2);
-                payrollExportList.Add(payrollExport);
+                    StringBuilder strOvertime = new StringBuilder();
 
-                hOvertimeHour1.Clear();
-                hOvertimeHour2.Clear();
-                hOvertimeHour3.Clear();
-                hOvertimeHour4.Clear();
+                    foreach (DictionaryEntry item in hOvertimeHour1)
+                        strOvertime.AppendFormat("{0} x {1}%\n", item.Value, item.Key);
+
+                    foreach (DictionaryEntry item in hOvertimeHour2)
+                        strOvertime.AppendFormat("{0} x {1}%\n", item.Value, item.Key);
+
+                    foreach (DictionaryEntry item in hOvertimeHour3)
+                        strOvertime.AppendFormat("{0} x {1}%\n", item.Value, item.Key);
+
+                    foreach (DictionaryEntry item in hOvertimeHour4)
+                        strOvertime.AppendFormat("{0} x {1}%\n", item.Value, item.Key);
+
+                    overtimeHourAndRate = strOvertime.ToString();
+
+                    AttendanceLogReport attendanceLogReport = attendanceLogReportListByEmpl[0];
+
+                    payrollExport = new PayrollExport();
+
+                    payrollExport.DateFrom = attendanceLogReportListByEmpl[0].WorkFrom;
+                    payrollExport.DateTo = attendanceLogReportListByEmpl[attendanceLogReportListByEmpl.Count - 1].WorkFrom;
+
+                    payrollExport.EmployeeNumber = emplNumber;
+                    payrollExport.FullName = attendanceLogReport.FullName;
+                    payrollExport.JobDescription = attendanceLogReport.JobDescription;
+                    payrollExport.Department = attendanceLogReport.Department;
+                    payrollExport.PayrollNumber = attendanceLogReport.PayrollNumber;
+                    payrollExport.RegularHour = Math.Round(regularHours, 2);
+                    payrollExport.OvertimeHour = overtimeHourAndRate;
+                    payrollExport.TotalHours = Math.Round(totalHours, 2);
+                    payrollExport.TotalHoursWithRate = Math.Round(totalHoursWithRate, 2);
+                    payrollExport.TotalOvertimeHours = Math.Round(totalOvertimeHours, 2);
+                    payrollExportList.Add(payrollExport);
+
+                    hOvertimeHour1.Clear();
+                    hOvertimeHour2.Clear();
+                    hOvertimeHour3.Clear();
+                    hOvertimeHour4.Clear();
+                }
             }
 
             return payrollExportList;
