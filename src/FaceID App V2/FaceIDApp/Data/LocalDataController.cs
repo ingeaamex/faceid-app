@@ -2093,21 +2093,22 @@ namespace FaceIDAppVBEta.Data
         {
             switch (weekStartsOn)
             { 
-                case 1:
-                    return DayOfWeek.Sunday;
-                case 2:
+                case 0:
                     return DayOfWeek.Monday;
-                case 3:
+                case 1:
                     return DayOfWeek.Tuesday;
-                case 4:
+                case 2:
                     return DayOfWeek.Wednesday;
-                case 5:
+                case 3:
                     return DayOfWeek.Thursday;
-                case 6:
+                case 4:
                     return DayOfWeek.Friday;
-                case 7:
+                case 5:
                     return DayOfWeek.Saturday;
+                case 6:
+                    return DayOfWeek.Sunday;
             }
+
             return DayOfWeek.Monday;
         }
 

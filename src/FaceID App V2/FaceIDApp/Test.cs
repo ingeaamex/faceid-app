@@ -584,7 +584,10 @@ namespace FaceIDApp
                 wCal2.Name = DateTime.Now.Ticks.ToString();
                 wCal2.ApplyFlexiHours = true;
                 wCal2.FlexiHours = 40;
-                wCal2.WeekStartsOn = 6; //Sunday
+                wCal2.WeekStartsOn = 3; //Thursday
+
+                wCal2.RegularWorkingFrom = new DateTime(2000, 2, 2, 9, 0, 0);
+                wCal2.RegularWorkingTo = new DateTime(2000, 2, 2, 18, 0, 0);
 
                 wCal2.WorkOnMonday = true;
                 wCal2.WorkOnTuesday = true;
