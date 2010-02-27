@@ -539,8 +539,8 @@ namespace FaceIDApp
                 WorkingCalendar wCal1 = new WorkingCalendar();
 
                 wCal1.Name = DateTime.Now.Ticks.ToString();
-                wCal1.RegularWorkingFrom = new DateTime(2000, 2, 2, 9, 0, 0);
-                wCal1.RegularWorkingTo = new DateTime(2000, 2, 2, 18, 0, 0);
+                //wCal1.RegularWorkingFrom = new DateTime(2000, 2, 2, 9, 0, 0);
+                //wCal1.RegularWorkingTo = new DateTime(2000, 2, 2, 18, 0, 0);//TODO add shift
 
                 wCal1.WorkOnMonday = true;
                 wCal1.WorkOnTuesday = true;
@@ -565,7 +565,7 @@ namespace FaceIDApp
                 List<Holiday> holidayList = new List<Holiday>();
 
                 PaymentRate workingDayPaymentRate = new PaymentRate();
-                workingDayPaymentRate.NumberOfRegularHours = 8;
+                workingDayPaymentRate.NumberOfRegularHours = 7;
                 workingDayPaymentRate.RegularRate = 100;
                 workingDayPaymentRate.NumberOfOvertime1 = 8;
                 workingDayPaymentRate.OvertimeRate1 = 200;
@@ -578,7 +578,7 @@ namespace FaceIDApp
                 payPeriod.PayPeriodTypeID = 5; //custom
                 payPeriod.StartFrom = new DateTime(2010, 1, 1);
 
-                wCal1.ID = _dtCtrl.AddWorkingCalendar(wCal1, breakList, holidayList, workingDayPaymentRate, nonWorkingDayPaymentRate, holidayPaymentRate, payPeriod);
+                wCal1.ID = _dtCtrl.AddWorkingCalendar(wCal1, null, breakList, holidayList, workingDayPaymentRate, nonWorkingDayPaymentRate, holidayPaymentRate, payPeriod);//TODO add shift
 
                 WorkingCalendar wCal2 = new WorkingCalendar();
                 wCal2.Name = DateTime.Now.Ticks.ToString();
@@ -586,8 +586,8 @@ namespace FaceIDApp
                 wCal2.FlexiHours = 40;
                 wCal2.WeekStartsOn = 3; //Thursday
 
-                wCal2.RegularWorkingFrom = new DateTime(2000, 2, 2, 9, 0, 0);
-                wCal2.RegularWorkingTo = new DateTime(2000, 2, 2, 18, 0, 0);
+                //wCal2.RegularWorkingFrom = new DateTime(2000, 2, 2, 9, 0, 0);
+                //wCal2.RegularWorkingTo = new DateTime(2000, 2, 2, 18, 0, 0);//TODO add shift
 
                 wCal2.WorkOnMonday = true;
                 wCal2.WorkOnTuesday = true;
@@ -600,7 +600,7 @@ namespace FaceIDApp
                 wCal2.EarliestBeforeEntry = 60;
                 wCal2.LastestAfterExit = 180;
 
-                wCal2.ID = _dtCtrl.AddWorkingCalendar(wCal2, new List<Break>(), holidayList, workingDayPaymentRate, nonWorkingDayPaymentRate, holidayPaymentRate, payPeriod);
+                wCal2.ID = _dtCtrl.AddWorkingCalendar(wCal2, null, new List<Break>(), holidayList, workingDayPaymentRate, nonWorkingDayPaymentRate, holidayPaymentRate, payPeriod);//TODO add shift
                 #endregion
 
                 #region add test employee

@@ -133,8 +133,8 @@ namespace FaceIDAppVBEta
                 chbSaturday.Checked = workingCalendar.WorkOnSaturday;
                 chbSunday.Checked = workingCalendar.WorkOnSunday;
 
-                dtpRegularWorkFrom.Value = workingCalendar.RegularWorkingFrom;
-                dtpRegularWorkTo.Value = workingCalendar.RegularWorkingTo;
+                //dtpRegularWorkFrom.Value = workingCalendar.RegularWorkingFrom;//TODO add shift
+                //dtpRegularWorkTo.Value = workingCalendar.RegularWorkingTo;
 
                 nudGraceForwardToEntry.Value = workingCalendar.GraceForwardToEntry;
                 nudGraceBackwardToExit.Value = workingCalendar.GraceBackwardToExit;
@@ -615,7 +615,7 @@ namespace FaceIDAppVBEta
             #region insert/update in database
             if (_workingCalendarID < 0) //add
             {
-                int workingCalendarID = _dtCtrl.AddWorkingCalendar(workingCalendar, breakList, holidayList, workingDayPaymentRate, nonWorkingDayPaymentRate, holidayPaymentRate, payPeriod);
+                int workingCalendarID = _dtCtrl.AddWorkingCalendar(workingCalendar, null, breakList, holidayList, workingDayPaymentRate, nonWorkingDayPaymentRate, holidayPaymentRate, payPeriod);//TODO add shift
 
                 if (workingCalendarID < 0)
                 {
@@ -627,7 +627,7 @@ namespace FaceIDAppVBEta
             }
             else //update
             {
-                bool result = _dtCtrl.UpdateWorkingCalendar(workingCalendar, breakList, holidayList, workingDayPaymentRate, nonWorkingDayPaymentRate, holidayPaymentRate, payPeriod);
+                bool result = _dtCtrl.UpdateWorkingCalendar(workingCalendar, null, breakList, holidayList, workingDayPaymentRate, nonWorkingDayPaymentRate, holidayPaymentRate, payPeriod);//TODO add shift
 
                 if (result != true)
                 {
@@ -683,8 +683,8 @@ namespace FaceIDAppVBEta
             workingCalendar.WorkOnSaturday = chbSaturday.Checked;
             workingCalendar.WorkOnSunday = chbSunday.Checked;
 
-            workingCalendar.RegularWorkingFrom = dtpRegularWorkFrom.Value;
-            workingCalendar.RegularWorkingTo = dtpRegularWorkTo.Value;
+            //workingCalendar.RegularWorkingFrom = dtpRegularWorkFrom.Value;
+            //workingCalendar.RegularWorkingTo = dtpRegularWorkTo.Value;//TODO add shift
 
             workingCalendar.GraceForwardToEntry = (int)nudGraceForwardToEntry.Value;
             workingCalendar.GraceBackwardToExit = (int)nudGraceBackwardToExit.Value;

@@ -117,7 +117,7 @@ namespace FaceIDAppVBEta.Data
         #endregion EmployeeNumber
 
         #region Working Calendar
-        int AddWorkingCalendar(WorkingCalendar workingCalendar, List<Break> breakList, List<Holiday> holidayList, PaymentRate workingDayPaymentRate, PaymentRate nonWorkingDayPaymentRate, PaymentRate holidayPaymentRate, PayPeriod payPeriod);
+        int AddWorkingCalendar(WorkingCalendar workingCalendar, List<Shift> shiftList, List<Break> breakList, List<Holiday> holidayList, PaymentRate workingDayPaymentRate, PaymentRate nonWorkingDayPaymentRate, PaymentRate holidayPaymentRate, PayPeriod payPeriod);
         
         List<WorkingCalendar> GetWorkingCalendarList();
 
@@ -125,7 +125,7 @@ namespace FaceIDAppVBEta.Data
 
         WorkingCalendar GetWorkingCalendarByEmployee(int employeeNumber);
         
-        bool UpdateWorkingCalendar(WorkingCalendar workingCalendar, List<Break> breakList, List<Holiday> holidayList, PaymentRate workingDayPaymentRate, PaymentRate nonWorkingDayPaymentRate, PaymentRate holidayPaymentRate, PayPeriod payPeriod);
+        bool UpdateWorkingCalendar(WorkingCalendar workingCalendar, List<Shift> shiftList, List<Break> breakList, List<Holiday> holidayList, PaymentRate workingDayPaymentRate, PaymentRate nonWorkingDayPaymentRate, PaymentRate holidayPaymentRate, PayPeriod payPeriod);
 
         bool UpdateWorkingCalendar(WorkingCalendar wCal);
 
