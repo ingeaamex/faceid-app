@@ -17,6 +17,7 @@ namespace FaceIDAppVBEta.UnitTest
         Department dep = new Department();
         Employee emp = new Employee();
 
+        List<Shift> shiftList = new List<Shift>();
         List<Break> breakList = new List<Break>();
         List<Holiday> holidayList = new List<Holiday>();
 
@@ -29,8 +30,6 @@ namespace FaceIDAppVBEta.UnitTest
         private void AddWCal()
         {
             wCal.Name = DateTime.Now.Ticks.ToString();
-            wCal.RegularWorkingFrom = DateTime.Today;
-            wCal.RegularWorkingTo = DateTime.Today;
             
             wCal.WorkOnMonday = true;
             wCal.WorkOnTuesday = true;
@@ -42,12 +41,17 @@ namespace FaceIDAppVBEta.UnitTest
             wCal.GraceForwardToEntry = 30;
             wCal.EarliestBeforeEntry = 60;
             wCal.LastestAfterExit = 180;
-            
+
+            Shift shift = new Shift();
+            shift.From = DateTime.Now;
+            shift.To = DateTime.Now;
+            shiftList.Add(shift);
+
             payPeriod.CustomPeriod = 5;
             payPeriod.PayPeriodTypeID = 5; //custom
             payPeriod.StartFrom = DateTime.Today;
 
-            wCal.ID = _dtCtrl.AddWorkingCalendar(wCal, breakList, holidayList, workingDayPaymentRate, nonWorkingDayPaymentRate, holidayPaymentRate, payPeriod);
+            wCal.ID = _dtCtrl.AddWorkingCalendar(wCal, shiftList, breakList, holidayList, workingDayPaymentRate, nonWorkingDayPaymentRate, holidayPaymentRate, payPeriod);
 
             com.Name = DateTime.Now.Ticks.ToString(); ;
             com.ID = _dtCtrl.AddCompany(com);
@@ -127,7 +131,7 @@ namespace FaceIDAppVBEta.UnitTest
 
             wCal.Name += "'";
 
-            Assert.AreEqual(true, _dtCtrl.UpdateWorkingCalendar(wCal, breakList, holidayList, workingDayPaymentRate, nonWorkingDayPaymentRate, holidayPaymentRate, payPeriod));
+            Assert.AreEqual(true, _dtCtrl.UpdateWorkingCalendar(wCal, shiftList, breakList, holidayList, workingDayPaymentRate, nonWorkingDayPaymentRate, holidayPaymentRate, payPeriod));
             Assert.AreEqual(wCal.Name, _dtCtrl.GetWorkingCalendar(wCal.ID).Name);
 
             DelWCal();

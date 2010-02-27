@@ -53,8 +53,8 @@ namespace FaceIDAppVBEta
                 this.Close();
             }
 
-            lblWorkFrom.Text = GetTimeString(_workingCalendar.RegularWorkingFrom);
-            lblWorkTo.Text = GetTimeString(_workingCalendar.RegularWorkingTo);
+            //lblWorkFrom.Text = GetTimeString(_workingCalendar.RegularWorkingFrom);
+            //lblWorkTo.Text = GetTimeString(_workingCalendar.RegularWorkingTo);//TODO add shift
 
             //set payment rate
             PaymentRate workDayPaymentRate = _dtCtrl.GetWorkingDayPaymentRateByWorkingCalendar(workingCalendarID);

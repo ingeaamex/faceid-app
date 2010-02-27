@@ -1455,8 +1455,8 @@ namespace FaceIDAppVBEta.Data
             return holidayList;
         }
 
-        public int AddWorkingCalendar(WorkingCalendar workingCalendar, List<Break> breakList, List<Holiday> holidayList, PaymentRate workingDayPaymentRate, PaymentRate nonWorkingDayPaymentRate, PaymentRate holidayPaymentRate, PayPeriod payPeriod)
-        {
+        public int AddWorkingCalendar(WorkingCalendar workingCalendar, List<Shift> shiftList, List<Break> breakList, List<Holiday> holidayList, PaymentRate workingDayPaymentRate, PaymentRate nonWorkingDayPaymentRate, PaymentRate holidayPaymentRate, PayPeriod payPeriod)
+        {//TODO add shift
             BeginTransaction();
 
             try
@@ -1563,8 +1563,8 @@ namespace FaceIDAppVBEta.Data
             return -1;
         }
 
-        public bool UpdateWorkingCalendar(WorkingCalendar workingCalendar, List<Break> breakList, List<Holiday> holidayList, PaymentRate workingDayPaymentRate, PaymentRate nonWorkingDayPaymentRate, PaymentRate holidayPaymentRate, PayPeriod payPeriod)
-        {
+        public bool UpdateWorkingCalendar(WorkingCalendar workingCalendar, List<Shift> shiftList, List<Break> breakList, List<Holiday> holidayList, PaymentRate workingDayPaymentRate, PaymentRate nonWorkingDayPaymentRate, PaymentRate holidayPaymentRate, PayPeriod payPeriod)
+        {//TODO add shift
             BeginTransaction();
 
             try
