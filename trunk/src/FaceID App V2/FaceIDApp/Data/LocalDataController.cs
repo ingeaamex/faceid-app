@@ -2035,7 +2035,7 @@ namespace FaceIDAppVBEta.Data
                                         chartData[2] = attRp.TotalHour - dFlexiHours;
                                         attRp_1.ChartData = chartData;
                                         attSummarysRs.Add(attRp_1);
-                                        
+
                                         attRp_1 = new AttendanceSummaryReport();
                                         attRp_1.ChartData = null;
                                         attRp_1.DateLog = DateTime.MinValue;
@@ -2046,8 +2046,13 @@ namespace FaceIDAppVBEta.Data
                                         attSummarysRs.Add(attRp_1);
                                     }
                                     else
+                                    {
+                                        double[] chartData = attRp.ChartData;
+                                        chartData[1] = attRp.TotalHour;
+                                        chartData[2] = 0;
+                                        attRp_1.ChartData = chartData;
                                         attSummarysRs.Add(attRp_1);
-
+                                    }
                                     dFlexiHours -= attRp.TotalHour;
                                 }
                                 else
