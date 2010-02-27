@@ -2002,27 +2002,38 @@ namespace FaceIDAppVBEta.Data
                         
                         foreach (AttendanceSummaryReport attRp in attSummarys_1)
                         {
+                            AttendanceSummaryReport attRp_1 = new AttendanceSummaryReport();
+                            attRp_1.ChartData = attRp.ChartData;
+                            attRp_1.DateLog = attRp.DateLog;
+                            attRp_1.WorkingHour = attRp.WorkingHour;
+                            attRp_1.TotalHour = attRp.TotalHour;
+                            attRp_1.EmployeeNumber = 0;
+                            attRp_1.FullName = null;
+
                             if (isFirst)
                             {
                                 dFlexiHours -= attRp.TotalHour;
-                                attSummarysRs.Add(attRp);
+                                attRp_1.EmployeeNumber = attRp.EmployeeNumber;
+                                attRp_1.FullName = attRp.FullName;
+                                double[] chartData = attRp.ChartData;
+                                chartData[1] = attRp.TotalHour;
+                                chartData[2] = 0;
+                                attRp_1.ChartData = chartData;
+                                attSummarysRs.Add(attRp_1);
                                 isFirst = false;
                             }
                             else
                             {
-                                AttendanceSummaryReport attRp_1 = new AttendanceSummaryReport();
-                                attRp_1.ChartData = attRp.ChartData;
-                                attRp_1.DateLog = attRp.DateLog;
-                                attRp_1.WorkingHour = attRp.WorkingHour;
-                                attRp_1.TotalHour = attRp.TotalHour;
-                                attRp_1.EmployeeNumber = 0;
-                                attRp_1.FullName = null;
 
                                 if (dFlexiHours > 0)
                                 {
                                     if (dFlexiHours < attRp.TotalHour)
                                     {
                                         attRp_1.WorkingHour = "Regular Hour : " + dFlexiHours;
+                                        double[] chartData = attRp.ChartData;
+                                        chartData[1] = dFlexiHours;
+                                        chartData[2] = attRp.TotalHour - dFlexiHours;
+                                        attRp_1.ChartData = chartData;
                                         attSummarysRs.Add(attRp_1);
                                         AttendanceSummaryReport attRp_2 = new AttendanceSummaryReport();
                                         attRp_2.ChartData = null;
@@ -2041,6 +2052,10 @@ namespace FaceIDAppVBEta.Data
                                 else
                                 {
                                     attRp_1.WorkingHour = "Overtime Hour : " + attRp.TotalHour;
+                                    double[] chartData = attRp.ChartData;
+                                    chartData[1] = 0;
+                                    chartData[2] = attRp.TotalHour;
+                                    attRp_1.ChartData = chartData;
                                     attSummarysRs.Add(attRp_1);
                                 }
                             }
@@ -2858,12 +2873,14 @@ namespace FaceIDAppVBEta.Data
                                 if (timeFrom.CompareTo(timeTo) == 1)
                                     timeTo = timeTo.AddDays(1);
 
-                                double distanceMinute1 = (timeFrom.Ticks - timeOut.Ticks) / 600000000; //TODO use TimeSpan
+                                //double distanceMinute1 = (timeFrom.Ticks - timeOut.Ticks) / 600000000; //TODO use TimeSpan
+                                double distanceMinute1 = TimeSpan.FromTicks(timeFrom.Ticks - timeOut.Ticks).TotalHours;
                                 if (distanceMinute1 > 0 && graceForwardToEntry >= distanceMinute1)
                                 {
                                     timeOut = timeFrom;
                                 }
-                                double distanceMinute2 = (timeIn.Ticks - timeTo.Ticks) / 600000000; //TODO use TimeSpan
+                                double distanceMinute2 = TimeSpan.FromTicks(timeIn.Ticks - timeTo.Ticks).TotalHours;
+                                //double distanceMinute2 = (timeIn.Ticks - timeTo.Ticks) / 600000000; //TODO use TimeSpan
                                 if (distanceMinute2 > 0 && graceBackwardToExit >= distanceMinute2)
                                 {
                                     timeIn = timeTo;
@@ -2944,8 +2961,6 @@ namespace FaceIDAppVBEta.Data
                     GetRegularOvertime(ref attendanceReport, totalHour);
 
                     b1 = UpdateAttendanceReport(attendanceReport);
-
-
                 }
                 else
                 {
@@ -4300,8 +4315,6 @@ namespace FaceIDAppVBEta.Data
                         if (endFlexiDate.CompareTo(attRp.WorkFrom) != -1)
                         {
                             regularHoursTmp += attRp.TotalHour;
-
-
                         }
                         else
                         {
