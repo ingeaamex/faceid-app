@@ -40,7 +40,7 @@ namespace FaceIDAppVBEta
                 dr["ID"] = workingCalendar.ID;
                 dr["Name"] = workingCalendar.Name;
                 dr["Work On"] = GetWorkOnStr(workingCalendar);
-                //dr["Working Hour"] = workingCalendar.RegularWorkingFrom.ToShortTimeString() + " - " + workingCalendar.RegularWorkingTo.ToShortTimeString(); //TODO add shift
+                //dr["Working Hour"] = workingCalendar.RegularWorkingFrom.ToShortTimeString() + " - " + workingCalendar.RegularWorkingTo.ToShortTimeString(); //TODO add shift1
 
                 dt.Rows.Add(dr);
             }
