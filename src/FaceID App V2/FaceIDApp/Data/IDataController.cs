@@ -297,5 +297,17 @@ namespace FaceIDAppVBEta.Data
 
         bool UpdateRoostedDayOff(RoostedDayOff roostedDayOff);
         #endregion
+
+        #region Shift
+        List<Shift> GetShiftList();
+
+        Shift GetShift(int id);
+
+        int AddShift(Shift shift);
+
+        bool DeleteShift(int id);
+
+        bool UpdateShift(Shift shift);
+        #endregion
     }
 }
