@@ -57,6 +57,7 @@
     <Compile Include="Class\PayrollExport.cs" />
     <Compile Include="Class\Rate.cs" />
     <Compile Include="Class\RoostedDayOff.cs" />
+    <Compile Include="Class\Shift.cs" />
     <Compile Include="Class\Terminal.cs" />
     <Compile Include="Class\UncalculatedAttendanceRecord.cs" />
     <Compile Include="Class\UndeletedEmployeeNumber.cs" />

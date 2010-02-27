@@ -1236,8 +1236,6 @@ namespace FaceIDAppVBEta.Data
                 workingCalendar.WorkOnFriday = Convert.ToBoolean(odRdr["WorkOnFriday"]);
                 workingCalendar.WorkOnSaturday = Convert.ToBoolean(odRdr["WorkOnSaturday"]);
                 workingCalendar.WorkOnSunday = Convert.ToBoolean(odRdr["WorkOnSunday"]);
-                workingCalendar.RegularWorkingFrom = odRdr["RegularWorkingFrom"].GetType() != typeof(DBNull) ? Convert.ToDateTime(odRdr["RegularWorkingFrom"]) : Config.MinDate;
-                workingCalendar.RegularWorkingTo = odRdr["RegularWorkingTo"].GetType() != typeof(DBNull) ? Convert.ToDateTime(odRdr["RegularWorkingTo"]) : Config.MinDate;
                 workingCalendar.PayPeriodID = (int)odRdr["PayPeriodID"];
                 workingCalendar.GraceForwardToEntry = (int)odRdr["GraceForwardToEntry"];
                 workingCalendar.GraceBackwardToExit = (int)odRdr["GraceBackwardToExit"];
@@ -1275,8 +1273,6 @@ namespace FaceIDAppVBEta.Data
                 workingCalendar.WorkOnFriday = Convert.ToBoolean(odRdr["WorkOnFriday"]);
                 workingCalendar.WorkOnSaturday = Convert.ToBoolean(odRdr["WorkOnSaturday"]);
                 workingCalendar.WorkOnSunday = Convert.ToBoolean(odRdr["WorkOnSunday"]);
-                workingCalendar.RegularWorkingFrom = odRdr["RegularWorkingFrom"].GetType() != typeof(DBNull) ? Convert.ToDateTime(odRdr["RegularWorkingFrom"]) : Config.MinDate;
-                workingCalendar.RegularWorkingTo = odRdr["RegularWorkingTo"].GetType() != typeof(DBNull) ? Convert.ToDateTime(odRdr["RegularWorkingTo"]) : Config.MinDate;
                 workingCalendar.PayPeriodID = (int)odRdr["PayPeriodID"];
                 workingCalendar.GraceForwardToEntry = (int)odRdr["GraceForwardToEntry"];
                 workingCalendar.GraceBackwardToExit = (int)odRdr["GraceBackwardToExit"];
@@ -1310,8 +1306,6 @@ namespace FaceIDAppVBEta.Data
                 workingCalendar.WorkOnFriday = Convert.ToBoolean(odRdr["WorkOnFriday"]);
                 workingCalendar.WorkOnSaturday = Convert.ToBoolean(odRdr["WorkOnSaturday"]);
                 workingCalendar.WorkOnSunday = Convert.ToBoolean(odRdr["WorkOnSunday"]);
-                workingCalendar.RegularWorkingFrom = odRdr["RegularWorkingFrom"].GetType() != typeof(DBNull) ? Convert.ToDateTime(odRdr["RegularWorkingFrom"]) : Config.MinDate;
-                workingCalendar.RegularWorkingTo = odRdr["RegularWorkingTo"].GetType() != typeof(DBNull) ? Convert.ToDateTime(odRdr["RegularWorkingTo"]) : Config.MinDate;
                 workingCalendar.PayPeriodID = (int)odRdr["PayPeriodID"];
                 workingCalendar.GraceForwardToEntry = (int)odRdr["GraceForwardToEntry"];
                 workingCalendar.GraceBackwardToExit = (int)odRdr["GraceBackwardToExit"];
@@ -1533,8 +1527,6 @@ namespace FaceIDAppVBEta.Data
                 ,"WorkOnFriday"
                 ,"WorkOnSaturday"
                 ,"WorkOnSunday"
-                ,"RegularWorkingFrom"
-                ,"RegularWorkingTo"
                 ,"PayPeriodID"
                 ,"GraceForwardToEntry"
                 ,"GraceBackwardToExit"
@@ -1552,8 +1544,6 @@ namespace FaceIDAppVBEta.Data
                 ,workingCalendar.WorkOnFriday
                 ,workingCalendar.WorkOnSaturday
                 ,workingCalendar.WorkOnSunday
-                ,workingCalendar.RegularWorkingFrom
-                ,workingCalendar.RegularWorkingTo
                 ,workingCalendar.PayPeriodID
                 ,workingCalendar.GraceForwardToEntry
                 ,workingCalendar.GraceBackwardToExit
@@ -1685,8 +1675,6 @@ namespace FaceIDAppVBEta.Data
                 ,"WorkOnFriday"
                 ,"WorkOnSaturday"
                 ,"WorkOnSunday"
-                ,"RegularWorkingFrom"
-                ,"RegularWorkingTo"
                 ,"PayPeriodID"
                 ,"GraceForwardToEntry"
                 ,"GraceBackwardToExit"
@@ -1704,8 +1692,6 @@ namespace FaceIDAppVBEta.Data
                 ,workingCalendar.WorkOnFriday
                 ,workingCalendar.WorkOnSaturday
                 ,workingCalendar.WorkOnSunday
-                ,workingCalendar.RegularWorkingFrom
-                ,workingCalendar.RegularWorkingTo
                 ,workingCalendar.PayPeriodID
                 ,workingCalendar.GraceForwardToEntry
                 ,workingCalendar.GraceBackwardToExit
@@ -4981,6 +4967,95 @@ namespace FaceIDAppVBEta.Data
         public bool DeleteRoostedDayOff(int id)
         {
             OleDbCommand odCom1 = BuildDelCmd("RoostedDayOff", "ID=@ID", new object[] { "@ID", id });
+            return odCom1.ExecuteNonQuery() > 0 ? true : false;
+        }
+
+        #endregion
+
+        #region Shift
+        public List<Shift> GetShiftList()
+        {
+            OleDbCommand odCom = BuildSelectCmd("Shift", "*", null);
+            OleDbDataReader odRdr = odCom.ExecuteReader();
+            List<Shift> shiftList = new List<Shift>();
+            Shift shift = null;
+            while (odRdr.Read())
+            {
+                shift = new Shift();
+
+                shift.ID = (int)odRdr["ID"];
+                shift.WorkingCalendarID = (int)odRdr["WorkingCalendarID"];
+                shift.From = odRdr["From"].GetType() != typeof(DBNull) ? Convert.ToDateTime(odRdr["From"]) : Config.MinDate;
+                shift.To = odRdr["To"].GetType() != typeof(DBNull) ? Convert.ToDateTime(odRdr["To"]) : Config.MinDate;
+
+                shiftList.Add(shift);
+            }
+
+            odRdr.Close();
+            return shiftList;
+        }
+
+        public Shift GetShift(int id)
+        {
+            OleDbCommand odCom = BuildSelectCmd("Shift", "TOP 1 *", "ID=@ID", new object[] { "@ID", id });
+            OleDbDataReader odRdr = odCom.ExecuteReader();
+
+            Shift shift = null;
+            if (odRdr.Read())
+            {
+                shift = new Shift();
+
+                shift.ID = (int)odRdr["ID"];
+                shift.WorkingCalendarID = (int)odRdr["WorkingCalendarID"];
+                shift.From = odRdr["From"].GetType() != typeof(DBNull) ? Convert.ToDateTime(odRdr["From"]) : Config.MinDate;
+                shift.To = odRdr["To"].GetType() != typeof(DBNull) ? Convert.ToDateTime(odRdr["To"]) : Config.MinDate;
+            }
+
+            odRdr.Close();
+            return shift;
+        }
+
+        public int AddShift(Shift shift)
+        {
+            OleDbCommand odCom1 = BuildInsertCmd("Shift",
+                new string[] { "WorkingCalendarID"
+                ,"From"
+                ,"To"
+                },
+                new object[] { shift.WorkingCalendarID
+                ,shift.From
+                ,shift.To
+                }
+            );
+
+            if (odCom1.ExecuteNonQuery() == 1)
+            {
+                odCom1.CommandText = "SELECT @@IDENTITY";
+                return (int)odCom1.ExecuteScalar();
+            }
+            return -1;
+        }
+
+        public bool UpdateShift(Shift shift)
+        {
+            OleDbCommand odCom1 = BuildUpdateCmd("Shift",
+                new string[] { "WorkingCalendarID"
+                ,"From"
+                ,"To"
+                },
+                new object[] { shift.WorkingCalendarID
+                ,shift.From
+                ,shift.To
+                },
+                "ID=@ID", new object[] { "@ID", shift.ID }
+            );
+
+            return odCom1.ExecuteNonQuery() > 0 ? true : false;
+        }
+
+        public bool DeleteShift(int id)
+        {
+            OleDbCommand odCom1 = BuildDelCmd("Shift", "ID=@ID", new object[] { "@ID", id });
             return odCom1.ExecuteNonQuery() > 0 ? true : false;
         }
 

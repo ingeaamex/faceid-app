@@ -15,8 +15,6 @@ namespace FaceIDAppVBEta.Class
         public bool WorkOnFriday { get; set; }
         public bool WorkOnSaturday { get; set; }
         public bool WorkOnSunday { get; set; }
-        public DateTime RegularWorkingFrom { get; set; }
-        public DateTime RegularWorkingTo { get; set; }
         public int PayPeriodID { get; set; }
         public int GraceForwardToEntry { get; set; }
         public int GraceBackwardToExit { get; set; }
