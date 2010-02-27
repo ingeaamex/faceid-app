@@ -299,7 +299,7 @@ namespace FaceIDAppVBEta.Data
         #endregion
 
         #region Shift
-        List<Shift> GetShiftList();
+        List<Shift> GetShiftListByWorkingCalendar(int workingCalendarID);
 
         Shift GetShift(int id);
 

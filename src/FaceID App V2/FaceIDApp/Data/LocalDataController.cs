@@ -4973,9 +4973,9 @@ namespace FaceIDAppVBEta.Data
         #endregion
 
         #region Shift
-        public List<Shift> GetShiftList()
+        public List<Shift> GetShiftListByWorkingCalendar(int workingCalendarID)
         {
-            OleDbCommand odCom = BuildSelectCmd("Shift", "*", null);
+            OleDbCommand odCom = BuildSelectCmd("Shift", "*", "WorkingCalendarID = @WorkingCalendarID", new object[]{"@WorkingCalendarID", workingCalendarID});
             OleDbDataReader odRdr = odCom.ExecuteReader();
             List<Shift> shiftList = new List<Shift>();
             Shift shift = null;
