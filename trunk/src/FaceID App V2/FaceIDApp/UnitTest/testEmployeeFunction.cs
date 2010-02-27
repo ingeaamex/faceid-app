@@ -29,9 +29,9 @@ namespace FaceIDAppVBEta.UnitTest
             //dep.SupDepartmentID = 0;
             //dep.ID = _dtCtrl.AddDepartment(dep);
 
-            //wCal1.Name = DateTime.Now.Ticks.ToString();
-            //wCal1.RegularWorkingFrom = DateTime.Today;
-            //wCal1.RegularWorkingTo = DateTime.Today;
+            //wCal.Name = DateTime.Now.Ticks.ToString();
+            //wCal.RegularWorkingFrom = DateTime.Today;
+            //wCal.RegularWorkingTo = DateTime.Today;
 
             //List<Break> breakList = new List<Break>();
             //List<Holiday> holidayList = new List<Holiday>();
@@ -45,7 +45,7 @@ namespace FaceIDAppVBEta.UnitTest
             //payPeriod.PayPeriodTypeID = 5; //custom
             //payPeriod.StartFrom = DateTime.Today;
 
-            //wCal1.ID = _dtCtrl.AddWorkingCalendar(wCal1, breakList, holidayList, workingDayPaymentRate, nonWorkingDayPaymentRate, holidayPaymentRate, payPeriod);
+            //wCal.ID = _dtCtrl.AddWorkingCalendar(wCal, breakList, holidayList, workingDayPaymentRate, nonWorkingDayPaymentRate, holidayPaymentRate, payPeriod);
 
             dep = _dtCtrl.GetDepartmentList()[0];
             com = _dtCtrl.GetCompany(dep.CompanyID);
@@ -92,7 +92,7 @@ namespace FaceIDAppVBEta.UnitTest
         private void DeleteEmployee()
         {
             _dtCtrl.DeleteEmployee(emp.PayrollNumber);
-            //_dtCtrl.DeleteWorkingCalendar(wCal1.ID);
+            //_dtCtrl.DeleteWorkingCalendar(wCal.ID);
             //_dtCtrl.DeleteDepartment(dep.ID);
             //_dtCtrl.DeleteCompany(com.ID);
         }
