@@ -1963,7 +1963,7 @@ namespace FaceIDAppVBEta.Data
                     {
                         beginFlexiDate = attSumRp.DateLog;
                         endFlexiDate = beginFlexiDate;
-                        //double numDay = Math.Ceiling(flexiHours / wcalRegHour);// 5
+
                         if (weekStartsOn.Equals(attSumRp.DateLog.DayOfWeek))
                         {
                             endFlexiDate = beginFlexiDate.AddDays(6);//Week
@@ -1999,10 +1999,10 @@ namespace FaceIDAppVBEta.Data
 
                         isFirst = true;
                         double dFlexiHours = Convert.ToDouble(flexiHours);
-                        
+                        AttendanceSummaryReport attRp_1;
                         foreach (AttendanceSummaryReport attRp in attSummarys_1)
                         {
-                            AttendanceSummaryReport attRp_1 = new AttendanceSummaryReport();
+                            attRp_1 = new AttendanceSummaryReport();
                             attRp_1.ChartData = attRp.ChartData;
                             attRp_1.DateLog = attRp.DateLog;
                             attRp_1.WorkingHour = attRp.WorkingHour;
@@ -2035,14 +2035,15 @@ namespace FaceIDAppVBEta.Data
                                         chartData[2] = attRp.TotalHour - dFlexiHours;
                                         attRp_1.ChartData = chartData;
                                         attSummarysRs.Add(attRp_1);
-                                        AttendanceSummaryReport attRp_2 = new AttendanceSummaryReport();
-                                        attRp_2.ChartData = null;
-                                        attRp_2.DateLog = DateTime.MinValue;
-                                        attRp_2.TotalHour = -1;
-                                        attRp_2.EmployeeNumber = 0;
-                                        attRp_2.FullName = null;
-                                        attRp_2.WorkingHour = "Overtime Hour : " + (attRp.TotalHour - dFlexiHours);
-                                        attSummarysRs.Add(attRp_2);
+                                        
+                                        attRp_1 = new AttendanceSummaryReport();
+                                        attRp_1.ChartData = null;
+                                        attRp_1.DateLog = DateTime.MinValue;
+                                        attRp_1.TotalHour = -1;
+                                        attRp_1.EmployeeNumber = 0;
+                                        attRp_1.FullName = null;
+                                        attRp_1.WorkingHour = "Overtime Hour : " + (attRp.TotalHour - dFlexiHours);
+                                        attSummarysRs.Add(attRp_1);
                                     }
                                     else
                                         attSummarysRs.Add(attRp_1);
@@ -2201,9 +2202,27 @@ namespace FaceIDAppVBEta.Data
                 "Employee.EmployeeNumber,Employee.FirstName,Employee.LastName,Employee.PayrollNumber,Employee.JobDescription,Department.Name as DepartmentName",
                 "EmployeeNumber in(" + sEmplNumbers + ") AND Active=TRUE");
 
-            OleDbDataAdapter odApt = new OleDbDataAdapter(odCom);
-            DataTable dtEmpl = new DataTable();
-            odApt.Fill(dtEmpl);
+            OleDbDataReader odRdr = odCom.ExecuteReader();
+
+            List<Employee> employeeList = new List<Employee>();
+            Employee empl;
+            while (odRdr.Read())
+            {
+                empl = new Employee();
+                empl.EmployeeNumber = (int)odRdr["EmployeeNumber"];
+                empl.PayrollNumber = (int)odRdr["PayrollNumber"];
+                empl.LastName = odRdr["LastName"].ToString();
+                empl.FirstName = odRdr["FirstName"].ToString();
+                empl.JobDescription = odRdr["JobDescription"].ToString();
+                //loan
+                empl.FaceData1 = odRdr["DepartmentName"].ToString();
+                employeeList.Add(empl);
+            }
+            odRdr.Close();
+            
+            //OleDbDataAdapter odApt = new OleDbDataAdapter(odCom);
+            //DataTable dtEmpl = new DataTable();
+            //odApt.Fill(dtEmpl);
 
             List<AttendanceLogReport> attLogs = new List<AttendanceLogReport>();
             AttendanceLogReport _attLog = null;
@@ -2212,14 +2231,12 @@ namespace FaceIDAppVBEta.Data
             {
                 _attLog = new AttendanceLogReport();
 
-                DataRow[] rdEmpl = dtEmpl.Select("EmployeeNumber=" + attRp.EmployeeNumber);
-                if (rdEmpl.Length > 0)
-                {
-                    _attLog.FullName = rdEmpl[0]["LastName"] + ", " + rdEmpl[0]["FirstName"];
-                    _attLog.PayrollNumber = (int)rdEmpl[0]["PayrollNumber"];
-                    _attLog.JobDescription = rdEmpl[0]["JobDescription"].ToString();
-                    _attLog.Department = rdEmpl[0]["DepartmentName"].ToString();
-                }
+                Employee employee = employeeList.Find(delegate(Employee e) { return e.EmployeeNumber == attRp.EmployeeNumber; });
+
+                _attLog.FullName = employee.LastName + ", " + employee.FirstName;
+                _attLog.PayrollNumber = employee.PayrollNumber;
+                _attLog.JobDescription = employee.JobDescription;
+                _attLog.Department = employee.FaceData1;
 
                 _attLog.AttendanceRecordIDList = attRp.AttendanceRecordIDList;
                 _attLog.DayTypeID = attRp.DayTypeID;
@@ -2256,14 +2273,22 @@ namespace FaceIDAppVBEta.Data
                 return null;
             string sEmplNumbers = string.Join(",", lEmplNumbers.ToArray());
 
-            OleDbCommand odCom = BuildSelectCmd("Employee", "EmployeeNumber, FirstName, LastName, PayrollNumber, JobDescription", "EmployeeNumber IN(" + sEmplNumbers + ") AND Active=TRUE");
+            OleDbCommand odCom = BuildSelectCmd("Employee", "EmployeeNumber, FirstName, LastName", "EmployeeNumber IN(" + sEmplNumbers + ") AND Active=TRUE");
 
-            OleDbDataAdapter odApt = new OleDbDataAdapter(odCom);
+            OleDbDataReader odRdr = odCom.ExecuteReader();
 
-            //TODO why don't use a List<Employee> here?
-            DataTable dtEmpl = new DataTable();
-            odApt.Fill(dtEmpl);
-
+            List<Employee> employeeList = new List<Employee>();
+            Employee empl;
+            while (odRdr.Read())
+            {
+                empl = new Employee();
+                empl.EmployeeNumber = (int)odRdr["EmployeeNumber"];
+                empl.LastName = odRdr["LastName"].ToString();
+                empl.FirstName = odRdr["FirstName"].ToString();
+                employeeList.Add(empl);
+            }
+            odRdr.Close();
+            
             List<AttendanceLogRecord> attLogList = new List<AttendanceLogRecord>();
             AttendanceLogRecord attLog = null;
 
@@ -2275,9 +2300,8 @@ namespace FaceIDAppVBEta.Data
                 string sAttendanceRecordIDs = attReport.AttendanceRecordIDList;
                 sAttendanceRecordIDs = sAttendanceRecordIDs.Replace("{", "").Replace("}", ",").Trim(',');
 
-                //TODO List<AttendanceRecord> GetAttendanceRecordByAttendanceReport(int attendanceReportID, bool orderByTime)
                 odCom = BuildSelectCmd("AttendanceRecord", "*", "ID IN(" + sAttendanceRecordIDs + ")");
-                OleDbDataReader odRdr = odCom.ExecuteReader();
+                odRdr = odCom.ExecuteReader();
 
                 attRecordList.Clear();
                 while (odRdr.Read())
@@ -2286,7 +2310,6 @@ namespace FaceIDAppVBEta.Data
                     attRecord.ID = (int)odRdr["ID"];
                     attRecord.EmployeeNumber = (int)odRdr["EmployeeNumber"];
                     attRecord.Note = odRdr["Note"].ToString();
-                    //attRecord.PhotoData = odRdr["PhotoData"].ToString();
                     attRecord.Time = (DateTime)odRdr["Time"];
                     attRecordList.Add(attRecord);
                 }
@@ -2312,12 +2335,11 @@ namespace FaceIDAppVBEta.Data
                         attLog.DateLog = attReport.WorkFrom.Date;
 
                         //TODO wrong number, total hours here is based on the in/out, not report
-                        //attLog.TotalHours = attReport.RegularHour + attReport.OvertimeHour1 + attReport.OvertimeHour2 + attReport.OvertimeHour3 + attReport.OvertimeHour4;
                         attLog.TotalHours = Math.Round(CalculateTotalHours(attRecordList), 2);
 
-                        DataRow[] rdEmpl = dtEmpl.Select("EmployeeNumber=" + attReport.EmployeeNumber);
-                        if (rdEmpl.Length > 0)
-                            attLog.EmployeeName = rdEmpl[0]["LastName"] + ", " + rdEmpl[0]["FirstName"];
+                        Employee employee = employeeList.Find(delegate(Employee e) { return e.EmployeeNumber == attReport.EmployeeNumber; });
+                     
+                        attLog.EmployeeName = employee.LastName + ", " + employee.FirstName;
                         isFirst = false;
                     }
 
