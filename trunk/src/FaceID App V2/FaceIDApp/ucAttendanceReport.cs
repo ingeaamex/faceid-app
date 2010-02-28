@@ -249,9 +249,10 @@ namespace FaceIDAppVBEta
                                     e.CellBounds.Top - 1);
 
                                 Rectangle rec = dgvAttendanceReport.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
-                                e.Graphics.DrawString(e.Value.ToString(), e.CellStyle.Font,
-                                    blackColorBrush, rec.Left + 5,
-                                    rec.Top + 5, StringFormat.GenericDefault);
+                                if (rec.Left > 0 && rec.Top > 0)
+                                    e.Graphics.DrawString(e.Value.ToString(), e.CellStyle.Font,
+                                        blackColorBrush, rec.Left + 5,
+                                        rec.Top + 5, StringFormat.GenericDefault);
                             }
                         }
                         else if (e.ColumnIndex == 1)
@@ -263,7 +264,8 @@ namespace FaceIDAppVBEta
                                     e.CellBounds.Top - 1);
 
                                 Rectangle rec = dgvAttendanceReport.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
-                                e.Graphics.DrawString(e.Value.ToString(), e.CellStyle.Font,
+                                if (rec.Left > 0 && rec.Top > 0)
+                                    e.Graphics.DrawString(e.Value.ToString(), e.CellStyle.Font,
                                     blackColorBrush, rec.Left + 5,
                                     rec.Top + 5, StringFormat.GenericDefault);
                             }
@@ -277,7 +279,8 @@ namespace FaceIDAppVBEta
                                     e.CellBounds.Top - 1);
 
                                 Rectangle rec = dgvAttendanceReport.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
-                                e.Graphics.DrawString(Convert.ToDateTime(e.Value).ToString("d MMM yyyy"), e.CellStyle.Font,
+                                if (rec.Left > 0 && rec.Top > 0)
+                                    e.Graphics.DrawString(Convert.ToDateTime(e.Value).ToString("d MMM yyyy"), e.CellStyle.Font,
                                     blackColorBrush, rec.Left + 5,
                                     rec.Top + 5, StringFormat.GenericDefault);
                             }
@@ -291,7 +294,8 @@ namespace FaceIDAppVBEta
                                     e.CellBounds.Top - 1);
 
                                 Rectangle rec = dgvAttendanceReport.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
-                                e.Graphics.DrawString(e.Value.ToString(), e.CellStyle.Font,
+                                if (rec.Left > 0 && rec.Top > 0)
+                                    e.Graphics.DrawString(e.Value.ToString(), e.CellStyle.Font,
                                     blackColorBrush, rec.Left + 5,
                                     rec.Top + 5, StringFormat.GenericDefault);
                             }
