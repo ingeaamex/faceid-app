@@ -2027,6 +2027,7 @@ namespace FaceIDAppVBEta.Data
             bool applyFlexiHours = false, isFirst = true;
             WorkingCalendar wCal = null;
             PaymentRate paymentRate = null;
+            List<Shift> shiftList=new List<Shift>();
             DayOfWeek weekStartsOn = DayOfWeek.Monday;
             DateTime beginFlexiDate, endFlexiDate;
             List<AttendanceSummaryReport> attSummarysRs = new List<AttendanceSummaryReport>();
@@ -2038,6 +2039,7 @@ namespace FaceIDAppVBEta.Data
                 {
                     if (applyFlexiHours)
                     {
+
                         beginFlexiDate = attSumRp.DateLog;
                         endFlexiDate = beginFlexiDate;
 
@@ -2155,17 +2157,14 @@ namespace FaceIDAppVBEta.Data
                                         {
                                             attRp_1.DateLog = attRp.DateLog;
                                             attRp_1.TotalHour = attRp.TotalHour;
-                                            attRp_1.EmployeeNumber = attRp.EmployeeNumber;
-                                            attRp_1.FullName = attRp.FullName;
+                                            attRp_1.EmployeeNumber = 0;
+                                            attRp_1.FullName = null;
                                             double[] chartData = attRp.ChartData;
                                             chartData[1] = 0;
                                             chartData[2] = attRp.TotalHour;
                                             attRp_1.ChartData = chartData;
                                         }
-                                        else
-                                        {
 
-                                        }
                                         attSummarysRs.Add(attRp_1);
                                     }
                                 }
@@ -2177,34 +2176,41 @@ namespace FaceIDAppVBEta.Data
                     }
                     else
                     {
-                        AttendanceSummaryReport attRp_1 = new AttendanceSummaryReport();
-                        attRp_1.ChartData = attSumRp.ChartData;
-                        attRp_1.WorkingHour = attSumRp.WorkingHour;
-
-                        if (duplicatedate.Equals(attSumRp.DateLog))
+                        if (shiftList.Count > 0)
                         {
-                            attRp_1.TotalHour = -1;
-                            attRp_1.EmployeeNumber = 0;
+                            attSummarys.Remove(attSumRp);
                         }
                         else
                         {
-                            attRp_1.DateLog = attSumRp.DateLog;
-                            attRp_1.TotalHour = attSumRp.TotalHour;
-                            attRp_1.EmployeeNumber = attSumRp.EmployeeNumber;
-                            attRp_1.FullName = attSumRp.FullName;
+                            AttendanceSummaryReport attRp_1 = new AttendanceSummaryReport();
+                            attRp_1.ChartData = attSumRp.ChartData;
+                            attRp_1.WorkingHour = attSumRp.WorkingHour;
+
+                            if (duplicatedate.Equals(attSumRp.DateLog))
+                            {
+                                attRp_1.TotalHour = -1;
+                                attRp_1.EmployeeNumber = 0;
+                            }
+                            else
+                            {
+                                attRp_1.DateLog = attSumRp.DateLog;
+                                attRp_1.TotalHour = attSumRp.TotalHour;
+                                attRp_1.EmployeeNumber = attSumRp.EmployeeNumber;
+                                attRp_1.FullName = attSumRp.FullName;
+                            }
+
+                            duplicatedate = attSumRp.DateLog;
+
+                            attSummarysRs.Add(attRp_1);
+                            attSummarys.Remove(attSumRp);
                         }
-
-                        duplicatedate = attSumRp.DateLog;
-
-                        attSummarysRs.Add(attRp_1);
-                        attSummarys.Remove(attSumRp);
-
                     }
                 }
                 else
                 {
                     employeeNumber = attSumRp.EmployeeNumber;
                     wCal = GetWorkingCalendarByEmployee(employeeNumber);
+                    shiftList = GetShiftListByWorkingCalendar(wCal.ID);
                     paymentRate = GetWorkingDayPaymentRateByWorkingCalendar(wCal.ID);
                     applyFlexiHours = wCal.ApplyFlexiHours;
                     flexiHours = wCal.FlexiHours;
