@@ -4738,7 +4738,7 @@ namespace FaceIDAppVBEta.Data
 
                     if (overtimeHour4 > 0)
                         strOvertime.AppendFormat("{0} x {1}%\n", overtimeHour4, attendanceLogReport.OvertimeRate4);
-                    
+
                     overtimeHourAndRate = strOvertime.ToString();
 
                     payrollExport = new PayrollExport();
@@ -4760,122 +4760,115 @@ namespace FaceIDAppVBEta.Data
                 }
                 else
                 {
-                    if (shiftList.Count > 1)
-                    {
-                    
-                    }
-                    else
-                    {
-                        Hashtable hOvertimeHour1 = new Hashtable();
-                        Hashtable hOvertimeHour2 = new Hashtable();
-                        Hashtable hOvertimeHour3 = new Hashtable();
-                        Hashtable hOvertimeHour4 = new Hashtable();
+                    Hashtable hOvertimeHour1 = new Hashtable();
+                    Hashtable hOvertimeHour2 = new Hashtable();
+                    Hashtable hOvertimeHour3 = new Hashtable();
+                    Hashtable hOvertimeHour4 = new Hashtable();
 
-                        double regularHours = 0, totalHours = 0, totalHoursWithRate = 0, totalOvertimeHours = 0;
-                        string overtimeHourAndRate = "";
+                    double regularHours = 0, totalHours = 0, totalHoursWithRate = 0, totalOvertimeHours = 0;
+                    string overtimeHourAndRate = "";
 
-                        foreach (AttendanceLogReport attRp in attendanceLogReportListByEmpl)
+                    foreach (AttendanceLogReport attRp in attendanceLogReportListByEmpl)
+                    {
+                        regularHours += attRp.WorkingHour;
+
+                        totalHours += attRp.TotalHour;
+
+                        totalHoursWithRate += attRp.WorkingHour * attRp.RegularRate / 100
+                            + attRp.OvertimeHour1 * attRp.OvertimeRate1 / 100
+                            + attRp.OvertimeHour2 * attRp.OvertimeRate2 / 100
+                            + attRp.OvertimeHour3 * attRp.OvertimeRate3 / 100
+                            + attRp.OvertimeHour4 * attRp.OvertimeRate4 / 100;
+
+                        totalOvertimeHours += attRp.OvertimeHour1
+                        + attRp.OvertimeHour2
+                        + attRp.OvertimeHour3
+                        + attRp.OvertimeHour4;
+
+                        if (attRp.OvertimeHour1 > 0)
                         {
-                            regularHours += attRp.WorkingHour;
-
-                            totalHours += attRp.TotalHour;
-
-                            totalHoursWithRate += attRp.WorkingHour * attRp.RegularRate / 100
-                                + attRp.OvertimeHour1 * attRp.OvertimeRate1 / 100
-                                + attRp.OvertimeHour2 * attRp.OvertimeRate2 / 100
-                                + attRp.OvertimeHour3 * attRp.OvertimeRate3 / 100
-                                + attRp.OvertimeHour4 * attRp.OvertimeRate4 / 100;
-
-                            totalOvertimeHours += attRp.OvertimeHour1
-                            + attRp.OvertimeHour2
-                            + attRp.OvertimeHour3
-                            + attRp.OvertimeHour4;
-
-                            if (attRp.OvertimeHour1 > 0)
+                            if (hOvertimeHour1.ContainsKey(attRp.OvertimeRate1))
                             {
-                                if (hOvertimeHour1.ContainsKey(attRp.OvertimeRate1))
-                                {
-                                    double overtimeHour = (double)hOvertimeHour1[attRp.OvertimeRate1];
-                                    hOvertimeHour1[attRp.OvertimeRate1] = overtimeHour + attRp.OvertimeHour1;
-                                }
-                                else
-                                    hOvertimeHour1.Add(attRp.OvertimeRate1, attRp.OvertimeHour1);
+                                double overtimeHour = (double)hOvertimeHour1[attRp.OvertimeRate1];
+                                hOvertimeHour1[attRp.OvertimeRate1] = overtimeHour + attRp.OvertimeHour1;
                             }
-
-                            if (attRp.OvertimeHour2 > 0)
-                            {
-                                if (hOvertimeHour2.ContainsKey(attRp.OvertimeRate2))
-                                {
-                                    double overtimeHour = (double)hOvertimeHour2[attRp.OvertimeRate2];
-                                    hOvertimeHour2[attRp.OvertimeRate2] = overtimeHour + attRp.OvertimeHour2;
-                                }
-                                else
-                                    hOvertimeHour2.Add(attRp.OvertimeRate2, attRp.OvertimeHour2);
-                            }
-
-                            if (attRp.OvertimeHour3 > 0)
-                            {
-                                if (hOvertimeHour3.ContainsKey(attRp.OvertimeRate3))
-                                {
-                                    double overtimeHour = (double)hOvertimeHour3[attRp.OvertimeRate3];
-                                    hOvertimeHour3[attRp.OvertimeRate3] = overtimeHour + attRp.OvertimeHour3;
-                                }
-                                else
-                                    hOvertimeHour3.Add(attRp.OvertimeRate3, attRp.OvertimeHour3);
-                            }
-
-                            if (attRp.OvertimeHour4 > 0)
-                            {
-                                if (hOvertimeHour4.ContainsKey(attRp.OvertimeRate4))
-                                {
-                                    double overtimeHour = (double)hOvertimeHour4[attRp.OvertimeRate4];
-                                    hOvertimeHour4[attRp.OvertimeRate4] = overtimeHour + attRp.OvertimeHour4;
-                                }
-                                else
-                                    hOvertimeHour4.Add(attRp.OvertimeRate4, attRp.OvertimeHour4);
-                            }
+                            else
+                                hOvertimeHour1.Add(attRp.OvertimeRate1, attRp.OvertimeHour1);
                         }
 
-                        StringBuilder strOvertime = new StringBuilder();
+                        if (attRp.OvertimeHour2 > 0)
+                        {
+                            if (hOvertimeHour2.ContainsKey(attRp.OvertimeRate2))
+                            {
+                                double overtimeHour = (double)hOvertimeHour2[attRp.OvertimeRate2];
+                                hOvertimeHour2[attRp.OvertimeRate2] = overtimeHour + attRp.OvertimeHour2;
+                            }
+                            else
+                                hOvertimeHour2.Add(attRp.OvertimeRate2, attRp.OvertimeHour2);
+                        }
 
-                        foreach (DictionaryEntry item in hOvertimeHour1)
-                            strOvertime.AppendFormat("{0} x {1}%\n", item.Value, item.Key);
+                        if (attRp.OvertimeHour3 > 0)
+                        {
+                            if (hOvertimeHour3.ContainsKey(attRp.OvertimeRate3))
+                            {
+                                double overtimeHour = (double)hOvertimeHour3[attRp.OvertimeRate3];
+                                hOvertimeHour3[attRp.OvertimeRate3] = overtimeHour + attRp.OvertimeHour3;
+                            }
+                            else
+                                hOvertimeHour3.Add(attRp.OvertimeRate3, attRp.OvertimeHour3);
+                        }
 
-                        foreach (DictionaryEntry item in hOvertimeHour2)
-                            strOvertime.AppendFormat("{0} x {1}%\n", item.Value, item.Key);
-
-                        foreach (DictionaryEntry item in hOvertimeHour3)
-                            strOvertime.AppendFormat("{0} x {1}%\n", item.Value, item.Key);
-
-                        foreach (DictionaryEntry item in hOvertimeHour4)
-                            strOvertime.AppendFormat("{0} x {1}%\n", item.Value, item.Key);
-
-                        overtimeHourAndRate = strOvertime.ToString();
-
-                        AttendanceLogReport attendanceLogReport = attendanceLogReportListByEmpl[0];
-
-                        payrollExport = new PayrollExport();
-
-                        payrollExport.DateFrom = attendanceLogReportListByEmpl[0].WorkFrom;
-                        payrollExport.DateTo = attendanceLogReportListByEmpl[attendanceLogReportListByEmpl.Count - 1].WorkFrom;
-
-                        payrollExport.EmployeeNumber = emplNumber;
-                        payrollExport.FullName = attendanceLogReport.FullName;
-                        payrollExport.JobDescription = attendanceLogReport.JobDescription;
-                        payrollExport.Department = attendanceLogReport.Department;
-                        payrollExport.PayrollNumber = attendanceLogReport.PayrollNumber;
-                        payrollExport.RegularHour = Math.Round(regularHours, 2);
-                        payrollExport.OvertimeHour = overtimeHourAndRate;
-                        payrollExport.TotalHours = Math.Round(totalHours, 2);
-                        payrollExport.TotalHoursWithRate = Math.Round(totalHoursWithRate, 2);
-                        payrollExport.TotalOvertimeHours = Math.Round(totalOvertimeHours, 2);
-                        payrollExportList.Add(payrollExport);
-
-                        hOvertimeHour1.Clear();
-                        hOvertimeHour2.Clear();
-                        hOvertimeHour3.Clear();
-                        hOvertimeHour4.Clear();
+                        if (attRp.OvertimeHour4 > 0)
+                        {
+                            if (hOvertimeHour4.ContainsKey(attRp.OvertimeRate4))
+                            {
+                                double overtimeHour = (double)hOvertimeHour4[attRp.OvertimeRate4];
+                                hOvertimeHour4[attRp.OvertimeRate4] = overtimeHour + attRp.OvertimeHour4;
+                            }
+                            else
+                                hOvertimeHour4.Add(attRp.OvertimeRate4, attRp.OvertimeHour4);
+                        }
                     }
+
+                    StringBuilder strOvertime = new StringBuilder();
+
+                    foreach (DictionaryEntry item in hOvertimeHour1)
+                        strOvertime.AppendFormat("{0} x {1}%\n", item.Value, item.Key);
+
+                    foreach (DictionaryEntry item in hOvertimeHour2)
+                        strOvertime.AppendFormat("{0} x {1}%\n", item.Value, item.Key);
+
+                    foreach (DictionaryEntry item in hOvertimeHour3)
+                        strOvertime.AppendFormat("{0} x {1}%\n", item.Value, item.Key);
+
+                    foreach (DictionaryEntry item in hOvertimeHour4)
+                        strOvertime.AppendFormat("{0} x {1}%\n", item.Value, item.Key);
+
+                    overtimeHourAndRate = strOvertime.ToString();
+
+                    AttendanceLogReport attendanceLogReport = attendanceLogReportListByEmpl[0];
+
+                    payrollExport = new PayrollExport();
+
+                    payrollExport.DateFrom = attendanceLogReportListByEmpl[0].WorkFrom;
+                    payrollExport.DateTo = attendanceLogReportListByEmpl[attendanceLogReportListByEmpl.Count - 1].WorkFrom;
+
+                    payrollExport.EmployeeNumber = emplNumber;
+                    payrollExport.FullName = attendanceLogReport.FullName;
+                    payrollExport.JobDescription = attendanceLogReport.JobDescription;
+                    payrollExport.Department = attendanceLogReport.Department;
+                    payrollExport.PayrollNumber = attendanceLogReport.PayrollNumber;
+                    payrollExport.RegularHour = Math.Round(regularHours, 2);
+                    payrollExport.OvertimeHour = overtimeHourAndRate;
+                    payrollExport.TotalHours = Math.Round(totalHours, 2);
+                    payrollExport.TotalHoursWithRate = Math.Round(totalHoursWithRate, 2);
+                    payrollExport.TotalOvertimeHours = Math.Round(totalOvertimeHours, 2);
+                    payrollExportList.Add(payrollExport);
+
+                    hOvertimeHour1.Clear();
+                    hOvertimeHour2.Clear();
+                    hOvertimeHour3.Clear();
+                    hOvertimeHour4.Clear();
                 }
             }
 
