@@ -2107,7 +2107,7 @@ namespace FaceIDAppVBEta.Data
                             }
                             else
                             {
-
+                                 
                                 if (dFlexiHours > 0)
                                 {
                                     if (dFlexiHours < attRp.TotalHour)
@@ -2176,8 +2176,28 @@ namespace FaceIDAppVBEta.Data
                     }
                     else
                     {
-                        if (shiftList.Count > 0)
+                        if (shiftList.Count > 1)
                         {
+                            AttendanceSummaryReport attRp_1 = new AttendanceSummaryReport();
+                            attRp_1.ChartData = attSumRp.ChartData;
+                            attRp_1.WorkingHour = attSumRp.WorkingHour;
+
+                            if (duplicatedate.Equals(attSumRp.DateLog))
+                            {
+                                attRp_1.TotalHour = -1;
+                                attRp_1.EmployeeNumber = 0;
+                            }
+                            else
+                            {
+                                attRp_1.DateLog = attSumRp.DateLog;
+                                attRp_1.TotalHour = attSumRp.TotalHour;
+                                attRp_1.EmployeeNumber = attSumRp.EmployeeNumber;
+                                attRp_1.FullName = attSumRp.FullName;
+                            }
+
+                            duplicatedate = attSumRp.DateLog;
+
+                            attSummarysRs.Add(attRp_1);
                             attSummarys.Remove(attSumRp);
                         }
                         else
@@ -2270,9 +2290,20 @@ namespace FaceIDAppVBEta.Data
             odRdr.Close();
 
             AttendanceLogReport attLog = null;
-
+            Hashtable emplNumberOfRegularHours = new Hashtable();
+            double numberOfRegularHours = 0;
             foreach (AttendanceReport attReport in attReportList)
             {
+
+                if (emplNumberOfRegularHours.ContainsKey(attReport.EmployeeNumber))
+                    numberOfRegularHours = (double)emplNumberOfRegularHours[attReport.EmployeeNumber];
+                else
+                {
+                    PaymentRate pRate = GetPaymentRateByEmployeeAndWorkDay(attReport.EmployeeNumber, attReport.WorkFrom);
+                    numberOfRegularHours = pRate.NumberOfRegularHours;
+                    emplNumberOfRegularHours.Add(attReport.EmployeeNumber, numberOfRegularHours);
+                }
+                
                 attLog = new AttendanceLogReport();
 
                 attLog.FullName = employeeName;
@@ -2292,7 +2323,7 @@ namespace FaceIDAppVBEta.Data
                 attLog.OvertimeRate1 = attReport.OvertimeRate1;
                 attLog.OvertimeRate1 = attReport.OvertimeRate1;
                 attLog.PayPeriodID = attReport.PayPeriodID;
-                attLog.RegularHour = 8; //TODO ??
+                attLog.RegularHour = numberOfRegularHours;
                 attLog.RegularRate = attReport.RegularRate;
                 attLog.TotalHour = attReport.RegularHour + attReport.OvertimeHour1 + attReport.OvertimeHour2 + attReport.OvertimeHour3 + attReport.OvertimeHour4;
                 attLog.WorkingHour = attReport.RegularHour;
@@ -2344,10 +2375,21 @@ namespace FaceIDAppVBEta.Data
             List<AttendanceLogReport> attLogs = new List<AttendanceLogReport>();
             AttendanceLogReport _attLog = null;
 
+            Hashtable emplNumberOfRegularHours = new Hashtable();
+
+            double numberOfRegularHours = 0;
             foreach (AttendanceReport attRp in attendanceReports)
             {
                 _attLog = new AttendanceLogReport();
 
+                if (emplNumberOfRegularHours.ContainsKey(attRp.EmployeeNumber))
+                    numberOfRegularHours = (double)emplNumberOfRegularHours[attRp.EmployeeNumber];
+                else
+                {
+                    PaymentRate pRate = GetPaymentRateByEmployeeAndWorkDay(attRp.EmployeeNumber, attRp.WorkFrom);
+                    numberOfRegularHours = pRate.NumberOfRegularHours;
+                    emplNumberOfRegularHours.Add(attRp.EmployeeNumber, numberOfRegularHours);
+                }
                 Employee employee = employeeList.Find(delegate(Employee e) { return e.EmployeeNumber == attRp.EmployeeNumber; });
 
                 _attLog.FullName = employee.LastName + ", " + employee.FirstName;
@@ -2367,7 +2409,7 @@ namespace FaceIDAppVBEta.Data
                 _attLog.OvertimeRate1 = attRp.OvertimeRate1;
                 _attLog.OvertimeRate1 = attRp.OvertimeRate1;
                 _attLog.PayPeriodID = attRp.PayPeriodID;
-                _attLog.RegularHour = 8;
+                _attLog.RegularHour = numberOfRegularHours;
                 _attLog.RegularRate = attRp.RegularRate;
                 _attLog.TotalHour = attRp.RegularHour + attRp.OvertimeHour1 + attRp.OvertimeHour2 + attRp.OvertimeHour3 + attRp.OvertimeHour4;
                 _attLog.WorkingHour = attRp.RegularHour;

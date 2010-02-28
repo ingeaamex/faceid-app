@@ -308,19 +308,20 @@ namespace FaceIDAppVBEta
                                 float fx =rec.Left + 5;
                                 float fy = rec.Top + 2;
 
-                                float regWidth = 60;
-
                                 double[] chartData = (double[])e.Value;
 
                                 double regHour = chartData[0];
                                 double workHour = chartData[1];
                                 double overHour = chartData[2];
 
+                                double regWidth =  10 * regHour;
+
                                 float fWidth = Convert.ToSingle(regWidth * workHour / regHour);
                                 float fOverWidth = Convert.ToSingle(regWidth * overHour / regHour);
 
-                                e.Graphics.FillRectangle(grayColorBrush, fx, fy, regWidth, 16);
-                                e.Graphics.FillRectangle(greenColorBrush, fx, fy, fWidth, 16);
+                                e.Graphics.FillRectangle(grayColorBrush, fx, fy, Convert.ToSingle(regWidth), 16);
+                                if (fWidth > 0)
+                                    e.Graphics.FillRectangle(greenColorBrush, fx, fy, fWidth, 16);
                                 e.Graphics.DrawString(workHour.ToString() + " hrs", e.CellStyle.Font, blackColorBrush, fx + 5, fy + 2, StringFormat.GenericDefault);
                                 if (fOverWidth > 0)
                                 {
