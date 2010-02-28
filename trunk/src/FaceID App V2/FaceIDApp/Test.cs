@@ -540,7 +540,7 @@ namespace FaceIDApp
 
         private void AddTestMultiShiftNonFlexi(ref IDataController _dtCtrl)
         {
- #region add test company
+            #region add test company
             Company com = new Company();
             com.Name = DateTime.Now.Ticks.ToString();
             com.ID = _dtCtrl.AddCompany(com);
@@ -568,7 +568,7 @@ namespace FaceIDApp
             wCal.GraceForwardToEntry = 30;
             wCal.GraceBackwardToExit = 30;
             wCal.EarliestBeforeEntry = 60;
-            wCal.LastestAfterExit = 180;
+            wCal.LastestAfterExit = 60;
 
             List<Shift> shiftList = new List<Shift>();
             Shift shift1 = new Shift();
@@ -634,7 +634,7 @@ namespace FaceIDApp
             #endregion
 
             #region add test att records 1
-            //att1 : expected totalHours: 9
+            //att1 : expected totalHours: 4
             AttendanceRecord att11 = new AttendanceRecord();
             att11.EmployeeNumber = emp.EmployeeNumber;
             att11.Time = new DateTime(2010, 1, 1, 8, 0, 0);
@@ -645,6 +645,7 @@ namespace FaceIDApp
             att12.Time = new DateTime(2010, 1, 1, 12, 0, 0);
             att12.ID = _dtCtrl.AddAttendanceRecord(att12);
 
+            //att2 : expected totalHours: 4
             AttendanceRecord att13 = new AttendanceRecord();
             att13.EmployeeNumber = emp.EmployeeNumber;
             att13.Time = new DateTime(2010, 1, 1, 14, 0, 0);
@@ -655,6 +656,7 @@ namespace FaceIDApp
             att14.Time = new DateTime(2010, 1, 1, 18, 0, 0);
             att14.ID = _dtCtrl.AddAttendanceRecord(att14);
 
+            //att3 : expected totalHours: 4
             AttendanceRecord att21 = new AttendanceRecord();
             att21.EmployeeNumber = emp.EmployeeNumber;
             att21.Time = new DateTime(2010, 1, 1, 20, 0, 0);
@@ -665,7 +667,7 @@ namespace FaceIDApp
             att22.Time = new DateTime(2010, 1, 2, 0, 0, 0);
             att22.ID = _dtCtrl.AddAttendanceRecord(att22);
 
-            //att2 : expected totalHours: 9.75
+            //att4 : expected totalHours: 3
             AttendanceRecord att31 = new AttendanceRecord();
             att31.EmployeeNumber = emp.EmployeeNumber;
             att31.Time = new DateTime(2010, 1, 2, 8, 15, 0);
@@ -676,6 +678,7 @@ namespace FaceIDApp
             att32.Time = new DateTime(2010, 1, 2, 11, 0, 0);
             att32.ID = _dtCtrl.AddAttendanceRecord(att32);
 
+            //att4 : expected totalHours: 4 + 1 over
             AttendanceRecord att41 = new AttendanceRecord();
             att41.EmployeeNumber = emp.EmployeeNumber;
             att41.Time = new DateTime(2010, 1, 2, 14, 00, 0);
@@ -683,9 +686,10 @@ namespace FaceIDApp
 
             AttendanceRecord att42 = new AttendanceRecord();
             att42.EmployeeNumber = emp.EmployeeNumber;
-            att42.Time = new DateTime(2010, 1, 2, 18, 0, 0);
+            att42.Time = new DateTime(2010, 1, 2, 19, 0, 0);
             att42.ID = _dtCtrl.AddAttendanceRecord(att42);
 
+            //att4 : expected totalHours: 
             AttendanceRecord att51 = new AttendanceRecord();
             att51.EmployeeNumber = emp.EmployeeNumber;
             att51.Time = new DateTime(2010, 1, 2, 20, 06, 0);
@@ -696,7 +700,7 @@ namespace FaceIDApp
             att52.Time = new DateTime(2010, 1, 2, 23, 2, 0);
             att52.ID = _dtCtrl.AddAttendanceRecord(att52);
 
-            //att3 : expected totalHours: 8.5
+            //att5 : expected totalHours: 
             AttendanceRecord att61 = new AttendanceRecord();
             att61.EmployeeNumber = emp.EmployeeNumber;
             att61.Time = new DateTime(2010, 1, 3, 9, 0, 0);
@@ -707,6 +711,7 @@ namespace FaceIDApp
             att62.Time = new DateTime(2010, 1, 3, 12, 0, 0);
             att62.ID = _dtCtrl.AddAttendanceRecord(att62);
 
+            //att6 : expected totalHours: 4 
             AttendanceRecord att63 = new AttendanceRecord();
             att63.EmployeeNumber = emp.EmployeeNumber;
             att63.Time = new DateTime(2010, 1, 3, 14, 30, 0);
@@ -716,6 +721,18 @@ namespace FaceIDApp
             att64.EmployeeNumber = emp.EmployeeNumber;
             att64.Time = new DateTime(2010, 1, 3, 18, 30, 0);
             att64.ID = _dtCtrl.AddAttendanceRecord(att64);
+
+            //att7 : expected totalHours: 4 + 1
+            AttendanceRecord att65 = new AttendanceRecord();
+            att65.EmployeeNumber = emp.EmployeeNumber;
+            att65.Time = new DateTime(2010, 1, 3, 20, 30, 0);
+            att65.ID = _dtCtrl.AddAttendanceRecord(att65);
+
+            AttendanceRecord att66 = new AttendanceRecord();
+            att66.EmployeeNumber = emp.EmployeeNumber;
+            att66.Time = new DateTime(2010, 1, 4, 0, 45, 0);
+            att66.ID = _dtCtrl.AddAttendanceRecord(att66);
+            
             #endregion  
         }
 
