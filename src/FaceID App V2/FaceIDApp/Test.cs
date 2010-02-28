@@ -598,9 +598,15 @@ namespace FaceIDApp
             List<Holiday> holidayList = new List<Holiday>();
 
             PaymentRate workingDayPaymentRate = new PaymentRate();
-            workingDayPaymentRate.NumberOfRegularHours = 7;
+            workingDayPaymentRate.NumberOfRegularHours = 4;
             workingDayPaymentRate.RegularRate = 100;
-            workingDayPaymentRate.NumberOfOvertime1 = 8;
+            workingDayPaymentRate.NumberOfOvertime1 = 1;
+            workingDayPaymentRate.OvertimeRate1 = 200;
+            workingDayPaymentRate.NumberOfOvertime1 = 1;
+            workingDayPaymentRate.OvertimeRate1 = 200;
+            workingDayPaymentRate.NumberOfOvertime1 = 1;
+            workingDayPaymentRate.OvertimeRate1 = 200;
+            workingDayPaymentRate.NumberOfOvertime1 = 1;
             workingDayPaymentRate.OvertimeRate1 = 200;
 
             PaymentRate nonWorkingDayPaymentRate = workingDayPaymentRate;
@@ -725,14 +731,24 @@ namespace FaceIDApp
             //att7 : expected totalHours: 4 + 1
             AttendanceRecord att65 = new AttendanceRecord();
             att65.EmployeeNumber = emp.EmployeeNumber;
-            att65.Time = new DateTime(2010, 1, 3, 20, 30, 0);
+            att65.Time = new DateTime(2010, 1, 3, 20, 0, 0);
             att65.ID = _dtCtrl.AddAttendanceRecord(att65);
 
             AttendanceRecord att66 = new AttendanceRecord();
             att66.EmployeeNumber = emp.EmployeeNumber;
-            att66.Time = new DateTime(2010, 1, 4, 0, 45, 0);
+            att66.Time = new DateTime(2010, 1, 3, 22, 00, 0);
             att66.ID = _dtCtrl.AddAttendanceRecord(att66);
-            
+
+            AttendanceRecord att67 = new AttendanceRecord();
+            att67.EmployeeNumber = emp.EmployeeNumber;
+            att67.Time = new DateTime(2010, 1, 3, 22, 30, 0);
+            att67.ID = _dtCtrl.AddAttendanceRecord(att67);
+
+            AttendanceRecord att68 = new AttendanceRecord();
+            att68.EmployeeNumber = emp.EmployeeNumber;
+            att68.Time = new DateTime(2010, 1, 4, 0, 45, 0);
+            att68.ID = _dtCtrl.AddAttendanceRecord(att68);
+
             #endregion  
         }
 
