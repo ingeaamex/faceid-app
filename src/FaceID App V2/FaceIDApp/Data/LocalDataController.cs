@@ -1456,7 +1456,7 @@ namespace FaceIDAppVBEta.Data
         }
 
         public int AddWorkingCalendar(WorkingCalendar workingCalendar, List<Shift> shiftList, List<Break> breakList, List<Holiday> holidayList, PaymentRate workingDayPaymentRate, PaymentRate nonWorkingDayPaymentRate, PaymentRate holidayPaymentRate, PayPeriod payPeriod)
-        {//TODO add shift1
+        {
             BeginTransaction();
 
             try
@@ -1472,6 +1472,15 @@ namespace FaceIDAppVBEta.Data
 
                 if (workingCalendar.ID < 0)
                     throw new NullReferenceException();
+
+                //add shift
+                foreach (Shift _shift in shiftList)
+                {
+                    _shift.WorkingCalendarID = workingCalendar.ID;
+                    if (AddShift(_shift) < 0)
+                        throw new NullReferenceException();
+                }
+
 
                 //add breaks
                 foreach (Break _break in breakList)
@@ -1870,6 +1879,87 @@ namespace FaceIDAppVBEta.Data
             return employeeNumberList;
         }
 
+        private void GetOverTimeHour(ref List<string> overtimeList, ref int rateNumber, ref double overTimeHour, PaymentRate paymentRate)
+        {
+            if (overTimeHour <= 0)
+                return;
+
+            if (rateNumber > 4)
+                rateNumber = 4;
+            
+            switch (rateNumber)
+            { 
+                case 1:
+                    if (paymentRate.NumberOfOvertime1 > 0)
+                    {
+                        if (overTimeHour > paymentRate.NumberOfOvertime1)
+                        {
+                            overtimeList.Add("Overtime Hour 1 : " + paymentRate.NumberOfOvertime1);
+                            rateNumber++;
+                            overTimeHour -= paymentRate.NumberOfOvertime1;
+                            GetOverTimeHour(ref overtimeList, ref rateNumber, ref overTimeHour, paymentRate);
+                        }
+                        else
+                        {
+                            overtimeList.Add("Overtime Hour 1 : " + overTimeHour);
+                            overTimeHour -= overTimeHour;
+                        }
+                    }
+                    break;
+                case 2:
+                    if (paymentRate.NumberOfOvertime2 > 0)
+                    {
+                        if (overTimeHour > paymentRate.NumberOfOvertime2)
+                        {
+                            overtimeList.Add("Overtime Hour 2 : " + paymentRate.NumberOfOvertime2);
+                            rateNumber++;
+                            overTimeHour -= paymentRate.NumberOfOvertime2;
+                            GetOverTimeHour(ref overtimeList, ref rateNumber, ref overTimeHour, paymentRate);
+                        }
+                        else
+                        {
+                            overtimeList.Add("Overtime Hour 2 : " + overTimeHour);
+                            overTimeHour -= overTimeHour;
+                        }
+                    }
+                    break;
+                case 3:
+                    if (paymentRate.NumberOfOvertime3 > 0)
+                    {
+                        if (overTimeHour > paymentRate.NumberOfOvertime3)
+                        {
+                            overtimeList.Add("Overtime Hour 3 : " + paymentRate.NumberOfOvertime3);
+                            rateNumber++;
+                            overTimeHour -= paymentRate.NumberOfOvertime3;
+                            GetOverTimeHour(ref overtimeList, ref rateNumber, ref overTimeHour, paymentRate);
+                        }
+                        else
+                        {
+                            overtimeList.Add("Overtime Hour 3 : " + overTimeHour);
+                            overTimeHour -= overTimeHour;
+                        }
+                    }
+                    break;
+                case 4:
+                    if (paymentRate.NumberOfOvertime4 > 0)
+                    {
+                        if (overTimeHour > paymentRate.NumberOfOvertime4)
+                        {
+                            overtimeList.Add("Overtime Hour 4 : " + paymentRate.NumberOfOvertime4);
+                            rateNumber++;
+                            overTimeHour -= paymentRate.NumberOfOvertime4;
+                            GetOverTimeHour(ref overtimeList, ref rateNumber, ref overTimeHour, paymentRate);
+                        }
+                        else
+                        {
+                            overtimeList.Add("Overtime Hour 4 : " + overTimeHour);
+                            overTimeHour -= overTimeHour;
+                        }
+                    }
+                    break;
+            }
+        }
+
         public List<AttendanceSummaryReport> GetAttendanceSummaryReport(int iCompany, int iDepartment, DateTime beginDate, DateTime endDate)
         {
             List<AttendanceSummaryReport> attSummarys = new List<AttendanceSummaryReport>();
@@ -1936,6 +2026,7 @@ namespace FaceIDAppVBEta.Data
             int employeeNumber = 0, flexiHours = 0, wcalRegHour = 8;
             bool applyFlexiHours = false, isFirst = true; 
             WorkingCalendar wCal = null;
+            PaymentRate paymentRate = null;
             DayOfWeek weekStartsOn = DayOfWeek.Monday;
             DateTime beginFlexiDate, endFlexiDate;
             List<AttendanceSummaryReport> attSummarysRs = new List<AttendanceSummaryReport>();
@@ -1986,6 +2077,10 @@ namespace FaceIDAppVBEta.Data
                         isFirst = true;
                         double dFlexiHours = Convert.ToDouble(flexiHours);
                         AttendanceSummaryReport attRp_1;
+
+                        double totalOvertimeHour = 0;
+                        int rateNumber = 1;
+                        List<string> overtimeHours = null;
                         foreach (AttendanceSummaryReport attRp in attSummarys_1)
                         {
                             attRp_1 = new AttendanceSummaryReport();
@@ -2022,14 +2117,20 @@ namespace FaceIDAppVBEta.Data
                                         attRp_1.ChartData = chartData;
                                         attSummarysRs.Add(attRp_1);
 
-                                        attRp_1 = new AttendanceSummaryReport();
-                                        attRp_1.ChartData = null;
-                                        attRp_1.DateLog = DateTime.MinValue;
-                                        attRp_1.TotalHour = -1;
-                                        attRp_1.EmployeeNumber = 0;
-                                        attRp_1.FullName = null;
-                                        attRp_1.WorkingHour = "Overtime Hour : " + (attRp.TotalHour - dFlexiHours);
-                                        attSummarysRs.Add(attRp_1);
+                                        overtimeHours = new List<string>();
+                                        totalOvertimeHour += attRp.TotalHour - dFlexiHours;
+                                        GetOverTimeHour(ref overtimeHours, ref rateNumber, ref totalOvertimeHour, paymentRate);
+                                        foreach (string strOvertime in overtimeHours)
+                                        {
+                                            attRp_1 = new AttendanceSummaryReport();
+                                            attRp_1.ChartData = null;
+                                            attRp_1.DateLog = DateTime.MinValue;
+                                            attRp_1.TotalHour = -1;
+                                            attRp_1.EmployeeNumber = 0;
+                                            attRp_1.FullName = null;
+                                            attRp_1.WorkingHour = strOvertime;
+                                            attSummarysRs.Add(attRp_1);
+                                        }
                                     }
                                     else
                                     {
@@ -2043,12 +2144,30 @@ namespace FaceIDAppVBEta.Data
                                 }
                                 else
                                 {
-                                    attRp_1.WorkingHour = "Overtime Hour : " + attRp.TotalHour;
-                                    double[] chartData = attRp.ChartData;
-                                    chartData[1] = 0;
-                                    chartData[2] = attRp.TotalHour;
-                                    attRp_1.ChartData = chartData;
-                                    attSummarysRs.Add(attRp_1);
+                                    overtimeHours = new List<string>();
+                                    totalOvertimeHour += attRp.TotalHour;
+                                    GetOverTimeHour(ref overtimeHours, ref rateNumber, ref totalOvertimeHour, paymentRate);
+                                    for (int i = 0; i < overtimeHours.Count; i++)
+                                    {
+                                        attRp_1 = new AttendanceSummaryReport();
+                                        attRp_1.WorkingHour = overtimeHours[i];
+                                        if (i == 0)
+                                        {
+                                            attRp_1.DateLog = attRp.DateLog;
+                                            attRp_1.TotalHour = attRp.TotalHour;
+                                            attRp_1.EmployeeNumber = attRp.EmployeeNumber;
+                                            attRp_1.FullName = attRp.FullName;
+                                            double[] chartData = attRp.ChartData;
+                                            chartData[1] = 0;
+                                            chartData[2] = attRp.TotalHour;
+                                            attRp_1.ChartData = chartData;
+                                        }
+                                        else
+                                        { 
+                                            
+                                        }
+                                        attSummarysRs.Add(attRp_1);
+                                    }
                                 }
                             }
                         }
@@ -2086,6 +2205,7 @@ namespace FaceIDAppVBEta.Data
                 {
                     employeeNumber = attSumRp.EmployeeNumber;
                     wCal = GetWorkingCalendarByEmployee(employeeNumber);
+                    paymentRate = GetWorkingDayPaymentRateByWorkingCalendar(wCal.ID);
                     applyFlexiHours = wCal.ApplyFlexiHours;
                     flexiHours = wCal.FlexiHours;
                     weekStartsOn = GetDayOfWeek(wCal.WeekStartsOn);
@@ -2624,10 +2744,87 @@ namespace FaceIDAppVBEta.Data
             return attendanceReport;
         }
 
+        private void CalculateRegularWorkingDayByAttendanceRecord(ref DateTime dRegularWorkingFrom, ref DateTime dRegularWorkingTo, AttendanceRecord attRecord, WorkingCalendar wCal, List<Shift> shiftList)
+        {
+            if (shiftList.Count == 1)
+            {
+                dRegularWorkingFrom = shiftList[0].From;
+                dRegularWorkingTo = shiftList[0].To;
+            }
+            else
+            {
+                for (int i = 0; i < shiftList.Count; i++)
+                {
+                    dRegularWorkingFrom = shiftList[i].From;
+                    dRegularWorkingTo = shiftList[i].To;
+
+                    double distanceMinute = TimeSpan.FromTicks(dRegularWorkingTo.Ticks - dRegularWorkingFrom.Ticks).TotalMinutes;
+                    DateTime dWorkingFrom = new DateTime(attRecord.Time.Year, attRecord.Time.Month, attRecord.Time.Day, dRegularWorkingFrom.Hour,
+                       dRegularWorkingFrom.Minute, dRegularWorkingFrom.Second).AddMinutes(-1 * wCal.EarliestBeforeEntry);
+                    DateTime dWorkingTo = dWorkingFrom.AddMinutes(distanceMinute + wCal.LastestAfterExit);
+
+                    if (dWorkingFrom.CompareTo(attRecord.Time) != 1 && dWorkingTo.CompareTo(attRecord.Time) != -1)
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void CalculateWorkingDayByAttendanceRecord(ref DateTime dWorkingFrom, ref DateTime dWorkingTo, AttendanceRecord attRecord, WorkingCalendar wCal, List<Shift> shiftList)
+        {
+            if (shiftList.Count == 1)
+            {
+                DateTime dRegularWorkingFrom = shiftList[0].From;
+                DateTime dRegularWorkingTo = shiftList[0].To;
+
+                dWorkingFrom = new DateTime(attRecord.Time.Year, attRecord.Time.Month, attRecord.Time.Day, dRegularWorkingFrom.Hour,
+                   dRegularWorkingFrom.Minute, dRegularWorkingFrom.Second).AddMinutes(-1 * wCal.EarliestBeforeEntry);
+
+                if (attRecord.Time.CompareTo(dWorkingFrom) == 1) //after earliest allowed entry
+                {
+                    if (attRecord.Time.CompareTo(dWorkingFrom.AddDays(1)) != -1) //TODO how could this happen?
+                        dWorkingFrom = dWorkingFrom.AddDays(1);
+                }
+                else
+                {
+                    if (!Is1stday(attRecord))
+                        dWorkingFrom = dWorkingFrom.AddDays(-1);
+                }
+
+                dWorkingTo = dWorkingFrom.Date.AddHours(dRegularWorkingTo.Hour).AddMinutes(dRegularWorkingTo.Minute + wCal.LastestAfterExit);
+
+                if (dWorkingFrom.CompareTo(dWorkingTo) == 1)
+                    dWorkingTo.AddDays(1);
+            }
+            else
+            {
+                DateTime dRegularWorkingFrom, dRegularWorkingTo;
+                for (int i = 0; i < shiftList.Count; i++)
+                {
+                    dRegularWorkingFrom = shiftList[i].From;
+                    dRegularWorkingTo = shiftList[i].To;
+
+                    double distanceMinute = TimeSpan.FromTicks(dRegularWorkingTo.Ticks - dRegularWorkingFrom.Ticks).TotalMinutes;
+                    dWorkingFrom = new DateTime(attRecord.Time.Year, attRecord.Time.Month, attRecord.Time.Day, dRegularWorkingFrom.Hour,
+                       dRegularWorkingFrom.Minute, dRegularWorkingFrom.Second).AddMinutes(-1 * wCal.EarliestBeforeEntry);
+                    dWorkingTo = dWorkingFrom.AddMinutes(distanceMinute + wCal.LastestAfterExit);
+
+                    if (dWorkingFrom.CompareTo(attRecord.Time) != 1 && dWorkingTo.CompareTo(attRecord.Time) != -1)
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+
+        //not use
         private DateTime GetWorkingDayByAttendanceRecord(AttendanceRecord attRecord, WorkingCalendar wCal)
         {
-            DateTime dRegularWorkingFrom = wCal.RegularWorkingFrom;
+            List<Shift> shiftList = GetShiftListByWorkingCalendar(wCal.ID);
 
+            DateTime dRegularWorkingFrom = shiftList[0].From;
+            
             DateTime wFrom = new DateTime(attRecord.Time.Year, attRecord.Time.Month, attRecord.Time.Day, dRegularWorkingFrom.Hour,
                dRegularWorkingFrom.Minute, dRegularWorkingFrom.Second).AddMinutes(-1 * wCal.EarliestBeforeEntry);
 
@@ -2647,30 +2844,30 @@ namespace FaceIDAppVBEta.Data
             }
         }
       
-        private DateTime GetWorkingDayByAttendanceRecord(AttendanceRecord attRecord)
-        {
-            WorkingCalendar wCal = GetWorkingCalendarByEmployee(attRecord.EmployeeNumber);
+        //private DateTime GetWorkingDayByAttendanceRecord(AttendanceRecord attRecord)
+        //{
+        //    WorkingCalendar wCal = GetWorkingCalendarByEmployee(attRecord.EmployeeNumber);
 
-            DateTime dRegularWorkingFrom = wCal.RegularWorkingFrom;
+        //    DateTime dRegularWorkingFrom = wCal.RegularWorkingFrom;
 
-            DateTime wFrom = new DateTime(attRecord.Time.Year, attRecord.Time.Month, attRecord.Time.Day, dRegularWorkingFrom.Hour,
-               dRegularWorkingFrom.Minute, dRegularWorkingFrom.Second).AddMinutes(-1 * wCal.EarliestBeforeEntry);
+        //    DateTime wFrom = new DateTime(attRecord.Time.Year, attRecord.Time.Month, attRecord.Time.Day, dRegularWorkingFrom.Hour,
+        //       dRegularWorkingFrom.Minute, dRegularWorkingFrom.Second).AddMinutes(-1 * wCal.EarliestBeforeEntry);
 
-            if (attRecord.Time.CompareTo(wFrom) == 1) //after earliest allowed entry
-            {
-                if (attRecord.Time.CompareTo(wFrom.AddDays(1)) != -1) //TODO how could this happen?
-                    return wFrom.AddDays(1);
-                else
-                    return wFrom;
-            }
-            else
-            {
-                if (Is1stday(attRecord))
-                    return wFrom;
-                else
-                    return wFrom.AddDays(-1);
-            }
-        }
+        //    if (attRecord.Time.CompareTo(wFrom) == 1) //after earliest allowed entry
+        //    {
+        //        if (attRecord.Time.CompareTo(wFrom.AddDays(1)) != -1) //TODO how could this happen?
+        //            return wFrom.AddDays(1);
+        //        else
+        //            return wFrom;
+        //    }
+        //    else
+        //    {
+        //        if (Is1stday(attRecord))
+        //            return wFrom;
+        //        else
+        //            return wFrom.AddDays(-1);
+        //    }
+        //}
 
         private bool Is1stday(AttendanceRecord attRecord)
         {
@@ -2711,15 +2908,19 @@ namespace FaceIDAppVBEta.Data
             WorkingCalendar workingCalendar = GetWorkingCalendarByEmployee(employeeNumber);
 
             int payPeriodID = workingCalendar.PayPeriodID;
-            DateTime dRegularWorkingFrom = workingCalendar.RegularWorkingFrom;
-            DateTime dRegularWorkingTo = workingCalendar.RegularWorkingTo;
 
-            int earliestBeforeEntry = workingCalendar.EarliestBeforeEntry;
-            int lastestAfterExit = workingCalendar.LastestAfterExit;
+            List<Shift> shiftList = GetShiftListByWorkingCalendar(workingCalendar.ID);
+
+            DateTime dRegularWorkingFrom = shiftList[0].From, dRegularWorkingTo = shiftList[0].To;
+
+            CalculateRegularWorkingDayByAttendanceRecord(ref dRegularWorkingFrom, ref dRegularWorkingTo, attRecord, workingCalendar, shiftList);
+
+            //int earliestBeforeEntry = workingCalendar.EarliestBeforeEntry;
+            //int lastestAfterExit = workingCalendar.LastestAfterExit;
             int graceForwardToEntry = workingCalendar.GraceForwardToEntry;
             int graceBackwardToExit = workingCalendar.GraceBackwardToExit;
 
-            DateTime dWorkingFrom, dWorkingTo;
+            DateTime dWorkingFrom = dRegularWorkingFrom, dWorkingTo = dRegularWorkingTo;
 
             string attIdList = "";
             int reportId = 0;
@@ -2727,11 +2928,13 @@ namespace FaceIDAppVBEta.Data
 
             if (attReport == null) //add a record
             {
-                dWorkingFrom = GetWorkingDayByAttendanceRecord(attRecord, workingCalendar);
-                dWorkingTo = dWorkingFrom.Date.AddHours(dRegularWorkingTo.Hour).AddMinutes(dRegularWorkingTo.Minute + lastestAfterExit);
+                CalculateWorkingDayByAttendanceRecord(ref dWorkingFrom, ref dWorkingTo, attRecord, workingCalendar, shiftList);
 
-                if (dWorkingFrom.CompareTo(dWorkingTo) == 1)
-                    dWorkingTo.AddDays(1);
+                //dWorkingFrom = GetWorkingDayByAttendanceRecord(attRecord, workingCalendar);
+                //dWorkingTo = dWorkingFrom.Date.AddHours(dRegularWorkingTo.Hour).AddMinutes(dRegularWorkingTo.Minute + lastestAfterExit);
+
+                //if (dWorkingFrom.CompareTo(dWorkingTo) == 1)
+                //    dWorkingTo.AddDays(1);
 
                 if (attRecord.Time.CompareTo(dWorkingFrom) == -1 || attRecord.Time.CompareTo(dWorkingTo) == 1)
                 {
@@ -2752,7 +2955,17 @@ namespace FaceIDAppVBEta.Data
             }
             else //update a report
             {
-                if (attRecord != null && attRecord.Time.Date.CompareTo(attReport.WorkFrom.Date) != 0) //record's date changed
+                //if (attRecord != null && attRecord.Time.Date.CompareTo(attReport.WorkFrom.Date) != 0)
+                //shiftList
+                bool changeShift = false;
+                if (shiftList.Count == 1)
+                    changeShift = attRecord.Time.Date.CompareTo(attReport.WorkFrom.Date) != 0;
+                else
+                {
+                    changeShift = attRecord.Time.CompareTo(attReport.WorkFrom) == -1 || attRecord.Time.CompareTo(attReport.WorkTo) == 1;
+                }
+
+                if (attRecord != null && changeShift) //record's date changed
                 {
                     attIdList = attReport.AttendanceRecordIDList.Replace("{" + attRecord.ID + "}", "");
                     attRecordDateChanged = true;
@@ -2990,9 +3203,10 @@ namespace FaceIDAppVBEta.Data
             }
             else
             {
-                workingCalendar.RegularWorkingFrom = dWorkingFrom;
-                workingCalendar.RegularWorkingTo = dWorkingTo;
-                return AddAttendanceReport(attRecord, workingCalendar);
+                //workingCalendar.RegularWorkingFrom = dWorkingFrom;
+                //workingCalendar.RegularWorkingTo = dWorkingTo;
+                //code for one shift
+                return AddAttendanceReport(attRecord, workingCalendar, dWorkingFrom, dWorkingTo);
             }
         }
 
@@ -3029,7 +3243,7 @@ namespace FaceIDAppVBEta.Data
             return attRecordID;
         }
 
-        private bool AddAttendanceReport(AttendanceRecord attRecord, WorkingCalendar workingCalendar)
+        private bool AddAttendanceReport(AttendanceRecord attRecord, WorkingCalendar workingCalendar, DateTime dWorkingFrom, DateTime dWorkingTo)
         {
             string attRecordIDs = "{" + attRecord.ID + "}";
 
@@ -3053,8 +3267,9 @@ namespace FaceIDAppVBEta.Data
             attendanceReport.OvertimeRate4 = paymentRate.OvertimeRate4;
 
             attendanceReport.PayPeriodID = workingCalendar.PayPeriodID;
-            attendanceReport.WorkFrom = workingCalendar.RegularWorkingFrom;
-            attendanceReport.WorkTo = workingCalendar.RegularWorkingTo;
+
+            attendanceReport.WorkFrom = dWorkingFrom;//workingCalendar..RegularWorkingFrom;
+            attendanceReport.WorkTo = dWorkingTo;// workingCalendar.RegularWorkingTo;
 
             attendanceReport.AttendanceRecordIDList = attRecordIDs;
 

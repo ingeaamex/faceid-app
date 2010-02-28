@@ -540,7 +540,183 @@ namespace FaceIDApp
 
         private void AddTestMultiShiftNonFlexi(ref IDataController _dtCtrl)
         {
-            throw new NotImplementedException();
+ #region add test company
+            Company com = new Company();
+            com.Name = DateTime.Now.Ticks.ToString();
+            com.ID = _dtCtrl.AddCompany(com);
+            #endregion
+
+            #region add test department
+            Department dep = new Department();
+            dep.CompanyID = com.ID;
+            dep.Name = DateTime.Now.Ticks.ToString();
+            dep.SupDepartmentID = 0; //root
+            dep.ID = _dtCtrl.AddDepartment(dep);
+            #endregion
+
+            #region add test working calendar
+            WorkingCalendar wCal = new WorkingCalendar();
+
+            wCal.Name = DateTime.Now.Ticks.ToString();
+
+            wCal.WorkOnMonday = true;
+            wCal.WorkOnTuesday = true;
+            wCal.WorkOnWednesday = true;
+            wCal.WorkOnThursday = true;
+            wCal.WorkOnFriday = true;
+
+            wCal.GraceForwardToEntry = 30;
+            wCal.GraceBackwardToExit = 30;
+            wCal.EarliestBeforeEntry = 60;
+            wCal.LastestAfterExit = 180;
+
+            List<Shift> shiftList = new List<Shift>();
+            Shift shift1 = new Shift();
+            shift1.From = new DateTime(2000, 2, 2, 8, 0, 0);
+            shift1.To = new DateTime(2000, 2, 2, 12, 0, 0);
+            shiftList.Add(shift1);
+
+            Shift shift2 = new Shift();
+            shift2.From = new DateTime(2000, 2, 2, 14, 0, 0);
+            shift2.To = new DateTime(2000, 2, 2, 18, 0, 0);
+            shiftList.Add(shift2);
+
+            Shift shift3 = new Shift();
+            shift3.From = new DateTime(2000, 2, 2, 20, 0, 0);
+            shift3.To = new DateTime(2000, 2, 3, 0, 0, 0);
+            shiftList.Add(shift3);
+
+            List<Break> breakList = new List<Break>();
+            Break break1 = new Break();
+            break1.From = new DateTime(2000, 2, 2, 12, 0, 0);
+            break1.To = new DateTime(2000, 2, 2, 13, 0, 0);
+            break1.Name = "break1";
+            break1.Paid = true;
+
+            breakList.Add(break1);
+
+            List<Holiday> holidayList = new List<Holiday>();
+
+            PaymentRate workingDayPaymentRate = new PaymentRate();
+            workingDayPaymentRate.NumberOfRegularHours = 7;
+            workingDayPaymentRate.RegularRate = 100;
+            workingDayPaymentRate.NumberOfOvertime1 = 8;
+            workingDayPaymentRate.OvertimeRate1 = 200;
+
+            PaymentRate nonWorkingDayPaymentRate = workingDayPaymentRate;
+            PaymentRate holidayPaymentRate = workingDayPaymentRate;
+
+            PayPeriod payPeriod = new PayPeriod();
+            payPeriod.CustomPeriod = 5;
+            payPeriod.PayPeriodTypeID = 5; //custom
+            payPeriod.StartFrom = new DateTime(2010, 1, 1);
+
+            wCal.ID = _dtCtrl.AddWorkingCalendar(wCal, shiftList, breakList, holidayList, workingDayPaymentRate, nonWorkingDayPaymentRate, holidayPaymentRate, payPeriod);
+            #endregion
+
+            #region add test employee
+            Employee emp = new Employee();
+            emp.Active = true;
+            emp.ActiveFrom = DateTime.Today;
+            emp.ActiveTo = DateTime.Today.AddDays(1);
+            emp.Address = DateTime.Now.Ticks.ToString();
+            emp.Birthday = DateTime.Today.AddYears(-20);
+            emp.DepartmentID = dep.ID;
+            emp.EmployeeNumber = 0;
+            emp.FirstName = DateTime.Now.Ticks.ToString();
+            emp.JobDescription = DateTime.Now.Ticks.ToString();
+            emp.HiredDate = DateTime.Today;
+            emp.LeftDate = DateTime.Today.AddYears(1);
+            emp.LastName = DateTime.Now.Ticks.ToString();
+            emp.PhoneNumber = DateTime.Now.Ticks.ToString();
+            emp.WorkingCalendarID = wCal.ID;
+            emp.PayrollNumber = _dtCtrl.AddEmployee(emp, new List<Terminal>());
+            #endregion
+
+            #region add test att records 1
+            //att1 : expected totalHours: 9
+            AttendanceRecord att11 = new AttendanceRecord();
+            att11.EmployeeNumber = emp.EmployeeNumber;
+            att11.Time = new DateTime(2010, 1, 1, 8, 0, 0);
+            att11.ID = _dtCtrl.AddAttendanceRecord(att11);
+
+            AttendanceRecord att12 = new AttendanceRecord();
+            att12.EmployeeNumber = emp.EmployeeNumber;
+            att12.Time = new DateTime(2010, 1, 1, 12, 0, 0);
+            att12.ID = _dtCtrl.AddAttendanceRecord(att12);
+
+            AttendanceRecord att13 = new AttendanceRecord();
+            att13.EmployeeNumber = emp.EmployeeNumber;
+            att13.Time = new DateTime(2010, 1, 1, 14, 0, 0);
+            att13.ID = _dtCtrl.AddAttendanceRecord(att13);
+
+            AttendanceRecord att14 = new AttendanceRecord();
+            att14.EmployeeNumber = emp.EmployeeNumber;
+            att14.Time = new DateTime(2010, 1, 1, 18, 0, 0);
+            att14.ID = _dtCtrl.AddAttendanceRecord(att14);
+
+            AttendanceRecord att21 = new AttendanceRecord();
+            att21.EmployeeNumber = emp.EmployeeNumber;
+            att21.Time = new DateTime(2010, 1, 1, 20, 0, 0);
+            att21.ID = _dtCtrl.AddAttendanceRecord(att21);
+
+            AttendanceRecord att22 = new AttendanceRecord();
+            att22.EmployeeNumber = emp.EmployeeNumber;
+            att22.Time = new DateTime(2010, 1, 2, 0, 0, 0);
+            att22.ID = _dtCtrl.AddAttendanceRecord(att22);
+
+            //att2 : expected totalHours: 9.75
+            AttendanceRecord att31 = new AttendanceRecord();
+            att31.EmployeeNumber = emp.EmployeeNumber;
+            att31.Time = new DateTime(2010, 1, 2, 8, 15, 0);
+            att31.ID = _dtCtrl.AddAttendanceRecord(att31);
+
+            AttendanceRecord att32 = new AttendanceRecord();
+            att32.EmployeeNumber = emp.EmployeeNumber;
+            att32.Time = new DateTime(2010, 1, 2, 11, 0, 0);
+            att32.ID = _dtCtrl.AddAttendanceRecord(att32);
+
+            AttendanceRecord att41 = new AttendanceRecord();
+            att41.EmployeeNumber = emp.EmployeeNumber;
+            att41.Time = new DateTime(2010, 1, 2, 14, 00, 0);
+            att41.ID = _dtCtrl.AddAttendanceRecord(att41);
+
+            AttendanceRecord att42 = new AttendanceRecord();
+            att42.EmployeeNumber = emp.EmployeeNumber;
+            att42.Time = new DateTime(2010, 1, 2, 18, 0, 0);
+            att42.ID = _dtCtrl.AddAttendanceRecord(att42);
+
+            AttendanceRecord att51 = new AttendanceRecord();
+            att51.EmployeeNumber = emp.EmployeeNumber;
+            att51.Time = new DateTime(2010, 1, 2, 20, 06, 0);
+            att51.ID = _dtCtrl.AddAttendanceRecord(att51);
+
+            AttendanceRecord att52 = new AttendanceRecord();
+            att52.EmployeeNumber = emp.EmployeeNumber;
+            att52.Time = new DateTime(2010, 1, 2, 23, 2, 0);
+            att52.ID = _dtCtrl.AddAttendanceRecord(att52);
+
+            //att3 : expected totalHours: 8.5
+            AttendanceRecord att61 = new AttendanceRecord();
+            att61.EmployeeNumber = emp.EmployeeNumber;
+            att61.Time = new DateTime(2010, 1, 3, 9, 0, 0);
+            att61.ID = _dtCtrl.AddAttendanceRecord(att61);
+
+            AttendanceRecord att62 = new AttendanceRecord();
+            att62.EmployeeNumber = emp.EmployeeNumber;
+            att62.Time = new DateTime(2010, 1, 3, 12, 0, 0);
+            att62.ID = _dtCtrl.AddAttendanceRecord(att62);
+
+            AttendanceRecord att63 = new AttendanceRecord();
+            att63.EmployeeNumber = emp.EmployeeNumber;
+            att63.Time = new DateTime(2010, 1, 3, 14, 30, 0);
+            att63.ID = _dtCtrl.AddAttendanceRecord(att63);
+
+            AttendanceRecord att64 = new AttendanceRecord();
+            att64.EmployeeNumber = emp.EmployeeNumber;
+            att64.Time = new DateTime(2010, 1, 3, 18, 30, 0);
+            att64.ID = _dtCtrl.AddAttendanceRecord(att64);
+            #endregion  
         }
 
         private void AddTestOneShiftFlexi(ref IDataController _dtCtrl)
@@ -939,10 +1115,10 @@ namespace FaceIDApp
                 foreach (WorkingCalendar wCal in _dtCtrl.GetWorkingCalendarList())
                 {
                     List<Shift> shiftList = _dtCtrl.GetShiftListByWorkingCalendar(wCal.ID);
-                    
-                    foreach(Shift shift in shiftList)
+
+                    foreach (Shift shift in shiftList)
                         _dtCtrl.DeleteShift(shift.ID);
-                        
+
                     _dtCtrl.DeleteWorkingCalendar(wCal.ID);
                 }
 
