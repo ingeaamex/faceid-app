@@ -2753,6 +2753,7 @@ namespace FaceIDAppVBEta.Data
             }
             else
             {
+                bool overDay = true;
                 for (int i = 0; i < shiftList.Count; i++)
                 {
                     dRegularWorkingFrom = shiftList[i].From;
@@ -2761,11 +2762,33 @@ namespace FaceIDAppVBEta.Data
                     double distanceMinute = TimeSpan.FromTicks(dRegularWorkingTo.Ticks - dRegularWorkingFrom.Ticks).TotalMinutes;
                     DateTime dWorkingFrom = new DateTime(attRecord.Time.Year, attRecord.Time.Month, attRecord.Time.Day, dRegularWorkingFrom.Hour,
                        dRegularWorkingFrom.Minute, dRegularWorkingFrom.Second).AddMinutes(-1 * wCal.EarliestBeforeEntry);
-                    DateTime dWorkingTo = dWorkingFrom.AddMinutes(distanceMinute + wCal.LastestAfterExit);
+                    DateTime dWorkingTo = dWorkingFrom.AddMinutes(distanceMinute + wCal.LastestAfterExit + wCal.EarliestBeforeEntry);
 
                     if (dWorkingFrom.CompareTo(attRecord.Time) != 1 && dWorkingTo.CompareTo(attRecord.Time) != -1)
                     {
+                        overDay = false;
                         break;
+                    }
+                }
+
+                if (overDay)
+                {
+                    for (int i = 0; i < shiftList.Count; i++)
+                    {
+                        dRegularWorkingFrom = shiftList[i].From;
+                        dRegularWorkingTo = shiftList[i].To;
+
+                        double distanceMinute = TimeSpan.FromTicks(dRegularWorkingTo.Ticks - dRegularWorkingFrom.Ticks).TotalMinutes;
+                        DateTime dWorkingFrom = new DateTime(attRecord.Time.Year, attRecord.Time.Month, attRecord.Time.Day, dRegularWorkingFrom.Hour,
+                           dRegularWorkingFrom.Minute, dRegularWorkingFrom.Second).AddMinutes(-1 * wCal.EarliestBeforeEntry);
+
+                        dWorkingFrom = dWorkingFrom.AddDays(-1);
+                        DateTime dWorkingTo = dWorkingFrom.AddMinutes(distanceMinute + wCal.LastestAfterExit + wCal.EarliestBeforeEntry);
+
+                        if (dWorkingFrom.CompareTo(attRecord.Time) != 1 && dWorkingTo.CompareTo(attRecord.Time) != -1)
+                        {
+                            break;
+                        }
                     }
                 }
             }
@@ -2792,7 +2815,7 @@ namespace FaceIDAppVBEta.Data
                         dWorkingFrom = dWorkingFrom.AddDays(-1);
                 }
 
-                dWorkingTo = dWorkingFrom.Date.AddHours(dRegularWorkingTo.Hour).AddMinutes(dRegularWorkingTo.Minute + wCal.LastestAfterExit);
+                dWorkingTo = dWorkingFrom.Date.AddHours(dRegularWorkingTo.Hour).AddMinutes(dRegularWorkingTo.Minute + wCal.LastestAfterExit + wCal.EarliestBeforeEntry);
 
                 if (dWorkingFrom.CompareTo(dWorkingTo) == 1)
                     dWorkingTo.AddDays(1);
@@ -2800,6 +2823,7 @@ namespace FaceIDAppVBEta.Data
             else
             {
                 DateTime dRegularWorkingFrom, dRegularWorkingTo;
+                bool overDay = true;
                 for (int i = 0; i < shiftList.Count; i++)
                 {
                     dRegularWorkingFrom = shiftList[i].From;
@@ -2808,11 +2832,35 @@ namespace FaceIDAppVBEta.Data
                     double distanceMinute = TimeSpan.FromTicks(dRegularWorkingTo.Ticks - dRegularWorkingFrom.Ticks).TotalMinutes;
                     dWorkingFrom = new DateTime(attRecord.Time.Year, attRecord.Time.Month, attRecord.Time.Day, dRegularWorkingFrom.Hour,
                        dRegularWorkingFrom.Minute, dRegularWorkingFrom.Second).AddMinutes(-1 * wCal.EarliestBeforeEntry);
-                    dWorkingTo = dWorkingFrom.AddMinutes(distanceMinute + wCal.LastestAfterExit);
+                    
+                    dWorkingTo = dWorkingFrom.AddMinutes(distanceMinute + wCal.LastestAfterExit + wCal.EarliestBeforeEntry);
 
                     if (dWorkingFrom.CompareTo(attRecord.Time) != 1 && dWorkingTo.CompareTo(attRecord.Time) != -1)
                     {
+                        overDay = false;
                         break;
+                    }
+                }
+
+                if (overDay)
+                {
+                    for (int i = 0; i < shiftList.Count; i++)
+                    {
+                        dRegularWorkingFrom = shiftList[i].From;
+                        dRegularWorkingTo = shiftList[i].To;
+
+                        double distanceMinute = TimeSpan.FromTicks(dRegularWorkingTo.Ticks - dRegularWorkingFrom.Ticks).TotalMinutes;
+                        dWorkingFrom = new DateTime(attRecord.Time.Year, attRecord.Time.Month, attRecord.Time.Day, dRegularWorkingFrom.Hour,
+                           dRegularWorkingFrom.Minute, dRegularWorkingFrom.Second).AddMinutes(-1 * wCal.EarliestBeforeEntry);
+
+                        dWorkingFrom = dWorkingFrom.AddDays(-1);
+
+                        dWorkingTo = dWorkingFrom.AddMinutes(distanceMinute + wCal.LastestAfterExit + wCal.EarliestBeforeEntry);
+
+                        if (dWorkingFrom.CompareTo(attRecord.Time) != 1 && dWorkingTo.CompareTo(attRecord.Time) != -1)
+                        {
+                            break;
+                        }
                     }
                 }
             }
@@ -2913,6 +2961,10 @@ namespace FaceIDAppVBEta.Data
 
             DateTime dRegularWorkingFrom = shiftList[0].From, dRegularWorkingTo = shiftList[0].To;
 
+            if (shiftList.Count > 1)
+            {
+                int a = 0;
+            }
             CalculateRegularWorkingDayByAttendanceRecord(ref dRegularWorkingFrom, ref dRegularWorkingTo, attRecord, workingCalendar, shiftList);
 
             //int earliestBeforeEntry = workingCalendar.EarliestBeforeEntry;
