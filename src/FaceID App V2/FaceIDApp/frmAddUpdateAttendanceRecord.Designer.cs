@@ -120,10 +120,10 @@
             this.Note.TabIndex = 9;
             this.Note.Text = "Note";
             // 
-            // btnAdd
+            // btnSubmit
             // 
             this.btnAdd.Location = new System.Drawing.Point(122, 244);
-            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Name = "btnSubmit";
             this.btnAdd.Size = new System.Drawing.Size(75, 23);
             this.btnAdd.TabIndex = 7;
             this.btnAdd.Text = "Add";

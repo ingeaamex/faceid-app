@@ -50,6 +50,15 @@
             this.chbMonday = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btnEditShift = new System.Windows.Forms.Button();
+            this.btnRemoveShifts = new System.Windows.Forms.Button();
+            this.btnAddShift = new System.Windows.Forms.Button();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.To = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rbtMultiShifts = new System.Windows.Forms.RadioButton();
+            this.rbtOneShift = new System.Windows.Forms.RadioButton();
             this.label75 = new System.Windows.Forms.Label();
             this.label76 = new System.Windows.Forms.Label();
             this.nudLastestAfterExit = new System.Windows.Forms.NumericUpDown();
@@ -248,6 +257,7 @@
             this.gbxFlexiHour.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudFlexiHours)).BeginInit();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudLastestAfterExit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudEarliestBeforeEntry)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudGraceBackwardToExit)).BeginInit();
@@ -507,6 +517,12 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.btnEditShift);
+            this.tabPage2.Controls.Add(this.btnRemoveShifts);
+            this.tabPage2.Controls.Add(this.btnAddShift);
+            this.tabPage2.Controls.Add(this.dataGridView1);
+            this.tabPage2.Controls.Add(this.rbtMultiShifts);
+            this.tabPage2.Controls.Add(this.rbtOneShift);
             this.tabPage2.Controls.Add(this.label75);
             this.tabPage2.Controls.Add(this.label76);
             this.tabPage2.Controls.Add(this.nudLastestAfterExit);
@@ -536,10 +552,100 @@
             this.tabPage2.Text = "Step 2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // btnEditShift
+            // 
+            this.btnEditShift.Location = new System.Drawing.Point(327, 292);
+            this.btnEditShift.Name = "btnEditShift";
+            this.btnEditShift.Size = new System.Drawing.Size(151, 23);
+            this.btnEditShift.TabIndex = 105;
+            this.btnEditShift.Text = "Edit Selected Shift";
+            this.btnEditShift.UseVisualStyleBackColor = true;
+            this.btnEditShift.Click += new System.EventHandler(this.btnEditShift_Click);
+            // 
+            // btnRemoveShifts
+            // 
+            this.btnRemoveShifts.Location = new System.Drawing.Point(327, 318);
+            this.btnRemoveShifts.Name = "btnRemoveShifts";
+            this.btnRemoveShifts.Size = new System.Drawing.Size(151, 23);
+            this.btnRemoveShifts.TabIndex = 104;
+            this.btnRemoveShifts.Text = "Remove Selected Shift(s)";
+            this.btnRemoveShifts.UseVisualStyleBackColor = true;
+            this.btnRemoveShifts.Click += new System.EventHandler(this.btnRemoveShifts_Click);
+            // 
+            // btnAddShift
+            // 
+            this.btnAddShift.Location = new System.Drawing.Point(327, 266);
+            this.btnAddShift.Name = "btnAddShift";
+            this.btnAddShift.Size = new System.Drawing.Size(151, 23);
+            this.btnAddShift.TabIndex = 103;
+            this.btnAddShift.Text = "Add New Shift";
+            this.btnAddShift.UseVisualStyleBackColor = true;
+            this.btnAddShift.Click += new System.EventHandler(this.btnAddShift_Click);
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.To});
+            this.dataGridView1.Location = new System.Drawing.Point(35, 238);
+            this.dataGridView1.MultiSelect = false;
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView1.Size = new System.Drawing.Size(288, 150);
+            this.dataGridView1.TabIndex = 102;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "Shift";
+            this.dataGridViewTextBoxColumn1.HeaderText = "Shift";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "From";
+            this.dataGridViewTextBoxColumn2.HeaderText = "From";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // To
+            // 
+            this.To.HeaderText = "To";
+            this.To.Name = "To";
+            this.To.ReadOnly = true;
+            // 
+            // rbtMultiShifts
+            // 
+            this.rbtMultiShifts.AutoSize = true;
+            this.rbtMultiShifts.Location = new System.Drawing.Point(35, 201);
+            this.rbtMultiShifts.Name = "rbtMultiShifts";
+            this.rbtMultiShifts.Size = new System.Drawing.Size(76, 17);
+            this.rbtMultiShifts.TabIndex = 33;
+            this.rbtMultiShifts.Text = "Multi Shifts";
+            this.rbtMultiShifts.UseVisualStyleBackColor = true;
+            // 
+            // rbtOneShift
+            // 
+            this.rbtOneShift.AutoSize = true;
+            this.rbtOneShift.Checked = true;
+            this.rbtOneShift.Location = new System.Drawing.Point(35, 64);
+            this.rbtOneShift.Name = "rbtOneShift";
+            this.rbtOneShift.Size = new System.Drawing.Size(69, 17);
+            this.rbtOneShift.TabIndex = 32;
+            this.rbtOneShift.TabStop = true;
+            this.rbtOneShift.Text = "One Shift";
+            this.rbtOneShift.UseVisualStyleBackColor = true;
+            // 
             // label75
             // 
             this.label75.AutoSize = true;
-            this.label75.Location = new System.Drawing.Point(220, 186);
+            this.label75.Location = new System.Drawing.Point(496, 180);
             this.label75.Name = "label75";
             this.label75.Size = new System.Drawing.Size(115, 13);
             this.label75.TabIndex = 31;
@@ -548,7 +654,7 @@
             // label76
             // 
             this.label76.AutoSize = true;
-            this.label76.Location = new System.Drawing.Point(220, 150);
+            this.label76.Location = new System.Drawing.Point(496, 144);
             this.label76.Name = "label76";
             this.label76.Size = new System.Drawing.Size(131, 13);
             this.label76.TabIndex = 30;
@@ -556,7 +662,7 @@
             // 
             // nudLastestAfterExit
             // 
-            this.nudLastestAfterExit.Location = new System.Drawing.Point(148, 182);
+            this.nudLastestAfterExit.Location = new System.Drawing.Point(426, 173);
             this.nudLastestAfterExit.Maximum = new decimal(new int[] {
             360,
             0,
@@ -573,7 +679,7 @@
             // 
             // nudEarliestBeforeEntry
             // 
-            this.nudEarliestBeforeEntry.Location = new System.Drawing.Point(148, 146);
+            this.nudEarliestBeforeEntry.Location = new System.Drawing.Point(426, 137);
             this.nudEarliestBeforeEntry.Maximum = new decimal(new int[] {
             360,
             0,
@@ -591,7 +697,7 @@
             // label77
             // 
             this.label77.AutoSize = true;
-            this.label77.Location = new System.Drawing.Point(32, 186);
+            this.label77.Location = new System.Drawing.Point(297, 180);
             this.label77.Name = "label77";
             this.label77.Size = new System.Drawing.Size(103, 13);
             this.label77.TabIndex = 27;
@@ -600,7 +706,7 @@
             // label78
             // 
             this.label78.AutoSize = true;
-            this.label78.Location = new System.Drawing.Point(32, 150);
+            this.label78.Location = new System.Drawing.Point(297, 144);
             this.label78.Name = "label78";
             this.label78.Size = new System.Drawing.Size(110, 13);
             this.label78.TabIndex = 26;
@@ -680,7 +786,7 @@
             // 
             this.dtpRegularWorkTo.CustomFormat = "HH:mm:ss";
             this.dtpRegularWorkTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpRegularWorkTo.Location = new System.Drawing.Point(68, 100);
+            this.dtpRegularWorkTo.Location = new System.Drawing.Point(68, 132);
             this.dtpRegularWorkTo.Name = "dtpRegularWorkTo";
             this.dtpRegularWorkTo.ShowUpDown = true;
             this.dtpRegularWorkTo.Size = new System.Drawing.Size(120, 20);
@@ -692,7 +798,7 @@
             // 
             this.dtpRegularWorkFrom.CustomFormat = "HH:mm:ss";
             this.dtpRegularWorkFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpRegularWorkFrom.Location = new System.Drawing.Point(68, 64);
+            this.dtpRegularWorkFrom.Location = new System.Drawing.Point(68, 96);
             this.dtpRegularWorkFrom.Name = "dtpRegularWorkFrom";
             this.dtpRegularWorkFrom.ShowUpDown = true;
             this.dtpRegularWorkFrom.Size = new System.Drawing.Size(120, 20);
@@ -703,7 +809,7 @@
             // lblNextDay
             // 
             this.lblNextDay.AutoSize = true;
-            this.lblNextDay.Location = new System.Drawing.Point(194, 104);
+            this.lblNextDay.Location = new System.Drawing.Point(194, 136);
             this.lblNextDay.Name = "lblNextDay";
             this.lblNextDay.Size = new System.Drawing.Size(53, 13);
             this.lblNextDay.TabIndex = 17;
@@ -743,7 +849,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(32, 104);
+            this.label4.Location = new System.Drawing.Point(32, 136);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(24, 13);
             this.label4.TabIndex = 3;
@@ -752,7 +858,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(32, 68);
+            this.label3.Location = new System.Drawing.Point(32, 100);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(31, 13);
             this.label3.TabIndex = 2;
@@ -2525,6 +2631,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudFlexiHours)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudLastestAfterExit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudEarliestBeforeEntry)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudGraceBackwardToExit)).EndInit();
@@ -2788,5 +2895,14 @@
         private System.Windows.Forms.ComboBox cbxFlexiHourWorkingDayRegularRate;
         private System.Windows.Forms.Label label93;
         private System.Windows.Forms.Label label94;
+        private System.Windows.Forms.RadioButton rbtMultiShifts;
+        private System.Windows.Forms.RadioButton rbtOneShift;
+        private System.Windows.Forms.Button btnRemoveShifts;
+        private System.Windows.Forms.Button btnAddShift;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn To;
+        private System.Windows.Forms.Button btnEditShift;
     }
 }

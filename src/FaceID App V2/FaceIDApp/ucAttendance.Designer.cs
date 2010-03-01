@@ -50,11 +50,11 @@
             this.tabControl1.Size = new System.Drawing.Size(839, 606);
             this.tabControl1.TabIndex = 0;
             // 
-            // tabPage1
+            // tpgWorkingDayPaymentRate
             // 
             this.tabPage1.Controls.Add(this.ucAttendanceLog1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Name = "tpgWorkingDayPaymentRate";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(831, 580);
             this.tabPage1.TabIndex = 0;
@@ -68,11 +68,11 @@
             this.ucAttendanceLog1.Size = new System.Drawing.Size(831, 580);
             this.ucAttendanceLog1.TabIndex = 0;
             // 
-            // tabPage2
+            // tpgNonWorkingDayPaymentRate
             // 
             this.tabPage2.Controls.Add(this.ucAttendanceReport1);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Name = "tpgNonWorkingDayPaymentRate";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(831, 580);
             this.tabPage2.TabIndex = 1;
