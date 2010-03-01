@@ -519,11 +519,13 @@ namespace FaceIDApp
 
             try
             {
+                ClearDB();
+
                 Invoke(new SetTextCallBack(SetText), new object[] { txtProgress, "Adding ..." });
 
-                AddTestOneShiftNonFlexi(ref _dtCtrl);
+                //AddTestOneShiftNonFlexi(ref _dtCtrl);
 
-                AddTestOneShiftFlexi(ref _dtCtrl);
+                //AddTestOneShiftFlexi(ref _dtCtrl);
 
                 AddTestMultiShiftNonFlexi(ref _dtCtrl);
 
@@ -587,25 +589,19 @@ namespace FaceIDApp
             shiftList.Add(shift3);
 
             List<Break> breakList = new List<Break>();
-            Break break1 = new Break();
-            break1.From = new DateTime(2000, 2, 2, 12, 0, 0);
-            break1.To = new DateTime(2000, 2, 2, 13, 0, 0);
-            break1.Name = "break1";
-            break1.Paid = true;
+            //Break break1 = new Break();
+            //break1.From = new DateTime(2000, 2, 2, 12, 0, 0);
+            //break1.To = new DateTime(2000, 2, 2, 13, 0, 0);
+            //break1.Name = "break1";
+            //break1.Paid = true;
 
-            breakList.Add(break1);
+            //breakList.Add(break1);
 
             List<Holiday> holidayList = new List<Holiday>();
 
             PaymentRate workingDayPaymentRate = new PaymentRate();
             workingDayPaymentRate.NumberOfRegularHours = 4;
             workingDayPaymentRate.RegularRate = 100;
-            workingDayPaymentRate.NumberOfOvertime1 = 1;
-            workingDayPaymentRate.OvertimeRate1 = 200;
-            workingDayPaymentRate.NumberOfOvertime1 = 1;
-            workingDayPaymentRate.OvertimeRate1 = 200;
-            workingDayPaymentRate.NumberOfOvertime1 = 1;
-            workingDayPaymentRate.OvertimeRate1 = 200;
             workingDayPaymentRate.NumberOfOvertime1 = 1;
             workingDayPaymentRate.OvertimeRate1 = 200;
 
@@ -673,7 +669,7 @@ namespace FaceIDApp
             att22.Time = new DateTime(2010, 1, 2, 0, 0, 0);
             att22.ID = _dtCtrl.AddAttendanceRecord(att22);
 
-            //att4 : expected totalHours: 3
+            //att4 : expected totalHours: 2.67
             AttendanceRecord att31 = new AttendanceRecord();
             att31.EmployeeNumber = emp.EmployeeNumber;
             att31.Time = new DateTime(2010, 1, 2, 8, 15, 0);
@@ -705,50 +701,6 @@ namespace FaceIDApp
             att52.EmployeeNumber = emp.EmployeeNumber;
             att52.Time = new DateTime(2010, 1, 2, 23, 2, 0);
             att52.ID = _dtCtrl.AddAttendanceRecord(att52);
-
-            //att5 : expected totalHours: 
-            AttendanceRecord att61 = new AttendanceRecord();
-            att61.EmployeeNumber = emp.EmployeeNumber;
-            att61.Time = new DateTime(2010, 1, 3, 9, 0, 0);
-            att61.ID = _dtCtrl.AddAttendanceRecord(att61);
-
-            AttendanceRecord att62 = new AttendanceRecord();
-            att62.EmployeeNumber = emp.EmployeeNumber;
-            att62.Time = new DateTime(2010, 1, 3, 12, 0, 0);
-            att62.ID = _dtCtrl.AddAttendanceRecord(att62);
-
-            //att6 : expected totalHours: 4 
-            AttendanceRecord att63 = new AttendanceRecord();
-            att63.EmployeeNumber = emp.EmployeeNumber;
-            att63.Time = new DateTime(2010, 1, 3, 14, 30, 0);
-            att63.ID = _dtCtrl.AddAttendanceRecord(att63);
-
-            AttendanceRecord att64 = new AttendanceRecord();
-            att64.EmployeeNumber = emp.EmployeeNumber;
-            att64.Time = new DateTime(2010, 1, 3, 18, 30, 0);
-            att64.ID = _dtCtrl.AddAttendanceRecord(att64);
-
-            //att7 : expected totalHours: 4 + 1
-            AttendanceRecord att65 = new AttendanceRecord();
-            att65.EmployeeNumber = emp.EmployeeNumber;
-            att65.Time = new DateTime(2010, 1, 3, 20, 0, 0);
-            att65.ID = _dtCtrl.AddAttendanceRecord(att65);
-
-            AttendanceRecord att66 = new AttendanceRecord();
-            att66.EmployeeNumber = emp.EmployeeNumber;
-            att66.Time = new DateTime(2010, 1, 3, 22, 00, 0);
-            att66.ID = _dtCtrl.AddAttendanceRecord(att66);
-
-            AttendanceRecord att67 = new AttendanceRecord();
-            att67.EmployeeNumber = emp.EmployeeNumber;
-            att67.Time = new DateTime(2010, 1, 3, 22, 30, 0);
-            att67.ID = _dtCtrl.AddAttendanceRecord(att67);
-
-            AttendanceRecord att68 = new AttendanceRecord();
-            att68.EmployeeNumber = emp.EmployeeNumber;
-            att68.Time = new DateTime(2010, 1, 4, 0, 45, 0);
-            att68.ID = _dtCtrl.AddAttendanceRecord(att68);
-
             #endregion  
         }
 

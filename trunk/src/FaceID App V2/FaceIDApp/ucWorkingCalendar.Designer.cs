@@ -145,6 +145,7 @@
             this.WorkingHours.HeaderText = "Working Hours";
             this.WorkingHours.Name = "WorkingHours";
             this.WorkingHours.ReadOnly = true;
+            this.WorkingHours.Visible = false;
             // 
             // ucWorkingCalendar
             // 

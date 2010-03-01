@@ -52,9 +52,22 @@ namespace FaceIDAppVBEta
                 MessageBox.Show("Working Calendar not found or has been deleted.");
                 this.Close();
             }
+            
+            //set shift
+            List<Shift> shiftList = _dtCtrl.GetShiftListByWorkingCalendar(workingCalendarID);
 
-            //lblWorkFrom.Text = GetTimeString(_workingCalendar.RegularWorkingFrom);
-            //lblWorkTo.Text = GetTimeString(_workingCalendar.RegularWorkingTo);//TODO add shift1
+            if (shiftList.Count == 0)
+            {
+                MessageBox.Show("Invalid Working Calendar.");
+                this.Close();
+            }
+            else 
+            {
+                lblNumberOfShift.Text = shiftList.Count.ToString();
+            }
+
+            lblWorkFrom.Text = GetTimeString(shiftList[0].From);
+            lblWorkTo.Text = GetTimeString(shiftList[shiftList.Count - 1].To);
 
             //set payment rate
             PaymentRate workDayPaymentRate = _dtCtrl.GetWorkingDayPaymentRateByWorkingCalendar(workingCalendarID);
@@ -68,26 +81,36 @@ namespace FaceIDAppVBEta
                 ucWorkingDayPaymentRate.SetPaymentRate(workDayPaymentRate);
             }
 
-            PaymentRate nonWorkDayPaymentRate = _dtCtrl.GetNonWorkingDayPaymentRateByWorkingCalendar(workingCalendarID);
-
-            if (nonWorkDayPaymentRate == null)
+            if (_workingCalendar.ApplyFlexiHours == false)
             {
-                //TODO
+                PaymentRate nonWorkDayPaymentRate = _dtCtrl.GetNonWorkingDayPaymentRateByWorkingCalendar(workingCalendarID);
+
+                if (nonWorkDayPaymentRate == null)
+                {
+                    //TODO
+                }
+                else
+                {
+                    ucNonWorkingDayPaymentRate.SetPaymentRate(nonWorkDayPaymentRate);
+                }
+
+                PaymentRate holidayRate = _dtCtrl.GetHolidayPaymentRateByWorkingCalendar(workingCalendarID);
+
+                if (holidayRate == null)
+                {
+                    //TODO
+                }
+                else
+                {
+                    ucHolidayPaymentRate.SetPaymentRate(holidayRate);
+                }
             }
             else
             {
-                ucNonWorkingDayPaymentRate.SetPaymentRate(nonWorkDayPaymentRate);
-            }
+                tabControl1.TabPages.Remove(tpgNonWorkingDayPaymentRate);
+                tabControl1.TabPages.Remove(tpgHolidayPaymentRate);
 
-            PaymentRate holidayRate = _dtCtrl.GetHolidayPaymentRateByWorkingCalendar(workingCalendarID);
-
-            if (holidayRate == null)
-            {
-                //TODO
-            }
-            else
-            {
-                ucHolidayPaymentRate.SetPaymentRate(holidayRate);
+                tpgWorkingDayPaymentRate.Text = "Flexi Hours Payment Rate";
             }
 
             //set break

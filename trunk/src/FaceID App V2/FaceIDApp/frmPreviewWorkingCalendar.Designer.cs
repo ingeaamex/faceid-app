@@ -40,11 +40,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tpgWorkingDayPaymentRate = new System.Windows.Forms.TabPage();
             this.ucWorkingDayPaymentRate = new FaceIDAppVBEta.ucPaymentRate();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tpgNonWorkingDayPaymentRate = new System.Windows.Forms.TabPage();
             this.ucNonWorkingDayPaymentRate = new FaceIDAppVBEta.ucPaymentRate();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tpgHolidayPaymentRate = new System.Windows.Forms.TabPage();
             this.ucHolidayPaymentRate = new FaceIDAppVBEta.ucPaymentRate();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lblPayPeriodStartFrom = new System.Windows.Forms.Label();
@@ -60,12 +60,14 @@
             this.label88 = new System.Windows.Forms.Label();
             this.label89 = new System.Windows.Forms.Label();
             this.label90 = new System.Windows.Forms.Label();
+            this.lblNumberOfShift = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.gbxWorkingHours.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
+            this.tpgWorkingDayPaymentRate.SuspendLayout();
+            this.tpgNonWorkingDayPaymentRate.SuspendLayout();
+            this.tpgHolidayPaymentRate.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxWorkDay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxNonWorkDay)).BeginInit();
@@ -74,6 +76,8 @@
             // 
             // gbxWorkingHours
             // 
+            this.gbxWorkingHours.Controls.Add(this.lblNumberOfShift);
+            this.gbxWorkingHours.Controls.Add(this.label5);
             this.gbxWorkingHours.Controls.Add(this.lblWorkTo);
             this.gbxWorkingHours.Controls.Add(this.lblWorkFrom);
             this.gbxWorkingHours.Controls.Add(this.lblBreak3);
@@ -173,25 +177,25 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tpgWorkingDayPaymentRate);
+            this.tabControl1.Controls.Add(this.tpgNonWorkingDayPaymentRate);
+            this.tabControl1.Controls.Add(this.tpgHolidayPaymentRate);
             this.tabControl1.Location = new System.Drawing.Point(13, 16);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(288, 156);
             this.tabControl1.TabIndex = 0;
             // 
-            // tabPage1
+            // tpgWorkingDayPaymentRate
             // 
-            this.tabPage1.Controls.Add(this.ucWorkingDayPaymentRate);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(280, 130);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Working day rate";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tpgWorkingDayPaymentRate.Controls.Add(this.ucWorkingDayPaymentRate);
+            this.tpgWorkingDayPaymentRate.Location = new System.Drawing.Point(4, 22);
+            this.tpgWorkingDayPaymentRate.Name = "tpgWorkingDayPaymentRate";
+            this.tpgWorkingDayPaymentRate.Padding = new System.Windows.Forms.Padding(3);
+            this.tpgWorkingDayPaymentRate.Size = new System.Drawing.Size(280, 130);
+            this.tpgWorkingDayPaymentRate.TabIndex = 0;
+            this.tpgWorkingDayPaymentRate.Text = "Working day rate";
+            this.tpgWorkingDayPaymentRate.UseVisualStyleBackColor = true;
             // 
             // ucWorkingDayPaymentRate
             // 
@@ -200,16 +204,16 @@
             this.ucWorkingDayPaymentRate.Size = new System.Drawing.Size(280, 130);
             this.ucWorkingDayPaymentRate.TabIndex = 0;
             // 
-            // tabPage2
+            // tpgNonWorkingDayPaymentRate
             // 
-            this.tabPage2.Controls.Add(this.ucNonWorkingDayPaymentRate);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(280, 130);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Non-working day rate";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tpgNonWorkingDayPaymentRate.Controls.Add(this.ucNonWorkingDayPaymentRate);
+            this.tpgNonWorkingDayPaymentRate.Location = new System.Drawing.Point(4, 22);
+            this.tpgNonWorkingDayPaymentRate.Name = "tpgNonWorkingDayPaymentRate";
+            this.tpgNonWorkingDayPaymentRate.Padding = new System.Windows.Forms.Padding(3);
+            this.tpgNonWorkingDayPaymentRate.Size = new System.Drawing.Size(280, 130);
+            this.tpgNonWorkingDayPaymentRate.TabIndex = 1;
+            this.tpgNonWorkingDayPaymentRate.Text = "Non-working day rate";
+            this.tpgNonWorkingDayPaymentRate.UseVisualStyleBackColor = true;
             // 
             // ucNonWorkingDayPaymentRate
             // 
@@ -218,16 +222,16 @@
             this.ucNonWorkingDayPaymentRate.Size = new System.Drawing.Size(280, 130);
             this.ucNonWorkingDayPaymentRate.TabIndex = 0;
             // 
-            // tabPage3
+            // tpgHolidayPaymentRate
             // 
-            this.tabPage3.Controls.Add(this.ucHolidayPaymentRate);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(280, 130);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Holiday rate";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.tpgHolidayPaymentRate.Controls.Add(this.ucHolidayPaymentRate);
+            this.tpgHolidayPaymentRate.Location = new System.Drawing.Point(4, 22);
+            this.tpgHolidayPaymentRate.Name = "tpgHolidayPaymentRate";
+            this.tpgHolidayPaymentRate.Padding = new System.Windows.Forms.Padding(3);
+            this.tpgHolidayPaymentRate.Size = new System.Drawing.Size(280, 130);
+            this.tpgHolidayPaymentRate.TabIndex = 2;
+            this.tpgHolidayPaymentRate.Text = "Holiday rate";
+            this.tpgHolidayPaymentRate.UseVisualStyleBackColor = true;
             // 
             // ucHolidayPaymentRate
             // 
@@ -399,6 +403,24 @@
             this.label90.TabIndex = 11;
             this.label90.Text = "Holiday";
             // 
+            // lblNumberOfShift
+            // 
+            this.lblNumberOfShift.AutoSize = true;
+            this.lblNumberOfShift.Location = new System.Drawing.Point(233, 23);
+            this.lblNumberOfShift.Name = "lblNumberOfShift";
+            this.lblNumberOfShift.Size = new System.Drawing.Size(13, 13);
+            this.lblNumberOfShift.TabIndex = 9;
+            this.lblNumberOfShift.Text = "1";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(177, 23);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(31, 13);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "Shift:";
+            // 
             // frmPreviewWorkingCalendar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -424,9 +446,9 @@
             this.gbxWorkingHours.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
+            this.tpgWorkingDayPaymentRate.ResumeLayout(false);
+            this.tpgNonWorkingDayPaymentRate.ResumeLayout(false);
+            this.tpgHolidayPaymentRate.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxWorkDay)).EndInit();
@@ -455,9 +477,9 @@
         private System.Windows.Forms.Label lblPayPeriod;
         private System.Windows.Forms.Label lblPayPeriodStartFrom;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tpgWorkingDayPaymentRate;
+        private System.Windows.Forms.TabPage tpgNonWorkingDayPaymentRate;
+        private System.Windows.Forms.TabPage tpgHolidayPaymentRate;
         private Pabo.Calendar.MonthCalendar mclWorkingCalendar;
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnClose;
@@ -470,5 +492,7 @@
         private ucPaymentRate ucWorkingDayPaymentRate;
         private ucPaymentRate ucNonWorkingDayPaymentRate;
         private ucPaymentRate ucHolidayPaymentRate;
+        private System.Windows.Forms.Label lblNumberOfShift;
+        private System.Windows.Forms.Label label5;
     }
 }

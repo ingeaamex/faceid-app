@@ -1123,7 +1123,36 @@ namespace FaceIDAppVBEta
             (tpgWorkingDayRate as Control).Enabled = !giveMeAName2;
             ((Control)tpgNonWorkingDayRate).Enabled = !giveMeAName2;
             ((Control)tpgHolidayRate).Enabled = !giveMeAName2;
+        }
 
+        private void btnRemoveShifts_Click(object sender, EventArgs e)
+        {
+            //TODO confirm
+
+            //TODO remove shift
+
+            BindWorkingCalendarShift();
+        }
+
+        private void btnEditShift_Click(object sender, EventArgs e)
+        {
+            int selectedShiftID = -1;
+
+            //TODO get selectedShiftID
+
+            new frmAddUpdateShift(selectedShiftID).ShowDialog(this);
+            BindWorkingCalendarShift();
+        }
+
+        private void btnAddShift_Click(object sender, EventArgs e)
+        {
+            new frmAddUpdateShift(-1).ShowDialog(this);
+            BindWorkingCalendarShift();
+        }
+
+        private void BindWorkingCalendarShift()
+        {
+            throw new NotImplementedException();
         }
     }
 }

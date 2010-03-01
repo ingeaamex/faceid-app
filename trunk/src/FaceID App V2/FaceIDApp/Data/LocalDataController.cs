@@ -1573,7 +1573,7 @@ namespace FaceIDAppVBEta.Data
         }
 
         public bool UpdateWorkingCalendar(WorkingCalendar workingCalendar, List<Shift> shiftList, List<Break> breakList, List<Holiday> holidayList, PaymentRate workingDayPaymentRate, PaymentRate nonWorkingDayPaymentRate, PaymentRate holidayPaymentRate, PayPeriod payPeriod)
-        {//TODO add shift1
+        {
             BeginTransaction();
 
             try
@@ -1597,6 +1597,20 @@ namespace FaceIDAppVBEta.Data
 
                 if (UpdateWorkingCalendar(workingCalendar) == false)
                     throw new NullReferenceException();
+
+                //update shifts
+                foreach (Shift shift in GetShiftListByWorkingCalendar(workingCalendar.ID))
+                {
+                    if (DeleteShift(shift.ID) == false)
+                        throw new NullReferenceException();
+                }
+
+                foreach (Shift shift in shiftList)
+                {
+                    shift.WorkingCalendarID = workingCalendar.ID;
+                    if (AddShift(shift) < 0)
+                        throw new NullReferenceException();
+                }
 
                 //update breaks
                 foreach (Break _break in GetBreakListByWorkingCalendar(workingCalendar.ID))
@@ -2023,7 +2037,7 @@ namespace FaceIDAppVBEta.Data
             if (attSummarys.Count == 0)
                 return null;
 
-            int employeeNumber = 0, flexiHours = 0, wcalRegHour = 8;
+            int employeeNumber = 0, flexiHours = 0;//, wcalRegHour = 8;
             bool applyFlexiHours = false, isFirst = true;
             WorkingCalendar wCal = null;
             PaymentRate paymentRate = null;
@@ -3011,7 +3025,7 @@ namespace FaceIDAppVBEta.Data
 
             if (shiftList.Count > 1)
             {
-                int a = 0;
+                //int a = 0;
             }
             CalculateRegularWorkingDayByAttendanceRecord(ref dRegularWorkingFrom, ref dRegularWorkingTo, attRecord, workingCalendar, shiftList);
 
