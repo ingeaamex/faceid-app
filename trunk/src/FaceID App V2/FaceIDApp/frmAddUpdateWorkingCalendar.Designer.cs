@@ -53,7 +53,7 @@
             this.btnEditShift = new System.Windows.Forms.Button();
             this.btnRemoveShifts = new System.Windows.Forms.Button();
             this.btnAddShift = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvShift = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.To = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -257,7 +257,7 @@
             this.gbxFlexiHour.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudFlexiHours)).BeginInit();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvShift)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudLastestAfterExit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudEarliestBeforeEntry)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudGraceBackwardToExit)).BeginInit();
@@ -520,7 +520,7 @@
             this.tabPage2.Controls.Add(this.btnEditShift);
             this.tabPage2.Controls.Add(this.btnRemoveShifts);
             this.tabPage2.Controls.Add(this.btnAddShift);
-            this.tabPage2.Controls.Add(this.dataGridView1);
+            this.tabPage2.Controls.Add(this.dgvShift);
             this.tabPage2.Controls.Add(this.rbtMultiShifts);
             this.tabPage2.Controls.Add(this.rbtOneShift);
             this.tabPage2.Controls.Add(this.label75);
@@ -582,23 +582,23 @@
             this.btnAddShift.UseVisualStyleBackColor = true;
             this.btnAddShift.Click += new System.EventHandler(this.btnAddShift_Click);
             // 
-            // dataGridView1
+            // dgvShift
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvShift.AllowUserToAddRows = false;
+            this.dgvShift.AllowUserToDeleteRows = false;
+            this.dgvShift.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvShift.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvShift.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
             this.dataGridViewTextBoxColumn2,
             this.To});
-            this.dataGridView1.Location = new System.Drawing.Point(35, 238);
-            this.dataGridView1.MultiSelect = false;
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(288, 150);
-            this.dataGridView1.TabIndex = 102;
+            this.dgvShift.Location = new System.Drawing.Point(35, 238);
+            this.dgvShift.MultiSelect = false;
+            this.dgvShift.Name = "dgvShift";
+            this.dgvShift.ReadOnly = true;
+            this.dgvShift.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvShift.Size = new System.Drawing.Size(288, 150);
+            this.dgvShift.TabIndex = 102;
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -2631,7 +2631,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudFlexiHours)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvShift)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudLastestAfterExit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudEarliestBeforeEntry)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudGraceBackwardToExit)).EndInit();
@@ -2899,7 +2899,7 @@
         private System.Windows.Forms.RadioButton rbtOneShift;
         private System.Windows.Forms.Button btnRemoveShifts;
         private System.Windows.Forms.Button btnAddShift;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvShift;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn To;
