@@ -5478,6 +5478,30 @@ namespace FaceIDAppVBEta.Data
             return odCom1.ExecuteNonQuery() > 0 ? true : false;
         }
 
+        public bool DeleteShifts(List<Shift> shiftList)
+        {
+            BeginTransaction();
+            bool result = false;
+
+            try
+            {
+                foreach (Shift shift in shiftList)
+                {
+                    if (DeleteShift(shift.ID) == false)
+                        throw new Exception();
+                }
+
+                CommitTransaction();
+                result = true;
+            }
+            catch
+            {
+                RollbackTransaction();
+                result = false;
+            }
+
+            return result;
+        }
         #endregion
     }
 }

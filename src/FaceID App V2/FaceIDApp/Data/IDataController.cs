@@ -310,6 +310,8 @@ namespace FaceIDAppVBEta.Data
         bool DeleteShift(int id);
 
         bool UpdateShift(Shift shift);
+
+        bool DeleteShifts(List<Shift> shiftList);
         #endregion
     }
 }

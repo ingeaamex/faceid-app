@@ -18,7 +18,9 @@ namespace FaceIDAppVBEta
 
         private Control[] _listCtrlBreak1, _listCtrlBreak2, _listCtrlBreak3;
         private ComboBox[] _listCbxRate;
+
         private List<Holiday> _holidayList = new List<Holiday>();
+        private List<Shift> _shiftList = new List<Shift>();
 
         private ComboBox _selectedComboBox = null;
 
@@ -133,13 +135,26 @@ namespace FaceIDAppVBEta
                 chbSaturday.Checked = workingCalendar.WorkOnSaturday;
                 chbSunday.Checked = workingCalendar.WorkOnSunday;
 
-                //dtpRegularWorkFrom.Value = workingCalendar.RegularWorkingFrom;//TODO add shift1
-                //dtpRegularWorkTo.Value = workingCalendar.RegularWorkingTo;
-
                 nudGraceForwardToEntry.Value = workingCalendar.GraceForwardToEntry;
                 nudGraceBackwardToExit.Value = workingCalendar.GraceBackwardToExit;
                 nudEarliestBeforeEntry.Value = workingCalendar.EarliestBeforeEntry;
                 nudLastestAfterExit.Value = workingCalendar.LastestAfterExit;
+                #endregion
+
+                #region Set Shifts
+                List<Shift> shiftList = _dtCtrl.GetShiftListByWorkingCalendar(workingCalendarID);
+                if (shiftList.Count == 1) //one shift
+                {
+                    rbtOneShift.Checked = true;
+                    dtpRegularWorkFrom.Value = shiftList[0].From;
+                    dtpRegularWorkTo.Value = shiftList[0].To;
+                }
+                else //multi shifts
+                {
+                    rbtMultiShifts.Checked = true;
+                    _shiftList = shiftList;
+                    BindShift();
+                }
                 #endregion
 
                 #region Set Break Times
@@ -289,6 +304,12 @@ namespace FaceIDAppVBEta
             }
         }
 
+        private void BindShift()
+        {
+            //TODO fix this later
+            dgvShift.DataSource = _shiftList;
+        }
+
         private void EnableBreakControls1(bool enabled)
         {
             foreach (Control ctrl in _listCtrlBreak1)
@@ -395,6 +416,8 @@ namespace FaceIDAppVBEta
                 MessageBox.Show("A working day must not exceed 24 hours.");
                 return false;
             }
+
+            //TODO validate shifts
             
             return true;
         }
@@ -498,6 +521,7 @@ namespace FaceIDAppVBEta
 
         private void btnNext4_Click(object sender, EventArgs e)
         {
+            //TODO validate flexi
             if (ValidateWorkingDayRate())
                 if (ValidateNonWorkingDayRate())
                     if(ValidateHolidayRate())
@@ -588,6 +612,7 @@ namespace FaceIDAppVBEta
 
             #region Create object and set properties
             WorkingCalendar workingCalendar = null;
+            List<Shift> shiftList = new List<Shift>();
             List<Break> breakList = new List<Break>();
             List<Holiday> holidayList = new List<Holiday>();
             PaymentRate workingDayPaymentRate = new PaymentRate();
@@ -608,14 +633,14 @@ namespace FaceIDAppVBEta
                 }
             }
 
-            SetWorkingCalendarProperties(ref workingCalendar, ref breakList, ref holidayList, ref workingDayPaymentRate, ref nonWorkingDayPaymentRate, ref holidayPaymentRate, ref payPeriod);
+            SetWorkingCalendarProperties(ref workingCalendar, ref shiftList, ref breakList, ref holidayList, ref workingDayPaymentRate, ref nonWorkingDayPaymentRate, ref holidayPaymentRate, ref payPeriod);
 
             #endregion
 
             #region insert/update in database
             if (_workingCalendarID < 0) //add
             {
-                int workingCalendarID = _dtCtrl.AddWorkingCalendar(workingCalendar, null, breakList, holidayList, workingDayPaymentRate, nonWorkingDayPaymentRate, holidayPaymentRate, payPeriod);//TODO add shift1
+                int workingCalendarID = _dtCtrl.AddWorkingCalendar(workingCalendar, shiftList, breakList, holidayList, workingDayPaymentRate, nonWorkingDayPaymentRate, holidayPaymentRate, payPeriod);
 
                 if (workingCalendarID < 0)
                 {
@@ -627,11 +652,11 @@ namespace FaceIDAppVBEta
             }
             else //update
             {
-                bool result = _dtCtrl.UpdateWorkingCalendar(workingCalendar, null, breakList, holidayList, workingDayPaymentRate, nonWorkingDayPaymentRate, holidayPaymentRate, payPeriod);//TODO add shift1
+                bool result = _dtCtrl.UpdateWorkingCalendar(workingCalendar, shiftList, breakList, holidayList, workingDayPaymentRate, nonWorkingDayPaymentRate, holidayPaymentRate, payPeriod);
 
                 if (result != true)
                 {
-                    throw new Exception();
+                    throw new Exception("Working Calendar could not be updated.");
                 }
 
                 MessageBox.Show("Working Calendar updated.");
@@ -661,7 +686,7 @@ namespace FaceIDAppVBEta
             }
         }
 
-        private void SetWorkingCalendarProperties(ref WorkingCalendar workingCalendar, ref List<Break> breakList, ref List<Holiday> holidayList, ref PaymentRate workDayPaymentRate, ref PaymentRate nonWorkDayPaymentRate, ref PaymentRate holidayPaymentRate, ref PayPeriod payPeriod)
+        private void SetWorkingCalendarProperties(ref WorkingCalendar workingCalendar, ref List<Shift> shiftList, ref List<Break> breakList, ref List<Holiday> holidayList, ref PaymentRate workDayPaymentRate, ref PaymentRate nonWorkDayPaymentRate, ref PaymentRate holidayPaymentRate, ref PayPeriod payPeriod)
         {
             workingCalendar.Name = txtName.Text;
 
@@ -683,14 +708,25 @@ namespace FaceIDAppVBEta
             workingCalendar.WorkOnSaturday = chbSaturday.Checked;
             workingCalendar.WorkOnSunday = chbSunday.Checked;
 
-            //workingCalendar.RegularWorkingFrom = dtpRegularWorkFrom.Value;
-            //workingCalendar.RegularWorkingTo = dtpRegularWorkTo.Value;//TODO add shift1
-
             workingCalendar.GraceForwardToEntry = (int)nudGraceForwardToEntry.Value;
             workingCalendar.GraceBackwardToExit = (int)nudGraceBackwardToExit.Value;
             workingCalendar.EarliestBeforeEntry = (int)nudEarliestBeforeEntry.Value;
             workingCalendar.LastestAfterExit = (int)nudLastestAfterExit.Value;
+            #endregion
 
+            #region Shift
+            if (rbtOneShift.Checked)
+            {
+                Shift shift = new Shift();
+                shift.From = dtpRegularWorkFrom.Value;
+                shift.To = dtpRegularWorkTo.Value;
+
+                shiftList.Add(shift);
+            }
+            else //multi-shifts
+            {
+                shiftList = _shiftList;
+            }
             #endregion
 
             #region Get Break Times
@@ -1108,51 +1144,80 @@ namespace FaceIDAppVBEta
 
         private void cbxFlexiHours_CheckedChanged(object sender, EventArgs e)
         {
-            GiveMeAName();
+            ShowHideFlexiControls();
         }
 
-        private void GiveMeAName()
+        private void ShowHideFlexiControls()
         {
-            bool giveMeAName2 = chbApplyFlexiHours.Checked;
+            bool applyFlexiHours = chbApplyFlexiHours.Checked;
 
-            nudFlexiHours.Enabled = giveMeAName2;
-            cbxWeekStartsOn.Enabled = giveMeAName2;
+            nudFlexiHours.Enabled = applyFlexiHours;
+            cbxWeekStartsOn.Enabled = applyFlexiHours;
 
-            ((Control)tpgFlexiHourRate).Enabled = giveMeAName2;
+            ((Control)tpgFlexiHourRate).Enabled = applyFlexiHours;
 
-            (tpgWorkingDayRate as Control).Enabled = !giveMeAName2;
-            ((Control)tpgNonWorkingDayRate).Enabled = !giveMeAName2;
-            ((Control)tpgHolidayRate).Enabled = !giveMeAName2;
+            (tpgWorkingDayRate as Control).Enabled = !applyFlexiHours;
+            ((Control)tpgNonWorkingDayRate).Enabled = !applyFlexiHours;
+            ((Control)tpgHolidayRate).Enabled = !applyFlexiHours;
         }
 
         private void btnRemoveShifts_Click(object sender, EventArgs e)
         {
-            //TODO confirm
+            List<Shift> selectedShifts = GetSelectedShifts();
+            if (selectedShifts.Count == 0)
+            {
+                MessageBox.Show("No shift is selected.");
+                return;
+            }
 
-            //TODO remove shift
+            if (Util.Confirm("Are you sure you want to delete all selected shift(s)?"))
+            {
+                if (_dtCtrl.DeleteShifts(selectedShifts))
+                {
+                    MessageBox.Show("Shift(s) deleted.");
+                }
+                else
+                {
+                    MessageBox.Show("Shift(s) could not deleted. Please try again.");
+                }
 
-            BindWorkingCalendarShift();
+                _shiftList = _dtCtrl.GetShiftListByWorkingCalendar(_workingCalendarID);
+                BindShift();
+            }
+        }
+
+        private List<Shift> GetSelectedShifts()
+        {
+            //TODO fix this later
+            List<Shift> selectedShifts = new List<Shift>();
+
+            return selectedShifts;
         }
 
         private void btnEditShift_Click(object sender, EventArgs e)
         {
             int selectedShiftID = -1;
+            List<Shift> selectedShifts = GetSelectedShifts();
+            if (selectedShifts.Count != 1)
+            {
+                MessageBox.Show("Please select one shift to edit.");
+                return;
+            }
 
-            //TODO get selectedShiftID
+            selectedShiftID = selectedShifts[0].ID;
 
             new frmAddUpdateShift(selectedShiftID).ShowDialog(this);
-            BindWorkingCalendarShift();
+
+            _shiftList = _dtCtrl.GetShiftListByWorkingCalendar(_workingCalendarID);
+            BindShift();
         }
 
         private void btnAddShift_Click(object sender, EventArgs e)
         {
             new frmAddUpdateShift(-1).ShowDialog(this);
-            BindWorkingCalendarShift();
-        }
 
-        private void BindWorkingCalendarShift()
-        {
-            throw new NotImplementedException();
+            _shiftList = _dtCtrl.GetShiftListByWorkingCalendar(_workingCalendarID);
+            BindShift();
         }
     }
 }
