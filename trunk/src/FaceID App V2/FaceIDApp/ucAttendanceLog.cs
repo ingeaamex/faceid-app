@@ -323,5 +323,11 @@ namespace FaceIDAppVBEta
 
             attForm.ShowDialog(this);
         }
+
+        private void btnAddNewRoostedDayOff_Click(object sender, EventArgs e)
+        {
+            frmRoostedDayOff frmAtt = new frmRoostedDayOff(0);
+            frmAtt.ShowDialog(this);
+        }
     }
 }

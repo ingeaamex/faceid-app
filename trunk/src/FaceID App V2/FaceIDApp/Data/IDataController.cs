@@ -296,6 +296,8 @@ namespace FaceIDAppVBEta.Data
         bool DeleteRoostedDayOff(int id);
 
         bool UpdateRoostedDayOff(RoostedDayOff roostedDayOff);
+
+        bool IsExistDayRoostedDayOff(int employeeNumber, DateTime dDateLog, int rDayOffId);
         #endregion
 
         #region Shift

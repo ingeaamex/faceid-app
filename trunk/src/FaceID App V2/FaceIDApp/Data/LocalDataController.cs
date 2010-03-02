@@ -5309,6 +5309,38 @@ namespace FaceIDAppVBEta.Data
             return roostedDayOff;
         }
 
+        public bool IsExistDayRoostedDayOff(int employeeNumber, DateTime dDateLog, int rDayOffId)
+        {
+            OleDbCommand odCom;
+            
+            if (rDayOffId > 0)
+                odCom = BuildSelectCmd("RoostedDayOff", "TOP 1 *", "EmployeeNumber=@Empl AND Date=@Date AND ID<>@ID",
+                    new object[] { "@Empl", employeeNumber, "@Date", dDateLog, "@ID", rDayOffId });
+            else
+                odCom = BuildSelectCmd("RoostedDayOff", "TOP 1 *", "EmployeeNumber=@Empl AND Date=@Date",
+                    new object[] { "@Empl", employeeNumber, "@Date", dDateLog });
+         
+            OleDbDataReader odRdr = odCom.ExecuteReader();
+
+            if (odRdr.Read())
+            {
+                odRdr.Close();
+                return true;
+            }
+
+            odCom = BuildSelectCmd("AttendanceReport", "TOP 1 *", "EmployeeNumber=@Empl AND DateDiff('d',WorkFrom, @Date)=0",
+                new object[] { "@Empl", employeeNumber, "@Date", dDateLog });
+            odRdr = odCom.ExecuteReader();
+
+            if (odRdr.Read())
+            {
+                odRdr.Close();
+                return true;
+            }
+
+            return false;
+        }
+
         public int AddRoostedDayOff(RoostedDayOff roostedDayOff)
         {
             OleDbCommand odCom1 = BuildInsertCmd("RoostedDayOff",
