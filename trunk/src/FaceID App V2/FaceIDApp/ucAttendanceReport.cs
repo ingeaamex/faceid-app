@@ -14,7 +14,7 @@ namespace FaceIDAppVBEta
     public partial class ucAttendanceReport : UserControl
     {
         private IDataController _dtCtrl;
-        private List<AttendanceSummaryReport> attendanceLogs;
+        private List<AttendanceSummaryViewReport> attendanceLogs;
 
         public ucAttendanceReport()
         {
@@ -272,7 +272,7 @@ namespace FaceIDAppVBEta
                         }
                         else if (e.ColumnIndex == 2)
                         {
-                            if (Convert.ToDateTime(e.Value).Equals(DateTime.MinValue) == false)
+                            if (e.Value != null)
                             {
                                 e.Graphics.DrawLine(gridLinePen, e.CellBounds.Left,
                                     e.CellBounds.Top - 1, e.CellBounds.Right - 1,
@@ -280,7 +280,7 @@ namespace FaceIDAppVBEta
 
                                 Rectangle rec = dgvAttendanceReport.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
                                 if (rec.Left > 0 && rec.Top > 0)
-                                    e.Graphics.DrawString(Convert.ToDateTime(e.Value).ToString("d MMM yyyy"), e.CellStyle.Font,
+                                    e.Graphics.DrawString(e.Value.ToString(), e.CellStyle.Font,
                                     blackColorBrush, rec.Left + 5,
                                     rec.Top + 5, StringFormat.GenericDefault);
                             }
