@@ -53,5 +53,6 @@ namespace FaceIDAppVBEta.Class
         public string WorkingHour { get; set; }
         public double TotalHour { get { return _totalHour; } set { _totalHour = value; } }
         public double[] ChartData { get; set; }
+        public DateTime DateLogTime { get; set; }
     }
 }

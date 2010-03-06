@@ -2037,6 +2037,7 @@ namespace FaceIDAppVBEta.Data
             if (attSummarys.Count == 0)
                 return null;
 
+
             int employeeNumber = 0, flexiHours = 0;//, wcalRegHour = 8;
             bool applyFlexiHours = false, isFirst = true;
             WorkingCalendar wCal = null;
@@ -2102,6 +2103,7 @@ namespace FaceIDAppVBEta.Data
                             attRp_1 = new AttendanceSummaryViewReport();
                             attRp_1.ChartData = attRp.ChartData;
                             attRp_1.DateLog = attRp.DateLog.ToString("d MMM yyyy");
+                            attRp_1.DateLogTime = attRp.DateLog;
                             attRp_1.WorkingHour = attRp.WorkingHour;
                             attRp_1.TotalHour = attRp.TotalHour;
                             attRp_1.EmployeeNumber = 0;
@@ -2141,6 +2143,7 @@ namespace FaceIDAppVBEta.Data
                                             attRp_1 = new AttendanceSummaryViewReport();
                                             attRp_1.ChartData = null;
                                             attRp_1.DateLog = null;
+                                            attRp_1.DateLogTime = attRp.DateLog;
                                             attRp_1.TotalHour = -1;
                                             attRp_1.EmployeeNumber = 0;
                                             attRp_1.FullName = null;
@@ -2170,6 +2173,7 @@ namespace FaceIDAppVBEta.Data
                                         if (i == 0)
                                         {
                                             attRp_1.DateLog = attRp.DateLog.ToString("d MMM yyyy");
+                                            attRp_1.DateLogTime = attRp.DateLog;
                                             attRp_1.TotalHour = attRp.TotalHour;
                                             attRp_1.EmployeeNumber = 0;
                                             attRp_1.FullName = null;
@@ -2194,6 +2198,7 @@ namespace FaceIDAppVBEta.Data
                         {
                             AttendanceSummaryViewReport attRp_1 = new AttendanceSummaryViewReport();
                             attRp_1.ChartData = attSumRp.ChartData;
+                            attRp_1.DateLogTime = attSumRp.DateLog;
                             attRp_1.WorkingHour = attSumRp.WorkingHour;
 
                             if (duplicatedate.Equals(attSumRp.DateLog))
@@ -2225,6 +2230,7 @@ namespace FaceIDAppVBEta.Data
                         {
                             AttendanceSummaryViewReport attRp_1 = new AttendanceSummaryViewReport();
                             attRp_1.ChartData = attSumRp.ChartData;
+                            attRp_1.DateLogTime = attSumRp.DateLog;
                             attRp_1.WorkingHour = attSumRp.WorkingHour;
 
                             if (duplicatedate.Equals(attSumRp.DateLog))
@@ -2259,6 +2265,85 @@ namespace FaceIDAppVBEta.Data
                 }
             }
 
+
+            List<RoostedDayOff> roostedDayOffList = GetRoostedDayOffList();
+            Hashtable hasEmplName = new Hashtable();
+            if (roostedDayOffList.Count > 0)
+            {
+                AttendanceSummaryViewReport attReport = null;
+                foreach (RoostedDayOff roostedDayOff in roostedDayOffList)
+                {
+                    double regularHour = 0;
+                    string employeeName = null;
+                    if (hasEmplName.ContainsKey(roostedDayOff.EmployeeNumber))
+                    {
+                        object[] objData= (object[])hasEmplName[roostedDayOff.EmployeeNumber];
+                        employeeName = (string)objData[0];
+                        regularHour =  (double)objData[1];
+                    }
+                    else
+                    {
+                        Employee employee = GetEmployeeByEmployeeNumber(roostedDayOff.EmployeeNumber);
+                        if (employee == null)
+                            continue;
+
+                        employeeName = employee.LastName + ", " + employee.FirstName;
+
+                        AttendanceSummaryViewReport attViewRp = attSummarysRs.Find(delegate(AttendanceSummaryViewReport e) { return e.EmployeeNumber == roostedDayOff.EmployeeNumber; });
+                        if (attViewRp != null)
+                            regularHour = attViewRp.ChartData[0];
+                        else
+                        {
+                            wCal = GetWorkingCalendarByEmployee(roostedDayOff.EmployeeNumber);
+                            paymentRate = GetWorkingDayPaymentRateByWorkingCalendar(wCal.ID);
+                            regularHour = paymentRate.NumberOfRegularHours;
+                        }
+                        hasEmplName.Add(roostedDayOff.EmployeeNumber, new object[] { employeeName, regularHour });
+                    }
+
+                    attReport = new AttendanceSummaryViewReport();
+                    attReport.EmployeeNumber = roostedDayOff.EmployeeNumber;
+                    attReport.FullName = employeeName;
+                    attReport.DateLog = roostedDayOff.Date.ToString("d MMM yyyy");
+                    attReport.DateLogTime = roostedDayOff.Date;
+                    attReport.ChartData = new double[] { regularHour, roostedDayOff.TotalHours, 0 };
+                    attReport.TotalHour = roostedDayOff.TotalHours;
+                    attReport.WorkingHour = "Roosted day off";
+
+                    int indexRp = attSummarysRs.FindIndex(0, delegate(AttendanceSummaryViewReport e) { return e.EmployeeNumber == attReport.EmployeeNumber && e.DateLogTime.Date.CompareTo(attReport.DateLogTime.Date) == 1; });
+                    if (indexRp < 0)
+                    {
+                        indexRp = attSummarysRs.FindLastIndex(delegate(AttendanceSummaryViewReport e) { return e.EmployeeNumber == attReport.EmployeeNumber; });
+
+                        if (indexRp < 0)
+                        {
+                            indexRp = attSummarysRs.FindIndex(delegate(AttendanceSummaryViewReport e) { return e.EmployeeNumber > attReport.EmployeeNumber; });
+
+                            if (indexRp < 0)
+                            {
+                                indexRp = attSummarysRs.Count;
+                            }
+                        }
+                        else
+                            indexRp++;
+                    }
+
+                    int indexRp_1 = 0;
+                    while (true)
+                    {
+                        if (indexRp > attSummarysRs.Count - 1)
+                            break;
+                        indexRp_1 = attSummarysRs.FindIndex(indexRp, 1, delegate(AttendanceSummaryViewReport e) { return e.DateLog == null; });
+                        if (indexRp_1 < 1)
+                            break;
+                        indexRp++;
+                    }
+
+                    attSummarysRs.Insert(indexRp, attReport);
+                }
+                hasEmplName.Clear();
+                roostedDayOffList.Clear();
+            }
             return attSummarysRs;
         }
 
@@ -2542,6 +2627,72 @@ namespace FaceIDAppVBEta.Data
                     attLog.TimeLog = "OutMistakes";
                     attLogList.Add(attLog);
                 }
+            }
+
+            List<RoostedDayOff> roostedDayOffList = GetRoostedDayOffList();
+            Hashtable hasEmplName = new Hashtable();
+            if (roostedDayOffList.Count > 0)
+            {
+                AttendanceLogRecord attRc = null;
+                foreach (RoostedDayOff roostedDayOff in roostedDayOffList)
+                {
+                    string employeeName = null;
+                    if (hasEmplName.ContainsKey(roostedDayOff.EmployeeNumber))
+                    {
+                        employeeName = (string)hasEmplName[roostedDayOff.EmployeeNumber];
+                    }
+                    else
+                    {
+                        Employee employee = GetEmployeeByEmployeeNumber(roostedDayOff.EmployeeNumber);
+                        if (employee == null)
+                            continue;
+
+                        employeeName = employee.LastName + ", " + employee.FirstName;
+
+                        hasEmplName.Add(roostedDayOff.EmployeeNumber, employeeName );
+                    }
+
+                    attRc = new AttendanceLogRecord();
+                    attRc.EmployeeNumber = roostedDayOff.EmployeeNumber;
+                    attRc.EmployeeName = employeeName;
+                    attRc.DateLog = roostedDayOff.Date;
+                    attRc.TotalHours= roostedDayOff.TotalHours;
+                    attRc.TimeLog = "Roosted day off";
+                    attRc.Note = roostedDayOff.Note;
+
+                    int indexRp = attLogList.FindIndex(0, delegate(AttendanceLogRecord e) { return e.EmployeeNumber == attRc.EmployeeNumber && e.DateLog.Date.CompareTo(attRc.DateLog.Date) == 1; });
+                    if (indexRp < 0)
+                    {
+                        indexRp = attLogList.FindLastIndex(delegate(AttendanceLogRecord e) { return e.EmployeeNumber == attRc.EmployeeNumber; });
+
+                        if (indexRp < 0)
+                        {
+                            indexRp = attLogList.FindIndex(delegate(AttendanceLogRecord e) { return e.EmployeeNumber > attRc.EmployeeNumber; });
+
+                            if (indexRp < 0)
+                            {
+                                indexRp = attLogList.Count;
+                            }
+                        }
+                        else
+                            indexRp++;
+                    }
+
+                    int indexRp_1 = 0;
+                    while (true)
+                    {
+                        if (indexRp > attLogList.Count - 1)
+                            break;
+                        indexRp_1 = attLogList.FindIndex(indexRp, 1, delegate(AttendanceLogRecord e) { return e.DateLog.Equals(DateTime.MinValue); });
+                        if (indexRp_1 < 1)
+                            break;
+                        indexRp++;
+                    }
+
+                    attLogList.Insert(indexRp, attRc);
+                }
+                hasEmplName.Clear();
+                roostedDayOffList.Clear();
             }
             return attLogList;
         }
